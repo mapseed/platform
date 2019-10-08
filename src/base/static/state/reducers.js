@@ -1,15 +1,14 @@
 import { combineReducers } from "redux";
+import mapStyleReducer from "./ducks/map-style";
 import mapReducer from "./ducks/map";
 import placesReducer from "./ducks/places";
 import uiReducer from "./ducks/ui";
-import filters from "./ducks/filters";
+import placeFiltersReducer from "./ducks/place-filters";
 import leftSidebarReducer from "./ducks/left-sidebar";
-import mapDrawingToolbarReducer from "./ducks/map-drawing-toolbar";
 
 import appConfigReducer from "./ducks/app-config";
-import mapConfigReducer from "./ducks/map-config";
 import placeConfigReducer from "./ducks/place-config";
-import storyConfigReducer from "./ducks/story-config";
+import featuredPlacesConfigReducer from "./ducks/featured-places-config";
 import rightSidebarConfigReducer from "./ducks/right-sidebar-config";
 import formsConfigReducer from "./ducks/forms-config";
 import supportConfigReducer from "./ducks/support-config";
@@ -21,17 +20,18 @@ import datasetsConfigReducer from "./ducks/datasets-config";
 import datasetsReducer from "./ducks/datasets";
 import activityReducer from "./ducks/activity";
 import customComponentsConfigReducer from "./ducks/custom-components-config";
+import flavorConfigReducer from "./ducks/flavor-config";
 
 const reducers = combineReducers({
   places: placesReducer,
   ui: uiReducer,
   leftSidebar: leftSidebarReducer,
-  mapDrawingToolbar: mapDrawingToolbarReducer,
-  filters,
+  placeFilters: placeFiltersReducer,
   appConfig: appConfigReducer,
-  mapConfig: mapConfigReducer,
+  map: mapReducer,
+  mapStyle: mapStyleReducer,
   placeConfig: placeConfigReducer,
-  storyConfig: storyConfigReducer,
+  featuredPlacesConfig: featuredPlacesConfigReducer,
   rightSidebarConfig: rightSidebarConfigReducer,
   formsConfig: formsConfigReducer,
   supportConfig: supportConfigReducer,
@@ -42,8 +42,8 @@ const reducers = combineReducers({
   datasetsConfig: datasetsConfigReducer,
   datasets: datasetsReducer,
   activity: activityReducer,
-  map: mapReducer,
   customComponentsConfig: customComponentsConfigReducer,
+  flavorConfig: flavorConfigReducer,
 });
 
 export default reducers;

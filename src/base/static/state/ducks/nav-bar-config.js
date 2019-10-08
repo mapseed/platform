@@ -16,20 +16,20 @@ export const navBarConfigPropType = PropTypes.arrayOf(
 );
 
 // Actions:
-const SET_CONFIG = "navBar/SET_CONFIG";
+const LOAD = "navBar/LOAD";
 
 // Action creators:
-export function setNavBarConfig(config) {
-  return { type: SET_CONFIG, payload: config };
+export function loadNavBarConfig(config) {
+  return { type: LOAD, payload: config };
 }
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = null;
+const INITIAL_STATE = [];
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_CONFIG:
+    case LOAD:
       return action.payload;
     default:
       return state;

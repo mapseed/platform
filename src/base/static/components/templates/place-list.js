@@ -3,8 +3,10 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
 import {
   filteredPlacesSelector,
   placesPropType,
@@ -13,6 +15,7 @@ import {
   placeConfigSelector,
   placeConfigPropType,
 } from "../../state/ducks/place-config";
+import { updateCurrentTemplate } from "../../state/ducks/ui";
 import PlaceListItem from "../molecules/place-list-item";
 import Button from "@material-ui/core/Button";
 import { TextInput } from "../atoms/input";
@@ -86,14 +89,21 @@ const SortButton = buttonProps => (
 const ButtonContainer = styled("div")({});
 
 class PlaceList extends React.Component {
+  componentDidMount() {
+    this.props.updateCurrentTemplate("placeList");
+  }
+
   _sortAndFilterPlaces = (places, sortBy, query) => {
     // only render place surveys that are flagged with 'includeOnList':
-    const includedPlaces = places.filter(
-      place =>
-        this.props.placeConfig.place_detail.find(
-          survey => survey.category === place.location_type,
-        ).includeOnList,
-    );
+    const includedPlaces = places.filter(place => {
+      const placeDetailConfig = this.props.placeConfig.place_detail.find(
+        survey => survey.category === place.location_type,
+      );
+
+      return typeof placeDetailConfig === "undefined"
+        ? false
+        : placeDetailConfig.includeOnList;
+    });
     const filteredPlaces = query
       ? includedPlaces.filter(place => {
           return Object.values(place).some(field => {
@@ -177,6 +187,7 @@ class PlaceList extends React.Component {
               place={place}
               onLoad={measure}
               router={this.props.router}
+              t={this.props.t}
             />
           </div>
         )}
@@ -191,7 +202,7 @@ class PlaceList extends React.Component {
           <ListHeader>
             <SearchContainer>
               <TextInput
-                placeholder={`${this.props.t("search")}...`}
+                placeholder={`${this.props.t("search", "Search")}...`}
                 color="accent"
                 ariaLabel="search list by text"
                 onKeyPress={evt => {
@@ -199,6 +210,8 @@ class PlaceList extends React.Component {
                     this._setSortAndFilterPlaces();
                   }
                 }}
+                name="place-list-search"
+                value={this.state.query}
                 onChange={evt => {
                   this.setState({ query: evt.target.value });
                 }}
@@ -208,11 +221,11 @@ class PlaceList extends React.Component {
                   marginLeft: "16px",
                   fontFamily: theme.text.headerFontFamily,
                 })}
-                color="secondary"
+                color="primary"
                 onClick={this._setSortAndFilterPlaces}
                 variant="contained"
               >
-                {this.props.t("search")}
+                {this.props.t("search", "Search")}
               </Button>
             </SearchContainer>
             <ButtonContainer>
@@ -220,19 +233,19 @@ class PlaceList extends React.Component {
                 isActive={this.state.sortBy === "dates"}
                 onClick={() => this.setState({ sortBy: "dates" })}
               >
-                {this.props.t("mostRecent")}
+                {this.props.t("mostRecent", "Most recent")}
               </SortButton>
               <SortButton
                 isActive={this.state.sortBy === "supports"}
                 onClick={() => this.setState({ sortBy: "supports" })}
               >
-                {this.props.t("mostSupports")}
+                {this.props.t("mostSupports", "Most supports")}
               </SortButton>
               <SortButton
                 isActive={this.state.sortBy === "comments"}
                 onClick={() => this.setState({ sortBy: "comments" })}
               >
-                {this.props.t("mostComments")}
+                {this.props.t("mostComments", "Most comments")}
               </SortButton>
             </ButtonContainer>
           </ListHeader>
@@ -265,7 +278,7 @@ PlaceList.propTypes = {
   places: placesPropType.isRequired,
   placeConfig: placeConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  updateCurrentTemplate: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -273,4 +286,16 @@ const mapStateToProps = state => ({
   placeConfig: placeConfigSelector(state),
 });
 
-export default connect(mapStateToProps)(translate("PlaceList")(PlaceList));
+const mapDispatchToProps = dispatch => ({
+  updateCurrentTemplate: templateName =>
+    dispatch(updateCurrentTemplate(templateName)),
+});
+
+export default withTranslation("PlaceList")(
+  withRouter(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(PlaceList),
+  ),
+);

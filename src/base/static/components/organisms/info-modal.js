@@ -19,11 +19,14 @@ const InfoModal = props => (
       </button>
     </div>
     <div className="mapseed-info-modal__body">
-      {props.body.map((paragraph, i) => {
+      {props.body.map((content, i) => {
         return (
-          <p className="mapseed-info-modal__paragraph" key={i}>
-            {paragraph}
-          </p>
+          <div
+            key={i}
+            dangerouslySetInnerHTML={{
+              __html: content,
+            }}
+          />
         );
       })}
     </div>

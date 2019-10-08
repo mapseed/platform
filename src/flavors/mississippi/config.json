@@ -1,0 +1,4388 @@
+{
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
+  "dashboard": [
+    {
+      "header": "An Anthropocene River: Posting Summary",
+      "isExportable": true,
+      "datasetSlug": "mississippi-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total posts"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Posting history",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of posts",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        }
+      ]
+    },
+    {
+      "header": "An Anthropocene River: Featured Posting Summary",
+      "isExportable": true,
+      "datasetSlug": "mississippi-featured",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total posts"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Posting history",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of posts",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        }
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "slug": "mississippi-input",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    },
+    {
+      "slug": "mississippi-featured",
+      "clientSlug": "featured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "an anthropocene river",
+    "name": "Mississippi",
+    "enableCookieConsent": true,
+    "show_name_in_header": true,
+    "isShowingMobileUserMenu": true,
+    "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",
+    "meta_description": "This map documents a regional project linked to the Anthropocene Curriculum program organized by Haus der Kulturen der Welt and the Max Planck Institute, Berlin.",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "theme": {
+      "brand": {
+        "primary": "#175f54",
+        "accent": "#2ebea8"
+      },
+      "bg": {
+        "default": "#175f54",
+        "light": "#ffffff"
+      },
+      "text": {
+        "tertiary": "#ffffff",
+        "titleFontFamily": "Roboto, sans-serif",
+        "titleColor": "#000000",
+        "headerFontFamily": "Roboto,sans-serif",
+        "bodyFontFamily": "Roboto,sans-serif"
+      }
+    },
+    "loginProviders": [
+      {
+        "name": "google",
+        "provider": "google-oauth2"
+      },
+      {
+        "name": "twitter",
+        "provider": "twitter"
+      },
+      {
+        "name": "facebook",
+        "provider": "facebook"
+      },
+      {
+        "name": "discourse",
+        "provider": "discourse-hdk"
+      }
+    ]
+  },
+  "map": {
+    "geolocationEnabled": true,
+    "geolocationOnload": false,
+    "cartodbEnabled": true,
+    "geocodingEnabled": true,
+    "geocodeFieldLabel": "Enter an address...",
+    "geocodeBoundingBox": [],
+    "mapViewport": {
+      "latitude": 39.77,
+      "longitude": -92.75,
+      "zoom": 4,
+      "pitch": 0,
+      "minZoom": 1,
+      "maxZoom": 18.4
+    },
+    "mapWidgets": {
+      "radioMenu": {
+        "label": "SOURCES OF NITROGEN LOADING:",
+        "layerGroupId": "nitrogen-deposition-group",
+        "layerId": "nitrogen-deposition",
+        "defaultSelectedOption": "all",
+        "options": [
+          {
+            "id": "all",
+            "aggregator": "INCY",
+            "label": "All sources"
+          },
+          {
+            "id": "farms",
+            "aggregator": "INCY_S5",
+            "label": "Farm fertilizer"
+          },
+          {
+            "id": "cafo",
+            "aggregator": "INCY_S4",
+            "label": "CAFOs (confined animal feeding operations)"
+          },
+          {
+            "id": "sewerage",
+            "aggregator": "INCY_S1",
+            "label": "Sewerage"
+          },
+          {
+            "id": "urban",
+            "aggregator": "INCY_S2",
+            "label": "Urban runoff"
+          }
+        ]
+      },
+      "filterSlider": {
+        "layerGroupId": "nuclear-plants-timeslider-group",
+        "initialValue": 1944,
+        "min": 1941,
+        "max": 2019,
+        "step": 1,
+        "label": "The nuclear complex in",
+        "property": "date",
+        "comparator": "<="
+      }
+    }
+  },
+  "mapStyle": {
+    "mapboxSources": {
+      "streets": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjwk24ik402l81cot29vlnvsa/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256
+      },
+      "streets2": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjxalbmke3pej1cmn26b8b74q/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256
+      },
+      "streetsDriftless": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/cjym4bo802g7o1cmq3a81j8ob/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256
+      },
+      "mississippi-watershed": {
+        "type": "raster",
+        "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
+        "tileSize": 256
+      },
+      "confluence": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Confluence/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "districts": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/districts/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "oceans": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
+      "hydro": {
+        "type": "raster",
+        "tiles": [
+          "https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256,
+        "maxZoom": 16
+      },
+      "hillshade": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256,
+        "maxZoom": 15
+      },
+      "cartodb": {
+        "type": "raster",
+        "tiles": [
+          "https://basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "topomap": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Driftless/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "kickapoo": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/kickapoo/alltiles/tiles2/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "noheart": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/NoHeartOfFear/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "hypoxia": {
+        "type": "raster",
+        "tiles": ["https://ecotopia.today/Mississippi/Hypoxia/{z}/{x}/{y}.png"],
+        "tileSize": 256
+      },
+      "navigation": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Navigation/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "IndigenousLanguages": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/IndigenousLanguages/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "nitrogen-plants": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
+      },
+      "StLouis": {
+        "type": "raster",
+        "tiles": ["https://ecotopia.today/Mississippi/StLouis/{z}/{x}/{y}.png"],
+        "tileSize": 256
+      },
+      "FS2sites": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/FS2sites.geojson"
+      },
+      "NewMadrid": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/NewMadrid.geojson"
+      },
+      "DamRemoval": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/DamRemoval.geojson"
+      },
+      "MARBpumps": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MARBpumps.geojson"
+      },
+      "USGSstations": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/USGSgages.geojson"
+      },
+      "USACEstations": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/USACEgages.geojson"
+      },
+      "MissGagesUSACE": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MissGagesUSACE.geojson"
+      },
+      "MissGagesUSGS": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MissGagesUSGS.geojson"
+      },
+      "GlacialMaximum": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/GlacialMaximum.geojson"
+      },
+      "MissNoDriftless": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MissNoDriftless.geojson"
+      },
+      "InactiveCoalMines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/InactiveCoalMines.geojson"
+      },
+      "basin": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MissBasin.geojson"
+      },
+      "mask": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Mask.geojson"
+      },
+      "NuclearComplex": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/NuclearComplex.geojson"
+      },
+      "NuclearPlants": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Nuclear_Plants.geojson"
+      },
+      "mississippi-nuclear-plants": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/nuclear-legacy.geojson"
+      },
+      "ActiveCoalMines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/ActiveCoalMines.geojson"
+      },
+      "floodwalls": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Floodwalls.geojson"
+      },
+      "MissUndammed": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MissUndammed.geojson"
+      },
+      "nitrogen-deposition": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/mississippi-nitrogen-deposition/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
+      },
+      "levees": {
+        "type": "vector",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/LeveeVectortiles/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
+      },
+      "protected": {
+        "type": "vector",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/ProtectedVectortiles/{z}/{x}/{y}.pbf"
+        ],
+        "maxZoom": 18
+      }
+    },
+    "layerGroups": [
+      {
+        "id": "ocean-satellite",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                0,
+                10,
+                1
+              ]
+            }
+          },
+          {
+            "id": "oceans-basemap",
+            "type": "raster",
+            "source": "oceans",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                1,
+                10,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "cartodb-satellite",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "satellite2-basemap",
+            "type": "raster",
+            "source": "satellite",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                0,
+                10,
+                1
+              ]
+            }
+          },
+          {
+            "id": "cartodb-basemap",
+            "type": "raster",
+            "source": "cartodb",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                1,
+                10,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "mississippi-group",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "river-basemap",
+            "type": "raster",
+            "source": "mississippi-watershed",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11,
+                1,
+                14,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "hillshade-group",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "hillshade-group",
+            "type": "raster",
+            "source": "hillshade",
+            "paint": {
+              "raster-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "districts-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "districts-basemap",
+            "type": "raster",
+            "source": "districts",
+            "paint": {
+              "raster-opacity": 0.3
+            }
+          }
+        ]
+      },
+      {
+        "id": "hydro-group",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "hydro-group",
+            "type": "raster",
+            "source": "hydro",
+            "paint": {
+              "raster-opacity": 0.9
+            }
+          }
+        ]
+      },
+      {
+        "id": "mask-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "mask-group",
+            "type": "fill",
+            "source": "mask",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "#00AADD",
+              "fill-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "basin-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "basin-group",
+            "type": "fill",
+            "source": "basin",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "peru",
+              "fill-opacity": 0.2
+            }
+          }
+        ]
+      },
+      {
+        "id": "confluence-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "confluence-basemap",
+            "type": "raster",
+            "source": "confluence",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11,
+                1,
+                16,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "MissNoDriftless-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "MissNoDriftless-labels",
+            "type": "fill",
+            "source": "MissNoDriftless",
+            "paint": {
+              "fill-color": "#ecf7eb",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5.5,
+                0,
+                6.5,
+                0.6
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "kickapoo-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "kickapoo-basemap",
+            "type": "raster",
+            "source": "kickapoo",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                15,
+                1,
+                16,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "protected-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "protected",
+            "type": "fill",
+            "source": "protected",
+            "source-layer": "protected",
+            "paint": {
+              "fill-color": "#e47901",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                7,
+                0.3,
+                10,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "protected2",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee district:</strong></p><p>{{name}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "protected2",
+            "type": "fill",
+            "source": "protected",
+            "source-layer": "protected",
+            "paint": {
+              "fill-color": "#e47901",
+              "fill-opacity": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "MissUndammed-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "MissUndammed",
+            "type": "line",
+            "source": "MissUndammed",
+            "paint": {
+              "line-color": "#C2EEFB",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                0,
+                6,
+                3,
+                11,
+                3,
+                12,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "levees-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p><strong>Levee sponsor and county:</strong></p><p>{{sponsors}}, {{counties}}</p><p>NLD Risk assessment <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/risk' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "levees",
+            "type": "line",
+            "source": "levees",
+            "source-layer": "levees",
+            "paint": {
+              "line-color": "#d44901",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7.5,
+                0,
+                8.5,
+                2,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "levees2-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p><strong>Levee sponsor and county:</strong></p><p>{{sponsors}}, {{counties}}</p><p>NLD Risk assessment <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/risk' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "levees2-group",
+            "type": "line",
+            "source": "levees",
+            "source-layer": "levees",
+            "paint": {
+              "line-color": "#dd3300",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3.5,
+                0,
+                4,
+                1.5,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "floodwalls-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 350px'><p><strong>Floodwall</strong></p><p>Segment and system names:</p><p>--{{SEGMENT_NAME}}<BR><BR>--{{SYSTEM_NAME}}</p><p>Floodwall height in feet: {{WALL_HEIGHT}}</p><p>National Levee Database <a href='https://levees.sec.usace.army.mil/#/levees/system/{{SYSTEM_ID}}/segments' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "floodwalls-labels",
+            "type": "line",
+            "source": "floodwalls",
+            "paint": {
+              "line-color": "#b0b0b0",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                7.5,
+                0,
+                8.5,
+                2,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "noheart-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "noheart-basemap",
+            "type": "raster",
+            "source": "noheart",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                1,
+                0,
+                4,
+                1,
+                7,
+                1,
+                8,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "hypoxia-group",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "hypoxia-basemap",
+            "type": "raster",
+            "source": "hypoxia",
+            "paint": {
+              "raster-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "streets-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "streets-basemap",
+            "type": "raster",
+            "source": "streets"
+          }
+        ]
+      },
+      {
+        "id": "streetsDriftless-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "streetsDriftless-basemap",
+            "type": "raster",
+            "source": "streetsDriftless"
+          }
+        ]
+      },
+      {
+        "id": "IndigenousLanguages-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "IndigenousLanguages-basemap",
+            "type": "raster",
+            "source": "IndigenousLanguages",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                4,
+                0.8,
+                10,
+                0.8,
+                12,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "MARBpumps-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 350px'><p><strong>Pump Station</strong></p><p>{{SYSTEM_NAME}}, {{FEATURE_NAME}}</p><p>Flood source: {{FLOOD_SOURCE}}</p>{{PUMP_CONFIG}},  {{PUMP_DRIVE}}</p>Other levee features <a href='https://levees.sec.usace.army.mil/#/levees/system/{{SYSTEM_ID}}/features' target='_blank' rel='noopener noreferrer'>here</a>.",
+        "mapboxLayers": [
+          {
+            "id": "MARBpumps-labels",
+            "type": "symbol",
+            "source": "MARBpumps",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 9, 0.7, 15, 1.5],
+              "icon-anchor": "center",
+              "icon-image": "pump.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "USACEstations-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}. Gauge height this week:<BR><img src='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USCE&site_no={{STAID}}&parm_cd=00065&period=7' width='500'><BR>1-yr graph <a href='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USCE&site_no={{STAID}}&parm_cd=00065&period=365' target='_blank' rel='noopener noreferrer'>here</a>. Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
+        "mapboxLayers": [
+          {
+            "id": "USACEstations-labels",
+            "type": "symbol",
+            "source": "USACEstations",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 3, 0.4, 10, 0.9, 17, 0],
+              "icon-anchor": "center",
+              "icon-image": "gauge.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "USGSstations-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}. Gauge height this week:<BR><img src='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=7' width='500'><BR>1-yr graph <a href='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=365' target='_blank' rel='noopener noreferrer'>here</a>. Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
+        "mapboxLayers": [
+          {
+            "id": "USGSstations-labels",
+            "type": "symbol",
+            "source": "USGSstations",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 3, 0.4, 10, 0.9, 17, 0],
+              "icon-anchor": "center",
+              "icon-image": "gauge.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "topomap-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "topomap-basemap",
+            "type": "raster",
+            "source": "topomap",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11,
+                0,
+                14,
+                1,
+                16,
+                1,
+                18,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "nitrogen-deposition-group",
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Watershed name:</strong></p><p>{{PNAME}}</p><p><strong>Total nitrogen loading:</strong></p><p>{{INCY}}&nbsp;kg per km2 per year</p><p><strong>Anthropogenic sources:</strong></p><p>--farm fertilizer&nbsp;{{INCY_S5}}&nbsp;kg/km2</p><p>--CAFOs&nbsp;{{INCY_S4}}&nbsp;kg/km2</p><p>--sewerage&nbsp;{{INCY_S1}}&nbsp;kg/km2</p><p>--urban runoff&nbsp;{{INCY_S2}}&nbsp;kg/km2</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-deposition",
+            "type": "fill",
+            "source": "nitrogen-deposition",
+            "source-layer": "mississippi-nitrogen-deposition",
+            "paint": {
+              "fill-color": "#c35800",
+              "fill-opacity": [
+                "step",
+                [
+                  "+",
+                  ["get", "INCY_S1"],
+                  ["get", "INCY_S2"],
+                  ["get", "INCY_S4"],
+                  ["get", "INCY_S5"]
+                ],
+                0,
+                200,
+                0.25,
+                500,
+                0.5,
+                1000,
+                0.75,
+                2000,
+                1
+              ],
+              "fill-outline-color": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                "rgba(255,255,255,0)",
+                9,
+                "rgba(255,255,255,1)",
+                12,
+                "rgba(255,255,255,0)"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "nitrogen-plants-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p><strong>Plant name: </strong>{{PLANT}}</p><p><strong>Owner: </strong>{{OWNER}}</p><p><strong>Ammonia capacity: </strong><em>{{Current}}</em>&nbsp;&nbsp;metric tons per year</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "nitrogen-plants-labels",
+            "type": "circle",
+            "source": "nitrogen-plants",
+            "paint": {
+              "circle-radius": {
+                "property": "Current",
+                "type": "exponential",
+                "stops": [[4, 10], [1500000, 30]]
+              },
+              "circle-color": "#f8f8f8",
+              "circle-stroke-width": 1,
+              "circle-stroke-color": "#191919",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                4,
+                1
+              ],
+              "circle-stroke-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                0,
+                4,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NewMadrid-group",
+        "basemap": true,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "{{Photo}}",
+        "mapboxLayers": [
+          {
+            "id": "NewMadrid-labels",
+            "type": "circle",
+            "source": "NewMadrid",
+            "paint": {
+              "circle-radius": 8,
+              "circle-color": "coral",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "FS2sites-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><strong>{{Name}}</strong><br><br>{{description}}</div>",
+        "mapboxLayers": [
+          {
+            "id": "FS2sites-labels",
+            "type": "symbol",
+            "source": "FS2sites",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 7, 0.6],
+              "icon-anchor": "center",
+              "icon-image": "MapPin.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "DamRemoval-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><strong>{{Dam_Name}}</strong>, {{River}}, {{State}}<br><br>Height: {{Dam_Height_ft}} ft.<br><br>Year built:  {{Year_Built}}. Year removed: {{Year_Removed}}.<br><br>{{Description}}</div>",
+        "mapboxLayers": [
+          {
+            "id": "DamRemoval-labels",
+            "type": "symbol",
+            "source": "DamRemoval",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": [
+                "step",
+                ["zoom"],
+                0,
+                4,
+                0.2,
+                5,
+                0.3,
+                7,
+                0.6,
+                14,
+                0.6,
+                15,
+                0
+              ],
+              "icon-anchor": "center",
+              "icon-image": "scissors.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "NuclearComplex-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 250px'><p>{{name}}<br><br>{{description}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "NuclearComplex-labels",
+            "type": "symbol",
+            "source": "NuclearComplex",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.4, 7, 1],
+              "icon-anchor": "center",
+              "icon-image": [
+                "match",
+                ["get", "category"],
+                "Administration",
+                "administration.png",
+                "Designing",
+                "nuclear-weapon.png",
+                "Enriching",
+                "chemicals.png",
+                "Fabricating",
+                "factory.png",
+                "Mining",
+                "mining.png",
+                "Operating",
+                "nuclear-operations.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "nuclear-plants-timeslider-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p>{{name}}<br><br>{{description}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "nuclear-plants-timeslider-labels",
+            "type": "symbol",
+            "source": "mississippi-nuclear-plants",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": 0.8,
+              "icon-anchor": "center",
+              "icon-image": [
+                "match",
+                ["get", "group"],
+                "1",
+                "1-manhattan.png",
+                "2",
+                "2-coldwar.png",
+                "3",
+                "3-reactor.png",
+                "4",
+                "4-now.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NuclearPlants-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p>{{unit}}<br><br>{{current_st}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "NuclearPlants-labels",
+            "type": "symbol",
+            "source": "NuclearPlants",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.5, 7, 1.2],
+              "icon-anchor": "center",
+              "icon-image": "power-reactor.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "InactiveCoalMines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "INACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "mapboxLayers": [
+          {
+            "id": "InactiveCoalMines-labels",
+            "type": "fill",
+            "source": "InactiveCoalMines",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "darkgray",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                0,
+                11,
+                0.8,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "ActiveCoalMines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "ACTIVE MINE<br><br>Type: {{TYPE_LABEL}}<br><br>Seam: {{SEAM}}<br><br>Method: {{METHOD_LAB}}<br><br>",
+        "mapboxLayers": [
+          {
+            "id": "ActiveCoalMines-labels",
+            "type": "fill",
+            "source": "ActiveCoalMines",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "black",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1,
+                16,
+                0.1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "streets2-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "streets2-basemap",
+            "type": "raster",
+            "source": "streets2"
+          }
+        ]
+      },
+      {
+        "id": "navigation-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "navigation-labels",
+            "type": "raster",
+            "source": "navigation",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                5,
+                0,
+                6,
+                1,
+                16,
+                1,
+                17,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "MissGagesUSACE-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}. Gauge height this week:<BR><img src='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USCE&site_no={{STAID}}&parm_cd=00065&period=7' width='500'><BR>1-yr graph <a href='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USCE&site_no={{STAID}}&parm_cd=00065&period=365' target='_blank' rel='noopener noreferrer'>here</a>. Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
+        "mapboxLayers": [
+          {
+            "id": "MissGagesUSACE-labels",
+            "type": "symbol",
+            "source": "MissGagesUSACE",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 3, 0.5, 8, 1, 17, 0],
+              "icon-anchor": "center",
+              "icon-image": "gauge.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "MissGagesUSGS-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "{{STANAME}}<BR><BR>Flood stage in feet: {{FLOODSTAGE}}. Gauge height this week:<BR><img src='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=7' width='500'><BR>1-yr graph <a href='https://nwis.waterdata.usgs.gov/nwisweb/graph?agency_cd=USGS&site_no={{STAID}}&parm_cd=00065&period=365' target='_blank' rel='noopener noreferrer'>here</a>. Complete stream data <a href='{{URL}}' target='_blank' rel='noopener noreferrer'>here.</a>",
+        "mapboxLayers": [
+          {
+            "id": "MissGagesUSGS-labels",
+            "type": "symbol",
+            "source": "MissGagesUSGS",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 3, 0.3, 10, 0.9, 17, 0],
+              "icon-anchor": "center",
+              "icon-image": "gauge.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "StLouis-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "StLouis",
+            "type": "raster",
+            "source": "StLouis",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                9.8,
+                1,
+                16,
+                1,
+                17.5,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "mississippi-input",
+        "datasetSlug": "mississippi-input",
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "creating-input-focused",
+            "type": "symbol",
+            "source": "mississippi-input",
+            "layout": {
+              "icon-size": 1,
+              "icon-anchor": "center",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "aesthetics",
+                "1.png",
+                "agriculture",
+                "2.png",
+                "biodiversity",
+                "3.png",
+                "capitalism",
+                "4.png",
+                "case study",
+                "5.png",
+                "climate change",
+                "6.png",
+                "commodities",
+                "7.png",
+                "conversation",
+                "8.png",
+                "cosmologies",
+                "9.png",
+                "culture",
+                "10.png",
+                "deep time",
+                "11.png",
+                "disaster",
+                "12.png",
+                "ecology",
+                "13.png",
+                "energy",
+                "14.png",
+                "engineering",
+                "15.png",
+                "environmental justice",
+                "16.png",
+                "experiment",
+                "17.png",
+                "extinction",
+                "18.png",
+                "extraction",
+                "19.png",
+                "flood",
+                "20.png",
+                "future",
+                "21.png",
+                "glaciation",
+                "22.png",
+                "history",
+                "23.png",
+                "human-animal relations",
+                "24.png",
+                "indigenous rights",
+                "25.png",
+                "inequality",
+                "26.png",
+                "infrastructure",
+                "27.png",
+                "local knowledge",
+                "28.png",
+                "migration",
+                "29.png",
+                "ocean",
+                "30.png",
+                "perception",
+                "31.png",
+                "pollution",
+                "32.png",
+                "race",
+                "33.png",
+                "radioactivity",
+                "34.png",
+                "sedimentation",
+                "35.png",
+                "settler colonialism",
+                "36.png",
+                "sharing economy",
+                "37.png",
+                "slavery",
+                "38.png",
+                "storytelling",
+                "39.png",
+                "sustainability",
+                "40.png",
+                "teaching",
+                "41.png",
+                "violence",
+                "42.png",
+                "visions",
+                "43.png",
+                "waste",
+                "44.png",
+                "water",
+                "45.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "mississippi-input",
+            "type": "symbol",
+            "source": "mississippi-input",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-anchor": "center",
+              "icon-size": [
+                "step",
+                ["zoom"],
+                0.3,
+                5,
+                0.4,
+                7,
+                0.5,
+                8,
+                0.6,
+                9,
+                1
+              ],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "aesthetics",
+                  "1a.png",
+                  "agriculture",
+                  "2a.png",
+                  "biodiversity",
+                  "3a.png",
+                  "capitalism",
+                  "4a.png",
+                  "case study",
+                  "5a.png",
+                  "climate change",
+                  "6a.png",
+                  "commodities",
+                  "7a.png",
+                  "conversation",
+                  "8a.png",
+                  "cosmologies",
+                  "9a.png",
+                  "culture",
+                  "10a.png",
+                  "deep time",
+                  "11a.png",
+                  "disaster",
+                  "12a.png",
+                  "ecology",
+                  "13a.png",
+                  "energy",
+                  "14a.png",
+                  "engineering",
+                  "15a.png",
+                  "environmental justice",
+                  "16a.png",
+                  "experiment",
+                  "17a.png",
+                  "extinction",
+                  "18a.png",
+                  "extraction",
+                  "19a.png",
+                  "flood",
+                  "20a.png",
+                  "future",
+                  "21a.png",
+                  "glaciation",
+                  "22a.png",
+                  "history",
+                  "23a.png",
+                  "human-animal relations",
+                  "24a.png",
+                  "indigenous rights",
+                  "25a.png",
+                  "inequality",
+                  "26a.png",
+                  "infrastructure",
+                  "27a.png",
+                  "local knowledge",
+                  "28a.png",
+                  "migration",
+                  "29a.png",
+                  "ocean",
+                  "30a.png",
+                  "perception",
+                  "31a.png",
+                  "pollution",
+                  "32a.png",
+                  "race",
+                  "33a.png",
+                  "radioactivity",
+                  "34a.png",
+                  "sedimentation",
+                  "35a.png",
+                  "settler colonialism",
+                  "36a.png",
+                  "sharing economy",
+                  "37a.png",
+                  "slavery",
+                  "38a.png",
+                  "storytelling",
+                  "39a.png",
+                  "sustainability",
+                  "40a.png",
+                  "teaching",
+                  "41a.png",
+                  "violence",
+                  "42a.png",
+                  "visions",
+                  "43a.png",
+                  "waste",
+                  "44a.png",
+                  "water",
+                  "45a.png",
+                  "__no-icon-image__"
+                ],
+                9,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "aesthetics",
+                  "1.png",
+                  "agriculture",
+                  "2.png",
+                  "biodiversity",
+                  "3.png",
+                  "capitalism",
+                  "4.png",
+                  "case study",
+                  "5.png",
+                  "climate change",
+                  "6.png",
+                  "commodities",
+                  "7.png",
+                  "conversation",
+                  "8.png",
+                  "cosmologies",
+                  "9.png",
+                  "culture",
+                  "10.png",
+                  "deep time",
+                  "11.png",
+                  "disaster",
+                  "12.png",
+                  "ecology",
+                  "13.png",
+                  "energy",
+                  "14.png",
+                  "engineering",
+                  "15.png",
+                  "environmental justice",
+                  "16.png",
+                  "experiment",
+                  "17.png",
+                  "extinction",
+                  "18.png",
+                  "extraction",
+                  "19.png",
+                  "flood",
+                  "20.png",
+                  "future",
+                  "21.png",
+                  "glaciation",
+                  "22.png",
+                  "history",
+                  "23.png",
+                  "human-animal relations",
+                  "24.png",
+                  "indigenous rights",
+                  "25.png",
+                  "inequality",
+                  "26.png",
+                  "infrastructure",
+                  "27.png",
+                  "local knowledge",
+                  "28.png",
+                  "migration",
+                  "29.png",
+                  "ocean",
+                  "30.png",
+                  "perception",
+                  "31.png",
+                  "pollution",
+                  "32.png",
+                  "race",
+                  "33.png",
+                  "radioactivity",
+                  "34.png",
+                  "sedimentation",
+                  "35.png",
+                  "settler colonialism",
+                  "36.png",
+                  "sharing economy",
+                  "37.png",
+                  "slavery",
+                  "38.png",
+                  "storytelling",
+                  "39.png",
+                  "sustainability",
+                  "40.png",
+                  "teaching",
+                  "41.png",
+                  "violence",
+                  "42.png",
+                  "visions",
+                  "43.png",
+                  "waste",
+                  "44.png",
+                  "water",
+                  "45.png",
+                  "__no-icon-image__"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "GlacialMaximum-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "GlacialMaximum-labels",
+            "type": "fill",
+            "source": "GlacialMaximum",
+            "paint": {
+              "fill-pattern": "SnowTexture.png",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                4,
+                0,
+                5.5,
+                1,
+                7,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "mississippi-featured",
+        "datasetSlug": "mississippi-featured",
+        "interactive": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "mississippi-featured-focused",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "source": "mississippi-featured",
+            "layout": {
+              "icon-image": "marker-invisible.png",
+              "icon-size": 1.1,
+              "icon-anchor": "center"
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "mississippi-featured",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "source": "mississippi-featured",
+            "layout": {
+              "icon-image": "marker-invisible.png",
+              "icon-size": 0.9,
+              "icon-anchor": "center"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": true,
+    "is_visible_default": false,
+    "component": "FeaturedPlacesNavigator"
+  },
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Layers:",
+    "sections": [
+      {
+        "id": "river",
+        "title": "Our River",
+        "options": [
+          {
+            "layerGroupId": "mississippi-group",
+            "title": "Watershed"
+          }
+        ]
+      },
+      {
+        "id": "grp-community",
+        "title": "Contributions",
+        "options": [
+          {
+            "layerGroupId": "mississippi-input",
+            "title": "Comments"
+          }
+        ]
+      },
+      {
+        "id": "grp-nitrogen",
+        "title": "Nitrogen",
+        "options": [
+          {
+            "layerGroupId": "nitrogen-deposition-group",
+            "title": "Nitrogen Deposition"
+          },
+          {
+            "layerGroupId": "nitrogen-plants-group",
+            "title": "Nitrogen Plants"
+          }
+        ]
+      },
+      {
+        "id": "grp-nuclear",
+        "title": "Nuclear",
+        "options": [
+          {
+            "layerGroupId": "nuclear-plants-timeslider-group",
+            "title": "Nuclear Plants"
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": false
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "PUT IT ON THE MAP",
+    "show_list_button_label": "See all comments",
+    "show_map_button_label": "Show the Map",
+    "title": "Tell us more...",
+    "action_text": "created",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Submit",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "featured_place",
+        "category": "featured_place",
+        "submitter_editing_supported": true,
+        "admin_only": true,
+        "includeOnList": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-featured",
+        "icon_url": "/static/css/images/markers/0.png",
+        "value": "featured_place",
+        "label": "Featured Site",
+        "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "Title:",
+            "includeOnListItem": true,
+            "display_prompt": " ",
+            "placeholder": "Site Title",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "Content:",
+            "includeOnListItem": true,
+            "display_prompt": " ",
+            "placeholder": "write test. You can add links, photos, and videos."
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "aesthetics",
+        "category": "aesthetics",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/1.png",
+        "value": "aesthetics",
+        "label": "Aesthetics",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "agriculture",
+        "category": "agriculture",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/2.png",
+        "value": "agriculture",
+        "label": "Agriculture",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "biodiversity",
+        "category": "biodiversity",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/3.png",
+        "value": "biodiversity",
+        "label": "Biodiversity",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "capitalism",
+        "category": "capitalism",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/4.png",
+        "value": "capitalism",
+        "label": "Capitalism",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "case study",
+        "category": "case study",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/5.png",
+        "value": "case study",
+        "label": "Case study",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "climate change",
+        "category": "climate change",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/6.png",
+        "value": "climate change",
+        "label": "Climate change",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "commodities",
+        "category": "commodities",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/7.png",
+        "value": "commodities",
+        "label": "Commodities",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "conversation",
+        "category": "conversation",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/8.png",
+        "value": "conversation",
+        "label": "Conversation",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "cosmologies",
+        "category": "cosmologies",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/9.png",
+        "value": "cosmologies",
+        "label": "Cosmologies",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "culture",
+        "category": "culture",
+        "submitter_editing_supported": true,
+        "includeOnForm": false,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/10.png",
+        "value": "culture",
+        "label": "Culture",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "deep time",
+        "category": "deep time",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/11.png",
+        "value": "deep time",
+        "label": "Deep time",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "disaster",
+        "category": "disaster",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/12.png",
+        "value": "disaster",
+        "label": "Disaster",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "ecology",
+        "category": "ecology",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/13.png",
+        "value": "ecology",
+        "label": "Ecology",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "energy",
+        "category": "energy",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/14.png",
+        "value": "energy",
+        "label": "Energy",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "engineering",
+        "category": "engineering",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/15.png",
+        "value": "engineering",
+        "label": "Engineering",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "environmental justice",
+        "category": "environmental justice",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/16.png",
+        "value": "environmental justice",
+        "label": "Environmental justice",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "experiment",
+        "category": "experiment",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/17.png",
+        "value": "experiment",
+        "label": "Experiment",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "extinction",
+        "category": "extinction",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/18.png",
+        "value": "extinction",
+        "label": "Extinction",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "extraction",
+        "category": "extraction",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/19.png",
+        "value": "extraction",
+        "label": "Extraction",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "flood",
+        "category": "flood",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/20.png",
+        "value": "flood",
+        "label": "Flood",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "future",
+        "category": "future",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/21.png",
+        "value": "future",
+        "label": "Future",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "glaciation",
+        "category": "glaciation",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/22.png",
+        "value": "glaciation",
+        "label": "Glaciation",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "history",
+        "category": "history",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/23.png",
+        "value": "history",
+        "label": "History",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "human-animal relations",
+        "category": "human-animal relations",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/24.png",
+        "value": "human-animal relations",
+        "label": "Human-animal relations",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "indigenous rights",
+        "category": "indigenous rights",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/25.png",
+        "value": "indigenous rights",
+        "label": "Indigenous rights",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "inequality",
+        "category": "inequality",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/26.png",
+        "value": "inequality",
+        "label": "Inequality",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "infrastructure",
+        "category": "infrastructure",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/27.png",
+        "value": "infrastructure",
+        "label": "Infrastructure",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "local knowledge",
+        "category": "local knowledge",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/28.png",
+        "value": "Local knowledge",
+        "label": "Local knowledge",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "migration",
+        "category": "migration",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/29.png",
+        "value": "migration",
+        "label": "Migration",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "ocean",
+        "category": "ocean",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/30.png",
+        "value": "ocean",
+        "label": "Ocean",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "perception",
+        "category": "perception",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/31.png",
+        "value": "perception",
+        "label": "Perception",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "pollution",
+        "category": "pollution",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/32.png",
+        "value": "pollution",
+        "label": "Pollution",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "race",
+        "category": "race",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/33.png",
+        "value": "race",
+        "label": "Race",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "radioactivity",
+        "category": "radioactivity",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/34.png",
+        "value": "radioactivity",
+        "label": "Radioactivity",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "sedimentation",
+        "category": "sedimentation",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/35.png",
+        "value": "sedimentation",
+        "label": "Sedimentation",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "settler colonialism",
+        "category": "settler colonialism",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/36.png",
+        "value": "settler colonialism",
+        "label": "Settler colonialism",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "sharing economy",
+        "category": "sharing economy",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/37.png",
+        "value": "sharing economy",
+        "label": "Sharing economy",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "slavery",
+        "category": "slavery",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/38.png",
+        "value": "slavery",
+        "label": "Slavery",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "storytelling",
+        "category": "storytelling",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/39.png",
+        "value": "storytelling",
+        "label": "Storytelling",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "sustainability",
+        "category": "sustainability",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/40.png",
+        "value": "sustainability",
+        "label": "Sustainability",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "teaching",
+        "category": "teaching",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/41.png",
+        "value": "teaching",
+        "label": "Teaching",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "violence",
+        "category": "violence",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/42.png",
+        "value": "violence",
+        "label": "Violence",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "visions",
+        "category": "visions",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/43.png",
+        "value": "visions",
+        "label": "Visions",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "waste",
+        "category": "waste",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/44.png",
+        "value": "waste",
+        "label": "Waste",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      },
+      {
+        "formId": "water",
+        "category": "water",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "mississippi-input",
+        "icon_url": "/static/css/images/markers/45.png",
+        "value": "water",
+        "label": "Water",
+        "fields": [
+          { "name": "lng-lat", "type": "lng_lat" },
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your post",
+            "display_prompt": " ",
+            "placeholder": "Title here...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "includeOnListItem": true,
+            "prompt": "What's it all about?",
+            "display_prompt": " ",
+            "placeholder": "Add an image or a video (YouTube, Vimeo), followed by a short text.",
+            "optional": false
+          },
+          { "name": "submitter_name", "type": "common_form_element" },
+          { "name": "private-submitter_email", "type": "common_form_element" },
+          { "name": "submit", "type": "common_form_element" }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submitter_name": {
+        "type": "text",
+        "prompt": "Name",
+        "placeholder": "Name",
+        "optional": true
+      },
+      "private-submitter_email": {
+        "type": "text",
+        "prompt": "Email",
+        "placeholder": "Receive notices about this comment",
+        "optional": true,
+        "sticky": true
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "Image",
+        "label": "Add an image",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "Put it on the map!"
+      }
+    },
+    "items": [
+      {
+        "prompt": "Type of report",
+        "type": "select",
+        "options": [
+          { "label": "Aesthetics", "value": "aesthetics" },
+          { "label": "Agriculture", "value": "agriculture" },
+          { "label": "Biodiversity", "value": "biodiversity" },
+          { "label": "Capitalism", "value": "capitalism" },
+          { "label": "Case study", "value": "case study" },
+          { "label": "Climate change", "value": "climate change" },
+          { "label": "Commodity", "value": "commodity" },
+          { "label": "Conversation", "value": "conversation" },
+          { "label": "Cosmologies", "value": "cosmologies" },
+          { "label": "Culture", "value": "culture" },
+          { "label": "Deep time", "value": "deep time" },
+          { "label": "Disaster", "value": "" },
+          { "label": "Ecology", "value": "ecology" },
+          { "label": "Energy", "value": "energy" },
+          { "label": "Engineering", "value": "engineering" },
+          {
+            "label": "Environmental justice",
+            "value": "environmental justice"
+          },
+          { "label": "Experiment", "value": "experiment" },
+          { "label": "Extinction", "value": "extinction" },
+          { "label": "Extraction", "value": "extraction" },
+          { "label": "Flood", "value": "flood" },
+          { "label": "Future", "value": "future" },
+          { "label": "Glaciation", "value": "glaciation" },
+          { "label": "History", "value": "history" },
+          {
+            "label": "Human-animal relations",
+            "value": "human-animal relations"
+          },
+          { "label": "Indigenous rights", "value": "indigenous rights" },
+          { "label": "Inequality", "value": "inequality" },
+          { "label": "Infrastructure", "value": "infrastructure" },
+          { "label": "Local knowledge", "value": "local knowledge" },
+          { "label": "Migration", "value": "migration" },
+          { "label": "Ocean", "value": "ocean" },
+          { "label": "Perception", "value": "perception" },
+          { "label": "Pollution", "value": "pollution" },
+          { "label": "Race", "value": "race" },
+          { "label": "Radioactivity", "value": "radioactivity" },
+          { "label": "Sedimentation", "value": "sedimentation" },
+          { "label": "Settler colonialism", "value": "settler colonialism" },
+          { "label": "Sharing economy", "value": "sharing economy" },
+          { "label": "Slavery", "value": "slavery" },
+          { "label": "Storytelling", "value": "storytelling" },
+          { "label": "Sustainability", "value": "sustainability" },
+          { "label": "Teaching", "value": "teaching" },
+          { "label": "Violence", "value": "violence" },
+          { "label": "Visions", "value": "visions" },
+          { "label": "Waste", "value": "waste" },
+          { "label": "Water", "value": "water" }
+        ],
+        "name": "location_type",
+        "attrs": [
+          {
+            "key": "required"
+          }
+        ]
+      },
+      {
+        "prompt": "Title of report",
+        "type": "text",
+        "name": "name",
+        "optional": null,
+        "attrs": [
+          {
+            "key": "required"
+          },
+          {
+            "key": "placeholder",
+            "value": "Enter title"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "Description",
+        "type": "textarea",
+        "name": "description",
+        "optional": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "Description..."
+          }
+        ]
+      },
+      {
+        "prompt": "Your Name",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "Name"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "Your Email",
+        "type": "text",
+        "name": "private-submitter_email",
+        "optional": true,
+        "sticky": true,
+        "attrs": [
+          {
+            "key": "placeholder",
+            "value": "Receive email updates on your report"
+          },
+          {
+            "key": "size",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "prompt": "Image",
+        "label": "Add an Image",
+        "type": "file",
+        "name": "my_image",
+        "optional": true
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
+      "items": [
+        {
+          "prompt": "Comment",
+          "label": "Comment",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "Your Name",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "Comment"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "aesthetics",
+        "datasetId": "mississippi-input",
+        "label": "Aesthetics",
+        "icon": "/static/css/images/markers/1.png"
+      },
+      {
+        "id": "agriculture",
+        "datasetId": "mississippi-input",
+        "label": "Agriculture",
+        "icon": "/static/css/images/markers/2.png"
+      },
+      {
+        "id": "biodiversity",
+        "datasetId": "mississippi-input",
+        "label": "Biodiversity",
+        "icon": "/static/css/images/markers/3.png"
+      },
+      {
+        "id": "capitalism",
+        "datasetId": "mississippi-input",
+        "label": "Capitalism",
+        "icon": "/static/css/images/markers/4.png"
+      },
+      {
+        "id": "case study",
+        "datasetId": "mississippi-input",
+        "label": "Case study",
+        "icon": "/static/css/images/markers/5.png"
+      },
+      {
+        "id": "climate change",
+        "datasetId": "mississippi-input",
+        "label": "Climate change",
+        "icon": "/static/css/images/markers/6.png"
+      },
+      {
+        "id": "commodity",
+        "datasetId": "mississippi-input",
+        "label": "Commodity",
+        "icon": "/static/css/images/markers/7.png"
+      },
+      {
+        "id": "conversation",
+        "datasetId": "mississippi-input",
+        "label": "Conversation",
+        "icon": "/static/css/images/markers/8.png"
+      },
+      {
+        "id": "cosmologies",
+        "datasetId": "mississippi-input",
+        "label": "Cosmologies",
+        "icon": "/static/css/images/markers/9.png"
+      },
+      {
+        "id": "culture",
+        "datasetId": "mississippi-input",
+        "label": "Culture",
+        "icon": "/static/css/images/markers/10.png"
+      },
+      {
+        "id": "deep time",
+        "datasetId": "mississippi-input",
+        "label": "Deep time",
+        "icon": "/static/css/images/markers/11.png"
+      },
+      {
+        "id": "disaster",
+        "datasetId": "mississippi-input",
+        "label": "Disaster",
+        "icon": "/static/css/images/markers/12.png"
+      },
+      {
+        "id": "ecology",
+        "datasetId": "mississippi-input",
+        "label": "Ecology",
+        "icon": "/static/css/images/markers/13.png"
+      },
+      {
+        "id": "energy",
+        "datasetId": "mississippi-input",
+        "label": "Energy",
+        "icon": "/static/css/images/markers/14.png"
+      },
+      {
+        "id": "engineering",
+        "datasetId": "mississippi-input",
+        "label": "Engineering",
+        "icon": "/static/css/images/markers/15.png"
+      },
+      {
+        "id": "environmental justice",
+        "datasetId": "mississippi-input",
+        "label": "Environmental justice",
+        "icon": "/static/css/images/markers/16.png"
+      },
+      {
+        "id": "experiment",
+        "datasetId": "mississippi-input",
+        "label": "Experiment",
+        "icon": "/static/css/images/markers/17.png"
+      },
+      {
+        "id": "extinction",
+        "datasetId": "mississippi-input",
+        "label": "Extinction",
+        "icon": "/static/css/images/markers/18.png"
+      },
+      {
+        "id": "extraction",
+        "datasetId": "mississippi-input",
+        "label": "Extraction",
+        "icon": "/static/css/images/markers/19.png"
+      },
+      {
+        "id": "flood",
+        "datasetId": "mississippi-input",
+        "label": "Flood",
+        "icon": "/static/css/images/markers/20.png"
+      },
+      {
+        "id": "future",
+        "datasetId": "mississippi-input",
+        "label": "Future",
+        "icon": "/static/css/images/markers/21.png"
+      },
+      {
+        "id": "glaciation",
+        "datasetId": "mississippi-input",
+        "label": "Glaciation",
+        "icon": "/static/css/images/markers/22.png"
+      },
+      {
+        "id": "history",
+        "datasetId": "mississippi-input",
+        "label": "History",
+        "icon": "/static/css/images/markers/23.png"
+      },
+      {
+        "id": "human-animal relations",
+        "datasetId": "mississippi-input",
+        "label": "Human-animal relations",
+        "icon": "/static/css/images/markers/24.png"
+      },
+      {
+        "id": "indigenous rights",
+        "datasetId": "mississippi-input",
+        "label": "Indigenous rights",
+        "icon": "/static/css/images/markers/25.png"
+      },
+      {
+        "id": "inequality",
+        "datasetId": "mississippi-input",
+        "label": "Inequality",
+        "icon": "/static/css/images/markers/26.png"
+      },
+      {
+        "id": "infrastructure",
+        "datasetId": "mississippi-input",
+        "label": "Infrastructure",
+        "icon": "/static/css/images/markers/27.png"
+      },
+      {
+        "id": "local knowledge",
+        "datasetId": "mississippi-input",
+        "label": "Local knowledge",
+        "icon": "/static/css/images/markers/28.png"
+      },
+      {
+        "id": "migration",
+        "datasetId": "mississippi-input",
+        "label": "Migration",
+        "icon": "/static/css/images/markers/29.png"
+      },
+      {
+        "id": "ocean",
+        "datasetId": "mississippi-input",
+        "label": "Ocean",
+        "icon": "/static/css/images/markers/30.png"
+      },
+      {
+        "id": "perception",
+        "datasetId": "mississippi-input",
+        "label": "Perception",
+        "icon": "/static/css/images/markers/31.png"
+      },
+      {
+        "id": "pollution",
+        "datasetId": "mississippi-input",
+        "label": "Pollution",
+        "icon": "/static/css/images/markers/32.png"
+      },
+      {
+        "id": "race",
+        "datasetId": "mississippi-input",
+        "label": "Race",
+        "icon": "/static/css/images/markers/33.png"
+      },
+      {
+        "id": "radioactivity",
+        "datasetId": "mississippi-input",
+        "label": "Radioactivity",
+        "icon": "/static/css/images/markers/34.png"
+      },
+      {
+        "id": "sedimentation",
+        "datasetId": "mississippi-input",
+        "label": "Sedimentation",
+        "icon": "/static/css/images/markers/35.png"
+      },
+      {
+        "id": "settler colonialism",
+        "datasetId": "mississippi-input",
+        "label": "Settler colonialism",
+        "icon": "/static/css/images/markers/36.png"
+      },
+      {
+        "id": "sharing economy",
+        "datasetId": "mississippi-input",
+        "label": "Sharing economy",
+        "icon": "/static/css/images/markers/37.png"
+      },
+      {
+        "id": "slavery",
+        "datasetId": "mississippi-input",
+        "label": "Slavery",
+        "icon": "/static/css/images/markers/38.png"
+      },
+      {
+        "id": "storytelling",
+        "datasetId": "mississippi-input",
+        "label": "Storytelling",
+        "icon": "/static/css/images/markers/39.png"
+      },
+      {
+        "id": "sustainability",
+        "datasetId": "mississippi-input",
+        "label": "Sustainability",
+        "icon": "/static/css/images/markers/40.png"
+      },
+      {
+        "id": "teaching",
+        "datasetId": "mississippi-input",
+        "label": "Teaching",
+        "icon": "/static/css/images/markers/41.png"
+      },
+      {
+        "id": "violence",
+        "datasetId": "mississippi-input",
+        "label": "Violence",
+        "icon": "/static/css/images/markers/42.png"
+      },
+      {
+        "id": "visions",
+        "datasetId": "mississippi-input",
+        "label": "Visions",
+        "icon": "/static/css/images/markers/43.png"
+      },
+      {
+        "id": "waste",
+        "datasetId": "mississippi-input",
+        "label": "Waste",
+        "icon": "/static/css/images/markers/44.png"
+      },
+      {
+        "id": "water",
+        "datasetId": "mississippi-input",
+        "label": "Water",
+        "icon": "/static/css/images/markers/45.png"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
+    "action_text": "supported",
+    "anonymous_name": "Someone"
+  },
+  "nav_bar": [
+    {
+      "title": "introduction",
+      "type": "internal_link",
+      "url": "/page/introduction"
+    },
+    {
+      "title": "field stations",
+      "type": "internal_link",
+      "url": "/page/fieldstations"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "introduction",
+      "lang": "en",
+      "content": [
+        "<p><h2>MISSISSIPPI: An Anthropocene River</h2></p>",
+
+        "<p><img src='https://ecotopia.today/Mississippi/Images/Canoes.jpg'/><br><em>Project participants at the kickoff event in Minneapolis, June 2018</em></p>",
+        "<p><br>This map is devoted to contemporary \"Life on the Mississippi,\" in an era when all that once seemed familiar keeps changing day by day. The mythical image of the river&mdash;celebrated in paintings, musicals, movies and the writings of Mark Twain&mdash;has given way to something different, a lot stranger and more intractable, the Mississippi of our time.</p>",
+
+        "<p>It's a new river, and it's an ancient one. The fading of the nineteenth-century myth reveals the continuous presence of Indigenous cultures throughout the Mississippi watershed, not just in history, but in the present. We acknowledge that these lands were and still are inhabited by Native peoples who were unjustly displaced by force. We acknowledge the wrongs of the past, and the need for deep transformations in the laws, institutions and ethics that govern the use of this land today. As part of that acknowledgement, the names of almost a hundred overlapping Indigenous territories have been inscribed on the first page of the map (zoom into see them all). In many cases, both traditional lands and Oaklahoma resettlement areas are indicated. Deeper explorations of settler-colonial violence and unbearable racism toward peoples of color appear in subsequent sections of the map, as part of much larger efforts to achieve social and racial justice. These issues are inseparable from ecological ones. The point is to find another way of living.</p>",
+
+        "<p>What's \"new\" about today's river is not just monocrop agriculture or industrial ruins or climate change. The new thing, for those who care, is a dawning awareness of what made the tragedies of modern development inevitable&mdash;but not acceptable any longer.</p>",
+
+        "<p>This map is part of an art and research program entitled <a href='https://www.anthropocene-curriculum.org/pages/root/related-projects/mississippi-an-anthropocene-river' target='_blank' rel='noopener noreferrer nofollow'>Mississippi: An Anthropocene River</a>, which springs from a unique collaboration between German and American institutions, energized by lots of inhabitants on the ground. The aim is to understand the current ecological and social conditions of the great river and its far-flung watersheds, to probe its settler-colonial and industrial histories and to express the manifold nature/cultures of its endless flow. Therefore we have put advanced cartography, earth science and cultural research into something like a geo-blog, open to highly diverse inputs. It allows those who care about the river to add their words, images, knowledge and unanswered questions. By using the map, you can contribute to an experiment in collective perception.</p>",
+
+        "<p>The map works with conventional Internet browsers as well as mobile phones. To put something on it is easy: just zoom into the place that interests you and press the big orange button. You'll be asked to drag the map around until the yellow pin falls precisely on the spot, and then to choose among some forty different categories. Once you have chosen, a window will appear. That one's for you.</p>",
+
+        "<p>You can enter a title and a text, and by using the buttons in the editor you can add an image, a link, or the URL of a video that has been uploaded to YouTube or Vimeo. You can also contribute a text and image directly from your mobile phone. It's important to \"sign in\" first, by clicking the button at upper right, because then you'll be able to edit your post later on. The map is an open archive, placing your experience and understanding alongside others. Feel free to use it in the most divergent ways.</p>",
+
+        "<p><img src='https://ecotopia.today/Mississippi/Images/Joe&Chavez.jpg'/><br><em>Environmental science at the Headwaters (Joe & Chavez)</em></p>",
+
+        "<p>The map/archive will also tell you about the artworks and research projects carried out by those most closely involved in this inquiry. To find out more, just hit \"Field Stations.\" Each of the cartographic images you will see is linked to particular areas along the river, where groups of artists and researchers have organized their own activities. A description appears in the text, plus schedules of events in Fall 2019. Click on the map markers to find out what the different groups have been up to, and zoom in further to gain insights about their territories.</p>",
+
+        "<p>In addition to that, you can open a longer menu by clicking on the little red arrow on the right-hand side (it only appears on larger screens, not on cell phones). There, the same field stations are interspersed with a growing number of thematic maps. These thematic maps showcase different forms of scientific or cultural research, all dealing with questions of political ecology. In other words, they show situations where social life is affected by the environment, and vice-versa.</p>",
+
+        "<p>This whole project has been sparked by the concept of the Anthropocene. It describes an era in which humanity has gained quasi-geological powers, capable of reshaping the land, the rivers and the atmosphere. These tremendous powers are often quite familiar: they can be seen in the locks, the dams, the levees, the earth-moving equipment along the shore, and above all, in the monocrop agriculture that has filled the former floodplains, offering prosperous livelihoods to millions of people. However, these familiar powers of science and industry have more recently become strange, producing unwanted consequences like hypoxic \"dead zones\" in the ocean or runway climate change. As the largest drainage basin in North America, the Mississippi-Missouri-Ohio River watershed offers a tangible example of conditions affecting the entire earth system.</p>",
+
+        "<p>Does anyone really know what's happening? We are plumbing unknown waters in this project, a bit like Mark Twain on the old Mississippi, sounding the depths for dangerous shoals. It took some courage to pilot a steamboat in those days.</p>",
+
+        "<p>It takes a very different kind of courage to live today. Go ahead, join us. The idea is to sound out the new river, and beyond it, the unknown world we all share.</p>",
+
+        "<p><img src='https://ecotopia.today/Mississippi/Images/Pelicans.jpg'/><br><em>White Pelicans in the current at the  Sidney A. Murray Jr. Hydroelectric Station, Louisiana</em></p>",
+        "<p><strong>Technical tip</strong></p>",
+        "<p>If you experience a problem editing your posts, it's probably because an older copy of the website is cached in your browser. Try refreshing the page, or use the ctrl-F5 key combination, or clear your recent history and that will likely solve the problem.</p>",
+        "<p><strong>About the basemap</strong></p>",
+        "<p>The Indigenous territories named here have been compiled on the website <em>Native Land</em>. The precise extents of these territories are necessarily uncertain, due to gaps in the historical record. See <a href='https://native-land.ca/' target='_blank' rel='noopener noreferrer nofollow'>Native Land</a> for further details.</p>",
+        "<p>This project uses custom raster tiles produced by the primary map editor Brian Holmes, drawing on the USDA's <a href='https://www.nass.usda.gov/Research_and_Science/Cropland/Release' target='_blank' rel='noopener noreferrer nofollow'>2018 Cropland Data Layer</a> in particular. Roadways and other overlay information come from a specially configured <a href='https://mapbox.com' target='_blank' rel='noopener noreferrer nofollow'>Mapbox</a> layer based on <a href='https://www.openstreetmap.org' target='_blank' rel='noopener noreferrer nofollow'>Open Street Map</a> files. Areas outside the Mississippi watershed display ESRI's <a href='https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer' target='_blank' rel='noopener noreferrer nofollow'>World Ocean</a> map, and deep zooms reveal the same company's <a href='https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer' target='_blank' rel='noopener noreferrer nofollow'> World Imagery</a> layer, both of which are based on US government public domain sources. Lakes, rivers and those wonderful hotspots of biodiversity called swamps have been precisely mapped by the <a href='https://www.fws.gov/wetlands/data/Data-Download.html' target='_blank' rel='noopener noreferrer nofollow'>National Wetlands Inventory</a>. Levees, represented by orange lines that appear when you zoom in, come from the Army Corps of Engineers <a href='https://levees.sec.usace.army.mil' target='_blank' rel='noopener noreferrer nofollow'>National Levee Database</a>. Like many other features in the rest of the map, the levee lines deliver additional information when you click on them.</p>",
+
+        "<p>The software that makes all the interaction and community input possible has been developed by a Seattle-based group called <a href='https://mapseed.org' target='_blank' rel='noopener noreferrer nofollow'>Mapseed</a>. Any mistaken or misleading information on this map is due to the limited understanding of the editors, sorry. Tell us about it and we'll fix it.<BR><BR></p>",
+        "<p><strong>PROJECT SPONSORS</strong><BR><BR></p>",
+        "<img src='https://ecotopia.today/Mississippi/Images/Partners.jpg'/>"
+      ]
+    },
+    {
+      "slug": "fieldstations",
+      "lang": "en",
+      "content": [
+        "<h3>Canoes set out from Lake Itasca. Field stations greet them along the river. It all culminates with an Anthropocene Campus in New Orleans.</h3>",
+        "<p>Click the images for artworks, research and events. Open the panel on the right for additional thematic maps. Add your own material if you feel it.</p>",
+        "<figure class='flow-layout'>",
+        "<a href='/featured/7569' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/RiverJourney.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>River Journey</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/7529' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/MachinicRiver.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>Sediment, Settlement, Sentiment</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-right'>",
+        "<a href='/featured/7532' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/AnthropoceneDrift.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>Anthropocene Drift</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-left'>",
+        "<a href='/featured/7533' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/IndustryIndigeneity&Empire.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>Anthropocene Vernacular</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-sq flow-sq-right'>",
+        "<a href='/featured/7530' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/ConfluenceEcologies.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>Confluence Ecologies</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-horizontal flow-horizontal-left'>",
+        "<a href='/featured/7665' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/FS5.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>Commodity Exploitation</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<figure class='flow-layout flow-horizontal flow-horizontal-left'>",
+        "<a href='/featured/7597' rel='internal'>",
+        "<img src='https://ecotopia.today/Mississippi/Images/FSimages/NOCGS.jpg'/>",
+        "<figcaption class='flow-layout-title flow-layout-title-bottom'>",
+        "<h5>The Human Delta</h5>",
+        "</figcaption>",
+        "</a>",
+        "</figure>",
+        "<p></p>"
+      ]
+    }
+  ],
+  "featuredPlaces": {
+    "header": "Sites / Thematic Maps",
+    "visibleLayerGroupIds": [
+      "ocean-satellite",
+      "streets-group",
+      "mississippi-input",
+      "mississippi-group"
+    ],
+    "order": [
+      {
+        "placeId": 7569,
+        "pan_to": [-92.709, 45.457],
+        "zoom": 6.3,
+        "iconUrl": "/static/css/images/markers/Fractal3.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "navigation-group",
+          "MissUndammed-group",
+          "MissGagesUSGS-group",
+          "MissGagesUSACE-group",
+          "streets2-group",
+          "mississippi-input"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7791,
+        "pan_to": [-93.897, 33.937],
+        "zoom": 5.8,
+        "iconUrl": "/static/css/images/markers/pump.png",
+        "visibleLayerGroupIds": [
+          "hydro-group",
+          "mask-group",
+          "basin-group",
+          "hillshade-group",
+          "districts-group",
+          "MARBpumps-group",
+          "levees2-group",
+          "protected2"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7529,
+        "pan_to": [-93.209, 44.962],
+        "zoom": 8.2,
+        "iconUrl": "/static/css/images/markers/Fractal1.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "DamRemoval-group",
+          "mississippi-input",
+          "streets-group",
+          "NewMadrid-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7598,
+        "pan_to": [-96.793, 40.178],
+        "zoom": 4.5,
+        "iconUrl": "/static/css/images/markers/gauge.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "USGSstations-group",
+          "USACEstations-group",
+          "streets2-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7532,
+        "pan_to": [-94.0, 42.4],
+        "zoom": 4.6,
+        "iconUrl": "/static/css/images/markers/Fractal2.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "MissNoDriftless-group",
+          "kickapoo-group",
+          "FS2sites-group",
+          "noheart-group",
+          "GlacialMaximum-group",
+          "mississippi-input",
+          "topomap-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7538,
+        "pan_to": [-93.97, 39.44],
+        "zoom": 4.5,
+        "iconUrl": "/static/css/images/markers/atom.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "streets-group",
+          "nuclear-plants-timeslider-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7533,
+        "pan_to": [-90.35, 38.64],
+        "zoom": 9.8,
+        "iconUrl": "/static/css/images/markers/Fractal4.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "StLouis-group",
+          "mississippi-input",
+          "streets-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7531,
+        "pan_to": [-96.37687, 42.32885],
+        "zoom": 4.63,
+        "iconUrl": "/static/css/images/markers/nitrogen.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "nitrogen-plants-group",
+          "nitrogen-deposition-group",
+          "streets-group",
+          "mississippi-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7530,
+        "pan_to": [-89.143, 37.16],
+        "zoom": 8,
+        "iconUrl": "/static/css/images/markers/Fractal5.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "confluence-group",
+          "NewMadrid-group",
+          "InactiveCoalMines-group",
+          "ActiveCoalMines-group",
+          "streets2-group",
+          "mississippi-input"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7665,
+        "pan_to": [-91.59817, 33],
+        "zoom": 7,
+        "iconUrl": "/static/css/images/markers/Fractal6.png",
+        "visibleLayerGroupIds": [
+          "cartodb-satellite",
+          "streets-group",
+          "mississippi-input",
+          "mississippi-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7597,
+        "pan_to": [-90.12, 29.94],
+        "zoom": 12,
+        "iconUrl": "/static/css/images/markers/Fractal6.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "streets-group",
+          "mississippi-input",
+          "mississippi-group"
+        ],
+        "spotlight": false
+      }
+    ]
+  }
+}

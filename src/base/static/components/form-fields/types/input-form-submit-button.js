@@ -1,19 +1,27 @@
+/** @jsx jsx */
 import React from "react";
 import PropTypes from "prop-types";
+import { css, jsx } from "@emotion/core";
+import { withTheme } from "emotion-theming";
+import { withTranslation } from "react-i18next";
 
-import "./input-form-submit-button.scss";
+import { Button } from "../../atoms/buttons";
 
 const InputFormSubmitButton = props => {
   return (
-    <button
+    <Button
+      css={css`
+        font-family: ${props.theme.text.bodyFontFamily};
+      `}
+      size="medium"
+      color="primary"
+      variant="raised"
       name={props.name}
       disabled={props.disabled}
-      className="input-form-submit-button"
-      type="button"
       onClick={props.onClickSubmit}
     >
-      {props.label}
-    </button>
+      {props.t("inputFormSubmitButtonLabel", props.label)}
+    </Button>
   );
 };
 
@@ -22,6 +30,10 @@ InputFormSubmitButton.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onClickSubmit: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired,
 };
 
-export default InputFormSubmitButton;
+export default withTheme(
+  withTranslation("InputFormSubmitButton")(InputFormSubmitButton),
+);

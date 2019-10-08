@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { Button } from "../../atoms/buttons";
 import { FontAwesomeIcon } from "../../atoms/imagery";
 
-import emitter from "../../../utils/emitter";
+import emitter from "../../../utils/event-emitter";
 import constants from "../../../constants";
 
 const GeolocateButton = styled(props => (
@@ -16,7 +16,7 @@ const GeolocateButton = styled(props => (
   >
     {props.children}
   </Button>
-))(props => ({
+))(() => ({
   display: "flex",
   alignItems: "center",
 }));

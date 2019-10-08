@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "@emotion/styled";
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import { TextareaInput } from "../atoms/input";
 import TagName from "./tag-name";
@@ -16,7 +16,7 @@ import {
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 const TagContainer = styled("div")(props => ({
   outline: "none",
@@ -199,4 +199,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps,
-)(translate("TagEditor")(TagEditor));
+)(withTranslation("TagEditor")(TagEditor));

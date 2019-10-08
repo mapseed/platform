@@ -1,0 +1,269 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+body {
+  font-family: Raleway, sans-serif !important;
+}
+
+header {
+  border-top: 3px solid #29b1cb;
+}
+/* =Input Form
+-------------------------------------------------------------- */
+/* 
+ * TODO: All these custom selectors should be ported to styled components.
+ */
+
+[data-field-type="datetime"],
+[data-field-type="number"],
+[data-field-name="my_image"],
+[data-field-type="big_toggle"],
+[data-field-type="dropdown"],
+[data-field-type="big_checkbox"],
+[data-field-type="big_radio"] {
+  background-color: #efefef !important;
+  box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
+  margin-bottom: 0 !important;
+}
+
+[data-field-name="my_image"],
+[data-field-type="big_toggle"],
+[data-field-type="big_checkbox"],
+[data-field-type="big_radio"] {
+  margin-top: 15px !important;
+  margin-bottom: 0 !important;
+}
+
+[data-field-type="geocoding"],
+[data-field-type="dropdown"],
+[data-field-name="drag_map_info"],
+[data-field-type="geolocate"],
+[data-field-name="synthetic_fertilization_types"],
+[data-field-name="synthetic_fertilization_yield_map"],
+[data-field-name="synthetic_fertilization_zone_map"],
+[data-field-name="organic_fertilization_yield_map"],
+[data-field-name="organic_fertilization_zone_map"],
+[data-field-name="stream_crossing_type"],
+[data-field-name="buffer_program"],
+[data-field-name="buffer_program_types"],
+[data-field-name="private-landowner_email"],
+[data-field-name="mud_manure_management_type"],
+[data-field-name="buffer_types"],
+[data-field-name="forest_management_plan"],
+[data-field-name="forest_management_active_management"],
+[data-field-name="private-landowner_phone"],
+[data-field-name="soil_tests_zone_map"],
+[data-field-name="other_practices_description"],
+[data-field-name="title"],
+[data-field-name="practices_description"],
+[data-field-name="stewardship_difficulties"],
+[data-field-name="private-landowner_name"],
+[data-field-name="other_buffer_type"],
+[data-field-name="other_buffer_type_description"],
+[data-field-name="riparian_forest_description"],
+[data-field-name="forest_management_description"],
+[data-field-name="my_image"],
+[data-field-name="private-use_photos"],
+[data-field-name="title"],
+[data-field-name="private"],
+[data-field-name="organic_fertilization_types"] {
+  background-color: #efefef !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
+}
+
+[data-field-name="acres_farmed"],
+[data-field-name="years_farming"],
+[data-field-name="practices_description"],
+[data-field-name="stewardship_difficulties"],
+[data-field-name="private-landowner_name"] {
+  margin-top: 15px !important;
+}
+
+[data-field-type="geolocate"] {
+  button {
+    background-color: #efefef !important;
+  }
+}
+
+[data-field-name="tillage_no-tillage"],
+[data-field-name="nutrient-mgmt_no-nutrient-mgmt"],
+[data-field-name="buffers_no-buffers"],
+[data-field-name="livestock_no-livestock"] {
+  .input-form__field-prompt-container {
+    display: none;
+  }
+}
+
+label[for="input-form-tillage_no-tillage"],
+label[for="input-form-nutrient-mgmt_no-nutrient-mgmt"],
+label[for="input-form-buffers_no-buffers"],
+label[for="input-form-livestock_no-livestock"] {
+  padding: 0 !important;
+  font-family: "Font Awesome 5 Free", sans-serif;
+  font-weight: 900;
+
+  &:before {
+    display: none;
+  }
+}
+
+.geocoding-field__do-geocode-icon:before {
+  color: #999999 !important;
+}
+
+[data-field-type="informational_html"] {
+  padding: 0 !important;
+}
+
+.input-form__field-prompt {
+  color: #444 !important;
+  font-size: 1.15em !important;
+  font-weight: 900 !important;
+}
+
+.form-stage-header-bar {
+  display: none !important;
+}
+
+.big-toggle-field__label,
+.big-checkbox-field__label,
+.big-radio-field__label {
+  margin-top: 0 !important;
+  border: none !important;
+  color: #36454f !important;
+  line-height: 1.6em !important;
+  min-height: 30px !important;
+  background-color: #efefef !important;
+  overflow: hidden !important;
+  padding-left: 50px !important;
+  padding-right: 16px !important;
+}
+
+.textarea-field,
+.text-field,
+input[type="number"],
+.datetime-field__input {
+  border-color: #999999 !important;
+  border-width: 4px !important;
+}
+
+.geocoding-field__input {
+  background-color: #fff !important;
+  border: 4px solid #999999 !important;
+}
+
+.big-toggle-field__label--hoverable:hover:before,
+.big-checkbox-field__label--hoverable:hover:before,
+.big-radio-field__label--hoverable:hover:before {
+  text-indent: 0.5em !important;
+  color: #999999 !important;
+}
+
+.big-checkbox-field,
+.big-radio-field {
+  margin-right: 16px !important;
+  margin-top: 8px !important;
+}
+
+.big-toggle-field__label:before,
+.big-checkbox-field__label:before,
+.big-radio-field__label:before {
+  max-height: 2em !important;
+  top: 50% !important;
+  transform: translate(0, -50%) !important;
+  height: 2.5em !important;
+  width: 2em !important;
+  text-indent: 0.5em !important;
+  background-color: #999 !important;
+  border-radius: 4px;
+  box-shadow: 0 3px 0 hsla(0, 0%, 100%, 0.45), 0 -2px 0 hsla(0, 0%, 0%, 0.45);
+}
+
+.datetime-field__label-ongoing:before {
+  background-color: #efefef !important;
+  border: 4px solid #999999 !important;
+  box-shadow: 0 3px 0 hsla(0, 0%, 100%, 0.45), 0 -2px 0 hsla(0, 0%, 0%, 0.45);
+}
+
+.datetime-field__label-ongoing--toggled:before {
+  background-color: #999999 !important;
+  color: #fff !important;
+}
+
+.datetime-field__label-ongoing--hoverable:hover:before {
+  color: #999999 !important;
+}
+
+.big-radio-field__label--toggled.big-radio-field__label--hoverable:hover:before,
+.big-toggle-field__label--toggled.big-toggle-field__label--hoverable:hover:before,
+.big-checkbox-field__label--toggled.big-checkbox-field__label--hoverable:hover:before,
+.datetime-field__label-ongoing--toggled.datetime-field__label-ongoing--hoverable:hover:before {
+  color: #fff !important;
+}
+
+.big-toggle-field__label--toggled:before,
+.big-checkbox-field__label--toggled:before,
+.big-radio-field__label--toggled:before {
+  background-color: #999999 !important;
+}
+
+.datetime-field,
+.dropdown-field {
+  border-color: #999999 !important;
+}
+
+.input-form__optional-msg {
+  display: none !important;
+}
+
+.form-stage-control-bar {
+  background: none !important;
+}
+
+.mapseed__progress-bar {
+  background-color: #fff !important;
+}
+
+.mapseed__progress-bar-inner {
+  background-color: #40becd !important;
+}
+
+.mapseed__link--color-primary {
+  background-color: #02440b !important;
+}
+
+.mapseed__link--color-primary:hover {
+  color: #999999 !important;
+}
+
+.mapseed__link--disabled:hover {
+  color: #ccc !important;
+}
+
+.mapseed__progress-bar {
+  background-color: #efefef !important;
+}
+
+/* =Custom Pages
+-------------------------------------------------------------- */
+
+.next-btn {
+  background-color: #61974b !important;
+  border-radius: 3px !important;
+  float: right !important;
+  outline: none !important;
+  border: none !important;
+  text-transform: uppercase !important;
+  color: #fff !important;
+  padding: 0.5em !important;
+  margin-left: 10px !important;
+
+  &:hover {
+    background-color: rgb(191, 213, 183) !important;
+  }
+}

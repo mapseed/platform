@@ -1,21 +1,30 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map, OrderedMap } from "immutable";
-import emitter from "../../utils/emitter";
+import { css, jsx } from "@emotion/core";
+import emitter from "../../utils/event-emitter";
 import { connect } from "react-redux";
+import { withTheme } from "emotion-theming";
+import { withTranslation } from "react-i18next";
 
 import FormField from "../form-fields/form-field";
-import SurveyResponse from "./survey-response";
-import WarningMessagesContainer from "../ui-elements/warning-messages-container";
-import Avatar from "../ui-elements/avatar";
+import SurveyResponse from "../molecules/survey-response";
+import WarningMessagesContainer from "../molecules/warning-messages-container";
+import { UserAvatar } from "../atoms/imagery";
 import SurveyResponseEditor from "./survey-response-editor";
+import { SmallTitle, RegularText, ExternalLink } from "../atoms/typography";
+import { LoadingBar } from "../atoms/imagery";
+import { HorizontalRule } from "../atoms/layout";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
+import LoginModal from "../molecules/login-modal";
 
 import {
   commentFormConfigPropType,
   commentFormConfigSelector,
 } from "../../state/ducks/forms-config";
+import { datasetsSelector } from "../../state/ducks/datasets";
 import {
   appConfigSelector,
   appConfigPropType,
@@ -24,11 +33,10 @@ import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { createPlaceComment } from "../../state/ducks/places";
 
 import constants from "../../constants";
-import { translate } from "react-i18next";
 
 import "./survey.scss";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 class Survey extends Component {
   state = {
@@ -43,19 +51,24 @@ class Survey extends Component {
     }),
   };
 
-  componentDidMount() {
-    emitter.addListener("place-detail-survey:save", () => {
-      this.setState({
-        fields: this.initializeFields(),
-        isFormSubmitting: false,
-        formValidationErrors: new Set(),
-        showValidityStatus: false,
-      });
+  savePlaceDetailSurvey() {
+    this.setState({
+      fields: this.initializeFields(),
+      isFormSubmitting: false,
+      formValidationErrors: new Set(),
+      showValidityStatus: false,
     });
   }
 
+  componentDidMount() {
+    emitter.on("place-detail-survey:save", this.savePlaceDetailSurvey);
+  }
+
   componentWillUnmount() {
-    emitter.removeAllListeners("place-detail-survey:save");
+    emitter.removeEventListener(
+      "place-detail-survey:save",
+      this.savePlaceDetailSurvey,
+    );
   }
 
   initializeFields() {
@@ -83,6 +96,14 @@ class Survey extends Component {
   }
 
   async onSubmit() {
+    if (this.state.isFormSubmitting) {
+      return;
+    }
+
+    this.setState({
+      isFormSubmitting: true,
+    });
+
     const newValidationErrors = this.state.fields
       .filter(value => !value.get(constants.FIELD_VALIDITY_KEY))
       .reduce((newValidationErrors, invalidField) => {
@@ -97,15 +118,22 @@ class Survey extends Component {
         .map(val => val.get(constants.FIELD_VALUE_KEY))
         .toJS();
       Util.log("USER", "place", "submit-comment-btn-click");
-      attrs[constants.USER_TOKEN_PROPERTY_NAME] = this.props.userToken;
+      attrs[constants.USER_TOKEN_PROPERTY_NAME] = this.props.currentUser.token;
 
       const response = await mapseedApiClient.comments.create(
         this.props.placeUrl,
         attrs,
       );
 
+      this.setState({
+        isFormSubmitting: false,
+      });
+
       if (response) {
         this.props.createPlaceComment(this.props.placeId, response);
+        this.setState({
+          fields: this.initializeFields(),
+        });
       } else {
         alert("Oh dear. It looks like that didn't save. Please try again.");
         Util.log("USER", "place", "fail-to-submit-comment");
@@ -114,6 +142,7 @@ class Survey extends Component {
       this.setState({
         formValidationErrors: newValidationErrors,
         showValidityStatus: true,
+        isFormSubmitting: false,
       });
     }
   }
@@ -122,14 +151,22 @@ class Survey extends Component {
     const numComments = this.props.comments.length;
 
     return (
-      <div className="place-detail-survey">
-        <div className="place-detail-survey__header-bar">
-          <h4 className="place-detail-survey__num-comments-header">
+      <div>
+        <div
+          css={css`
+            overflow: auto;
+          `}
+        >
+          <SmallTitle
+            css={css`
+              margin-bottom: 8px;
+            `}
+          >
             {numComments}{" "}
             {numComments === 1
               ? this.props.commentFormConfig.response_name
               : this.props.commentFormConfig.response_plural_name}
-          </h4>
+          </SmallTitle>
           <hr className="place-detail-survey__horizontal-rule" />
         </div>
         <div className="place-detail-survey-responses">
@@ -153,46 +190,85 @@ class Survey extends Component {
             }
           })}
         </div>
-        <WarningMessagesContainer
-          errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={this.props.t("validationErrorHeaderMsg")}
-        />
+        {this.state.formValidationErrors.size > 0 && (
+          <WarningMessagesContainer
+            errors={this.state.formValidationErrors}
+            headerMsg={this.props.t(
+              "validationErrorHeaderMsg",
+              "We're sorry, but we need some more information before we can share your comment.",
+            )}
+          />
+        )}
         {this.state.canComment && (
-          <form
-            className="place-detail-survey__form"
-            onSubmit={evt => evt.preventDefault()}
-          >
-            {this.state.fields
-              .map((fieldState, fieldName) => (
-                <FormField
-                  key={fieldState.get(constants.FIELD_RENDER_KEY)}
-                  isInitializing={this.state.isInitializing}
-                  fieldConfig={this.props.commentFormConfig.items.find(
-                    field => field.name === fieldName,
-                  )}
-                  updatingField={this.state.updatingField}
-                  showValidityStatus={this.state.showValidityStatus}
-                  disabled={this.state.isFormSubmitting}
-                  onFieldChange={this.onFieldChange.bind(this)}
-                  fieldState={fieldState}
-                  onClickSubmit={this.onSubmit.bind(this)}
-                />
-              ))
-              .toArray()}
-          </form>
+          <LoginModal
+            appConfig={this.props.appConfig}
+            disableRestoreFocus={true}
+            render={openModal => (
+              <div
+                css={css`
+                  position: relative;
+                `}
+              >
+                <HorizontalRule spacing="tiny" />
+                {this.state.isFormSubmitting && <LoadingBar />}
+                <form
+                  css={css`
+                    opacity: ${this.state.isFormSubmitting ? 0.3 : 1.0};
+                    margin-top: 16px;
+                  `}
+                  onSubmit={evt => evt.preventDefault()}
+                  onFocus={() => {
+                    if (
+                      !this.props.currentUser.isAuthenticated &&
+                      this.props.datasets.some(dataset => dataset.auth_required)
+                    ) {
+                      openModal();
+                    }
+                  }}
+                >
+                  {this.state.fields
+                    .map((fieldState, fieldName) => (
+                      <FormField
+                        formId="commentForm"
+                        key={fieldState.get(constants.FIELD_RENDER_KEY)}
+                        isInitializing={this.state.isInitializing}
+                        fieldConfig={this.props.commentFormConfig.items.find(
+                          field => field.name === fieldName,
+                        )}
+                        updatingField={this.state.updatingField}
+                        showValidityStatus={this.state.showValidityStatus}
+                        disabled={this.state.isFormSubmitting}
+                        onFieldChange={this.onFieldChange.bind(this)}
+                        fieldState={fieldState}
+                        onClickSubmit={this.onSubmit.bind(this)}
+                      />
+                    ))
+                    .toArray()}
+                </form>
+              </div>
+            )}
+          />
         )}
         {this.props.currentUser.isAuthenticated && this.state.canComment ? (
           <span className="place-detail-survey__submit-user-info">
-            <Avatar size="small" src={this.props.currentUser.avatar_url} />
-            <span className="place-detail-survey__username">
+            <UserAvatar size="small" src={this.props.currentUser.avatar_url} />
+            <RegularText
+              css={css`
+                margin-left: 8px;
+                font-weight: 800;
+              `}
+            >
               {this.props.currentUser.name}
-            </span>
-            <a
+            </RegularText>
+            <ExternalLink
+              css={css`
+                font-family: ${this.props.theme.text.bodyFontFamily};
+              `}
               className="place-detail-survey__logout-button"
               href={this.props.appConfig.api_root + "users/logout/"}
             >
-              {this.props.t("logOut")}
-            </a>
+              {this.props.t("logOut", "Log out")}
+            </ExternalLink>
           </span>
         ) : null}
       </div>
@@ -216,11 +292,12 @@ Survey.propTypes = {
   currentUser: PropTypes.object,
   submitter: PropTypes.object,
   t: PropTypes.func.isRequired,
-  userToken: PropTypes.string,
+  theme: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   appConfig: appConfigSelector(state),
+  datasets: datasetsSelector(state),
   hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
     hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
   commentFormConfig: commentFormConfigSelector(state),
@@ -231,7 +308,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(createPlaceComment(placeId, commentData)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("Survey")(Survey));
+export default withTheme(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withTranslation("Survey")(Survey)),
+);

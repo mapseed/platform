@@ -1,69 +1,124 @@
-/*
- * This CSS file follows the default Shareabouts style.css.
- * All rules herein will override the default Shareabouts styles.
- * NOTE: "With great power comes great responsibility."
- */
-
-#site-title a:link,
-#site-title a:visited {
-  display: block;
-  float: left;
-  width: 350px;
-  height: 50px;
-  overflow: hidden;
-}
-
 /* =Header
 -------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css?family=Montserrat:700&display=swap");
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif !important;
+}
 
+.page-button {
+  margin-top: 32px;
+  margin-bottom: 32px;
+  text-align: center;
 
+  a {
+    color: #fff;
+    background-color: #217b87;
+    padding: 12px 16px 12px 16px;
+    border-radius: 4px;
 
-/* =Media Queries
--------------------------------------------------------------- */
-/* iphone 4 (320 x 480)*/
-
-@media only screen and (max-width: 60em) {
-  #site-title a:link,
-  #site-title a:visited {
-    width: 180px;
-    height: 25px;
-    background-size: 180px auto;
-  }
-  #place-form-type-choice {
-    padding-bottom: 1em;
-  }
-  #place-form-type-choice a.button {
-      display: block;
-      float: left;
-      width: 40%;
-      padding: .5em .5em;
-      margin: 0;
-      border: 2px solid white;
+    &:hover {
+      background-color: #0098ad;
+    }
   }
 }
 
-@media only screen and (max-width: 60em) {
-  #site-title a:link,
-  #site-title a:visited {
-    width: 180px;
-    height: 25px;
-    background-size: 180px auto;
-    margin: 10px 0 0 0;
+figure {
+  margin: 8px 0 0 0;
+  padding: 8px;
+
+  img {
+    max-width: 100%;
   }
 }
 
-@media only screen and (min-width: 768px) {
-  #place-form-type-choice a.button {
-    width: 40%;
-    font-size: 100%;
-    padding: 1em 1em;
-    margin: 0 2% 2% 0;
+#mapseed-site-logo {
+  height: 56px !important;
+  margin-left: 0 !important;
+}
+
+.form-stage-header-bar {
+  display: none !important;
+}
+
+[data-field-name="hub_information"],
+[data-field-name="hub_location_information"],
+[data-field-name="existing_hubs_information"],
+[data-field-name="bicycle_network_information"],
+[data-field-name="access_to_transit_information"],
+[data-field-name="request_bikeshare_parking"],
+[data-field-name="map_use"],
+[data-field-name="submission_info"] {
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+[data-field-name="map_use"],
+[data-field-name="request_bikeshare_parking"],
+[data-field-name="skip_to_map_use"],
+[data-field-name="skip_to_questionnaire"] {
+  padding: 0 0 16px 0;
+  margin: 0 0 16px 0;
+  display: flex !important;
+  justify-content: center;
+
+  .input-form__field-prompt-container {
+    display: none;
   }
 }
 
-@media only screen and (min-width: 1024px) {
+[data-field-name="skip_to_map_use"] {
+  margin-bottom: 0;
 }
 
-@media only screen and (min-width: 1300px) {
+label[for="input-form-skip_to_questionnaire"] {
+  background-color: #b5d222;
+  color: #fff;
+  margin: 0 !important;
+  padding: 12px 16px 12px 16px !important;
+  border: none !important;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #d1e665;
+  }
+
+  &:before {
+    display: none;
+  }
+}
+
+label[for="input-form-skip_to_map_use"] {
+  background-color: #217b87;
+  color: #fff;
+  margin: 0 !important;
+  padding: 12px 16px 12px 16px !important;
+  border: none !important;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #0098ad;
+  }
+
+  &:before {
+    display: none;
+  }
+}
+
+.big-checkbox-field__label--toggled {
+  border: 2px solid #b5d222 !important;
+
+  &:before {
+    background-color: #b5d222 !important;
+  }
+}
+
+.form-stage-text {
+  font-size: 1.15rem;
+  line-height: 1.4rem;
 }

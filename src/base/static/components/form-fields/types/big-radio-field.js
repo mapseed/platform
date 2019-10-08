@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { withTranslation } from "react-i18next";
 
 import RadioField from "./radio-field";
 import "./big-radio-field.scss";
@@ -27,7 +28,10 @@ const BigRadioField = props => {
         })}
         htmlFor={props.id}
       >
-        {props.label}
+        {props.t(
+          `radioFieldLabel${props.formId}${props.name}${props.id}`,
+          props.label,
+        )}
       </label>
     </div>
   );
@@ -35,11 +39,13 @@ const BigRadioField = props => {
 
 BigRadioField.propTypes = {
   checked: PropTypes.bool.isRequired,
+  formId: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 
@@ -47,4 +53,4 @@ BigRadioField.defaultProps = {
   hasAutofill: false,
 };
 
-export default BigRadioField;
+export default withTranslation("BigRadioField")(BigRadioField);

@@ -1,65 +1,60 @@
+/** @jsx jsx */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Map, OrderedMap, fromJS } from "immutable";
-import classNames from "classnames";
-import Spinner from "react-spinner";
+import { List, Map, OrderedMap, fromJS } from "immutable";
+import { css, jsx } from "@emotion/core";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import eventEmitter from "../../utils/event-emitter";
 
 import FormField from "../form-fields/form-field";
-import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import WarningMessagesContainer from "../molecules/warning-messages-container";
 import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InfoModal from "../organisms/info-modal";
+import { LoadingBar } from "../atoms/imagery";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
-import "./index.scss";
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
-import { mapConfigSelector } from "../../state/ducks/map-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { createPlace } from "../../state/ducks/places";
-import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
 import {
-  activeMarkerSelector,
-  geometryStyleSelector,
-  setActiveDrawingTool,
-  geometryStyleProps,
-  setActiveDrawGeometryId,
-} from "../../state/ducks/map-drawing-toolbar";
+  datasetClientSlugSelector,
+  datasetReportSelector,
+} from "../../state/ducks/datasets-config";
 import {
-  mapCenterpointSelector,
-  mapDraggedOrZoomedSelector,
   createFeaturesInGeoJSONSource,
   updateLayerGroupVisibility,
-} from "../../state/ducks/map";
+  mapViewportPropType,
+  layerGroupsSelector,
+  layerGroupsPropType,
+} from "../../state/ducks/map-style";
 import {
   hasAdminAbilities,
   hasGroupAbilitiesInDatasets,
   isInAtLeastOneGroup,
 } from "../../state/ducks/user";
-import { updateUIVisibility, layoutSelector } from "../../state/ducks/ui";
+import {
+  updateUIVisibility,
+  layoutSelector,
+  uiVisibilitySelector,
+} from "../../state/ducks/ui";
 import { jumpTo } from "../../utils/scroll-helpers";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
+import { Mixpanel } from "../../utils/mixpanel";
+import geoAnalysisClient from "../../client/geo-analysis-client";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
-
-// TEMPORARY: We define flavor hooks here for the time being.
-const MYWATER_SCHOOL_DISTRICTS = require("../../../../flavors/central-puget-sound/static/school-districts.json");
-const hooks = {
-  myWaterAddDistrict: attrs => {
-    attrs.district = MYWATER_SCHOOL_DISTRICTS[attrs["school-name"]] || "";
-
-    return attrs;
-  },
-};
+import mapseedPDFServiceClient from "../../client/pdf-service-client";
+import { mapViewportSelector } from "../../state/ducks/map";
 
 class InputForm extends Component {
   constructor(props) {
     super(props);
-
     this.initializeForm(props.selectedCategory);
     this.state = {
       fields: this.getNewFields(OrderedMap()),
@@ -82,8 +77,19 @@ class InputForm extends Component {
         this.state.currentStage - 1
       ];
 
-      this.setStageLayers(stageConfig);
+      stageConfig.visibleLayerGroupIds &&
+        this.updateLayerGroupVisibilities(
+          stageConfig.visibleLayerGroupIds,
+          true,
+        );
+      stageConfig.viewport &&
+        eventEmitter.emit("setMapViewport", stageConfig.viewport);
     }
+
+    this.selectedCategoryConfig.visibleLayerGroupIds &&
+      this.updateLayerGroupVisibilities(
+        this.selectedCategoryConfig.visibleLayerGroupIds,
+      );
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -99,37 +105,55 @@ class InputForm extends Component {
         formValidationErrors: new Set(),
         showValidityStatus: false,
       });
+
+      this.selectedCategoryConfig.visibleLayerGroupIds &&
+        this.updateLayerGroupVisibilities(
+          this.selectedCategoryConfig.visibleLayerGroupIds,
+        );
     }
 
     if (
-      this.state.currentStage !== prevState.currentStage &&
-      this.selectedCategoryConfig.multi_stage
+      this.selectedCategoryConfig.multi_stage &&
+      this.state.currentStage !== prevState.currentStage
     ) {
-      // Configure layer visibility for this form stage.
       const stageConfig = this.selectedCategoryConfig.multi_stage[
         this.state.currentStage - 1
       ];
+      const stageFields = this.getFieldsFromStage({
+        fields: this.state.fields,
+        stage: stageConfig,
+      });
 
-      this.setStageLayers(stageConfig);
+      if (!stageFields.some(field => field.get("isVisible"))) {
+        this.setState({
+          currentStage:
+            this.state.currentStage +
+            (this.state.currentStage > prevState.currentStage ? 1 : -1),
+        });
+      } else {
+        // Configure layer visibility and set the viewport for this form stage.
+        stageConfig.visibleLayerGroupIds &&
+          this.updateLayerGroupVisibilities(
+            stageConfig.visibleLayerGroupIds,
+            true,
+          );
+        stageConfig.viewport &&
+          eventEmitter.emit("setMapViewport", stageConfig.viewport);
+      }
     }
   }
 
-  setStageLayers(stageConfig) {
-    if (stageConfig.visibleLayerGroupIds) {
-      // Set layers for this stage.
-      stageConfig.visibleLayerGroupIds.forEach(layerGroupId =>
-        this.props.updateLayerGroupVisibility(layerGroupId, true),
-      );
-      // Hide all other layers.
-      this.props.mapConfig.layerGroups
-        .filter(
-          layerGroup =>
-            !stageConfig.visibleLayerGroupIds.includes(layerGroup.id),
-        )
-        .forEach(layerGroup =>
-          this.props.updateLayerGroupVisibility(layerGroup.id, false),
+  updateLayerGroupVisibilities(layerGroupIds, hideOthers = false) {
+    layerGroupIds.forEach(layerGroupId =>
+      this.props.updateLayerGroupVisibility(layerGroupId, true),
+    );
+
+    hideOthers &&
+      this.props.layerGroups.allIds
+        .filter(layerGroupId => !layerGroupIds.includes(layerGroupId))
+        .forEach(layerGroupId =>
+          this.props.updateLayerGroupVisibility(layerGroupId, false),
         );
-    }
   }
 
   getNewFields(prevFields) {
@@ -142,13 +166,12 @@ class InputForm extends Component {
         return memo.set(
           field.name,
           Map({
-            // If this fields has a "forced_default_value", then its default
+            // If this field has a "forced_default_value", then its default
             // value will be set and sent on submission even if the field
             // remains invisible and is never rendered.
             value: fieldConfig.get("forced_default_value") || "",
             config: fieldConfig,
-            trigger: field.trigger && field.trigger.trigger_value,
-            triggerTargets: field.trigger && fromJS(field.trigger.targets),
+            triggers: fromJS(field.triggers),
             // A field will be hidden if it is explicitly declared as
             // hidden_default in the config, or if it is restricted to a
             // group and the current user is not in that group or is not in
@@ -156,16 +179,17 @@ class InputForm extends Component {
             isVisible: field.hidden_default
               ? false
               : fieldConfig.has("restrictToGroups")
-                ? this.props.isInAtLeastOneGroup(
-                    fieldConfig.get("restrictToGroups"),
-                    this.props.datasetSlug,
-                  ) || this.props.hasAdminAbilities(this.props.datasetSlug)
-                : true,
+              ? this.props.isInAtLeastOneGroup(
+                  fieldConfig.get("restrictToGroups"),
+                  this.props.datasetSlug,
+                ) || this.props.hasAdminAbilities(this.props.datasetSlug)
+              : true,
             renderKey: prevFields.has(field.name)
               ? prevFields.getIn([field.name, "renderKey"]) + "_"
               : this.selectedCategoryConfig.category + field.name,
             isAutoFocusing: prevFields.get("isAutoFocusing"),
             advanceStage: field.advance_stage_on_value,
+            advanceToArbitraryStage: field.advance_to_arbitrary_stage,
           }),
         );
       }, OrderedMap());
@@ -176,17 +200,8 @@ class InputForm extends Component {
       this.props.placeConfig,
       selectedCategory,
     );
-    this.isWithCustomGeometry =
-      this.selectedCategoryConfig.fields.findIndex(
-        field => field.type === "map_drawing_toolbar",
-      ) >= 0;
     this.attachments = [];
-    if (this.isWithCustomGeometry) {
-      this.props.updateSpotlightMaskVisibility(false);
-      this.props.updateMapCenterpointVisibility(false);
-    } else {
-      this.props.updateMapCenterpointVisibility(true);
-    }
+    this.props.updateMapCenterpointVisibility(true);
   }
 
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
@@ -196,9 +211,39 @@ class InputForm extends Component {
     );
 
     // Check if this field triggers the visibility of other fields(s)
-    if (fieldStatus.get("trigger") && !isInitializing) {
-      const isVisible = fieldStatus.get("trigger") === fieldStatus.get("value");
-      this.triggerFieldVisibility(fieldStatus.get("triggerTargets"), isVisible);
+    const triggers = fieldStatus.get("triggers");
+    if (triggers && !isInitializing) {
+      const fieldValue = fieldStatus.get("value");
+      const triggeredFields = triggers.reduce((memo, trigger) => {
+        if (
+          // Fields values may be in list form, if the field type is a
+          // checkbox.
+          List.isList(fieldValue) &&
+          fieldValue.includes(trigger.get("value"))
+        ) {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, true);
+          });
+        } else if (fieldValue === trigger.get("value")) {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, true);
+          });
+        } else {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, false);
+          });
+        }
+
+        return memo;
+      }, Map());
+
+      this.setState({
+        fields: this.state.fields.map((field, fieldName) => {
+          return triggeredFields.has(fieldName)
+            ? field.set("isVisible", triggeredFields.get(fieldName))
+            : field;
+        }),
+      });
     }
 
     this.setState(({ fields }) => ({
@@ -226,21 +271,28 @@ class InputForm extends Component {
         });
       });
     }
-  }
 
-  triggerFieldVisibility(targets, isVisible) {
-    this.setState({
-      fields: this.state.fields.map((field, fieldName) => {
-        return targets.includes(fieldName)
-          ? field
-              .set("isVisible", isVisible)
-              .set(
-                "isAutoFocusing",
-                targets.indexOf(fieldName) === 0 && isVisible,
-              )
-          : field;
-      }),
-    });
+    // Check if this field should advance to an arbitrary stage.
+    if (
+      fieldStatus.get("advanceToArbitraryStage") &&
+      fieldStatus.get("advanceToArbitraryStage").value ===
+        fieldStatus.get("value") &&
+      !isInitializing
+    ) {
+      this.validateForm(() => {
+        jumpTo({
+          contentPanelInnerContainerRef: this.props
+            .contentPanelInnerContainerRef,
+          scrollPosition: 0,
+          layout: this.props.layout,
+        });
+        this.setState({
+          currentStage: fieldStatus.get("advanceToArbitraryStage").stage,
+          showValidityStatus: false,
+          formValidationErrors: new Set(),
+        });
+      });
+    }
   }
 
   onAddAttachment(attachment) {
@@ -248,7 +300,7 @@ class InputForm extends Component {
   }
 
   validateForm(successCallback) {
-    let {
+    const {
       validationErrors: newValidationErrors,
       isValid,
     } = this.getFields().reduce(
@@ -261,11 +313,6 @@ class InputForm extends Component {
       },
       { validationErrors: new Set(), isValid: true },
     );
-
-    if (!this.props.isMapDraggedOrZoomed) {
-      newValidationErrors.add("mapNotDragged");
-      isValid = false;
-    }
 
     if (isValid) {
       successCallback();
@@ -283,19 +330,29 @@ class InputForm extends Component {
   }
 
   onSubmit() {
+    if (this.state.isFormSubmitting) {
+      return;
+    }
+
     Util.log("USER", "new-place", "submit-place-btn-click");
 
-    this.validateForm(this.createPlace);
+    Mixpanel.track("Clicked place form submit");
+    this.validateForm(this.submitForm);
   }
 
-  createPlace = async () => {
+  submitForm = async () => {
     this.setState({
       isFormSubmitting: true,
     });
 
     let attrs = {
       ...this.state.fields
-        .filter(state => !!state.get("value"))
+        .filter(state => {
+          return (
+            state.get("config").get("type") !== "lng_lat" &&
+            !!state.get("value")
+          );
+        })
         .map(state => state.get("value"))
         .toJS(),
       location_type: this.selectedCategoryConfig.category,
@@ -306,18 +363,11 @@ class InputForm extends Component {
     // TODO: Make a special form field to encapsulate this.
     attrs.private = attrs.private === "yes" ? true : false;
 
-    if (this.state.fields.get("geometry")) {
-      attrs["style"] =
-        this.state.fields.getIn(["geometry", "value"]).type === "Point"
-          ? { "marker-symbol": this.props.activeMarker }
-          : this.props.geometryStyle;
-    } else {
-      const { longitude, latitude } = this.props.mapCenterpoint;
-      attrs.geometry = {
-        type: "Point",
-        coordinates: [longitude, latitude],
-      };
-    }
+    const { longitude, latitude } = this.props.mapViewport;
+    attrs.geometry = {
+      type: "Point",
+      coordinates: [longitude, latitude],
+    };
 
     // Replace image data in rich text fields with placeholders built from each
     // image's name.
@@ -329,11 +379,23 @@ class InputForm extends Component {
         attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
       });
 
-    // Fire pre-save hook.
-    // The pre-save hook allows flavors to attach arbitrary data to the attrs
-    // object before submission to the database.
-    if (this.props.customHooks && this.props.customHooks.preSave) {
-      attrs = hooks[this.props.customHooks.preSave](attrs);
+    // Run geospatial analyses:
+    if (
+      this.selectedCategoryConfig.geospatialAnalysis &&
+      attrs.geometry.type === "Point"
+    ) {
+      const geospatialAnalysisAttrs = await geoAnalysisClient.analyze({
+        analyses: this.selectedCategoryConfig.geospatialAnalysis,
+        inputGeometry: attrs.geometry,
+      });
+
+      if (geospatialAnalysisAttrs) {
+        // eslint-disable-next-line require-atomic-updates
+        attrs = {
+          ...attrs,
+          ...geospatialAnalysisAttrs,
+        };
+      }
     }
 
     const placeResponse = await mapseedApiClient.place.create({
@@ -358,7 +420,7 @@ class InputForm extends Component {
         "No internet connection detected. Your submission may not be successful until you are back online.",
       );
       Util.log("USER", "place", "submitted-offline-place");
-      this.props.router.navigate("/", { trigger: true });
+      this.props.history.push("/");
       return;
     }
     Util.log("USER", "new-place", "successfully-add-place");
@@ -385,6 +447,20 @@ class InputForm extends Component {
           }
         }),
       );
+    }
+
+    // Generate a PDF for the user if configured to do so.
+    if (this.props.datasetReportSelector(this.props.datasetSlug)) {
+      mapseedPDFServiceClient.getPDF({
+        url: `${window.location.protocol}//${
+          window.location.host
+        }/print-report/${this.props.datasetClientSlugSelector(
+          this.props.datasetSlug,
+        )}/${placeResponse.id}`,
+        filename: this.props.datasetReportSelector(this.props.datasetSlug)
+          .filename,
+        jwtPublic: placeResponse.jwt_public,
+      });
     }
 
     if (
@@ -423,17 +499,12 @@ class InputForm extends Component {
       // If the Place is note private, follow the default route-to-detail-view
       // behavior.
       this.defaultPostSave(placeResponse);
-      this.props.router.navigate(
+      this.props.history.push(
         `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
           placeResponse.id
         }`,
-        {
-          trigger: true,
-        },
       );
     }
-
-    this.props.setActiveDrawGeometryId(null);
   };
 
   defaultPostSave(placeResponse) {
@@ -441,7 +512,7 @@ class InputForm extends Component {
     this.props.createFeaturesInGeoJSONSource(
       // "sourceId" and a place's datasetSlug are the same thing.
       this.props.datasetSlug,
-      toClientGeoJSONFeature(placeResponse),
+      [toClientGeoJSONFeature(placeResponse)],
     );
 
     // Save autofill values as necessary.
@@ -490,21 +561,16 @@ class InputForm extends Component {
     return fields.slice(stage.start_field_index - 1, stage.end_field_index);
   }
 
-  render() {
-    const cn = {
-      form: classNames("input-form__form", this.props.className, {
-        "input-form__form--inactive": this.state.isFormSubmitting,
-      }),
-      warningMsgs: classNames("input-form__warning-msgs-container", {
-        "input-form__warning-msgs-container--visible":
-          this.state.formValidationErrors.size > 0 &&
-          this.state.showValidityStatus,
-      }),
-      spinner: classNames("input-form__submit-spinner", {
-        "input-form__submit-spinner--visible": this.state.isFormSubmitting,
-      }),
-    };
+  onClickModal = modalContent => {
+    this.setState({
+      isInfoModalOpen: true,
+      infoModalHeader: modalContent.header,
+      infoModalBody: modalContent.body,
+      routeOnClose: false,
+    });
+  };
 
+  render() {
     return (
       <>
         <InfoModal
@@ -514,12 +580,18 @@ class InputForm extends Component {
           onClose={() => {
             this.setState({ isInfoModalOpen: false });
             this.state.routeOnClose &&
-              this.props.router.navigate(this.state.routeOnClose, {
-                trigger: true,
-              });
+              this.props.history.push(this.state.routeOnClose);
           }}
         />
-        <div className="input-form">
+        <div
+          css={css`
+            padding-bottom: ${this.selectedCategoryConfig.multi_stage
+              ? this.props.layout === "desktop"
+                ? "122px"
+                : "60px"
+              : "30px"};
+          `}
+        >
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageHeaderBar
               stageConfig={
@@ -531,18 +603,25 @@ class InputForm extends Component {
           )}
           {this.state.formValidationErrors.size > 0 && (
             <WarningMessagesContainer
-              errors={[...this.state.formValidationErrors]}
-              headerMsg={this.props.t("validationHeader")}
+              errors={this.state.formValidationErrors}
+              headerMsg={this.props.t(
+                "validationHeader",
+                "Your post is looking good, but we need some more information before we can proceed.",
+              )}
             />
           )}
           <form
+            css={css`
+              opacity: ${this.state.isFormSubmitting ? 0.3 : 1};
+            `}
             id="mapseed-input-form"
-            className={cn.form}
             onSubmit={evt => evt.preventDefault()}
           >
             {this.getFields()
               .map(field => (
                 <FormField
+                  formId={this.selectedCategoryConfig.formId}
+                  onClickModal={this.onClickModal}
                   fieldConfig={field.get("config").toJS()}
                   disabled={this.state.isFormSubmitting}
                   fieldState={field}
@@ -550,7 +629,6 @@ class InputForm extends Component {
                   key={field.get("renderKey")}
                   onAddAttachment={this.onAddAttachment.bind(this)}
                   onFieldChange={this.onFieldChange.bind(this)}
-                  router={this.props.router}
                   showValidityStatus={this.state.showValidityStatus}
                   updatingField={this.state.updatingField}
                   onClickSubmit={this.onSubmit.bind(this)}
@@ -558,10 +636,12 @@ class InputForm extends Component {
               ))
               .toArray()}
           </form>
-          {this.state.isFormSubmitting && <Spinner />}
+          {this.state.isFormSubmitting && <LoadingBar />}
 
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageControlBar
+              isRightSidebarVisible={this.props.isRightSidebarVisible}
+              layout={this.props.layout}
               onClickAdvanceStage={() => {
                 this.validateForm(() => {
                   jumpTo({
@@ -610,7 +690,6 @@ class InputForm extends Component {
 
 InputForm.propTypes = {
   activeMarker: PropTypes.string,
-  className: PropTypes.string,
   customHooks: PropTypes.oneOfType([
     PropTypes.objectOf(PropTypes.func),
     PropTypes.bool,
@@ -620,39 +699,34 @@ InputForm.propTypes = {
   createPlace: PropTypes.func.isRequired,
   datasetClientSlugSelector: PropTypes.func.isRequired,
   datasetUrl: PropTypes.string.isRequired,
+  datasetReportSelector: PropTypes.func.isRequired,
   datasetSlug: PropTypes.string.isRequired,
-  geometryStyle: geometryStyleProps,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   isContinuingFormSession: PropTypes.bool,
   isFormResetting: PropTypes.bool,
   isFormSubmitting: PropTypes.bool,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
-  isLeavingForm: PropTypes.bool,
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
+  isRightSidebarVisible: PropTypes.bool.isRequired,
   isSingleCategory: PropTypes.bool,
+  layerGroups: layerGroupsPropType,
   layout: PropTypes.string.isRequired,
-  mapConfig: PropTypes.object.isRequired,
-  mapCenterpoint: PropTypes.object,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
   renderCount: PropTypes.number,
-  router: PropTypes.object.isRequired,
   selectedCategory: PropTypes.string.isRequired,
-  setActiveDrawingTool: PropTypes.func.isRequired,
-  setActiveDrawGeometryId: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
-  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   updateLayerGroupVisibility: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  activeMarker: activeMarkerSelector(state),
   datasetClientSlugSelector: datasetSlug =>
     datasetClientSlugSelector(state, datasetSlug),
-  geometryStyle: geometryStyleSelector(state),
+  datasetReportSelector: datasetSlug =>
+    datasetReportSelector(state, datasetSlug),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
     hasGroupAbilitiesInDatasets({
@@ -663,24 +737,19 @@ const mapStateToProps = state => ({
     }),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
-  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
+  isRightSidebarVisible: uiVisibilitySelector("rightSidebar", state),
+  layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
-  mapConfig: mapConfigSelector(state),
-  mapCenterpoint: mapCenterpointSelector(state),
   placeConfig: placeConfigSelector(state),
+  mapViewport: mapViewportSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   createFeaturesInGeoJSONSource: (sourceId, sourceData) =>
     dispatch(createFeaturesInGeoJSONSource(sourceId, sourceData)),
-  setActiveDrawGeometryId: id => dispatch(setActiveDrawGeometryId(id)),
-  setActiveDrawingTool: activeDrawingTool =>
-    dispatch(setActiveDrawingTool(activeDrawingTool)),
   createPlace: place => dispatch(createPlace(place)),
   updateLayerGroupVisibility: (layerGroupId, isVisible) =>
     dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
-  updateSpotlightMaskVisibility: isVisible =>
-    dispatch(updateUIVisibility("spotlightMask", isVisible)),
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
 });
@@ -688,7 +757,9 @@ const mapDispatchToProps = dispatch => ({
 // Export undecorated component for testing purposes.
 export { InputForm };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("InputForm")(InputForm));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withTranslation("InputForm")(InputForm)),
+);

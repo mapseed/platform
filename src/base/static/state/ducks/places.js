@@ -7,11 +7,7 @@ export const placePropType = PropTypes.shape({
   created_datetime: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  // NOTE: the _ prefix indicates that the attribute won't be sent to the
-  // server after serializaation
-  // TODO: remove the _ prefix from _datasetSlug, because it is causing
-  // confusion
-  _datasetSlug: PropTypes.string.isRequired,
+  datasetSlug: PropTypes.string.isRequired,
   submitter_name: PropTypes.string,
   submission_sets: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
@@ -30,24 +26,41 @@ export const placesLoadStatusSelector = state => {
 export const placesSelector = state => {
   return state.places.placeModels;
 };
+export const datasetPlacesSelector = (datasetSlug, state) => {
+  return state.places.placeModels.filter(
+    place => place.datasetSlug === datasetSlug,
+  );
+};
 
 export const filteredPlacesSelector = state => {
-  const filters = state.filters;
-  if (!state.places.placeModels || filters.length === 0) {
+  const placeFilters = state.placeFilters;
+
+  if (!state.places.placeModels || placeFilters.length === 0) {
     return state.places.placeModels;
   }
-  // a formId and a location_type are currenty equivalent
+
   return state.places.placeModels.filter(place => {
-    return !!filters.some(
-      filter =>
-        filter.formId === place.location_type &&
-        filter.datasetSlug === place._datasetSlug,
-    );
+    return placeFilters.some(placeFilter => {
+      switch (placeFilter.operator) {
+        case "includes":
+          return (
+            placeFilter.datasetSlug === place.datasetSlug &&
+            Array.isArray(place[placeFilter.placeProperty]) &&
+            place[placeFilter.placeProperty].includes(placeFilter.value)
+          );
+        case "equals":
+        default:
+          return (
+            placeFilter.datasetSlug === place.datasetSlug &&
+            place[placeFilter.placeProperty] === placeFilter.value
+          );
+      }
+    });
   });
 };
 
 export const datasetLengthSelector = (state, datasetSlug) =>
-  state.places.placeModels.filter(place => place._datasetSlug === datasetSlug)
+  state.places.placeModels.filter(place => place.datasetSlug === datasetSlug)
     .length;
 
 export const placeSelector = (state, placeId) => {
@@ -58,12 +71,6 @@ export const focusedPlaceSelector = state =>
   state.places.placeModels.find(
     place => place.id === state.places.focusedPlaceId,
   );
-
-export const placeExists = (state, placeId) => {
-  return !!state.places.placeModels.find(
-    place => place.id === parseInt(placeId),
-  );
-};
 
 export const activeEditPlaceIdSelector = state => {
   return state.places.activeEditPlaceId;
@@ -109,20 +116,17 @@ export function updateFocusedPlaceId(placeId) {
   };
 }
 
-const ensureSubmissionSetsAndStory = (place, storyChapters = []) => ({
+const mapPlaceWithSubmissionSets = place => ({
   ...place,
   submission_sets: {
     ...place.submission_sets,
     support: place.submission_sets.support || [],
     comments: place.submission_sets.comments || [],
   },
-  story: storyChapters.find(chapter => chapter.placeId === place.id) || null,
 });
 
-export function loadPlaces(places, storyChapters) {
-  places = places.map(place =>
-    ensureSubmissionSetsAndStory(place, storyChapters),
-  );
+export function loadPlaces(places) {
+  places = places.map(place => mapPlaceWithSubmissionSets(place));
 
   return { type: LOAD_PLACES, payload: places };
 }
@@ -130,7 +134,7 @@ export function loadPlaces(places, storyChapters) {
 export function loadPlaceAndSetIgnoreFlag(placeModel) {
   return {
     type: LOAD_PLACE_AND_SET_IGNORE_FLAG,
-    payload: ensureSubmissionSetsAndStory(placeModel),
+    payload: mapPlaceWithSubmissionSets(placeModel),
   };
 }
 
@@ -293,9 +297,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.support = place.submission_sets.support.concat(
-              action.payload.supportData,
-            );
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                support: place.submission_sets.support.concat(
+                  action.payload.supportData,
+                ),
+              },
+            };
           }
 
           return place;
@@ -306,9 +316,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.support = place.submission_sets.support.filter(
-              support => support.id !== action.payload.supportId,
-            );
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                support: place.submission_sets.support.filter(
+                  support => support.id !== action.payload.supportId,
+                ),
+              },
+            };
           }
 
           return place;
@@ -319,9 +335,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.comments = place.submission_sets.comments.concat(
-              action.payload.commentData,
-            );
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                comments: place.submission_sets.comments.concat(
+                  action.payload.commentData,
+                ),
+              },
+            };
           }
 
           return place;
@@ -332,9 +354,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.comments = place.submission_sets.comments.filter(
-              comment => comment.id !== action.payload.commentId,
-            );
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                comments: place.submission_sets.comments.filter(
+                  comment => comment.id !== action.payload.commentId,
+                ),
+              },
+            };
           }
 
           return place;
@@ -345,15 +373,19 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(place => {
           if (place.id === action.payload.placeId) {
-            place.submission_sets.comments = place.submission_sets.comments.map(
-              comment => {
-                if (comment.id === action.payload.commentData.id) {
-                  comment = action.payload.commentData;
-                }
+            return {
+              ...place,
+              submission_sets: {
+                ...place.submission_sets,
+                comments: place.submission_sets.comments.map(comment => {
+                  if (comment.id === action.payload.commentData.id) {
+                    comment = action.payload.commentData;
+                  }
 
-                return comment;
+                  return comment;
+                }),
               },
-            );
+            };
           }
 
           return place;

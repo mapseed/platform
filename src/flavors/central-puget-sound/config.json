@@ -1,8 +1,14 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
   "datasets": [
     {
       "slug": "mw",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mw",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -13,18 +19,18 @@
     },
     {
       "slug": "mwfeatured",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mwfeatured",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mwfeatured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {
           "abilities": ["create"],
-          "submission_set": "comments"
+          "submission_set": "*"
         }
       ]
     },
     {
       "slug": "mw-featured-projects",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/mw-featured-projects",
+      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/mw-featured-projects",
       "clientSlug": "project",
       "anonymous_permissions": [
         {
@@ -38,9 +44,9 @@
     "title": "My Watershed - Central Puget Sound",
     "name": "My Watershed",
     "show_name_in_header": true,
-    "meta_description": "_(Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.)",
+    "meta_description": "Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "accent": "#007fbf"
@@ -52,23 +58,24 @@
       "text": {
         "tertiary": "#007ec0",
         "titleColor": "#127de4",
-        "titleFontFamily": "Palanquin; sans-serif",
+        "bodyFontFamily": "Roboto, sans-serif",
+        "titleFontFamily": "Palanquin, sans-serif",
         "secondary": "#fff"
       }
     }
   },
   "map": {
-    "geolocation_enabled": true,
-    "options": {
-      "mapViewport": {
-        "latitude": 47.66909,
-        "longitude": -122.39593,
-        "zoom": 8,
-        "minZoom": 1,
-        "maxZoom": 18,
-        "pitch": 30
-      }
-    },
+    "geolocationEnabled": true,
+    "mapViewport": {
+      "latitude": 47.66909,
+      "longitude": -122.39593,
+      "zoom": 8,
+      "minZoom": 1,
+      "maxZoom": 18,
+      "pitch": 30
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "satellite": {
         "type": "raster",
@@ -89,7 +96,8 @@
         "type": "raster",
         "tiles": [
           "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
-        ]
+        ],
+        "tileSize": 256
       },
       "sub-basins": {
         "type": "raster",
@@ -843,9 +851,29 @@
             "source": "mw",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "marker-dot-conserve-water.png",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "conserve-water",
+                "marker-conserve-water.png",
+                "prevent-stormwater",
+                "marker-prevent-stormwater.png",
+                "only-flush",
+                "marker-only-flush.png",
+                "conserve-energy",
+                "marker-conserve-energy.png",
+                "waste-less",
+                "marker-waste-less.png",
+                "commute-low-carbon",
+                "marker-commute-low-carbon.png",
+                "eat-local-organic",
+                "marker-eat-local-organic.png",
+                "restore-salmon-habitat",
+                "marker-restore-salmon-habitat.png",
+                "__no-icon-image__"
+              ],
               "icon-size": 0.5,
-              "icon-anchor": "center"
+              "icon-anchor": "bottom"
             }
           }
         ],
@@ -856,9 +884,55 @@
             "source": "mw",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "marker-dot-conserve-water.png",
-              "icon-size": 0.15,
-              "icon-anchor": "center"
+              "icon-image": [
+                "step",
+                ["zoom"],
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "conserve-water",
+                  "marker-dot-conserve-water.png",
+                  "prevent-stormwater",
+                  "marker-dot-prevent-stormwater.png",
+                  "only-flush",
+                  "marker-dot-only-flush.png",
+                  "conserve-energy",
+                  "marker-dot-conserve-energy.png",
+                  "waste-less",
+                  "marker-dot-waste-less.png",
+                  "commute-low-carbon",
+                  "marker-dot-commute-low-carbon.png",
+                  "eat-local-organic",
+                  "marker-dot-eat-local-organic.png",
+                  "restore-salmon-habitat",
+                  "marker-dot-restore-salmon-habitat.png",
+                  "__no-icon-image__"
+                ],
+                12,
+                [
+                  "match",
+                  ["get", "location_type"],
+                  "conserve-water",
+                  "marker-conserve-water.png",
+                  "prevent-stormwater",
+                  "marker-prevent-stormwater.png",
+                  "only-flush",
+                  "marker-only-flush.png",
+                  "conserve-energy",
+                  "marker-conserve-energy.png",
+                  "waste-less",
+                  "marker-waste-less.png",
+                  "commute-low-carbon",
+                  "marker-commute-low-carbon.png",
+                  "eat-local-organic",
+                  "marker-eat-local-organic.png",
+                  "restore-salmon-habitat",
+                  "marker-restore-salmon-habitat.png",
+                  "__no-icon-image__"
+                ]
+              ],
+              "icon-size": ["step", ["zoom"], 0.3, 12, 0.4],
+              "icon-anchor": ["step", ["zoom"], "center", 12, "bottom"]
             }
           }
         ]
@@ -866,7 +940,7 @@
       {
         "id": "mw-featured-projects",
         "datasetSlug": "mw-featured-projects",
-        "visibleDefault": true,
+        "visibleDefault": false,
         "interactive": true,
         "mapboxFocusedLayers": [
           {
@@ -878,9 +952,10 @@
               ["==", ["get", "location_type"], "featured_project"]
             ],
             "layout": {
-              "icon-image": "marker-dot-commute-low-carbon.png",
-              "icon-size": 0.5,
-              "icon-anchor": "center"
+              "icon-allow-overlap": true,
+              "icon-image": "marker-star-silver.png",
+              "icon-size": 0.7,
+              "icon-anchor": "bottom"
             }
           }
         ],
@@ -894,9 +969,10 @@
               ["==", ["get", "location_type"], "featured_project"]
             ],
             "layout": {
-              "icon-image": "marker-dot-commute-low-carbon.png",
-              "icon-size": 0.15,
-              "icon-anchor": "center"
+              "icon-allow-overlap": true,
+              "icon-image": "marker-star-silver.png",
+              "icon-size": 0.5,
+              "icon-anchor": "bottom"
             }
           }
         ]
@@ -905,96 +981,38 @@
         "id": "mwfeatured",
         "datasetSlug": "mwfeatured",
         "interactive": true,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxFocusedLayers": [
           {
-            "id": "mwfeatured-focused-points",
+            "id": "mwfeatured-focused",
             "type": "symbol",
             "source": "mwfeatured",
-            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "featured_place"]
+            ],
             "layout": {
-              "icon-image": "marker-dot-conserve-water.png",
-              "icon-size": 0.5,
-              "icon-anchor": "center"
+              "icon-allow-overlap": true,
+              "icon-image": "marker-star-gold.png",
+              "icon-size": 0.7,
+              "icon-anchor": "bottom"
             }
           }
         ],
         "mapboxLayers": [
           {
-            "id": "mwfeatured-points",
+            "id": "mwfeatured",
             "type": "symbol",
             "source": "mwfeatured",
-            "filter": ["==", ["geometry-type"], "Point"],
+            "filter": [
+              "all",
+              ["==", ["get", "location_type"], "featured_place"]
+            ],
             "layout": {
               "icon-allow-overlap": true,
+              "icon-image": "marker-star-gold.png",
               "icon-size": 0.5,
-              "icon-anchor": "bottom",
-              "icon-image": [
-                "case",
-                ["has", "marker-symbol", ["get", "style"]],
-                ["get", "marker-symbol", ["get", "style"]],
-                "marker-dot-conserve-water.png"
-              ]
-            }
-          },
-          {
-            "id": "mwfeatured-lines",
-            "type": "line",
-            "source": "mwfeatured",
-            "filter": ["==", ["geometry-type"], "LineString"],
-            "paint": {
-              "line-color": [
-                "case",
-                ["has", "stroke", ["get", "style"]],
-                ["get", "stroke", ["get", "style"]],
-                "#f86767"
-              ],
-              "line-opacity": [
-                "case",
-                ["has", "stroke-opacity", ["get", "style"]],
-                ["get", "stroke-opacity", ["get", "style"]],
-                0.7
-              ]
-            }
-          },
-          {
-            "id": "mwfeatured-polygons",
-            "type": "fill",
-            "source": "mwfeatured",
-            "filter": ["==", ["geometry-type"], "Polygon"],
-            "paint": {
-              "fill-color": [
-                "case",
-                ["has", "fill", ["get", "style"]],
-                ["get", "fill", ["get", "style"]],
-                "#f86767"
-              ],
-              "fill-opacity": [
-                "case",
-                ["has", "fill-opacity", ["get", "style"]],
-                ["get", "fill-opacity", ["get", "style"]],
-                0.7
-              ]
-            }
-          },
-          {
-            "id": "mwfeatured-polygon-outlines",
-            "type": "line",
-            "source": "mwfeatured",
-            "filter": ["==", ["geometry-type"], "Polygon"],
-            "paint": {
-              "line-color": [
-                "case",
-                ["has", "stroke", ["get", "style"]],
-                ["get", "stroke", ["get", "style"]],
-                "#f86767"
-              ],
-              "line-opacity": [
-                "case",
-                ["has", "stroke-opacity", ["get", "style"]],
-                ["get", "stroke-opacity", ["get", "style"]],
-                0.7
-              ]
+              "icon-anchor": "bottom"
             }
           }
         ]
@@ -1004,225 +1022,215 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": false,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "_(Basemaps)",
-            "layerGroups": [
-              {
-                "id": "topo",
-                "title": "_(Topography)",
-                "info": {
-                  "header": "_(Topography)",
-                  "body": "_(Beautiful colors and shaded elevation, produced by Stamen Designs)"
-                }
-              },
-              {
-                "id": "hillshade",
-                "title": "_(Hillshade)",
-                "info": {
-                  "title": "_(Hillshade)",
-                  "body": "_(Shaded terrain that pops with clarity. A bold grey color, great for layering)"
-                }
-              },
-              {
-                "id": "hydrography",
-                "title": "_(Hydrography)",
-                "info": {
-                  "title": "_(Hydrography)",
-                  "body": "_(Explore our connection through waterways and watch the magic as political boundaries disappear)"
-                }
-              },
-              {
-                "id": "bath",
-                "title": "_(Bathymetry)",
-                "info": {
-                  "title": "_(Bathymetry)",
-                  "body": "_(The shape and depth of the ocean floor. What does it tell us about the history of this place?)"
-                }
-              },
-              {
-                "id": "satellite",
-                "title": "_(Satellite View)",
-                "info": {
-                  "title": "_(Satellite View)",
-                  "body": "_(A bird’s eye view of the world)"
-                }
-              },
-              {
-                "id": "1936aerial",
-                "title": "_(1936 Aerial View)",
-                "info": {
-                  "title": "_(1936 Aerial View)",
-                  "body": "_(Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936.)"
-                }
-              },
-              {
-                "id": "light-nolabels",
-                "title": "_(Simple Canvas)",
-                "info": {
-                  "title": "_(Simple Canvas)",
-                  "body": "_(Beautiful colors and shaded elevation, produced by Stamen Designs)"
-                }
-              }
-            ]
+            "layerGroupId": "topo",
+            "title": "Topography",
+            "info": {
+              "header": "Topography",
+              "body": "Beautiful colors and shaded elevation, produced by Stamen Designs"
+            }
           },
           {
-            "id": "grp-map-layers",
-            "title": "_(Map Layers)",
-            "layerGroups": [
-              {
-                "id": "mwfeatured",
-                "title": "_(Featured Sites)",
-                "info": {
-                  "title": "_(Featured Sites)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "mw-featured-projects",
-                "title": "_(Featured Projects)"
-              },
-              {
-                "id": "mw",
-                "title": "_(Stewardship Actions)",
-                "info": {
-                  "title": "_(Stewardship Actions)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "wria-7",
-                "title": "_(WRIA 7 Streams)",
-                "info": {
-                  "title": "_(WRIA 7 Streams)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "watershed-cedar-sammamish",
-                "title": "_(WRIA 8 Streams)",
-                "info": {
-                  "title": "_(WRIA 8 Streams)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "watershed-green",
-                "title": "_(WRIA 9 Streams)",
-                "info": {
-                  "title": "_(WRIA 9 Streams)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "watershed-puyallup",
-                "title": "_(WRIA 10 Streams)",
-                "info": {
-                  "title": "_(WRIA 10 Streams)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "wria-7-8-9",
-                "title": "_(WRIA Boundaries ALL)",
-                "info": {
-                  "title": "_(WRIA Boundaries ALL)",
-                  "body": "_(WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its ridgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 \"Water Resource Inventory Areas\" across the state.)"
-                }
-              },
-              {
-                "id": "sub-basins",
-                "title": "_(Sub-Basin Boundaries)",
-                "info": {
-                  "title": "_(Sub-Basin Boundaries)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "contour",
-                "title": "_(Contour Lines)",
-                "info": {
-                  "title": "_(Contour Lines)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "cities",
-                "title": "_(City Boundaries)",
-                "info": {
-                  "title": "_(City Boundaries)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "landuse",
-                "title": "_(Land Use)",
-                "info": {
-                  "title": "_(Land Use)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "impervious",
-                "title": "_(Impervious Surface Area)",
-                "info": {
-                  "title": "_(Impervious Surface Area)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "sewer",
-                "title": "_(Sewer lines)",
-                "info": {
-                  "title": "_(Sewer lines)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "school-boundaries",
-                "title": "_(School Districts)",
-                "info": {
-                  "title": "_(School Districts)",
-                  "body": "_(This is some information about the school boundaries layer.)"
-                }
-              },
-              {
-                "id": "school-sites",
-                "title": "_(Schools and Colleges)",
-                "info": {
-                  "title": "_(Schools and Colleges)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              },
-              {
-                "id": "commfood",
-                "title": "_(Farmers Markets)",
-                "info": {
-                  "title": "_(Farmers Markets)",
-                  "body": "_(This is some information and a legend)"
-                }
-              },
-              {
-                "id": "duwamish-original",
-                "title": "_(Historical Duwamish River)",
-                "info": {
-                  "title": "_(Historical Duwamish River)",
-                  "body": "_(This is an example of an info window. Layer info will be added soon.)"
-                }
-              }
-            ]
+            "layerGroupId": "hillshade",
+            "title": "Hillshade",
+            "info": {
+              "title": "Hillshade",
+              "body": "Shaded terrain that pops with clarity. A bold grey color, great for layering"
+            }
+          },
+          {
+            "layerGroupId": "hydrography",
+            "title": "Hydrography",
+            "info": {
+              "title": "Hydrography",
+              "body": "Explore our connection through waterways and watch the magic as political boundaries disappear"
+            }
+          },
+          {
+            "layerGroupId": "bath",
+            "title": "Bathymetry",
+            "info": {
+              "title": "Bathymetry",
+              "body": "The shape and depth of the ocean floor. What does it tell us about the history of this place?"
+            }
+          },
+          {
+            "layerGroupId": "satellite",
+            "title": "Satellite View",
+            "info": {
+              "title": "Satellite View",
+              "body": "A bird’s eye view of the world"
+            }
+          },
+          {
+            "layerGroupId": "1936aerial",
+            "title": "1936 Aerial View",
+            "info": {
+              "title": "1936 Aerial View",
+              "body": "Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936."
+            }
+          },
+          {
+            "layerGroupId": "light-nolabels",
+            "title": "Simple Canvas",
+            "info": {
+              "title": "Simple Canvas",
+              "body": "Beautiful colors and shaded elevation, produced by Stamen Designs"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Map Layers",
+        "options": [
+          {
+            "layerGroupId": "mwfeatured",
+            "title": "Classroom Projects",
+            "info": {
+              "title": "Featured Sites",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "mw-featured-projects",
+            "title": "Community Projects"
+          },
+          {
+            "layerGroupId": "mw",
+            "title": "Stewardship Actions",
+            "info": {
+              "title": "Stewardship Actions",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "wria-7",
+            "title": "WRIA 7 Streams",
+            "info": {
+              "title": "WRIA 7 Streams",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "watershed-cedar-sammamish",
+            "title": "WRIA 8 Streams",
+            "info": {
+              "title": "WRIA 8 Streams",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "watershed-green",
+            "title": "WRIA 9 Streams",
+            "info": {
+              "title": "WRIA 9 Streams",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "watershed-puyallup",
+            "title": "WRIA 10 Streams",
+            "info": {
+              "title": "WRIA 10 Streams",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "wria-7-8-9",
+            "title": "WRIA Boundaries ALL",
+            "info": {
+              "title": "WRIA Boundaries ALL",
+              "body": "WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its rlayerGroupIdgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 \"Water Resource Inventory Areas\" across the state."
+            }
+          },
+          {
+            "layerGroupId": "sub-basins",
+            "title": "Sub-Basin Boundaries",
+            "info": {
+              "title": "Sub-Basin Boundaries",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "contour",
+            "title": "Contour Lines",
+            "info": {
+              "title": "Contour Lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "cities",
+            "title": "City Boundaries",
+            "info": {
+              "title": "City Boundaries",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "landuse",
+            "title": "Land Use",
+            "info": {
+              "title": "Land Use",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "impervious",
+            "title": "Impervious Surface Area",
+            "info": {
+              "title": "Impervious Surface Area",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "sewer",
+            "title": "Sewer lines",
+            "info": {
+              "title": "Sewer lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "school-boundaries",
+            "title": "School Districts",
+            "info": {
+              "title": "School Districts",
+              "body": "This is some information about the school boundaries layer."
+            }
+          },
+          {
+            "layerGroupId": "school-sites",
+            "title": "Schools and Colleges",
+            "info": {
+              "title": "Schools and Colleges",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "commfood",
+            "title": "Farmers Markets",
+            "info": {
+              "title": "Farmers Markets",
+              "body": "This is some information and a legend"
+            }
+          },
+          {
+            "layerGroupId": "duwamish-original",
+            "title": "Historical Duwamish River",
+            "info": {
+              "title": "Historical Duwamish River",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
           }
         ]
       }
@@ -1234,19 +1242,33 @@
   },
   "filters": {
     "enabled": true,
-    "filter_all_label": "_(All pledge types)"
+    "filter_all_label": "All pledge types"
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Take Action)",
-    "show_list_button_label": "_(Myself)",
-    "show_map_button_label": "_(Show Map)",
-    "title": "_(New post)",
-    "action_text": "_(created)",
-    "anonymous_name": "_(Someone)",
-    "submit_button_label": "_(Put it on the map!)",
+    "formCategoryHeaders": {
+      "mw": {
+        "header": "Individuals",
+        "description": "Individuals can pledge to live more sustainably"
+      },
+      "mwfeatured": {
+        "header": "Community Members",
+        "description": "Community members can report on projects in their neighborhoods"
+      },
+      "mw-featured-projects": {
+        "header": "Teachers",
+        "description": "Teachers can report on their classroom's activities"
+      }
+    },
+    "add_button_label": "Take Action",
+    "show_list_button_label": "Myself",
+    "show_map_button_label": "Show Map",
+    "title": "New post",
+    "action_text": "created",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Put it on the map!",
     "location_item_name": "location",
-    "default_basemap": "satellite",
+    "visibleLayerGroupIds": ["satellite"],
     "place_detail": [
       {
         "formId": "featured_project",
@@ -1255,22 +1277,26 @@
         "includeOnList": true,
         "datasetSlug": "mw-featured-projects",
         "name": "location_type",
-        "icon_url": "/static/css/images/markers/marker-dot-commute-low-carbon.png",
+        "icon_url": "/static/css/images/markers/marker-star-silver.png",
         "value": "featured_project",
-        "label": "_(Featured Project)",
+        "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(Project Name (It helps to incorporate your school name along with a descriptive title of your impact project. If you had multiple projects generated by individuals or teams of students you might name the collection “Student Impact Projects from Grade 9 Biology, Greenworld High School.”))",
+            "prompt": "Project Name (It helps to incorporate your school name along with a descriptive title of your impact project. If you had multiple projects generated by individuals or teams of students you might name the collection “Student Impact Projects from Grade 9 Biology, Greenworld High School.”)",
             "optional": false
           },
           {
             "name": "cover-image",
             "type": "file",
-            "prompt": "_(Cover Image)",
-            "label": "_(Add a cover image)",
+            "prompt": "Cover Image",
+            "label": "Add a cover image",
             "optional": true
           },
           {
@@ -1280,47 +1306,47 @@
           {
             "name": "grade-level",
             "type": "dropdown",
-            "prompt": "_(Grade level)",
-            "display_prompt": "_(Grade level:)",
+            "prompt": "Grade level",
+            "display_prompt": "Grade level:",
             "content": [
               {
-                "label": "_(4)",
+                "label": "4",
                 "value": "4"
               },
               {
-                "label": "_(5)",
+                "label": "5",
                 "value": "5"
               },
               {
-                "label": "_(6)",
+                "label": "6",
                 "value": "6"
               },
               {
-                "label": "_(7)",
+                "label": "7",
                 "value": "7"
               },
               {
-                "label": "_(8)",
+                "label": "8",
                 "value": "8"
               },
               {
-                "label": "_(9)",
+                "label": "9",
                 "value": "9"
               },
               {
-                "label": "_(10)",
+                "label": "10",
                 "value": "10"
               },
               {
-                "label": "_(11)",
+                "label": "11",
                 "value": "11"
               },
               {
-                "label": "_(12)",
+                "label": "12",
                 "value": "12"
               },
               {
-                "label": "_(College)",
+                "label": "College",
                 "value": "college"
               }
             ]
@@ -1328,39 +1354,39 @@
           {
             "name": "subject",
             "type": "dropdown",
-            "prompt": "_(Academic subject)",
-            "display_prompt": "_(Academic subject:)",
+            "prompt": "Academic subject",
+            "display_prompt": "Academic subject:",
             "content": [
               {
-                "label": "_(Arts)",
+                "label": "Arts",
                 "value": "arts"
               },
               {
-                "label": "_(CTE - Career and Technical Education)",
+                "label": "CTE - Career and Technical Education",
                 "value": "cte"
               },
               {
-                "label": "_(Health)",
+                "label": "Health",
                 "value": "health"
               },
               {
-                "label": "_(Language Arts)",
+                "label": "Language Arts",
                 "value": "language-arts"
               },
               {
-                "label": "_(Math)",
+                "label": "Math",
                 "value": "math"
               },
               {
-                "label": "_(Science)",
+                "label": "Science",
                 "value": "science"
               },
               {
-                "label": "_(Social Studies)",
+                "label": "Social Studies",
                 "value": "social-studies"
               },
               {
-                "label": "_(STEM)",
+                "label": "STEM",
                 "value": "stem"
               }
             ]
@@ -1368,43 +1394,43 @@
           {
             "name": "leaders",
             "type": "text",
-            "placeholder": "_(Teacher’s name, team of colleagues, or student names)",
-            "prompt": "_(Project leaders)",
-            "display_prompt": "_(Project leaders:)"
+            "placeholder": "Teacher’s name, team of colleagues, or student names",
+            "prompt": "Project leaders",
+            "display_prompt": "Project leaders:"
           },
           {
             "name": "num-students",
             "type": "number",
-            "prompt": "_(Number of students directly involved)",
-            "display_prompt": "_(Number of students directly involved:)"
+            "prompt": "Number of students directly involved",
+            "display_prompt": "Number of students directly involved:"
           },
           {
             "name": "goal",
             "type": "textarea",
-            "prompt": "_(Goal)",
-            "display_prompt": "_(Goal:)",
-            "placeholder": "_(One clear sentence. Best to identify the intended impact in the goal statement.)"
+            "prompt": "Goal",
+            "display_prompt": "Goal:",
+            "placeholder": "One clear sentence. Best to identify the intended impact in the goal statement."
           },
           {
             "name": "background",
             "type": "textarea",
-            "prompt": "_(Background)",
-            "display_prompt": "_(Background:)",
-            "placeholder": "_(One concise paragraph on why this issue is a problem or a community priority. What's been done? What’s needed?)"
+            "prompt": "Background",
+            "display_prompt": "Background:",
+            "placeholder": "One concise paragraph on why this issue is a problem or a community priority. What's been done? What’s needed?"
           },
           {
             "name": "partners-stakeholders",
             "type": "textarea",
-            "prompt": "_(Partners / Stakeholders)",
-            "placeholder": "_(Who are the stakeholders and what is their relationship to this problem/solution?)",
-            "display_prompt": "_(Partners / Stakeholders:)"
+            "prompt": "Partners / Stakeholders",
+            "placeholder": "Who are the stakeholders and what is their relationship to this problem/solution?",
+            "display_prompt": "Partners / Stakeholders:"
           },
           {
             "name": "action",
             "type": "rich_textarea",
-            "prompt": "_(Actions Taken, Photos, and Next Steps)",
-            "placeholder": "_(Concise outline of steps taken that show how the solution was designed, how data were collected, and how stakeholders were identified, consulted, or informed. Insert photos to help tell your story. If possible, be sure to describe the actual impact of your project in relation to community sustainability goals and performance measures. Consider embedding links to community goals or metrics. What are your next steps or recommendations for future classes?)",
-            "display_prompt": "_(Actions Taken, Photos, and Next Steps:)"
+            "prompt": "Actions Taken, Photos, and Next Steps",
+            "placeholder": "Concise outline of steps taken that show how the solution was designed, how data were collected, and how stakeholders were identified, consulted, or informed. Insert photos to help tell your story. If possible, be sure to describe the actual impact of your project in relation to community sustainability goals and performance measures. Consider embedding links to community goals or metrics. What are your next steps or recommendations for future classes?",
+            "display_prompt": "Actions Taken, Photos, and Next Steps:"
           },
           {
             "name": "submit",
@@ -1423,140 +1449,89 @@
         "horizontal_rule": true,
         "name": "location_type",
         "datasetSlug": "mwfeatured",
-        "icon_url": "/static/css/images/markers/marker-star.png",
+        "icon_url": "/static/css/images/markers/marker-star-gold.png",
         "value": "featured_place",
-        "label": "_(Featured Site)",
+        "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "cover-image",
             "type": "file",
-            "prompt": "_(Cover Image)",
-            "label": "_(Add a cover image)",
+            "prompt": "Cover Image",
+            "label": "Add a cover image",
             "optional": true
-          },
-          {
-            "name": "published",
-            "type": "publish_control_toolbar"
-          },
-          {
-            "name": "geometry",
-            "type": "map_drawing_toolbar",
-            "content": [
-              {
-                "marker": "marker-star.png"
-              },
-              {
-                "marker": "marker-bike.png"
-              },
-              {
-                "marker": "marker-construction.png"
-              },
-              {
-                "marker": "marker-foodforest.png"
-              },
-              {
-                "marker": "marker-greenwall.png"
-              },
-              {
-                "marker": "marker-heart.png"
-              },
-              {
-                "marker": "marker-hist_comp.png"
-              },
-              {
-                "marker": "marker-hist_no-prog-or-dead.png"
-              },
-              {
-                "marker": "marker-hist_prog.png"
-              },
-              {
-                "marker": "marker-land_comp.png"
-              },
-              {
-                "marker": "marker-land_no-prog-or-dead.png"
-              },
-              {
-                "marker": "marker-land_prog.png"
-              },
-              {
-                "marker": "marker-transp_comp.png"
-              },
-              {
-                "marker": "marker-transp_no-prog-or-dead.png"
-              },
-              {
-                "marker": "marker-transp_prog.png"
-              }
-            ]
           },
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Title of this featured site:)",
-            "display_prompt": "_( )",
-            "placeholder": "_(Enter title...)",
+            "prompt": "Title of this featured site:",
+            "display_prompt": " ",
+            "placeholder": "Enter title...",
             "optional": false
           },
           {
             "name": "project-lead",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(Project lead:)",
-            "display_prompt": "_(Project lead)",
-            "placeholder": "_(Enter project lead...)",
+            "prompt": "Project lead:",
+            "display_prompt": "Project lead",
+            "placeholder": "Enter project lead...",
             "optional": true
           },
           {
             "name": "partners",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(Partners:)",
-            "display_prompt": "_(Partners)",
-            "placeholder": "_(Enter partners...)",
+            "prompt": "Partners:",
+            "display_prompt": "Partners",
+            "placeholder": "Enter partners...",
             "optional": true
           },
           {
             "name": "problem-statement",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Problem statement:)",
-            "display_prompt": "_(Problem statement)",
-            "placeholder": "_(Enter problem statement...)",
+            "prompt": "Problem statement:",
+            "display_prompt": "Problem statement",
+            "placeholder": "Enter problem statement...",
             "optional": true
           },
           {
             "name": "goal",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "_(Goal:)",
-            "display_prompt": "_(Goal)",
-            "placeholder": "_(Enter goal...)",
+            "prompt": "Goal:",
+            "display_prompt": "Goal",
+            "placeholder": "Enter goal...",
             "optional": true
           },
           {
             "name": "address",
             "type": "text",
-            "prompt": "_(Location:)",
-            "display_prompt": "_(Address)",
-            "placeholder": "_(Enter address...)",
+            "prompt": "Location:",
+            "display_prompt": "Address",
+            "placeholder": "Enter address...",
             "optional": true
           },
           {
             "name": "size",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "_(Size:)",
-            "display_prompt": "_(Size)",
-            "placeholder": "_(Enter size...)",
+            "prompt": "Size:",
+            "display_prompt": "Size",
+            "placeholder": "Enter size...",
             "optional": true
           },
           {
             "name": "description",
             "type": "rich_textarea",
             "includeOnListItem": true,
-            "prompt": "_(Background, timeline, and data:)",
-            "display_prompt": "_(Background, timeline, and data)",
-            "placeholder": "_( )"
+            "prompt": "Background, timeline, and data:",
+            "display_prompt": "Background, timeline, and data",
+            "placeholder": " "
           },
           {
             "name": "private-submitter_email",
@@ -1577,8 +1552,12 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
         "value": "conserve-water",
-        "label": "_(Conserve Water)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -1590,67 +1569,67 @@
           {
             "name": "pledge_type",
             "type": "big_checkbox",
-            "prompt": "_(My actions:)",
-            "display_prompt": "_(My actions:)",
+            "prompt": "My actions:",
+            "display_prompt": "My actions:",
             "content": [
               {
-                "label": "_(Conducted a Home Water Audit)",
+                "label": "Conducted a Home Water Audit",
                 "value": "water-audit"
               },
               {
-                "label": "_(Calculated my total Water Footprint)",
+                "label": "Calculated my total Water Footprint",
                 "value": "water-footprint"
               },
               {
-                "label": "_(Turn off water when brushing my teeth)",
+                "label": "Turn off water when brushing my teeth",
                 "value": "brush-teeth-no-water"
               },
               {
-                "label": "_(Installed aerators on all faucets)",
+                "label": "Installed aerators on all faucets",
                 "value": "installed-aerators"
               },
               {
-                "label": "_(Installed a water efficient shower head)",
+                "label": "Installed a water efficient shower head",
                 "value": "installed-shower-head"
               },
               {
-                "label": "_(Take shorter showers)",
+                "label": "Take shorter showers",
                 "value": "shorter-showers"
               },
               {
-                "label": "_(Check for and fix leaking toilets)",
+                "label": "Check for and fix leaking toilets",
                 "value": "fix-toilets"
               },
               {
-                "label": "_(Replaced old toilets with water efficient toilets)",
+                "label": "Replaced old toilets with water efficient toilets",
                 "value": "water-efficient-toilets"
               },
               {
-                "label": "_(Run the dishwasher with full loads)",
+                "label": "Run the dishwasher with full loads",
                 "value": "diswasher-full-loads"
               },
               {
-                "label": "_(Wash clothes with full loads)",
+                "label": "Wash clothes with full loads",
                 "value": "wash-clothes-full-loads"
               },
               {
-                "label": "_(Use \"WaterSense\" high efficiency appliances)",
+                "label": "Use \"WaterSense\" high efficiency appliances",
                 "value": "use-watersense"
               },
               {
-                "label": "_(Use efficient irrigation systems for lawn or garden)",
+                "label": "Use efficient irrigation systems for lawn or garden",
                 "value": "efficient-irrigation"
               },
               {
-                "label": "_(Use mostly native plants to conserve water)",
+                "label": "Use mostly native plants to conserve water",
                 "value": "native-plants"
               },
               {
-                "label": "_(Let the lawn go dormant in summer)",
+                "label": "Let the lawn go dormant in summer",
                 "value": "dormant-lawn"
               },
               {
-                "label": "_(Removed lawn)",
+                "label": "Removed lawn",
                 "value": "removed-lawn"
               }
             ],
@@ -1691,8 +1670,12 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
         "value": "prevent-stormwater",
-        "label": "_(Prevent Stormwater Pollution)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -1704,67 +1687,67 @@
           {
             "name": "pledge_type",
             "type": "big_checkbox",
-            "prompt": "_(My actions:)",
-            "display_prompt": "_(My actions:)",
+            "prompt": "My actions:",
+            "display_prompt": "My actions:",
             "content": [
               {
-                "label": "_(Scoop the poop and put in the trash)",
+                "label": "Scoop the poop and put in the trash",
                 "value": "scoop-poop"
               },
               {
-                "label": "_(No chemical lawn fertilizer)",
+                "label": "No chemical lawn fertilizer",
                 "value": "no-chemical-fertilizer"
               },
               {
-                "label": "_(Practice \"Natural Yard Care\")",
+                "label": "Practice \"Natural Yard Care\"",
                 "value": "natural-yard-care"
               },
               {
-                "label": "_(Certified my yard as \"Backyard Wildlife Habitat\")",
+                "label": "Certified my yard as \"Backyard Wildlife Habitat\"",
                 "value": "backyard-wildlife-habitat"
               },
               {
-                "label": "_(Plant and maintain trees)",
+                "label": "Plant and maintain trees",
                 "value": "plant-maintain-trees"
               },
               {
-                "label": "_(Disconnect and redirect downspouts)",
+                "label": "Disconnect and redirect downspouts",
                 "value": "redirect-downspouts"
               },
               {
-                "label": "_(Install a rain garden)",
+                "label": "Install a rain garden",
                 "value": "install-rain-garden"
               },
               {
-                "label": "_(Harvest and hold rain with cistern)",
+                "label": "Harvest and hold rain with cistern",
                 "value": "harvest-rain"
               },
               {
-                "label": "_(Reduce impervious surfaces / increase pervious surfaces)",
+                "label": "Reduce impervious surfaces / increase pervious surfaces",
                 "value": "impervious-surfaces"
               },
               {
-                "label": "_(Never dump household chemicals, paint or car oil down storm drain)",
+                "label": "Never dump household chemicals, paint or car oil down storm drain",
                 "value": "storm-drain-no-dump"
               },
               {
-                "label": "_(Rake leaves and litter out from my curb and storm drain)",
+                "label": "Rake leaves and litter out from my curb and storm drain",
                 "value": "rake-leaves-letter"
               },
               {
-                "label": "_(Don't drip and drive (fix oil leaks))",
+                "label": "Don't drip and drive (fix oil leaks)",
                 "value": "fix-oil-leaks"
               },
               {
-                "label": "_(Reduce how much I drive)",
+                "label": "Reduce how much I drive",
                 "value": "reduce-driving"
               },
               {
-                "label": "_(Use a commercial car wash)",
+                "label": "Use a commercial car wash",
                 "value": "use-commercial-carwash"
               },
               {
-                "label": "_(Inspect and fix home septic system)",
+                "label": "Inspect and fix home septic system",
                 "value": "fix-septic-system"
               }
             ]
@@ -1802,10 +1785,15 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-only-flush-this.png",
+        "icon_url": "/static/css/images/markers/marker-only-flush.png",
         "value": "only-flush",
-        "label": "_(Think - Toilet, Shower, Sink)",
+        "visibleLayerGroupIds": ["mw"],
+        "label": "I will reduce wastewater pollution",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -1817,59 +1805,59 @@
           {
             "name": "pledge_type",
             "type": "big_checkbox",
-            "prompt": "_(My actions:)",
-            "display_prompt": "_(My actions:)",
+            "prompt": "My actions:",
+            "display_prompt": "My actions:",
             "content": [
               {
-                "label": "_(I only flush the 4 P's - Pee, Poop, Toilet Paper, Puke)",
+                "label": "I only flush the 4 P's - Pee, Poop, Toilet Paper, Puke",
                 "value": "only-flush-4-ps"
               },
               {
-                "label": "_(I never flush old medicines)",
+                "label": "I never flush old medicines",
                 "value": "never-flush-medicines"
               },
               {
-                "label": "_(I never flush hair)",
+                "label": "I never flush hair",
                 "value": "never-flush-hair"
               },
               {
-                "label": "_(I never flush household chemicals (like bleach))",
+                "label": "I never flush household chemicals (like bleach)",
                 "value": "never-flush-chemicals"
               },
               {
-                "label": "_(I never flush facial tissues)",
+                "label": "I never flush facial tissues",
                 "value": "never-flush-tissues"
               },
               {
-                "label": "_(I never flush wipes, diapers, nursing pads)",
+                "label": "I never flush wipes, diapers, nursing pads",
                 "value": "never-flush-wipes"
               },
               {
-                "label": "_(I never flush tampons or pads)",
+                "label": "I never flush tampons or pads",
                 "value": "never-flush-tampons"
               },
               {
-                "label": "_(I never flush condoms)",
+                "label": "I never flush condoms",
                 "value": "never-flush-condoms"
               },
               {
-                "label": "_(I do not put F.O.G down the drain (fat, oil, grease))",
+                "label": "I do not put F.O.G down the drain (fat, oil, grease)",
                 "value": "fat-oil-grease"
               },
               {
-                "label": "_(I do not use cleansers with plastic “cleansing beads”)",
+                "label": "I do not use cleansers with plastic “cleansing beads”",
                 "value": "cleansing-plastic"
               },
               {
-                "label": "_(I wash fleece and synthetic materials in bags to prevent micro plastic waste)",
+                "label": "I wash fleece and synthetic materials in bags to prevent micro plastic waste",
                 "value": "micro-plastic-wash"
               },
               {
-                "label": "_(I use natural care products)",
+                "label": "I use natural care products",
                 "value": "natural-self-care"
               },
               {
-                "label": "_(I use natural cleaners)",
+                "label": "I use natural cleaners",
                 "value": "natural-cleaners"
               }
             ]
@@ -1909,8 +1897,13 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-energy.png",
         "value": "conserve-energy",
-        "label": "_(Conserve Energy)",
+        "visibleLayerGroupIds": ["mw"],
+        "label": "I will conserve energy",
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -1922,51 +1915,51 @@
           {
             "name": "pledge_type",
             "type": "big_checkbox",
-            "prompt": "_(My actions:)",
-            "display_prompt": "_(My actions:)",
+            "prompt": "My actions:",
+            "display_prompt": "My actions:",
             "content": [
               {
-                "label": "_(Completed a Home Energy Audit)",
+                "label": "Completed a Home Energy Audit",
                 "value": "home-energy-audit"
               },
               {
-                "label": "_(Calculated my total Carbon Footprint)",
+                "label": "Calculated my total Carbon Footprint",
                 "value": "total-carbon-footprint"
               },
               {
-                "label": "_(Replaced old bulbs with LED bulbs)",
+                "label": "Replaced old bulbs with LED bulbs",
                 "value": "led-light-bulbs"
               },
               {
-                "label": "_(Set the thermostat lower)",
+                "label": "Set the thermostat lower",
                 "value": "set-thermostat-lower"
               },
               {
-                "label": "_(Use an auto-timer for thermostat)",
+                "label": "Use an auto-timer for thermostat",
                 "value": "use-thermostat-auto-timer"
               },
               {
-                "label": "_(Don’t stand with the fridge open)",
+                "label": "Don’t stand with the fridge open",
                 "value": "no-fidge-open"
               },
               {
-                "label": "_(Use \"Energy Star\" high efficiency appliances)",
+                "label": "Use \"Energy Star\" high efficiency appliances",
                 "value": "use-efficient-appliances"
               },
               {
-                "label": "_(Upgrade weather stripping on windows and doors)",
+                "label": "Upgrade weather stripping on windows and doors",
                 "value": "weather-stripping"
               },
               {
-                "label": "_(Invest 100% in (Seattle Green Up) or (PSE Green Power))",
+                "label": "Invest 100% in (Seattle Green Up) or (PSE Green Power)",
                 "value": "invest-seattle-green-up"
               },
               {
-                "label": "_(Invest in Community Solar)",
+                "label": "Invest in Community Solar",
                 "value": "invest-community-solar"
               },
               {
-                "label": "_(Added solar power to my house)",
+                "label": "Added solar power to my house",
                 "value": "added-solar-power"
               }
             ],
@@ -2007,8 +2000,12 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-waste-less.png",
         "value": "waste-less",
-        "label": "_(Waste Less)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -2020,47 +2017,47 @@
           {
             "name": "pledge_type",
             "type": "big_checkbox",
-            "prompt": "_(My actions:)",
-            "display_prompt": "_(My actions:)",
+            "prompt": "My actions:",
+            "display_prompt": "My actions:",
             "content": [
               {
-                "label": "_(Recycle glass, paper, metal, plastic)",
+                "label": "Recycle glass, paper, metal, plastic",
                 "value": "recycle-glass-paper-metal-plastic"
               },
               {
-                "label": "_(Compost yard waste)",
+                "label": "Compost yard waste",
                 "value": "compost-yard-waste"
               },
               {
-                "label": "_(Compost food scraps)",
+                "label": "Compost food scraps",
                 "value": "compost-food-scraps"
               },
               {
-                "label": "_(Avoid products with too much packaging)",
+                "label": "Avoid products with too much packaging",
                 "value": "avoid-packaging"
               },
               {
-                "label": "_(Use reusable shopping bags)",
+                "label": "Use reusable shopping bags",
                 "value": "reusable-shopping-bags"
               },
               {
-                "label": "_(Use the Food Waste Worksheet)",
+                "label": "Use the Food Waste Worksheet",
                 "value": "food-waste-worksheet"
               },
               {
-                "label": "_(Use Threadcycle)",
+                "label": "Use Threadcycle",
                 "value": "threadcycle"
               },
               {
-                "label": "_(Recycle styrofoam)",
+                "label": "Recycle styrofoam",
                 "value": "recycle-styrofoam"
               },
               {
-                "label": "_(Recycle e-waste)",
+                "label": "Recycle e-waste",
                 "value": "recycle-e-waste"
               },
               {
-                "label": "_(Use the \"Take it Back Network\")",
+                "label": "Use the \"Take it Back Network\"",
                 "value": "use-take-it-back-network"
               }
             ],
@@ -2101,8 +2098,12 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
         "value": "commute-low-carbon",
-        "label": "_(Commute Low Carbon)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -2114,39 +2115,39 @@
           {
             "name": "pledge_type",
             "type": "big_checkbox",
-            "prompt": "_(My actions:)",
-            "display_prompt": "_(My actions:)",
+            "prompt": "My actions:",
+            "display_prompt": "My actions:",
             "content": [
               {
-                "label": "_(Mostly walk commute (to school, work, or for errands))",
+                "label": "Mostly walk commute (to school, work, or for errands)",
                 "value": "walk-commute"
               },
               {
-                "label": "_(Mostly bike commute)",
+                "label": "Mostly bike commute",
                 "value": "bike-commute"
               },
               {
-                "label": "_(Mostly bus commute)",
+                "label": "Mostly bus commute",
                 "value": "bus-commute"
               },
               {
-                "label": "_(Mostly light rail commute)",
+                "label": "Mostly light rail commute",
                 "value": "light-rail-commute"
               },
               {
-                "label": "_(Mostly carpool commute)",
+                "label": "Mostly carpool commute",
                 "value": "carpool-commute"
               },
               {
-                "label": "_(Mostly use my hybrid car)",
+                "label": "Mostly use my hybrid car",
                 "value": "use-hybrid-car"
               },
               {
-                "label": "_(Mostly use my electric car)",
+                "label": "Mostly use my electric car",
                 "value": "use-electric-car"
               },
               {
-                "label": "_(Fly as little as possible)",
+                "label": "Fly as little as possible",
                 "value": "fly-rarely"
               }
             ],
@@ -2187,8 +2188,12 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
         "value": "eat-local-organic",
-        "label": "_(Eat Local Organic)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -2200,31 +2205,31 @@
           {
             "name": "pledge_type",
             "type": "big_checkbox",
-            "prompt": "_(My actions:)",
-            "display_prompt": "_(My actions:)",
+            "prompt": "My actions:",
+            "display_prompt": "My actions:",
             "content": [
               {
-                "label": "_(Grow food to eat in my garden)",
+                "label": "Grow food to eat in my garden",
                 "value": "grow-food-garden"
               },
               {
-                "label": "_(Participate in a Community Garden)",
+                "label": "Participate in a Community Garden",
                 "value": "participate-community-garden"
               },
               {
-                "label": "_(Eat mostly meat free)",
+                "label": "Eat mostly meat free",
                 "value": "mostly-meat-free"
               },
               {
-                "label": "_(Subscribe to a CSA - Consumer Supported Agriculture)",
+                "label": "Subscribe to a CSA - Consumer Supported Agriculture",
                 "value": "subscribe-csa"
               },
               {
-                "label": "_(Regularly shop at a local Farmer's Market)",
+                "label": "Regularly shop at a local Farmer's Market",
                 "value": "shop-farmers-marker"
               },
               {
-                "label": "_(Shop in grocery stores mostly for local and organic foods)",
+                "label": "Shop in grocery stores mostly for local and organic foods",
                 "value": "shop-local-organic"
               }
             ],
@@ -2265,8 +2270,12 @@
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
         "value": "restore-salmon-habitat",
-        "label": "_(Restore Salmon Habitat)",
+        "visibleLayerGroupIds": ["mw"],
         "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
           {
             "name": "address",
             "type": "common_form_element"
@@ -2278,23 +2287,23 @@
           {
             "name": "pledge_type",
             "type": "big_checkbox",
-            "prompt": "_(My actions:)",
-            "display_prompt": "_(My actions:)",
+            "prompt": "My actions:",
+            "display_prompt": "My actions:",
             "content": [
               {
-                "label": "_(Regularly volunteer to remove invasive plants from streams and rivers)",
+                "label": "Regularly volunteer to remove invasive plants from streams and rivers",
                 "value": "remove-invasive-plants"
               },
               {
-                "label": "_(Regularly volunteer to plant and maintain native plants in streams and rivers)",
+                "label": "Regularly volunteer to plant and maintain native plants in streams and rivers",
                 "value": "plant-native-plants"
               },
               {
-                "label": "_(Regularly volunteer to spot and count spawning salmon)",
+                "label": "Regularly volunteer to spot and count spawning salmon",
                 "value": "count-spawning-salmon"
               },
               {
-                "label": "_(Certified my yard as \"Backyard Wildlife Habitat\")",
+                "label": "Certified my yard as \"Backyard Wildlife Habitat\"",
                 "value": "backyard-wildlife-habitat"
               }
             ],
@@ -2330,1905 +2339,1905 @@
     "common_form_elements": {
       "address": {
         "type": "geocoding",
-        "prompt": "_(Your address:)",
-        "placeholder": "_(Address)",
+        "prompt": "Your address:",
+        "placeholder": "Address",
         "optional": true
       },
       "title": {
         "type": "text",
-        "prompt": "_(Post title:)",
-        "display_prompt": "_( )",
-        "placeholder": "_( )",
+        "prompt": "Post title:",
+        "display_prompt": " ",
+        "placeholder": " ",
         "optional": false
       },
       "comments": {
         "includeOnListItem": true,
         "type": "textarea",
-        "prompt": "_(Additional comments:)",
-        "label": "_(Additional comments:)",
-        "display_prompt": "_( )",
-        "placeholder": "_(Enter comments...)",
+        "prompt": "Additional comments:",
+        "label": "Additional comments:",
+        "display_prompt": " ",
+        "placeholder": "Enter comments...",
         "optional": false
       },
       "school-name": {
         "hideFromDetailView": true,
         "optional": false,
-        "placeholder": "_(Type or select a school name...)",
+        "placeholder": "Type or select a school name...",
         "type": "dropdown_autocomplete",
         "includeOnListItem": true,
-        "label": "_(School:)",
-        "prompt": "_(School:)",
-        "display_prompt": "_(School:)",
+        "label": "School:",
+        "prompt": "School:",
+        "display_prompt": "School:",
         "content": [
           {
-            "label": "_(Alcott Elementary School)",
+            "label": "Alcott Elementary School",
             "value": "Alcott-Elementary-School"
           },
           {
-            "label": "_(Audubon Elementary School)",
+            "label": "Audubon Elementary School",
             "value": "Audubon-Elementary-School"
           },
           {
-            "label": "_(Bell Elementary School)",
+            "label": "Bell Elementary School",
             "value": "Bell-Elementary-School"
           },
           {
-            "label": "_(Blackwell Elementary School)",
+            "label": "Blackwell Elementary School",
             "value": "Blackwell-Elementary-School"
           },
           {
-            "label": "_(Carson Elementary School)",
+            "label": "Carson Elementary School",
             "value": "Carson-Elementary-School"
           },
           {
-            "label": "_(Community School)",
+            "label": "Community School",
             "value": "Community-School"
           },
           {
-            "label": "_(Dickinson Elementary School)",
+            "label": "Dickinson Elementary School",
             "value": "Dickinson-Elementary-School"
           },
           {
-            "label": "_(Discovery Elementary School -- Lake Washington School District)",
+            "label": "Discovery Elementary School -- Lake Washington School District",
             "value": "Discovery-Elementary-School--Lake-WA"
           },
           {
-            "label": "_(Eastlake High School)",
+            "label": "Eastlake High School",
             "value": "Eastlake-High-School"
           },
           {
-            "label": "_(Einstein Elementary School)",
+            "label": "Einstein Elementary School",
             "value": "Einstein-Elementary-School"
           },
           {
-            "label": "_(Emerson High School)",
+            "label": "Emerson High School",
             "value": "Emerson-High-School"
           },
           {
-            "label": "_(Emerson K-12)",
+            "label": "Emerson K-12",
             "value": "Emerson-K-12"
           },
           {
-            "label": "_(Environmental & Adventure School)",
+            "label": "Environmental & Adventure School",
             "value": "Environmental-And-Adventure-School"
           },
           {
-            "label": "_(Evergreen Middle School)",
+            "label": "Evergreen Middle School",
             "value": "Evergreen-Middle-School"
           },
           {
-            "label": "_(Explorer Community School)",
+            "label": "Explorer Community School",
             "value": "Explorer-Community-School"
           },
           {
-            "label": "_(Finn Hill Middle School)",
+            "label": "Finn Hill Middle School",
             "value": "Finn-Hill-Middle-School"
           },
           {
-            "label": "_(Franklin Elementary School)",
+            "label": "Franklin Elementary School",
             "value": "Franklin-Elementary-School"
           },
           {
-            "label": "_(Frost Elementary School)",
+            "label": "Frost Elementary School",
             "value": "Frost-Elementary-School"
           },
           {
-            "label": "_(Futures School)",
+            "label": "Futures School",
             "value": "Futures-School"
           },
           {
-            "label": "_(Inglewood Middle School)",
+            "label": "Inglewood Middle School",
             "value": "Inglewood-Middle-School"
           },
           {
-            "label": "_(International Community School)",
+            "label": "International Community School",
             "value": "International-Community-School"
           },
           {
-            "label": "_(Juanita Elementary School)",
+            "label": "Juanita Elementary School",
             "value": "Juanita-Elementary-School"
           },
           {
-            "label": "_(Juanita High School)",
+            "label": "Juanita High School",
             "value": "Juanita-High-School"
           },
           {
-            "label": "_(Kamiakin Middle School)",
+            "label": "Kamiakin Middle School",
             "value": "Kamiakin-Middle-School"
           },
           {
-            "label": "_(Keller Elementary School)",
+            "label": "Keller Elementary School",
             "value": "Keller-Elementary-School"
           },
           {
-            "label": "_(Kirk Elementary School)",
+            "label": "Kirk Elementary School",
             "value": "Kirk-Elementary-School"
           },
           {
-            "label": "_(Kirkland Middle School)",
+            "label": "Kirkland Middle School",
             "value": "Kirkland-Middle-School"
           },
           {
-            "label": "_(Lake Washington High School)",
+            "label": "Lake Washington High School",
             "value": "Lake-Washington-High-School"
           },
           {
-            "label": "_(Lakeview Elementary School)",
+            "label": "Lakeview Elementary School",
             "value": "Lakeview-Elementary-School"
           },
           {
-            "label": "_(Mann Elementary School)",
+            "label": "Mann Elementary School",
             "value": "Mann-Elementary-School"
           },
           {
-            "label": "_(McAuliffe Elementary School)",
+            "label": "McAuliffe Elementary School",
             "value": "McAuliffe-Elementary-School"
           },
           {
-            "label": "_(Mead Elementary School)",
+            "label": "Mead Elementary School",
             "value": "Mead-Elementary-School"
           },
           {
-            "label": "_(Muir Elementary School)",
+            "label": "Muir Elementary School",
             "value": "Muir-Elementary-School"
           },
           {
-            "label": "_(Northstar Middle School)",
+            "label": "Northstar Middle School",
             "value": "Northstar-Middle-School"
           },
           {
-            "label": "_(Redmond Elementary School)",
+            "label": "Redmond Elementary School",
             "value": "Redmond-Elementary-School"
           },
           {
-            "label": "_(Redmond Middle School)",
+            "label": "Redmond Middle School",
             "value": "Redmond-Middle-School"
           },
           {
-            "label": "_(Redmond High School)",
+            "label": "Redmond High School",
             "value": "Redmond-High-School"
           },
           {
-            "label": "_(Renaissance School of Art & Reasoning)",
+            "label": "Renaissance School of Art & Reasoning",
             "value": "Renaissance-School-of-Art-And-Reasoning"
           },
           {
-            "label": "_(Rockwell Elementary School)",
+            "label": "Rockwell Elementary School",
             "value": "Rockwell-Elementary-School"
           },
           {
-            "label": "_(Rosa Parks Elementary School)",
+            "label": "Rosa Parks Elementary School",
             "value": "Rosa-Parks-Elementary-School"
           },
           {
-            "label": "_(Rose Hill Elementary School)",
+            "label": "Rose Hill Elementary School",
             "value": "Rose-Hill-Elementary-School"
           },
           {
-            "label": "_(Rush Elementary School)",
+            "label": "Rush Elementary School",
             "value": "Rush-Elementary-School"
           },
           {
-            "label": "_(Sandburg Elementary School)",
+            "label": "Sandburg Elementary School",
             "value": "Sandburg-Elementary-School"
           },
           {
-            "label": "_(Smith Elementary School)",
+            "label": "Smith Elementary School",
             "value": "Smith-Elementary-School"
           },
           {
-            "label": "_(Stella Schola Middle School)",
+            "label": "Stella Schola Middle School",
             "value": "Stella-Schola-Middle-School"
           },
           {
-            "label": "_(TESLA STEM High School)",
+            "label": "TESLA STEM High School",
             "value": "TESLA-STEM-High-School"
           },
           {
-            "label": "_(Thoreau Elementary School)",
+            "label": "Thoreau Elementary School",
             "value": "Thoreau-Elementary-School"
           },
           {
-            "label": "_(Twain Elementary School)",
+            "label": "Twain Elementary School",
             "value": "Twain-Elementary-School"
           },
           {
-            "label": "_(Wilder Elementary School)",
+            "label": "Wilder Elementary School",
             "value": "Wilder-Elementary-School"
           },
           {
-            "label": "_(Ardmore Elementary School)",
+            "label": "Ardmore Elementary School",
             "value": "Ardmore-Elementary-School"
           },
           {
-            "label": "_(Bennett Elementary School)",
+            "label": "Bennett Elementary School",
             "value": "Bennett-Elementary-School"
           },
           {
-            "label": "_(Cherry Crest Elementary School)",
+            "label": "Cherry Crest Elementary School",
             "value": "Cherry-Crest-Elementary-School"
           },
           {
-            "label": "_(Clyde Hill Elementary School)",
+            "label": "Clyde Hill Elementary School",
             "value": "Clyde-Hill-Elementary-School"
           },
           {
-            "label": "_(Eastgate Elementary School)",
+            "label": "Eastgate Elementary School",
             "value": "Eastgate-Elementary-School"
           },
           {
-            "label": "_(Enatai Elementary School)",
+            "label": "Enatai Elementary School",
             "value": "Enatai-Elementary-School"
           },
           {
-            "label": "_(Lake Hills Elementary School)",
+            "label": "Lake Hills Elementary School",
             "value": "Lake-Hills-Elementary-School"
           },
           {
-            "label": "_(Medina Elementary School)",
+            "label": "Medina Elementary School",
             "value": "Medina-Elementary-School"
           },
           {
-            "label": "_(Newport Heights Elementary School)",
+            "label": "Newport Heights Elementary School",
             "value": "Newport-Heights-Elementary-School"
           },
           {
-            "label": "_(Phantom Lake Elementary School)",
+            "label": "Phantom Lake Elementary School",
             "value": "Phantom-Lake-Elementary-School"
           },
           {
-            "label": "_(Sherwood Forest Elementary School)",
+            "label": "Sherwood Forest Elementary School",
             "value": "Sherwood-Forest-Elementary-School"
           },
           {
-            "label": "_(Somerset Elementary School)",
+            "label": "Somerset Elementary School",
             "value": "Somerset-Elementary-School"
           },
           {
-            "label": "_(Spiritridge Elementary School)",
+            "label": "Spiritridge Elementary School",
             "value": "Spiritridge-Elementary-School"
           },
           {
-            "label": "_(Stevenson Elementary School)",
+            "label": "Stevenson Elementary School",
             "value": "Stevenson-Elementary-School"
           },
           {
-            "label": "_(Wilburton Elementary School)",
+            "label": "Wilburton Elementary School",
             "value": "Wilburton-Elementary-School"
           },
           {
-            "label": "_(Woodridge Elementary School)",
+            "label": "Woodridge Elementary School",
             "value": "Woodridge-Elementary-School"
           },
           {
-            "label": "_(Chinook Middle School -- Highline School District)",
+            "label": "Chinook Middle School -- Highline School District",
             "value": "Chinook-Middle-School--Highline"
           },
           {
-            "label": "_(Highland Middle School)",
+            "label": "Highland Middle School",
             "value": "Highland-Middle-School"
           },
           {
-            "label": "_(Odle Middle School)",
+            "label": "Odle Middle School",
             "value": "Odle-Middle-School"
           },
           {
-            "label": "_(Tillicum Middle School)",
+            "label": "Tillicum Middle School",
             "value": "Tillicum-Middle-School"
           },
           {
-            "label": "_(Tyee Middle School)",
+            "label": "Tyee Middle School",
             "value": "Tyee-Middle-School-"
           },
           {
-            "label": "_(Bellevue High School)",
+            "label": "Bellevue High School",
             "value": "Bellevue-High-School"
           },
           {
-            "label": "_(Interlake High School)",
+            "label": "Interlake High School",
             "value": "Interlake-High-School"
           },
           {
-            "label": "_(Newport High School)",
+            "label": "Newport High School",
             "value": "Newport-High-School"
           },
           {
-            "label": "_(Sammamish High School)",
+            "label": "Sammamish High School",
             "value": "Sammamish-High-School"
           },
           {
-            "label": "_(Bellevue Big Picture School)",
+            "label": "Bellevue Big Picture School",
             "value": "Bellevue-Big-Picture-School"
           },
           {
-            "label": "_(International School)",
+            "label": "International School",
             "value": "International-School"
           },
           {
-            "label": "_(Jing Mei Elementary School)",
+            "label": "Jing Mei Elementary School",
             "value": "Jing-Mei-Elementary-School"
           },
           {
-            "label": "_(Puesta Del Sol Elementary School)",
+            "label": "Puesta Del Sol Elementary School",
             "value": "Puesta-Del-Sol-Elementary-School"
           },
           {
-            "label": "_(Apollo Elementary School)",
+            "label": "Apollo Elementary School",
             "value": "Apollo-Elementary-School"
           },
           {
-            "label": "_(Beaver Lake Middle School)",
+            "label": "Beaver Lake Middle School",
             "value": "Beaver-Lake-Middle-School"
           },
           {
-            "label": "_(Briarwood Elementary School)",
+            "label": "Briarwood Elementary School",
             "value": "Briarwood-Elementary-School"
           },
           {
-            "label": "_(Cascade Ridge Elementary School)",
+            "label": "Cascade Ridge Elementary School",
             "value": "Cascade-Ridge-Elementary-School"
           },
           {
-            "label": "_(Challenger Elementary School)",
+            "label": "Challenger Elementary School",
             "value": "Challenger-Elementary-School"
           },
           {
-            "label": "_(Clark Elementary School)",
+            "label": "Clark Elementary School",
             "value": "Clark-Elementary-School"
           },
           {
-            "label": "_(Cougar Ridge Elementary School)",
+            "label": "Cougar Ridge Elementary School",
             "value": "Cougar-Ridge-Elementary-School"
           },
           {
-            "label": "_(Creekside Elementary School)",
+            "label": "Creekside Elementary School",
             "value": "Creekside-Elementary-School"
           },
           {
-            "label": "_(Discovery Elementary School -- Issaquah School District)",
+            "label": "Discovery Elementary School -- Issaquah School District",
             "value": "Discovery-Elementary-School--Issaquah"
           },
           {
-            "label": "_(Endeavour Elementary School)",
+            "label": "Endeavour Elementary School",
             "value": "Endeavour-Elementary-School"
           },
           {
-            "label": "_(Gibson Ek High School)",
+            "label": "Gibson Ek High School",
             "value": "Gibson-Ek-High-School"
           },
           {
-            "label": "_(Grand Ridge Elementary School)",
+            "label": "Grand Ridge Elementary School",
             "value": "Grand-Ridge-Elementary-School"
           },
           {
-            "label": "_(Issaquah High School)",
+            "label": "Issaquah High School",
             "value": "Issaquah-High-School"
           },
           {
-            "label": "_(Issaquah Middle School)",
+            "label": "Issaquah Middle School",
             "value": "Issaquah-Middle-School"
           },
           {
-            "label": "_(Issaquah Valley Elementary School)",
+            "label": "Issaquah Valley Elementary School",
             "value": "Issaquah-Valley-Elementary-School"
           },
           {
-            "label": "_(Liberty High School)",
+            "label": "Liberty High School",
             "value": "Liberty-High-School"
           },
           {
-            "label": "_(Maple Hills Elementary School)",
+            "label": "Maple Hills Elementary School",
             "value": "Maple-Hills-Elementary-School"
           },
           {
-            "label": "_(Maywood Middle School)",
+            "label": "Maywood Middle School",
             "value": "Maywood-Middle-School"
           },
           {
-            "label": "_(Newcastle Elementary School)",
+            "label": "Newcastle Elementary School",
             "value": "Newcastle-Elementary-School"
           },
           {
-            "label": "_(Pacific Cascade Middle School)",
+            "label": "Pacific Cascade Middle School",
             "value": "Pacific-Cascade-Middle-School"
           },
           {
-            "label": "_(Pine Lake Middle School)",
+            "label": "Pine Lake Middle School",
             "value": "Pine-Lake-Middle-School"
           },
           {
-            "label": "_(Skyline High School)",
+            "label": "Skyline High School",
             "value": "Skyline-High-School"
           },
           {
-            "label": "_(Sunny Hills Elementary School)",
+            "label": "Sunny Hills Elementary School",
             "value": "Sunny-Hills-Elementary-School"
           },
           {
-            "label": "_(Sunset Elementary School)",
+            "label": "Sunset Elementary School",
             "value": "Sunset-Elementary-School"
           },
           {
-            "label": "_(Carriage Crest Elementary School)",
+            "label": "Carriage Crest Elementary School",
             "value": "Carriage-Crest-Elementary-School"
           },
           {
-            "label": "_(Cedar Heights Middle School)",
+            "label": "Cedar Heights Middle School",
             "value": "Cedar-Heights-Middle-School"
           },
           {
-            "label": "_(Cedar Valley Elementary School)",
+            "label": "Cedar Valley Elementary School",
             "value": "Cedar-Valley-Elementary-School"
           },
           {
-            "label": "_(Covington Elementary School)",
+            "label": "Covington Elementary School",
             "value": "Covington-Elementary-School"
           },
           {
-            "label": "_(Crestwood Elementary School)",
+            "label": "Crestwood Elementary School",
             "value": "Crestwood-Elementary-School"
           },
           {
-            "label": "_(East Hill Elementary School)",
+            "label": "East Hill Elementary School",
             "value": "East-Hill-Elementary-School"
           },
           {
-            "label": "_(Emerald Park Elementary School)",
+            "label": "Emerald Park Elementary School",
             "value": "Emerald-Park-Elementary-School"
           },
           {
-            "label": "_(Fairwood Elementary School)",
+            "label": "Fairwood Elementary School",
             "value": "Fairwood-Elementary-School"
           },
           {
-            "label": "_(George T. Daniel Elementary School)",
+            "label": "George T. Daniel Elementary School",
             "value": "George-T-Daniel-Elementary-School"
           },
           {
-            "label": "_(Glenridge Elementary School)",
+            "label": "Glenridge Elementary School",
             "value": "Glenridge-Elementary-School"
           },
           {
-            "label": "_(Grass Lake Elementary School)",
+            "label": "Grass Lake Elementary School",
             "value": "Grass-Lake-Elementary-School"
           },
           {
-            "label": "_(Horizon Elementary School)",
+            "label": "Horizon Elementary School",
             "value": "Horizon-Elementary-School"
           },
           {
-            "label": "_(iGrad)",
+            "label": "iGrad",
             "value": "iGrad"
           },
           {
-            "label": "_(Jenkins Creek Elementary School)",
+            "label": "Jenkins Creek Elementary School",
             "value": "Jenkins-Creek-Elementary-School"
           },
           {
-            "label": "_(Kent Elementary School)",
+            "label": "Kent Elementary School",
             "value": "Kent-Elementary-School"
           },
           {
-            "label": "_(Kent Mountain View Academy)",
+            "label": "Kent Mountain View Academy",
             "value": "Kent-Mountain-View-Academy"
           },
           {
-            "label": "_(Kent Phoenix Academy)",
+            "label": "Kent Phoenix Academy",
             "value": "Kent-Phoenix-Academy"
           },
           {
-            "label": "_(Kent Valley Early Learning Center)",
+            "label": "Kent Valley Early Learning Center",
             "value": "Kent-Valley-Early-Learning-Center"
           },
           {
-            "label": "_(Kentlake High School)",
+            "label": "Kentlake High School",
             "value": "Kentlake-High-School"
           },
           {
-            "label": "_(Kent-Meridian High School)",
+            "label": "Kent-Meridian High School",
             "value": "Kent-Meridian-High-School"
           },
           {
-            "label": "_(Kentridge High School)",
+            "label": "Kentridge High School",
             "value": "Kentridge-High-School"
           },
           {
-            "label": "_(Kentwood High School)",
+            "label": "Kentwood High School",
             "value": "Kentwood-High-School"
           },
           {
-            "label": "_(Lake Youngs Elementary School)",
+            "label": "Lake Youngs Elementary School",
             "value": "Lake-Youngs-Elementary-School"
           },
           {
-            "label": "_(Martin Sortun Elementary School)",
+            "label": "Martin Sortun Elementary School",
             "value": "Martin-Sortun-Elementary-School"
           },
           {
-            "label": "_(Mattson Middle School)",
+            "label": "Mattson Middle School",
             "value": "Mattson-Middle-School"
           },
           {
-            "label": "_(Meadow Ridge Elementary School)",
+            "label": "Meadow Ridge Elementary School",
             "value": "Meadow-Ridge-Elementary-School"
           },
           {
-            "label": "_(Meeker Middle School)",
+            "label": "Meeker Middle School",
             "value": "Meeker-Middle-School"
           },
           {
-            "label": "_(Meridian Elementary School)",
+            "label": "Meridian Elementary School",
             "value": "Meridian-Elementary-School"
           },
           {
-            "label": "_(Meridian Middle School)",
+            "label": "Meridian Middle School",
             "value": "Meridian-Middle-School"
           },
           {
-            "label": "_(Mill Creek Middle School)",
+            "label": "Mill Creek Middle School",
             "value": "Mill-Creek-Middle-School"
           },
           {
-            "label": "_(Millennium Elementary School)",
+            "label": "Millennium Elementary School",
             "value": "Millennium-Elementary-School"
           },
           {
-            "label": "_(Neely-O'Brien Elementary School)",
+            "label": "Neely-O'Brien Elementary School",
             "value": "Neely-OBrien-Elementary-School"
           },
           {
-            "label": "_(Northwood Middle School)",
+            "label": "Northwood Middle School",
             "value": "Northwood-Middle-School"
           },
           {
-            "label": "_(Panther Lake Elementary School)",
+            "label": "Panther Lake Elementary School",
             "value": "Panther-Lake-Elementary-School"
           },
           {
-            "label": "_(Park Orchard Elementary School)",
+            "label": "Park Orchard Elementary School",
             "value": "Park-Orchard-Elementary-School"
           },
           {
-            "label": "_(Pine Tree Elementary School)",
+            "label": "Pine Tree Elementary School",
             "value": "Pine-Tree-Elementary-School"
           },
           {
-            "label": "_(Ridgewood Elementary School)",
+            "label": "Ridgewood Elementary School",
             "value": "Ridgewood-Elementary-School"
           },
           {
-            "label": "_(Sawyer Woods Elementary School)",
+            "label": "Sawyer Woods Elementary School",
             "value": "Sawyer-Woods-Elementary-School"
           },
           {
-            "label": "_(Scenic Hill Elementary School)",
+            "label": "Scenic Hill Elementary School",
             "value": "Scenic-Hill-Elementary-School"
           },
           {
-            "label": "_(Soos Creek Elementary School)",
+            "label": "Soos Creek Elementary School",
             "value": "Soos-Creek-Elementary-School"
           },
           {
-            "label": "_(Springbrook Elementary School)",
+            "label": "Springbrook Elementary School",
             "value": "Springbrook-Elementary-School"
           },
           {
-            "label": "_(Sunrise Elementary School)",
+            "label": "Sunrise Elementary School",
             "value": "Sunrise-Elementary-School"
           },
           {
-            "label": "_(Alpac Elementary School)",
+            "label": "Alpac Elementary School",
             "value": "Alpac-Elementary-School"
           },
           {
-            "label": "_(Arthur Jacobsen Elementary School)",
+            "label": "Arthur Jacobsen Elementary School",
             "value": "Arthur-Jacobsen-Elementary-School"
           },
           {
-            "label": "_(Auburn High School)",
+            "label": "Auburn High School",
             "value": "Auburn-High-School"
           },
           {
-            "label": "_(Auburn Mountainview High School)",
+            "label": "Auburn Mountainview High School",
             "value": "Auburn-Mountainview-High-School"
           },
           {
-            "label": "_(Auburn Riverside High School)",
+            "label": "Auburn Riverside High School",
             "value": "Auburn-Riverside-High-School"
           },
           {
-            "label": "_(Cascade Middle School -- Auburn School District)",
+            "label": "Cascade Middle School -- Auburn School District",
             "value": "Cascade-Middle-School--Auburn"
           },
           {
-            "label": "_(Chinook Elementary School)",
+            "label": "Chinook Elementary School",
             "value": "Chinook-Elementary-School"
           },
           {
-            "label": "_(Dick Scobee Elementary School)",
+            "label": "Dick Scobee Elementary School",
             "value": "Dick-Scobee-Elementary-School"
           },
           {
-            "label": "_(Evergreen Heights Elementary School)",
+            "label": "Evergreen Heights Elementary School",
             "value": "Evergreen-Heights-Elementary-School"
           },
           {
-            "label": "_(Gildo Rey Elementary School)",
+            "label": "Gildo Rey Elementary School",
             "value": "Gildo-Rey-Elementary-School"
           },
           {
-            "label": "_(Hazelwood Elementary School)",
+            "label": "Hazelwood Elementary School",
             "value": "Hazelwood-Elementary-School"
           },
           {
-            "label": "_(Ilalko Elementary School)",
+            "label": "Ilalko Elementary School",
             "value": "Ilalko-Elementary-School"
           },
           {
-            "label": "_(Lake View Elementary School)",
+            "label": "Lake View Elementary School",
             "value": "Lake-View-Elementary-School"
           },
           {
-            "label": "_(Lakeland Hills Elementary School)",
+            "label": "Lakeland Hills Elementary School",
             "value": "Lakeland-Hills-Elementary-School"
           },
           {
-            "label": "_(Lea Hill Elementary School)",
+            "label": "Lea Hill Elementary School",
             "value": "Lea-Hill-Elementary-School"
           },
           {
-            "label": "_(Mt. Baker Middle School)",
+            "label": "Mt. Baker Middle School",
             "value": "Mt-Baker-Middle-School"
           },
           {
-            "label": "_(Olympic Middle School)",
+            "label": "Olympic Middle School",
             "value": "Olympic-Middle-School"
           },
           {
-            "label": "_(Pioneer Elementary School)",
+            "label": "Pioneer Elementary School",
             "value": "Pioneer-Elementary-School"
           },
           {
-            "label": "_(Rainier Middle School)",
+            "label": "Rainier Middle School",
             "value": "Rainier-Middle-School"
           },
           {
-            "label": "_(Terminal Park Elementary School)",
+            "label": "Terminal Park Elementary School",
             "value": "Terminal-Park-Elementary-School"
           },
           {
-            "label": "_(Washington Elementary School)",
+            "label": "Washington Elementary School",
             "value": "Washington-Elementary-School"
           },
           {
-            "label": "_(West Auburn High School)",
+            "label": "West Auburn High School",
             "value": "West-Auburn-High-School"
           },
           {
-            "label": "_(Cleveland High School)",
+            "label": "Cleveland High School",
             "value": "Cleveland-High-School"
           },
           {
-            "label": "_(Chief Sealth High District)",
+            "label": "Chief Sealth High District",
             "value": "Chief-Sealth-High-District"
           },
           {
-            "label": "_(Denny Middle School)",
+            "label": "Denny Middle School",
             "value": "Denny-Middle-School"
           },
           {
-            "label": "_(Briarcrest Elementary)",
+            "label": "Briarcrest Elementary",
             "value": "Briarcrest-Elementary"
           },
           {
-            "label": "_(Brookside Elementary)",
+            "label": "Brookside Elementary",
             "value": "Brookside-Elementary"
           },
           {
-            "label": "_(Cascade K-8 Community School)",
+            "label": "Cascade K-8 Community School",
             "value": "Cascade-K-8-Community-School"
           },
           {
-            "label": "_(Echo Lake Elementary)",
+            "label": "Echo Lake Elementary",
             "value": "Echo-Lake-Elementary"
           },
           {
-            "label": "_(Einstein Middle School)",
+            "label": "Einstein Middle School",
             "value": "Einstein-Middle-School"
           },
           {
-            "label": "_(Highland Terrace Elementary)",
+            "label": "Highland Terrace Elementary",
             "value": "Highland-Terrace-Elementary"
           },
           {
-            "label": "_(Kellogg Middle School)",
+            "label": "Kellogg Middle School",
             "value": "Kellogg-Middle-School"
           },
           {
-            "label": "_(Lake Forest Park Elementary)",
+            "label": "Lake Forest Park Elementary",
             "value": "Lake-Forest-Park-Elementary"
           },
           {
-            "label": "_(Meridian Park Elementary)",
+            "label": "Meridian Park Elementary",
             "value": "Meridian-Park-Elementary"
           },
           {
-            "label": "_(Parkwood Elementary)",
+            "label": "Parkwood Elementary",
             "value": "Parkwood-Elementary"
           },
           {
-            "label": "_(Ridgecrest Elementary)",
+            "label": "Ridgecrest Elementary",
             "value": "Ridgecrest-Elementary"
           },
           {
-            "label": "_(Shorecrest High School)",
+            "label": "Shorecrest High School",
             "value": "Shorecrest-High-School"
           },
           {
-            "label": "_(Shorewood High School)",
+            "label": "Shorewood High School",
             "value": "Shorewood-High-School"
           },
           {
-            "label": "_(Syre Elementary)",
+            "label": "Syre Elementary",
             "value": "Syre-Elementary"
           },
           {
-            "label": "_(Arrowhead)",
+            "label": "Arrowhead",
             "value": "Arrowhead"
           },
           {
-            "label": "_(Bear Creek)",
+            "label": "Bear Creek",
             "value": "Bear-Creek"
           },
           {
-            "label": "_(Bothell)",
+            "label": "Bothell",
             "value": "Bothell"
           },
           {
-            "label": "_(Canyon Creek)",
+            "label": "Canyon Creek",
             "value": "Canyon-Creek"
           },
           {
-            "label": "_(Canyon Park)",
+            "label": "Canyon Park",
             "value": "Canyon-Park"
           },
           {
-            "label": "_(Cottage Lake)",
+            "label": "Cottage Lake",
             "value": "Cottage-Lake"
           },
           {
-            "label": "_(Crystal Springs)",
+            "label": "Crystal Springs",
             "value": "Crystal-Springs"
           },
           {
-            "label": "_(East Ridge)",
+            "label": "East Ridge",
             "value": "East-Ridge"
           },
           {
-            "label": "_(Fernwood)",
+            "label": "Fernwood",
             "value": "Fernwood"
           },
           {
-            "label": "_(Frank Love)",
+            "label": "Frank Love",
             "value": "Frank-Love"
           },
           {
-            "label": "_(Hollywood Hill)",
+            "label": "Hollywood Hill",
             "value": "Hollywood-Hill"
           },
           {
-            "label": "_(Inglemoor)",
+            "label": "Inglemoor",
             "value": "Inglemoor"
           },
           {
-            "label": "_(Kenmore Elementary School)",
+            "label": "Kenmore Elementary School",
             "value": "Kenmore-Elementary-School"
           },
           {
-            "label": "_(Kenmore Middle School)",
+            "label": "Kenmore Middle School",
             "value": "Kenmore-Middle-School"
           },
           {
-            "label": "_(Kokanee)",
+            "label": "Kokanee",
             "value": "Kokanee"
           },
           {
-            "label": "_(Leota)",
+            "label": "Leota",
             "value": "Leota"
           },
           {
-            "label": "_(Lockwood)",
+            "label": "Lockwood",
             "value": "Lockwood"
           },
           {
-            "label": "_(Maywood Hills)",
+            "label": "Maywood Hills",
             "value": "Maywood-Hills"
           },
           {
-            "label": "_(Moorlands)",
+            "label": "Moorlands",
             "value": "Moorlands"
           },
           {
-            "label": "_(North Creek )",
+            "label": "North Creek ",
             "value": "North-Creek-"
           },
           {
-            "label": "_(Northshore )",
+            "label": "Northshore ",
             "value": "Northshore-"
           },
           {
-            "label": "_(Secondary Academy for Success (SAS))",
+            "label": "Secondary Academy for Success (SAS)",
             "value": "Secondary-Academy-for-Success-(SAS)"
           },
           {
-            "label": "_(Shelton View)",
+            "label": "Shelton View",
             "value": "Shelton-View"
           },
           {
-            "label": "_(Skyview )",
+            "label": "Skyview ",
             "value": "Skyview-"
           },
           {
-            "label": "_(Sunrise)",
+            "label": "Sunrise",
             "value": "Sunrise"
           },
           {
-            "label": "_(Timbercrest )",
+            "label": "Timbercrest ",
             "value": "Timbercrest-"
           },
           {
-            "label": "_(Wellington)",
+            "label": "Wellington",
             "value": "Wellington"
           },
           {
-            "label": "_(Westhill)",
+            "label": "Westhill",
             "value": "Westhill"
           },
           {
-            "label": "_(Woodin)",
+            "label": "Woodin",
             "value": "Woodin"
           },
           {
-            "label": "_(Woodinville)",
+            "label": "Woodinville",
             "value": "Woodinville"
           },
           {
-            "label": "_(Woodmoo)",
+            "label": "Woodmoo",
             "value": "Woodmoo"
           },
           {
-            "label": "_(Beverly Park Elementary School)",
+            "label": "Beverly Park Elementary School",
             "value": "Beverly-Park-Elementary-School"
           },
           {
-            "label": "_(Big Picture High School)",
+            "label": "Big Picture High School",
             "value": "Big-Picture-High-School"
           },
           {
-            "label": "_(Big Picture Middle School)",
+            "label": "Big Picture Middle School",
             "value": "Big-Picture-Middle-School"
           },
           {
-            "label": "_(Bow Lake Elementary School)",
+            "label": "Bow Lake Elementary School",
             "value": "Bow-Lake-Elementary-School"
           },
           {
-            "label": "_(Cascade Middle School -- Highline School District)",
+            "label": "Cascade Middle School -- Highline School District",
             "value": "Cascade-Middle-School--Highline"
           },
           {
-            "label": "_(Cedarhurst Elementary School)",
+            "label": "Cedarhurst Elementary School",
             "value": "Cedarhurst-Elementary-School"
           },
           {
-            "label": "_(Chinook Middle School -- Bellevue School District)",
+            "label": "Chinook Middle School -- Bellevue School District",
             "value": "Chinook-Middle-School--Bellevue"
           },
           {
-            "label": "_(CHOICE Academy)",
+            "label": "CHOICE Academy",
             "value": "CHOICE-Academy"
           },
           {
-            "label": "_(Des Moines Elementary School)",
+            "label": "Des Moines Elementary School",
             "value": "Des-Moines-Elementary-School"
           },
           {
-            "label": "_(Evergreen High School)",
+            "label": "Evergreen High School",
             "value": "Evergreen-High-School"
           },
           {
-            "label": "_(Gregory Heights Elementary School)",
+            "label": "Gregory Heights Elementary School",
             "value": "Gregory-Heights-Elementary-School"
           },
           {
-            "label": "_(Hazel Valley Elementary School)",
+            "label": "Hazel Valley Elementary School",
             "value": "Hazel-Valley-Elementary-School"
           },
           {
-            "label": "_(Highline High School)",
+            "label": "Highline High School",
             "value": "Highline-High-School"
           },
           {
-            "label": "_(Hilltop Elementary School)",
+            "label": "Hilltop Elementary School",
             "value": "Hilltop-Elementary-School"
           },
           {
-            "label": "_(Madrona Elementary School)",
+            "label": "Madrona Elementary School",
             "value": "Madrona-Elementary-School"
           },
           {
-            "label": "_(Marvista Elementary School)",
+            "label": "Marvista Elementary School",
             "value": "Marvista-Elementary-School"
           },
           {
-            "label": "_(McMicken Heights Elementary School)",
+            "label": "McMicken Heights Elementary School",
             "value": "McMicken-Heights-Elementary-School"
           },
           {
-            "label": "_(Midway Elementary School)",
+            "label": "Midway Elementary School",
             "value": "Midway-Elementary-School"
           },
           {
-            "label": "_(Mount Rainier High School)",
+            "label": "Mount Rainier High School",
             "value": "Mount-Rainier-High-School"
           },
           {
-            "label": "_(Mount View Elementary School)",
+            "label": "Mount View Elementary School",
             "value": "Mount-View-Elementary-School"
           },
           {
-            "label": "_(New Start High School)",
+            "label": "New Start High School",
             "value": "New-Start-High-School"
           },
           {
-            "label": "_(North Hill Elementary School)",
+            "label": "North Hill Elementary School",
             "value": "North-Hill-Elementary-School"
           },
           {
-            "label": "_(Pacific Middle School)",
+            "label": "Pacific Middle School",
             "value": "Pacific-Middle-School"
           },
           {
-            "label": "_(Parkside Elementary School)",
+            "label": "Parkside Elementary School",
             "value": "Parkside-Elementary-School"
           },
           {
-            "label": "_(Puget Sound Skills Center)",
+            "label": "Puget Sound Skills Center",
             "value": "Puget-Sound-Skills-Center"
           },
           {
-            "label": "_(Raisbeck Aviation)",
+            "label": "Raisbeck Aviation",
             "value": "Raisbeck-Aviation"
           },
           {
-            "label": "_(Seahurst Elementary School)",
+            "label": "Seahurst Elementary School",
             "value": "Seahurst-Elementary-School"
           },
           {
-            "label": "_(Shorewood Elementary School)",
+            "label": "Shorewood Elementary School",
             "value": "Shorewood-Elementary-School"
           },
           {
-            "label": "_(Southern Heights Elementary School)",
+            "label": "Southern Heights Elementary School",
             "value": "Southern-Heights-Elementary-School"
           },
           {
-            "label": "_(Sylvester Middle School)",
+            "label": "Sylvester Middle School",
             "value": "Sylvester-Middle-School"
           },
           {
-            "label": "_(Tyee High School)",
+            "label": "Tyee High School",
             "value": "Tyee-High-School"
           },
           {
-            "label": "_(Waskowitz Environmental Leadership School)",
+            "label": "Waskowitz Environmental Leadership School",
             "value": "Waskowitz-Environmental-Leadership-School"
           },
           {
-            "label": "_(Waskowitz Outdoor School)",
+            "label": "Waskowitz Outdoor School",
             "value": "Waskowitz-Outdoor-School"
           },
           {
-            "label": "_(White Center Heights Elementary School)",
+            "label": "White Center Heights Elementary School",
             "value": "White-Center-Heights-Elementary-School"
           },
           {
-            "label": "_(Academic Institute)",
+            "label": "Academic Institute",
             "value": "Academic-Institute"
           },
           {
-            "label": "_(Academy for Precision Learning)",
+            "label": "Academy for Precision Learning",
             "value": "Academy-for-Precision-Learning"
           },
           {
-            "label": "_(Academy Schools/Children’s Academy)",
+            "label": "Academy Schools/Children’s Academy",
             "value": "Academy-Schools/Children’s-Academy"
           },
           {
-            "label": "_(Alcuin School)",
+            "label": "Alcuin School",
             "value": "Alcuin-School"
           },
           {
-            "label": "_(Amazing Grace Christian School)",
+            "label": "Amazing Grace Christian School",
             "value": "Amazing-Grace-Christian-School"
           },
           {
-            "label": "_(American Academy)",
+            "label": "American Academy",
             "value": "American-Academy"
           },
           {
-            "label": "_(America's Child Montessori)",
+            "label": "America's Child Montessori",
             "value": "Americas-Child-Montessori"
           },
           {
-            "label": "_(Assumption St. Bridget)",
+            "label": "Assumption St. Bridget",
             "value": "Assumption-St-Bridget"
           },
           {
-            "label": "_(Auburn Adventist Academy)",
+            "label": "Auburn Adventist Academy",
             "value": "Auburn-Adventist-Academy"
           },
           {
-            "label": "_(Auburn Gateway School)",
+            "label": "Auburn Gateway School",
             "value": "Auburn-Gateway-School"
           },
           {
-            "label": "_(Bellevue Children's Academy)",
+            "label": "Bellevue Children's Academy",
             "value": "Bellevue-Childrens-Academy"
           },
           {
-            "label": "_(Bellevue Children's Academy 2nd Location)",
+            "label": "Bellevue Children's Academy 2nd Location",
             "value": "Bellevue-Childrens-Academy-2nd-Location"
           },
           {
-            "label": "_(Bellevue Christian Mack Elementary)",
+            "label": "Bellevue Christian Mack Elementary",
             "value": "Bellevue-Christian-Mack-Elementary"
           },
           {
-            "label": "_(Bellevue Christian School)",
+            "label": "Bellevue Christian School",
             "value": "Bellevue-Christian-School"
           },
           {
-            "label": "_(Bellevue Montessori School)",
+            "label": "Bellevue Montessori School",
             "value": "Bellevue-Montessori-School"
           },
           {
-            "label": "_(Bel-Red Bilingual Academy)",
+            "label": "Bel-Red Bilingual Academy",
             "value": "Bel-Red-Bilingual-Academy"
           },
           {
-            "label": "_(Bertschi School)",
+            "label": "Bertschi School",
             "value": "Bertschi-School"
           },
           {
-            "label": "_(Billings Middle School)",
+            "label": "Billings Middle School",
             "value": "Billings-Middle-School"
           },
           {
-            "label": "_(Bishop Blanchet High School)",
+            "label": "Bishop Blanchet High School",
             "value": "Bishop-Blanchet-High-School"
           },
           {
-            "label": "_(BK Play Academy for Gifted Children)",
+            "label": "BK Play Academy for Gifted Children",
             "value": "BK-Play-Academy-for-Gifted-Children"
           },
           {
-            "label": "_(Blossoming Hill Montessori)",
+            "label": "Blossoming Hill Montessori",
             "value": "Blossoming-Hill-Montessori"
           },
           {
-            "label": "_(Bright Water School)",
+            "label": "Bright Water School",
             "value": "Bright-Water-School"
           },
           {
-            "label": "_(Brightmont Academy, Seattle)",
+            "label": "Brightmont Academy, Seattle",
             "value": "Brightmont-Academy-Seattle"
           },
           {
-            "label": "_(Brightmont Academy, Sammamish)",
+            "label": "Brightmont Academy, Sammamish",
             "value": "Brightmont-Academy-Sammamish"
           },
           {
-            "label": "_(Brightmont Academy, Woodinville)",
+            "label": "Brightmont Academy, Woodinville",
             "value": "Brightmont-Academy-Woodinville"
           },
           {
-            "label": "_(Brightmont Academy, Redmond)",
+            "label": "Brightmont Academy, Redmond",
             "value": "Brightmont-Academy-Redmond"
           },
           {
-            "label": "_(Brock's Academy)",
+            "label": "Brock's Academy",
             "value": "Brocks-Academy"
           },
           {
-            "label": "_(Brooklake Christian School)",
+            "label": "Brooklake Christian School",
             "value": "Brooklake-Christian-School"
           },
           {
-            "label": "_(Buena Vista SDA School)",
+            "label": "Buena Vista SDA School",
             "value": "Buena-Vista-SDA-School"
           },
           {
-            "label": "_(Carpe Diem Primary School, Inc.)",
+            "label": "Carpe Diem Primary School, Inc.",
             "value": "Carpe-Diem-Primary-School-Inc"
           },
           {
-            "label": "_(Cascade Independent High School)",
+            "label": "Cascade Independent High School",
             "value": "Cascade-Independent-High-School"
           },
           {
-            "label": "_(Cascadia Montessori School)",
+            "label": "Cascadia Montessori School",
             "value": "Cascadia-Montessori-School"
           },
           {
-            "label": "_(Cedar Crest Academy)",
+            "label": "Cedar Crest Academy",
             "value": "Cedar-Crest-Academy"
           },
           {
-            "label": "_(Cedar Park Christian School)",
+            "label": "Cedar Park Christian School",
             "value": "Cedar-Park-Christian-School"
           },
           {
-            "label": "_(Cedar River Academy)",
+            "label": "Cedar River Academy",
             "value": "Cedar-River-Academy"
           },
           {
-            "label": "_(Cedar River Montessori School)",
+            "label": "Cedar River Montessori School",
             "value": "Cedar-River-Montessori-School"
           },
           {
-            "label": "_(Chestnut Hill Academy South Campus)",
+            "label": "Chestnut Hill Academy South Campus",
             "value": "Chestnut-Hill-Academy-South-Campus"
           },
           {
-            "label": "_(Child School)",
+            "label": "Child School",
             "value": "Child-School"
           },
           {
-            "label": "_(Christ the King School)",
+            "label": "Christ the King School",
             "value": "Christ-the-King-School"
           },
           {
-            "label": "_(Christian Faith School)",
+            "label": "Christian Faith School",
             "value": "Christian-Faith-School"
           },
           {
-            "label": "_(Chrysalis School)",
+            "label": "Chrysalis School",
             "value": "Chrysalis-School"
           },
           {
-            "label": "_(Concordia Lutheran School)",
+            "label": "Concordia Lutheran School",
             "value": "Concordia-Lutheran-School"
           },
           {
-            "label": "_(Cougar Mountain Academy)",
+            "label": "Cougar Mountain Academy",
             "value": "Cougar-Mountain-Academy"
           },
           {
-            "label": "_(Countryside Montessori School)",
+            "label": "Countryside Montessori School",
             "value": "Countryside-Montessori-School"
           },
           {
-            "label": "_(Dartmoor School, Bellevue)",
+            "label": "Dartmoor School, Bellevue",
             "value": "Dartmoor-School-Bellevue"
           },
           {
-            "label": "_(Dartmoor School, Issaquah)",
+            "label": "Dartmoor School, Issaquah",
             "value": "Dartmoor-School—Issaquah"
           },
           {
-            "label": "_(Dartmoor School, Seattle)",
+            "label": "Dartmoor School, Seattle",
             "value": "Dartmoor-School—Seattle"
           },
           {
-            "label": "_(Dartmoor School, Bothell)",
+            "label": "Dartmoor School, Bothell",
             "value": "Dartmoor-School—Bothell"
           },
           {
-            "label": "_(Dolan Academy & Learning Center)",
+            "label": "Dolan Academy & Learning Center",
             "value": "Dolan-Academy-Learning-Center"
           },
           {
-            "label": "_(Eastside Academy)",
+            "label": "Eastside Academy",
             "value": "Eastside-Academy"
           },
           {
-            "label": "_(Eastside Catholic School)",
+            "label": "Eastside Catholic School",
             "value": "Eastside-Catholic-School"
           },
           {
-            "label": "_(Eastside Christian School)",
+            "label": "Eastside Christian School",
             "value": "Eastside-Christian-School"
           },
           {
-            "label": "_(Eastside Learning Community)",
+            "label": "Eastside Learning Community",
             "value": "Eastside-Learning-Community"
           },
           {
-            "label": "_(Eastside Montessori Education Foundation dba Arbor Schools)",
+            "label": "Eastside Montessori Education Foundation dba Arbor Schools",
             "value": "Eastside-Montessori-Education-Foundation-dba-Arbor-Schools"
           },
           {
-            "label": "_(Eastside Preparatory School)",
+            "label": "Eastside Preparatory School",
             "value": "Eastside-Preparatory-School"
           },
           {
-            "label": "_(Emerald Heights Academy)",
+            "label": "Emerald Heights Academy",
             "value": "Emerald-Heights-Academy"
           },
           {
-            "label": "_(Epiphany School)",
+            "label": "Epiphany School",
             "value": "Epiphany-School"
           },
           {
-            "label": "_(ETC Preparatory Academy)",
+            "label": "ETC Preparatory Academy",
             "value": "ETC-Preparatory-Academy"
           },
           {
-            "label": "_(Eton School)",
+            "label": "Eton School",
             "value": "Eton-School"
           },
           {
-            "label": "_(Evergreen Academy)",
+            "label": "Evergreen Academy",
             "value": "Evergreen-Academy"
           },
           {
-            "label": "_(Evergreen Lutheran High School)",
+            "label": "Evergreen Lutheran High School",
             "value": "Evergreen-Lutheran-High-School"
           },
           {
-            "label": "_(Explorer West Middle School)",
+            "label": "Explorer West Middle School",
             "value": "Explorer-West-Middle-School"
           },
           {
-            "label": "_(Fairview Christian School)",
+            "label": "Fairview Christian School",
             "value": "Fairview-Christian-School"
           },
           {
-            "label": "_(Faith Lutheran School of Redmond)",
+            "label": "Faith Lutheran School of Redmond",
             "value": "Faith-Lutheran-School-of-Redmond"
           },
           {
-            "label": "_(Family Academy/Academy NW)",
+            "label": "Family Academy/Academy NW",
             "value": "Family-Academy/Academy-NW"
           },
           {
-            "label": "_(First Place)",
+            "label": "First Place",
             "value": "First-Place"
           },
           {
-            "label": "_(Forest Ridge School of Sacred Heart)",
+            "label": "Forest Ridge School of Sacred Heart",
             "value": "Forest-Ridge-School-of-Sacred-Heart"
           },
           {
-            "label": "_(French American School of Puget Sound)",
+            "label": "French American School of Puget Sound",
             "value": "French-American-School-of-Puget-Sound"
           },
           {
-            "label": "_(French Immersion School of Washington)",
+            "label": "French Immersion School of Washington",
             "value": "French-Immersion-School-of-Washington"
           },
           {
-            "label": "_(Giddens School)",
+            "label": "Giddens School",
             "value": "Giddens-School"
           },
           {
-            "label": "_(Glendale Lutheran School)",
+            "label": "Glendale Lutheran School",
             "value": "Glendale-Lutheran-School"
           },
           {
-            "label": "_(Green River Montessori School)",
+            "label": "Green River Montessori School",
             "value": "Green-River-Montessori-School"
           },
           {
-            "label": "_(Hamlin Robinson School)",
+            "label": "Hamlin Robinson School",
             "value": "Hamlin-Robinson-School"
           },
           {
-            "label": "_(Harbor School)",
+            "label": "Harbor School",
             "value": "Harbor-School"
           },
           {
-            "label": "_(Heritage Christian Academy)",
+            "label": "Heritage Christian Academy",
             "value": "Heritage-Christian-Academy"
           },
           {
-            "label": "_(Hillside Academy)",
+            "label": "Hillside Academy",
             "value": "Hillside-Academy"
           },
           {
-            "label": "_(Hillside Student Community School)",
+            "label": "Hillside Student Community School",
             "value": "Hillside-Student-Community-School"
           },
           {
-            "label": "_(Holy Family Parish School)",
+            "label": "Holy Family Parish School",
             "value": "Holy-Family-Parish-School"
           },
           {
-            "label": "_(Holy Family Bilingual Catholic School)",
+            "label": "Holy Family Bilingual Catholic School",
             "value": "Holy-Family-Bilingual-Catholic-School"
           },
           {
-            "label": "_(Holy Innocents School of NW)",
+            "label": "Holy Innocents School of NW",
             "value": "Holy-Innocents-School-of-NW"
           },
           {
-            "label": "_(Holy Names Academy)",
+            "label": "Holy Names Academy",
             "value": "Holy-Names-Academy"
           },
           {
-            "label": "_(Holy Rosary Elementary)",
+            "label": "Holy Rosary Elementary",
             "value": "Holy-Rosary-Elementary"
           },
           {
-            "label": "_(Holy Trinity Lutheran School)",
+            "label": "Holy Trinity Lutheran School",
             "value": "Holy-Trinity-Lutheran-School"
           },
           {
-            "label": "_(Hope Lutheran School)",
+            "label": "Hope Lutheran School",
             "value": "Hope-Lutheran-School"
           },
           {
-            "label": "_(Horizon School)",
+            "label": "Horizon School",
             "value": "Horizon-School"
           },
           {
-            "label": "_(Islamic School of Seattle)",
+            "label": "Islamic School of Seattle",
             "value": "Islamic-School-of-Seattle"
           },
           {
-            "label": "_(Jewish Day School)",
+            "label": "Jewish Day School",
             "value": "Jewish-Day-School"
           },
           {
-            "label": "_(JF Kennedy Catholic High School)",
+            "label": "JF Kennedy Catholic High School",
             "value": "JF-Kennedy-Catholic-High-School"
           },
           {
-            "label": "_(Kapka Cooperative School)",
+            "label": "Kapka Cooperative School",
             "value": "Kapka-Cooperative-School"
           },
           {
-            "label": "_(Kentwood Christian Academy)",
+            "label": "Kentwood Christian Academy",
             "value": "Kentwood-Christian-Academy"
           },
           {
-            "label": "_(King's Schools)",
+            "label": "King's Schools",
             "value": "Kings-Schools"
           },
           {
-            "label": "_(Kirkland SDA School)",
+            "label": "Kirkland SDA School",
             "value": "Kirkland-SDA-School"
           },
           {
-            "label": "_(Koinonia Learning Academy)",
+            "label": "Koinonia Learning Academy",
             "value": "Koinonia-Learning-Academy"
           },
           {
-            "label": "_(Lake Forest Park)",
+            "label": "Lake Forest Park",
             "value": "Lake-Forest-Park"
           },
           {
-            "label": "_(Lake Forest Park Montessori)",
+            "label": "Lake Forest Park Montessori",
             "value": "Lake-Forest-Park-Montessori"
           },
           {
-            "label": "_(Lake WA Girls Middle School)",
+            "label": "Lake WA Girls Middle School",
             "value": "Lake-WA-Girls-Middle-School"
           },
           {
-            "label": "_(Lakeside School)",
+            "label": "Lakeside School",
             "value": "Lakeside-School"
           },
           {
-            "label": "_(Laurel Academy)",
+            "label": "Laurel Academy",
             "value": "Laurel-Academy"
           },
           {
-            "label": "_(Legacy Classical Christian Academy)",
+            "label": "Legacy Classical Christian Academy",
             "value": "Legacy-Classical-Christian-Academy"
           },
           {
-            "label": "_(Living Montessori Academy)",
+            "label": "Living Montessori Academy",
             "value": "Living-Montessori-Academy"
           },
           {
-            "label": "_(Living Wisdom School of Seattle)",
+            "label": "Living Wisdom School of Seattle",
             "value": "Living-Wisdom-School-of-Seattle"
           },
           {
-            "label": "_(Matheia School)",
+            "label": "Matheia School",
             "value": "Matheia-School"
           },
           {
-            "label": "_(Medina Academy)",
+            "label": "Medina Academy",
             "value": "Medina-Academy"
           },
           {
-            "label": "_(Meridian School)",
+            "label": "Meridian School",
             "value": "Meridian-School"
           },
           {
-            "label": "_(MMSC Day School)",
+            "label": "MMSC Day School",
             "value": "MMSC-Day-School"
           },
           {
-            "label": "_(Montessori Children's House)",
+            "label": "Montessori Children's House",
             "value": "Montessori-Childrens-House"
           },
           {
-            "label": "_(Morningside Academy)",
+            "label": "Morningside Academy",
             "value": "Morningside-Academy"
           },
           {
-            "label": "_(New Horizon School)",
+            "label": "New Horizon School",
             "value": "New-Horizon-School"
           },
           {
-            "label": "_(Newport Children's School)",
+            "label": "Newport Children's School",
             "value": "Newport-Childrens-School"
           },
           {
-            "label": "_(North Bend Montessori Inc)",
+            "label": "North Bend Montessori Inc",
             "value": "North-Bend-Montessori-Inc"
           },
           {
-            "label": "_(Northwest Free School)",
+            "label": "Northwest Free School",
             "value": "Northwest-Free-School"
           },
           {
-            "label": "_(Northwest Liberty School)",
+            "label": "Northwest Liberty School",
             "value": "Northwest-Liberty-School"
           },
           {
-            "label": "_(Northwest Montessori)",
+            "label": "Northwest Montessori",
             "value": "Northwest-Montessori"
           },
           {
-            "label": "_(Northwest School)",
+            "label": "Northwest School",
             "value": "Northwest-School"
           },
           {
-            "label": "_(Northwest School For Hearing Impaired)",
+            "label": "Northwest School For Hearing Impaired",
             "value": "Northwest-School-For-Hearing-Impaired"
           },
           {
-            "label": "_(Northwest Yeshiva High School)",
+            "label": "Northwest Yeshiva High School",
             "value": "Northwest-Yeshiva-High-School"
           },
           {
-            "label": "_(O'Dea High School)",
+            "label": "O'Dea High School",
             "value": "ODea-High-School"
           },
           {
-            "label": "_(Open Window School)",
+            "label": "Open Window School",
             "value": "Open-Window-School"
           },
           {
-            "label": "_(Our Lady of Fatima School)",
+            "label": "Our Lady of Fatima School",
             "value": "Our-Lady-of-Fatima-School"
           },
           {
-            "label": "_(Our Lady of Guadalupe School)",
+            "label": "Our Lady of Guadalupe School",
             "value": "Our-Lady-of-Guadalupe-School"
           },
           {
-            "label": "_(Our Lady Of The Lake School)",
+            "label": "Our Lady Of The Lake School",
             "value": "Our-Lady-Of-The-Lake-School"
           },
           {
-            "label": "_(Overcomer Academy)",
+            "label": "Overcomer Academy",
             "value": "Overcomer-Academy"
           },
           {
-            "label": "_(Overlake School)",
+            "label": "Overlake School",
             "value": "Overlake-School"
           },
           {
-            "label": "_(Pacific Crest Schools)",
+            "label": "Pacific Crest Schools",
             "value": "Pacific-Crest-Schools"
           },
           {
-            "label": "_(Pacific Learning Academy)",
+            "label": "Pacific Learning Academy",
             "value": "Pacific-Learning-Academy"
           },
           {
-            "label": "_(Pacific Learning Center NW)",
+            "label": "Pacific Learning Center NW",
             "value": "Pacific-Learning-Center-NW"
           },
           {
-            "label": "_(Perkins School)",
+            "label": "Perkins School",
             "value": "Perkins-School"
           },
           {
-            "label": "_(Praise Christian Academy)",
+            "label": "Praise Christian Academy",
             "value": "Praise-Christian-Academy"
           },
           {
-            "label": "_(Privett Academy)",
+            "label": "Privett Academy",
             "value": "Privett-Academy"
           },
           {
-            "label": "_(Puget Sound Adventist Academy)",
+            "label": "Puget Sound Adventist Academy",
             "value": "Puget-Sound-Adventist-Academy"
           },
           {
-            "label": "_(Puget Sound Community School)",
+            "label": "Puget Sound Community School",
             "value": "Puget-Sound-Community-School"
           },
           {
-            "label": "_(Rainier Christian Elementary-Kent View)",
+            "label": "Rainier Christian Elementary-Kent View",
             "value": "Rainier-Christian-Elementary-Kent-View"
           },
           {
-            "label": "_(Rainier Christian High School)",
+            "label": "Rainier Christian High School",
             "value": "Rainier-Christian-High-School"
           },
           {
-            "label": "_(Rainier Christian Middle School)",
+            "label": "Rainier Christian Middle School",
             "value": "Rainier-Christian-Middle-School"
           },
           {
-            "label": "_(Rainier Christian Preschool-Little People)",
+            "label": "Rainier Christian Preschool-Little People",
             "value": "Rainier-Christian-Preschool-Little-People"
           },
           {
-            "label": "_(Rainier Christian Schools-Maple Valley Elementary)",
+            "label": "Rainier Christian Schools-Maple Valley Elementary",
             "value": "Rainier-Christian-Schools-Maple-Valley-Elementary"
           },
           {
-            "label": "_(Rainier Christian Schools-Maple Valley Preschool)",
+            "label": "Rainier Christian Schools-Maple Valley Preschool",
             "value": "Rainier-Christian-Schools-Maple-Valley-Preschool"
           },
           {
-            "label": "_(Renton Christian School)",
+            "label": "Renton Christian School",
             "value": "Renton-Christian-School"
           },
           {
-            "label": "_(Sacred Heart School)",
+            "label": "Sacred Heart School",
             "value": "Sacred-Heart-School"
           },
           {
-            "label": "_(Saint Thomas School)",
+            "label": "Saint Thomas School",
             "value": "Saint-Thomas-School"
           },
           {
-            "label": "_(Sammamish Christian School & Noah's Ark)",
+            "label": "Sammamish Christian School & Noah's Ark",
             "value": "Sammamish-Christian-School-Noahs-Ark"
           },
           {
-            "label": "_(Seattle Academy of Arts/Sciences)",
+            "label": "Seattle Academy of Arts/Sciences",
             "value": "Seattle-Academy-of-Arts/Sciences"
           },
           {
-            "label": "_(Seattle Area German American School)",
+            "label": "Seattle Area German American School",
             "value": "Seattle-Area-German-American-School"
           },
           {
-            "label": "_(Seattle Christian School)",
+            "label": "Seattle Christian School",
             "value": "Seattle-Christian-School"
           },
           {
-            "label": "_(Seattle Country Day School)",
+            "label": "Seattle Country Day School",
             "value": "Seattle-Country-Day-School"
           },
           {
-            "label": "_(Seattle Girls' School)",
+            "label": "Seattle Girls' School",
             "value": "Seattle-Girls-School"
           },
           {
-            "label": "_(Seattle Hebrew Academy)",
+            "label": "Seattle Hebrew Academy",
             "value": "Seattle-Hebrew-Academy"
           },
           {
-            "label": "_(Seattle Jewish Community School)",
+            "label": "Seattle Jewish Community School",
             "value": "Seattle-Jewish-Community-School"
           },
           {
-            "label": "_(Seattle Lutheran High School)",
+            "label": "Seattle Lutheran High School",
             "value": "Seattle-Lutheran-High-School"
           },
           {
-            "label": "_(Seattle Prep/Matteo Ricci College)",
+            "label": "Seattle Prep/Matteo Ricci College",
             "value": "Seattle-Prep/Matteo-Ricci-College"
           },
           {
-            "label": "_(Seattle Urban Academy)",
+            "label": "Seattle Urban Academy",
             "value": "Seattle-Urban-Academy"
           },
           {
-            "label": "_(Seattle Waldorf School)",
+            "label": "Seattle Waldorf School",
             "value": "Seattle-Waldorf-School"
           },
           {
-            "label": "_(Shoreline Christian School)",
+            "label": "Shoreline Christian School",
             "value": "Shoreline-Christian-School"
           },
           {
-            "label": "_(Shorewood Christian School)",
+            "label": "Shorewood Christian School",
             "value": "Shorewood-Christian-School"
           },
           {
-            "label": "_(Sno-King Academy)",
+            "label": "Sno-King Academy",
             "value": "Sno-King-Academy"
           },
           {
-            "label": "_(Snoqualmie Springs School)",
+            "label": "Snoqualmie Springs School",
             "value": "Snoqualmie-Springs-School"
           },
           {
-            "label": "_(Sound View Education)",
+            "label": "Sound View Education",
             "value": "Sound-View-Education"
           },
           {
-            "label": "_(Spanish Academy)",
+            "label": "Spanish Academy",
             "value": "Spanish-Academy"
           },
           {
-            "label": "_(Spectrum Academy)",
+            "label": "Spectrum Academy",
             "value": "Spectrum-Academy"
           },
           {
-            "label": "_(Spring Academy)",
+            "label": "Spring Academy",
             "value": "Spring-Academy"
           },
           {
-            "label": "_(Spring Valley Montessori)",
+            "label": "Spring Valley Montessori",
             "value": "Spring-Valley-Montessori"
           },
           {
-            "label": "_(Spruce Street School)",
+            "label": "Spruce Street School",
             "value": "Spruce-Street-School"
           },
           {
-            "label": "_(St. Alphonsus School)",
+            "label": "St. Alphonsus School",
             "value": "St-Alphonsus-School"
           },
           {
-            "label": "_(St. Anne School)",
+            "label": "St. Anne School",
             "value": "St-Anne-School"
           },
           {
-            "label": "_(St. Anthony School)",
+            "label": "St. Anthony School",
             "value": "St-Anthony-School"
           },
           {
-            "label": "_(St. Benedict School)",
+            "label": "St. Benedict School",
             "value": "St-Benedict-School"
           },
           {
-            "label": "_(St. Bernadette School)",
+            "label": "St. Bernadette School",
             "value": "St-Bernadette-School"
           },
           {
-            "label": "_(St. Brendan School)",
+            "label": "St. Brendan School",
             "value": "St-Brendan-School"
           },
           {
-            "label": "_(St. Catherine School)",
+            "label": "St. Catherine School",
             "value": "St-Catherine-School"
           },
           {
-            "label": "_(St. Christopher Academy)",
+            "label": "St. Christopher Academy",
             "value": "St-Christopher-Academy"
           },
           {
-            "label": "_(St. Edwards School)",
+            "label": "St. Edwards School",
             "value": "St-Edwards-School"
           },
           {
-            "label": "_(St. Francis of Assisi School)",
+            "label": "St. Francis of Assisi School",
             "value": "St-Francis-of-Assisi-School"
           },
           {
-            "label": "_(St. George School)",
+            "label": "St. George School",
             "value": "St-George-School"
           },
           {
-            "label": "_(St. John School)",
+            "label": "St. John School",
             "value": "St-John-School"
           },
           {
-            "label": "_(St. Joseph Catholic School of Issaquah)",
+            "label": "St. Joseph Catholic School of Issaquah",
             "value": "St-Joseph-Catholic-School-of-Issaquah"
           },
           {
-            "label": "_(St. Joseph School)",
+            "label": "St. Joseph School",
             "value": "St-Joseph-School"
           },
           {
-            "label": "_(St. Louise School)",
+            "label": "St. Louise School",
             "value": "St-Louise-School"
           },
           {
-            "label": "_(St. Luke School)",
+            "label": "St. Luke School",
             "value": "St-Luke-School"
           },
           {
-            "label": "_(St. Madeleine Sophie School)",
+            "label": "St. Madeleine Sophie School",
             "value": "St-Madeleine-Sophie-School"
           },
           {
-            "label": "_(St. Mark School)",
+            "label": "St. Mark School",
             "value": "St-Mark-School"
           },
           {
-            "label": "_(St. Matthew School)",
+            "label": "St. Matthew School",
             "value": "St-Matthew-School"
           },
           {
-            "label": "_(St. Monica School)",
+            "label": "St. Monica School",
             "value": "St-Monica-School"
           },
           {
-            "label": "_(St. Paul School)",
+            "label": "St. Paul School",
             "value": "St-Paul-School"
           },
           {
-            "label": "_(St. Philomena School)",
+            "label": "St. Philomena School",
             "value": "St-Philomena-School"
           },
           {
-            "label": "_(St. Therese School)",
+            "label": "St. Therese School",
             "value": "St-Therese-School"
           },
           {
-            "label": "_(St. Vincent De Paul School)",
+            "label": "St. Vincent De Paul School",
             "value": "St-Vincent-De-Paul-School"
           },
           {
-            "label": "_(Summit Classical Christian School)",
+            "label": "Summit Classical Christian School",
             "value": "Summit-Classical-Christian-School"
           },
           {
-            "label": "_(The Bear Creek School)",
+            "label": "The Bear Creek School",
             "value": "The-Bear-Creek-School"
           },
           {
-            "label": "_(The Bush School)",
+            "label": "The Bush School",
             "value": "The-Bush-School"
           },
           {
-            "label": "_(The Clearwater School)",
+            "label": "The Clearwater School",
             "value": "The-Clearwater-School"
           },
           {
-            "label": "_(The Eastside Montessori School)",
+            "label": "The Eastside Montessori School",
             "value": "The-Eastside-Montessori-School"
           },
           {
-            "label": "_(The Evergreen School)",
+            "label": "The Evergreen School",
             "value": "The-Evergreen-School"
           },
           {
-            "label": "_(The Lake and Park School)",
+            "label": "The Lake and Park School",
             "value": "The-Lake-and-Park-School"
           },
           {
-            "label": "_(The Little School)",
+            "label": "The Little School",
             "value": "The-Little-School"
           },
           {
-            "label": "_(The Sammamish Montessori School)",
+            "label": "The Sammamish Montessori School",
             "value": "The-Sammamish-Montessori-School"
           },
           {
-            "label": "_(Three Cedars Waldorf School)",
+            "label": "Three Cedars Waldorf School",
             "value": "Three-Cedars-Waldorf-School"
           },
           {
-            "label": "_(Three Points Elementary)",
+            "label": "Three Points Elementary",
             "value": "Three-Points-Elementary"
           },
           {
-            "label": "_(Three Tree Montessori)",
+            "label": "Three Tree Montessori",
             "value": "Three-Tree-Montessori"
           },
           {
-            "label": "_(Tilden School)",
+            "label": "Tilden School",
             "value": "Tilden-School"
           },
           {
-            "label": "_(TLC Academy)",
+            "label": "TLC Academy",
             "value": "TLC-Academy"
           },
           {
-            "label": "_(Torah Day School of Seattle)",
+            "label": "Torah Day School of Seattle",
             "value": "Torah-Day-School-of-Seattle"
           },
           {
-            "label": "_(UCiC School)",
+            "label": "UCiC School",
             "value": "UCiC-School"
           },
           {
-            "label": "_(University Child Development School)",
+            "label": "University Child Development School",
             "value": "University-Child-Development-School"
           },
           {
-            "label": "_(University Cooperative School)",
+            "label": "University Cooperative School",
             "value": "University-Cooperative-School"
           },
           {
-            "label": "_(University Preparatory)",
+            "label": "University Preparatory",
             "value": "University-Preparatory"
           },
           {
-            "label": "_(Valley Christian School)",
+            "label": "Valley Christian School",
             "value": "Valley-Christian-School"
           },
           {
-            "label": "_(Valley School)",
+            "label": "Valley School",
             "value": "Valley-School"
           },
           {
-            "label": "_(Veritas Academy)",
+            "label": "Veritas Academy",
             "value": "Veritas-Academy"
           },
           {
-            "label": "_(Villa Academy)",
+            "label": "Villa Academy",
             "value": "Villa-Academy"
           },
           {
-            "label": "_(West Seattle Montessori School)",
+            "label": "West Seattle Montessori School",
             "value": "West-Seattle-Montessori-School"
           },
           {
-            "label": "_(Westside School)",
+            "label": "Westside School",
             "value": "Westside-School"
           },
           {
-            "label": "_(Whole Earth Montessori School)",
+            "label": "Whole Earth Montessori School",
             "value": "Whole-Earth-Montessori-School"
           },
           {
-            "label": "_(Woodinville Montessori School)",
+            "label": "Woodinville Montessori School",
             "value": "Woodinville-Montessori-School"
           },
           {
-            "label": "_(Work It Out)",
+            "label": "Work It Out",
             "value": "Work-It-Out"
           },
           {
-            "label": "_(Zion Preparatory Academy)",
+            "label": "Zion Preparatory Academy",
             "value": "Zion-Preparatory-Academy"
           }
         ]
       },
       "submitter_name": {
         "type": "text",
-        "prompt": "_(Your name)",
-        "placeholder": "_(Name)",
+        "prompt": "Your name",
+        "placeholder": "Name",
         "optional": true
       },
       "private-submitter_email": {
         "type": "text",
-        "prompt": "_(Your Email)",
+        "prompt": "Your Email",
         "optional": true,
         "sticky": true,
         "attrs": [
           {
             "key": "placeholder",
-            "value": "_(Receive email updates on your report)"
+            "value": "Receive email updates on your report"
           },
           {
             "key": "size",
@@ -4238,13 +4247,13 @@
       },
       "my_image": {
         "type": "file",
-        "prompt": "_(Image)",
-        "label": "_(Add an Image)",
+        "prompt": "Image",
+        "label": "Add an Image",
         "optional": true
       },
       "submit": {
         "type": "submit",
-        "label": "_(Put it on the map!)"
+        "label": "Put it on the map!"
       }
     }
   },
@@ -4253,22 +4262,22 @@
       "submission_type": "comments",
       "show_responses": true,
       "single_submission": false,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
-      "action_text": "_(commented on)",
-      "anonymous_name": "_(Someone)",
-      "title": "_(Leave a Comment)",
-      "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comment)",
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
       "items": [
         {
-          "prompt": "_(Comment)",
-          "label": "_(Comment)",
+          "prompt": "Comment",
+          "label": "Comment",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Your Name)",
+          "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -4276,7 +4285,7 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comment)"
+          "label": "Comment"
         }
       ]
     },
@@ -4284,82 +4293,75 @@
       {
         "id": "featured_place",
         "datasetId": "mwfeatured",
-        "label": "_(Featured Site)",
+        "label": "Featured Site",
         "icon": "/static/css/images/markers/marker-star.png"
       },
       {
         "id": "conserve-water",
         "datasetId": "mw",
-        "label": "_(Conserve Water)",
+        "label": "Conserve Water",
         "icon": "/static/css/images/markers/marker-conserve-water.png"
       },
       {
         "id": "prevent-stormwater",
         "datasetId": "mw",
-        "label": "_(Conserve Water)",
+        "label": "Conserve Water",
         "icon": "/static/css/images/markers/marker-prevent-stormwater-pollution.png"
       },
       {
         "id": "conserve-energy",
         "datasetId": "mw",
-        "label": "_(Conserve Energy)",
+        "label": "Conserve Energy",
         "icon": "/static/css/images/markers/marker-conserve-energy.png"
       },
       {
         "id": "waste-less",
         "datasetId": "mw",
-        "label": "_(Waste Less)",
+        "label": "Waste Less",
         "icon": "/static/css/images/markers/marker-waste-less.png"
       },
       {
         "id": "commute-low-carbon",
         "datasetId": "mw",
-        "label": "_(Commute Low Carbon)",
+        "label": "Commute Low Carbon",
         "icon": "/static/css/images/markers/marker-commute-low-carbon.png"
       },
       {
         "id": "eat-local-organic",
         "datasetId": "mw",
-        "label": "_(Eat Local Organic)",
+        "label": "Eat Local Organic",
         "icon": "/static/css/images/markers/marker-eat-local-organic.png"
       },
       {
         "id": "restore-salmon-habitat",
         "datasetId": "mw",
-        "label": "_(Restore Salmon Habitat)",
+        "label": "Restore Salmon Habitat",
         "icon": "/static/css/images/markers/marker-restore-salmon-habitat.png"
       }
     ]
   },
   "support": {
     "submission_type": "support",
-    "submit_btn_text": "_(Support)",
-    "response_name": "_(support)",
-    "response_plural_name": "_(supports)",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
     "action_text": "supported",
-    "anonymous_name": "_(Someone)"
+    "anonymous_name": "Someone"
   },
   "nav_bar": [
     {
-      "title": "_(Map Layers)",
-      "type": "left_sidebar_toggle",
-      "component": "MapLayerPanel"
+      "title": "Map Layers",
+      "type": "left_sidebar_toggle"
     },
     {
-      "title": "_(Community)",
+      "title": "Example Projects",
       "type": "internal_link",
       "url": "/featured/3737"
-    },
-    {
-      "title": "_(Classroom Project)",
-      "type": "internal_link",
-      "url": "/page/about"
     }
   ],
   "pages": [
     {
       "slug": "guide",
-      "lang": "en_US",
       "content": [
         "<div class='getinvolved'>",
         "<i class='fa fa-info-circle'></i>",
@@ -4370,7 +4372,7 @@
         "<li>Sign in (use the button on the top right)</li>",
         "<li><a href='http://eepurl.com/6IfA5'>Request access</a> to be an administrator.</li>",
         "</ol>",
-        "<em>If you're having trouble signing in send a message to feedback@heyduwamish.org and we'll fix it right away!</em>",
+        "<em>If you're having trouble signing in send a message to feedback@mapseed.org and we'll fix it right away!</em>",
         "<hr>",
         "<h4>Once you've been approved as an admin, you'll have the ability to edit certain sites on the map</h4>",
         "<hr>",
@@ -4413,7 +4415,6 @@
     },
     {
       "slug": "sponsors",
-      "lang": "en_US",
       "content": [
         "<h1>Sponsors</h1>",
         "<p>Seed funding provided by the Puget Sound Stewardship and Mitigation Fund, a community grantmaking fund created by Puget Soundkeeper Alliance and administered by the Rose Foundation for Communities and the Environment.</p>",
@@ -4426,127 +4427,62 @@
     },
     {
       "slug": "classroom",
-      "lang": "en_US",
       "content": [
         "<iframe src='https://docs.google.com/forms/d/e/1FAIpQLSeMZsMyb-7kRKiHc6lMeRnl96C1Tun8U2YWr7YjJz09K-S3lA/viewform?embedded=true' width='640' height='721' frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>"
       ]
     },
     {
       "slug": "about",
-      "lang": "en_US",
       "content": [
         "<h3 style='font-family:Palanquin, sans-serif'>Classroom Impact Reporting Protocol</h3>",
-        "<img style='margin-top:16px;margin-bottom:16px' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",
+        "<img style='margin-top:16px;margin-bottom:16px;width:100%;' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",
         "<p>Add your classroom reports to the map! Let your students and stakeholders track and visualize the positive impact of their classroom and community projects. Need admin support to get started? <a href='mailto:hello@mapseed.org' target='_blank'>Just ask.</a></p>",
         "<p>Click the button below, then choose the <strong>Featured Project</strong> cateory to add your report.</p>",
         "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-large'>REPORT IT!</a>"
       ]
     }
   ],
-  "story": {
-    "watersheds": {
-      "default_zoom": 18,
-      "visibleLayerGroupIds": ["satellite", "mwfeatured"],
-      "order": [
-        {
-          "placeId": 3737,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3363,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3360,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3362,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3328,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3329,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3330,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3331,
-          "zoom": 14,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3747,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3748,
-          "zoom": 18,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3332,
-          "zoom": 8,
-          "pan_to": [-122.06291037540797, 47.631653886906804],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-sammamish"
-          ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3333,
-          "zoom": 8,
-          "pan_to": [-121.75112573040786, 47.64123180739975],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-cedar-sammamish"
-          ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3334,
-          "zoom": 8,
-          "pan_to": [-121.89064979555963, 47.32023597632835],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-green"
-          ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        },
-        {
-          "placeId": 3335,
-          "zoom": 8,
-          "pan_to": [-121.92300796523165, 47.08293753263453],
-          "visibleLayerGroupIds": [
-            "light-nolabels",
-            "wria-7-8-9",
-            "watershed-puyallup"
-          ],
-          "spotlight": false,
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "header": "Example projects",
+    "default_zoom": 18,
+    "visibleLayerGroupIds": ["satellite", "mwfeatured", "mw-featured-projects"],
+    "order": [
+      {
+        "placeId": 3737,
+        "zoom": 18
+      },
+      {
+        "placeId": 3363,
+        "zoom": 18
+      },
+      {
+        "placeId": 3360,
+        "zoom": 18
+      },
+      {
+        "placeId": 3362,
+        "zoom": 18
+      },
+      {
+        "placeId": 3330
+      },
+      {
+        "placeId": 3331,
+        "zoom": 14
+      },
+      {
+        "placeId": 3747,
+        "zoom": 18
+      },
+      {
+        "placeId": 3748,
+        "zoom": 18
+      },
+      {
+        "placeId": 7072,
+        "zoom": 18
+      }
+    ]
   },
   "cluster": {
     "animate": true,

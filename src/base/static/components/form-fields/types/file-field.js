@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import { withTranslation } from "react-i18next";
 
 import "./file-field.scss";
 
@@ -20,7 +21,7 @@ const FileField = props => {
         onChange={props.onChange}
         accept={props.accept}
       />
-      {props.label}
+      {props.t(`fileFieldLabel${props.formId}${props.name}`, props.label)}
     </label>
   );
 };
@@ -28,12 +29,14 @@ const FileField = props => {
 FileField.propTypes = {
   accept: PropTypes.string,
   className: PropTypes.string,
+  formId: PropTypes.string.isRequired,
   id: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   required: PropTypes.bool,
+  t: PropTypes.func.isRequired,
   value: PropTypes.string,
 };
 
-export default FileField;
+export default withTranslation("FileField")(FileField);

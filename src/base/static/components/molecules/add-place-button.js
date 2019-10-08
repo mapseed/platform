@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 
 import { Button } from "../atoms/buttons";
 import mq from "../../../../media-queries";
+import constants from "../../constants";
 
-import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map-config";
+import { geocodeAddressBarEnabledSelector } from "../../state/ducks/map";
 
 const AddPlaceButtonContainer = styled(props => (
   <Button
@@ -20,9 +21,10 @@ const AddPlaceButtonContainer = styled(props => (
   </Button>
 ))(props => {
   return {
-    position: "absolute",
-    zIndex: 1,
+    position: props.layout == "desktop" ? "absolute" : "fixed",
+    zIndex: 5,
     backgroundColor: props.theme.map.addPlaceButtonBackgroundColor,
+    fontFamily: props.theme.text.bodyFontFamily,
 
     "&:hover": {
       backgroundColor: props.theme.map.addPlaceButtonHoverBackgroundColor,
@@ -35,26 +37,34 @@ const AddPlaceButtonContainer = styled(props => (
       left: 0,
     },
     [mq[1]]: {
-      top: props.isGeocodeAddressBarEnabled ? "62px" : "20px",
+      top: props.isGeocodeAddressBarEnabled
+        ? `${constants.HEADER_HEIGHT + 62}px`
+        : `${constants.HEADER_HEIGHT + 20}px`,
       left: "60px",
     },
   };
 });
 
-const AddPlaceButton = props => (
-  <AddPlaceButtonContainer
-    className={props.className}
-    onClick={props.onClick}
-    isGeocodeAddressBarEnabled={props.isGeocodeAddressBarEnabled}
-  >
-    {props.children}
-  </AddPlaceButtonContainer>
-);
+class AddPlaceButton extends React.Component {
+  render() {
+    return (
+      <AddPlaceButtonContainer
+        className={this.props.className}
+        layout={this.props.layout}
+        onClick={this.props.onClick}
+        isGeocodeAddressBarEnabled={this.props.isGeocodeAddressBarEnabled}
+      >
+        {this.props.children}
+      </AddPlaceButtonContainer>
+    );
+  }
+}
 
 AddPlaceButton.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   isGeocodeAddressBarEnabled: PropTypes.bool.isRequired,
+  layout: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
@@ -62,4 +72,9 @@ const mapStateToProps = state => ({
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
 });
 
-export default connect(mapStateToProps)(AddPlaceButton);
+export default connect(
+  mapStateToProps,
+  null,
+  null,
+  { forwardRef: true },
+)(AddPlaceButton);

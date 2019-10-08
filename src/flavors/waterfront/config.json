@@ -4,7 +4,7 @@
     "name": "Which Georgetown waterfront?",
     "meta_description": "_(The Georgetown Community Council, King County and the City of Seattle are interested in jointly pursuing a King County WaterWorks grant to design for better community access to the river and less polluted stormwater runoff in the Georgetown neighborhood.)",
     "meta_author": "smartercleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
@@ -12,12 +12,7 @@
     "cartodb_enabled": true,
     "geocoding_enabled": false,
     "geocode_field_label": "_(Enter an address...)",
-    "geocode_bounding_box": [
-      39.830159,
-      -75.478821,
-      40.167331,
-      -74.781189
-    ],
+    "geocode_bounding_box": [39.830159, -75.478821, 40.167331, -74.781189],
     "options": {
       "center": {
         "lat": 47.53885,
@@ -87,7 +82,7 @@
       },
       {
         "id": "waterfront",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/waterfront",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/waterfront",
         "type": "place",
         "slug": "report"
       }
@@ -102,64 +97,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              12,
-              14.5
-            ],
-            "iconAnchor": [
-              6,
-              14.5
-            ]
+            "iconSize": [12, 14.5],
+            "iconAnchor": [6, 14.5]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -172,64 +137,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-dbcf2c.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              12,
-              14.5
-            ],
-            "iconAnchor": [
-              6,
-              14.5
-            ]
+            "iconSize": [12, 14.5],
+            "iconAnchor": [6, 14.5]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -242,64 +177,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              12,
-              14.5
-            ],
-            "iconAnchor": [
-              6,
-              14.5
-            ]
+            "iconSize": [12, 14.5],
+            "iconAnchor": [6, 14.5]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -312,64 +217,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              12,
-              14.5
-            ],
-            "iconAnchor": [
-              6,
-              14.5
-            ]
+            "iconSize": [12, 14.5],
+            "iconAnchor": [6, 14.5]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -400,36 +275,18 @@
           "condition": "this.geometry.type == \"Point\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-option-a.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         },
         {
           "condition": "this.geometry.type == \"Point\" && this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-option-a.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         }
       ]

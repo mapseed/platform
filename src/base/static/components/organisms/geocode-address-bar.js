@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
+import { withTranslation } from "react-i18next";
 
-import { translate } from "react-i18next";
-
-import GeocodingField from "../form-fields/types/geocoding-field";
+import GeocodingField from "../molecules/form-field-types/geocoding-field";
 
 import { uiVisibilitySelector, layoutSelector } from "../../state/ducks/ui";
 
 import { getMainContentAreaWidth } from "../../utils/layout-utils";
+import { Mixpanel } from "../../utils/mixpanel";
 
 const GeocodeAddressBarWrapper = styled(props => (
   <form onSubmit={props.onSubmit} className={props.className}>
@@ -32,13 +32,13 @@ const GeocodeAddressBarWrapper = styled(props => (
 
 class GeocodeAddressBar extends Component {
   state = {
-    value: "",
+    address: "",
     isTriggeringGeocode: false,
   };
 
   onChange = (fieldName, fieldValue) => {
     this.setState({
-      value: fieldValue,
+      address: fieldValue,
       isTriggeringGeocode: false,
     });
   };
@@ -59,6 +59,10 @@ class GeocodeAddressBar extends Component {
     this.setState({
       isTriggeringGeocode: true,
     });
+
+    Mixpanel.track("Searching address", {
+      address: this.state.address,
+    });
   };
 
   render() {
@@ -70,13 +74,16 @@ class GeocodeAddressBar extends Component {
         layout={this.props.layout}
       >
         <GeocodingField
-          mapConfig={this.props.mapConfig}
           onKeyDown={this.onKeyDown}
           onChange={this.onChange}
           name="geocode-address-bar"
-          placeholder={this.props.t("placeholderMsg")}
+          placeholder={this.props.t(
+            "geocodeAddressBarPlaceholderMsg",
+            "Enter an address...",
+          )}
           isTriggeringGeocode={this.state.isTriggeringGeocode}
-          value={this.state.value}
+          value={this.state.address}
+          reverseGeocode={false}
         />
       </GeocodeAddressBarWrapper>
     );
@@ -87,7 +94,6 @@ GeocodeAddressBar.propTypes = {
   isContentPanelVisible: PropTypes.bool.isRequired,
   isRightSidebarVisible: PropTypes.bool.isRequired,
   layout: PropTypes.string.isRequired,
-  mapConfig: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
 };
 
@@ -98,5 +104,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(
-  translate("GeocodeAddressBar")(GeocodeAddressBar),
+  withTranslation("GeocodeAddressBar")(GeocodeAddressBar),
 );

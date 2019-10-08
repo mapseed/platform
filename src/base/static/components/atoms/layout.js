@@ -2,6 +2,20 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { RegularTitle } from "./typography";
 
+const Badge = styled("span")(props => ({
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: props.color,
+  borderRadius: "16px",
+  padding: "0 12px 0 12px",
+  height: "32px",
+  boxSizing: "border-box",
+
+  "&:hover": {
+    backgroundColor: props.hoverColor,
+  },
+}));
+
 const HorizontalRule = styled("hr")(props => {
   const styles = {
     marginTop: "12px",
@@ -21,6 +35,9 @@ const HorizontalRule = styled("hr")(props => {
   } else if (props.spacing === "tiny") {
     styles.marginTop = "4px";
     styles.marginBottom = "4px";
+  } else if (props.spacing === "medium") {
+    styles.marginTop = "16px";
+    styles.marginBottom = "16px";
   }
 
   if (props.color === "light") {
@@ -90,6 +107,7 @@ const modalStyles = {
 };
 
 export {
+  Badge,
   HorizontalRule,
   ModalWrapper,
   ModalHeading,

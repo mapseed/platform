@@ -6,11 +6,12 @@ const BlockEmbed = Quill.import("blots/block/embed");
 const Embed = Quill.import("blots/embed");
 const SnowTheme = Quill.import("themes/snow");
 const Link = Quill.import("formats/link");
+import { withTranslation } from "react-i18next";
 
 import constants from "../../../constants";
 
 import "./rich-textarea-field.scss";
-const Util = require("../../../js/utils.js");
+import Util from "../../../js/utils.js";
 
 // NOTE: this routine is taken from Quill's themes/base module, which is not
 // importable via react-quill.
@@ -44,7 +45,7 @@ const getRandomName = () => {
 
 class WrappedVideo extends BlockEmbed {
   static create(url) {
-    let node = super.create();
+    const node = super.create();
     node.style =
       "position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0; overflow: hidden;";
 
@@ -76,7 +77,7 @@ class ImageWithName extends Embed {
   static create(value) {
     value.name = value.name || getRandomName();
 
-    let node = super.create();
+    const node = super.create();
     node.setAttribute("alt", value.alt);
     node.setAttribute("src", value.file);
     node.setAttribute("name", value.name);
@@ -135,7 +136,7 @@ class RichTextareaField extends Component {
   }
 
   componentDidMount() {
-    let editor = this.quillEditor.getEditor();
+    const editor = this.quillEditor.getEditor();
 
     // NOTE: we create a whole new SnowTheme here so we can make use of a
     // tooltip box with custom click handler.
@@ -145,8 +146,8 @@ class RichTextareaField extends Component {
 
     // We replace the ql-action element so we can attach our own click listener
     // below.
-    let oldElt = this.snowTheme.tooltip.root.querySelector("a.ql-action"),
-      newElt = oldElt.cloneNode(true);
+    const oldElt = this.snowTheme.tooltip.root.querySelector("a.ql-action");
+    const newElt = oldElt.cloneNode(true);
     oldElt.parentNode.replaceChild(newElt, oldElt);
 
     this.snowTheme.tooltip.root
@@ -154,7 +155,7 @@ class RichTextareaField extends Component {
       .addEventListener("click", evt => {
         evt.preventDefault();
         editor.focus();
-        let url = this.snowTheme.tooltip.root.querySelector("input").value;
+        const url = this.snowTheme.tooltip.root.querySelector("input").value;
         editor.insertEmbed(
           editor.getSelection().index,
           "wrappedVideo",
@@ -230,7 +231,10 @@ class RichTextareaField extends Component {
           ref={node => (this.quillEditor = node)}
           theme="snow"
           modules={this.modules}
-          placeholder={this.props.placeholder}
+          placeholder={this.props.t(
+            `richTextareaFieldPlaceholder${this.props.formId}${this.props.name}`,
+            this.props.placeholder || " ",
+          )}
           bounds={this.props.bounds}
           value={this.props.value}
           onChange={this.onChange.bind(this)}
@@ -249,12 +253,14 @@ class RichTextareaField extends Component {
 
 RichTextareaField.propTypes = {
   bounds: PropTypes.string.isRequired,
+  formId: PropTypes.string.isRequired,
   hasAutofill: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
+  t: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 
-export default RichTextareaField;
+export default withTranslation("RichTextareaField")(RichTextareaField);

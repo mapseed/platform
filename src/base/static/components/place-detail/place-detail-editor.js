@@ -2,25 +2,20 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classNames from "classnames";
-import { Map, OrderedMap, fromJS } from "immutable";
-import Spinner from "react-spinner";
-import "react-spinner/react-spinner.css";
+import { Map, List, OrderedMap, fromJS } from "immutable";
+import { withRouter } from "react-router";
 
 import FormField from "../form-fields/form-field";
-import WarningMessagesContainer from "../ui-elements/warning-messages-container";
+import WarningMessagesContainer from "../molecules/warning-messages-container";
 import CoverImage from "../molecules/cover-image";
+import { LoadingBar } from "../atoms/imagery";
 
 import { jumpTo } from "../../utils/scroll-helpers";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
-import {
-  activeMarkerSelector,
-  geometryStyleSelector,
-  geometryStyleProps,
-} from "../../state/ducks/map-drawing-toolbar";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
   updatePlace,
@@ -33,7 +28,7 @@ import {
   removeFeatureInGeoJSONSource,
   updateFeatureInGeoJSONSource,
   updateFocusedGeoJSONFeatures,
-} from "../../state/ducks/map";
+} from "../../state/ducks/map-style";
 import { updateEditModeToggled, layoutSelector } from "../../state/ducks/ui";
 import {
   isInAtLeastOneGroup,
@@ -43,6 +38,7 @@ import {
 
 import { getCategoryConfig } from "../../utils/config-utils";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
+import { Mixpanel } from "../../utils/mixpanel";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
 
@@ -62,8 +58,13 @@ class PlaceDetailEditor extends Component {
     this.categoryConfig.fields
       // NOTE: In the editor, we have to strip out the submit field here,
       // otherwise, since we don't render it at all, it will always be invalid.
-      .filter(field => field.type !== "submit")
-      .filter(field => field.isVisible)
+      .filter(
+        field =>
+          field.type !== "submit" &&
+          field.type !== "informational_html" &&
+          field.type !== "lng_lat" &&
+          field.isVisible,
+      )
       .forEach(field => {
         const fieldConfig = fromJS(
           this.categoryConfig.fields.find(f => f.name === field.name),
@@ -90,21 +91,17 @@ class PlaceDetailEditor extends Component {
               // group and the current user is not in that group or is not in
               // the administrators group.
               "isVisible",
-              field.hidden_default
+              field.hidden_default && !this.props.place[field.name]
                 ? false
                 : fieldConfig.has("restrictToGroups")
-                  ? this.props.isInAtLeastOneGroup(
-                      fieldConfig.get("restrictToGroups"),
-                      this.props.place._datasetSlug,
-                    ) ||
-                    this.props.hasAdminAbilities(this.props.place._datasetSlug)
-                  : true,
+                ? this.props.isInAtLeastOneGroup(
+                    fieldConfig.get("restrictToGroups"),
+                    this.props.place.datasetSlug,
+                  ) ||
+                  this.props.hasAdminAbilities(this.props.place.datasetSlug)
+                : true,
             )
-            .set("trigger", field.trigger && field.trigger.trigger_value)
-            .set(
-              "triggerTargets",
-              field.trigger && fromJS(field.trigger.targets),
-            ),
+            .set("triggers", fromJS(field.triggers)),
         );
       });
 
@@ -144,15 +141,6 @@ class PlaceDetailEditor extends Component {
       // TODO: Make a special form field to encapsulate this.
       attrs.private = attrs.private === "yes" ? true : false;
 
-      if (this.state.fields.get("geometry")) {
-        attrs.style =
-          this.state.fields.getIn(["geometry", "value"]).type === "Point"
-            ? {
-                "marker-symbol": this.props.activeMarker,
-              }
-            : this.props.geometryStyle;
-      }
-
       // Replace image data in rich text fields with placeholders built from each
       // image's name.
       // TODO: This logic is better suited for the FormField component,
@@ -163,16 +151,19 @@ class PlaceDetailEditor extends Component {
           attrs[field.name] = extractEmbeddedImages(attrs[field.name]);
         });
 
+      Mixpanel.track("Updating place", {
+        placeUrl: this.props.place.url,
+      });
       const placeResponse = await mapseedApiClient.place.update({
         placeUrl: this.props.place.url,
         placeData: {
           ...this.props.place,
           ...attrs,
         },
-        datasetSlug: this.props.place._datasetSlug,
-        clientSlug: this.props.place._clientSlug,
+        datasetSlug: this.props.place.datasetSlug,
+        clientSlug: this.props.place.clientSlug,
         hasAdminAbilities: this.props.hasAdminAbilities(
-          this.props.place._datasetSlug,
+          this.props.place.datasetSlug,
         ),
       });
 
@@ -193,7 +184,7 @@ class PlaceDetailEditor extends Component {
                   attachment,
                   includePrivate: this.props.hasGroupAbilitiesInDatasets({
                     abilities: ["can_access_protected"],
-                    datasetSlugs: [this.props.place._datasetSlug],
+                    datasetSlugs: [this.props.place.datasetSlug],
                     submissionSet: "places",
                   }),
                 },
@@ -212,7 +203,7 @@ class PlaceDetailEditor extends Component {
 
         this.props.updatePlace(placeResponse);
         this.props.updateFeatureInGeoJSONSource({
-          sourceId: this.props.place._datasetSlug,
+          sourceId: this.props.place.datasetSlug,
           featureId: placeResponse.id,
           feature: toClientGeoJSONFeature(placeResponse),
         });
@@ -259,14 +250,17 @@ class PlaceDetailEditor extends Component {
   }
 
   async removePlace() {
+    Mixpanel.track("Removing place", {
+      placeUrl: this.props.place.url,
+    });
     const response = await mapseedApiClient.place.update({
       placeUrl: this.props.place.url,
       placeData: {
         ...this.props.place,
         visible: false,
       },
-      datasetSlug: this.props.place._datasetSlug,
-      clientSlug: this.props.place._clientSlug,
+      datasetSlug: this.props.place.datasetSlug,
+      clientSlug: this.props.place.clientSlug,
     });
 
     this.setState({
@@ -274,15 +268,15 @@ class PlaceDetailEditor extends Component {
     });
 
     if (response) {
-      this.props.router.navigate("/", { trigger: true });
       this.props.removePlace(this.props.place.id);
       this.props.removeFeatureInGeoJSONSource(
-        this.props.place._datasetSlug,
+        this.props.place.datasetSlug,
         this.props.place.id,
       );
 
       Util.log("USER", "place", "successfully-remove-place");
       this.props.updateEditModeToggled(false);
+      this.props.history.push("/");
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");
       Util.log("USER", "place", "fail-to-remove-place");
@@ -330,23 +324,41 @@ class PlaceDetailEditor extends Component {
     }
   }
 
-  triggerFieldVisibility(targets, isVisible) {
-    targets.forEach(target => {
-      const fieldStatus = this.state.fields
-        .get(target)
-        .set("isVisible", isVisible);
-
-      this.setState(({ fields }) => ({
-        fields: fields.set(target, fieldStatus),
-      }));
-    });
-  }
-
   onFieldChange({ fieldName, fieldStatus, isInitializing }) {
     // Check if this field triggers the visibility of other fields(s)
-    if (fieldStatus.get("trigger")) {
-      const isVisible = fieldStatus.get("trigger") === fieldStatus.get("value");
-      this.triggerFieldVisibility(fieldStatus.get("triggerTargets"), isVisible);
+    const triggers = fieldStatus.get("triggers");
+    if (triggers && !isInitializing) {
+      const fieldValue = fieldStatus.get("value");
+      const triggeredFields = triggers.reduce((memo, trigger) => {
+        if (
+          // Fields values may be in list form, if the field type is a
+          // checkbox.
+          List.isList(fieldValue) &&
+          fieldValue.includes(trigger.get("value"))
+        ) {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, true);
+          });
+        } else if (fieldValue === trigger.get("value")) {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, true);
+          });
+        } else {
+          trigger.get("targets").forEach(target => {
+            memo = memo.set(target, false);
+          });
+        }
+
+        return memo;
+      }, Map());
+
+      this.setState({
+        fields: this.state.fields.map((field, fieldName) => {
+          return triggeredFields.has(fieldName)
+            ? field.set("isVisible", triggeredFields.get(fieldName))
+            : field;
+        }),
+      });
     }
 
     this.setState(({ fields }) => ({
@@ -363,10 +375,12 @@ class PlaceDetailEditor extends Component {
           "place-detail-editor--faded": this.props.isSubmitting,
         })}
       >
-        <WarningMessagesContainer
-          errors={Array.from(this.state.formValidationErrors)}
-          headerMsg={this.props.t("validationErrorHeaderMsg")}
-        />
+        {this.state.formValidationErrors.size > 0 && (
+          <WarningMessagesContainer
+            errors={this.state.formValidationErrors}
+            headerMsg={this.props.t("validationErrorHeaderMsg")}
+          />
+        )}
         {this.props.place.attachments
           .filter(attachment => attachment.type === "CO")
           .map((attachment, i) => (
@@ -383,11 +397,10 @@ class PlaceDetailEditor extends Component {
             .filter(field => field.get("isVisible"))
             .map((field, fieldName) => (
               <FormField
-                existingGeometry={this.props.place.geometry}
-                existingGeometryStyle={this.props.place.style}
                 existingPlaceId={this.props.place.id}
-                datasetSlug={this.props.place._datasetSlug}
+                datasetSlug={this.props.place.datasetSlug}
                 fieldConfig={field.get("config").toJS()}
+                formId="placeDetailEditor"
                 attachments={this.props.place.attachments}
                 categoryConfig={this.categoryConfig}
                 disabled={this.state.isSubmitting}
@@ -402,7 +415,7 @@ class PlaceDetailEditor extends Component {
               />
             ))
             .toArray()}
-          {this.state.isNetworkRequestInFlight && <Spinner />}
+          {this.state.isNetworkRequestInFlight && <LoadingBar />}
         </form>
       </div>
     );
@@ -410,12 +423,11 @@ class PlaceDetailEditor extends Component {
 }
 
 PlaceDetailEditor.propTypes = {
-  activeMarker: PropTypes.string,
   attachments: PropTypes.array,
   contentPanelInnerContainerRef: PropTypes.object.isRequired,
-  geometryStyle: geometryStyleProps.isRequired,
   hasAdminAbilities: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   isInAtLeastOneGroup: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool,
   layout: PropTypes.string.isRequired,
@@ -438,12 +450,10 @@ PlaceDetailEditor.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  activeMarker: activeMarkerSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
   isInAtLeastOneGroup: (groupNames, datasetSlug) =>
     isInAtLeastOneGroup(state, groupNames, datasetSlug),
   layout: layoutSelector(state),
-  geometryStyle: geometryStyleSelector(state),
   placeConfig: placeConfigSelector(state),
   hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
     hasGroupAbilitiesInDatasets({
@@ -471,7 +481,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateFocusedGeoJSONFeatures(newFeatures)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(translate("PlaceDetailEditor")(PlaceDetailEditor));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withTranslation("PlaceDetailEditor")(PlaceDetailEditor)),
+);

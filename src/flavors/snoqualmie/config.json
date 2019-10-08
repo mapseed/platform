@@ -4,18 +4,13 @@
     "name": "Snoqualmie trails",
     "meta_description": "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "cartodb_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "center": {
         "lat": 47.51639,
@@ -68,7 +63,7 @@
       },
       {
         "id": "snoqualmie",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/snoqualmie",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/snoqualmie",
         "type": "place",
         "slug": "report"
       }
@@ -79,40 +74,22 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            50,
-            50
-          ],
-          "iconAnchor": [
-            25,
-            25
-          ]
+          "iconSize": [50, 50],
+          "iconAnchor": [25, 25]
         }
       },
       {
         "condition": "this.map.zoom < 16",
         "icon": {
-          "iconSize": [
-            20,
-            20
-          ],
-          "iconAnchor": [
-            10,
-            10
-          ]
+          "iconSize": [20, 20],
+          "iconAnchor": [10, 10]
         }
       },
       {
         "condition": "this.map.zoom >= 16",
         "icon": {
-          "iconSize": [
-            30,
-            30
-          ],
-          "iconAnchor": [
-            15,
-            15
-          ]
+          "iconSize": [30, 30],
+          "iconAnchor": [15, 15]
         }
       }
     ],
@@ -148,64 +125,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              29,
-              35
-            ],
-            "iconAnchor": [
-              14.5,
-              17.5
-            ]
+            "iconSize": [29, 35],
+            "iconAnchor": [14.5, 17.5]
           }
         }
       ]
@@ -218,64 +165,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-dbcf2c.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              29,
-              35
-            ],
-            "iconAnchor": [
-              14.5,
-              17.5
-            ]
+            "iconSize": [29, 35],
+            "iconAnchor": [14.5, 17.5]
           }
         }
       ]
@@ -288,64 +205,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              29,
-              35
-            ],
-            "iconAnchor": [
-              14.5,
-              17.5
-            ]
+            "iconSize": [29, 35],
+            "iconAnchor": [14.5, 17.5]
           }
         }
       ]
@@ -358,64 +245,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              29,
-              35
-            ],
-            "iconAnchor": [
-              14.5,
-              17.5
-            ]
+            "iconSize": [29, 35],
+            "iconAnchor": [14.5, 17.5]
           }
         }
       ]

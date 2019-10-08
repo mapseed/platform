@@ -1,20 +1,7 @@
-import PropTypes from "prop-types";
 // Selectors:
 export const dashboardConfigSelector = state => {
   return state.dashboardConfig;
 };
-
-export const dashboardConfigPropType = PropTypes.arrayOf(
-  PropTypes.shape({
-    dastasetId: PropTypes.string,
-    datasetOwner: PropTypes.string,
-    surveyMetrics: PropTypes.shape({
-      categories: PropTypes.bool,
-      demographics: PropTypes.bool,
-      wards: PropTypes.bool,
-    }),
-  }),
-);
 
 // Actions:
 const LOAD = "dashboard-config/LOAD";

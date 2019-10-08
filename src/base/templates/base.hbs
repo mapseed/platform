@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
   <head>
     <meta charset="utf-8">
 
     <title>{{ config.app.title }}</title>
+
     <meta name="description" content="{{ config.app.meta_description }}">
     <meta name="author" content="{{ config.app.meta_author }}">
 
@@ -11,109 +12,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- mui-jss-insertion-point -->
-
     <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
     <link rel="icon" href="/static/css/images/favicon.ico?v=2">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/css/images/apple-touch-icon-144x144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/css/images/apple-touch-icon-114x114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/css/images/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/static/css/images/apple-touch-icon-precomposed.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://assets.mapseed.org/font-awesome/css/all.min.css">
 
-    <!-- Google WebFonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-
-    {{#if production}}
-    <link rel="stylesheet" href="/{{cssHashedBundleName}}">
-    {{else}}
-    <link rel="stylesheet" href="/bundle.css">
-    {{/if}}
+    <!-- webfonts -->
+    <link href="https://assets.mapseed.org/font-awesome/webfonts/fa-solid-900.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
 
     <link rel="profile" href="//gmpg.org/xfn/11" />
 
     <style>
       html, body, #site-wrap {
+        /*
+         * This property ensures color fidelity when outputting report PDFs
+         * with Puppeteer.
+         */
+        -webkit-print-color-adjust: exact;
         width: 100%;
         height: 100%;
       }
     </style>
-
   </head>
+
   <body>
     <div role="main" id="site-wrap"></div>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
+    
+    <!-- These are obscure or customized, self-hosted. -->
+    <script async src="/legacy-libs/binaryajax.js"></script>
+    <script async src="/legacy-libs/exif.js"></script>
 
-  <script>
-    var serviceWorkerPath = "{{ serviceWorkerPath }}";
-
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function() {
-        var apiRoot = encodeURIComponent("{{config.app.api_root}}");
-        var flavor = encodeURIComponent("{{flavor}}");
-        navigator.serviceWorker
-          .register(serviceWorkerPath + "?apiRoot=" + apiRoot + "&flavor=" + flavor)
-          .then(function(registration) {
-            console.log("SW registered: ", registration);
-          })
-          .catch(function(registrationError) {
-            console.log("SW registration failed: ", registrationError);
-          });
-      });
-    }
-
-    </script>
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="/static/libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
-
-  {{#if production}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
-  {{else}}
-    <!-- Non-minified, where available -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-load-image/1.2.3/load-image.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/javascript-canvas-to-blob/2.0.6/js/canvas-to-blob.js"></script>
-  {{/if}}
-  
-  <!-- These are obscure or customized, self-hosted. -->
-  <script src="/legacy-libs/binaryajax.js"></script>
-  <script src="/legacy-libs/exif.js"></script>
-
-  <!-- Bootstrap site and user information -->
-  <script>
-    var Shareabouts = Shareabouts || {};
-
-    Shareabouts.bootstrapped = {
-      staticUrl: '/static/',
-      mapQuestKey: '{{ settings.mapQuestKey }}',
-      mapboxToken: '{{ settings.mapboxToken }}'
-    };
-
-    Shareabouts.languageCode = "{{ languageCode }}";
-  </script>
-
-  {{#if production}}
-    <script src="/{{jsHashedBundleName}}"></script>
-  {{else}}
-    <script src="/main.bundle.js"></script>
-  {{/if}}
-
-  {{#if settings.googleAnalyticsId}}
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', '{{ settings.googleAnalyticsId }}', '{{ settings.googleAnalyticsDomain }}');
-      // Set the language-code
-      ga('set', 'dimension2', '{{ languageCode }}');
-    </script>
-  {{/if}}
-
-</body>
+    {{#if googleAnalyticsId}}
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', '{{ googleAnalyticsId }}', '{{ googleAnalyticsDomain }}');
+        ga('set', 'dimension2', 'en_US');
+      </script>
+    {{/if}}
+  </body>
 </html>

@@ -3,20 +3,7 @@
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
 
 /* Typography */
-body,
-select,
-input,
-textarea {
-  font-family: "proxima-nova", Tahoma, Verdana, Segoe, sans-serif;
-}
-label {
-  font-size: 1em;
-  text-transform: none;
-  color: #555;
-}
-
 h1 {
-  font-family: "Josefin Sans", sans-serif;
   color: #045a8b;
 }
 
@@ -24,16 +11,9 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Josefin Sans", sans-serif;
   font-weight: 400;
   line-height: 1;
   color: #045a8b;
-}
-
-li.clearfix {
-  font-family: "Josefin Sans", sans-serif;
-  font-weight: 400;
-  color: #000000;
 }
 
 /* Buttons */

@@ -23,6 +23,31 @@ export const placeConfigPropType = PropTypes.shape({
       }),
     ),
   }),
+  geospatialAnalysis: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      targetUrl: PropTypes.string.isRequired,
+      buffer: PropTypes.shape({
+        distance: PropTypes.number.isRequired,
+        units: PropTypes.string.isRequired,
+      }),
+      aggregator: {
+        type: PropTypes.string.isRequired,
+        property: PropTypes.string,
+      },
+      propertiesToPluck: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          fallbackValue: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+            PropTypes.bool,
+          ]),
+        }),
+      ),
+    }),
+  ),
 });
 
 // Actions:
@@ -56,7 +81,11 @@ export function loadPlaceConfig(config, user) {
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = null;
+const INITIAL_STATE = {
+  anonymous_name: "",
+  action_text: "",
+  formCategoryHeaders: {},
+};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {

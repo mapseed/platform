@@ -4,7 +4,7 @@
     "name": "Hey Duwamish!",
     "meta_description": "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "thumbnail": "/static/css/images/fb-thumbnail.png"
   },
   "languages": [
@@ -25,12 +25,7 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "cartodb_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "center": {
         "lat": 47.53722,
@@ -89,13 +84,13 @@
       },
       {
         "id": "duwamish",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamish",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/duwamish",
         "type": "place",
         "slug": "report"
       },
       {
         "id": "vision",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/vision",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/vision",
         "type": "place",
         "slug": "vision"
       },
@@ -109,25 +104,25 @@
       },
       {
         "id": "restoration",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/restoration",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/restoration",
         "type": "place",
         "slug": "restoration"
       },
       {
         "id": "trees",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/trees",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/trees",
         "type": "place",
         "slug": "trees"
       },
       {
         "id": "duwamishfeatured",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/duwamishfeatured",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/duwamishfeatured",
         "type": "place",
         "slug": "featured"
       },
       {
         "id": "air",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/air",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/air",
         "type": "place",
         "slug": "air"
       },
@@ -174,14 +169,8 @@
             "condition": "\"{{properties.description}}\" === \"No recent overflow\"",
             "icon": {
               "iconUrl": "/static/css/images/markers/dot-4ab767.png",
-              "iconSize": [
-                20,
-                20
-              ],
-              "iconAnchor": [
-                10,
-                10
-              ]
+              "iconSize": [20, 20],
+              "iconAnchor": [10, 10]
             },
             "style": {
               "opacity": 0.9
@@ -191,14 +180,8 @@
             "condition": "\"{{properties.description}}\" === \"Overflowed in the last 48 hrs\"",
             "icon": {
               "iconUrl": "/static/css/images/markers/dot-f95016.png",
-              "iconSize": [
-                20,
-                20
-              ],
-              "iconAnchor": [
-                10,
-                10
-              ]
+              "iconSize": [20, 20],
+              "iconAnchor": [10, 10]
             },
             "style": {
               "opacity": 0.9
@@ -208,14 +191,8 @@
             "condition": "\"{{properties.description}}\" === \"Overflowing now\"",
             "icon": {
               "iconUrl": "/static/css/images/markers/dot-e1264d.png",
-              "iconSize": [
-                20,
-                20
-              ],
-              "iconAnchor": [
-                10,
-                10
-              ]
+              "iconSize": [20, 20],
+              "iconAnchor": [10, 10]
             },
             "style": {
               "opacity": 0.9
@@ -225,14 +202,8 @@
             "condition": "\"{{properties.description}}\" === \"Data not available\"",
             "icon": {
               "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
-              "iconSize": [
-                20,
-                20
-              ],
-              "iconAnchor": [
-                10,
-                10
-              ]
+              "iconSize": [20, 20],
+              "iconAnchor": [10, 10]
             },
             "style": {
               "opacity": 0.9
@@ -290,53 +261,29 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            60,
-            60
-          ],
-          "iconAnchor": [
-            30,
-            30
-          ]
+          "iconSize": [60, 60],
+          "iconAnchor": [30, 30]
         }
       },
       {
         "condition": "this.map.zoom < 15",
         "icon": {
-          "iconSize": [
-            7.5,
-            7.5
-          ],
-          "iconAnchor": [
-            4,
-            4
-          ]
+          "iconSize": [7.5, 7.5],
+          "iconAnchor": [4, 4]
         }
       },
       {
         "condition": "this.map.zoom < 17",
         "icon": {
-          "iconSize": [
-            25,
-            25
-          ],
-          "iconAnchor": [
-            12.5,
-            12.5
-          ]
+          "iconSize": [25, 25],
+          "iconAnchor": [12.5, 12.5]
         }
       },
       {
         "condition": "this.map.zoom >= 17",
         "icon": {
-          "iconSize": [
-            40,
-            40
-          ],
-          "iconAnchor": [
-            20,
-            20
-          ]
+          "iconSize": [40, 40],
+          "iconAnchor": [20, 20]
         }
       }
     ],
@@ -344,40 +291,22 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            50,
-            50
-          ],
-          "iconAnchor": [
-            25,
-            25
-          ]
+          "iconSize": [50, 50],
+          "iconAnchor": [25, 25]
         }
       },
       {
         "condition": "this.map.zoom < 15",
         "icon": {
-          "iconSize": [
-            20,
-            20
-          ],
-          "iconAnchor": [
-            10,
-            10
-          ]
+          "iconSize": [20, 20],
+          "iconAnchor": [10, 10]
         }
       },
       {
         "condition": "this.map.zoom >= 15",
         "icon": {
-          "iconSize": [
-            30,
-            30
-          ],
-          "iconAnchor": [
-            15,
-            15
-          ]
+          "iconSize": [30, 30],
+          "iconAnchor": [15, 15]
         }
       }
     ],
@@ -385,48 +314,24 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            50,
-            60
-          ],
-          "iconAnchor": [
-            25,
-            30
-          ],
-          "shadowSize": [
-            50,
-            60
-          ],
-          "shadowAnchor": [
-            14,
-            60
-          ]
+          "iconSize": [50, 60],
+          "iconAnchor": [25, 30],
+          "shadowSize": [50, 60],
+          "shadowAnchor": [14, 60]
         }
       },
       {
         "condition": "this.map.zoom < 17",
         "icon": {
-          "iconSize": [
-            15,
-            18
-          ],
-          "iconAnchor": [
-            7.5,
-            9
-          ]
+          "iconSize": [15, 18],
+          "iconAnchor": [7.5, 9]
         }
       },
       {
         "condition": "this.map.zoom >= 17",
         "icon": {
-          "iconSize": [
-            30,
-            36
-          ],
-          "iconAnchor": [
-            15,
-            36
-          ]
+          "iconSize": [30, 36],
+          "iconAnchor": [15, 36]
         }
       }
     ],
@@ -435,40 +340,22 @@
         {
           "condition": "this.layer.focused === true",
           "icon": {
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
-            "iconSize": [
-              20,
-              20
-            ],
-            "iconAnchor": [
-              10,
-              10
-            ]
+            "iconSize": [20, 20],
+            "iconAnchor": [10, 10]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -478,40 +365,22 @@
         {
           "condition": "this.layer.focused === true",
           "icon": {
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
-            "iconSize": [
-              20,
-              20
-            ],
-            "iconAnchor": [
-              10,
-              10
-            ]
+            "iconSize": [20, 20],
+            "iconAnchor": [10, 10]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -521,54 +390,30 @@
         {
           "condition": "this.layer.focused === true",
           "icon": {
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
-            "iconSize": [
-              20,
-              20
-            ],
-            "iconAnchor": [
-              10,
-              10
-            ]
+            "iconSize": [20, 20],
+            "iconAnchor": [10, 10]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         },
         {
           "condition": "this.map.zoom < 13",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         }
       ]
@@ -579,126 +424,72 @@
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-land_comp.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-land_prog.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-land_no-prog-or-dead.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-land_comp.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-land_prog.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-land_no-prog-or-dead.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         }
       ]
@@ -709,126 +500,72 @@
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-parks_comp.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-parks_prog.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-parks_no-prog-or-dead.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-parks_comp.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-parks_prog.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-parks_no-prog-or-dead.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         }
       ]
@@ -839,126 +576,72 @@
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-qual_comp.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-qual_prog.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-qual_no-prog-or-dead.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-qual_comp.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-qual_prog.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-qual_no-prog-or-dead.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         }
       ]
@@ -969,126 +652,72 @@
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-safe_comp.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-safe_prog.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-safe_no-prog-or-dead.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-safe_comp.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-safe_prog.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-safe_no-prog-or-dead.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         }
       ]
@@ -1099,126 +728,72 @@
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-transp_comp.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-transp_prog.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-transp_no-prog-or-dead.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-transp_comp.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-transp_prog.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-transp_no-prog-or-dead.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         }
       ]
@@ -1229,126 +804,72 @@
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-hist_comp.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-hist_prog.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.layer.focused === true && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-hist_no-prog-or-dead.png",
-            "iconSize": [
-              60,
-              60
-            ],
-            "iconAnchor": [
-              30,
-              30
-            ]
+            "iconSize": [60, 60],
+            "iconAnchor": [30, 30]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-comp-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-prog-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom < 15 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-no-prog-or-dead-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"a3e46b\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-hist_comp.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f1f075\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-hist_prog.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         },
         {
           "condition": "this.map.zoom <= 18 && this.style[\"marker-color\"] == \"f86767\"",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-hist_no-prog-or-dead.png",
-            "iconSize": [
-              25,
-              25
-            ],
-            "iconAnchor": [
-              12.5,
-              12.5
-            ]
+            "iconSize": [25, 25],
+            "iconAnchor": [12.5, 12.5]
           }
         }
       ]
@@ -1383,42 +904,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-construction.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-construction-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-construction.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1429,42 +932,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-heart.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-heart-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-heart.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1475,42 +960,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-industrial.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-industrial-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-industrial.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1521,42 +988,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-bike.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-bike-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-bike.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1567,42 +1016,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-swimming.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-swimming-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-swimming.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1613,42 +1044,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-art.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-art-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-art.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1659,42 +1072,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-whale.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-whale-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-whale.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1705,42 +1100,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-tree.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-tree-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-tree.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1751,42 +1128,24 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-dirtcorps.png",
-            "iconSize": [
-              50,
-              50
-            ],
-            "iconAnchor": [
-              25,
-              25
-            ]
+            "iconSize": [50, 50],
+            "iconAnchor": [25, 25]
           }
         },
         {
           "condition": "this.map.zoom < 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-industrial-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-dirtcorps.png",
-            "iconSize": [
-              30,
-              30
-            ],
-            "iconAnchor": [
-              15,
-              15
-            ]
+            "iconSize": [30, 30],
+            "iconAnchor": [15, 15]
           }
         }
       ]
@@ -1809,50 +1168,26 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              30
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 30],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-observation.png",
-            "iconSize": [
-              30,
-              36
-            ],
-            "iconAnchor": [
-              15,
-              36
-            ]
+            "iconSize": [30, 36],
+            "iconAnchor": [15, 36]
           }
         }
       ]
@@ -1864,50 +1199,26 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              30
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 30],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-question.png",
-            "iconSize": [
-              30,
-              36
-            ],
-            "iconAnchor": [
-              15,
-              36
-            ]
+            "iconSize": [30, 36],
+            "iconAnchor": [15, 36]
           }
         }
       ]
@@ -1919,50 +1230,26 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              30
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 30],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-idea.png",
-            "iconSize": [
-              30,
-              36
-            ],
-            "iconAnchor": [
-              15,
-              36
-            ]
+            "iconSize": [30, 36],
+            "iconAnchor": [15, 36]
           }
         }
       ]
@@ -1974,50 +1261,26 @@
           "condition": "this.layer.focused === true",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              30
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 30],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 15",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint-dot.png",
-            "iconSize": [
-              10,
-              10
-            ],
-            "iconAnchor": [
-              0,
-              0
-            ]
+            "iconSize": [10, 10],
+            "iconAnchor": [0, 0]
           }
         },
         {
           "condition": "this.map.zoom <= 18",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-complaint.png",
-            "iconSize": [
-              30,
-              36
-            ],
-            "iconAnchor": [
-              15,
-              36
-            ]
+            "iconSize": [30, 36],
+            "iconAnchor": [15, 36]
           }
         }
       ]
@@ -2030,64 +1293,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-greenwall.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-greenwall.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-greenwall.png",
-            "iconSize": [
-              18,
-              21.75
-            ],
-            "iconAnchor": [
-              9,
-              21.75
-            ]
+            "iconSize": [18, 21.75],
+            "iconAnchor": [9, 21.75]
           }
         },
         {
           "condition": "this.map.zoom >= 17",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-greenwall.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -2273,7 +1506,7 @@
   "right_sidebar": {
     "show": true,
     "visibleDefault": true,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "place": {
     "adding_supported": true,
@@ -2682,9 +1915,7 @@
       {
         "category": "featured_place",
         "admin_only": true,
-        "admin_groups": [
-          "featured_places"
-        ],
+        "admin_groups": ["featured_places"],
         "includeOnForm": true,
         "showMetadata": false,
         "suppressAttachments": true,
@@ -2779,9 +2010,7 @@
       {
         "category": "otter_sites",
         "admin_only": true,
-        "admin_groups": [
-          "otters"
-        ],
+        "admin_groups": ["otters"],
         "includeOnForm": true,
         "showMetadata": false,
         "suppressAttachments": true,
@@ -2875,9 +2104,7 @@
       {
         "category": "port_of_seattle_featured_place",
         "admin_only": true,
-        "admin_groups": [
-          "port_of_seattle"
-        ],
+        "admin_groups": ["port_of_seattle"],
         "includeOnForm": true,
         "showMetadata": false,
         "suppressAttachments": true,
@@ -3817,185 +3044,68 @@
       "hide_from_top_bar": true
     }
   ],
-  "story": {
-    "community-priorities": {
-      "tagline": "_(Next featured site)",
-      "header": "_(Explore community restoration projects along the Duwamish)",
-      "description": "_(Duwamish River communities are pursuing a variety of restoration projects. Take a look!)",
-      "image_url": "/static/css/images/community-priorities.png",
-      "default_zoom": 17,
-      "default_visible_layers": [
-        "restoration",
-        "duwamishfeatured"
-      ],
-      "order": [
-        {
-          "url": "south-park-landfill",
-          "basemap": "satellite",
-          "sidebar_icon_url": "/static/css/images/markers/marker-construction.png"
-        },
-        {
-          "url": "otters",
-          "sidebar_icon_url": "/static/css/images/markers/otter-icon.png"
-        },
-        {
-          "url": "flume",
-          "sidebar_icon_url": "/static/css/images/markers/marker-transp_comp.png"
-        },
-        {
-          "url": "southparklibrarygreenwall",
-          "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
-        },
-        {
-          "url": "georgetowngreenwall",
-          "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
-        },
-        {
-          "url": "duwamish-waterway-park",
-          "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
-        },
-        {
-          "url": "marra"
-        },
-        {
-          "url": "skatepark"
-        },
-        {
-          "url": "concord"
-        },
-        {
-          "url": "cesar-chavez"
-        },
-        {
-          "url": "rose-end"
-        },
-        {
-          "url": "12th-and-elmgrove"
-        },
-        {
-          "url": "rowing"
-        },
-        {
-          "url": "south-park-neighborhood-center"
-        },
-        {
-          "url": "south-park-community-center"
-        }
-      ],
-      "start_at": "marra"
-    },
-    "pollution": {
-      "tagline": "_(Next featured site)",
-      "header": "_(Take a tour of polluted sites along the Duwamish)",
-      "description": "_(The Duwamish River is one of the most polluted waterways in the country. Explore the sites in this map story to learn about the environmental challenges facing the Duwamish.)",
-      "image_url": "/static/css/images/pollution.jpg",
-      "default_zoom": 13,
-      "default_visible_layers": [
-        "restoration",
-        "watershed"
-      ],
-      "order": [
-        {
-          "url": "cleanup",
-          "zoom": 14,
-          "spotlight": false,
-          "basemap": "terrain",
-          "visible_layers": [
-            "cleanup"
-          ]
-        },
-        {
-          "url": "cso",
-          "zoom": 12,
-          "visible_layers": [
-            "cso"
-          ],
-          "spotlight": false,
-          "basemap": "blueprint"
-        },
-        {
-          "url": "lafarge",
-          "zoom": 17,
-          "basemap": "transportation"
-        },
-        {
-          "url": "burlington-environmental-llc",
-          "zoom": 17,
-          "basemap": "transportation"
-        }
-      ],
-      "start_at": "cso"
-    },
-    "history": {
-      "tagline": "_(Next featured site)",
-      "header": "_(Duwamish history)",
-      "description": "_(Explore the history of the Duwamish River Valley)",
-      "image_url": "/static/css/images/history.jpg",
-      "default_zoom": 13,
-      "default_visible_layers": [
-        "duwamish-original"
-      ],
-      "order": [
-        {
-          "url": "history",
-          "spotlight": false,
-          "basemap": "vintage"
-        },
-        {
-          "url": "blackriver",
-          "spotlight": false,
-          "zoom": 14,
-          "basemap": "satellite"
-        }
-      ],
-      "start_at": "history"
-    },
-    "dirtcorps": {
-      "tagline": "_(Next featured site)",
-      "header": "_(DIRT Corps)",
-      "image_url": "/static/css/images/dirt-corps.jpg",
-      "default_zoom": 17,
-      "default_visible_layers": [
-        "restoration",
-        "dirt-corps"
-      ],
-      "order": [
-        {
-          "url": "dirtcorps",
-          "spotlight": false
-        },
-        {
-          "url": "rose-greenstreet"
-        },
-        {
-          "url": "markey"
-        },
-        {
-          "url": "elmgrove-rain-garden"
-        },
-        {
-          "url": "southern-greenstreet"
-        },
-        {
-          "url": "dirt-corps-classroom"
-        },
-        {
-          "url": "point-rediscovery"
-        },
-        {
-          "url": "green-screen"
-        },
-        {
-          "url": "rain-wise-home"
-        },
-        {
-          "url": "rainwise-home-rose-st"
-        },
-        {
-          "url": "carleton-grocery-gsi"
-        }
-      ]
-    }
+  "featuredPlaces": {
+    "tagline": "_(Next featured site)",
+    "header": "_(Explore community restoration projects along the Duwamish)",
+    "description": "_(Duwamish River communities are pursuing a variety of restoration projects. Take a look!)",
+    "image_url": "/static/css/images/community-priorities.png",
+    "default_zoom": 17,
+    "default_visible_layers": ["restoration", "duwamishfeatured"],
+    "order": [
+      {
+        "url": "south-park-landfill",
+        "basemap": "satellite",
+        "sidebar_icon_url": "/static/css/images/markers/marker-construction.png"
+      },
+      {
+        "url": "otters",
+        "sidebar_icon_url": "/static/css/images/markers/otter-icon.png"
+      },
+      {
+        "url": "flume",
+        "sidebar_icon_url": "/static/css/images/markers/marker-transp_comp.png"
+      },
+      {
+        "url": "southparklibrarygreenwall",
+        "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
+      },
+      {
+        "url": "georgetowngreenwall",
+        "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
+      },
+      {
+        "url": "duwamish-waterway-park",
+        "sidebar_icon_url": "/static/css/images/markers/marker-greenwall.png"
+      },
+      {
+        "url": "marra"
+      },
+      {
+        "url": "skatepark"
+      },
+      {
+        "url": "concord"
+      },
+      {
+        "url": "cesar-chavez"
+      },
+      {
+        "url": "rose-end"
+      },
+      {
+        "url": "12th-and-elmgrove"
+      },
+      {
+        "url": "rowing"
+      },
+      {
+        "url": "south-park-neighborhood-center"
+      },
+      {
+        "url": "south-park-community-center"
+      }
+    ],
+    "start_at": "marra"
   },
   "notifications": {
     "on_new_place": true,

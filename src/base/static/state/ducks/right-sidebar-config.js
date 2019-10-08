@@ -29,20 +29,20 @@ export const rightSidebarConfigPropType = PropTypes.shape({
 });
 
 // Actions:
-const SET_CONFIG = "right-sidebar/SET_CONFIG";
+const LOAD = "right-sidebar/LOAD";
 
 // Action creators:
-export function setRightSidebarConfig(config) {
-  return { type: SET_CONFIG, payload: config };
+export function loadRightSidebarConfig(config) {
+  return { type: LOAD, payload: config };
 }
 
 // Reducers:
 // TODO(luke): refactor our current implementation in AppView to use
-const INITIAL_STATE = null;
+const INITIAL_STATE = {};
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_CONFIG:
+    case LOAD:
       return {
         ...state,
         ...action.payload,

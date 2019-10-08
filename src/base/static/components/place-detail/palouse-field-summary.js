@@ -11,6 +11,7 @@ import { placePropType } from "../../state/ducks/places";
 
 const ActionSummary = styled("ul")({
   padding: 0,
+  marginTop: "32px",
 });
 
 const ActionSummaryItem = styled("li")(props => ({
@@ -30,8 +31,8 @@ const SnohomishFieldSummary = props => {
 
   return (
     <div>
-      <RegularTitle>{numActions} Actions</RegularTitle>
-      <HorizontalRule spacing="tiny" />
+      <RegularTitle>{numActions} Stewardship Actions</RegularTitle>
+      <HorizontalRule spacing="small" />
       {props.place.attachments
         .filter(attachment => attachment.type === "CO")
         .map((attachment, i) => (

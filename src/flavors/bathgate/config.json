@@ -4,7 +4,7 @@
     "name": "_(Bathgate Community Garden)",
     "meta_description": "_(Welcome!)",
     "meta_author": "haxgeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "summary_page_header": "_(Over the next few months, we will work with community members and local stakeholders to design a plan for the garden and begin construction soon after.)"
   },
   "languages": [
@@ -21,12 +21,7 @@
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "cartodb_enabled": false,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "map": {
         "center": {
@@ -68,21 +63,14 @@
         "id": "bathgate-input",
         "is_visible_default": true,
         "is_topmost_layer": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-input",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/bathgate-input",
         "type": "place",
         "slug": "report",
         "focus_rules": [
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community_input"
-              ]
+              ["==", ["get", "location_type"], "community_input"]
             ],
             "symbol-layout": {
               "icon-image": "comment-map-marker.png",
@@ -95,21 +83,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community_input"
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                11
-              ]
+              ["==", ["get", "location_type"], "community_input"],
+              ["<", ["zoom"], 11]
             ],
             "symbol-layout": {
               "icon-image": "dot-dbcf2c.png",
@@ -120,28 +95,9 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community_input"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                11
-              ],
-              [
-                "<",
-                [
-                  "zoom"
-                ],
-                16
-              ]
+              ["==", ["get", "location_type"], "community_input"],
+              [">=", ["zoom"], 11],
+              ["<", ["zoom"], 16]
             ],
             "symbol-layout": {
               "icon-image": "comment-map-marker.png",
@@ -152,21 +108,8 @@
           {
             "filter": [
               "all",
-              [
-                "==",
-                [
-                  "get",
-                  "location_type"
-                ],
-                "community_input"
-              ],
-              [
-                ">=",
-                [
-                  "zoom"
-                ],
-                16
-              ]
+              ["==", ["get", "location_type"], "community_input"],
+              [">=", ["zoom"], 16]
             ],
             "symbol-layout": {
               "icon-image": "comment-map-marker.png",
@@ -179,7 +122,7 @@
       {
         "id": "bathgate-project",
         "is_visible_default": true,
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bathgate-project",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/bathgate-project",
         "type": "place",
         "slug": "project",
         "rules": [

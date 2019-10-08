@@ -3,17 +3,18 @@ import { Map, OrderedMap } from "immutable";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { connect } from "react-redux";
+import moment from "moment";
 
 import FormField from "../form-fields/form-field";
-import Avatar from "../ui-elements/avatar";
+import { UserAvatar } from "../atoms/imagery";
 import SubmitterName from "../ui-elements/submitter-name";
 import { EditorButton } from "../atoms/buttons";
-import { SmallText, Time } from "../atoms/typography";
+import { SmallText } from "../atoms/typography";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import constants from "../../constants";
 
-const Util = require("../../js/utils.js");
+import Util from "../../js/utils.js";
 
 import {
   commentFormConfigPropType,
@@ -162,8 +163,9 @@ class SurveyResponseEditor extends Component {
             ))}
         </div>
         <div className="place-detail-survey-response__metadata-bar">
-          <Avatar
+          <UserAvatar
             className="place-detail-survey-response__avatar"
+            size="large"
             src={
               this.props.comment.submitter
                 ? this.props.comment.submitter.avatar_url
@@ -181,7 +183,9 @@ class SurveyResponseEditor extends Component {
             />
             {this.props.appConfig.show_timestamps && (
               <SmallText display="block" textTransform="uppercase">
-                <Time time={this.props.comment.created_datetime} />
+                <time>
+                  {moment(this.props.comment.created_datetime).fromNow()}
+                </time>
               </SmallText>
             )}
           </div>
@@ -220,4 +224,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("SurveyResponseEditor")(SurveyResponseEditor));
+)(withTranslation("SurveyResponseEditor")(SurveyResponseEditor));

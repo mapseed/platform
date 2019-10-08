@@ -1,8 +1,39 @@
 {
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    },
+    "availableLanguages": [
+      {
+        "code": "es",
+        "label": "Español"
+      },
+      {
+        "code": "zh-TW",
+        "label": "繁體中文"
+      },
+      {
+        "code": "zh",
+        "label": "简体中文"
+      },
+      {
+        "code": "ko",
+        "label": "한국어"
+      },
+      {
+        "code": "vi",
+        "label": "Tiếng Việt"
+      },
+      {
+        "code": "ru",
+        "label": "русский"
+      }
+    ]
+  },
   "datasets": [
     {
       "slug": "bellevue-bike-share",
-      "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/bellevue-bike-share",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -15,39 +46,110 @@
   "app": {
     "title": "Bellevue Bike Sharing",
     "name": "Bellevue Bike Sharing",
-    "show_name_in_header": true,
-    "logo": "/static/css/images/bellevue-logo.png",
+    "logo": "/static/css/images/logo-3.png",
     "meta_description": "_(Decide where to put dockless bike sharing in Bellevue!)",
     "meta_author": "mapseed.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
-        "secondary": "#08626E"
+        "primary": "#217b87",
+        "secondary": "#217b87",
+        "accent": "#b5d222"
       },
       "bg": {
-        "default": "#217B87"
+        "default": "#fcfeff",
+        "light": "#217b87"
       },
       "text": {
-        "titleColor": "#fff"
+        "titleColor": "#fff",
+        "titleFontFamily": "PTSansBold, sans-serif",
+        "bodyFontFamily": "PTSans, sans-serif",
+        "navBarFontFamily": "PTSans, sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#217b87",
+        "addPlaceButtonHoverBackgroundColor": "#0098ad"
       }
     }
   },
+  "dashboard": [
+    {
+      "header": "Bellevue Bikeshare - Community Reports",
+      "isExportable": false,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "bellevue-bike-share",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total Reports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        },
+        {
+          "header": "Reporting by Grid Location: 1/4-mile Grid",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "025_grid_OID",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Grid ID",
+          "yAxisLabel": "Count",
+          "layout": {
+            "start": 1,
+            "end": 13
+          }
+        },
+        {
+          "header": "Reporting by Grid Location: 1/2-mile Grid",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "05_grid_OID",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Grid ID",
+          "yAxisLabel": "Count",
+          "layout": {
+            "start": 1,
+            "end": 13
+          }
+        }
+      ]
+    }
+  ],
   "map": {
-    "geolocation_enabled": false,
-    "geolocation_onload": false,
-    "cartodb_enabled": true,
-    "geocoding_enabled": false,
-    "options": {
-      "mapViewport": {
-        "latitude": 47.61306,
-        "longitude": -122.19538,
-        "zoom": 13.5,
-        "pitch": 30,
-        "minZoom": 1,
-        "maxZoom": 18
-      },
-      "disableDrawing": true
-    },
+    "geolocationEnabled": false,
+    "geolocationOnload": false,
+    "cartodbEnabled": true,
+    "geocodingEnabled": false,
+    "mapViewport": {
+      "latitude": 47.58713,
+      "longitude": -122.15581,
+      "zoom": 11.3,
+      "pitch": 30,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
     "mapboxSources": {
       "f4": {
         "type": "raster",
@@ -62,24 +164,54 @@
         ],
         "tileSize": 256,
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      },
+      "bellevue-overlay": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/bellevue-overlay/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "bellevue-bike-network": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/bellevue-bike-network/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "bellevue-grid": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/bellevue-grid/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "bellevue-transit": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/bellevue-transit-ver-2/{z}/{x}/{y}.pbf"
+        ]
       }
     },
     "layerGroups": [
       {
         "id": "f4",
         "basemap": true,
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "f4-basemap",
             "type": "raster",
-            "source": "f4"
+            "source": "f4",
+            "paint": {
+              "raster-opacity": 0.6
+            }
           }
         ]
       },
       {
         "id": "satellite",
         "basemap": true,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "satellite-basemap",
@@ -89,8 +221,254 @@
         ]
       },
       {
+        "id": "bellevue-transit",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "ftn-buffer",
+            "type": "fill",
+            "source": "bellevue-transit",
+            "source-layer": "ftn-buffer",
+            "paint": {
+              "fill-color": "#f9953f",
+              "fill-opacity": 0.3
+            }
+          },
+          {
+            "id": "bus-routes",
+            "type": "line",
+            "source": "bellevue-transit",
+            "source-layer": "bus-routes",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#f9953f"
+            }
+          },
+          {
+            "id": "bus-stops-outline",
+            "type": "circle",
+            "source": "bellevue-transit",
+            "source-layer": "bus-stops",
+            "paint": {
+              "circle-radius": ["match", ["get", "FTN"], 1, 4, 3],
+              "circle-color": "#fff"
+            }
+          },
+          {
+            "id": "bus-stops",
+            "type": "circle",
+            "source": "bellevue-transit",
+            "source-layer": "bus-stops",
+            "paint": {
+              "circle-radius": ["match", ["get", "FTN"], 1, 3, 2],
+              "circle-color": "#f9953f"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bellevue-bike-network",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "bellevue-bike-network",
+            "type": "line",
+            "filter": ["!=", ["get", "FacilityType"], "Shoulders / Wide Lanes"],
+            "source": "bellevue-bike-network",
+            "source-layer": "bellevue-bike-network",
+            "paint": {
+              "line-color": [
+                "match",
+                ["get", "FacilityType"],
+                "Bicycle Lanes",
+                "#31d43c",
+                "Offstreet Path",
+                "#238b45",
+                "Sharrows",
+                "#fe9929",
+                "#fff"
+              ],
+              "line-width": [
+                "match",
+                ["get", "FacilityType"],
+                "Bicycle Lanes",
+                3,
+                "Offstreet Path",
+                2.5,
+                "Sharrows",
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "bellevue-bike-network-dashed",
+            "type": "line",
+            "filter": ["==", ["get", "FacilityType"], "Shoulders / Wide Lanes"],
+            "source": "bellevue-bike-network",
+            "source-layer": "bellevue-bike-network",
+            "paint": {
+              "line-color": "#fe9929",
+              "line-dasharray": [2, 1],
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "bellevue-grid",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "bellevue-025-grid",
+            "type": "line",
+            "source": "bellevue-grid",
+            "source-layer": "grid-025",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#888",
+              "line-dasharray": [2, 5]
+            }
+          },
+          {
+            "id": "bellevue-05-grid",
+            "type": "line",
+            "source": "bellevue-grid",
+            "source-layer": "grid-05",
+            "paint": {
+              "line-width": 1,
+              "line-color": "#666"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bellevue-existing-hubs",
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='font-family: PTSans, sans-serif;'><p style='display:flex;'><strong>Status:  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubStatus}}</span></p><p style='display:flex;'><strong>Painted symbol?  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubPaint}}</span></p><p style='display:flex;'><strong>Bike rack?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{BikeRack}}</span></p><p style='display:flex;'><strong>Is this a mini-hub?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{MiniHub}}</span></p></div><img style='width: 200px; max-width:200px;' src='{{PicURL}}' alt='Existing bike hub' onerror='this.style.display=\"none\"' />",
+        "mapboxLayers": [
+          {
+            "id": "bellevue-existing-hubs",
+            "type": "symbol",
+            "source": "bellevue-transit",
+            "source-layer": "bike-hubs",
+            "paint": {
+              "icon-opacity": 1
+            },
+            "layout": {
+              "icon-size": [
+                "step",
+                ["zoom"],
+                ["case", ["==", ["get", "MiniHub"], "Y"], 0.2, 0.3],
+                12,
+                ["case", ["==", ["get", "MiniHub"], "Y"], 0.1, 0.15]
+              ],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                "marker-dot-b5d222.png",
+                12,
+                "bikeshare-hub-marker.png"
+              ],
+              "icon-allow-overlap": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "overlay",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "overlay",
+            "type": "fill",
+            "source": "bellevue-overlay",
+            "source-layer": "overlay",
+            "paint": {
+              "fill-opacity": 0.95,
+              "fill-color": "#e9e2d9"
+            }
+          },
+          {
+            "id": "bellevue-outline",
+            "type": "line",
+            "source": "bellevue-overlay",
+            "source-layer": "bellevue",
+            "paint": {
+              "line-width": 4,
+              "line-opacity": 1,
+              "line-color": "#36bcce"
+            },
+            "layout": {
+              "line-cap": "round",
+              "line-join": "round"
+            }
+          },
+          {
+            "id": "bellevue-outline-accent",
+            "type": "line",
+            "source": "bellevue-overlay",
+            "source-layer": "bellevue",
+            "paint": {
+              "line-width": 3,
+              "line-opacity": 1,
+              "line-color": "#217b87",
+              "line-offset": 3
+            },
+            "layout": {
+              "line-cap": "round",
+              "line-join": "round"
+            }
+          },
+          {
+            "id": "overlay-labels",
+            "type": "symbol",
+            "source": "bellevue-overlay",
+            "source-layer": "overlay-labels",
+            "filter": [
+              "all",
+              ["!=", ["get", "NAME"], "Lake Sammamish"],
+              ["!=", ["get", "NAME"], "Lake Washington"],
+              ["!=", ["get", "NAME"], "Beaux Arts"],
+              ["!=", ["get", "NAME"], "Bellevue"],
+              ["!=", ["get", "NAME"], "King County"],
+              ["!=", ["get", "NAME"], "KIng County"]
+            ],
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1,
+              "text-color": "#222",
+              "text-opacity": 0.5
+            },
+            "layout": {
+              "text-field": ["get", "NAME"],
+              "text-font": ["Arial Unicode MS Bold"],
+              "text-size": [
+                "case",
+                [
+                  "any",
+                  ["==", ["get", "NAME"], "Redmond"],
+                  ["==", ["get", "NAME"], "Issaquah"],
+                  ["==", ["get", "NAME"], "Sammamish"],
+                  ["==", ["get", "NAME"], "Seattle"]
+                ],
+                16,
+                12
+              ],
+              "text-allow-overlap": true,
+              "text-max-width": 15,
+              "text-padding": 15,
+              "text-allow-overlap": false,
+              "text-line-height": 1
+            }
+          }
+        ]
+      },
+      {
         "id": "bellevue-bike-share",
         "datasetSlug": "bellevue-bike-share",
+        "interactive": true,
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {
@@ -99,7 +477,7 @@
             "source": "bellevue-bike-share",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": 0.7,
+              "icon-size": 0.5,
               "icon-anchor": "bottom",
               "icon-image": [
                 "match",
@@ -118,13 +496,13 @@
             "source": "bellevue-bike-share",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 1, 10, 0.4],
-              "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
+              "icon-size": ["step", ["zoom"], 0.3, 12, 0.3],
+              "icon-anchor": ["step", ["zoom"], "center", 12, "bottom"],
               "icon-image": [
                 "step",
                 ["zoom"],
-                "dot-4bad92.png",
-                10,
+                "marker-dot-217b87.png",
+                12,
                 "bike-marker.png"
               ]
             }
@@ -136,39 +514,54 @@
   "right_sidebar": {
     "is_enabled": false
   },
-  "left_sidebar": {
-    "is_enabled": true,
-    "is_visible_default": false,
-    "panels": [
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
       {
-        "id": "gis-layers",
-        "icon": "fa fa-bars",
-        "component": "MapLayerPanel",
-        "title": "_(Map Layers:)",
-        "content": [
+        "title": "Basemaps",
+        "options": [
           {
-            "id": "basemaps",
-            "title": "_(Basemaps)",
-            "layerGroups": [
-              {
-                "id": "satellite",
-                "title": "_(Satellite)"
-              },
-              {
-                "id": "f4",
-                "title": "_(Streets)"
-              }
-            ]
+            "layerGroupId": "satellite",
+            "title": "Satellite"
           },
           {
-            "id": "grp-community",
-            "title": "_(Data layers)",
-            "layerGroups": [
-              {
-                "id": "bellevue-bike-share",
-                "title": "_(Suggested Bike Share Locations)"
-              }
-            ]
+            "layerGroupId": "f4",
+            "title": "Streets"
+          }
+        ]
+      },
+      {
+        "title": "City data",
+        "options": [
+          {
+            "layerGroupId": "overlay",
+            "title": "Regional Overlay"
+          },
+          {
+            "layerGroupId": "bellevue-grid",
+            "title": "Half-mile and quarter-mile grid"
+          },
+          {
+            "layerGroupId": "bellevue-bike-network",
+            "title": "Bellevue Bike Network"
+          },
+          {
+            "layerGroupId": "bellevue-existing-hubs",
+            "title": "Existing Bikeshare Hubs"
+          },
+          {
+            "layerGroupId": "bellevue-transit",
+            "title": "Bellevue Transit Network"
+          }
+        ]
+      },
+      {
+        "title": "Community data",
+        "options": [
+          {
+            "layerGroupId": "bellevue-bike-share",
+            "title": "Suggested Bike Share Locations"
           }
         ]
       }
@@ -179,176 +572,301 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "_(Suggest a bike share location!)",
-    "show_list_button_label": "_(See all comments)",
-    "show_map_button_label": "_(Show the Map)",
-    "title": "_(Tell us more...)",
-    "action_text": "_(created)",
-    "anonymous_name": "_(Someone)",
-    "submit_button_label": "_(Submit)",
+    "add_button_label": "Request bikeshare parking!",
+    "show_list_button_label": "See all comments",
+    "show_map_button_label": "Show the Map",
+    "title": "Tell us more...",
+    "action_text": "created",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Submit",
     "location_item_name": "location",
     "place_detail": [
       {
+        "formId": "bike-share",
         "category": "bike-share",
+        "formId": "culture",
         "includeOnForm": true,
+        "submitter_editing_supported": true,
+        "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "bellevue-bike-share",
         "icon_url": "/static/css/images/markers/bike-marker.png",
+        "geospatialAnalysis": [
+          {
+            "name": "025_grid",
+            "type": "pointInPolygon",
+            "analysisTarget": "bellevue-025-grid.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "OID"
+              }
+            ]
+          },
+          {
+            "name": "05_grid",
+            "type": "pointInPolygon",
+            "analysisTarget": "bellevue-05-grid.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "OID"
+              }
+            ]
+          }
+        ],
         "value": "bike-share",
-        "label": "_(Bike Share Location)",
+        "label": "Bike Share Request",
+        "multi_stage": [
+          {
+            "start_field_index": 1,
+            "end_field_index": 3,
+            "visibleLayerGroupIds": [
+              "f4",
+              "overlay",
+              "bellevue-existing-hubs",
+              "bellevue-bike-share"
+            ],
+            "viewport": {
+              "latitude": 47.58713,
+              "longitude": -122.15581,
+              "zoom": 11.3,
+              "pitch": 30
+            }
+          },
+          {
+            "start_field_index": 4,
+            "end_field_index": 4,
+            "visibleLayerGroupIds": [
+              "f4",
+              "overlay",
+              "bellevue-existing-hubs",
+              "bellevue-bike-share"
+            ],
+            "viewport": {
+              "latitude": 47.58713,
+              "longitude": -122.15581,
+              "zoom": 11.3,
+              "pitch": 30
+            }
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 5,
+            "visibleLayerGroupIds": ["f4", "overlay"],
+            "viewport": {
+              "latitude": 47.58713,
+              "longitude": -122.15581,
+              "zoom": 11.3,
+              "pitch": 30
+            }
+          },
+          {
+            "start_field_index": 6,
+            "end_field_index": 6,
+            "visibleLayerGroupIds": ["f4", "bellevue-grid", "overlay"],
+            "viewport": {
+              "latitude": 47.58713,
+              "longitude": -122.15581,
+              "zoom": 11.3,
+              "pitch": 30
+            }
+          },
+          {
+            "start_field_index": 7,
+            "end_field_index": 7,
+            "visibleLayerGroupIds": [
+              "f4",
+              "bellevue-grid",
+              "bellevue-existing-hubs",
+              "overlay"
+            ],
+            "viewport": {
+              "latitude": 47.6145,
+              "longitude": -122.19668,
+              "zoom": 14.9,
+              "pitch": 30,
+              "transitionDuration": 2000
+            }
+          },
+          {
+            "start_field_index": 8,
+            "end_field_index": 8,
+            "visibleLayerGroupIds": [
+              "f4",
+              "bellevue-grid",
+              "bellevue-bike-network",
+              "overlay"
+            ],
+            "viewport": {
+              "latitude": 47.58713,
+              "longitude": -122.15581,
+              "zoom": 11.3,
+              "pitch": 30
+            }
+          },
+          {
+            "start_field_index": 9,
+            "end_field_index": 9,
+            "visibleLayerGroupIds": ["f4", "bellevue-grid", "overlay"]
+          },
+          {
+            "start_field_index": 10,
+            "end_field_index": 18,
+            "visibleLayerGroupIds": [
+              "f4",
+              "bellevue-existing-hubs",
+              "overlay",
+              "bellevue-grid",
+              "bellevue-bike-share"
+            ]
+          }
+        ],
         "fields": [
+          {
+            "name": "request_bikeshare_parking",
+            "type": "informational_html",
+            "prompt": " ",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Request bikeshare parking!</h1><img style='width:100%;' src='/static/css/images/request-bikeshare-parking.png' alt='Bikeshare parking' />"
+          },
+          {
+            "name": "skip_to_map_use",
+            "type": "big_toggle",
+            "prompt": " ",
+            "advance_to_arbitrary_stage": {
+              "value": "map-use",
+              "stage": 2
+            },
+            "content": [
+              {
+                "label": "How do I use this map?",
+                "value": "map-use"
+              },
+              {
+                "label": "How do I use this map?",
+                "value": "no-map-use"
+              }
+            ]
+          },
+          {
+            "name": "skip_to_questionnaire",
+            "type": "big_toggle",
+            "prompt": " ",
+            "advance_to_arbitrary_stage": {
+              "value": "skip",
+              "stage": 8
+            },
+            "content": [
+              {
+                "label": "I'm ready to suggest a location!",
+                "value": "skip"
+              },
+              {
+                "label": "I'm ready to suggest a location!",
+                "value": "no-skip"
+              }
+            ]
+          },
+          {
+            "name": "map_use",
+            "type": "informational_html",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>How do I use this map?</h1><img style='width:100%;' src='/static/css/images/map-use-graphic.png' alt='Map use graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>As you click through the next few pages, this guide will show you other map layers you can turn on and off to help you think about where to suggest a parking area. Click on the layers button (circled in <span style='color:#a3d469'>green</span>) to see all your options! The map will move each time you click Next, so please wait until page 8 to place the pin where you want it.</p><p class='form-stage-text' >Do you have more questions about bikeshare parking in Bellevue? Click on the “FAQ” button at the top of the map (circled in <span style='color:#eb7d3c'>orange</span>) for more information.</p>"
+          },
+          {
+            "name": "hub_information",
+            "type": "informational_html",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What is a hub?</h1><img style='width:100%;' src='/static/css/images/bike-share-hub.jpg' alt='Walkshed graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>Hubs are preferred parking areas for bikeshare bicycles. These are places where bikeshare users are encouraged to park when ending a trip and where operators relocate bikes to provide convenient and reliable service.</p><p class='form-stage-text' >Hubs are marked with white boxes and symbols painted on sidewalks or street shoulders, and they are shown in operators’ mobile apps.</p>"
+          },
+          {
+            "name": "hub_location_information",
+            "type": "informational_html",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Where should hubs go?</h1><img style='width:100%;' src='/static/css/images/gridlines-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>We want to provide a network of convenient hubs citywide. Suggest locations in your neighborhood, outside your workplace, at your local park, near your favorite café, restaurants, and shops—anywhere you want to go by bike!</p><p class='form-stage-text' >If you don’t see a suggested location in the half-mile (solid) or quarter-mile (dashed) grid squares near places you want to go, that is an especially good place to suggest one.</p>"
+          },
+          {
+            "name": "existing_hubs_information",
+            "type": "informational_html",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Existing hubs</h1><img style='width:100%;' src='/static/css/images/existing-bikeshare-hubs-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Hubs have already been installed at 50 locations across the city, including in Downtown, Crossroads, Factoria, and near major bus stops and community spaces.</p><p class='form-stage-text' >Toggle these with the Existing Hubs layer, and click on icons for more information and photos. Large icons are painted areas; small icons are public bike racks, or \"mini hubs.\"</p>"
+          },
+          {
+            "name": "bicycle_network_information",
+            "type": "informational_html",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Bicycle network</h1><img style='width:100%;' src='/static/css/images/bike-network-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Not sure where to ride? Toggle the Bike Network layer to see where bike lanes and offstreet paths are near where you want to go.</p><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/bike-sharrows-ver-2.png' alt='Bike sharrows' /><figcaption style='font-style:italic;color:#888;'>Bike sharrows</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/bike-lane-ver-2.png' alt='Bike lane' /><figcaption style='font-style:italic;color:#888;'>Bike lane</figcaption></figure></div><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/wide-shoulder-ver-2.png' alt='Shoulder / wide lane' /><figcaption style='font-style:italic;color:#888;'>Shoulder / wide lane</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/offstreet-path-ver-2.png' alt='Offstreet path' /><figcaption style='font-style:italic;color:#888;'>Offstreet path</figcaption></figure></div>"
+          },
+          {
+            "name": "access_to_transit_information",
+            "type": "informational_html",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Access to transit</h1><img style='width:100%;' src='/static/css/images/walkshed-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Bikeshare can help people get to and from transit more quickly. By locating hubs within walking distance of frequent bus routes, buses and bikeshare can both be more useful.</p><p class='form-stage-text' >This map shows the quarter-mile walkshed around Bellevue's frequent transit network.</p>"
+          },
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "submission_info",
+            "type": "informational_html",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What do <span style='font-style:italic;'>you</span> think?</h1><p class='form-stage-text'>Drag and zoom the map to let us know where you think we should add a bikeshare hub! Fill out the form below to give us some more information about your suggestion:</p>"
+          },
           {
             "name": "title",
             "type": "text",
-            "prompt": "_(Add a descriptive title:)",
-            "display_prompt": "_(Title:)",
-            "placeholder": "_(Enter title...)",
+            "prompt": "Add a descriptive title:",
+            "display_prompt": "Title:",
+            "placeholder": "Enter title...",
             "optional": false
           },
           {
             "name": "description",
             "type": "textarea",
-            "prompt": "_(Why does this location need bike sharing?)",
-            "display_prompt": "_( )",
-            "placeholder": "_(...)",
+            "prompt": "Why does this location need bikeshare parking?",
+            "placeholder": "...",
             "optional": true
           },
           {
+            "name": "live_work_visit",
+            "type": "big_checkbox",
+            "prompt": "Check all that apply:",
+            "optional": true,
+            "content": [
+              {
+                "label": "I live nearby",
+                "value": "live_nearby"
+              },
+              {
+                "label": "I work nearby",
+                "value": "work_nearby"
+              },
+              {
+                "label": "I visit often",
+                "value": "visit_often"
+              }
+            ]
+          },
+          {
+            "name": "private-submitter_name",
+            "type": "text",
+            "prompt": "Your name",
+            "placeholder": "Name",
+            "optional": true
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "text",
+            "prompt": "Your Email",
+            "placeholder": "Your email address will never be shared",
+            "optional": true,
+            "sticky": true
+          },
+          {
             "name": "my_image",
-            "type": "common_form_element"
+            "type": "file",
+            "label": "Add image",
+            "prompt": "Upload an image of this location:",
+            "optional": true
           },
           {
             "name": "submit",
-            "type": "common_form_element"
+            "type": "submit",
+            "label": "Suggest it!"
           }
         ]
-      }
-    ],
-    "common_form_elements": {
-      "submitter_name": {
-        "type": "text",
-        "prompt": "_(Your name)",
-        "placeholder": "_(Name)",
-        "optional": true
-      },
-      "private-submitter_email": {
-        "type": "text",
-        "prompt": "_(Your Email)",
-        "placeholder": "_(Receive email updates on your report)",
-        "optional": true,
-        "sticky": true
-      },
-      "my_image": {
-        "type": "file",
-        "prompt": "_(Image)",
-        "label": "_(Add an Image)",
-        "optional": true
-      },
-      "submit": {
-        "type": "submit",
-        "label": "_(Put it on the map!)"
-      }
-    },
-    "items": [
-      {
-        "prompt": "_(Type of report)",
-        "type": "select",
-        "options": [
-          {
-            "label": "_(Observation)",
-            "value": "observation"
-          },
-          {
-            "label": "_(Question)",
-            "value": "question"
-          },
-          {
-            "label": "_(Idea)",
-            "value": "idea"
-          },
-          {
-            "label": "_(Complaint)",
-            "value": "complaint"
-          }
-        ],
-        "name": "location_type",
-        "attrs": [
-          {
-            "key": "required"
-          }
-        ]
-      },
-      {
-        "prompt": "_(Title of report)",
-        "type": "text",
-        "name": "name",
-        "optional": null,
-        "attrs": [
-          {
-            "key": "required"
-          },
-          {
-            "key": "placeholder",
-            "value": "_(Enter title)"
-          },
-          {
-            "key": "size",
-            "value": 30
-          }
-        ]
-      },
-      {
-        "prompt": "_(Description)",
-        "type": "textarea",
-        "name": "description",
-        "optional": true,
-        "attrs": [
-          {
-            "key": "placeholder",
-            "value": "_(Description...)"
-          }
-        ]
-      },
-      {
-        "prompt": "_(Your Name)",
-        "type": "text",
-        "name": "submitter_name",
-        "optional": true,
-        "sticky": true,
-        "attrs": [
-          {
-            "key": "placeholder",
-            "value": "_(Name)"
-          },
-          {
-            "key": "size",
-            "value": 30
-          }
-        ]
-      },
-      {
-        "prompt": "_(Your Email)",
-        "type": "text",
-        "name": "private-submitter_email",
-        "optional": true,
-        "sticky": true,
-        "attrs": [
-          {
-            "key": "placeholder",
-            "value": "_(Receive email updates on your report)"
-          },
-          {
-            "key": "size",
-            "value": 30
-          }
-        ]
-      },
-      {
-        "prompt": "_(Image)",
-        "label": "_(Add an Image)",
-        "type": "file",
-        "name": "my_image",
-        "optional": true
       }
     ]
   },
@@ -357,22 +875,22 @@
       "submission_type": "comments",
       "adding_enabled": false,
       "show_responses": true,
-      "response_name": "_(comment)",
-      "response_plural_name": "_(comments)",
-      "action_text": "_(commented on)",
-      "anonymous_name": "_(Someone)",
-      "title": "_(Leave a Comment)",
-      "form_link_text": "_(Leave a Comment)",
-      "submit_btn_text": "_(Comment)",
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
       "items": [
         {
-          "prompt": "_(Comment)",
-          "label": "_(Comment)",
+          "prompt": "Comment",
+          "label": "Comment",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "_(Your Name)",
+          "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -380,31 +898,39 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "_(Comment)"
+          "label": "Comment"
         }
       ]
-    }
+    },
+    "places": [
+      {
+        "id": "bike-share",
+        "datasetSlug": "bellevue-bike-share",
+        "label": "Suggested Bike Share Locations",
+        "icon": "/static/css/images/markers/bike-marker.png"
+      }
+    ]
   },
   "survey": {
     "submission_type": "comments",
     "show_responses": true,
     "single_submission": false,
-    "response_name": "_(comment)",
-    "response_plural_name": "_(comments)",
-    "action_text": "_(commented on)",
-    "anonymous_name": "_(Someone)",
-    "title": "_(Leave a Comment)",
-    "form_link_text": "_(Leave a Comment)",
-    "submit_btn_text": "_(Comment)",
+    "response_name": "comment",
+    "response_plural_name": "comments",
+    "action_text": "commented on",
+    "anonymous_name": "Someone",
+    "title": "Leave a Comment",
+    "form_link_text": "Leave a Comment",
+    "submit_btn_text": "Comment",
     "items": [
       {
-        "prompt": "_(Comment)",
-        "label": "_(Comment)",
+        "prompt": "Comment",
+        "label": "Comment",
         "type": "textarea",
         "name": "comment"
       },
       {
-        "prompt": "_(Your Name)",
+        "prompt": "Your Name",
         "type": "text",
         "name": "submitter_name",
         "optional": true
@@ -412,35 +938,62 @@
       {
         "type": "submit",
         "name": "submit",
-        "label": "_(Comment)"
+        "label": "Comment"
       }
     ]
   },
   "support": {
     "submission_type": "support",
-    "submit_btn_text": "_(Support)",
-    "response_name": "_(support)",
-    "response_plural_name": "_(supports)",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
     "action_text": "supported",
-    "anonymous_name": "_(Someone)"
+    "anonymous_name": "Someone"
   },
   "nav_bar": [
     {
-      "title": "_(About)",
+      "title": "About",
       "type": "internal_link",
       "url": "/page/about",
-      "name": "overview"
+      "name": "overview",
+      "start_page": true
+    },
+    {
+      "title": "FAQ",
+      "type": "internal_link",
+      "url": "/page/faq",
+      "name": "faq"
+    },
+    {
+      "title": "Map Layers",
+      "type": "left_sidebar_toggle",
+      "component": "MapLayerPanel"
+    },
+    {
+      "type": "list_toggle",
+      "show_list_button_label": "Show as a list",
+      "show_map_button_label": "Show on a map"
     }
   ],
   "pages": [
     {
       "slug": "about",
-      "lang": "en_US",
       "content": [
-        "<h1>Welcome</h1>",
-        "<p>Bike sharing is coming to Bellevue! Use this map to suggest sharing locations.</p>",
+        "<div style='display:flex; align-items:center'><img style='width:80px;min-width:80px;max-width:80px;height:80px;max-height:80px;min-height:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1>Bikeshare! But Where?</h1></div>",
         "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
-        "<p class='btn btn-block btn-large'><a href='/new' rel='internal'>Suggest a location!</a></p>"
+        "<pThe City is working to make bikeshare easier to use and better manage where bikes are parked. We want your input!</p>",
+        "<p>Help us pick good places in your neighborhood to designate as preferred parking areas, called “bike hubs.” A good location is one where bikes are convenient to find when you want one and out of the way when you don’t. Add your suggestions to the map and comment on locations submitted by other members of your community.</p>",
+        "<p>The Transportation Department will review every suggestion submitted, and this map will be updated to share the current status.</p>",
+        "<p>To provide more general feedback about bikeshare in Bellevue, take the City’s online questionnaire at <a href='https://www.surveymonkey.com/r/bellevuebikeshare' target='_blank'>https://www.surveymonkey.com/r/bellevuebikeshare</a>.</p>",
+        "<p>Thanks for taking the time to participate!</p>",
+        "<div class='page-button'><a href='/new' rel='internal'>Start!</a></div>"
+      ]
+    },
+    {
+      "slug": "faq",
+      "content": [
+        "<h1>FAQ</h1>",
+        "<p>For information explaining what bike share is and how to use it, visit the City's Frequently Asked Questions guide: <a target='_blank' href='http://bit.ly/2IwmA0b'>http://bit.ly/2IwmA0b</a></p>"
       ]
     }
   ],

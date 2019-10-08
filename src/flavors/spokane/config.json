@@ -1,0 +1,4298 @@
+{
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    },
+    "usePlaceFilterWidget": true,
+    "placeFilters": [
+      {
+        "placeProperty": "practice_types",
+        "operator": "includes",
+        "datasetSlug": "spokane-input",
+        "value": "agriculture",
+        "label": "Agricultural stewardship",
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-agriculture.png"
+      },
+      {
+        "placeProperty": "practice_types",
+        "operator": "includes",
+        "datasetSlug": "spokane-input",
+        "value": "forestry",
+        "label": "Forestry stewardship",
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-forestry.png"
+      },
+      {
+        "placeProperty": "practice_types",
+        "operator": "includes",
+        "datasetSlug": "spokane-input",
+        "value": "livestock",
+        "label": "Livestock stewardship",
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-livestock.png"
+      }
+    ]
+  },
+  "datasets": [
+    {
+      "slug": "spokane-input",
+      "clientSlug": "report",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "Spokane County Voluntary Stewardship Program",
+    "name": "Spokane County Voluntary Stewardship Program",
+    "logo": "/static/css/images/logo.png",
+    "meta_description": "Welcome!",
+    "meta_author": "mapseed.org",
+    "thumbnail": "/static/css/images/thumbnail.png",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "isShowingMobileUserMenu": true,
+    "theme": {
+      "brand": {
+        "primary": "#61974b",
+        "secondary": "#d46c4c",
+        "tertiary": "#999",
+        "accent": "#29b1cb"
+      },
+      "bg": {
+        "default": "#e8dbc5",
+        "light": "#61974b"
+      },
+      "text": {
+        "secondary": "#fff",
+        "tertiary": "#61974b",
+        "titleFontFamily": "Raleway-ExtraBold,sans-serif",
+        "bodyFontFamily": "Raleway-Regular,sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#61974b",
+        "addPlaceButtonHoverBackgroundColor": "rgb(191,213,183)"
+      }
+    },
+    "sharingProviders": [
+      {
+        "type": "facebook"
+      }
+    ]
+  },
+  "dashboard": [
+    {
+      "header": "VSP Reports - Spokane County",
+      "isExportable": true,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "spokane-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total VSP Reports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. VSP reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        },
+        {
+          "header": "Stewardship Practices Detail",
+          "type": "fixedTable",
+          "stripeColor": "#fbf6ed",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Stewardship category",
+              "type": "string",
+              "fractionalWidth": 2
+            },
+            {
+              "header": "Lower Spokane WAU",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Lower Spokane"
+              ]
+            },
+            {
+              "header": "Upper Spokane WAU",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Upper Spokane"
+              ]
+            },
+            {
+              "header": "Little Spokane WAU",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Little Spokane"
+              ]
+            },
+            {
+              "header": "Pend Oreille Lake WAU",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Pend Oreille Lake"
+              ]
+            },
+            {
+              "header": "Hangman WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Hangman"]
+            },
+            {
+              "header": "Coeur d'Alene Lake WAU",
+              "type": "numeric",
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Coeur d'Alene Lake"
+              ]
+            },
+            {
+              "header": "Upper Crab WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Upper Crab"]
+            },
+            {
+              "header": "Palouse WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Palouse"]
+            },
+            {
+              "header": "Rock WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Rock"]
+            },
+            {
+              "header": "Countywide",
+              "type": "numeric"
+            },
+            {
+              "header": "Benchmark Objective",
+              "type": "numeric"
+            },
+            {
+              "header": "Benchmark Status",
+              "type": "badge"
+            },
+            {
+              "header": "Enhanced Objective",
+              "type": "numeric"
+            },
+            {
+              "header": "Enhanced Status",
+              "type": "badge"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "value": "No till"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Reduced till"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Soil Tests"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "soil_tests_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Grassed Waterways"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Riparian Forest"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "riparian_forest_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Stream Crossing"
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["get-sum", "stream_crossing_quantity"],
+                  "label": "cross."
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Cross."
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Cross."
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Fencing"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Nutrient Management"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Pipeline"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["get-sum", "pipeline_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "header": "Landowner summary",
+          "type": "freeTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Name and contact",
+              "type": "string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                ["get-val", "private-landowner_name"],
+                ["get-val", "private-landowner_email"],
+                ["get-val", "private-landowner_phone"]
+              ]
+            },
+            {
+              "header": "Submitted report on",
+              "type": "date",
+              "fractionalWidth": 1,
+              "value": ["get-val", "created_datetime"]
+            },
+            {
+              "header": "Implemented",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "yes"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "conventional_till"], "yes"],
+                  ["literal", "Conventional Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "yes"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_tests"], "yes"],
+                  ["literal", "Soil Tests"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fertilization"], "yes"],
+                  ["literal", "Fertilization"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "buffers"], "yes"],
+                  ["literal", "Buffers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grassed_waterways"], "yes"],
+                  ["literal", "Grassed Waterways"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "commodity_buffer"], "yes"],
+                  ["literal", "Commodity Buffer Program"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "riparian_forest"], "yes"],
+                  ["literal", "Wildlife Habitat Enhancements"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stream_crossing"], "yes"],
+                  ["literal", "Stream Crossing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fencing"], "yes"],
+                  ["literal", "Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mud_manure_management"], "yes"],
+                  ["literal", "Mud and Manure Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "off_creek_stock_watering"], "yes"],
+                  ["literal", "Off Creek Stock Watering"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "forest_management"], "yes"],
+                  ["literal", "Forest Management"],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Interested",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "interested"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "conventional_till"], "interested"],
+                  ["literal", "Conventional Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "interested"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_tests"], "interested"],
+                  ["literal", "Soil Tests"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fertilization"], "interested"],
+                  ["literal", "Fertilization"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "buffers"], "interested"],
+                  ["literal", "Buffers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grassed_waterways"], "interested"],
+                  ["literal", "Grassed Waterways"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "commodity_buffer"], "interested"],
+                  ["literal", "Commodity Buffer Program"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "riparian_forest"], "interested"],
+                  ["literal", "Wildlife Habitat Enhancements"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stream_crossing"], "interested"],
+                  ["literal", "Stream Crossing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "fencing"], "interested"],
+                  ["literal", "Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "mud_manure_management"], "interested"],
+                  ["literal", "Mud and Manure Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "off_creek_stock_watering"], "interested"],
+                  ["literal", "Off Creek Stock Watering"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "forest_management"], "interested"],
+                  ["literal", "Forest Management"],
+                  ["literal", ""]
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "header": "Critical Area Summary",
+          "type": "fixedTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 7,
+            "height": 206
+          },
+          "columns": [
+            {
+              "header": "Summary type",
+              "type": "string",
+              "fractionalWidth": 2
+            },
+            {
+              "header": "Wetlands",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "on_wetlands"], true]
+            },
+            {
+              "header": "Frequently flooded areas",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "on_frequently_flooded"], true]
+            },
+            {
+              "header": "Hazardous areas",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "on_geologic_hazard"], true]
+            },
+            {
+              "header": "Critical aquifers",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "on_critical_aquifer"], true]
+            },
+            {
+              "header": "Critical conservation areas",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "on_critical_conservation"], true]
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "value": "Number of reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "Reports"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "map": {
+    "measurementToolEnabled": true,
+    "geolocationEnabled": true,
+    "geolocationOnload": false,
+    "geocodingEngine": "Mapbox",
+    "geocodeHint": [-117.406929, 47.646225],
+    "scrollZoomAroundCenter": true,
+    "mapViewport": {
+      "latitude": 47.646225,
+      "longitude": -117.406929,
+      "zoom": 7.95,
+      "pitch": 0,
+      "minzoom": 1,
+      "maxzoom": 18
+    }
+  },
+  "mapStyle": {
+    "mapboxSources": {
+      "osm": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tilseSize": 256
+      },
+      "satellite": {
+        "url": "mapbox://mapbox.satellite",
+        "type": "raster",
+        "tileSize": 256
+      },
+      "spokane-river": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-river/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "little-spokane-river": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/little-spokane-river/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "hangman-creek": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/hangman-creek/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "light-nolabels": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/smartercleanup/cj1wt142q001f2smrgsfjqriw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+        ],
+        "tileSize": 256,
+        "maxzoom": 11
+      },
+      "snake-river": {
+        "type": "geojson",
+        "data": "https://assets.mapseed.org/geo/snake-river.geojson"
+      },
+      "spokane-watersheds": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-watersheds/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "spokane-watersheds-labels": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-watersheds-labels/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "spokane-geologic-hazard": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-geologic-hazard/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 17
+      },
+      "spokane-wetlands": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-wetlands/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "spokane-frequently-flooded": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-frequently-flooded/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "spokane-critical-conservation-areas": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-critical-conservation-areas/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "spokane-critical-aquifer": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-critical-aquifer/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "spokane-county-outline": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/spokane-county-outline/{z}/{x}/{y}.pbf"
+        ]
+      }
+    },
+    "layerGroups": [
+      {
+        "id": "osm",
+        "basemap": true,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "osm-basemap",
+            "type": "raster",
+            "source": "osm"
+          }
+        ]
+      },
+      {
+        "id": "satellite",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "light-nolabels",
+            "type": "raster",
+            "source": "light-nolabels",
+            "maxzoom": 11,
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                1,
+                11,
+                0
+              ]
+            }
+          },
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite",
+            "minzoom": 10,
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                0,
+                11,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-county-outline",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "spokane-county-outline",
+            "type": "line",
+            "source": "spokane-county-outline",
+            "source-layer": "spokane-county-outline",
+            "paint": {
+              "line-color": "#61974b",
+              "line-width": 3,
+              "line-dasharray": [2, 2]
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "spokane-river-fill",
+            "type": "fill",
+            "source": "spokane-river",
+            "source-layer": "spokane-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "spokane-river-outline",
+            "type": "line",
+            "source": "spokane-river",
+            "source-layer": "spokane-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "little-spokane-river",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "little-spokane-river-fill",
+            "type": "fill",
+            "source": "little-spokane-river",
+            "source-layer": "little-spokane-river",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "little-spokane-river-outline",
+            "type": "line",
+            "source": "little-spokane-river",
+            "source-layer": "little-spokane-river",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "hangman-creek",
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "hangman-creek-fill",
+            "type": "fill",
+            "source": "hangman-creek",
+            "source-layer": "hangman-creek",
+            "paint": {
+              "fill-color": "#34518f",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "hangman-creek-outline",
+            "type": "line",
+            "source": "hangman-creek",
+            "source-layer": "hangman-creek",
+            "paint": {
+              "line-color": "#34518f",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-watersheds",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "spokane-watersheds",
+            "type": "fill",
+            "source": "spokane-watersheds",
+            "source-layer": "spokane-watersheds",
+            "paint": {
+              "fill-opacity": 0.5,
+              "fill-color": [
+                "match",
+                ["get", "NAME"],
+                "Lower Spokane",
+                "#8dd3c7",
+                "Upper Spokane",
+                "#ffffb3",
+                "Pend Oreille Lake",
+                "#bebada",
+                "Little Spokane",
+                "#bebada",
+                "Hangman",
+                "#80b1d3",
+                "Coeur d'Alene Lake",
+                "#80b1d3",
+                "Upper Crab",
+                "#b3de69",
+                "Palouse",
+                "#b3de69",
+                "Rock",
+                "#b3de69",
+                "#fff"
+              ]
+            }
+          },
+          {
+            "id": "spokane-watersheds-outline",
+            "type": "line",
+            "source": "spokane-watersheds",
+            "source-layer": "spokane-watersheds",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 2
+            }
+          },
+          {
+            "id": "spokane-watersheds-labels-placed",
+            "type": "symbol",
+            "source": "spokane-watersheds-labels",
+            "source-layer": "spokane-watersheds-labels",
+            "maxzoom": 10,
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 20,
+              "text-color": "#666"
+            },
+            "layout": {
+              "text-field": ["concat", ["get", "watershed_name"], " watershed"],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 12,
+              "text-allow-overlap": true,
+              "text-max-width": 8,
+              "text-padding": 15,
+              "text-allow-overlap": true,
+              "text-transform": "uppercase",
+              "text-line-height": 1,
+              "text-offset": [1, 0]
+            }
+          },
+          {
+            "id": "spokane-watersheds-labels-unplaced",
+            "type": "symbol",
+            "source": "spokane-watersheds",
+            "source-layer": "spokane-watersheds",
+            "minzoom": 10,
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 20,
+              "text-color": "#666"
+            },
+            "layout": {
+              "text-field": ["concat", ["get", "NAME"], " watershed"],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 12,
+              "text-allow-overlap": true,
+              "text-max-width": 8,
+              "text-padding": 15,
+              "text-allow-overlap": true,
+              "text-transform": "uppercase",
+              "text-line-height": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-geologic-hazard",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "spokane-geologic-hazard",
+            "type": "fill",
+            "source": "spokane-geologic-hazard",
+            "source-layer": "spokane-geologic-hazard",
+            "paint": {
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "spokane-geologic-hazard-outline",
+            "type": "line",
+            "source": "spokane-geologic-hazard",
+            "source-layer": "spokane-geologic-hazard",
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-wetlands",
+        "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "#c6dbef",
+            "label": "Lacustrine Limnetic"
+          },
+          {
+            "swatch": "#9ecae1",
+            "label": "Lacustrine Littoral"
+          },
+          {
+            "swatch": "#6baed6",
+            "label": "Palustrine"
+          },
+          {
+            "swatch": "#4292c6",
+            "label": "Riverine Lower Perennial"
+          },
+          {
+            "swatch": "#2171b5",
+            "label": "Riverine Upper Perennial"
+          },
+          {
+            "swatch": "#08519c",
+            "label": "Riverine Intermittent"
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "spokane-wetlands",
+            "type": "fill",
+            "source": "spokane-wetlands",
+            "source-layer": "spokane-wetlands",
+            "paint": {
+              "fill-color": [
+                "match",
+                ["get", "SYSSUB"],
+                "L1",
+                "#c6dbef",
+                "L2",
+                "#9ecae1",
+                "P",
+                "#6baed6",
+                "R2",
+                "#4292c6",
+                "R3",
+                "#2171b5",
+                "R4",
+                "#08519c",
+                "#fff"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-frequently-flooded",
+        "visibleDefault": false,
+        "legend": [
+          {
+            "icon": "/static/css/images/hash-fill-88b9ff-legend.png",
+            "label": "100 year floodplain"
+          },
+          {
+            "icon": "/static/css/images/frequently-flooded-legend.png",
+            "label": "500 year floodplain"
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "spokane-frequently-flooded",
+            "type": "fill",
+            "source": "spokane-frequently-flooded",
+            "source-layer": "spokane-frequently-flooded",
+            "paint": {
+              "fill-pattern": [
+                "match",
+                ["get", "FloodZone"],
+                "100 Year",
+                "hash-fill-88b9ff.png",
+                "500 Year",
+                "frequently-flooded-fill.png",
+                "frequently-flooded-fill.png"
+              ]
+            }
+          },
+          {
+            "id": "spokane-frequently-flooded-outline",
+            "type": "line",
+            "source": "spokane-frequently-flooded",
+            "source-layer": "spokane-frequently-flooded",
+            "paint": {
+              "line-color": [
+                "match",
+                ["get", "FloodZone"],
+                "100 Year",
+                "#88b9ff",
+                "500 Year",
+                "#3366ff",
+                "#3366ff"
+              ],
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-critical-aquifer",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "spokane-critical-aquifer",
+            "type": "fill",
+            "source": "spokane-critical-aquifer",
+            "source-layer": "spokane-critical-aquifer",
+            "paint": {
+              "fill-pattern": "aquifer-fill.png"
+            }
+          },
+          {
+            "id": "spokane-critical-aquifer-outline",
+            "type": "line",
+            "source": "spokane-critical-aquifer",
+            "source-layer": "spokane-critical-aquifer",
+            "paint": {
+              "line-color": "#1155ce",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-critical-conservation-areas",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "spokane-critical-conservation-areas",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
+            "type": "fill",
+            "source": "spokane-critical-conservation-areas",
+            "source-layer": "spokane-critical-conservation-areas",
+            "paint": {
+              "fill-pattern": "conservation-fill-alt.png",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "spokane-critical-conservation-areas-outline",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
+            "type": "line",
+            "source": "spokane-critical-conservation-areas",
+            "source-layer": "spokane-critical-conservation-areas",
+            "paint": {
+              "line-color": "#6dd84a",
+              "line-width": 2,
+              "line-opacity": 0.9
+            }
+          },
+          {
+            "id": "spokane-critical-conservation-areas-labels",
+            "filter": [
+              "all",
+              ["!=", ["get", "comname"], "Cliffs/bluffs"],
+              ["!=", ["get", "comname"], "Shrub-steppe"],
+              ["!=", ["get", "comname"], "Wetlands"],
+              ["!=", ["get", "comname"], "Old-growth/mature Forest"],
+              ["==", ["geometry-type"], "Polygon"]
+            ],
+            "type": "symbol",
+            "source": "spokane-critical-conservation-areas",
+            "source-layer": "spokane-critical-conservation-areas",
+            "paint": {
+              "text-color": "#618141",
+              "text-halo-color": "#f0f4ec",
+              "text-halo-width": 1.5,
+              "text-opacity": ["interpolate", ["linear"], ["zoom"], 9, 0, 10, 1]
+            },
+            "layout": {
+              "text-field": ["get", "comname"],
+              "text-size": 15,
+              "text-font": [
+                "Alegreya ExtraBold Italic",
+                "Arial Unicode MS Regular"
+              ],
+              "text-letter-spacing": 0.2
+            }
+          }
+        ]
+      },
+      {
+        "id": "spokane-input",
+        "datasetSlug": "spokane-input",
+        "visibleDefault": true,
+        "interactive": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "spokane-input-focused",
+            "type": "symbol",
+            "source": "spokane-input",
+            "layout": {
+              "icon-size": 0.4,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "case",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "agriculture"]
+                ],
+                "marker-agriculture.png",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "livestock"]
+                ],
+                "marker-livestock.png",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "forestry"]
+                ],
+                "marker-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ]
+                ],
+                "marker-livestock-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock-forestry.png",
+                "marker-agriculture.png"
+              ]
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "spokane-input",
+            "type": "symbol",
+            "source": "spokane-input",
+            "layout": {
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "case",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "agriculture"]
+                ],
+                "marker-agriculture.png",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "livestock"]
+                ],
+                "marker-livestock.png",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "forestry"]
+                ],
+                "marker-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ]
+                ],
+                "marker-livestock-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock-forestry.png",
+                "marker-agriculture.png"
+              ],
+              "icon-size": ["step", ["zoom"], 0.2, 11, 0.3, 16, 0.4],
+              "icon-allow-overlap": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": false
+  },
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
+      {
+        "title": "Basemaps",
+        "options": [
+          {
+            "layerGroupId": "osm",
+            "title": "OpenStreetMap"
+          },
+          {
+            "layerGroupId": "satellite",
+            "title": "Light/Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Water Features",
+        "options": [
+          {
+            "layerGroupId": "spokane-river",
+            "title": "Spokane River"
+          },
+          {
+            "layerGroupId": "little-spokane-river",
+            "title": "Little Spokane River"
+          },
+          {
+            "layerGroupId": "hangman-creek",
+            "title": "Hangman Creek"
+          },
+          {
+            "layerGroupId": "spokane-watersheds",
+            "title": "Watersheds"
+          }
+        ]
+      },
+      {
+        "title": "Critical Areas",
+        "options": [
+          {
+            "layerGroupId": "spokane-geologic-hazard",
+            "title": "Geologic Hazards"
+          },
+          {
+            "layerGroupId": "spokane-wetlands",
+            "title": "Wetlands"
+          },
+          {
+            "layerGroupId": "spokane-frequently-flooded",
+            "title": "Frequently Flooded Areas"
+          },
+          {
+            "layerGroupId": "spokane-critical-aquifer",
+            "title": "Critical Aquifer Recharge Areas"
+          },
+          {
+            "layerGroupId": "spokane-critical-conservation-areas",
+            "title": "Fish and Wildlife Habitat Conservation Areas"
+          }
+        ]
+      },
+      {
+        "title": "Community Data",
+        "options": [
+          {
+            "layerGroupId": "spokane-county-outline",
+            "title": "Spokane County border"
+          },
+          {
+            "layerGroupId": "spokane-input",
+            "title": "Voluntary Stewardship Program Reports"
+          }
+        ]
+      }
+    ]
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "Share Your Stewardship",
+    "action_text": "added",
+    "title": "Tell us more...",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Put it on the map!",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "formId": "reports",
+        "category": "reports",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "spokane-input",
+        "icon_url": "/static/css/images/markers/marker-field.png",
+        "geospatialAnalysis": [
+          {
+            "name": "analysis_unit",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-watersheds.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NAME"
+              }
+            ]
+          },
+          {
+            "name": "on_frequently_flooded",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-frequently-flooded.geojson"
+          },
+          {
+            "name": "on_critical_conservation",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-critical-conservation-areas.geojson"
+          },
+          {
+            "name": "on_geologic_hazard",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-geologic-hazard.geojson"
+          },
+          {
+            "name": "on_critical_aquifer",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-critical-aquifer.geojson"
+          },
+          {
+            "name": "on_wetlands",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-wetlands.geojson"
+          }
+        ],
+        "value": "VSP Report",
+        "multi_stage": [
+          {
+            "start_field_index": 1,
+            "end_field_index": 5,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 6,
+            "end_field_index": 8,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 9,
+            "end_field_index": 51,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 52,
+            "end_field_index": 66,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 67,
+            "end_field_index": 74,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 75,
+            "end_field_index": 91,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          }
+        ],
+        "label": "Actions",
+        "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "location_information_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-your-property.jpg' alt='Your property section'/></figure>"
+          },
+          {
+            "name": "location_why",
+            "type": "informational_html",
+            "content": "<p>At the end of this survey you will be able to hide your contact information and location information or voluntarily choose to make it public for the VSP report.</p>"
+          },
+          {
+            "name": "drag_map_info",
+            "type": "informational_html",
+            "content": "<div style='display:flex;align-items:center;padding:24px'><span class='fa fa-globe' style='color:#999999;font-size:1.5rem;margin-right:16px;'></span><p style='display:inline;margin:0;padding-left:8px'>Please drag and zoom the map to center the pin on your property.</p></div>"
+          },
+          {
+            "name": "private-address",
+            "type": "geocoding",
+            "reverseGeocode": false,
+            "prompt": "Or, search by address:",
+            "placeholder": "Your address will never be shared",
+            "optional": true
+          },
+          {
+            "//": "---------------SECTION: PRACTICE TYPES-------------------",
+            "name": "practice_types_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Land Use</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-land-use.jpg' alt='Practice types section'/></figure>"
+          },
+          {
+            "name": "practice_types",
+            "type": "big_checkbox",
+            "prompt": "Which of the following uses apply to your land? (Check all that apply)",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "agriculture",
+                "targets": [
+                  "agriculture_header",
+                  "agriculture_questions",
+                  "no_till",
+                  "buffers",
+                  "reduced_till",
+                  "soil_tests",
+                  "fertilization",
+                  "riparian_forest"
+                ]
+              },
+              {
+                "value": "livestock",
+                "targets": [
+                  "livestock_header",
+                  "livestock_questions",
+                  "stream_crossing",
+                  "fencing",
+                  "off_creek_stock_watering",
+                  "mud_manure_management"
+                ]
+              },
+              {
+                "value": "forestry",
+                "targets": [
+                  "forest_header",
+                  "forest_questions",
+                  "forest_management"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Agriculture",
+                "value": "agriculture"
+              },
+              {
+                "label": "Livestock",
+                "value": "livestock"
+              },
+              {
+                "label": "Forestry",
+                "value": "forestry"
+              }
+            ]
+          },
+          {
+            "name": "practice_types_questions",
+            "type": "informational_html",
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+          },
+          {
+            "//": "---------------SECTION: AGRICULTURE-------------------",
+            "name": "agriculture_header",
+            "type": "informational_html",
+            "hidden_default": true,
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Agriculture</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-agriculture.png' alt='Agriculture section'/></figure>"
+          },
+          {
+            "//": "=============== NO TILLL ================================",
+            "name": "no_till",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "No till",
+            "label": "No till",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["no_till_quantity", "no_till_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "No till",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-no-till.jpg' alt='No till' /><p><strong>NRCS code:</strong> 329</p><p>No till consists of one pass seed and fertilizer placement.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "no_till_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you practice no till?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "no_till_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin practicing no till?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== CONVENTIONAL TILLL ================================",
+            "name": "conventional_till",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Conventional till",
+            "label": "Conventional till",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "conventional_till_quantity",
+                  "conventional_till_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Conventional till",
+              "body": [
+                "<div style='width:300px;'><p>This practice consists of multiple tillage passes with soil inversion and seed bed preparation.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "conventional_till_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use conventional till techniques?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "conventinal_till_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin practicing conventional till techniques?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== REDUCED TILLL ================================",
+            "name": "reduced_till",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Reduced till",
+            "label": "Reduced till",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["reduced_till_quantity", "reduced_till_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Reduced till",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-reduced-till.jpg' alt='Reduced till' /><p><strong>NRCS code:</strong> 345</p><p>This practice consists of seed and fertilizer placement while allowing the majority of crop residue and stubble to remain on the ground.<p></div>"
+              ]
+            }
+          },
+          {
+            "name": "reduced_till_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use reduced till techniques?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "reduced_till_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin practicing reduced till techniques?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== SOIL TESTS =================================",
+            "name": "soil_tests",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you conduct soil tests?",
+            "label": "Soil tests",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "soil_tests_quantity",
+                  "soil_tests_zone_map",
+                  "soil_tests_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Soil tests",
+              "body": [
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-soil-tests.jpg' alt='Soil tests' /><p><strong>NRCS code:</strong> 590</p><p>Soil tests monitor, at a minimum, organic matter, phosphorus (P), potassium (K), and pH every four years.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "soil_tests_zone_map",
+            "type": "big_radio",
+            "prompt": "Do you zone and map your fields based off of soil tests?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "soil-tests-zone-map"
+              },
+              {
+                "label": "No",
+                "value": "no-soil-tests-zone-map"
+              }
+            ]
+          },
+          {
+            "name": "soil_tests_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you conduct soil tests?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "soil_tests_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin conducting soil tests?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== FIELD FERTILIZATION =================================",
+            "name": "fertilization",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "How do you fertilize your field?",
+            "label": "Field fertilization",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "synthetically",
+                "targets": [
+                  "synthetic_fertilization_types",
+                  "synthetic_fertilization_yield_map",
+                  "synthetic_fertilization_zone_map",
+                  "synthetic_fertilization_quantity",
+                  "synthetic_fertilization_duration"
+                ]
+              },
+              {
+                "value": "organically",
+                "targets": [
+                  "organic_fertilization_types",
+                  "organic_fertilization_yield_map",
+                  "organic_fertilization_zone_map",
+                  "organic_fertilization_quantity",
+                  "organic_fertilization_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Synthetically",
+                "value": "synthetically"
+              },
+              {
+                "label": "Organically",
+                "value": "organically"
+              },
+              {
+                "label": "Not applicable",
+                "value": "not-applicable"
+              }
+            ],
+            "modal": {
+              "header": "Fertilization",
+              "body": [
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "synthetic_fertilization_types",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "Choose all fertilization types that apply:",
+            "content": [
+              {
+                "label": "Top dress",
+                "value": "top_dress"
+              },
+              {
+                "label": "Aerial",
+                "value": "aerial"
+              },
+              {
+                "label": "Subsurface fertilization while seeding",
+                "value": "subsurface_fertilization"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_types",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "Choose all fertilization types that apply:",
+            "content": [
+              {
+                "label": "Top dress",
+                "value": "top_dress"
+              },
+              {
+                "label": "Aerial",
+                "value": "aerial"
+              },
+              {
+                "label": "Subsurface fertilization while seeding",
+                "value": "subsurface_fertilization"
+              },
+              {
+                "label": "Biosolid",
+                "value": "biosolid"
+              }
+            ]
+          },
+          {
+            "name": "synthetic_fertilization_yield_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you base your synthetic fertilizing off of a yield map?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "synthetic-yield-map"
+              },
+              {
+                "label": "No",
+                "value": "no-synthetic-yield-map"
+              }
+            ]
+          },
+          {
+            "name": "synthetic_fertilization_zone_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Have you developed a zone map for synthetic fertilization?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "synthetic-zone-map"
+              },
+              {
+                "label": "No",
+                "value": "no-synthetic-zone-map"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_yield_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you base your organic fertilizing off of a yield map?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "organic-yield-map"
+              },
+              {
+                "label": "No",
+                "value": "no-organic-yield-map"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_zone_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Have you developed a zone map for organic fertilization?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "organic-zone-map"
+              },
+              {
+                "label": "No",
+                "value": "no-organic-zone-map"
+              }
+            ]
+          },
+          {
+            "name": "synthetic_fertilization_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use synthetic fertilizer?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "synthetic_fertilization_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin fertilizing your fields synthetically?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "name": "organic_fertilization_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use organic fertilizer?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "organic_fertilization_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin fertilizing your fields organically?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== BUFFERS =================================",
+            "name": "buffers",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you have buffers on your waterways?",
+            "label": "Buffers",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "buffer_types",
+                  "other_buffer_type",
+                  "buffer_program",
+                  "buffers_quantity",
+                  "buffers_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Buffers",
+              "body": [
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers-new.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "buffer_types",
+            "type": "big_checkbox",
+            "hidden_default": true,
+            "prompt": "Which types of buffers do you have on your waterways?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Riparian Forest Buffer",
+                "value": "riparian_forest_buffer"
+              },
+              {
+                "label": "Filter Strip",
+                "value": "filter_strip"
+              },
+              {
+                "label": "Grass Waterway",
+                "value": "grass_waterway"
+              }
+            ]
+          },
+          {
+            "name": "other_buffer_type",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you have any other types of buffers on your property?",
+            "triggers": [
+              {
+                "value": "yes-other-buffers",
+                "targets": ["other_buffer_type_description"]
+              }
+            ],
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes-other-buffers"
+              },
+              {
+                "label": "No",
+                "value": "no-other-buffers"
+              }
+            ]
+          },
+          {
+            "name": "other_buffer_type_description",
+            "type": "textarea",
+            "prompt": "Please describe your other buffer(s)",
+            "hidden_default": true
+          },
+          {
+            "name": "buffers_quantity",
+            "type": "number",
+            "prompt": "How many feet of buffers have you installed?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "buffers_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin installing buffers?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "name": "buffer_program",
+            "type": "big_radio",
+            "prompt": "Did you install these buffers through a program?",
+            "hidden_default": true,
+            "triggers": [
+              {
+                "value": "yes-buffer-program",
+                "targets": ["buffer_program_types"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes-buffer-program"
+              },
+              {
+                "label": "No",
+                "value": "no-buffer-program"
+              }
+            ]
+          },
+          {
+            "name": "buffer_program_types",
+            "type": "big_checkbox",
+            "prompt": "Which programs? (check all that apply)",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "NRCS CRP",
+                "value": "nrcs_crop"
+              },
+              {
+                "label": "Commodity Buffer Program",
+                "value": "commodity_buffer_program"
+              },
+              {
+                "label": "Other agency program",
+                "value": "other_agency_program"
+              }
+            ]
+          },
+          {
+            "//": "=============== GRASSED WATERWAYS =================================",
+            "name": "grassed_waterways",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Grassed waterways",
+            "label": "Grassed waterways",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "grassed_waterways_quantity",
+                  "grassed_waterways_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Grassed waterways",
+              "body": [
+                "<div style='width:300px'><p><strong>NRCS code:</strong> 412</p><p>A grassed waterway is a shaped or graded channel that is established with suitable vegetation to convey surface water at a non-erosive velocity using a broad and shallow cross section to a stable outlet.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "grassed_waterways_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use grassed waterways?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "grassed_waterways_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin installing grassed waterways?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== COMMODITY BUFFER PROGRAM =================================",
+            "name": "commodity_buffer",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "I participate in the commodity buffer program",
+            "label": "Commodity buffer program",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["commodity_buffer_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "commodity_buffer_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin participating in the commodity buffer program?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== RIPARIAN FOREST (AKA WILDLIFE HABITAT ENHANCEMENTS) =================================",
+            "name": "riparian_forest",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you have any wildlife habitat enhancements on your property?",
+            "label": "Wildlife habitat enhancements",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "riparian_forest_quantity",
+                  "riparian_forest_duration",
+                  "riparian_forest_description"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Habitat enhancements",
+              "body": [
+                "<div style='width: 300px'><img style='width:100%;' src='/static/css/images/practice-habitat-enhancements.jpg' alt='Wildlife habitat enhancements' /><p><strong>NRCS codes:</strong> 395, 420, 644, 645</p><p>A corridor of trees and/or shrubs planted adjacent to a river, stream, wetland or water body. The planting is of sufficient width and up-gradient and near the water body to insure adequate functioning for the desired purpose.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "riparian_forest_quantity",
+            "type": "number",
+            "prompt": "How many acres of wildlife habitat have you enhanced?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "riparian_forest_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin enhancing wildlife habitats?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "name": "riparian_forest_description",
+            "type": "textarea",
+            "prompt": "Please describe your wildlife habitat enhancements:",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "agriculture_questions",
+            "type": "informational_html",
+            "hidden_default": true,
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+          },
+          {
+            "//": "---------------SECTION: LIVESTOCK-------------------",
+            "name": "livestock_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Livestock</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-livestock.jpg' alt='Livestock section'/></figure>"
+          },
+          {
+            "//": "=============== STREAM CROSSINGS =================================",
+            "name": "stream_crossing",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Stream crossings",
+            "label": "Stream crossings",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "stream_crossing_type",
+                  "stream_crossing_quantity",
+                  "stream_crossing_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Stream crossings",
+              "body": [
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-stream-crossings-new.jpg' alt='Stream crossings' /><p><strong>NRCS code:</strong> 578</p><p>A stream crossing is a stabilized area or structure constructed across a stream to provide a travel way for people, livestock, equipment, or vehicles.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "stream_crossing_type",
+            "type": "big_checkbox",
+            "prompt": "Which types of crossings have you installed? (Check all that apply)",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Unimproved",
+                "value": "unimproved"
+              },
+              {
+                "label": "Improved - Hardened",
+                "value": "improved_hardened"
+              },
+              {
+                "label": "Improved - Bridge",
+                "value": "improved_bridge"
+              },
+              {
+                "label": "Improved - Culvert",
+                "value": "improved_culvert"
+              }
+            ]
+          },
+          {
+            "name": "stream_crossing_quantity",
+            "type": "number",
+            "prompt": "How many stream crossings have you installed?",
+            "min": 0,
+            "placeholder": "Approximate number",
+            "hidden_default": true,
+            "metadata": {
+              "units": "crossings"
+            }
+          },
+          {
+            "name": "stream_crossing_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin installing stream crossings?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== FENCING =================================",
+            "name": "fencing",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Fencing",
+            "label": "Fencing",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["fencing_quantity", "fencing_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Fencing",
+              "body": [
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fencing.jpg' alt='Fencing' /><p><strong>NRCS code:</strong> 382</p><p>There are many different purposes for and types of fences. Generally, fences shall be appropriately planned, designed, and installed to control animals, vehicles, or people.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "fencing_quantity",
+            "type": "number",
+            "prompt": "How many feet of fencing have you installed?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "fencing_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin installing and maintaining fencing?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== MUD AND MANURE MANAGEMENT =================================",
+            "name": "mud_manure_management",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Mud and manure management",
+            "label": "Mud and manure management",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "mud_manure_management_quantity",
+                  "mud_manure_management_type",
+                  "mud_manure_management_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Mud and manure management",
+              "body": [
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-mud-manure-management-new.jpg' alt='Mud and manure management' /><p><strong>NRCS code:</strong> 561</p><p>Heavy Use Area Protection is used to stabilize a ground surface that is frequently and intensively used by people, animals, or vehicles.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "mud_manure_management_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you practice mud and manure management?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "mud_manure_management_type",
+            "type": "big_checkbox",
+            "prompt": "Which types of mud and manure management do you practice? (Check all that apply)",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Gutters and downspouts",
+                "value": "gutters_downspouts"
+              },
+
+              {
+                "label": "Heavy use area",
+                "value": "heavy_use_area"
+              },
+              {
+                "label": "Hardened stream crossings",
+                "value": "hardened_stream_crossings"
+              },
+              {
+                "label": "Waste storage",
+                "value": "waste_storage"
+              }
+            ]
+          },
+          {
+            "name": "mud_manure_management_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin practicing mud and manure management?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== OFF CREEK STOCK WATERING =================================",
+            "name": "off_creek_stock_watering",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Off creek stock watering",
+            "label": "Off creek stock watering",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["off_creek_stock_watering_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Off creek stock watering",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-off-creek-watering.jpg' alt='Off creek stock watering' /><p><strong>NRCS codes:</strong> 516, 533, 614, 561, 642</p><p>A means of providing drinking water to livestock away from streams and wetlands.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "off_creek_stock_watering_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin maintaining off creek stock watering systems?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "name": "livestock_questions",
+            "type": "informational_html",
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+          },
+          {
+            "//": "---------------SECTION: FORESTRY-------------------",
+            "name": "forest_header",
+            "type": "informational_html",
+            "hidden_default": true,
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Forestry</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-forestry.jpg' alt='Forestry section'/></figure>"
+          },
+          {
+            "//": "=============== FOREST MANAGEMENT =================================",
+            "name": "forest_management",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you have a forest you are managing?",
+            "label": "Forest management",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "forest_management_description",
+                  "forest_management_stand_size",
+                  "forest_management_duration",
+                  "forest_management_plan"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Forest management",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-forest-management.jpg' alt='Forest management' /><p><strong>NRCS codes:</strong> 612, 660, 666</p><p>Management practices can include planning, planting, pruning and the removal of undesirable vegetation.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "forest_management_description",
+            "type": "textarea",
+            "hidden_default": true,
+            "prompt": "Please describe:",
+            "optional": true
+          },
+          {
+            "name": "forest_management_stand_size",
+            "type": "number",
+            "prompt": "How many acres is your timber stand?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "forest_management_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin managing your forest?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "name": "forest_management_plan",
+            "type": "big_radio",
+            "prompt": "Do you have any type of forest management plan?",
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["forest_management_active_management"]
+              }
+            ],
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "forest-management-plan"
+              },
+              {
+                "label": "No",
+                "value": "no-forest-management-plan"
+              }
+            ]
+          },
+          {
+            "name": "forest_management_active_management",
+            "type": "big_radio",
+            "prompt": "Are you actively managing your forest as prescribed by your plan?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "active-forest-management"
+              },
+              {
+                "label": "No",
+                "value": "no-active-forest-management"
+              }
+            ]
+          },
+          {
+            "name": "forest_questions",
+            "type": "informational_html",
+            "hidden_default": true,
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+          },
+          {
+            "//": "---------------SECTION: ADDITIONAL INFO-------------------",
+            "name": "additional_info_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Almost completed</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-almost-completed.jpg' alt='Additional info section'/></figure>"
+          },
+          {
+            "name": "practices_description",
+            "type": "textarea",
+            "prompt": "Add a description of your stewardship practices",
+            "display_prompt": "Description:",
+            "optional": true
+          },
+          {
+            "name": "stewardship_difficulties",
+            "type": "textarea",
+            "prompt": "What challenges or difficulties have you experienced as a voluntary steward?",
+            "optional": true
+          },
+          {
+            "name": "private-landowner_name",
+            "type": "text",
+            "placeholder": "Your name will only be shared if you are logged in",
+            "prompt": "What is your name?",
+            "optional": false
+          },
+          {
+            "name": "share_story",
+            "type": "big_radio",
+            "prompt": "Can Spokane County VSP share your stewardship story with the public?",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes-share",
+                "targets": ["private-use_photos", "my_image", "title"]
+              }
+            ],
+            "content": [
+              {
+                "value": "yes-share",
+                "label": "Yes"
+              },
+              {
+                "value": "no-share",
+                "label": "No"
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "hidden_default": true,
+            "prompt": "Upload photos before, during or after you implemented your stewardship practices:",
+            "label": "Upload photos",
+            "optional": true
+          },
+          {
+            "name": "private-use_photos",
+            "type": "big_radio",
+            "prompt": "Can Spokane County VSP highlight your photos on our website?",
+            "hidden_default": true,
+            "default_value": "no-use-photos",
+            "content": [
+              {
+                "label": "Yes",
+                "value": "use-photos"
+              },
+              {
+                "label": "No",
+                "value": "no-use-photos"
+              }
+            ]
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "hidden_default": true,
+            "prompt": "What is your farm's name?",
+            "optional": true
+          },
+          {
+            "name": "allow_followup",
+            "type": "big_radio",
+            "optional": true,
+            "prompt": "May we follow up with you if we have any questions?",
+            "triggers": [
+              {
+                "value": "allow-followup",
+                "targets": [
+                  "private-landowner_email",
+                  "private-landowner_phone"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "allow-followup"
+              },
+              {
+                "label": "No",
+                "value": "no-allow-followup"
+              }
+            ]
+          },
+          {
+            "name": "private-landowner_email",
+            "type": "text",
+            "hidden_default": true,
+            "optional": false,
+            "placeholder": "Your email address will never be shared",
+            "prompt": "What is your email address?"
+          },
+          {
+            "name": "private-landowner_phone",
+            "type": "text",
+            "hidden_default": true,
+            "prompt": "What is your phone number?",
+            "placeholder": "Your phone number will never be shared",
+            "optional": true
+          },
+          {
+            "name": "easements",
+            "prompt": "Do you have a conservation easement?",
+            "type": "big_radio",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "easements"
+              },
+              {
+                "label": "No",
+                "value": "no-easements"
+              }
+            ]
+          },
+          {
+            "name": "farm_plan",
+            "prompt": "Do you have a Farm Plan or Stewardship Plan in place, or would you like to initiate one?",
+            "type": "big_radio",
+            "content": [
+              {
+                "label": "I have a Farm Plan or Stewardship Plan in place",
+                "value": "have_plan"
+              },
+              {
+                "label": "I am interested in initiating a Farm Plan or Stewardship Plan",
+                "value": "have_interest"
+              },
+              {
+                "label": "I have no interest in a Farm Plan or Stewardship Plan",
+                "value": "no_interest"
+              }
+            ]
+          },
+          {
+            "name": "land_ownership",
+            "prompt": "Who owns the land that you work? Please check all that apply:",
+            "type": "big_checkbox",
+            "content": [
+              {
+                "label": "Personally owned",
+                "value": "personally_owned"
+              },
+              {
+                "label": "Family owned",
+                "value": "family_owned"
+              },
+              {
+                "label": "Leased by producer (from family)",
+                "value": "leased_by_producer_from_family"
+              },
+              {
+                "label": "Leased by producer (from landlord)",
+                "value": "leased_by_producer_from_landlord"
+              }
+            ]
+          },
+          {
+            "name": "private",
+            "type": "big_radio",
+            "prompt": "Place your pin on the map? (Your address and other property identifying information will not be published.)",
+            "default_value": "yes",
+            "content": [
+              {
+                "label": "Yes",
+                "value": "no"
+              },
+              {
+                "label": "No",
+                "value": "yes"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "thank_you",
+            "type": "informational_html",
+            "content": "<p style='font-size:1.2rem;'><strong>Thank you for taking the time to voluntarily report your stewardship practices.</strong></p>"
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "label": "Submit"
+          }
+        ]
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "show_responses": true,
+      "single_submission": false,
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
+      "items": [
+        {
+          "prompt": "Comment",
+          "label": "Comment",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "Your Name",
+          "type": "text",
+          "name": "submitter_name",
+          "placeholder": "Name is optional",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "Comment"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "reports",
+        "datasetSlug": "spokane-input",
+        "label": "Actions",
+        "icon": "/static/css/images/markers/marker-field.png"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
+    "action_text": "supported",
+    "anonymous_name": "Someone"
+  },
+  "nav_bar": [
+    {
+      "title": "Start",
+      "type": "internal_link",
+      "url": "/page/start",
+      "start_page": true
+    },
+    {
+      "title": "About",
+      "type": "external_link",
+      "url": "http://sccd.org/voluntary-stewardship-program"
+    },
+    {
+      "title": "Contact",
+      "type": "internal_link",
+      "url": "/page/contact"
+    },
+    {
+      "title": "Funding",
+      "type": "internal_link",
+      "url": "/page/funding"
+    }
+  ],
+  "pages": [
+    {
+      "slug": "contact",
+      "content": [
+        "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>",
+        "<p style='margin-bottom:16px'>Your Spokane County VSP Coordinators are interested in helping meet your stewardship goals.</p>",
+        "<p style='margin-bottom:8px'>Contact a local VSP Coordinator for more information:</p>",
+        "<div style='margin-bottom:4px;margin-top:24px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
+      ]
+    },
+    {
+      "slug": "start",
+      "content": [
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Spokane County Voluntary Stewards!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Share Your Stewardship</a></div></div>",
+        "<img src='/static/css/images/tractor.jpg' alt='Tractor in Spokane County' style='margin:8px 0 16px 0' />",
+        "<p>The Spokane County Voluntary Stewardship Program (VSP) is an innovative approach to reporting the protection of critical areas. By reporting your voluntary stewardship on this site, you'll help Spokane County allocate resources, and you'll help the Spokane County Conservation District learn what types of technical assistance we can provide to you.</p>",
+        "<a href='/new' rel='internal' class='next-btn'>Sign up for Opportunities & Assistance</a>"
+      ]
+    },
+    {
+      "slug": "funding",
+      "content": [
+        "<h3 id='about-page-header'>Stewardship Practices Examples and Funding Opportunities</h3>",
+        "<p>The Spokane Conservation District partners with other agencies such as the NRCS and the WSCC to match landowners with programs that best fit their needs.</p>",
+        "<p>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
+        "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;margin-bottom:8px;'><span style='flex:1;margin-right:8px;'>Management Type</span><span style='flex:1;margin-right:8px;'>Conservation Practices</span><span style='flex:1'>NRCS Code</span><span style='flex:1'>Potential Funding</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Tillage</span><span style='flex:1;margin-right:8px;'>Conservation Tillage No-Till</span><span style='flex:1;margin-right:8px;'>329</span><span style='flex:1;'>$35-$50/acre (max 1,500 acres per entity)</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Tillage</span><span style='flex:1;margin-right:8px;'>Conservation Tillage Mulch-Till</span><span style='flex:1;margin-right:8px;'>345</span><span style='flex:1;'>Up to $45/acre (max 1,500 acres per entity)</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Nutrients</span><span style='flex:1;margin-right:8px;'>Soil Tests, Fertilizers and Mapping</span><span style='flex:1;margin-right:8px;'>590</span><span style='flex:1;'>Up to $28/acre (max 350 acres per entity)</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Buffers/Habitat Management</span><span style='flex:1;margin-right:8px;'>Various types of vegetated riparian buffers and streambank/shoreline stabilization</span><span style='flex:1;margin-right:8px;'>Various</span><span style='flex:1;'>$30-$500/acre (3-15 year commitments)</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Stream Crossing</span><span style='flex:1;margin-right:8px;'>578</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Heavy Use Area</span><span style='flex:1;margin-right:8px;'>561</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Fencing</span><span style='flex:1;margin-right:8px;'>382</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Waste Storage Facility</span><span style='flex:1;margin-right:8px;'>313</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Off Creek Watering</span><span style='flex:1;margin-right:8px;'>516/533/614/561/642</span><span style='flex:1;'>Varies</span></div>",
+        "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Forest Stand Improvement (thinning, pruning and slash treatment)</span><span style='flex:1;margin-right:8px;'>660/666</span><span style='flex:1;'>Typically about $1,000/acre</span></div>",
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Tree and Shrub Establishment</span><span style='flex:1;margin-right:8px;'>612</span><span style='flex:1;'>Typically about $400/acre</span></div>"
+      ]
+    }
+  ],
+  "custom_components": {
+    "FieldSummary": "PalouseFieldSummary"
+  }
+}

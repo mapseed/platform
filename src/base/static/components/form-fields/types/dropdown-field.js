@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-import { translate } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import "./dropdown-field.scss";
 
 const DropdownField = props => {
@@ -17,10 +17,15 @@ const DropdownField = props => {
       name={props.name}
       onChange={e => props.onChange(e.target.name, e.target.value)}
     >
-      <option value="">{props.t("makeSelection")}</option>
-      {props.options.map(option => (
+      <option value="">
+        {props.t("makeSelection", "Make a selection...")}
+      </option>
+      {props.options.map((option, optionIndex) => (
         <option key={option.value} value={option.value}>
-          {option.label}
+          {props.t(
+            `dropdownFieldOption${props.formId}${props.name}${optionIndex}`,
+            option.label,
+          )}
         </option>
       ))}
     </select>
@@ -29,6 +34,7 @@ const DropdownField = props => {
 
 DropdownField.propTypes = {
   hasAutofill: PropTypes.bool.isRequired,
+  formId: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
@@ -46,4 +52,4 @@ DropdownField.defaultProps = {
   hasAutofill: false,
 };
 
-export default translate("DropdownField")(DropdownField);
+export default withTranslation("DropdownField")(DropdownField);

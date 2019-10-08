@@ -1,7 +1,12 @@
-import React from "react";
+/** @jsx jsx */
+import React, { useState, useEffect } from "react";
+import { css, jsx } from "@emotion/core";
+import { withTheme } from "emotion-theming";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import mq from "../../../../media-queries";
+import BarLoader from "react-spinners/BarLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Image = props => <img src={props.src} alt={props.alt} {...props} />;
 
@@ -18,9 +23,10 @@ const FontAwesomeIcon = styled(props => (
   <span className={`${props.className} ${props.faClassname}`} />
 ))(props => {
   const styles = {
-    fontFamily: "FontAwesome",
+    fontFamily: "Font Awesome 5 Free",
     fontSize: props.fontSize,
     color: props.color,
+    textShadow: props.textShadow,
 
     "&:hover": {
       color: props.hoverColor,
@@ -42,10 +48,47 @@ FontAwesomeIcon.defaultProps = {
   content: "fa fa-globe",
   color: "#000",
   hoverColor: "#555",
+  textShadow: "initial",
 };
 
+const ProgressBar = withTheme(props => {
+  return (
+    <div
+      css={css`
+        display: flex;
+        align-items: center;
+        flex: 1;
+        padding: 0 5px 0 5px;
+        background-color: #eaeaea;
+        height: 20px;
+        border-radius: 10px;
+      `}
+    >
+      <div
+        css={css`
+          height: 10px;
+          border-radius: 5px;
+          width: ${(props.currentProgress / props.total) * 100 + "%"};
+          background-color: ${props.theme.brand.accent};
+        `}
+      />
+    </div>
+  );
+});
+
+ProgressBar.propTypes = {
+  currentProgress: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+};
 const SiteLogo = styled(props => {
-  return <img src={props.src} alt={props.alt} className={props.className} />;
+  return (
+    <img
+      id="mapseed-site-logo"
+      src={props.src}
+      alt={props.alt}
+      className={props.className}
+    />
+  );
 })(() => ({
   [mq[0]]: {
     maxWidth: "250px",
@@ -61,7 +104,20 @@ SiteLogo.propTypes = {
   src: PropTypes.string.isRequired,
 };
 
-const UserAvatar = styled(Image)(props => {
+const UserAvatar = styled(props => {
+  const [avatarSrc, setAvatarSrc] = useState(props.src);
+  useEffect(() => setAvatarSrc(props.src), [props.src]);
+
+  return (
+    <Image
+      alt={props.alt}
+      src={avatarSrc}
+      className={props.className}
+      onError={() => setAvatarSrc("/static/css/images/user-50.png")}
+      onClick={props.onClick}
+    />
+  );
+})(props => {
   // These styles correspond to the "regular" size in our design language.
   const styles = {
     width: "24px",
@@ -89,6 +145,7 @@ const UserAvatar = styled(Image)(props => {
 UserAvatar.propTypes = {
   size: PropTypes.string,
   src: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 UserAvatar.defaultProps = {
@@ -96,6 +153,32 @@ UserAvatar.defaultProps = {
   src: "/static/css/images/user-50.png",
 };
 
+const LoadingBar = ({ size = 20, color = "#666" }) => (
+  <div
+    css={css`
+      width: 100px;
+      position: absolute;
+      left: calc(50% - 50px);
+      top: 50%;
+    `}
+  >
+    <BarLoader sizeUnit="px" size={size} color={color} />
+  </div>
+);
+
+// TODO: Color this with the theme's accent color?
+const LoadingSpinner = ({ size = 20, color = "#666" }) => (
+  <ClipLoader sizeUnit="px" size={size} color={color} />
+);
+
 export default UserAvatar;
 
-export { Image, UserAvatar, SiteLogo, FontAwesomeIcon };
+export {
+  Image,
+  UserAvatar,
+  SiteLogo,
+  FontAwesomeIcon,
+  LoadingBar,
+  ProgressBar,
+  LoadingSpinner,
+};

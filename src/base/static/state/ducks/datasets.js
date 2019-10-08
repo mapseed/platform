@@ -1,3 +1,4 @@
+import produce from "immer";
 import PropTypes from "prop-types";
 
 // Prop Types:
@@ -125,20 +126,16 @@ export const getColorForTag = ({ state, datasetSlug, tagUrl }) =>
     .tags.find(tag => tag.url === tagUrl).color;
 
 // Reducers:
-// TODO(luke): refactor our current implementation in AppView to use
 const INITIAL_STATE = {
   datasetModels: [],
   loadStatus: "unloaded",
 };
 
-export default function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case LOAD:
-      return {
-        ...state,
-        datasetModels: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+export default (state = INITIAL_STATE, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case LOAD:
+        draft.datasetModels = action.payload;
+        return draft;
+    }
+  });

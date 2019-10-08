@@ -25,7 +25,7 @@
     "show_name_in_header": true,
     "meta_description": "_(Welcome!)",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#a2c7da",
@@ -94,7 +94,7 @@
       },
       {
         "id": "pwi-input",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-input",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pwi-input",
         "is_visible_default": true,
         "type": "place",
         "slug": "report",
@@ -285,7 +285,7 @@
       },
       {
         "id": "pwi-featured",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/pwi-featured",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/pwi-featured",
         "is_visible_default": true,
         "type": "place",
         "slug": "featured",
@@ -387,7 +387,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "StoryNavigator"
+    "component": "FeaturedPlacesNavigator"
   },
   "place": {
     "adding_supported": true,
@@ -749,40 +749,38 @@
       "show_map_button_label": "_(Show the Map)"
     }
   ],
-  "story": {
-    "example": {
-      "tagline": "_(Next featured site)",
-      "default_zoom": 16,
-      "default_visible_layers": ["pwi-featured", "pwi-input"],
-      "order": [
-        {
-          "url": "featured/4059",
-          "basemap": "light",
-          "zoom": 12,
-          "pan_to": {
-            "lat": 47.26944549602832,
-            "lng": -122.41241455078125
-          },
-          "spotlight": false,
-          "visible_layers": ["vacant-parcels"],
-          "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+  "featuredPlaces": {
+    "tagline": "_(Next featured site)",
+    "default_zoom": 16,
+    "default_visible_layers": ["pwi-featured", "pwi-input"],
+    "order": [
+      {
+        "url": "featured/4059",
+        "basemap": "light",
+        "zoom": 12,
+        "pan_to": {
+          "lat": 47.26944549602832,
+          "lng": -122.41241455078125
         },
-        {
-          "url": "featured/4007",
-          "basemap": "satellite",
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
-        },
-        {
-          "url": "featured/4006",
-          "basemap": "satellite",
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
-        },
-        {
-          "url": "featured/4011",
-          "basemap": "satellite",
-          "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
-        }
-      ]
-    }
+        "spotlight": false,
+        "visible_layers": ["vacant-parcels"],
+        "sidebar_icon_url": "/static/css/images/markers/marker-star.png"
+      },
+      {
+        "url": "featured/4007",
+        "basemap": "satellite",
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+      },
+      {
+        "url": "featured/4006",
+        "basemap": "satellite",
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+      },
+      {
+        "url": "featured/4011",
+        "basemap": "satellite",
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-marker.png"
+      }
+    ]
   }
 }

@@ -15,7 +15,6 @@ import {
   BigCheckboxField,
   InputFormSubmitButton,
   RichTextareaField,
-  MapDrawingToolbar,
   AutocompleteComboboxField,
   BigToggleField,
   PublishControlToolbar,
@@ -34,6 +33,7 @@ import {
   NumberField,
   NumberFieldResponse,
   GeolocateField,
+  LngLatField,
 } from "./types";
 import { isWithAnyValue, isNotEmpty } from "./validators";
 import { insertEmbeddedImages } from "../../utils/embedded-images";
@@ -44,6 +44,11 @@ const getDefaultValidator = isOptional => {
     message: "missingRequired",
   };
 };
+
+const getMapDragValidator = () => ({
+  validate: isNotEmpty,
+  message: "mapNotDragged",
+});
 
 const getPermissiveValidator = () => {
   return {
@@ -56,6 +61,7 @@ const getSharedFieldProps = (fieldConfig, context) => {
   return {
     disabled: context.props.disabled,
     hasAutofill: fieldConfig.hasAutofill,
+    formId: context.props.formId,
     name: fieldConfig.name,
     onChange: context.onChange.bind(context),
     placeholder: fieldConfig.placeholder,
@@ -67,6 +73,17 @@ const getSharedFieldProps = (fieldConfig, context) => {
 };
 
 export default {
+  [constants.LNG_LAT_FIELD_TYPENAME]: {
+    getValidator: getMapDragValidator,
+    getComponent: (fieldConfig, context) => (
+      <LngLatField
+        {...getSharedFieldProps(fieldConfig, context)}
+        viewport={context.props.viewport}
+        isMapTransitioning={context.props.isMapTransitioning}
+      />
+    ),
+    getInitialValue: ({ value }) => value,
+  },
   [constants.TEXT_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
     getComponent: (fieldConfig, context) => (
@@ -125,6 +142,7 @@ export default {
           key={item.value}
           value={item.value}
           label={item.label}
+          formId={context.props.formId}
           id={"input-form-" + fieldConfig.name + "-" + item.value}
           checkboxGroupState={context.props.fieldState.get(
             constants.FIELD_VALUE_KEY,
@@ -145,6 +163,7 @@ export default {
           key={item.value}
           value={item.value}
           label={item.label}
+          formId={context.props.formId}
           id={"input-form-" + fieldConfig.name + "-" + item.value}
           checked={
             context.props.fieldState.get(constants.FIELD_VALUE_KEY) ===
@@ -193,26 +212,6 @@ export default {
     getInitialValue: ({ value }) => value || "isPublished",
     getResponseComponent: () => null,
   },
-  [constants.MAP_DRAWING_TOOLBAR_TYPENAME]: {
-    getValidator: () => {
-      return {
-        validate: isNotEmpty,
-        message: "missingGeometry",
-      };
-    },
-    getComponent: (fieldConfig, context) => (
-      <MapDrawingToolbar
-        {...getSharedFieldProps(fieldConfig, context)}
-        markers={fieldConfig.content.map(item => item.marker)}
-        existingGeometry={context.props.existingGeometry}
-        existingGeometryStyle={context.props.existingGeometryStyle}
-        existingPlaceId={context.props.existingPlaceId}
-        datasetSlug={context.props.datasetSlug}
-      />
-    ),
-    getInitialValue: ({ value }) => value,
-    getResponseComponent: () => null,
-  },
   [constants.DATETIME_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
     getComponent: (fieldConfig, context) => (
@@ -231,7 +230,10 @@ export default {
   [constants.GEOCODING_FIELD_TYPENAME]: {
     getValidator: getPermissiveValidator,
     getComponent: (fieldConfig, context) => (
-      <GeocodingField {...getSharedFieldProps(fieldConfig, context)} />
+      <GeocodingField
+        {...getSharedFieldProps(fieldConfig, context)}
+        reverseGeocode={fieldConfig.reverseGeocode}
+      />
     ),
     getInitialValue: ({ value }) => value,
     getResponseComponent: () => null,
@@ -247,6 +249,7 @@ export default {
         }
         labels={[fieldConfig.content[0].label, fieldConfig.content[1].label]}
         values={[fieldConfig.content[0].value, fieldConfig.content[1].value]}
+        formId={context.props.formId}
         id={"input-form-" + fieldConfig.name}
         onChange={context.onChange.bind(context)}
         hasAutofill={fieldConfig.hasAutofill}
@@ -264,6 +267,7 @@ export default {
         onAddAttachment={context.props.onAddAttachment.bind(context)}
         onChange={context.onChange.bind(context)}
         label={fieldConfig.label}
+        formId={context.props.formId}
       />
     ),
     getInitialValue: () => null,

@@ -9,7 +9,6 @@
   src: url('/static/css/palanquindark-regular.ttf');
 }
 
-
 #filter-menu-bar .filter-img:before {
   font-family: Roboto, sans-serif !important;
 }
@@ -57,7 +56,7 @@
 /* =Custom pledge type icons
 -------------------------------------------------------------- */
 .big-btn + label:before {
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
   text-indent: 0.8em;
   content: "✔";
 }

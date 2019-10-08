@@ -1,0 +1,161 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+body {
+  font-family: Roboto,sans-serif;
+}
+
+#site-title a:link,
+#site-title a:visited {
+  display: block;
+  float: left;
+  width: 350px;
+  height: 50px;
+  overflow: hidden;
+}
+
+#left-sidebar-container {
+  position: absolute;
+  width: auto;
+  overflow: auto;
+  left: 0;
+  z-index: 15;
+  background-color: #eaddc6;
+  opacity: 0.95;
+  box-shadow: 0.325em 0 0 rgba(0, 0, 0, 0.1);
+}
+ .btn-primary, .btn-primary:visited, .btn-primary:link {
+  background-color: rgba(242, 82, 24, 0.89);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #68BDCF;
+}
+ .map-layer-selector__layer-title--selected {
+  background-color: #F8F4EC;
+   &:hover {
+    background-color: #dac39a;
+  }
+}
+.map-layer-selector__status-icon--green {
+  color: #BD9462;
+}
+
+.map-layer-selector__status-icon--red {
+  color: black;
+}
+
+.mapseed__close-button {
+    border: none;
+    background-color: transparent;
+    color: #BD9462;
+}
+
+a[class*='InternalLink-NavLink'] {
+  font-size: 1em;
+}
+
+/* =Flow layout on about page
+-------------------------------------------------------------- */
+.flow-layout {
+  margin: 0;
+  position: relative;
+}
+
+.flow-layout img {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.flow-layout:hover figcaption {
+  opacity: 1.0;
+  color: #127de4;
+}
+
+.flow-layout:hover img {
+  opacity: 0.7;
+}
+
+.flow-layout-title {
+  display: flex;
+  background-color: #FFF;
+  position: absolute;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size: 0.2em;
+  width: 85%;
+  max-width: 85%;
+  height: 50px;
+  max-height: 50px;
+  text-align: center;
+  opacity: 0.5;
+  color: #000;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flow-layout-title > h5 {
+  margin: auto !important;
+}
+
+.flow-layout-title.flow-layout-title-middle {
+  top: 50%;
+}
+
+.flow-layout-title.flow-layout-title-bottom {
+  top: 75%;
+}
+
+.flow-vert {
+  width: calc(50% - 2px);
+}
+
+.flow-vert img {
+  position: relative;
+  width: 100%;
+}
+
+.flow-horizontal {
+  width: 100%;
+}
+
+.flow-horizontal img {
+  position: relative;
+  width: 100%;
+}
+
+.flow-horizontal-left {
+  float: left;
+}
+
+.flow-vert-right {
+  float: right;
+}
+
+.flow-vert-left {
+  float: left;
+}
+
+.flow-sq {
+  width: calc(50% - 2px);
+}
+
+.flow-sq-left {
+  float: left;
+}
+
+.flow-sq-right {
+  float: right;
+}
+
+/* =Header
+-------------------------------------------------------------- */
+
+
+
+
+/* =Media Queries
+-------------------------------------------------------------- */

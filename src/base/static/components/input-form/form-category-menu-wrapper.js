@@ -1,34 +1,25 @@
-import React, { Component, Fragment } from "react";
+/** @jsx jsx */
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "@emotion/styled";
-import { translate } from "react-i18next";
-import { darken } from "@material-ui/core/styles/colorManipulator";
+import { css, jsx } from "@emotion/core";
+import { withTranslation } from "react-i18next";
+import { getReadableColor } from "../../utils/color";
 
 import InputFormCategorySelector from "./input-form-category-selector";
+import InputForm from "../input-form";
 
 import { placeConfigSelector } from "../../state/ducks/place-config";
-import {
-  updateMapDraggedOrZoomed,
-  mapDraggedOrZoomedSelector,
-} from "../../state/ducks/map";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import { hasAnonAbilitiesInDataset } from "../../state/ducks/datasets-config";
 import { getCategoryConfig } from "../../utils/config-utils";
 import { updateUIVisibility } from "../../state/ducks/ui";
-
 import { datasetUrlSelector } from "../../state/ducks/datasets";
+import { updateLayerGroupVisibility } from "../../state/ducks/map-style";
+
+import { RegularText } from "../atoms/typography";
 
 const alertBackground = "#ffc107"; // bright yellow-orange
-const DragMapAlert = styled("div")({
-  backgroundColor: alertBackground,
-  color: darken(alertBackground, 0.8),
-  border: "2px dotted #ffffff",
-  borderRadius: "8px",
-  padding: "8px",
-  marginBottom: "8px",
-  fontWeight: "800",
-});
 
 class FormCategoryMenuWrapper extends Component {
   constructor(props) {
@@ -73,12 +64,16 @@ class FormCategoryMenuWrapper extends Component {
   }
 
   componentDidMount() {
-    this.props.updateMapDraggedOrZoomed(false);
     this.props.updateMapCenterpointVisibility(true);
-    this.props.updateSpotlightMaskVisibility(true);
+
+    if (this.props.placeConfig.visibleLayerGroupIds) {
+      this.props.placeConfig.visibleLayerGroupIds.forEach(layerGroupId =>
+        this.props.updateLayerGroupVisibility(layerGroupId, true),
+      );
+    }
   }
 
-  onCategoryChange(selectedCategory) {
+  onCategoryChange = selectedCategory => {
     const categoryConfig = getCategoryConfig(
       this.props.placeConfig,
       selectedCategory,
@@ -90,52 +85,50 @@ class FormCategoryMenuWrapper extends Component {
       datasetUrl: this.props.datasetUrlSelector(categoryConfig.datasetSlug),
       datasetSlug: categoryConfig.datasetSlug,
     });
-  }
+  };
 
   render() {
     return (
       <>
         {this.state.isShowingCategorySelector && (
-          <>
-            {!this.props.isMapDraggedOrZoomed && (
-              <DragMapAlert>{this.props.t("dragMapAlert")}</DragMapAlert>
-            )}
-            <InputFormCategorySelector
-              onCategoryChange={this.onCategoryChange.bind(this)}
-              selectedCategory={this.state.selectedCategory}
-              visibleCategoryConfigs={this.visibleCategoryConfigs}
-            />
-          </>
+          <InputFormCategorySelector
+            onCategoryChange={this.onCategoryChange.bind(this)}
+            selectedCategory={this.state.selectedCategory}
+            visibleCategoryConfigs={this.visibleCategoryConfigs}
+          />
         )}
-        {this.state.selectedCategory
-          ? this.props.render(
-              this.state,
-              this.props,
-              this.onCategoryChange.bind(this),
-            )
-          : null}
+        {this.state.selectedCategory && (
+          <InputForm
+            contentPanelInnerContainerRef={
+              this.props.contentPanelInnerContainerRef
+            }
+            selectedCategory={this.state.selectedCategory}
+            datasetUrl={this.state.datasetUrl}
+            datasetSlug={this.state.datasetSlug}
+            isMapTransitioning={this.props.isMapTransitioning}
+            isSingleCategory={this.state.isSingleCategory}
+            onCategoryChange={this.onCategoryChange}
+          />
+        )}
       </>
     );
   }
 }
 
 FormCategoryMenuWrapper.propTypes = {
+  contentPanelInnerContainerRef: PropTypes.object.isRequired,
   datasetUrlSelector: PropTypes.func.isRequired,
   hasAnonAbilitiesInDataset: PropTypes.func.isRequired,
   hasGroupAbilitiesInDatasets: PropTypes.func.isRequired,
+  layout: PropTypes.string.isRequired,
   placeConfig: PropTypes.object.isRequired,
-  places: PropTypes.objectOf(PropTypes.instanceOf(Backbone.Collection)),
-  router: PropTypes.instanceOf(Backbone.Router),
   customHooks: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.objectOf(PropTypes.func),
   ]),
   containers: PropTypes.instanceOf(NodeList),
-  isMapDraggedOrZoomed: PropTypes.bool.isRequired,
-  render: PropTypes.func.isRequired,
+  updateLayerGroupVisibility: PropTypes.func.isRequired,
   updateMapCenterpointVisibility: PropTypes.func.isRequired,
-  updateMapDraggedOrZoomed: PropTypes.func.isRequired,
-  updateSpotlightMaskVisibility: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 
@@ -150,20 +143,17 @@ const mapStateToProps = state => ({
     }),
   hasAnonAbilitiesInDataset: ({ abilities, submissionSet, datasetSlug }) =>
     hasAnonAbilitiesInDataset({ state, abilities, submissionSet, datasetSlug }),
-  isMapDraggedOrZoomed: mapDraggedOrZoomedSelector(state),
   placeConfig: placeConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   updateMapCenterpointVisibility: isVisible =>
     dispatch(updateUIVisibility("mapCenterpoint", isVisible)),
-  updateMapDraggedOrZoomed: isMapDraggedOrZoomed =>
-    dispatch(updateMapDraggedOrZoomed(isMapDraggedOrZoomed)),
-  updateSpotlightMaskVisibility: isVisible =>
-    dispatch(updateUIVisibility("spotlightMask", isVisible)),
+  updateLayerGroupVisibility: (layerGroupId, isVisible) =>
+    dispatch(updateLayerGroupVisibility(layerGroupId, isVisible)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(translate("FormCategoryMenuWrapper")(FormCategoryMenuWrapper));
+)(withTranslation("FormCategoryMenuWrapper")(FormCategoryMenuWrapper));

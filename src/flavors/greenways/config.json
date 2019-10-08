@@ -4,18 +4,13 @@
     "name": "Seattle Neighborhood Greenways",
     "meta_description": "_(Welcome! We are a community of residents and stakeholders who are monitoring the cleanup of toxic waste in Seattle's Duwamish River.)",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.heyduwamish.org/api/v2/"
+    "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
   "map": {
     "geolocation_enabled": true,
     "geolocation_onload": false,
     "cartodb_enabled": true,
-    "geocode_bounding_box": [
-      46.5,
-      -124,
-      48.5,
-      -119
-    ],
+    "geocode_bounding_box": [46.5, -124, 48.5, -119],
     "options": {
       "center": {
         "lat": 47.58787,
@@ -49,7 +44,7 @@
       },
       {
         "id": "greenways",
-        "url": "https://dev-api.heyduwamish.org/api/v2/smartercleanup/datasets/greenways",
+        "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/greenways",
         "type": "place",
         "slug": "report"
       },
@@ -125,40 +120,22 @@
       {
         "condition": "this.layer.focused === true",
         "icon": {
-          "iconSize": [
-            50,
-            50
-          ],
-          "iconAnchor": [
-            25,
-            25
-          ]
+          "iconSize": [50, 50],
+          "iconAnchor": [25, 25]
         }
       },
       {
         "condition": "this.map.zoom < 16",
         "icon": {
-          "iconSize": [
-            20,
-            20
-          ],
-          "iconAnchor": [
-            10,
-            10
-          ]
+          "iconSize": [20, 20],
+          "iconAnchor": [10, 10]
         }
       },
       {
         "condition": "this.map.zoom >= 16",
         "icon": {
-          "iconSize": [
-            30,
-            30
-          ],
-          "iconAnchor": [
-            15,
-            15
-          ]
+          "iconSize": [30, 30],
+          "iconAnchor": [15, 15]
         }
       }
     ],
@@ -194,64 +171,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-vegetation.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-0d85e9.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-vegetation.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-vegetation.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -264,64 +211,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-signage.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-dbcf2c.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-signage.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-signage.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -334,64 +251,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-pavement.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-pavement.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-pavement.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -404,64 +291,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-walkability.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-walkability.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-walkability.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -474,64 +331,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-accessibility.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-accessibility.png",
-            "iconSize": [
-              18,
-              21.75
-            ],
-            "iconAnchor": [
-              9,
-              21.75
-            ]
+            "iconSize": [18, 21.75],
+            "iconAnchor": [9, 21.75]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-accessibility.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -544,64 +371,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-traffic.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-traffic.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-traffic.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]
@@ -614,64 +411,34 @@
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-design.png",
             "shadowUrl": "/static/css/images/marker-shadow.png",
-            "iconSize": [
-              50,
-              60
-            ],
-            "iconAnchor": [
-              25,
-              60
-            ],
-            "shadowSize": [
-              50,
-              60
-            ],
-            "shadowAnchor": [
-              14,
-              60
-            ]
+            "iconSize": [50, 60],
+            "iconAnchor": [25, 60],
+            "shadowSize": [50, 60],
+            "shadowAnchor": [14, 60]
           }
         },
         {
           "condition": "this.map.zoom < 11",
           "icon": {
             "iconUrl": "/static/css/images/markers/dot-f95016.png",
-            "iconSize": [
-              10,
-              12
-            ],
-            "iconAnchor": [
-              5,
-              12
-            ]
+            "iconSize": [10, 12],
+            "iconAnchor": [5, 12]
           }
         },
         {
           "condition": "this.map.zoom < 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-design.png",
-            "iconSize": [
-              15,
-              18
-            ],
-            "iconAnchor": [
-              7.5,
-              18
-            ]
+            "iconSize": [15, 18],
+            "iconAnchor": [7.5, 18]
           }
         },
         {
           "condition": "this.map.zoom >= 14",
           "icon": {
             "iconUrl": "/static/css/images/markers/marker-design.png",
-            "iconSize": [
-              38,
-              46
-            ],
-            "iconAnchor": [
-              19,
-              46
-            ]
+            "iconSize": [38, 46],
+            "iconAnchor": [19, 46]
           }
         }
       ]

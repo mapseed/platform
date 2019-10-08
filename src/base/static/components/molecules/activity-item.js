@@ -3,9 +3,10 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { jsx } from "@emotion/core";
+import { withTranslation } from "react-i18next";
 
 import { UserAvatar } from "../atoms/imagery";
-import { RegularText, Link } from "../atoms/typography";
+import { RegularText, InternalLink } from "../atoms/typography";
 
 const UserAvatarContainer = styled("div")({
   position: "absolute",
@@ -25,7 +26,7 @@ const ActivityItem = props => (
       borderBottom: "1px solid #888",
     }}
   >
-    <Link
+    <InternalLink
       css={theme => ({
         display: "block",
         textTransform: "none",
@@ -35,27 +36,29 @@ const ActivityItem = props => (
         },
       })}
       href={props.url}
-      rel="internal"
-      router={props.router}
     >
       <UserAvatarContainer>
-        <UserAvatar />
+        <UserAvatar src={props.submitterAvatarUrl} />
       </UserAvatarContainer>
       <ActionTextContainer>
         <RegularText weight="black">{props.submitterName} </RegularText>
-        <RegularText> {props.actionText}: </RegularText>
+        <RegularText>
+          {" "}
+          {props.t("placeActionText", props.actionText)}:{" "}
+        </RegularText>
         <RegularText>{props.title}</RegularText>
       </ActionTextContainer>
-    </Link>
+    </InternalLink>
   </li>
 );
 
 ActivityItem.propTypes = {
   actionText: PropTypes.string.isRequired,
-  router: PropTypes.instanceOf(Backbone.Router).isRequired,
+  submitterAvatarUrl: PropTypes.string,
   submitterName: PropTypes.string.isRequired,
+  t: PropTypes.func.isRequired,
   title: PropTypes.string,
   url: PropTypes.string.isRequired,
 };
 
-export default ActivityItem;
+export default withTranslation("ActivityItem")(ActivityItem);

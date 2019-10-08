@@ -43,7 +43,8 @@
     color: $big-toggle-field-hover-label-text-color;
 
     &:before {
-      font-family: FontAwesome;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       content: $big-toggle-field-icon;
       text-indent: 0.9em;
       color: $big-toggle-field-hover-icon-color;
@@ -60,7 +61,8 @@
   color: $big-toggle-field-selected-label-color;
 
   &:before {
-    font-family: FontAwesome;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: $big-toggle-field-icon;
     background-color: $big-toggle-field-selected-icon-background-color;
     text-indent: 0.9em;

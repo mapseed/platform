@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config({ path: "src/.env" });
 const glob = require("glob");
 const path = require("path");
+const AWS = require("aws-sdk");
 
 if (!process.env.DEPLOY_DOMAIN) {
   throw "Set the DEPLOY_DOMAIN environment variable to the S3 bucket you want to deploy Mapseed to.";
 }
+if (!process.env.SSL_CERT_ARN) {
+  throw "Set the SSL_CERT_ARN environment variable to the ARN of the AWS ACM SSL certificate associated with this flavor.";
+}
+
 // eslint-disable-next-line no-console
 console.log(`Updating website: ${process.env.DEPLOY_DOMAIN}`);
 const config = {
@@ -13,9 +19,9 @@ const config = {
   uploadDir: "www",
   index: "index.html",
   enableCloudfront: true,
+  certId: process.env.SSL_CERT_ARN,
 };
 
-const AWS = require("aws-sdk");
 const s3 = new AWS.S3({ region: config.region });
 const cloudfront = new AWS.CloudFront();
 
@@ -84,18 +90,14 @@ function updateMetadata() {
   console.log("Updating metadata");
   let params;
 
-  // NOTE: We need to update the Cache-Control header for the index.html object,
-  // as well as any localized index objects (such as es.html, for example),
-  // so CloudFront won't cache these objects and they can fetch updated hashed
-  // CSS and JS bundles consistently. We also need to update localized config
-  // files, since these are no longer embedded in the index files directly.
-  let updatePromises = glob
-    .sync("{./www/*.html,./www/config*.js}")
+  const updatePromises = glob
+    .sync(
+      "{./www/*.bundle.js,./www/*.bundle.css,./www/**/*.{jpg,jpeg,png},./www/legacy-libs/*.js}",
+    )
     .map(filepath => {
       filepath = path.relative("./www", filepath);
       params = {
-        CacheControl: "no-cache, must-revalidate, max-age=0",
-        ContentEncoding: "gzip",
+        CacheControl: "max-age=31536000", // One year
       };
       return copyObjectPromise(buildParams(filepath, params));
     })
@@ -111,21 +113,13 @@ function updateMetadata() {
       }),
     )
     .concat(
-      glob.sync("./www/**/*.gz").map(filepath => {
-        // Ensure gzipped files have "Content-Encoding" set
-        filepath = path.relative("./www", filepath);
-        params = {
-          ContentEncoding: "gzip",
-        };
-        return copyObjectPromise(buildParams(filepath, params));
-      }),
-    )
-    .concat(
       glob
-        .sync("./www/static/css/images/markers/spritesheet*")
+        // Assets that should not be cached, because asset names never change
+        // but the file contents do.
+        .sync(
+          "{./www/static/css/images/markers/spritesheet*,./www/index.html,./www/config.js}",
+        )
         .map(filepath => {
-          // Don't cache spritesheet assets, as they are often updated but the
-          // filename never changes.
           filepath = path.relative("./www", filepath);
           params = {
             CacheControl: "no-cache, must-revalidate, max-age=0",
@@ -141,7 +135,7 @@ createPromise(config)
   .then(website => {
     // eslint-disable-next-line no-console
     console.log("Getting cloudfront config");
-    let distConfig = getDistributionConfigPromise({
+    const distConfig = getDistributionConfigPromise({
       Id: website.cloudfront.Distribution.Id,
     });
     return Promise.all([Promise.resolve(website), distConfig]);
@@ -149,7 +143,7 @@ createPromise(config)
   .then(([website, response]) => {
     // eslint-disable-next-line no-console
     console.log("Updating cloudfront config");
-    let config = response.DistributionConfig;
+    const config = response.DistributionConfig;
     config.CustomErrorResponses = {
       Quantity: 1,
       Items: [
