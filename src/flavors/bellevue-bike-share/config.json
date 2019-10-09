@@ -778,7 +778,7 @@
           {
             "name": "hub_location_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Where should hubs go?</h1><img style='width:100%;' src='/static/css/images/gridlines-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>We want to provide a network of convenient hubs citywide. Suggest locations in your neighborhood, outside your workplace, at your local park, near your favorite café, restaurants, and shops—anywhere you want to go by bike!</p><p class='form-stage-text' >If you don’t see a suggested location in the half-mile (solid) or quarter-mile (dashed) grid squares near places you want to go, that is an especially good place to suggest one.</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Where should hubs go?</h1><img style='width:100%;' src='/static/css/images/gridlines-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>We want to provide a network of convenient hubs citywide. Suggest locations in your neighborhood, outside your workplace, at your local park, near your favorite café, restaurants, and shops-anywhere you want to go by bike!</p><p class='form-stage-text' >If you don’t see a suggested location in the half-mile (solid) or quarter-mile (dashed) grid squares near places you want to go, that is an especially good place to suggest one.</p>"
           },
           {
             "name": "existing_hubs_information",
