@@ -225,7 +225,7 @@ export const baseMuiTheme = {
   typography: {
     // Fonts configured like so:
     // https://material-ui.com/customization/typography/#font-family
-    fontFamily: "PTSans,sans-serif",
+    fontFamily: "PTSansi-Regular,sans-serif",
     // Fonts, font sizes, etc, can be configured here:
     // https://material-ui.com/customization/typography/#font-size
     h1: {
@@ -253,12 +253,15 @@ export const baseMuiTheme = {
       fontSize: "1.2rem",
     },
     body1: {
-      fontFamily: "PTSans,sans-serif",
+      fontFamily: "PTSans-Regular,sans-serif",
       fontSize: "1.1rem",
     },
     body2: {
-      fontFamily: "PTSans,sans-serif",
+      fontFamily: "PTSans-Regular,sans-serif",
       fontSize: "1rem",
+    },
+    strong: {
+      fontFamily: "PTSans-Bold,sans-serif",
     },
   },
 };
