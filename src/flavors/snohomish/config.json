@@ -594,11 +594,11 @@
             ],
             "content": [
               {
-                "label": "Practice rotational grazing, never grazing grass below 3' deep",
+                "label": "Practice rotational grazing, never grazing grass below 3 inches deep",
                 "value": "yes"
               },
               {
-                "label": "Practice rotational grazing, never grazing grass below 3' deep",
+                "label": "Practice rotational grazing, never grazing grass below 3 inches deep",
                 "value": "no"
               }
             ]
