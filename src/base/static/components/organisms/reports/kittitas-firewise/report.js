@@ -374,7 +374,7 @@ const KittitasFireReadyReport = props => {
                   faClassname="fas fa-info-circle"
                 >
                   <LargeText>
-                    Visit Kittitas County's Fire Adapted map to explore fire
+                    Visit Kittitas County’s Fire Adapted map to explore fire
                     risk and other critical data
                   </LargeText>
                 </ContentWithFontAwesomeIcon>
@@ -774,7 +774,7 @@ const KittitasFireReadyReport = props => {
               {numCompletedActions === numRelevantActions && (
                 <>
                   <ReportBodyText>
-                    You're doing a great job with your defensible space.
+                    You’re doing a great job with your defensible space.
                   </ReportBodyText>
                   <LargeText
                     css={css`
