@@ -1706,7 +1706,7 @@
           },
           {
             "start_field_index": 62,
-            "end_field_index": 73,
+            "end_field_index": 71,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",

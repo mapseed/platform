@@ -512,32 +512,32 @@
             "end_field_index": 24,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
             "header": "Farm Conservation",
-            "description": "Tell us what you’ve done on your farm to protect natural resources"
+            "description": "Tell us what you've done on your farm to protect natural resources"
           },
           {
             "start_field_index": 25,
             "end_field_index": 45,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
             "header": "Forest Conservation",
-            "description": "Tell us what you’ve done to improve forest conservation"
+            "description": "Tell us what you've done to improve forest conservation"
           },
           {
             "start_field_index": 46,
             "end_field_index": 68,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
             "header": "Shoreline or Streamside Conservation",
-            "description": "Tell us what you’ve done to improve shoreline or streamside conservation"
+            "description": "Tell us what you've done to improve shoreline or streamside conservation"
           },
           {
             "start_field_index": 69,
             "end_field_index": 97,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
             "header": "Urban / Suburban Conservation",
-            "description": "Tell us what you’ve done to improve urban / surburban conservation"
+            "description": "Tell us what you've done to improve urban / surburban conservation"
           },
           {
             "start_field_index": 98,
-            "end_field_index": 104,
+            "end_field_index": 102,
             "icon_url": "/static/css/images/form-stage-header-graphic.png",
             "header": "Almost Done!",
             "description": " "
@@ -594,11 +594,11 @@
             ],
             "content": [
               {
-                "label": "Practice rotational grazing, never grazing grass below 3” deep",
+                "label": "Practice rotational grazing, never grazing grass below 3' deep",
                 "value": "yes"
               },
               {
-                "label": "Practice rotational grazing, never grazing grass below 3” deep",
+                "label": "Practice rotational grazing, never grazing grass below 3' deep",
                 "value": "no"
               }
             ]
@@ -1393,11 +1393,11 @@
             ],
             "content": [
               {
-                "label": "Left dead “habitat” trees standing for wildlife",
+                "label": "Left dead 'habitat' trees standing for wildlife",
                 "value": "yes"
               },
               {
-                "label": "Left dead “habitat” trees standing for wildlife",
+                "label": "Left dead 'habitat' trees standing for wildlife",
                 "value": "no"
               }
             ]
@@ -1653,11 +1653,11 @@
             "display_prompt": " ",
             "content": [
               {
-                "label": "I don’t live in an urban/suburban area -- Proceed to next screen (Page 5 of 6)",
+                "label": "I don't live in an urban/suburban area -- Proceed to next screen (Page 5 of 6)",
                 "value": "no-urban"
               },
               {
-                "label": "I don’t live in an urban/suburban area -- Proceed to next screen (Page 5 of 6)",
+                "label": "I don't live in an urban/suburban area -- Proceed to next screen (Page 5 of 6)",
                 "value": "urban"
               }
             ],
@@ -2161,7 +2161,7 @@
             "name": "other-comments",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "Anything else you’d like us to know?",
+            "prompt": "Anything else you'd like us to know?",
             "display_prompt": " ",
             "placeholder": "Enter your comments...",
             "optional": true

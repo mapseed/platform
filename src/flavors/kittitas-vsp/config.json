@@ -713,7 +713,7 @@
           },
           {
             "start_field_index": 131,
-            "end_field_index": 143,
+            "end_field_index": 138,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -902,7 +902,7 @@
           {
             "name": "fish_wildlife_habitat_disclaimer",
             "type": "informational_html",
-            "content": "<p style='font-size:0.9rem;color:#777'><em>The Fish and Wildlife Conservation areas are provided by the Washington State Department of Fish and Wildlife’s Priority Habitats and Species (PHS) Program. For more specific information on habitats or species on or near your property, contact the KCCD.</em></p>"
+            "content": "<p style='font-size:0.9rem;color:#777'><em>The Fish and Wildlife Conservation areas are provided by the Washington State Department of Fish and Wildlife's Priority Habitats and Species (PHS) Program. For more specific information on habitats or species on or near your property, contact the KCCD.</em></p>"
           },
           {
             "//": "---------------------WATER USE EFFICIENCY-------------------------",
@@ -1194,7 +1194,7 @@
             "//": "=============== IRRIGATION SCHEDULING ========================",
             "name": "irrigation_scheduling",
             "type": "big_radio",
-            "prompt": "Irrigation scheduling – monitoring soil moisture and adjusting water applications accordingly",
+            "prompt": "Irrigation scheduling - monitoring soil moisture and adjusting water applications accordingly",
             "label": "Irrigation scheduling",
             "optional": true,
             "triggers": [
