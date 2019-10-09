@@ -1956,19 +1956,19 @@
             "prompt": "How do you feel about your answers to list of tasks in the area around your home?",
             "content": [
               {
-                "label": "I’m very confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "label": "I'm very confident that I've taken the actions that reduce my risk in a wildfire",
                 "value": "very_confident"
               },
               {
-                "label": "I’m somewhat confident that I’ve taken the actions that reduce my risk in a wildfire",
+                "label": "I'm somewhat confident that I've taken the actions that reduce my risk in a wildfire",
                 "value": "somewhat_confident"
               },
               {
-                "label": "I’ve completed some of these actions, but have many left to do",
+                "label": "I've completed some of these actions, but have many left to do",
                 "value": "completed_some"
               },
               {
-                "label": "I’m overwhelmed by the list of actions and concerned about my property and my neighborhood",
+                "label": "I'm overwhelmed by the list of actions and concerned about my property and my neighborhood",
                 "value": "overwhelmed"
               }
             ]
@@ -1980,7 +1980,7 @@
             "prompt": "If you have not completed some of the tasks, why not? (check all that apply)",
             "content": [
               {
-                "label": "I didn’t know they were important to reducing my risk",
+                "label": "I didn't know they were important to reducing my risk",
                 "value": "unaware_importance"
               },
               {
@@ -1988,7 +1988,7 @@
                 "value": "unable_do_work"
               },
               {
-                "label": "I can’t afford to have the work done",
+                "label": "I can't afford to have the work done",
                 "value": "unable_afford_work"
               }
             ]
@@ -2000,11 +2000,11 @@
             "prompt": "There are people and programs here to help you with assessing your property, determining next steps and securing grants to help with the financial burden of completing work. Just let us know what you need",
             "content": [
               {
-                "label": "I’m interested in technical advice on what my home and property need",
+                "label": "I'm interested in technical advice on what my home and property need",
                 "value": "interested_technical_advice"
               },
               {
-                "label": "I’m interested in learning more about available financial assistance",
+                "label": "I'm interested in learning more about available financial assistance",
                 "value": "interested_financial_assistance"
               }
             ]
@@ -2119,7 +2119,7 @@
       },
       "extended_zone_information": {
         "type": "informational_html",
-        "content": "<p style='font-size:1.2rem;font-style:italic'>From your home, this zone extends out 30 to 100 feet or even 200 feet if on a slope. The goal here is not to eliminate fire but to interrupt fire’s path and keep flames smaller and on the ground.</p>"
+        "content": "<p style='font-size:1.2rem;font-style:italic'>From your home, this zone extends out 30 to 100 feet or even 200 feet if on a slope. The goal here is not to eliminate fire but to interrupt fire's path and keep flames smaller and on the ground.</p>"
       },
       "emergency_evacuation_header": {
         "type": "informational_html",
@@ -2167,7 +2167,7 @@
       },
       "reduce_embers": {
         "type": "big_radio",
-        "prompt": "I’ve installed 1/8 inch metal mesh screening on foundation vents and/or exterior attic vents.",
+        "prompt": "I've installed 1/8 inch metal mesh screening on foundation vents and/or exterior attic vents.",
         "label": "Reduce embers",
         "optional": true,
         "content": [
@@ -2207,7 +2207,7 @@
       },
       "repair_screens": {
         "type": "big_radio",
-        "prompt": "I’ve screened in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating",
+        "prompt": "I've screened in areas below patios and decks with wire mesh to prevent debris and combustible materials from accumulating",
         "label": "Repair or replace window screens",
         "optional": true,
         "content": [
@@ -2227,7 +2227,7 @@
       },
       "move_flammable_material": {
         "type": "big_radio",
-        "prompt": "I’ve moved any flammable material away from wall exteriors--mulch, flammable plants, leaves and needles, firewood piles--anything that can burn as well as anything stored underneath decks or porches.",
+        "prompt": "I've moved any flammable material away from wall exteriors--mulch, flammable plants, leaves and needles, firewood piles--anything that can burn as well as anything stored underneath decks or porches.",
         "label": "Move flammable material",
         "optional": true,
         "content": [
@@ -2267,7 +2267,7 @@
       },
       "create_fuel_breaks": {
         "type": "big_radio",
-        "prompt": "I’ve created fuel breaks with driveways, walkways/paths, patios, and decks",
+        "prompt": "I've created fuel breaks with driveways, walkways/paths, patios, and decks",
         "label": "Create fuel breaks",
         "optional": true,
         "content": [
@@ -2575,7 +2575,7 @@
       },
       "emergency_notifications": {
         "type": "big_radio",
-        "prompt": "I’ve signed up for the emergency notification system through the Kittitas County Sheriff’s Office or I know where to go for official information",
+        "prompt": "I've signed up for the emergency notification system through the Kittitas County Sheriff's Office or I know where to go for official information",
         "label": "Food and water",
         "optional": true,
         "content": [

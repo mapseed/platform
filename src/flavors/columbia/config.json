@@ -1706,7 +1706,7 @@
           },
           {
             "start_field_index": 62,
-            "end_field_index": 73,
+            "end_field_index": 71,
             "visibleLayerGroupIds": [
               "satellite",
               "columbia-input",
@@ -1802,7 +1802,7 @@
           {
             "name": "current_crops",
             "type": "big_checkbox",
-            "prompt": "What crops are you currently growing, or have you previously (between 2011—now) grown on your land? Choose all that apply.",
+            "prompt": "What crops are you currently growing, or have you previously (between 2011-now) grown on your land? Choose all that apply.",
             "content": [
               {
                 "label": "Barley",
@@ -2668,7 +2668,7 @@
             "//": "--------------OTHER PRACTICES---------------------------",
             "name": "other",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other Conservation Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Are there any additional Conservation Practices you participate in that weren’t listed within the survey? Please list them here, with the year implemented, in the space provided.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Other Conservation Practices</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>Are there any additional Conservation Practices you participate in that weren't listed within the survey? Please list them here, with the year implemented, in the space provided.</p>"
           },
           {
             "name": "other_practices_description",
