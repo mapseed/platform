@@ -773,12 +773,12 @@
           {
             "name": "hub_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What is a hub?</h1><img style='width:100%;' src='/static/css/images/bike-share-hub.jpg' alt='Walkshed graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>Hubs are preferred parking areas for bikeshare bicycles. These are places where bikeshare users are encouraged to park when ending a trip and where operators relocate bikes to provide convenient and reliable service.</p><p class='form-stage-text' >Hubs are marked with white boxes and symbols painted on sidewalks or street shoulders, and they are shown in operators’ mobile apps.</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What is a hub?</h1><img style='width:100%;' src='/static/css/images/bike-share-hub.jpg' alt='Walkshed graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>Hubs are preferred parking areas for bikeshare bicycles. These are places where bikeshare users are encouraged to park when ending a trip and where operators relocate bikes to provide convenient and reliable service.</p><p class='form-stage-text' >Hubs are marked with white boxes and symbols painted on sidewalks or street shoulders, and they are shown in operators' mobile apps.</p>"
           },
           {
             "name": "hub_location_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Where should hubs go?</h1><img style='width:100%;' src='/static/css/images/gridlines-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>We want to provide a network of convenient hubs citywide. Suggest locations in your neighborhood, outside your workplace, at your local park, near your favorite café, restaurants, and shops-anywhere you want to go by bike!</p><p class='form-stage-text' >If you don’t see a suggested location in the half-mile (solid) or quarter-mile (dashed) grid squares near places you want to go, that is an especially good place to suggest one.</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Where should hubs go?</h1><img style='width:100%;' src='/static/css/images/gridlines-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>We want to provide a network of convenient hubs citywide. Suggest locations in your neighborhood, outside your workplace, at your local park, near your favorite café, restaurants, and shops-anywhere you want to go by bike!</p><p class='form-stage-text' >If you don't see a suggested location in the half-mile (solid) or quarter-mile (dashed) grid squares near places you want to go, that is an especially good place to suggest one.</p>"
           },
           {
             "name": "existing_hubs_information",
@@ -982,9 +982,9 @@
         "<div style='display:flex; align-items:center'><img style='width:80px;min-width:80px;max-width:80px;height:80px;max-height:80px;min-height:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1>Bikeshare! But Where?</h1></div>",
         "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
         "<pThe City is working to make bikeshare easier to use and better manage where bikes are parked. We want your input!</p>",
-        "<p>Help us pick good places in your neighborhood to designate as preferred parking areas, called “bike hubs.” A good location is one where bikes are convenient to find when you want one and out of the way when you don’t. Add your suggestions to the map and comment on locations submitted by other members of your community.</p>",
+        "<p>Help us pick good places in your neighborhood to designate as preferred parking areas, called “bike hubs.” A good location is one where bikes are convenient to find when you want one and out of the way when you don't. Add your suggestions to the map and comment on locations submitted by other members of your community.</p>",
         "<p>The Transportation Department will review every suggestion submitted, and this map will be updated to share the current status.</p>",
-        "<p>To provide more general feedback about bikeshare in Bellevue, take the City’s online questionnaire at <a href='https://www.surveymonkey.com/r/bellevuebikeshare' target='_blank'>https://www.surveymonkey.com/r/bellevuebikeshare</a>.</p>",
+        "<p>To provide more general feedback about bikeshare in Bellevue, take the City's online questionnaire at <a href='https://www.surveymonkey.com/r/bellevuebikeshare' target='_blank'>https://www.surveymonkey.com/r/bellevuebikeshare</a>.</p>",
         "<p>Thanks for taking the time to participate!</p>",
         "<div class='page-button'><a href='/new' rel='internal'>Start!</a></div>"
       ]

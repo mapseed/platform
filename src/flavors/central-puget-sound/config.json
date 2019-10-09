@@ -1068,7 +1068,7 @@
             "title": "Satellite View",
             "info": {
               "title": "Satellite View",
-              "body": "A bird’s eye view of the world"
+              "body": "A bird's eye view of the world"
             }
           },
           {
@@ -1394,7 +1394,7 @@
           {
             "name": "leaders",
             "type": "text",
-            "placeholder": "Teacher’s name, team of colleagues, or student names",
+            "placeholder": "Teacher's name, team of colleagues, or student names",
             "prompt": "Project leaders",
             "display_prompt": "Project leaders:"
           },
@@ -1416,7 +1416,7 @@
             "type": "textarea",
             "prompt": "Background",
             "display_prompt": "Background:",
-            "placeholder": "One concise paragraph on why this issue is a problem or a community priority. What's been done? What’s needed?"
+            "placeholder": "One concise paragraph on why this issue is a problem or a community priority. What's been done? What's needed?"
           },
           {
             "name": "partners-stakeholders",
@@ -1939,7 +1939,7 @@
                 "value": "use-thermostat-auto-timer"
               },
               {
-                "label": "Don’t stand with the fridge open",
+                "label": "Don't stand with the fridge open",
                 "value": "no-fidge-open"
               },
               {
@@ -3370,8 +3370,8 @@
             "value": "Academy-for-Precision-Learning"
           },
           {
-            "label": "Academy Schools/Children’s Academy",
-            "value": "Academy-Schools/Children’s-Academy"
+            "label": "Academy Schools/Children's Academy",
+            "value": "Academy-Schools/Children's-Academy"
           },
           {
             "label": "Alcuin School",
