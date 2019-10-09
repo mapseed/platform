@@ -1,5 +1,5 @@
 import React from "react";
-import MuiTextField from "@material-ui/core/TextField";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { withTranslation, WithTranslation } from "react-i18next";
 
 type OwnProps = {
@@ -19,7 +19,10 @@ const TextField = (props: TextFieldProps) => {
   const { field } = props;
 
   return (
-    <MuiTextField
+    <OutlinedInput
+      type={"text"}
+      id={props.name}
+      notched={true}
       name={field.name}
       value={field.value}
       onChange={field.onChange}
@@ -32,4 +35,4 @@ const TextField = (props: TextFieldProps) => {
 };
 
 // TODO: useTranslation
-export default withTranslation("TextField")(TextField);
+export default withTranslation("OutlinedInput")(OutlinedInput);

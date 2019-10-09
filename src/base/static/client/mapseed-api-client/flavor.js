@@ -33,7 +33,7 @@ const TEMP = {
               id: 54,
               htmlmodule: {
                 content:
-                  "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What is a hub?</h1><img style='width:100%;' src='/static/css/images/bike-share-hub.jpg' alt='Walkshed graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>Hubs are preferred parking areas for bikeshare bicycles. These are places where bikeshare users are encouraged to park when ending a trip and where Lime relocates bikes to provide convenient and reliable service.</p><p class='form-stage-text' >Hubs are marked with white boxes and symbols painted on sidewalks or street shoulders, and they are shown in operators’ mobile apps.</p>",
+                  "<h1>What is a hub?</h1><img src='/static/css/images/bike-share-hub.jpg' alt='Walkshed graphic' /><p><strong>Hubs</strong> are preferred parking areas for bikeshare bicycles. These are places where bikeshare users are encouraged to park when ending a trip and where Lime relocates bikes to provide convenient and reliable service.</p><p>Hubs are marked with white boxes and symbols painted on sidewalks or street shoulders, and they are shown in operators’ mobile apps.</p>",
                 label: "hub_information",
               },
               order: 1,
@@ -256,8 +256,7 @@ const TEMP = {
               id: 64,
               filefield: {
                 key: "my_image",
-                prompt: "Have an image of this location? Add it!",
-                label: "Add image",
+                label: "Have an image of this location? Add it!",
                 private: false,
                 required: false,
               },

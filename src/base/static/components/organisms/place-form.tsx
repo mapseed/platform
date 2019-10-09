@@ -15,8 +15,8 @@ type PlaceFormProps = {
 
 const getModuleName = (id: number, key: string) => (key ? key : `field-${id}`);
 
-const calculateInitialValues = (form: Form) => {
-  return form.stages
+const calculateInitialValues = (form: Form) =>
+  form.stages
     .reduce((formModules, stage) => formModules.concat(stage.modules), [])
     .reduce((initialValues, { id, config }) => {
       return {
@@ -24,10 +24,9 @@ const calculateInitialValues = (form: Form) => {
         // TODO: other default value use cases:
         //   - load from form state dump
         //   - editor
-        [getModuleName(id)]: config.defaultValue || "",
+        [getModuleName(id, config.key)]: config.defaultValue || "",
       };
     }, {});
-};
 
 const MapseedPlaceForm = (props: PlaceFormProps) => {
   const [currentStage, setCurrentStage] = React.useState<number>(0);

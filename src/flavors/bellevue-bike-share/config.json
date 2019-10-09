@@ -63,7 +63,7 @@
       },
       "text": {
         "titleColor": "#fff",
-        "titleFontFamily": "PTSansBold, sans-serif",
+        "titleFontFamily": "Montserrat, PTSansBold, sans-serif",
         "bodyFontFamily": "PTSans, sans-serif",
         "navBarFontFamily": "PTSans, sans-serif"
       },

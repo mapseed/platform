@@ -1,4 +1,6 @@
-import React from "react";
+/** @jsx jsx */
+import * as React from "react";
+import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
@@ -42,7 +44,17 @@ Link.defaultProps = {
 const CloseButton = ({ ...props }) => {
   return (
     <button
-      className={classNames("mapseed__close-button", props.classes)}
+      type="button"
+      css={css`
+        border: none;
+        background-color: transparent;
+        color: #ff5e99;
+
+        &:hover {
+          cursor: pointer;
+          color: #cd2c67;
+        }
+      `}
       {...props}
     >
       &#10005;
