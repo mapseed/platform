@@ -706,7 +706,12 @@
           {
             "start_field_index": 9,
             "end_field_index": 9,
-            "visibleLayerGroupIds": ["f4", "bellevue-grid", "overlay"]
+            "visibleLayerGroupIds": [
+              "f4",
+              "bellevue-grid",
+              "bellevue-transit",
+              "overlay"
+            ]
           },
           {
             "start_field_index": 10,
