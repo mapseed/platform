@@ -33,7 +33,7 @@
     "title": "Our Lake Washington",
     "name": "Our Lake Washington",
     "show_name_in_header": true,
-    "meta_description": "_(We are looking out to keep Lake Washington healthy for all)",
+    "meta_description": "We are looking out to keep Lake Washington healthy for all",
     "meta_author": "smartercleanup.org",
     "api_root": "https://dev-api.mapseed.org/api/v2/"
   },
