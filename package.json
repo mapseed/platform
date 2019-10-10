@@ -134,7 +134,7 @@
     "compass-mixins": "^0.12.10",
     "css-loader": "^3.2.0",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "~1.14.0",
+    "enzyme-adapter-react-16": "~1.15.0",
     "enzyme-to-json": "^3.4.2",
     "eslint": "^6.5.1",
     "eslint-plugin-emotion": "^10.0.14",
