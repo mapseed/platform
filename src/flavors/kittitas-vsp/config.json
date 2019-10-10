@@ -116,10 +116,10 @@
           "https://vector-tiles.mapseed.org/kittitas-wetlands/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-conservation-areas": {
+      "kittitas-conservation-areas-ver-2": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-conservation-areas/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-conservation-areas-ver-2/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-conservation-waterways": {
@@ -383,8 +383,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "fill",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "kittitas-conservation-areas-ver-2",
+            "source-layer": "kittitas-conservation-areas-ver-2",
             "paint": {
               "fill-pattern": "conservation-fill-alt.png",
               "fill-opacity": 0.7
@@ -402,8 +402,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "line",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "kittitas-conservation-areas-ver-2",
+            "source-layer": "kittitas-conservation-areas-ver-2",
             "paint": {
               "line-color": "#6dd84a",
               "line-width": 2,
@@ -442,8 +442,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "symbol",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "kittitas-conservation-areas-ver-2",
+            "source-layer": "kittitas-conservation-areas-ver-2",
             "paint": {
               "text-color": "#618141",
               "text-halo-color": "#f0f4ec",
@@ -596,7 +596,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 5,
+            "end_field_index": 4,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -604,8 +604,8 @@
             ]
           },
           {
-            "start_field_index": 6,
-            "end_field_index": 9,
+            "start_field_index": 5,
+            "end_field_index": 8,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-wetlands",
@@ -613,8 +613,8 @@
             ]
           },
           {
-            "start_field_index": 10,
-            "end_field_index": 13,
+            "start_field_index": 9,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-frequently-flooded",
@@ -622,8 +622,8 @@
             ]
           },
           {
-            "start_field_index": 14,
-            "end_field_index": 17,
+            "start_field_index": 13,
+            "end_field_index": 16,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-geologic-hazard",
@@ -631,8 +631,8 @@
             ]
           },
           {
-            "start_field_index": 18,
-            "end_field_index": 21,
+            "start_field_index": 17,
+            "end_field_index": 20,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-critical-aquifer",
@@ -640,8 +640,8 @@
             ]
           },
           {
-            "start_field_index": 22,
-            "end_field_index": 25,
+            "start_field_index": 21,
+            "end_field_index": 24,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-conservation-areas",
@@ -649,8 +649,8 @@
             ]
           },
           {
-            "start_field_index": 26,
-            "end_field_index": 46,
+            "start_field_index": 25,
+            "end_field_index": 45,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -658,8 +658,8 @@
             ]
           },
           {
-            "start_field_index": 47,
-            "end_field_index": 65,
+            "start_field_index": 46,
+            "end_field_index": 64,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -667,8 +667,8 @@
             ]
           },
           {
-            "start_field_index": 66,
-            "end_field_index": 74,
+            "start_field_index": 65,
+            "end_field_index": 73,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -676,8 +676,8 @@
             ]
           },
           {
-            "start_field_index": 75,
-            "end_field_index": 92,
+            "start_field_index": 74,
+            "end_field_index": 91,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -685,8 +685,8 @@
             ]
           },
           {
-            "start_field_index": 93,
-            "end_field_index": 101,
+            "start_field_index": 92,
+            "end_field_index": 100,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -694,8 +694,8 @@
             ]
           },
           {
-            "start_field_index": 102,
-            "end_field_index": 128,
+            "start_field_index": 101,
+            "end_field_index": 127,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -703,8 +703,8 @@
             ]
           },
           {
-            "start_field_index": 129,
-            "end_field_index": 130,
+            "start_field_index": 128,
+            "end_field_index": 129,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -712,8 +712,8 @@
             ]
           },
           {
-            "start_field_index": 131,
-            "end_field_index": 138,
+            "start_field_index": 130,
+            "end_field_index": 137,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -723,10 +723,6 @@
         ],
         "label": "VSP Report",
         "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
           {
             "name": "location_information_header",
             "type": "informational_html",
@@ -745,6 +741,7 @@
           {
             "name": "address",
             "type": "geocoding",
+            "reverseGeocode": false,
             "prompt": "Search by address",
             "placeholder": "Your address will never be shared",
             "optional": true
