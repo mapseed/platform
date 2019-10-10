@@ -75,7 +75,7 @@
   "dashboard": [
     {
       "header": "Bellevue Bikeshare - Community Reports",
-      "isExportable": false,
+      "isExportable": true,
       "backgroundColor": "#f5f3f0",
       "datasetSlug": "bellevue-bike-share",
       "widgets": [
