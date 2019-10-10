@@ -466,9 +466,9 @@
             "filter": ["all", ["==", ["geometry-type"], "Point"]],
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "marker-star-silver.png",
+              "icon-image": "marker-star.png",
               "icon-size": 0.7,
-              "icon-anchor": "bottom"
+              "icon-anchor": "center"
             }
           }
         ],
@@ -480,9 +480,9 @@
             "filter": ["all", ["==", ["geometry-type"], "Point"]],
             "layout": {
               "icon-allow-overlap": true,
-              "icon-image": "marker-star-silver.png",
+              "icon-image": "marker-star.png",
               "icon-size": 0.5,
-              "icon-anchor": "bottom"
+              "icon-anchor": "center"
             }
           },
           {
