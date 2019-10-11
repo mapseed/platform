@@ -547,8 +547,9 @@
       "wa-state-large-fires-1973-2018-100-acres-plus": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/wa-state-large-fires-1973-2018-100-acres-plus/{z}/{x}/{y}.pbf"
-        ]
+          "https://vector-tiles.mapseed.org/wa-state-large-fires-1973-2018-100-acres-plus-ver-2/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
       },
       "kittitas-county-outline": {
         "type": "geojson",
@@ -831,7 +832,7 @@
             "id": "wa-state-large-fires-1973-2018-100-acres-plus",
             "type": "fill",
             "source": "wa-state-large-fires-1973-2018-100-acres-plus",
-            "source-layer": "wa-state-large-fires-1973-2018-100-acres-plus",
+            "source-layer": "wa-state-large-fires-1973-2018-100-acres-plus-ver-2",
             "paint": {
               "fill-pattern": [
                 "match",
@@ -929,7 +930,7 @@
             "id": "wa-state-large-fires-1973-2018-100-acres-plus-outline",
             "type": "line",
             "source": "wa-state-large-fires-1973-2018-100-acres-plus",
-            "source-layer": "wa-state-large-fires-1973-2018-100-acres-plus",
+            "source-layer": "wa-state-large-fires-1973-2018-100-acres-plus-ver-2",
             "paint": {
               "line-color": [
                 "match",
