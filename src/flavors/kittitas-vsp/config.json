@@ -650,7 +650,7 @@
           },
           {
             "start_field_index": 25,
-            "end_field_index": 45,
+            "end_field_index": 26,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -658,8 +658,8 @@
             ]
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 64,
+            "start_field_index": 27,
+            "end_field_index": 47,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -667,8 +667,8 @@
             ]
           },
           {
-            "start_field_index": 65,
-            "end_field_index": 73,
+            "start_field_index": 48,
+            "end_field_index": 66,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -676,8 +676,8 @@
             ]
           },
           {
-            "start_field_index": 74,
-            "end_field_index": 91,
+            "start_field_index": 67,
+            "end_field_index": 75,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -685,8 +685,8 @@
             ]
           },
           {
-            "start_field_index": 92,
-            "end_field_index": 100,
+            "start_field_index": 76,
+            "end_field_index": 93,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -694,8 +694,8 @@
             ]
           },
           {
-            "start_field_index": 101,
-            "end_field_index": 127,
+            "start_field_index": 94,
+            "end_field_index": 102,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -703,7 +703,7 @@
             ]
           },
           {
-            "start_field_index": 128,
+            "start_field_index": 103,
             "end_field_index": 129,
             "visibleLayerGroupIds": [
               "satellite",
@@ -713,7 +713,16 @@
           },
           {
             "start_field_index": 130,
-            "end_field_index": 137,
+            "end_field_index": 131,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 132,
+            "end_field_index": 141,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -902,10 +911,32 @@
             "content": "<p style='font-size:0.9rem;color:#777'><em>The Fish and Wildlife Conservation areas are provided by the Washington State Department of Fish and Wildlife's Priority Habitats and Species (PHS) Program. For more specific information on habitats or species on or near your property, contact the KCCD.</em></p>"
           },
           {
+            "//": "---------------------VSP INVENTORY REQUEST-------------------------",
+            "name": "vsp_inventory_request_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. VSP Inventory Request</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>The information you just reviewed is the available data for critical areas in Kittitas County. Because much of the data is completed at a larger scale, it can sometimes not be accurate for a specific property. If you would like to know more about critical areas associated with your property, KCCD staff can complete an in-depth inventory and provide it to you.</p>"
+          },
+          {
+            "name": "vsp_inventory_request",
+            "type": "big_radio",
+            "prompt": "Would you like a VSP Inventory completed for your property?",
+            "content": [
+              {
+                "label": "Yes",
+                "value": "vsp-inventory"
+              },
+              {
+                "label": "No",
+                "value": "no-vsp-inventory"
+              }
+            ],
+            "optional": true
+          },
+          {
             "//": "---------------------WATER USE EFFICIENCY-------------------------",
             "name": "water_use_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Water Use Efficiency</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Water Use Efficiency</h2>"
           },
           {
             "name": "water_user_information",
@@ -1243,7 +1274,7 @@
             "//": "--------------SECTION: SOIL HEALTH & EROSION MGMT---------------------------",
             "name": "soil_management",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Soil Health & Erosion Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Soil Health & Erosion Management</h2>"
           },
           {
             "name": "soil_management_information",
@@ -1528,7 +1559,7 @@
             "//": "-------------SECTION: NUTRIENT MGMT-----------------",
             "name": "nutrient_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Nutrient Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Nutrient Management</h2>"
           },
           {
             "name": "nutrient_management_information",
@@ -1658,7 +1689,7 @@
             "//": "--------------SECTION: RANGE MGMT---------------------------",
             "name": "range_management",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Range Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Range Management</h2>"
           },
           {
             "name": "range_management_information",
@@ -1941,7 +1972,7 @@
             "//": "------------SECTION: PEST MGMT--------------------",
             "name": "pest_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Pest Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Pest Management</h2>"
           },
           {
             "name": "pest_management_information",
@@ -2074,7 +2105,7 @@
             "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
             "name": "fish_wildlife_management",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Fish & Wildlife Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Fish & Wildlife Management</h2>"
           },
           {
             "name": "fish_wildlife_management_information",
@@ -2510,7 +2541,7 @@
             "//": "---------------SECTION: OTHER PRACTICES-------------------",
             "name": "other_practices_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Other VSP Practices</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Other VSP Practices</h2>"
           },
           {
             "name": "other_practices",
@@ -2523,7 +2554,7 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>15. Almost completed!</h2>"
           },
           {
             "name": "additional_info",
