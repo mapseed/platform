@@ -273,7 +273,7 @@
           {
             "name": "title",
             "type": "text",
-            "prompt": "How does it feel?",
+            "prompt": "What's happening here?",
             "display_prompt": " ",
             "placeholder": "Title here...",
             "optional": false
@@ -281,7 +281,7 @@
           {
             "name": "description",
             "type": "rich_textarea",
-            "prompt": "What is the aesthetic of this place?",
+            "prompt": "What is it, and how it can it change things?",
             "display_prompt": " ",
             "placeholder": "Describe it... (you can also add links, images, videos)",
             "optional": false
