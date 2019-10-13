@@ -1057,6 +1057,12 @@
               "value": ["get-val", "private-use_photos"]
             },
             {
+              "header": "Requesting Crit. Area Inventory?",
+              "type": "boolean",
+              "fractionalWidth": 1,
+              "value": ["get-val", "vsp_inventory_request"]
+            },
+            {
               "header": "Requesting information",
               "type": "unstyled-string",
               "fractionalWidth": 2,
@@ -1064,14 +1070,44 @@
                 "cat",
                 [
                   "case",
-                  ["==", ["get-val", "conservation_cover"], "interested"],
-                  ["literal", "Conservation Cover"],
+                  ["==", ["get-val", "gated_pipe"], "interested"],
+                  ["literal", "Gated Pipe"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "cropland_pest_management"], "interested"],
-                  ["literal", "Cropland Pest Management"],
+                  ["==", ["get-val", "line_sprinklers"], "interested"],
+                  ["literal", "Handline/Wheel Line Sprinklers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pivot_sprinklers"], "interested"],
+                  ["literal", "Center Pivot/Linear Sprinklers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "micro_irrigation"], "interested"],
+                  ["literal", "Micro (Drip) Irrigation"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pipeline_irrigation"], "interested"],
+                  ["literal", "Pipeline Irrigation"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "irrigation_scheduling"], "interested"],
+                  ["literal", "Irrigation Scheduling"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "polyacrylamide"], "interested"],
+                  ["literal", "Polyacrylamide"],
                   ["literal", ""]
                 ],
                 [
@@ -1082,72 +1118,66 @@
                 ],
                 [
                   "case",
-                  [
-                    "==",
-                    ["get-val", "crop_riparian_forest_buffer"],
-                    "interested"
-                  ],
-                  ["literal", "Cropland Riparian Forest Buffer"],
+                  ["==", ["get-val", "permanent_cover_crop"], "interested"],
+                  ["literal", "Permanent Cover Crop"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "interested"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "interested"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_testing"], "interested"],
+                  ["literal", "Soil Testing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "plant_tissue_testing"], "interested"],
+                  ["literal", "Plant Tissue Testing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grazing_management"], "interested"],
+                  ["literal", "Grazing Management"],
                   ["literal", ""]
                 ],
                 [
                   "case",
                   [
                     "==",
-                    ["get-val", "residue_tillage_management"],
+                    ["get-val", "grazing_management_fencing"],
                     "interested"
                   ],
-                  ["literal", "Residue and Tillage Management"],
+                  ["literal", "Fencing for Grazing Management"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "nutrient_management"], "interested"],
-                  ["literal", "Nutrient Management"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "crop_fencing"], "interested"],
-                  ["literal", "Cropland Fencing"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  [
-                    "==",
-                    ["get-val", "ranch_riprian_forest_buffer"],
-                    "interested"
-                  ],
-                  ["literal", "Ranchland Riparian Forest Buffer"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "ranch_fencing"], "interested"],
-                  ["literal", "Ranchland Fencing"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  [
-                    "==",
-                    ["get-val", "stream_habitat_improvement"],
-                    "interested"
-                  ],
-                  ["literal", "Stream Habitat Improvements"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "livestock_grazing"], "interested"],
-                  ["literal", "Livestock Grazing"],
+                  ["==", ["get-val", "range_plantings"], "interested"],
+                  ["literal", "Range Plantings"],
                   ["literal", ""]
                 ],
                 [
                   "case",
                   ["==", ["get-val", "watering_facility"], "interested"],
-                  ["literal", "Watering Facility"],
+                  ["literal", "Watering Facilities"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "water_wells"], "interested"],
+                  ["literal", "Water Wells"],
                   ["literal", ""]
                 ]
               ]
@@ -1160,227 +1190,112 @@
                 "cat",
                 [
                   "case",
-                  ["==", ["get-val", "conservation_cover"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Conservation Cover: "],
-                    ["get-val", "conservation_cover_amount"],
-                    ["literal", " acres"]
-                  ],
+                  ["==", ["get-val", "gated_pipe"], "yes"],
+                  ["literal", "Gated Pipe"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "cropland_pest_management"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Cropland Pest Management: "],
-                    ["get-val", "cropland_pest_management_amount"],
-                    ["literal", " acres"]
-                  ],
+                  ["==", ["get-val", "line_sprinklers"], "yes"],
+                  ["literal", "Handline/Wheel Line Sprinklers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pivot_sprinklers"], "yes"],
+                  ["literal", "Center Pivot/Linear Sprinklers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "micro_irrigation"], "yes"],
+                  ["literal", "Micro (Drip) Irrigation"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pipeline_irrigation"], "yes"],
+                  ["literal", "Pipeline Irrigation"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "irrigation_scheduling"], "yes"],
+                  ["literal", "Irrigation Scheduling"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "polyacrylamide"], "yes"],
+                  ["literal", "Polyacrylamide"],
                   ["literal", ""]
                 ],
                 [
                   "case",
                   ["==", ["get-val", "cover_crop"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Cover Crop: "],
-                    ["get-val", "cover_crop_amount"],
-                    ["literal", " acres"]
-                  ],
+                  ["literal", "Cover Crop"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "crop_riparian_forest_buffer"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Cropland Riparian Forest Buffer: "],
-                    ["get-val", "crop_riparian_forest_buffer_amount"],
-                    ["literal", " feet"]
-                  ],
+                  ["==", ["get-val", "permanent_cover_crop"], "yes"],
+                  ["literal", "Permanent Cover Crop"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "residue_tillage_management"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Residue and Tillage Management: "],
-                    ["get-val", "residue_tillage_management_amount"],
-                    ["literal", " acres"]
-                  ],
+                  ["==", ["get-val", "no_till"], "yes"],
+                  ["literal", "No Till"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "nutrient_management"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Nutrient Management: "],
-                    ["get-val", "nutrient_management_amount"],
-                    ["literal", " acres"]
-                  ],
+                  ["==", ["get-val", "reduced_till"], "yes"],
+                  ["literal", "Reduced Till"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "crop_fencing"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Cropland Fencing: "],
-                    ["get-val", "crop_fencing_amount"],
-                    ["literal", " feet"]
-                  ],
+                  ["==", ["get-val", "soil_testing"], "yes"],
+                  ["literal", "Soil Testing"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "ranch_riprian_forest_buffer"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Ranchland Riparian Forest Buffer: "],
-                    ["get-val", "ranch_riparian_forest_buffer_amount"],
-                    ["literal", " feet"]
-                  ],
+                  ["==", ["get-val", "plant_tissue_testing"], "yes"],
+                  ["literal", "Plant Tissue Testing"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "ranch_fencing"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Ranchland Fencing: "],
-                    ["get-val", "ranch_fencing_amount"],
-                    ["literal", " feet"]
-                  ],
+                  ["==", ["get-val", "grazing_management"], "yes"],
+                  ["literal", "Grazing Management"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "stream_habitat_improvement"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Stream Habitat Improvements: "],
-                    ["get-val", "stream_habitat_improvement_amount"],
-                    ["literal", " feet"]
-                  ],
+                  ["==", ["get-val", "grazing_management_fencing"], "yes"],
+                  ["literal", "Fencing for Grazing Management"],
                   ["literal", ""]
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "livestock_grazing"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Livestock Grazing: "],
-                    ["get-val", "livestock_grazing_amount"],
-                    ["literal", " acres"]
-                  ],
+                  ["==", ["get-val", "range_plantings"], "yes"],
+                  ["literal", "Range Plantings"],
                   ["literal", ""]
                 ],
                 [
                   "case",
                   ["==", ["get-val", "watering_facility"], "yes"],
-                  [
-                    "cat",
-                    ["literal", "Watering Facility: "],
-                    ["get-val", "watering_facility_amount"],
-                    ["literal", " facils."]
-                  ],
+                  ["literal", "Watering Facilities"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "water_wells"], "yes"],
+                  ["literal", "Water Wells"],
                   ["literal", ""]
                 ]
-              ]
-            }
-          ]
-        },
-        {
-          "header": "Critical Area Summary",
-          "type": "fixedTable",
-          "stripeColor": "#f8f5f5",
-          "layout": {
-            "start": 1,
-            "end": 7,
-            "height": 206
-          },
-          "columns": [
-            {
-              "header": "Summary type",
-              "type": "string",
-              "fractionalWidth": 2
-            },
-            {
-              "header": "Wetlands",
-              "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_wetlands"],
-                "yes"
-              ]
-            },
-            {
-              "header": "Frequently flooded areas",
-              "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_frequently_flooded"],
-                "yes"
-              ]
-            },
-            {
-              "header": "Hazardous areas",
-              "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_geologic_hazard"],
-                "yes"
-              ]
-            },
-            {
-              "header": "Critical aquifers",
-              "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_critical_aquifer"],
-                "yes"
-              ]
-            },
-            {
-              "header": "Critical conservation areas",
-              "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_critical_conservation"],
-                "yes"
-              ]
-            }
-          ],
-          "rows": [
-            {
-              "cells": [
-                {
-                  "value": "Number of reports"
-                },
-                {
-                  "value": ["get-count"],
-                  "label": "Reports"
-                },
-                {
-                  "value": ["get-count"],
-                  "label": "Reports"
-                },
-                {
-                  "value": ["get-count"],
-                  "label": "Reports"
-                },
-                {
-                  "value": ["get-count"],
-                  "label": "Reports"
-                },
-                {
-                  "value": ["get-count"],
-                  "label": "Reports"
-                }
               ]
             }
           ]
@@ -1394,16 +1309,6 @@
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
     "geocodeHint": [-120.549183, 46.9999019],
-    "offlineBoundingBox": {
-      "southWest": {
-        "lat": 46.709206,
-        "lng": -121.476997
-      },
-      "northEast": {
-        "lat": 47.633585,
-        "lng": -119.891353
-      }
-    },
     "scrollZoomAroundCenter": true,
     "mapViewport": {
       "latitude": 47.18554,
@@ -2261,11 +2166,11 @@
             "content": [
               {
                 "label": "Yes",
-                "value": "vsp-inventory"
+                "value": "yes"
               },
               {
                 "label": "No",
-                "value": "no-vsp-inventory"
+                "value": "no"
               }
             ],
             "optional": true
