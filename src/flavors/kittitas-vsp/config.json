@@ -590,7 +590,7 @@
             {
               "cells": [
                 {
-                  "value": "Fencing for Geazing Management"
+                  "value": "Fencing for Grazing Management"
                 },
                 {
                   "value": ["get-sum", "grazing_management_fencing_quantity"],
