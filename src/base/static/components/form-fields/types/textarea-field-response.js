@@ -7,14 +7,24 @@ import { withTheme } from "emotion-theming";
 import { RegularText } from "../../atoms/typography";
 
 const TextareaFieldResponse = props => {
+  const value = props.value && props.value.split("\n");
+
   return (
-    <RegularText
-      css={css`
-        margin: 8px 0 16px 0;
-      `}
-    >
-      {props.value}
-    </RegularText>
+    <React.Fragment>
+      {value &&
+        value.map((p, idx) => (
+          <RegularText
+            css={css`
+              display: block;
+              margin-top: ${idx === 0 ? "16px" : 0};
+              margin-bottom: ${idx === value.length - 1 ? "16px" : "8px"};
+            `}
+            key={idx}
+          >
+            {p}
+          </RegularText>
+        ))}
+    </React.Fragment>
   );
 };
 
