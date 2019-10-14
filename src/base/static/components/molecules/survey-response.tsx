@@ -104,7 +104,10 @@ const SurveyResponse = (props: SurveyResponseProps) => {
             css={css`
               display: block;
             `}
-            submitterName={comment.submitter && comment.submitter.name}
+            submitterName={
+              comment.submitter_name ||
+              (comment.submitter && comment.submitter.name)
+            }
             anonymousName={placeConfig.anonymous_name}
           />
           {appConfig.show_timestamps && (
