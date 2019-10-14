@@ -76,7 +76,7 @@
     "glob": "^7.1.4",
     "hoist-non-react-statics": "^3.3.0",
     "html-webpack-plugin": "^3.2.0",
-    "i18next": "^17.1.0",
+    "i18next": "^17.2.0",
     "immer": "^4.0.1",
     "immutable": "^3.8.2",
     "lodash.groupby": "^4.6.0",
