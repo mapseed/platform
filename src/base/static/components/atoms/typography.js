@@ -309,5 +309,5 @@ export {
   SmallText,
   MicroText,
   DashboardText,
-  Badge,
+  Badge
 };

@@ -2704,6 +2704,7 @@
             "name": "synthetic_fertilization_yield_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Yield map for synthetic fertilization",
             "prompt": "Do you base your synthetic fertilizing off of a yield map?",
             "optional": true,
             "content": [
@@ -2721,6 +2722,7 @@
             "name": "synthetic_fertilization_zone_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Zone map for synthetic fertilization",
             "prompt": "Have you developed a zone map for synthetic fertilization?",
             "optional": true,
             "content": [
@@ -2738,6 +2740,7 @@
             "name": "organic_fertilization_yield_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Yield map for organic fertilization",
             "prompt": "Do you base your organic fertilizing off of a yield map?",
             "optional": true,
             "content": [
@@ -2755,6 +2758,7 @@
             "name": "organic_fertilization_zone_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Zone map for organic fertilization",
             "prompt": "Have you developed a zone map for organic fertilization?",
             "optional": true,
             "content": [
@@ -4172,8 +4176,7 @@
           "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
-          "placeholder": "Name is optional",
-          "optional": true
+          "placeholder": "Name"
         },
         {
           "type": "submit",
@@ -4286,7 +4289,7 @@
       "content": [
         "<h3 id='about-page-header'>Other Projects</h3>",
         "<p>Whether you are an agricultural producer or just interested in conserving the natural resources around your home, feel free to contact us.  We offer technical assistance regardless of current funding opportunities.  Here are some examples of issues we can assist you with:</p>",
-        "<ul>",
+        "<ul style='font-size:1.1rem;line-height:1.7rem;font-style:italic;color:#555;'>",
         "<li>Streambank erosion restoration</li>",
         "<li>Fish and wildlife habitat</li>",
         "<li>Tree and shrub establishment</li>",

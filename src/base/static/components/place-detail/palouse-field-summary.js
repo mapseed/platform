@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
 import fieldResponseFilter from "../../utils/field-response-filter";
-import { RegularTitle, RegularText } from "../atoms/typography";
+import { TinyTitle, RegularTitle, RegularText } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
 
@@ -22,12 +22,15 @@ const ActionSummaryItem = styled("li")(props => ({
   padding: "8px 4px 8px 4px",
 }));
 
+const excludedFields = [""];
+
 const SnohomishFieldSummary = props => {
   const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
     fieldConfig => props.place[fieldConfig.name] === "yes",
   );
   const numActions = fieldConfigs.length;
   const description = props.place.practices_description;
+  const challenges = props.place.stewardship_difficulties;
 
   return (
     <div>
@@ -39,6 +42,12 @@ const SnohomishFieldSummary = props => {
           <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       {description && <RegularText>{description}</RegularText>}
+      {challenges && (
+        <React.Fragment>
+          <TinyTitle>Challenges:</TinyTitle>
+          <RegularText>{challenges}</RegularText>
+        </React.Fragment>
+      )}
       <ActionSummary>
         {fieldConfigs.map((fieldConfig, idx) => {
           const actionQuantityConfig =
