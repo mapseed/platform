@@ -117,7 +117,7 @@
       "1936aerial": {
         "type": "raster",
         "tiles": [
-          "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS?service=wmts&request=gettile&layers=BaseMaps_KingCo_Aerial_1936&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://de2f5qjeube4u.cloudfront.net?service=wmts&request=gettile&layers=BaseMaps_KingCo_Aerial_1936&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
       "bath": {
