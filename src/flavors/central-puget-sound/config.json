@@ -83,7 +83,7 @@
           "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         ],
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.",
-        "tileSize": 256
+        "tileSize": 512
       },
       "light-nolabels": {
         "type": "raster",
@@ -1279,6 +1279,7 @@
         "name": "location_type",
         "icon_url": "/static/css/images/markers/marker-star-silver.png",
         "value": "featured_project",
+        "label": "Add a Classroom Project",
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
@@ -1452,6 +1453,7 @@
         "icon_url": "/static/css/images/markers/marker-star-gold.png",
         "value": "featured_place",
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
+        "label": "Add a Community Project",
         "fields": [
           {
             "name": "lng-lat",
@@ -1553,6 +1555,7 @@
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
         "value": "conserve-water",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will conserve water",
         "fields": [
           {
             "name": "lng-lat",
@@ -1671,6 +1674,7 @@
         "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
         "value": "prevent-stormwater",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will prevent stormwater pollution",
         "fields": [
           {
             "name": "lng-lat",
@@ -2001,6 +2005,7 @@
         "icon_url": "/static/css/images/markers/marker-waste-less.png",
         "value": "waste-less",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will waste less",
         "fields": [
           {
             "name": "lng-lat",
@@ -2099,6 +2104,7 @@
         "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
         "value": "commute-low-carbon",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will commute on low carbon transit",
         "fields": [
           {
             "name": "lng-lat",
@@ -2189,6 +2195,7 @@
         "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
         "value": "eat-local-organic",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will eat local and organic",
         "fields": [
           {
             "name": "lng-lat",
@@ -2271,6 +2278,7 @@
         "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
         "value": "restore-salmon-habitat",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will help restore salmon habitat",
         "fields": [
           {
             "name": "lng-lat",
