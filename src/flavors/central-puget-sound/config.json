@@ -1279,7 +1279,7 @@
         "name": "location_type",
         "icon_url": "/static/css/images/markers/marker-star-silver.png",
         "value": "featured_project",
-        "label": "Add a Classroom Project",
+        "label": "Classroom Project",
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
@@ -1453,7 +1453,7 @@
         "icon_url": "/static/css/images/markers/marker-star-gold.png",
         "value": "featured_place",
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
-        "label": "Add a Community Project",
+        "label": "Community Project",
         "fields": [
           {
             "name": "lng-lat",
