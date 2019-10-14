@@ -4065,7 +4065,7 @@
           {
             "name": "contact_info",
             "type": "informational_html",
-            "content": "Please provide your contact information so that we may follow up with you to verify your post."
+            "content": "<p style='margin:8px 8px 0 8px;font-size:1.1rem;font-style:italic;'>Please provide your contact information so that we may follow up with you to verify your post.</p>"
           },
           {
             "name": "private-landowner_email",
@@ -4077,7 +4077,6 @@
           {
             "name": "private-landowner_phone",
             "type": "text",
-            "hidden_default": true,
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
             "optional": true
