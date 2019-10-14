@@ -127,6 +127,7 @@ class Survey extends Component {
 
       this.setState({
         isFormSubmitting: false,
+        showValidityStatus: false,
       });
 
       if (response) {
