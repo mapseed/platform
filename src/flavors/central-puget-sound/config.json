@@ -95,7 +95,7 @@
       "hydrography": {
         "type": "raster",
         "tiles": [
-          "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
+          "https://dxnlossrz98ok.cloudfront.net?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
         ],
         "tileSize": 256
       },
@@ -123,19 +123,19 @@
       "bath": {
         "type": "raster",
         "tiles": [
-          "https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://d1a9j9abs76ti6.cloudfront.net?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
       "hillshade": {
         "type": "raster",
         "tiles": [
-          "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://dcq1qcaxzlgt2.cloudfront.net?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
       "contour": {
         "type": "raster",
         "tiles": [
-          "https://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS?service=wmts&request=gettile&layers=5&version=1.0.0&tilematrixset=default028mm&format=image/png&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://d2aq75ba8zvq3s.cloudfront.net?service=wmts&request=gettile&layers=5&version=1.0.0&tilematrixset=default028mm&format=image/png&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
       "impervious": {
