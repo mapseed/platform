@@ -15,6 +15,10 @@ export const datasetReportSelector = (state, datasetSlug) =>
   state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
     .report;
 
+export const datasetPlaceConfirmationModalSelector = (state, datasetSlug) =>
+  state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
+    .placeConfirmationModal;
+
 export const datasetsConfigPropType = PropTypes.arrayOf(
   PropTypes.shape({
     url: PropTypes.string.isRequired,
@@ -84,8 +88,9 @@ export default (state = INITIAL_STATE, action) =>
       case LOAD:
         action.payload.map(datasetConfig => {
           draft.push({
-            ...datasetConfig,
+            placeConfirmationModal: {},
             url: `${API_ROOT}smartercleanup/datasets/${datasetConfig.slug}`,
+            ...datasetConfig,
           });
         });
     }

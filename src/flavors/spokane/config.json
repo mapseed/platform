@@ -44,7 +44,25 @@
           "abilities": ["create"],
           "submission_set": "*"
         }
-      ]
+      ],
+      "placeConfirmationModal": {
+        "nonPrivate": {
+          "header": "Thanks for reporting your voluntary stewardship!",
+          "body": [
+            "If you need to make any changes to your submission, contact Doug Phelps:",
+            "Phone: 509-535-7274 x240",
+            "Email: doug-phelps@sccd.org"
+          ]
+        },
+        "privateNonAdmin": {
+          "header": "Thanks for reporting your voluntary stewardship!",
+          "body": [
+            "Your information was submitted successfully but will remain private and will not appear on the map. If you need to make any changes to your submission, contact Doug Phelps:",
+            "Phone: 509-535-7274 x240",
+            "Email: doug-phelps@sccd.org"
+          ]
+        }
+      }
     }
   ],
   "app": {
