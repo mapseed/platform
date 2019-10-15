@@ -2344,6 +2344,7 @@
     "common_form_elements": {
       "address": {
         "type": "geocoding",
+        "reverseGeocode": false,
         "prompt": "Your address:",
         "placeholder": "Address",
         "optional": true
