@@ -1,9 +1,11 @@
+/** @jsx jsx */
 import React from "react";
 import PropTypes from "prop-types";
+import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 
 import fieldResponseFilter from "../../utils/field-response-filter";
-import { RegularTitle, RegularText } from "../atoms/typography";
+import { TinyTitle, RegularTitle, RegularText } from "../atoms/typography";
 import { HorizontalRule } from "../atoms/layout";
 import CoverImage from "../molecules/cover-image";
 
@@ -22,12 +24,19 @@ const ActionSummaryItem = styled("li")(props => ({
   padding: "8px 4px 8px 4px",
 }));
 
+const excludedFields = [""];
+
 const SnohomishFieldSummary = props => {
   const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
     fieldConfig => props.place[fieldConfig.name] === "yes",
   );
   const numActions = fieldConfigs.length;
-  const description = props.place.practices_description;
+  const description =
+    props.place.practices_description &&
+    props.place.practices_description.split("\n");
+  const challenges =
+    props.place.stewardship_difficulties &&
+    props.place.stewardship_difficulties.split("\n");
 
   return (
     <div>
@@ -38,7 +47,34 @@ const SnohomishFieldSummary = props => {
         .map((attachment, i) => (
           <CoverImage key={i} imageUrl={attachment.file} />
         ))}
-      {description && <RegularText>{description}</RegularText>}
+      {description &&
+        description.map((p, idx) => (
+          <RegularText
+            css={css`
+              display: block;
+              margin-bottom: 8px;
+            `}
+            key={idx}
+          >
+            {p}
+          </RegularText>
+        ))}
+      {challenges && (
+        <React.Fragment>
+          <TinyTitle>Challenges:</TinyTitle>
+          {challenges.map((p, idx) => (
+            <RegularText
+              css={css`
+                display: block;
+                margin-bottom: 8px;
+              `}
+              key={idx}
+            >
+              {p}
+            </RegularText>
+          ))}
+        </React.Fragment>
+      )}
       <ActionSummary>
         {fieldConfigs.map((fieldConfig, idx) => {
           const actionQuantityConfig =

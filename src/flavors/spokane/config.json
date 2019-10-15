@@ -44,7 +44,25 @@
           "abilities": ["create"],
           "submission_set": "*"
         }
-      ]
+      ],
+      "placeConfirmationModal": {
+        "nonPrivate": {
+          "header": "Thanks for reporting your voluntary stewardship!",
+          "body": [
+            "If you need to make any changes to your submission, contact Doug Phelps:",
+            "Phone: 509-535-7274 x240",
+            "Email: doug-phelps@sccd.org"
+          ]
+        },
+        "privateNonAdmin": {
+          "header": "Thanks for reporting your voluntary stewardship!",
+          "body": [
+            "Your information was submitted successfully but will remain private and will not appear on the map. If you need to make any changes to your submission, contact Doug Phelps:",
+            "Phone: 509-535-7274 x240",
+            "Email: doug-phelps@sccd.org"
+          ]
+        }
+      }
     }
   ],
   "app": {
@@ -1659,7 +1677,7 @@
             "type": "symbol",
             "source": "spokane-input",
             "layout": {
-              "icon-size": 0.4,
+              "icon-size": 0.3,
               "icon-anchor": "bottom",
               "icon-image": [
                 "case",
@@ -1903,7 +1921,7 @@
                 "marker-agriculture-livestock-forestry.png",
                 "marker-agriculture.png"
               ],
-              "icon-size": ["step", ["zoom"], 0.2, 11, 0.3, 16, 0.4],
+              "icon-size": ["step", ["zoom"], 0.1, 11, 0.2, 16, 0.3],
               "icon-allow-overlap": true
             }
           }
@@ -2095,7 +2113,7 @@
           },
           {
             "start_field_index": 75,
-            "end_field_index": 91,
+            "end_field_index": 92,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -2704,6 +2722,7 @@
             "name": "synthetic_fertilization_yield_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Yield map for synthetic fertilization",
             "prompt": "Do you base your synthetic fertilizing off of a yield map?",
             "optional": true,
             "content": [
@@ -2721,6 +2740,7 @@
             "name": "synthetic_fertilization_zone_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Zone map for synthetic fertilization",
             "prompt": "Have you developed a zone map for synthetic fertilization?",
             "optional": true,
             "content": [
@@ -2738,6 +2758,7 @@
             "name": "organic_fertilization_yield_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Yield map for organic fertilization",
             "prompt": "Do you base your organic fertilizing off of a yield map?",
             "optional": true,
             "content": [
@@ -2755,6 +2776,7 @@
             "name": "organic_fertilization_zone_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Zone map for organic fertilization",
             "prompt": "Have you developed a zone map for organic fertilization?",
             "optional": true,
             "content": [
@@ -3974,6 +3996,12 @@
             "optional": true
           },
           {
+            "name": "private-general_questions",
+            "type": "textarea",
+            "prompt": "Do you have any questions?",
+            "optional": true
+          },
+          {
             "name": "private-landowner_name",
             "type": "text",
             "placeholder": "Your name will only be shared if you are logged in",
@@ -4035,34 +4063,13 @@
             "optional": true
           },
           {
-            "name": "allow_followup",
-            "type": "big_radio",
-            "optional": true,
-            "prompt": "May we follow up with you if we have any questions?",
-            "triggers": [
-              {
-                "value": "allow-followup",
-                "targets": [
-                  "private-landowner_email",
-                  "private-landowner_phone"
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "allow-followup"
-              },
-              {
-                "label": "No",
-                "value": "no-allow-followup"
-              }
-            ]
+            "name": "contact_info",
+            "type": "informational_html",
+            "content": "<p style='margin:8px 8px 0 8px;font-size:1.1rem;font-style:italic;'>Please provide your contact information so that we may follow up with you to verify your post.</p>"
           },
           {
             "name": "private-landowner_email",
             "type": "text",
-            "hidden_default": true,
             "optional": false,
             "placeholder": "Your email address will never be shared",
             "prompt": "What is your email address?"
@@ -4070,7 +4077,6 @@
           {
             "name": "private-landowner_phone",
             "type": "text",
-            "hidden_default": true,
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
             "optional": true
@@ -4187,8 +4193,7 @@
           "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
-          "placeholder": "Name is optional",
-          "optional": true
+          "placeholder": "Name"
         },
         {
           "type": "submit",
@@ -4235,6 +4240,11 @@
       "title": "Funding",
       "type": "internal_link",
       "url": "/page/funding"
+    },
+    {
+      "title": "Other Projects",
+      "type": "internal_link",
+      "url": "/page/other-projects"
     }
   ],
   "pages": [
@@ -4267,16 +4277,7 @@
       "slug": "funding",
       "content": [
         "<h3 id='about-page-header'>Stewardship Practices Examples and Funding Opportunities</h3>",
-        "<p>The Spokane Conservation District partners with other agencies such as the NRCS and the WSCC to match landowners with programs that best fit their needs.</p>",
-        "<p>Contact Walt Edelen or Doug Phelps with questions:</p>",
-        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
-        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
-        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
-        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
-        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
-        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
+        "<p>The Spokane Conservation District partners with other agencies such as the NRCS and the WSCC to match landowners with programs that best fit their needs. Here are some examples:</p>",
         "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;margin-bottom:8px;'><span style='flex:1;margin-right:8px;'>Management Type</span><span style='flex:1;margin-right:8px;'>Conservation Practices</span><span style='flex:1'>NRCS Code</span><span style='flex:1'>Potential Funding</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Tillage</span><span style='flex:1;margin-right:8px;'>Conservation Tillage No-Till</span><span style='flex:1;margin-right:8px;'>329</span><span style='flex:1;'>$35-$50/acre (max 1,500 acres per entity)</span></div>",
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Tillage</span><span style='flex:1;margin-right:8px;'>Conservation Tillage Mulch-Till</span><span style='flex:1;margin-right:8px;'>345</span><span style='flex:1;'>Up to $45/acre (max 1,500 acres per entity)</span></div>",
@@ -4288,7 +4289,41 @@
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Waste Storage Facility</span><span style='flex:1;margin-right:8px;'>313</span><span style='flex:1;'>Varies</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Off Creek Watering</span><span style='flex:1;margin-right:8px;'>516/533/614/561/642</span><span style='flex:1;'>Varies</span></div>",
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Forest Stand Improvement (thinning, pruning and slash treatment)</span><span style='flex:1;margin-right:8px;'>660/666</span><span style='flex:1;'>Typically about $1,000/acre</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Tree and Shrub Establishment</span><span style='flex:1;margin-right:8px;'>612</span><span style='flex:1;'>Typically about $400/acre</span></div>"
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Tree and Shrub Establishment</span><span style='flex:1;margin-right:8px;'>612</span><span style='flex:1;'>Typically about $400/acre</span></div>",
+        "<p style='margin-top:32px;'>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
+      ]
+    },
+    {
+      "slug": "other-projects",
+      "content": [
+        "<h3 id='about-page-header'>Other Projects</h3>",
+        "<p>Whether you are an agricultural producer or just interested in conserving the natural resources around your home, feel free to contact us.  We offer technical assistance regardless of current funding opportunities.  Here are some examples of issues we can assist you with:</p>",
+        "<ul style='font-size:1.1rem;line-height:1.7rem;font-style:italic;color:#555;'>",
+        "<li>Streambank erosion restoration</li>",
+        "<li>Fish and wildlife habitat</li>",
+        "<li>Tree and shrub establishment</li>",
+        "<li>Urban/Homesite forestry</li>",
+        "<li>Smartscape</li>",
+        "<li>Septic assistance</li>",
+        "<li>Soil Health</li>",
+        "</ul>",
+        "<p style='margin-top:32px;'>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
       ]
     }
   ],

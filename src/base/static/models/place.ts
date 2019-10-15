@@ -23,4 +23,5 @@ export type Support = SubmittedThing;
 
 export interface Comment extends SubmittedThing {
   comment: string;
+  submitter_name?: string;
 }

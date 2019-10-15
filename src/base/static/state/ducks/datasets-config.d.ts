@@ -29,6 +29,12 @@ export type DatasetConfig = {
     submission_set: string;
   }[];
   report?: DatasetReport;
+  placeConfirmationModal: {
+    [submissionType: string]: {
+      header: string;
+      body: string[];
+    };
+  };
 };
 
 export const hasAnonAbilitiesInAnyDataset: ({
