@@ -78,11 +78,8 @@
   "mapStyle": {
     "mapboxSources": {
       "satellite": {
+        "url": "mapbox://mapbox.satellite",
         "type": "raster",
-        "tiles": [
-          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
-        ],
-        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.",
         "tileSize": 256
       },
       "light-nolabels": {
@@ -95,7 +92,7 @@
       "hydrography": {
         "type": "raster",
         "tiles": [
-          "https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WMSServer?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
+          "https://dxnlossrz98ok.cloudfront.net?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
         ],
         "tileSize": 256
       },
@@ -117,25 +114,25 @@
       "1936aerial": {
         "type": "raster",
         "tiles": [
-          "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1936/MapServer/WMTS?service=wmts&request=gettile&layers=BaseMaps_KingCo_Aerial_1936&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://de2f5qjeube4u.cloudfront.net?service=wmts&request=gettile&layers=BaseMaps_KingCo_Aerial_1936&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
       "bath": {
         "type": "raster",
         "tiles": [
-          "https://server.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/WMTS?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://d1a9j9abs76ti6.cloudfront.net?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
       "hillshade": {
         "type": "raster",
         "tiles": [
-          "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Hillshade/MapServer/WMTS?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://dcq1qcaxzlgt2.cloudfront.net?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
       "contour": {
         "type": "raster",
         "tiles": [
-          "https://gismaps.kingcounty.gov/arcgis/rest/services/Topo/KingCo_Contours/MapServer/WMTS?service=wmts&request=gettile&layers=5&version=1.0.0&tilematrixset=default028mm&format=image/png&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://d2aq75ba8zvq3s.cloudfront.net?service=wmts&request=gettile&layers=5&version=1.0.0&tilematrixset=default028mm&format=image/png&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
       "impervious": {
@@ -1279,6 +1276,7 @@
         "name": "location_type",
         "icon_url": "/static/css/images/markers/marker-star-silver.png",
         "value": "featured_project",
+        "label": "Classroom Project",
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
         "fields": [
           {
@@ -1452,6 +1450,7 @@
         "icon_url": "/static/css/images/markers/marker-star-gold.png",
         "value": "featured_place",
         "visibleLayerGroupIds": ["mw-featured-projects", "mwfeatured"],
+        "label": "Community Project",
         "fields": [
           {
             "name": "lng-lat",
@@ -1553,6 +1552,7 @@
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
         "value": "conserve-water",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will conserve water",
         "fields": [
           {
             "name": "lng-lat",
@@ -1671,6 +1671,7 @@
         "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
         "value": "prevent-stormwater",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will prevent stormwater pollution",
         "fields": [
           {
             "name": "lng-lat",
@@ -2001,6 +2002,7 @@
         "icon_url": "/static/css/images/markers/marker-waste-less.png",
         "value": "waste-less",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will waste less",
         "fields": [
           {
             "name": "lng-lat",
@@ -2099,6 +2101,7 @@
         "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
         "value": "commute-low-carbon",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will commute on low carbon transit",
         "fields": [
           {
             "name": "lng-lat",
@@ -2189,6 +2192,7 @@
         "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
         "value": "eat-local-organic",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will eat local and organic",
         "fields": [
           {
             "name": "lng-lat",
@@ -2271,6 +2275,7 @@
         "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
         "value": "restore-salmon-habitat",
         "visibleLayerGroupIds": ["mw"],
+        "label": "I will help restore salmon habitat",
         "fields": [
           {
             "name": "lng-lat",
@@ -2339,6 +2344,7 @@
     "common_form_elements": {
       "address": {
         "type": "geocoding",
+        "reverseGeocode": false,
         "prompt": "Your address:",
         "placeholder": "Address",
         "optional": true
