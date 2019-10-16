@@ -5,11 +5,49 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import {
+  PaletteColor,
+  PaletteColorOptions,
+} from "@material-ui/core/styles/createPalette";
 import { themePropType, themeSelector } from "../state/ducks/app-config";
 import { Global } from "@emotion/core";
 
 import baseTheme, { globalStyles, baseMuiTheme } from "../../../theme";
 import { lighten, darken, getReadableColor } from "../utils/color";
+
+// Customizations for Material's base Theme object:
+declare module "@material-ui/core/styles/createPalette" {
+  interface Palette {
+    accent: PaletteColor;
+  }
+
+  interface PaletteOptions {
+    accent: PaletteColorOptions;
+  }
+}
+
+declare module "@material-ui/core/styles/createTypography" {
+  type ExtendedThemeStyle =
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "subtitle1"
+    | "subtitle2"
+    | "body1"
+    | "body2"
+    | "caption"
+    | "button"
+    | "overline"
+    | "strong";
+
+  interface TypographyOptions
+    extends Partial<
+      Record<ExtendedThemeStyle, TypographyStyleOptions> & FontStyleOptions
+    > {}
+}
 
 const lookup = (path, obj) =>
   path.reduce((memo, key) => (memo && memo[key] ? memo[key] : null), obj);
@@ -28,86 +66,94 @@ const ThemeProvider = ({ flavorTheme, children }) => {
 
   // TODO: When Emotion themeing is gone, restructure flavor themes to match
   // the MUI schema.
-  const flavorPalettePrimary = lookup(["brand", "primary"], flavorTheme);
-  const flavorPaletteSecondary = lookup(["brand", "secondary"], flavorTheme);
-  const flavorPaletteAccent = lookup(["brand", "accent"], flavorTheme);
-  const flavorPaletteError = lookup(["brand", "error"], flavorTheme);
+  const {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    body1,
+    body2,
+    strong,
+  } = baseMuiTheme.typography;
+  const { primary, secondary, accent, error } = baseMuiTheme.palette;
+  const primaryColor = lookup(["brand", "primary"], flavorTheme) || primary;
+  const secondaryColor =
+    lookup(["brand", "secondary"], flavorTheme) || secondary;
+  const accentColor = lookup(["brand", "accent"], flavorTheme) || accent;
+  const errorColor = lookup(["brand", "error"], flavorTheme) || error;
   const flavorTitleFontFamily = lookup(
     ["text", "titleFontFamily"],
     flavorTheme,
   );
   const flavorBodyFontFamily = lookup(["text", "bodyFontFamily"], flavorTheme);
   const muiTheme = createMuiTheme({
-    ...baseMuiTheme,
-    pallette: {
-      ...baseMuiTheme.palette,
+    palette: {
       primary: {
-        ...baseMuiTheme.palette.primary,
-        main: flavorPalettePrimary,
-        light: lighten(flavorPalettePrimary, 10),
-        dark: darken(flavorPalettePrimary, 10),
-        contrastText: getReadableColor(flavorPalettePrimary),
+        main: primaryColor,
+        light: lighten(primaryColor, 10),
+        dark: darken(primaryColor, 10),
+        contrastText: getReadableColor(primaryColor),
       },
       secondary: {
-        ...baseMuiTheme.palette.secondary,
-        main: flavorPaletteSecondary,
-        light: lighten(flavorPaletteSecondary, 10),
-        dark: darken(flavorPaletteSecondary, 10),
-        contrastText: getReadableColor(flavorPaletteSecondary),
+        main: secondaryColor,
+        light: lighten(secondaryColor, 10),
+        dark: darken(secondaryColor, 10),
+        contrastText: getReadableColor(secondaryColor),
       },
       accent: {
-        ...baseMuiTheme.palette.accent,
-        main: flavorPaletteAccent,
-        light: lighten(flavorPaletteAccent, 10),
-        dark: darken(flavorPaletteAccent, 10),
-        contrastText: getReadableColor(flavorPaletteAccent),
+        main: accentColor,
+        light: lighten(accentColor, 10),
+        dark: darken(accentColor, 10),
+        contrastText: getReadableColor(accentColor),
       },
       error: {
-        ...baseMuiTheme.palette.error,
-        main: flavorPaletteError,
-        light: lighten(flavorPaletteError, 10),
-        dark: darken(flavorPaletteError, 10),
-        contrastText: getReadableColor(flavorPaletteError),
+        main: errorColor,
+        light: lighten(errorColor, 10),
+        dark: darken(errorColor, 10),
+        contrastText: getReadableColor(errorColor),
       },
     },
     typography: {
       ...baseMuiTheme.typography,
       h1: {
-        ...baseMuiTheme.typography.h1,
-        fontFamily: flavorTitleFontFamily,
+        ...h1,
+        fontFamily: flavorTitleFontFamily || h1.fontFamily,
       },
       h2: {
-        ...baseMuiTheme.typography.h2,
-        fontFamily: flavorTitleFontFamily,
+        ...h2,
+        fontFamily: flavorTitleFontFamily || h2.fontFamily,
       },
       h3: {
-        ...baseMuiTheme.typography.h3,
-        fontFamily: flavorTitleFontFamily,
+        ...h3,
+        fontFamily: flavorTitleFontFamily || h3.fontFamily,
       },
       h4: {
-        ...baseMuiTheme.typography.h4,
-        fontFamily: flavorTitleFontFamily,
+        ...h4,
+        fontFamily: flavorTitleFontFamily || h4.fontFamily,
       },
       h5: {
-        ...baseMuiTheme.typography.h5,
-        fontFamily: flavorTitleFontFamily,
+        ...h5,
+        fontFamily: flavorTitleFontFamily || h5.fontFamily,
       },
       h6: {
-        ...baseMuiTheme.typography.h6,
-        fontFamily: flavorTitleFontFamily,
+        ...h6,
+        fontFamily: flavorTitleFontFamily || h6.fontFamily,
       },
       body1: {
-        ...baseMuiTheme.typography.body1,
-        fontFamily: flavorBodyFontFamily,
+        ...body1,
+        fontFamily: flavorBodyFontFamily || body1.fontFamily,
       },
       body2: {
-        ...baseMuiTheme.typography.body2,
-        fontFamily: flavorBodyFontFamily,
+        ...body2,
+        fontFamily: flavorBodyFontFamily || body2.fontFamily,
+      },
+      strong: {
+        ...strong,
       },
     },
   });
-
-  console.log("muiTheme", muiTheme)
 
   return (
     <EmotionThemeProvider theme={theme}>

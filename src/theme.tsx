@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import { PaletteColor } from "@material-ui/core/styles/createPalette";
 
 import { lighten, darken, getReadableColor } from "./base/static/utils/color";
 
@@ -225,9 +226,7 @@ export const baseMuiTheme = {
   typography: {
     // Fonts configured like so:
     // https://material-ui.com/customization/typography/#font-family
-    fontFamily: "PTSansi-Regular,sans-serif",
-    // Fonts, font sizes, etc, can be configured here:
-    // https://material-ui.com/customization/typography/#font-size
+    fontFamily: "PTSans-Regular,sans-serif",
     h1: {
       fontFamily: "Raleway-ExtraBold,sans-serif",
       fontSize: "2rem",
@@ -268,14 +267,10 @@ export const baseMuiTheme = {
 
 export interface MuiTheme {
   palette: {
-    primary: {
-      main: string;
-    };
-    secondary: {
-      light: string;
-      main: string;
-      contrastText: string;
-    };
+    primary: PaletteColor;
+    secondary: PaletteColor;
+    accent: PaletteColor;
+    error: PaletteColor;
   };
   typography: {
     h1: {
@@ -307,6 +302,10 @@ export interface MuiTheme {
       fontSize: string;
     };
     body2: {
+      fontFamily: string;
+      fontSize: string;
+    };
+    strong: {
       fontFamily: string;
       fontSize: string;
     };

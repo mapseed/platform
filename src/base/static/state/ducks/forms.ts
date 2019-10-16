@@ -1,6 +1,7 @@
 import { normalize, schema } from "normalizr";
 import { createSelector } from "reselect";
 import camelcaseKeys from "camelcase-keys";
+import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapViewport } from "./map";
 
@@ -20,6 +21,8 @@ interface BaseFormModule {
   id: number;
   order: number;
   visible: boolean;
+  config: any;
+  type: string;
 }
 
 interface HTMLModule extends BaseFormModule {
@@ -65,6 +68,16 @@ export type PlaceForm = {
 export type CommentForm = {}; // TODO
 
 export type Form = PlaceForm | CommentForm;
+
+export type MapseedFormFieldProps = {
+  label?: string;
+  private: boolean;
+  required: boolean;
+  placeholder?: string;
+  moduleId: number;
+};
+
+export type FormFieldProps = MapseedFormFieldProps & FormikFieldProps;
 
 // Selectors:
 const formModulesSelector = state => state.forms.entities.modules;

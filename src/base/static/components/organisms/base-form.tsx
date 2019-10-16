@@ -55,6 +55,7 @@ const BaseForm = (props: BaseFormProps) => {
 
         return (
           <FormControl
+            key={id}
             fullWidth={true}
             margin={idx === 0 ? "none" : "normal"}
             variant="outlined"

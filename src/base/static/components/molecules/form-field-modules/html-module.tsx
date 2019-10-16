@@ -2,22 +2,27 @@
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import { withTranslation, WithTranslation } from "react-i18next";
-import { withTheme } from "@material-ui/styles";
+import { useTheme } from "@material-ui/styles";
+
+import { MuiTheme } from "../../../../../theme";
 
 type OwnProps = {
   moduleId: number;
   content: string;
+  theme: MuiTheme;
 };
 
 type HTMLModuleProps = OwnProps & WithTranslation;
 
 const HTMLModule = (props: HTMLModuleProps) => {
+  const theme = useTheme<MuiTheme>();
+
   return (
     <div
       css={css`
         p {
-          font-family: ${props.theme.typography.body1.fontFamily};
-          font-size: ${props.theme.typography.body1.fontSize};
+          font-family: ${theme.typography.body1.fontFamily};
+          font-size: ${theme.typography.body1.fontSize};
           margin: 0 0 16px 0;
         }
         img {
@@ -43,7 +48,7 @@ const HTMLModule = (props: HTMLModuleProps) => {
           margin: 0 0 12px 0;
         }
         strong {
-          font-family: ${props.theme.typography.strong.fontFamily};
+          font-family: ${theme.typography.strong.fontFamily};
         }
       `}
       dangerouslySetInnerHTML={{
@@ -53,4 +58,4 @@ const HTMLModule = (props: HTMLModuleProps) => {
   );
 };
 
-export default withTheme(withTranslation("HTMLModule")(HTMLModule));
+export default withTranslation("HTMLModule")(HTMLModule);
