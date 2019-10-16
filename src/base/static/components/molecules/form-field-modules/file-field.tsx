@@ -130,8 +130,9 @@ const CanvasThumbnail = props => {
     }
 
     const scale = THUMBNAIL_WIDTH / props.canvas.width;
+    const height = props.canvas.height * scale;
     canvasThumbnailRef.current.width = THUMBNAIL_WIDTH;
-    canvasThumbnailRef.current.height = props.canvas.height * scale;
+    canvasThumbnailRef.current.height = height;
     canvasThumbnailRef.current.getContext("2d").scale(scale, scale);
     canvasThumbnailRef.current.getContext("2d").drawImage(props.canvas, 0, 0);
   }, [canvasThumbnailRef]);
@@ -139,7 +140,10 @@ const CanvasThumbnail = props => {
   return (
     <div
       css={css`
+        height: ${props.canvas.height *
+          (THUMBNAIL_WIDTH / props.canvas.width)}px;
         position: relative;
+        border-radius: 4px;
         margin: 8px;
         box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
           0px 2px 2px 0px rgba(0, 0, 0, 0.14),
@@ -157,7 +161,7 @@ const CanvasThumbnail = props => {
           position: absolute;
           right: 0;
         `}
-        onClick={() => console.log("CLICK")}
+        onClick={() => props.onClickRemoveThumbnail(props.idx)}
       />
     </div>
   );
@@ -167,27 +171,38 @@ const FileField = (props: FileFieldProps) => {
   const fileFieldRef = React.useRef<HTMLElement>(null);
   const [thumbnails, setThumbnails] = React.useState([]);
   const handleFileChange = React.useCallback(evt => {
-    //evt.persist();
-
     if (evt.target.files && evt.target.files.length > 0) {
-      const file = evt.target.files[0];
-      //this.setState({ displayFilename: file.name });
+      // NOTE: `evt.target.files` is a FileList object.
+      // See: https://developer.mozilla.org/en-US/docs/Web/API/FileList
+      Promise.all(
+        [...evt.target.files].map(file => {
+          return new Promise((resolve, reject) => {
+            fileToCanvas(file, canvas => {
+              resolve({ canvas, filename: file.name });
 
-      fileToCanvas(file, canvas => {
-        setThumbnails(thumbnails.concat(canvas));
+              //canvas.toBlob(blob => {
+              //  const fileObj = {
+              //    name: file.name,
+              //    blob: blob,
+              //    file: canvas.toDataURL("image/jpeg"),
+              //    type: "CO", // cover image
+              //  };
 
-        canvas.toBlob(blob => {
-          const fileObj = {
-            name: this.props.name,
-            blob: blob,
-            file: canvas.toDataURL("image/jpeg"),
-            type: "CO", // cover image
-          };
-
-          // TODO: onchange here with file blob contents
-        }, "image/jpeg");
+              //  // TODO: onchange here with file blob contents
+              //}, "image/jpeg");
+            });
+          });
+        }),
+      ).then(newThumbnails => {
+        console.log("newThumbnails", newThumbnails);
+        setThumbnails(thumbnails.concat(newThumbnails));
       });
     }
+  });
+
+  const onClickRemoveThumbnail = React.useCallback(idx => {
+    console.log("onClickRemoveThumbnail", idx);
+    setThumbnails(thumbnails.filter((_, i) => i !== idx));
   });
 
   return (
@@ -212,7 +227,7 @@ const FileField = (props: FileFieldProps) => {
       <div
         css={css`
           margin-top: 8px;
-          border: 0.5px solid #eee;
+          border: 1px dashed #ccc;
           border-radius: 4px;
           display: flex;
           align-items: flex-start;
@@ -226,7 +241,14 @@ const FileField = (props: FileFieldProps) => {
             `}
           />
         ) : (
-          thumbnails.map(canvas => <CanvasThumbnail canvas={canvas} />)
+          thumbnails.map((thumbnail, idx) => (
+            <CanvasThumbnail
+              key={thumbnail.filename}
+              idx={idx}
+              onClickRemoveThumbnail={idx => onClickRemoveThumbnail(idx)}
+              canvas={thumbnail.canvas}
+            />
+          ))
         )}
       </div>
     </div>
