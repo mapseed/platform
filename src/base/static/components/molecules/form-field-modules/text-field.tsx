@@ -2,18 +2,9 @@ import React from "react";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { withTranslation, WithTranslation } from "react-i18next";
 
-type OwnProps = {
-  moduleId: number;
-  key: string;
-  label?: string;
-  private: boolean;
-  required: boolean;
-  placeholder?: string;
-  value: string;
-  onChange: (evt: React.ChangeEvent) => void;
-};
+import { FormFieldProps } from "../../../state/ducks/forms";
 
-type TextFieldProps = OwnProps & WithTranslation;
+type TextFieldProps = FormFieldProps & WithTranslation;
 
 const TextField = (props: TextFieldProps) => {
   const { field } = props;
@@ -21,9 +12,10 @@ const TextField = (props: TextFieldProps) => {
   return (
     <OutlinedInput
       type={"text"}
-      id={props.name}
       notched={true}
+      id={field.name}
       name={field.name}
+      labelWidth={0}
       value={field.value}
       onChange={field.onChange}
       placeholder={props.t(
@@ -35,4 +27,4 @@ const TextField = (props: TextFieldProps) => {
 };
 
 // TODO: useTranslation
-export default withTranslation("OutlinedInput")(OutlinedInput);
+export default withTranslation("TextField")(TextField);

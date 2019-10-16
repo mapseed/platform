@@ -17,73 +17,10 @@ type OwnProps = {
 
 type FileFieldProps = OwnProps & WithTranslation;
 
-//const _fixImageOrientation = (canvas, orientation) => {
-//  const rotated = document.createElement("canvas");
-//  const ctx = rotated.getContext("2d");
-//  const width = canvas.width;
-//  const height = canvas.height;
-//
-//  switch (orientation) {
-//    case 5:
-//    case 6:
-//    case 7:
-//    case 8:
-//      rotated.width = canvas.height;
-//      rotated.height = canvas.width;
-//      break;
-//    default:
-//      rotated.width = canvas.width;
-//      rotated.height = canvas.height;
-//  }
-//
-//  switch (orientation) {
-//    case 1:
-//      // nothing
-//      break;
-//    case 2:
-//      // horizontal flip
-//      ctx.translate(width, 0);
-//      ctx.scale(-1, 1);
-//      break;
-//    case 3:
-//      // 180 rotate left
-//      ctx.translate(width, height);
-//      ctx.rotate(Math.PI);
-//      break;
-//    case 4:
-//      // vertical flip
-//      ctx.translate(0, height);
-//      ctx.scale(1, -1);
-//      break;
-//    case 5:
-//      // vertical flip + 90 rotate right
-//      ctx.rotate(0.5 * Math.PI);
-//      ctx.scale(1, -1);
-//      break;
-//    case 6:
-//      // 90 rotate right
-//      ctx.rotate(0.5 * Math.PI);
-//      ctx.translate(0, -height);
-//      break;
-//    case 7:
-//      // horizontal flip + 90 rotate right
-//      ctx.rotate(0.5 * Math.PI);
-//      ctx.translate(width, -height);
-//      ctx.scale(-1, 1);
-//      break;
-//    case 8:
-//      // 90 rotate left
-//      ctx.rotate(-0.5 * Math.PI);
-//      ctx.translate(-width, 0);
-//      break;
-//    default:
-//      break;
-//  }
-//
-//  ctx.drawImage(canvas, 0, 0);
-//
-//  return rotated;
-//};
+type ThumbnailInfo = {
+  canvas: HTMLCanvasElement;
+  filename: string;
+};
 
 const fileToCanvas = (file, callback) => {
   loadImage(
@@ -98,50 +35,31 @@ const fileToCanvas = (file, callback) => {
       canvas: true,
     },
   );
-
-  //  //const fr = new FileReader();
-  //
-  //  //fr.onloadend = function() {
-  //  EXIF.getData(file, function() {
-  //    const orientation = EXIF.getTag(this, "Orientation");
-  //  });
-  //  //const exif = EXIF.readFromBinaryFile(new BinaryFile(this.result));
-  //
-  //  loadImage(
-  //    file,
-  //    function(canvas) {
-  //      // rotate the image, if needed
-  //      const rotated = _fixImageOrientation(canvas, orientation);
-  //      callback(rotated);
-  //    },
-  //    options,
-  //  );
-  //  //};
-  //
-  //  //fr.readAsArrayBuffer(file); // read the file
 };
 const THUMBNAIL_WIDTH = 100;
 
 const CanvasThumbnail = props => {
-  const canvasThumbnailRef = React.useRef<HTMLElement>(null);
+  const canvasThumbnailRef = React.useRef<HTMLCanvasElement>(null);
+  const { canvas } = props;
   React.useEffect(() => {
     if (!canvasThumbnailRef || !canvasThumbnailRef.current) {
       return;
     }
 
-    const scale = THUMBNAIL_WIDTH / props.canvas.width;
-    const height = props.canvas.height * scale;
+    const scale = THUMBNAIL_WIDTH / canvas.width;
+    const height = canvas.height * scale;
     canvasThumbnailRef.current.width = THUMBNAIL_WIDTH;
     canvasThumbnailRef.current.height = height;
-    canvasThumbnailRef.current.getContext("2d").scale(scale, scale);
-    canvasThumbnailRef.current.getContext("2d").drawImage(props.canvas, 0, 0);
-  }, [canvasThumbnailRef]);
+
+    const ctx = canvasThumbnailRef.current.getContext("2d");
+    ctx && ctx.scale(scale, scale);
+    ctx && ctx.drawImage(canvas, 0, 0);
+  }, [canvasThumbnailRef, canvas]);
 
   return (
     <div
       css={css`
-        height: ${props.canvas.height *
-          (THUMBNAIL_WIDTH / props.canvas.width)}px;
+        height: ${canvas.height * (THUMBNAIL_WIDTH / canvas.width)}px;
         position: relative;
         border-radius: 4px;
         margin: 8px;
@@ -168,42 +86,45 @@ const CanvasThumbnail = props => {
 };
 
 const FileField = (props: FileFieldProps) => {
-  const fileFieldRef = React.useRef<HTMLElement>(null);
-  const [thumbnails, setThumbnails] = React.useState([]);
-  const handleFileChange = React.useCallback(evt => {
-    if (evt.target.files && evt.target.files.length > 0) {
-      // NOTE: `evt.target.files` is a FileList object.
-      // See: https://developer.mozilla.org/en-US/docs/Web/API/FileList
-      Promise.all(
-        [...evt.target.files].map(file => {
-          return new Promise((resolve, reject) => {
-            fileToCanvas(file, canvas => {
-              resolve({ canvas, filename: file.name });
+  const fileFieldRef = React.useRef<HTMLInputElement>(null);
+  const [thumbnails, setThumbnails] = React.useState<ThumbnailInfo[]>([]);
+  const handleFileChange = React.useCallback(
+    evt => {
+      if (evt.target.files && evt.target.files.length > 0) {
+        Promise.all(
+          // NOTE: `evt.target.files` is a FileList object.
+          // See: https://developer.mozilla.org/en-US/docs/Web/API/FileList
+          [...evt.target.files].map(file => {
+            return new Promise(resolve => {
+              fileToCanvas(file, canvas => {
+                resolve({ canvas, filename: file.name } as ThumbnailInfo);
 
-              //canvas.toBlob(blob => {
-              //  const fileObj = {
-              //    name: file.name,
-              //    blob: blob,
-              //    file: canvas.toDataURL("image/jpeg"),
-              //    type: "CO", // cover image
-              //  };
+                //canvas.toBlob(blob => {
+                //  const fileObj = {
+                //    name: file.name,
+                //    blob: blob,
+                //    file: canvas.toDataURL("image/jpeg"),
+                //    type: "CO", // cover image
+                //  };
 
-              //  // TODO: onchange here with file blob contents
-              //}, "image/jpeg");
+                //  // TODO: onchange here with file blob contents
+                //}, "image/jpeg");
+              });
             });
-          });
-        }),
-      ).then(newThumbnails => {
-        console.log("newThumbnails", newThumbnails);
-        setThumbnails(thumbnails.concat(newThumbnails));
-      });
-    }
-  });
-
-  const onClickRemoveThumbnail = React.useCallback(idx => {
-    console.log("onClickRemoveThumbnail", idx);
-    setThumbnails(thumbnails.filter((_, i) => i !== idx));
-  });
+          }),
+        ).then(newThumbnails =>
+          setThumbnails(thumbnails.concat(newThumbnails as ThumbnailInfo[])),
+        );
+      }
+    },
+    [thumbnails],
+  );
+  const onClickRemoveThumbnail = React.useCallback(
+    idx => {
+      setThumbnails(thumbnails.filter((_, i) => i !== idx));
+    },
+    [thumbnails],
+  );
 
   return (
     <div>

@@ -4,7 +4,7 @@ import { Formik } from "formik";
 
 import BaseForm from "./base-form";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
-import { PlaceForm, Form } from "../../state/ducks/forms";
+import { PlaceForm, Form, FormModule } from "../../state/ducks/forms";
 import { MapViewport } from "../../state/ducks/map";
 import { layoutSelector, Layout } from "../../state/ducks/ui";
 import eventEmitter from "../../utils/event-emitter";
@@ -15,9 +15,12 @@ type PlaceFormProps = {
 
 const getModuleName = (id: number, key: string) => (key ? key : `field-${id}`);
 
-const calculateInitialValues = (form: Form) =>
+const calculateInitialValues = (form: PlaceForm) =>
   form.stages
-    .reduce((formModules, stage) => formModules.concat(stage.modules), [])
+    .reduce(
+      (formModules, stage) => formModules.concat(stage.modules),
+      [] as FormModule[],
+    )
     .reduce((initialValues, { id, config }) => {
       return {
         ...initialValues,
