@@ -37,8 +37,6 @@ const MODULES = {
 
 // TODO
 const validate = value => {
-  console.log("validating", value);
-
   return true;
 };
 

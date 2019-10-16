@@ -1,11 +1,15 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
 
 import BaseForm from "./base-form";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import { PlaceForm, Form, FormModule } from "../../state/ducks/forms";
 import { MapViewport } from "../../state/ducks/map";
+import {
+  layerGroupsSelector,
+  updateLayerGroupVisibility,
+} from "../../state/ducks/map-style";
 import { layoutSelector, Layout } from "../../state/ducks/ui";
 import eventEmitter from "../../utils/event-emitter";
 
@@ -34,6 +38,8 @@ const calculateInitialValues = (form: PlaceForm) =>
 const MapseedPlaceForm = (props: PlaceFormProps) => {
   const [currentStage, setCurrentStage] = React.useState<number>(0);
   const layout: Layout = useSelector(layoutSelector);
+  const dispatch = useDispatch();
+  const layerGroups = useSelector(layerGroupsSelector);
   const onClickAdvanceStage = React.useCallback(() => {
     if (currentStage < props.placeForm.stages.length - 1) {
       setCurrentStage(currentStage + 1);
@@ -48,20 +54,25 @@ const MapseedPlaceForm = (props: PlaceFormProps) => {
     const stageViewport: MapViewport | undefined =
       props.placeForm.stages[currentStage].mapViewport;
     stageViewport && eventEmitter.emit("setMapViewport", stageViewport);
-
     const stageLayerGroups =
       props.placeForm.stages[currentStage].visibleLayerGroups;
-    //stageConfig.visibleLayerGroupIds &&
-    //  this.updateLayerGroupVisibilities(
-    //    stageConfig.visibleLayerGroupIds,
-    //    true,
-    //  );
+
+    if (stageLayerGroups) {
+      // Set layer visibilities for this stage.
+      const stageLayerGroupIds = new Set(
+        stageLayerGroups.map(layerGroup => layerGroup.label),
+      );
+
+      layerGroups.allIds.forEach(id => {
+        dispatch(updateLayerGroupVisibility(id, !!stageLayerGroupIds.has(id)));
+      });
+    }
   }, [currentStage]);
 
   return (
     <div>
       <Formik
-        onSubmit={values => console.log(JSON.stringify(values, null, 2))}
+        onSubmit={() => null}
         initialValues={calculateInitialValues(props.placeForm)}
         render={() => (
           <BaseForm modules={props.placeForm.stages[currentStage].modules} />

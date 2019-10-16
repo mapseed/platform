@@ -52,8 +52,12 @@ export type FormModule =
   | FileField
   | TextField;
 
+type StageMapLayer = {
+  label: string;
+};
+
 export type PlaceFormStage = {
-  visibleLayerGroups: string[];
+  visibleLayerGroups: StageMapLayer[];
   mapViewport: MapViewport;
   modules: FormModule[];
 };

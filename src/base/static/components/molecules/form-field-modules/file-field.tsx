@@ -136,7 +136,7 @@ const FileField = (props: FileFieldProps) => {
         onChange={handleFileChange}
       />
       <Button
-        variant="contained"
+        variant="outlined"
         color="secondary"
         startIcon={<CloudUploadIcon />}
         onClick={() => {
@@ -153,6 +153,7 @@ const FileField = (props: FileFieldProps) => {
           display: flex;
           align-items: flex-start;
           flex-wrap: wrap;
+          min-height: 88px;
         `}
       >
         {thumbnails.length === 0 ? (

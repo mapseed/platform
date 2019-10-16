@@ -43,6 +43,7 @@ declare module "@material-ui/core/styles/createTypography" {
     | "overline"
     | "strong";
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface TypographyOptions
     extends Partial<
       Record<ExtendedThemeStyle, TypographyStyleOptions> & FontStyleOptions
