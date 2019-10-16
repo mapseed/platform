@@ -2,6 +2,7 @@
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import { Field, Form as FormikForm, FormikProps, FormikValues } from "formik";
+import Typography from "@material-ui/core/Typography";
 
 import HTMLModule from "../molecules/form-field-modules/html-module";
 import TextField from "../molecules/form-field-modules/text-field";
@@ -75,6 +76,20 @@ const BaseForm = (props: BaseFormProps) => {
               component={MODULES[type]}
               {...config}
             />
+            {props.errors[moduleName] && props.touched[moduleName] && (
+              <Typography
+                css={css`
+                  margin-left: 16px;
+                  margin-top: 4px;
+                  font-style: italic;
+                `}
+                variant="caption"
+                align="left"
+                color="error"
+              >
+                {props.errors[moduleName]}
+              </Typography>
+            )}
           </FormControl>
         );
       })}

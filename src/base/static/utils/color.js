@@ -25,3 +25,10 @@ export const darken = (color, darkness) => {
   const tc = tinycolor(color);
   return tc.darken(darkness).toString();
 };
+
+export const makePaletteColors = baseColor => ({
+  main: baseColor,
+  light: lighten(baseColor, 10),
+  dark: darken(baseColor, 10),
+  contrastText: getReadableColor(baseColor),
+});

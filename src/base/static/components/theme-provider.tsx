@@ -13,7 +13,12 @@ import { themePropType, themeSelector } from "../state/ducks/app-config";
 import { Global } from "@emotion/core";
 
 import baseTheme, { globalStyles, baseMuiTheme } from "../../../theme";
-import { lighten, darken, getReadableColor } from "../utils/color";
+import {
+  lighten,
+  darken,
+  getReadableColor,
+  makePaletteColors,
+} from "../utils/color";
 
 // Customizations for Material's base Theme object:
 declare module "@material-ui/core/styles/createPalette" {
@@ -53,6 +58,13 @@ declare module "@material-ui/core/styles/createTypography" {
 const lookup = (path, obj) =>
   path.reduce((memo, key) => (memo && memo[key] ? memo[key] : null), obj);
 
+const makePaletteColor = baseColor => ({
+  main: baseColor,
+  light: lighten("#007fbf", 10),
+  dark: darken("#007fbf", 10),
+  contrastText: getReadableColor("#007fbf"),
+});
+
 const ThemeProvider = ({ flavorTheme, children }) => {
   const theme = {
     ...baseTheme,
@@ -79,11 +91,10 @@ const ThemeProvider = ({ flavorTheme, children }) => {
     strong,
   } = baseMuiTheme.typography;
   const { primary, secondary, accent, error } = baseMuiTheme.palette;
-  const primaryColor = lookup(["brand", "primary"], flavorTheme) || primary;
-  const secondaryColor =
-    lookup(["brand", "secondary"], flavorTheme) || secondary;
-  const accentColor = lookup(["brand", "accent"], flavorTheme) || accent;
-  const errorColor = lookup(["brand", "error"], flavorTheme) || error;
+  const flavorPrimaryColor = lookup(["brand", "primary"], flavorTheme);
+  const flavorSecondaryColor = lookup(["brand", "secondary"], flavorTheme);
+  const flavorAccentColor = lookup(["brand", "accent"], flavorTheme);
+  const flavorErrorColor = lookup(["brand", "error"], flavorTheme);
   const flavorTitleFontFamily = lookup(
     ["text", "titleFontFamily"],
     flavorTheme,
@@ -91,30 +102,14 @@ const ThemeProvider = ({ flavorTheme, children }) => {
   const flavorBodyFontFamily = lookup(["text", "bodyFontFamily"], flavorTheme);
   const muiTheme = createMuiTheme({
     palette: {
-      primary: {
-        main: primaryColor,
-        light: lighten(primaryColor, 10),
-        dark: darken(primaryColor, 10),
-        contrastText: getReadableColor(primaryColor),
-      },
-      secondary: {
-        main: secondaryColor,
-        light: lighten(secondaryColor, 10),
-        dark: darken(secondaryColor, 10),
-        contrastText: getReadableColor(secondaryColor),
-      },
-      accent: {
-        main: accentColor,
-        light: lighten(accentColor, 10),
-        dark: darken(accentColor, 10),
-        contrastText: getReadableColor(accentColor),
-      },
-      error: {
-        main: errorColor,
-        light: lighten(errorColor, 10),
-        dark: darken(errorColor, 10),
-        contrastText: getReadableColor(errorColor),
-      },
+      primary: flavorPrimaryColor
+        ? makePaletteColors(flavorPrimaryColor)
+        : primary,
+      secondary: flavorSecondaryColor
+        ? makePaletteColors(flavorSecondaryColor)
+        : secondary,
+      accent: flavorAccentColor ? makePaletteColors(flavorAccentColor) : accent,
+      error: flavorErrorColor ? makePaletteColors(flavorErrorColor) : error,
     },
     typography: {
       ...baseMuiTheme.typography,
@@ -155,6 +150,7 @@ const ThemeProvider = ({ flavorTheme, children }) => {
       },
     },
   });
+  console.log("muiTheme", muiTheme);
 
   return (
     <EmotionThemeProvider theme={theme}>

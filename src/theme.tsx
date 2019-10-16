@@ -1,7 +1,12 @@
 import { css } from "@emotion/core";
 import { PaletteColor } from "@material-ui/core/styles/createPalette";
 
-import { lighten, darken, getReadableColor } from "./base/static/utils/color";
+import {
+  lighten,
+  darken,
+  getReadableColor,
+  makePaletteColors,
+} from "./base/static/utils/color";
 
 // Add font faces and other global styles:
 export const globalStyles = theme => css`
@@ -198,30 +203,10 @@ export const baseMuiTheme = {
   // TODO: Start using this schema in our Config and our Emotion
   // theme provider
   palette: {
-    primary: {
-      main: "#007fbf",
-      light: lighten("#007fbf", 10),
-      dark: darken("#007fbf", 10),
-      contrastText: getReadableColor("#007fbf"),
-    },
-    secondary: {
-      main: "#a3c7d9",
-      light: lighten("#a3c7d9", 10),
-      dark: darken("#a3c7d9", 10),
-      contrastText: getReadableColor("#a3c7d9"),
-    },
-    accent: {
-      main: "#0af",
-      light: lighten("#0af", 10),
-      dark: darken("#0af", 10),
-      contrastText: getReadableColor("#0af"),
-    },
-    error: {
-      main: "#dc3545",
-      light: lighten("#dc3545", 10),
-      dark: darken("#dc3545", 10),
-      contrastText: getReadableColor("#dc3545"),
-    },
+    primary: makePaletteColors("#007fbf"),
+    secondary: makePaletteColors("#a3c7d9"),
+    accent: makePaletteColors("#0af"),
+    error: makePaletteColors("#dc3545"),
   },
   typography: {
     // Fonts configured like so:
