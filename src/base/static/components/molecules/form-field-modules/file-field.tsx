@@ -20,6 +20,7 @@ type FileFieldProps = OwnProps & WithTranslation;
 type ThumbnailInfo = {
   canvas: HTMLCanvasElement;
   filename: string;
+  uploadedDatetime: number;
 };
 
 const fileToCanvas = (file, callback) => {
@@ -98,7 +99,11 @@ const FileField = (props: FileFieldProps) => {
           [...evt.target.files].map(file => {
             return new Promise(resolve => {
               fileToCanvas(file, canvas => {
-                resolve({ canvas, filename: file.name } as ThumbnailInfo);
+                resolve({
+                  canvas,
+                  filename: file.name,
+                  uploadedDatetime: new Date().getTime(),
+                } as ThumbnailInfo);
 
                 //canvas.toBlob(blob => {
                 //  const fileObj = {
@@ -113,9 +118,9 @@ const FileField = (props: FileFieldProps) => {
               });
             });
           }),
-        ).then(newThumbnails =>
-          setThumbnails(thumbnails.concat(newThumbnails as ThumbnailInfo[])),
-        );
+        ).then(newThumbnails => {
+          setThumbnails(thumbnails.concat(newThumbnails as ThumbnailInfo[]));
+        });
       }
     },
     [thumbnails],
@@ -166,7 +171,7 @@ const FileField = (props: FileFieldProps) => {
         ) : (
           thumbnails.map((thumbnail, idx) => (
             <CanvasThumbnail
-              key={thumbnail.filename}
+              key={`${thumbnail.filename}${thumbnail.uploadedDatetime}`}
               idx={idx}
               onClickRemoveThumbnail={idx => onClickRemoveThumbnail(idx)}
               canvas={thumbnail.canvas}
