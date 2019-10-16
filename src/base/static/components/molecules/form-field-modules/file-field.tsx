@@ -46,6 +46,7 @@ const CanvasThumbnail = props => {
       return;
     }
 
+    // TOOD: fix crash on bad file types.
     const scale = THUMBNAIL_WIDTH / canvas.width;
     const height = canvas.height * scale;
     canvasThumbnailRef.current.width = THUMBNAIL_WIDTH;

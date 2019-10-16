@@ -17,6 +17,7 @@ const TextField = (props: TextFieldProps) => {
       name={field.name}
       labelWidth={0}
       value={field.value}
+      onBlur={field.onBlur}
       onChange={field.onChange}
       placeholder={props.t(
         `textFieldLabel${props.moduleId}`,

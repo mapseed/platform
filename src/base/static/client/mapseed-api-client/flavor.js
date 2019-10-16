@@ -264,11 +264,25 @@ const TEMP = {
               visible: true,
             },
             {
+              id: 366,
+              textfield: {
+                key: "private-submitter_email",
+                prompt: "Your Email:",
+                label: "",
+                private: true,
+                required: true,
+                placeholder: "Your email will not appear on the map",
+                variant: "EM",
+              },
+              order: 7,
+              visible: true,
+            },
+            {
               id: 65,
               submitbuttonmodule: {
                 label: "Suggest it!",
               },
-              order: 7,
+              order: 8,
               visible: true,
             },
           ],

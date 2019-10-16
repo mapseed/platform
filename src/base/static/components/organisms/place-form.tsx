@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import * as React from "react";
+import { jsx, css } from "@emotion/core";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik } from "formik";
 
@@ -70,12 +72,21 @@ const MapseedPlaceForm = (props: PlaceFormProps) => {
   }, [currentStage]);
 
   return (
-    <div>
+    <div
+      css={css`
+        margin-bottom: ${props.placeForm.stages.length > 1 ? "112px" : 0};
+      `}
+    >
       <Formik
+        validateOnChange={false}
+        validateOnBlur={true}
         onSubmit={() => null}
         initialValues={calculateInitialValues(props.placeForm)}
-        render={() => (
-          <BaseForm modules={props.placeForm.stages[currentStage].modules} />
+        render={formikProps => (
+          <BaseForm
+            modules={props.placeForm.stages[currentStage].modules}
+            {...formikProps}
+          />
         )}
       />
 

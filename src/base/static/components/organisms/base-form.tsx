@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
-import { Field, Form as FormikForm } from "formik";
+import { Field, Form as FormikForm, FormikProps, FormikValues } from "formik";
 
 import HTMLModule from "../molecules/form-field-modules/html-module";
 import TextField from "../molecules/form-field-modules/text-field";
@@ -20,10 +20,11 @@ import { Form, FormModule } from "../../state/ducks/forms";
 //  - styling
 //  - admin-only fields
 
-type BaseFormProps = {
+type OwnProps = {
   modules: FormModule[];
-  //onSubmit: Function; // TODO
 };
+
+type BaseFormProps = OwnProps & FormikProps<FormikValues>;
 
 const UnknownModule = () => null;
 
@@ -33,11 +34,6 @@ const MODULES = {
   submitbuttonmodule: SubmitButtonModule,
   filefield: FileField,
   unknownmodule: UnknownModule,
-};
-
-// TODO
-const validate = value => {
-  return true;
 };
 
 const getModuleName = (id: number, key?: string) => (key ? key : `field-${id}`);
@@ -75,6 +71,7 @@ const BaseForm = (props: BaseFormProps) => {
               id={moduleName}
               name={moduleName}
               moduleId={id}
+              validate={() => "O HAI IM UR ERROR"}
               component={MODULES[type]}
               {...config}
             />
