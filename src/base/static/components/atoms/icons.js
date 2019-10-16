@@ -176,11 +176,7 @@ MuiDiscourseIcon.propTypes = {
   fill: PropTypes.string.isRequired,
 };
 
-const PlaceholderPicture = ({
-  width = "100px",
-  height = "70px",
-  ...props
-}) => (
+const PlaceholderPicture = ({ width = "100px", height = "70px", ...props }) => (
   <svg width={width} height={height} viewBox="0 0 360 252" {...props}>
     <path
       fill="#F2F2F2"

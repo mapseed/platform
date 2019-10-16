@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 
-//import GeocodingField from "../molecules/form-field-types/geocoding-field";
+import GeocodingField from "../molecules/form-field-modules/geocoding-field";
 
 import { uiVisibilitySelector, layoutSelector } from "../../state/ducks/ui";
 
