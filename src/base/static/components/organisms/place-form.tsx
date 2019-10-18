@@ -6,18 +6,19 @@ import { Formik } from "formik";
 
 import BaseForm from "./base-form";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
-import { PlaceForm, FormModule } from "../../state/ducks/forms";
+import {
+  PlaceForm,
+  FormModule,
+  placeFormSelector,
+} from "../../state/ducks/forms";
 import { MapViewport } from "../../state/ducks/map";
 import {
   layerGroupsSelector,
   updateLayerGroupVisibility,
+  LayerGroups,
 } from "../../state/ducks/map-style";
 import { layoutSelector, Layout } from "../../state/ducks/ui";
 import eventEmitter from "../../utils/event-emitter";
-
-type PlaceFormProps = {
-  placeForm: PlaceForm;
-};
 
 const calculateInitialValues = (form: PlaceForm) =>
   form.stages
@@ -25,7 +26,7 @@ const calculateInitialValues = (form: PlaceForm) =>
       (formModules, stage) => formModules.concat(stage.modules),
       [] as FormModule[],
     )
-    .reduce((initialValues, { id, key, defaultValue }) => {
+    .reduce((initialValues, { key, defaultValue }) => {
       return {
         ...initialValues,
         // TODO: other default value use cases:
@@ -35,16 +36,23 @@ const calculateInitialValues = (form: PlaceForm) =>
       };
     }, {});
 
-const MapseedPlaceForm = (props: PlaceFormProps) => {
+const layerGroupsEqualityComparator = (a, b) =>
+  a.allIds.length === b.allIds.length;
+
+const MapseedPlaceForm = () => {
   const [currentStage, setCurrentStage] = React.useState<number>(0);
   const layout: Layout = useSelector(layoutSelector);
   const dispatch = useDispatch();
-  const layerGroups = useSelector(layerGroupsSelector);
+  const placeForm: PlaceForm = useSelector(placeFormSelector);
+  const layerGroups: LayerGroups = useSelector(
+    layerGroupsSelector,
+    layerGroupsEqualityComparator,
+  );
   const onClickAdvanceStage = React.useCallback(() => {
-    if (currentStage < props.placeForm.stages.length - 1) {
+    if (currentStage < placeForm.stages.length - 1) {
       setCurrentStage(currentStage + 1);
     }
-  }, [currentStage]);
+  }, [currentStage, placeForm]);
   const onClickRetreatStage = React.useCallback(() => {
     if (currentStage > 0) {
       setCurrentStage(currentStage - 1);
@@ -52,37 +60,36 @@ const MapseedPlaceForm = (props: PlaceFormProps) => {
   }, [currentStage]);
   React.useEffect(() => {
     const stageViewport: MapViewport | undefined =
-      props.placeForm.stages[currentStage].mapViewport;
+      placeForm.stages[currentStage].mapViewport;
     stageViewport && eventEmitter.emit("setMapViewport", stageViewport);
-    const stageLayerGroups =
-      props.placeForm.stages[currentStage].visibleLayerGroups;
+    const stageLayerGroups = new Set(
+      placeForm.stages[currentStage].visibleLayerGroups,
+    );
 
-    if (stageLayerGroups) {
+    if (stageLayerGroups.size > 0) {
       // Set layer visibilities for this stage.
-      const stageLayerGroupIds = new Set(
-        stageLayerGroups.map(layerGroup => layerGroup.label),
-      );
-
       layerGroups.allIds.forEach(id => {
-        dispatch(updateLayerGroupVisibility(id, !!stageLayerGroupIds.has(id)));
+        dispatch(updateLayerGroupVisibility(id, !!stageLayerGroups.has(id)));
       });
     }
-  }, [currentStage]);
+  }, [currentStage, dispatch, placeForm, layerGroups]);
+  const onClickSkipStage = stageId => setCurrentStage(stageId - 1);
 
   return (
     <div
       css={css`
-        margin-bottom: ${props.placeForm.stages.length > 1 ? "112px" : 0};
+        margin-bottom: ${placeForm.stages.length > 1 ? "112px" : 0};
       `}
     >
       <Formik
         validateOnChange={false}
         validateOnBlur={true}
         onSubmit={() => null}
-        initialValues={calculateInitialValues(props.placeForm)}
+        initialValues={calculateInitialValues(placeForm)}
         render={formikProps => (
           <BaseForm
-            modules={props.placeForm.stages[currentStage].modules}
+            modules={placeForm.stages[currentStage].modules}
+            onClickSkipStage={onClickSkipStage}
             {...formikProps}
           />
         )}
@@ -93,7 +100,7 @@ const MapseedPlaceForm = (props: PlaceFormProps) => {
         onClickAdvanceStage={onClickAdvanceStage}
         onClickRetreatStage={onClickRetreatStage}
         currentStage={currentStage}
-        numStages={props.placeForm.stages.length}
+        numStages={placeForm.stages.length}
       />
     </div>
   );

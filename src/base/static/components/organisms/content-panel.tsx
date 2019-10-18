@@ -20,7 +20,6 @@ import {
   Layout,
   rightSidebarVisibilitySelector,
 } from "../../state/ducks/ui";
-import { placeFormSelector } from "../../state/ducks/forms";
 import { focusedPlaceSelector, Place } from "../../state/ducks/places";
 import { pageSelector } from "../../state/ducks/pages-config";
 import { LoadingBar } from "../atoms/imagery";
@@ -49,7 +48,6 @@ type Props = {
   layout: Layout;
   pageSelector: Function;
   pageSlug: string;
-  placeForm: PlaceForm;
 } & OwnProps &
   RouteComponentProps<{}>;
 
@@ -148,7 +146,7 @@ const ContentPanel = (props: Props) => {
         )}
         {props.contentPanelComponent === "InputForm" && (
           <React.Suspense fallback={<LoadingBar />}>
-            <MapseedPlaceForm placeForm={props.placeForm} />
+            <MapseedPlaceForm />
             {/* <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
               layout={props.layout}
@@ -167,7 +165,6 @@ const mapStateToProps = (state: any) => ({
   layout: layoutSelector(state),
   pageSelector: (slug, lang) => pageSelector({ state, slug, lang }),
   pageSlug: pageSlugSelector(state),
-  placeForm: placeFormSelector(state),
 });
 
 export default withRouter(connect(mapStateToProps)(ContentPanel));
