@@ -6,7 +6,7 @@ import { Formik } from "formik";
 
 import BaseForm from "./base-form";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
-import { PlaceForm, Form, FormModule } from "../../state/ducks/forms";
+import { PlaceForm, FormModule } from "../../state/ducks/forms";
 import { MapViewport } from "../../state/ducks/map";
 import {
   layerGroupsSelector,
@@ -19,21 +19,19 @@ type PlaceFormProps = {
   placeForm: PlaceForm;
 };
 
-const getModuleName = (id: number, key: string) => (key ? key : `field-${id}`);
-
 const calculateInitialValues = (form: PlaceForm) =>
   form.stages
     .reduce(
       (formModules, stage) => formModules.concat(stage.modules),
       [] as FormModule[],
     )
-    .reduce((initialValues, { id, config }) => {
+    .reduce((initialValues, { id, key, defaultValue }) => {
       return {
         ...initialValues,
         // TODO: other default value use cases:
         //   - load from form state dump
         //   - editor
-        [getModuleName(id, config.key)]: config.defaultValue || "",
+        [key]: defaultValue || "",
       };
     }, {});
 

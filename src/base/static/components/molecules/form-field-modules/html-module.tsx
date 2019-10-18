@@ -3,18 +3,15 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { useTheme } from "@material-ui/styles";
+import { FieldProps as FormikFieldProps } from "formik";
 
+import { MapseedHTMLModule } from "../../../state/ducks/forms";
 import { MuiTheme } from "../../../../../theme";
 
-type OwnProps = {
-  moduleId: number;
-  content: string;
-  theme: MuiTheme;
-};
+type HTMLModuleProps = { mapseedField: MapseedHTMLModule } & FormikFieldProps &
+  WithTranslation;
 
-type HTMLModuleProps = OwnProps & WithTranslation;
-
-const HTMLModule = (props: HTMLModuleProps) => {
+const HTMLModule = ({ mapseedField: { id, content }, t }: HTMLModuleProps) => {
   const theme = useTheme<MuiTheme>();
 
   return (
@@ -52,7 +49,7 @@ const HTMLModule = (props: HTMLModuleProps) => {
         }
       `}
       dangerouslySetInnerHTML={{
-        __html: props.t(`HTMLModuleContent${props.moduleId}`, props.content),
+        __html: t(`HTMLModuleContent${id}`, content),
       }}
     />
   );

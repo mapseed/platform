@@ -6,51 +6,43 @@ import { FieldProps as FormikFieldProps } from "formik";
 import { MapViewport } from "./map";
 
 // Types:
-interface BaseFormField {
-  key: string;
-  private: boolean;
-  required: boolean;
-  prompt?: string;
-  placeholder?: string;
-  label?: string;
-  //variant: string // ??
-  //validate?: boolean // ??
-}
+// NOTE: Typings reflect loaded, transformed data.
+type FormModuleVariant = "EM" | "PH";
 
 interface BaseFormModule {
   id: number;
-  order: number;
-  visible: boolean;
-  config: any;
+  key: string;
+  isVisible: boolean;
+  isPrivate?: boolean;
+  isRequired?: boolean;
   type: string;
+  defaultValue?: string | number | string[] | number[];
+  variant?: FormModuleVariant;
+  prompt?: string;
 }
 
-interface HTMLModule extends BaseFormModule {
-  htmlmodule: {
-    content: string;
-    label?: string;
-  };
+export interface MapseedHTMLModule extends BaseFormModule {
+  content: string;
+  label: string;
 }
 
-interface SubmitButtonModule extends BaseFormModule {
-  submitbuttonmodule: {
-    label: string;
-  };
+export interface MapseedSubmitButtonModule extends BaseFormModule {
+  label: string;
 }
 
-interface FileField extends BaseFormModule {
-  filefield: BaseFormField;
+export interface MapseedFileFieldModule extends BaseFormModule {
+  label: string;
 }
 
-interface TextField extends BaseFormModule {
-  textfield: BaseFormField;
+export interface MapseedTextFieldModule extends BaseFormModule {
+  placeholder: string;
 }
 
 export type FormModule =
-  | HTMLModule
-  | SubmitButtonModule
-  | FileField
-  | TextField;
+  | MapseedHTMLModule
+  | MapseedSubmitButtonModule
+  | MapseedFileFieldModule
+  | MapseedTextFieldModule;
 
 type StageMapLayer = {
   label: string;
@@ -71,17 +63,7 @@ export type PlaceForm = {
 
 export type CommentForm = {}; // TODO
 
-export type Form = PlaceForm | CommentForm;
-
-export type MapseedFormFieldProps = {
-  label?: string;
-  private: boolean;
-  required: boolean;
-  placeholder?: string;
-  moduleId: number;
-};
-
-export type FormFieldProps = MapseedFormFieldProps & FormikFieldProps;
+export type MapseedForm = PlaceForm | CommentForm;
 
 // Selectors:
 const formModulesSelector = state => state.forms.entities.modules;
@@ -114,42 +96,47 @@ export const placeFormSelector = createSelector(
 // Actions:
 const LOAD = "forms/LOAD";
 
-const getModuleType = formModule => {
-  if (formModule.htmlmodule) {
+const getModuleType = rawFormModule => {
+  if (rawFormModule.htmlmodule) {
     return "htmlmodule";
-  } else if (formModule.textfield) {
+  } else if (rawFormModule.textfield) {
     return "textfield";
-  } else if (formModule.submitbuttonmodule) {
+  } else if (rawFormModule.submitbuttonmodule) {
     return "submitbuttonmodule";
-  } else if (formModule.filefield) {
+  } else if (rawFormModule.filefield) {
     return "filefield";
   } else {
     // eslint-disable-next-line no-console
     console.error(
-      `[Forms duck]: ERROR: encountered unknown form module with id ${formModule.id}`,
+      `[Forms duck]: ERROR: encountered unknown raw form module with id ${rawFormModule.id}`,
     );
 
     return "unknownmodule";
   }
 };
 
-const formModuleProcessStrategy = formModule => {
-  // Normalize module configs keyed by module name to the following format:
-  // {
-  //   id: 123,
-  //   type: "textfield"
-  //   config: {
-  //     prompt: "xyz",
-  //     ...etc
-  //   }
-  // }
-  const moduleType = getModuleType(formModule);
+const formModuleProcessStrategy = ({
+  visible: isVisible,
+  id,
+  ...rawFormModule
+}): FormModule => {
+  // Flatten module configs keyed by module name:
+  const moduleType = getModuleType(rawFormModule);
+  const { private: isPrivate, required: isRequired, ...rest } = rawFormModule[
+    moduleType
+  ];
 
   return {
+    // Certain modules do not have a `key`, but our forms' business logic
+    // expects each module to have this property. Those that do will have this
+    // generic key overwritten by the `rest` properties below.
+    key: `module-${id}`,
     type: moduleType,
-    config: formModule[moduleType],
-    id: formModule.id,
-    visible: formModule.visible,
+    id,
+    isVisible: !!isVisible,
+    isPrivate: !!isPrivate,
+    isRequired: !!isRequired,
+    ...rest,
   };
 };
 

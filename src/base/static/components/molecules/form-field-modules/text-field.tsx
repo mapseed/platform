@@ -1,28 +1,31 @@
 import React from "react";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { withTranslation, WithTranslation } from "react-i18next";
+import { FieldProps as FormikFieldProps } from "formik";
 
-import { FormFieldProps } from "../../../state/ducks/forms";
+import { MapseedTextFieldModule } from "../../../state/ducks/forms";
 
-type TextFieldProps = FormFieldProps & WithTranslation;
+type TextFieldModuleProps = {
+  mapseedField: MapseedTextFieldModule;
+} & FormikFieldProps &
+  WithTranslation;
 
-const TextField = (props: TextFieldProps) => {
-  const { field } = props;
-
+const TextField = ({
+  field: { name, value, onBlur, onChange },
+  mapseedField: { placeholder, id },
+  t,
+}: TextFieldModuleProps) => {
   return (
     <OutlinedInput
       type={"text"}
       notched={true}
-      id={field.name}
-      name={field.name}
+      id={name}
+      name={name}
       labelWidth={0}
-      value={field.value}
-      onBlur={field.onBlur}
-      onChange={field.onChange}
-      placeholder={props.t(
-        `textFieldLabel${props.moduleId}`,
-        props.placeholder,
-      )}
+      value={value}
+      onBlur={onBlur}
+      onChange={onChange}
+      placeholder={t(`textFieldLabel${id}`, placeholder)}
     />
   );
 };
