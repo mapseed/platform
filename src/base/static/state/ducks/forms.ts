@@ -38,18 +38,20 @@ export interface MapseedTextFieldModule extends BaseFormModule {
   placeholder: string;
 }
 
+export interface MapseedSkipStageModule extends BaseFormModule {
+  label: string;
+  stageId: number;
+}
+
 export type FormModule =
   | MapseedHTMLModule
   | MapseedSubmitButtonModule
   | MapseedFileFieldModule
-  | MapseedTextFieldModule;
-
-type StageMapLayer = {
-  label: string;
-};
+  | MapseedTextFieldModule
+  | MapseedSkipStageModule;
 
 export type PlaceFormStage = {
-  visibleLayerGroups: StageMapLayer[];
+  visibleLayerGroups: string[];
   mapViewport: MapViewport;
   modules: FormModule[];
 };
@@ -105,6 +107,8 @@ const getModuleType = rawFormModule => {
     return "submitbuttonmodule";
   } else if (rawFormModule.filefield) {
     return "filefield";
+  } else if (rawFormModule.skipstagemodule) {
+    return "skipstagemodule";
   } else {
     // eslint-disable-next-line no-console
     console.error(
@@ -115,12 +119,9 @@ const getModuleType = rawFormModule => {
   }
 };
 
-const formModuleProcessStrategy = ({
-  visible: isVisible,
-  id,
-  ...rawFormModule
-}): FormModule => {
+const formModuleProcessStrategy = (rawFormModule): FormModule => {
   // Flatten module configs keyed by module name:
+  const { visible: isVisible, id } = rawFormModule;
   const moduleType = getModuleType(rawFormModule);
   const { private: isPrivate, required: isRequired, ...rest } = rawFormModule[
     moduleType

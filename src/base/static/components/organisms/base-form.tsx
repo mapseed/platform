@@ -8,8 +8,7 @@ import HTMLModule from "../molecules/form-field-modules/html-module";
 import TextField from "../molecules/form-field-modules/text-field";
 import FileField from "../molecules/form-field-modules/file-field";
 import SubmitButtonModule from "../molecules/form-field-modules/submit-button-module";
-import LngLatField from "../molecules/form-field-modules/lng-lat-field";
-import FormStageControlBar from "../molecules/form-stage-control-bar";
+import SkipStageModule from "../molecules/form-field-modules/skip-stage-module";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 
@@ -23,6 +22,7 @@ import { FormModule } from "../../state/ducks/forms";
 
 type OwnProps = {
   modules: FormModule[];
+  onClickSkipStage?: (stageId: number) => void;
 };
 
 type BaseFormProps = OwnProps & FormikProps<FormikValues>;
@@ -34,12 +34,11 @@ const MODULES = {
   textfield: TextField,
   submitbuttonmodule: SubmitButtonModule,
   filefield: FileField,
+  skipstagemodule: SkipStageModule,
   unknownmodule: UnknownModule,
 };
 
-const getModuleName = (id: number, key?: string) => (key ? key : `field-${id}`);
-
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const getValidator = (isRequired, variant) => {
   if (isRequired && variant === "EM") {
@@ -66,11 +65,16 @@ const getValidator = (isRequired, variant) => {
 };
 
 // TODO: Save all form state to Redux on unmount, as a backup.
-const BaseForm = ({ modules, errors, touched }: BaseFormProps) => {
+const BaseForm = ({
+  modules,
+  errors,
+  touched,
+  onClickSkipStage,
+}: BaseFormProps) => {
   return (
     <FormikForm>
       {modules.map((formModule, idx) => {
-        const { id, key, prompt, type, isRequired, variant } = formModule;
+        const { key, prompt, type, isRequired, variant } = formModule;
 
         return (
           <FormControl
@@ -97,6 +101,7 @@ const BaseForm = ({ modules, errors, touched }: BaseFormProps) => {
               name={key}
               validate={getValidator(isRequired, variant)}
               component={MODULES[type]}
+              onClickSkipStage={onClickSkipStage}
               mapseedField={formModule}
             />
             {errors[key] && touched[key] && (

@@ -1,5 +1,4 @@
 /** @jsx jsx */
-/** @jsx jsx */
 import * as React from "react";
 import { findDOMNode } from "react-dom";
 import { css, jsx } from "@emotion/core";
