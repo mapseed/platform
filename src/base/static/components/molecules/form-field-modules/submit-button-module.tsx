@@ -1,18 +1,29 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { withTranslation, WithTranslation } from "react-i18next";
+import { FieldProps as FormikFieldProps } from "formik";
 
-type OwnProps = {
-  moduleId: number;
-  label: string;
-};
+import { MapseedSubmitButtonModule } from "../../../state/ducks/forms";
 
-type SubmitButtonModuleProps = OwnProps & WithTranslation;
+type SubmitButtonModuleProps = {
+  mapseedField: MapseedSubmitButtonModule;
+} & FormikFieldProps &
+  WithTranslation;
 
-const SubmitButtonModule = (props: SubmitButtonModuleProps) => {
+const SubmitButtonModule = ({
+  mapseedField: { id, label },
+  form: { isValid },
+  t,
+}: SubmitButtonModuleProps) => {
   return (
-    <Button type="submit" variant="contained" color="primary" size="large">
-      {props.t(`submitButtonLabel${props.moduleId}`, props.label)}
+    <Button
+      disabled={!isValid}
+      type="submit"
+      variant="contained"
+      color="primary"
+      size="large"
+    >
+      {t(`submitButtonLabel${id}`, label)}
     </Button>
   );
 };

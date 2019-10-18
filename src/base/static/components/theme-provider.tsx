@@ -58,13 +58,6 @@ declare module "@material-ui/core/styles/createTypography" {
 const lookup = (path, obj) =>
   path.reduce((memo, key) => (memo && memo[key] ? memo[key] : null), obj);
 
-const makePaletteColor = baseColor => ({
-  main: baseColor,
-  light: lighten("#007fbf", 10),
-  dark: darken("#007fbf", 10),
-  contrastText: getReadableColor("#007fbf"),
-});
-
 const ThemeProvider = ({ flavorTheme, children }) => {
   const theme = {
     ...baseTheme,
@@ -150,7 +143,6 @@ const ThemeProvider = ({ flavorTheme, children }) => {
       },
     },
   });
-  console.log("muiTheme", muiTheme);
 
   return (
     <EmotionThemeProvider theme={theme}>

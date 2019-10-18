@@ -13,7 +13,7 @@ import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 
-import { Form, FormModule } from "../../state/ducks/forms";
+import { FormModule } from "../../state/ducks/forms";
 
 // TODO:
 //  - visibility triggering
@@ -39,47 +39,70 @@ const MODULES = {
 
 const getModuleName = (id: number, key?: string) => (key ? key : `field-${id}`);
 
-// TODO: Save all form state to Redux on unmount, as a backup.
-const BaseForm = (props: BaseFormProps) => {
-  const { modules } = props;
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+const getValidator = (isRequired, variant) => {
+  if (isRequired && variant === "EM") {
+    return value => {
+      if (!value) {
+        return "This is a required field";
+      } else if (value && !value.match(EMAIL_REGEX)) {
+        return "Please enter a valid email address";
+      }
+    };
+  } else if (isRequired) {
+    return value => {
+      if (!value) {
+        return "This is a required field";
+      }
+    };
+  } else if (variant === "EM") {
+    return value => {
+      if (!value.match(EMAIL_REGEX)) {
+        return "Please enter a valid email address";
+      }
+    };
+  }
+};
+
+// TODO: Save all form state to Redux on unmount, as a backup.
+const BaseForm = ({ modules, errors, touched }: BaseFormProps) => {
   return (
     <FormikForm>
-      {modules.map(({ type, config, id }, idx) => {
-        const moduleName = getModuleName(id, config.key);
+      {modules.map((formModule, idx) => {
+        const { id, key, prompt, type, isRequired, variant } = formModule;
 
         return (
           <FormControl
-            key={id}
+            key={key}
             fullWidth={true}
             margin={idx === 0 ? "none" : "normal"}
             variant="outlined"
           >
-            {config.prompt && (
+            {prompt && (
               <InputLabel
                 style={{
                   backgroundColor: "#fff",
                   paddingLeft: "4px",
                   paddingRight: "4px",
                 }}
-                htmlFor={moduleName}
+                htmlFor={key}
               >
-                {config.prompt}
+                {prompt}
               </InputLabel>
             )}
             <Field
-              key={id}
-              id={moduleName}
-              name={moduleName}
-              moduleId={id}
-              validate={() => "O HAI IM UR ERROR"}
+              key={key}
+              id={key}
+              name={key}
+              validate={getValidator(isRequired, variant)}
               component={MODULES[type]}
-              {...config}
+              mapseedField={formModule}
             />
-            {props.errors[moduleName] && props.touched[moduleName] && (
+            {errors[key] && touched[key] && (
               <Typography
                 css={css`
-                  margin-left: 16px;
+                  margin-left: 12px;
                   margin-top: 4px;
                   font-style: italic;
                 `}
@@ -87,7 +110,7 @@ const BaseForm = (props: BaseFormProps) => {
                 align="left"
                 color="error"
               >
-                {props.errors[moduleName]}
+                {errors[key]}
               </Typography>
             )}
           </FormControl>
