@@ -5,16 +5,14 @@ import { css, jsx } from "@emotion/core";
 import Button from "@material-ui/core/Button";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import loadImage from "blueimp-load-image";
-import { FieldProps as FormikFieldProps } from "formik";
 
 import { PlaceholderPicture } from "../../atoms/icons";
 import { CloseButton } from "../../atoms/navigation";
 import { MapseedFileFieldModule } from "../../../state/ducks/forms";
 
 type FileFieldProps = {
-  mapseedField: MapseedFileFieldModule;
-} & FormikFieldProps &
-  WithTranslation;
+  mapseedModule: MapseedFileFieldModule;
+} & WithTranslation;
 
 type ThumbnailInfo = {
   canvas: HTMLCanvasElement;
@@ -85,7 +83,7 @@ const CanvasThumbnail = ({ canvas, onClickRemoveThumbnail, idx }) => {
   );
 };
 
-const FileField = ({ mapseedField: { label }, t }: FileFieldProps) => {
+const FileField = ({ mapseedModule: { label }, t }: FileFieldProps) => {
   const fileFieldRef = React.useRef<HTMLInputElement>(null);
   const [thumbnails, setThumbnails] = React.useState<ThumbnailInfo[]>([]);
   const handleFileChange = React.useCallback(

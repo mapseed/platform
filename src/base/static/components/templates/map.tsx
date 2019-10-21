@@ -228,7 +228,7 @@ class MapTemplate extends React.Component<Props, State> {
         },
         includePrivate: this.props.hasGroupAbilitiesInDatasets({
           abilities: ["can_access_protected"],
-          datasetSlugs: [dataset.slug],
+          datasets: [dataset.slug],
           submissionSet: "places",
         }),
       });
@@ -468,14 +468,15 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
       state: state,
       submissionSet: "places",
       abilities: ["create"],
-      datasetSlugs: datasetSlugsSelector(state),
+      // TODO
+      datasets: datasetSlugsSelector(state),
     }),
-  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
+  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasets }) =>
     hasGroupAbilitiesInDatasets({
       state,
       abilities,
       submissionSet,
-      datasetSlugs,
+      datasets,
     }),
   isAddPlaceButtonVisible: uiVisibilitySelector("addPlaceButton", state),
   isContentPanelVisible: uiVisibilitySelector("contentPanel", state),

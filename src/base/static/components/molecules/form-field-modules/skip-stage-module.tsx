@@ -3,19 +3,17 @@ import Button from "@material-ui/core/Button";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { withTranslation, WithTranslation } from "react-i18next";
-import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapseedSkipStageModule } from "../../../state/ducks/forms";
 
 type SkipStageModuleProps = {
-  mapseedField: MapseedSkipStageModule;
+  mapseedModule: MapseedSkipStageModule;
   onClickSkipStage: (stageId: number) => void;
-} & FormikFieldProps &
-  WithTranslation &
+} & WithTranslation &
   WithStyles;
 
 const SkipStageModule = ({
-  mapseedField: { id, stageId, label },
+  mapseedModule: { id, stageId, label },
   t,
   classes,
   onClickSkipStage,

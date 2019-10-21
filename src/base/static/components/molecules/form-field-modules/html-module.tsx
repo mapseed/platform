@@ -3,15 +3,13 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { useTheme } from "@material-ui/styles";
-import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapseedHTMLModule } from "../../../state/ducks/forms";
 import { MuiTheme } from "../../../../../theme";
 
-type HTMLModuleProps = { mapseedField: MapseedHTMLModule } & FormikFieldProps &
-  WithTranslation;
+type HTMLModuleProps = { mapseedModule: MapseedHTMLModule } & WithTranslation;
 
-const HTMLModule = ({ mapseedField: { id, content }, t }: HTMLModuleProps) => {
+const HTMLModule = ({ mapseedModule: { id, content }, t }: HTMLModuleProps) => {
   const theme = useTheme<MuiTheme>();
 
   return (

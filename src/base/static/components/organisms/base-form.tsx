@@ -13,6 +13,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 
 import { FormModule } from "../../state/ducks/forms";
+import { isFormField } from "../../utils/place-utils";
 
 // TODO:
 //  - visibility triggering
@@ -70,13 +71,15 @@ const BaseForm = ({
   errors,
   touched,
   onClickSkipStage,
+  isValid,
 }: BaseFormProps) => {
   return (
     <FormikForm>
       {modules.map((formModule, idx) => {
         const { key, prompt, type, isRequired, variant } = formModule;
+        const Module = MODULES[type];
 
-        return (
+        return isFormField(type) ? (
           <FormControl
             key={key}
             fullWidth={true}
@@ -101,7 +104,6 @@ const BaseForm = ({
               name={key}
               validate={getValidator(isRequired, variant)}
               component={MODULES[type]}
-              onClickSkipStage={onClickSkipStage}
               mapseedField={formModule}
             />
             {errors[key] && touched[key] && (
@@ -119,6 +121,12 @@ const BaseForm = ({
               </Typography>
             )}
           </FormControl>
+        ) : (
+          <Module
+            mapseedModule={formModule}
+            onClickSkipStage={onClickSkipStage}
+            isValid={isValid}
+          />
         );
       })}
     </FormikForm>

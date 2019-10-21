@@ -1,18 +1,17 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { withTranslation, WithTranslation } from "react-i18next";
-import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapseedSubmitButtonModule } from "../../../state/ducks/forms";
 
 type SubmitButtonModuleProps = {
-  mapseedField: MapseedSubmitButtonModule;
-} & FormikFieldProps &
-  WithTranslation;
+  isValid: boolean;
+  mapseedModule: MapseedSubmitButtonModule;
+} & WithTranslation;
 
 const SubmitButtonModule = ({
-  mapseedField: { id, label },
-  form: { isValid },
+  mapseedModule: { id, label },
+  isValid,
   t,
 }: SubmitButtonModuleProps) => {
   return (

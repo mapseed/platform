@@ -380,7 +380,7 @@ class App extends React.Component<Props, State> {
           },
           includePrivate: this.props.hasGroupAbilitiesInDatasets({
             abilities: ["can_access_protected"],
-            datasetSlugs: [datasetConfig.slug],
+            datasets: [datasetConfig.slug],
             submissionSet: "places",
           }),
         });
@@ -526,7 +526,7 @@ class App extends React.Component<Props, State> {
                   this.props.hasGroupAbilitiesInDatasets({
                     submissionSet: "places",
                     abilities: ["create"],
-                    datasetSlugs: this.props.datasetSlugs,
+                    datasets: this.props.datasetSlugs,
                   })
                 ) {
                   return (
@@ -662,11 +662,11 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   datasetsConfig: datasetsConfigSelector(state),
   hasAnonAbilitiesInAnyDataset: (submissionSet, abilities) =>
     hasAnonAbilitiesInAnyDataset({ state, submissionSet, abilities }),
-  hasGroupAbilitiesInDatasets: ({ abilities, datasetSlugs, submissionSet }) =>
+  hasGroupAbilitiesInDatasets: ({ abilities, datasets, submissionSet }) =>
     hasGroupAbilitiesInDatasets({
       abilities,
       state,
-      datasetSlugs,
+      datasets,
       submissionSet,
     }),
   layout: layoutSelector(state),

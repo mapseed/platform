@@ -165,7 +165,7 @@ class PlaceDetail extends React.Component<Props, State> {
         this.props.hasGroupAbilitiesInDatasets({
           abilities: ["update"],
           submissionSet: "places",
-          datasetSlugs: [this.props.focusedPlace.datasetSlug],
+          datasets: [this.props.focusedPlace.datasetSlug],
         }),
     });
   }
@@ -314,7 +314,7 @@ class PlaceDetail extends React.Component<Props, State> {
     const isTagBarEditable = this.props.hasGroupAbilitiesInDatasets({
       abilities: ["update", "destroy", "create"],
       submissionSet: "tags",
-      datasetSlugs: [this.props.focusedPlace.datasetSlug],
+      datasets: [this.props.focusedPlace.datasetSlug],
     });
 
     // TODO: dissolve when flavor abstraction is ready
@@ -493,12 +493,12 @@ const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   focusedPlace: focusedPlaceSelector(state),
   featuredPlaces: featuredPlacesSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
-  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasetSlugs }) =>
+  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasets }) =>
     hasGroupAbilitiesInDatasets({
       state,
       abilities,
       submissionSet,
-      datasetSlugs,
+      datasets,
     }),
   hasUserAbilitiesInPlace: ({ submitter, isSubmitterEditingSupported }) =>
     hasUserAbilitiesInPlace({ state, submitter, isSubmitterEditingSupported }),
