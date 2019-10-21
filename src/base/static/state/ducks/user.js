@@ -32,14 +32,14 @@ export const hasGroupAbilitiesInDatasets = ({
   state,
   abilities,
   submissionSet,
-  datasetSlugs,
+  datasets,
 }) =>
   state.user.groups
-    .filter(group => datasetSlugs.includes(group.dataset_slug))
+    .filter(group => datasets.includes(group.dataset))
     .some(group =>
       group.permissions.some(
         perm =>
-          datasetSlugs.includes(group.dataset_slug) &&
+          datasets.includes(group.dataset) &&
           (perm.submission_set === "*" ||
             perm.submission_set === submissionSet) &&
           // All the passed abilities must exist in the array of allowed

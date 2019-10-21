@@ -6,12 +6,8 @@ import { Formik } from "formik";
 
 import BaseForm from "./base-form";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
-import {
-  PlaceForm,
-  FormModule,
-  placeFormSelector,
-} from "../../state/ducks/forms";
-import { MapViewport } from "../../state/ducks/map";
+import { PlaceForm, FormModule } from "../../state/ducks/forms";
+import { mapViewportSelector, MapViewport } from "../../state/ducks/map";
 import {
   layerGroupsSelector,
   updateLayerGroupVisibility,
@@ -19,11 +15,18 @@ import {
 } from "../../state/ducks/map-style";
 import { layoutSelector, Layout } from "../../state/ducks/ui";
 import eventEmitter from "../../utils/event-emitter";
+import { LoadingBar } from "../atoms/imagery";
+import { isFormField } from "../../utils/place-utils";
 
+// Generate initial values for fields only (i.e. not for HTML blocks, submit
+// button, etc.)
 const calculateInitialValues = (form: PlaceForm) =>
   form.stages
     .reduce(
-      (formModules, stage) => formModules.concat(stage.modules),
+      (formModules, stage) =>
+        formModules.concat(
+          stage.modules.filter(formModule => isFormField(formModule.type)),
+        ),
       [] as FormModule[],
     )
     .reduce((initialValues, { key, defaultValue }) => {
@@ -39,24 +42,22 @@ const calculateInitialValues = (form: PlaceForm) =>
 const layerGroupsEqualityComparator = (a, b) =>
   a.allIds.length === b.allIds.length;
 
-const MapseedPlaceForm = () => {
+const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
   const [currentStage, setCurrentStage] = React.useState<number>(0);
+  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
+  const mapViewport: MapViewport = useSelector(mapViewportSelector);
   const layout: Layout = useSelector(layoutSelector);
   const dispatch = useDispatch();
-  const placeForm: PlaceForm = useSelector(placeFormSelector);
   const layerGroups: LayerGroups = useSelector(
     layerGroupsSelector,
     layerGroupsEqualityComparator,
   );
   const onClickAdvanceStage = React.useCallback(() => {
-    if (currentStage < placeForm.stages.length - 1) {
+    currentStage < placeForm.stages.length - 1 &&
       setCurrentStage(currentStage + 1);
-    }
   }, [currentStage, placeForm]);
   const onClickRetreatStage = React.useCallback(() => {
-    if (currentStage > 0) {
-      setCurrentStage(currentStage - 1);
-    }
+    currentStage > 0 && setCurrentStage(currentStage - 1);
   }, [currentStage]);
   React.useEffect(() => {
     const stageViewport: MapViewport | undefined =
@@ -74,6 +75,22 @@ const MapseedPlaceForm = () => {
     }
   }, [currentStage, dispatch, placeForm, layerGroups]);
   const onClickSkipStage = stageId => setCurrentStage(stageId - 1);
+  const preprocessSubmission = React.useCallback(
+    values => {
+      console.log("form values", values);
+      const { longitude, latitude } = mapViewport;
+      const geometry = {
+        type: "Point",
+        coordinates: [longitude, latitude],
+      };
+
+      onSubmit({
+        ...values,
+        geometry,
+      });
+    },
+    [mapViewport],
+  );
 
   return (
     <div
@@ -81,10 +98,11 @@ const MapseedPlaceForm = () => {
         margin-bottom: ${placeForm.stages.length > 1 ? "112px" : 0};
       `}
     >
+      {isSubmitting && <LoadingBar />}
       <Formik
         validateOnChange={false}
         validateOnBlur={true}
-        onSubmit={() => null}
+        onSubmit={preprocessSubmission}
         initialValues={calculateInitialValues(placeForm)}
         render={formikProps => (
           <BaseForm

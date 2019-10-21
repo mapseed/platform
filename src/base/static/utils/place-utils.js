@@ -1,5 +1,9 @@
 import constants from "../constants";
 
+const FIELDS = ["textfield"];
+
+const isFormField = moduleType => FIELDS.includes(moduleType);
+
 const setPrivateParams = (placeParams, includePrivate, jwtToken = null) => {
   if (jwtToken) {
     placeParams = {
@@ -94,6 +98,7 @@ const toServerGeoJSONFeature = placeData => {
 };
 
 export {
+  isFormField,
   createGeoJSONFromPlaces,
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,

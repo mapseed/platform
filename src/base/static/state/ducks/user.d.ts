@@ -26,7 +26,7 @@ export const hasGroupAbilitiesInDatasets: (options: {
   state: any;
   abilities: string[];
   submissionSet: string;
-  datasetSlugs: string[];
+  datasets: string[];
 }) => boolean;
 
 export const hasUserAbilitiesInPlace: (options: {

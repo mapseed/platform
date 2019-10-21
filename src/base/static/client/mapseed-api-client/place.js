@@ -46,9 +46,8 @@ const updatePlace = async ({
 };
 
 const createPlace = async ({
-  datasetUrl,
+  dataset,
   placeData,
-  datasetSlug,
   clientSlug,
   includePrivate = false,
 }) => {
@@ -62,7 +61,7 @@ const createPlace = async ({
     includePrivate,
   );
   const response = await fetch(
-    `${datasetUrl}/places?${qs.stringify(placeParams)}`,
+    `${dataset}/places?${qs.stringify(placeParams)}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +88,7 @@ const createPlace = async ({
     };
   }
 
-  return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
+  return fromGeoJSONFeature({ feature, clientSlug });
 };
 
 const getPlace = async ({
