@@ -35,5 +35,5 @@ const SkipStageModule = ({
 
 // https://material-ui.com/guides/typescript/#usage-of-withstyles
 export default withStyles({
-  label: { textAlign: "right", lineHeight: "1.2rem " },
+  label: { textAlign: "right", lineHeight: "1.2rem" },
 })(withTranslation("SkipStageModule")(SkipStageModule));

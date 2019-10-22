@@ -1,6 +1,13 @@
 import constants from "../constants";
 
-const FIELDS = ["textfield"];
+const FIELDS = [
+  "textfield",
+  "addressfield",
+  "radiofield",
+  "textareafield",
+  "numberfield",
+  "datefield"
+];
 
 const isFormField = moduleType => FIELDS.includes(moduleType);
 

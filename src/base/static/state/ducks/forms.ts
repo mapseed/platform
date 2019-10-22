@@ -38,6 +38,11 @@ export interface MapseedTextFieldModule extends BaseFormModule {
   placeholder: string;
 }
 
+export interface MapseedAddressFieldModule extends BaseFormModule {
+  reverseGeocode: boolean;
+  placeholder?: string;
+}
+
 export interface MapseedSkipStageModule extends BaseFormModule {
   label: string;
   stageId: number;
@@ -48,6 +53,7 @@ export type FormModule =
   | MapseedSubmitButtonModule
   | MapseedFileFieldModule
   | MapseedTextFieldModule
+  | MapseedAddressFieldModule
   | MapseedSkipStageModule;
 
 export type PlaceFormStage = {
@@ -109,6 +115,18 @@ const getModuleType = rawFormModule => {
     return "filefield";
   } else if (rawFormModule.skipstagemodule) {
     return "skipstagemodule";
+  } else if (rawFormModule.addressfield) {
+    return "addressfield";
+  } else if (rawFormModule.radiofield) {
+    return "radiofield";
+  } else if (rawFormModule.numberfield) {
+    return "numberfield";
+  } else if (rawFormModule.datefield) {
+    return "datefield";
+  } else if (rawFormModule.textareafield) {
+    return "textareafield";
+  } else if (rawFormModule.groupmodule) {
+    return "groupmodule";
   } else {
     // eslint-disable-next-line no-console
     console.error(

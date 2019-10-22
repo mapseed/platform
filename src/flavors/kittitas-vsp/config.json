@@ -29,6 +29,7 @@
   "app": {
     "title": "Kittitas County Voluntary Stewardship Program",
     "name": "Kittitas County Voluntary Stewardship Program",
+    "flavorSlug": "kittitas-vsp",
     "logo": "/static/css/images/logo.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",

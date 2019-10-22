@@ -7,9 +7,14 @@ import Typography from "@material-ui/core/Typography";
 import HTMLModule from "../molecules/form-field-modules/html-module";
 import TextField from "../molecules/form-field-modules/text-field";
 import FileField from "../molecules/form-field-modules/file-field";
+import AddressField from "../molecules/form-field-modules/address-field";
+import NumberField from "../molecules/form-field-modules/number-field";
+import DateField from "../molecules/form-field-modules/date-field";
+import TextareaField from "../molecules/form-field-modules/textarea-field";
+import RadioField from "../molecules/form-field-modules/radio-field";
+import GroupModule from "../molecules/form-field-modules/group-module";
 import SubmitButtonModule from "../molecules/form-field-modules/submit-button-module";
 import SkipStageModule from "../molecules/form-field-modules/skip-stage-module";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 
 import { FormModule } from "../../state/ducks/forms";
@@ -36,6 +41,12 @@ const MODULES = {
   submitbuttonmodule: SubmitButtonModule,
   filefield: FileField,
   skipstagemodule: SkipStageModule,
+  addressfield: AddressField,
+  radiofield: RadioField,
+  numberfield: NumberField,
+  datefield: DateField,
+  textareafield: TextareaField,
+  groupmodule: GroupModule,
   unknownmodule: UnknownModule,
 };
 
@@ -62,6 +73,8 @@ const getValidator = (isRequired, variant) => {
         return "Please enter a valid email address";
       }
     };
+  } else {
+    return () => undefined;
   }
 };
 
@@ -69,14 +82,13 @@ const getValidator = (isRequired, variant) => {
 const BaseForm = ({
   modules,
   errors,
-  touched,
   onClickSkipStage,
   isValid,
 }: BaseFormProps) => {
   return (
     <FormikForm>
       {modules.map((formModule, idx) => {
-        const { key, prompt, type, isRequired, variant } = formModule;
+        const { key, type, isRequired, variant } = formModule;
         const Module = MODULES[type];
 
         return isFormField(type) ? (
@@ -86,27 +98,16 @@ const BaseForm = ({
             margin={idx === 0 ? "none" : "normal"}
             variant="outlined"
           >
-            {prompt && (
-              <InputLabel
-                style={{
-                  backgroundColor: "#fff",
-                  paddingLeft: "4px",
-                  paddingRight: "4px",
-                }}
-                htmlFor={key}
-              >
-                {prompt}
-              </InputLabel>
-            )}
             <Field
               key={key}
               id={key}
               name={key}
               validate={getValidator(isRequired, variant)}
-              component={MODULES[type]}
+              component={Module}
+              isWithValidationError={!!errors[key]}
               mapseedField={formModule}
             />
-            {errors[key] && touched[key] && (
+            {errors[key] && (
               <Typography
                 css={css`
                   margin-left: 12px;
