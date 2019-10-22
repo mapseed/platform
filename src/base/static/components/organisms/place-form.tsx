@@ -52,10 +52,21 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
     layerGroupsSelector,
     layerGroupsEqualityComparator,
   );
-  const onClickAdvanceStage = React.useCallback(() => {
-    currentStage < placeForm.stages.length - 1 &&
-      setCurrentStage(currentStage + 1);
-  }, [currentStage, placeForm]);
+  const onClickAdvanceStage = React.useCallback(
+    validateField => {
+      Promise.all(
+        placeForm.stages[currentStage].modules
+          .filter(({ type }) => isFormField(type))
+          .map(({ key }) => validateField(key)),
+      ).then(result => {
+        if (!result.some(msg => typeof msg === "string")) {
+          currentStage < placeForm.stages.length - 1 &&
+            setCurrentStage(currentStage + 1);
+        }
+      });
+    },
+    [currentStage, placeForm],
+  );
   const onClickRetreatStage = React.useCallback(() => {
     currentStage > 0 && setCurrentStage(currentStage - 1);
   }, [currentStage]);
@@ -105,20 +116,23 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
         onSubmit={preprocessSubmission}
         initialValues={calculateInitialValues(placeForm)}
         render={formikProps => (
-          <BaseForm
-            modules={placeForm.stages[currentStage].modules}
-            onClickSkipStage={onClickSkipStage}
-            {...formikProps}
-          />
+          <React.Fragment>
+            <BaseForm
+              modules={placeForm.stages[currentStage].modules}
+              onClickSkipStage={onClickSkipStage}
+              {...formikProps}
+            />
+            <FormStageControlBar
+              layout={layout}
+              onClickAdvanceStage={() =>
+                onClickAdvanceStage(formikProps.validateField)
+              }
+              onClickRetreatStage={onClickRetreatStage}
+              currentStage={currentStage}
+              numStages={placeForm.stages.length}
+            />
+          </React.Fragment>
         )}
-      />
-
-      <FormStageControlBar
-        layout={layout}
-        onClickAdvanceStage={onClickAdvanceStage}
-        onClickRetreatStage={onClickRetreatStage}
-        currentStage={currentStage}
-        numStages={placeForm.stages.length}
       />
     </div>
   );
