@@ -115,24 +115,26 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
         validateOnBlur={true}
         onSubmit={preprocessSubmission}
         initialValues={calculateInitialValues(placeForm)}
-        render={formikProps => (
-          <React.Fragment>
-            <BaseForm
-              modules={placeForm.stages[currentStage].modules}
-              onClickSkipStage={onClickSkipStage}
-              {...formikProps}
-            />
-            <FormStageControlBar
-              layout={layout}
-              onClickAdvanceStage={() =>
-                onClickAdvanceStage(formikProps.validateField)
-              }
-              onClickRetreatStage={onClickRetreatStage}
-              currentStage={currentStage}
-              numStages={placeForm.stages.length}
-            />
-          </React.Fragment>
-        )}
+        render={formikProps => {
+          return (
+            <React.Fragment>
+              <BaseForm
+                modules={placeForm.stages[currentStage].modules}
+                onClickSkipStage={onClickSkipStage}
+                {...formikProps}
+              />
+              <FormStageControlBar
+                layout={layout}
+                onClickAdvanceStage={() =>
+                  onClickAdvanceStage(formikProps.validateField)
+                }
+                onClickRetreatStage={onClickRetreatStage}
+                currentStage={currentStage}
+                numStages={placeForm.stages.length}
+              />
+            </React.Fragment>
+          );
+        }}
       />
     </div>
   );

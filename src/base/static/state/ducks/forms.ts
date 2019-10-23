@@ -131,6 +131,7 @@ export const placeFormSelector = createSelector(
 
 // Actions:
 const LOAD = "forms/LOAD";
+const UPDATE_MODULE_VISIBILITIES = "forms/UPDATE_MODULE_VISIBILITIES";
 
 const getModuleType = rawFormModule => {
   if (rawFormModule.htmlmodule) {
@@ -215,6 +216,19 @@ export function loadForms(flavor) {
   };
 }
 
+export function updateFormModuleVisibilities(
+  moduleIds: number[],
+  isVisible: boolean,
+) {
+  return {
+    type: UPDATE_MODULE_VISIBILITIES,
+    payload: {
+      moduleIds,
+      isVisible,
+    },
+  };
+}
+
 // Reducers:
 const INITIAL_STATE = {};
 
@@ -224,6 +238,24 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         ...action.payload,
+      };
+    case UPDATE_MODULE_VISIBILITIES:
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          modules: Object.values(state.entities.modules).reduce((memo, val) => {
+            return {
+              ...memo,
+              [val.id]: action.payload.moduleIds.includes(val.id)
+                ? {
+                    ...val,
+                    isVisible: action.payload.isVisible,
+                  }
+                : val,
+            };
+          }, {}),
+        },
       };
     default:
       return state;
