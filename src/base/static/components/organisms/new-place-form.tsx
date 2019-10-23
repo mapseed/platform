@@ -61,8 +61,6 @@ const NewPlaceForm = props => {
         includePrivate,
       });
 
-      console.log("placeResponse", placeResponse);
-
       // Save attachments.
       //if (this.attachments.length) {
       //  await Promise.all(

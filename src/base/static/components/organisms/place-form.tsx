@@ -20,6 +20,7 @@ import { isFormField } from "../../utils/place-utils";
 
 // Generate initial values for fields only (i.e. not for HTML blocks, submit
 // button, etc.)
+// TODO: submodule initial values in grouped fields
 const calculateInitialValues = (form: PlaceForm) =>
   form.stages
     .reduce(
@@ -88,7 +89,6 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
   const onClickSkipStage = stageId => setCurrentStage(stageId - 1);
   const preprocessSubmission = React.useCallback(
     values => {
-      console.log("form values", values);
       const { longitude, latitude } = mapViewport;
       const geometry = {
         type: "Point",

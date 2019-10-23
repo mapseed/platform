@@ -3,24 +3,22 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { withTranslation } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
+import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapseedRadioFieldModule } from "../../../state/ducks/forms";
-import FieldPaper from "../field-paper";
 
 type RadioFieldModuleProps = {
   mapseedField: MapseedRadioFieldModule;
-  isWithValidationError: boolean;
 } & FormikFieldProps &
   WithTranslation;
 
 const RadioField = ({
   field: { name, value, onBlur, onChange },
   mapseedField: { prompt, id, options },
-  isWithValidationError,
-}) => {
+}: RadioFieldModuleProps) => {
   return (
-    <FieldPaper isWithValidationError={isWithValidationError}>
+    <React.Fragment>
       <FormLabel>{prompt}</FormLabel>
       <RadioGroup
         value={value}
@@ -38,7 +36,7 @@ const RadioField = ({
           />
         ))}
       </RadioGroup>
-    </FieldPaper>
+    </React.Fragment>
   );
 };
 

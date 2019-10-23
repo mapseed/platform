@@ -27,14 +27,6 @@ type TextFieldModuleProps = {
 
 declare const MAP_PROVIDER_TOKEN: string;
 
-const DoGeocodeButton = () => (
-  <InputAdornment>
-    <IconButton>
-      <SearchIcon />
-    </IconButton>
-  </InputAdornment>
-);
-
 const AddressField = ({
   field: { name, value, onBlur, onChange },
   mapseedField: { prompt, placeholder, id, reverseGeocode },
@@ -70,7 +62,7 @@ const AddressField = ({
         if (placeName && isMounted.current) {
           setIsGeocoding(false);
           setIsWithGeocodingError(false);
-          onChange(name, placeName);
+          onChange(placeName);
         } else if (isMounted.current) {
           setIsGeocoding(false);
           setIsWithGeocodingError(true);
@@ -102,8 +94,6 @@ const AddressField = ({
       .then(data => {
         const locationGeometry =
           data.features && data.features[0] && data.features[0].geometry;
-
-        console.log("locationGeometry", locationGeometry);
 
         if (locationGeometry) {
           // Don't set internal state if this component has unmounted at
@@ -154,7 +144,7 @@ const AddressField = ({
       {prompt && (
         <InputLabel
           style={{
-            backgroundColor: "#fff",
+            backgroundColor: "rgb(239,239,239)",
             paddingLeft: "4px",
             paddingRight: "4px",
           }}
@@ -184,7 +174,7 @@ const AddressField = ({
               <LoadingSpinner size={16} />
             </div>
           ) : (
-            <InputAdornment>
+            <InputAdornment position="start">
               <IconButton onClick={doGeocode}>
                 <SearchIcon />
               </IconButton>
