@@ -122,3 +122,11 @@ label[for="input-form-skip_to_map_use"] {
   font-size: 1.15rem;
   line-height: 1.4rem;
 }
+
+/* TODO: fix this systematically in the forms port */
+.field-summary {
+  div:nth-child(1),
+  div:nth-child(2) {
+    display: none !important;
+  }
+}
