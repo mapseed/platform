@@ -1,9 +1,16 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
-import { Field, Form as FormikForm, FormikProps, FormikValues } from "formik";
+import {
+  Field,
+  Form as FormikForm,
+  FormikProps,
+  FormikValues,
+  connect as formikConnect,
+} from "formik";
 import Typography from "@material-ui/core/Typography";
 import FormControl from "@material-ui/core/FormControl";
+import { useDispatch } from "react-redux";
 
 import HTMLModule from "../molecules/form-field-modules/html-module";
 import TextField from "../molecules/form-field-modules/text-field";
@@ -18,7 +25,10 @@ import SubmitButtonModule from "../molecules/form-field-modules/submit-button-mo
 import SkipStageModule from "../molecules/form-field-modules/skip-stage-module";
 import FieldPaper from "../molecules/field-paper";
 
-import { FormModule } from "../../state/ducks/forms";
+import {
+  FormModule,
+  updateFormModuleVisibilities,
+} from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
 
 // TODO:
@@ -53,6 +63,7 @@ const MODULES = {
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+// TODO: i18n for validation messages.
 const getValidator = (isRequired, variant) => {
   if (isRequired && variant === "EM") {
     return value => {
@@ -128,6 +139,31 @@ const MapseedFormModule = ({
   );
 };
 
+const VisibilityTriggerEffect = formikConnect(
+  ({ formik, formModule: { key, options }, children }) => {
+    const { values } = formik;
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+      if (options) {
+        const optionsConfig = options.find(
+          ({ value }) => value === values[key],
+        );
+        if (optionsConfig && optionsConfig.groupVisibilityTriggers) {
+          dispatch(
+            updateFormModuleVisibilities(
+              optionsConfig.groupVisibilityTriggers,
+              true,
+            ),
+          );
+        }
+      }
+    }, [values]);
+
+    return children;
+  },
+);
+
 // TODO: Save all form state to Redux on unmount, as a backup.
 const BaseForm = ({
   modules,
@@ -141,23 +177,27 @@ const BaseForm = ({
         (formModule.type === "groupmodule"
           ? (formModule.modules as FormModule[])
           : [formModule]
-        ).map((subModule: FormModule) => {
-          const { key, variant, isRequired, type } = subModule;
+        )
+          .filter(subModule => subModule.isVisible)
+          .map((subModule: FormModule) => {
+            const { key, variant, isRequired, type } = subModule;
 
-          return (
-            <MapseedFormModule
-              key={key}
-              name={key}
-              variant={variant}
-              type={type}
-              isRequired={isRequired}
-              formModule={subModule}
-              fieldError={errors[key]}
-              isValid={isValid}
-              onClickSkipStage={onClickSkipStage}
-            />
-          );
-        }),
+            return (
+              <VisibilityTriggerEffect formModule={subModule}>
+                <MapseedFormModule
+                  key={key}
+                  name={key}
+                  variant={variant}
+                  type={type}
+                  isRequired={isRequired}
+                  formModule={subModule}
+                  fieldError={errors[key]}
+                  isValid={isValid}
+                  onClickSkipStage={onClickSkipStage}
+                />
+              </VisibilityTriggerEffect>
+            );
+          }),
       )}
     </FormikForm>
   );
