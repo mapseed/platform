@@ -6,7 +6,7 @@ const FIELDS = [
   "radiofield",
   "textareafield",
   "numberfield",
-  "datefield"
+  "datefield",
 ];
 
 const isFormField = moduleType => FIELDS.includes(moduleType);

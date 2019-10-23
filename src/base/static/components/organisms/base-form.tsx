@@ -3,6 +3,7 @@ import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import { Field, Form as FormikForm, FormikProps, FormikValues } from "formik";
 import Typography from "@material-ui/core/Typography";
+import FormControl from "@material-ui/core/FormControl";
 
 import HTMLModule from "../molecules/form-field-modules/html-module";
 import TextField from "../molecules/form-field-modules/text-field";
@@ -15,7 +16,7 @@ import RadioField from "../molecules/form-field-modules/radio-field";
 import GroupModule from "../molecules/form-field-modules/group-module";
 import SubmitButtonModule from "../molecules/form-field-modules/submit-button-module";
 import SkipStageModule from "../molecules/form-field-modules/skip-stage-module";
-import FormControl from "@material-ui/core/FormControl";
+import FieldPaper from "../molecules/field-paper";
 
 import { FormModule } from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
@@ -78,6 +79,55 @@ const getValidator = (isRequired, variant) => {
   }
 };
 
+const MapseedFormModule = ({
+  name,
+  variant,
+  fieldError,
+  type,
+  isRequired,
+  formModule,
+  isValid,
+  onClickSkipStage,
+}) => {
+  const ModuleType = MODULES[type];
+
+  return isFormField(type) ? (
+    <React.Fragment>
+      <FieldPaper isWithValidationError={!!fieldError}>
+        <FormControl fullWidth={true} margin="none" variant="outlined">
+          <Field
+            id={name}
+            name={name}
+            validate={getValidator(isRequired, variant)}
+            component={ModuleType}
+            mapseedField={formModule}
+          />
+        </FormControl>
+      </FieldPaper>
+      {!!fieldError && (
+        <Typography
+          css={css`
+            margin-left: 12px;
+            margin-top: 4px;
+            font-style: italic;
+          `}
+          variant="caption"
+          align="left"
+          color="error"
+        >
+          {fieldError}
+        </Typography>
+      )}
+    </React.Fragment>
+  ) : (
+    <ModuleType
+      mapseedModule={formModule}
+      onClickSkipStage={onClickSkipStage}
+      isValid={isValid}
+    />
+  );
+};
+
 // TODO: Save all form state to Redux on unmount, as a backup.
 const BaseForm = ({
   modules,
@@ -87,49 +137,28 @@ const BaseForm = ({
 }: BaseFormProps) => {
   return (
     <FormikForm>
-      {modules.map((formModule, idx) => {
-        const { key, type, isRequired, variant } = formModule;
-        const Module = MODULES[type];
+      {modules.map(formModule =>
+        (formModule.type === "groupmodule"
+          ? (formModule.modules as FormModule[])
+          : [formModule]
+        ).map((subModule: FormModule) => {
+          const { key, variant, isRequired, type } = subModule;
 
-        return isFormField(type) ? (
-          <FormControl
-            key={key}
-            fullWidth={true}
-            margin={idx === 0 ? "none" : "normal"}
-            variant="outlined"
-          >
-            <Field
+          return (
+            <MapseedFormModule
               key={key}
-              id={key}
               name={key}
-              validate={getValidator(isRequired, variant)}
-              component={Module}
-              isWithValidationError={!!errors[key]}
-              mapseedField={formModule}
+              variant={variant}
+              type={type}
+              isRequired={isRequired}
+              formModule={subModule}
+              fieldError={errors[key]}
+              isValid={isValid}
+              onClickSkipStage={onClickSkipStage}
             />
-            {errors[key] && (
-              <Typography
-                css={css`
-                  margin-left: 12px;
-                  margin-top: 4px;
-                  font-style: italic;
-                `}
-                variant="caption"
-                align="left"
-                color="error"
-              >
-                {errors[key]}
-              </Typography>
-            )}
-          </FormControl>
-        ) : (
-          <Module
-            mapseedModule={formModule}
-            onClickSkipStage={onClickSkipStage}
-            isValid={isValid}
-          />
-        );
-      })}
+          );
+        }),
+      )}
     </FormikForm>
   );
 };

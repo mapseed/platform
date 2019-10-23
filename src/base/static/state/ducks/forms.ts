@@ -19,6 +19,7 @@ interface BaseFormModule {
   defaultValue?: string | number | string[] | number[];
   variant?: FormModuleVariant;
   prompt?: string;
+  modules?: FormModule[];
 }
 
 export interface MapseedHTMLModule extends BaseFormModule {
@@ -48,13 +49,25 @@ export interface MapseedSkipStageModule extends BaseFormModule {
   stageId: number;
 }
 
+type RadioFieldOption = {
+  order: number;
+  label: string;
+  value: string | number | boolean;
+  icon?: string;
+};
+
+export interface MapseedRadioFieldModule extends BaseFormModule {
+  options: RadioFieldOption[];
+}
+
 export type FormModule =
   | MapseedHTMLModule
   | MapseedSubmitButtonModule
   | MapseedFileFieldModule
   | MapseedTextFieldModule
   | MapseedAddressFieldModule
-  | MapseedSkipStageModule;
+  | MapseedSkipStageModule
+  | MapseedRadioFieldModule;
 
 export type PlaceFormStage = {
   visibleLayerGroups: string[];
@@ -84,6 +97,10 @@ const placeFormIdSelector = state =>
 const flattenedPlaceFormSelector = state =>
   state.forms.entities.form[placeFormIdSelector(state)];
 
+// TODO: Break this into a few separate selectors:
+//  - a "field key" selector, which Formik can use to populate initial state
+//  - a "stage field" selector, which selects stage field configurations
+//  - a "group module" selector, which selects nested modules within groupmodules
 export const placeFormSelector = createSelector(
   [formStagesSelector, formModulesSelector, flattenedPlaceFormSelector],
   (formStages, formModules, placeForm) => {
@@ -94,7 +111,18 @@ export const placeFormSelector = createSelector(
 
         return {
           ...stage,
-          modules: stage.modules.map(moduleId => formModules[moduleId]),
+          modules: stage.modules.map(moduleId => {
+            const formModule = formModules[moduleId];
+
+            return formModule.type === "groupmodule"
+              ? {
+                  ...formModule,
+                  modules: formModule.modules.map(
+                    subFormModuleId => formModules[subFormModuleId],
+                  ),
+                }
+              : formModule;
+          }),
         };
       }),
     };
@@ -163,12 +191,15 @@ const formModuleProcessStrategy = (rawFormModule): FormModule => {
 const formModuleSchema = new schema.Entity(
   "modules",
   {},
-  {
-    processStrategy: formModuleProcessStrategy,
-  },
+  { processStrategy: formModuleProcessStrategy },
 );
+const formModulesSchema = new schema.Array(formModuleSchema);
+
+// Use a recursive schema definition here to accommodate `groupmodules`, which
+// define their own modules in turn.
+formModuleSchema.define({ modules: formModulesSchema });
 const formStageSchema = new schema.Entity("stages", {
-  modules: [formModuleSchema],
+  modules: formModulesSchema,
 });
 const formSchema = new schema.Entity("form", {
   stages: [formStageSchema],

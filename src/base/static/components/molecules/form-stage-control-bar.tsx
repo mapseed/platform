@@ -24,6 +24,7 @@ const FormStageControlBar = props => {
   return (
     <div
       css={css`
+        z-index: 100;
         margin-top: 30px;
         padding-left: 10px;
         padding-top: ${props.layout === "desktop" ? "20px" : "10px"};
