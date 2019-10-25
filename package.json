@@ -87,7 +87,7 @@
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
     "qs": "^6.9.0",
-    "react": "^16.10.2",
+    "react": "^16.11.0",
     "react-cookie-consent": "^2.5.0",
     "react-datetime": "~2.16.3",
     "react-dom": "~16.11.0",
