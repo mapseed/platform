@@ -15,7 +15,15 @@
           "abilities": ["create"],
           "submission_set": "*"
         }
-      ]
+      ],
+      "placeConfirmationModal": {
+        "privateNonAdmin": {
+          "header": "Thanks for reporting your voluntary stewardship!",
+          "body": [
+            "Your information was submitted successfully but will remain private and will not appear on the Kittitas County VSP map."
+          ]
+        }
+      }
     }
   ],
   "app": {
@@ -50,22 +58,1265 @@
       }
     }
   },
+  "dashboard": [
+    {
+      "header": "VSP Reports - Kittitas County",
+      "isExportable": true,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "kittitas-vsp-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total VSP Reports"
+            },
+            {
+              "type": "placePropertyCount",
+              "label": "Total Stewardship Actions",
+              "properties": {
+                "gated_pipe": "yes",
+                "line_sprinklers": "yes",
+                "pivot_sprinklers": "yes",
+                "micro_irrigation": "yes",
+                "irrigation_scheduling": "yes",
+                "polyacrylamide": "yes",
+                "cover_crop": "yes",
+                "permanent_cover_crop": "yes",
+                "no_till": "yes",
+                "reduced_till": "yes",
+                "soil_testing": "yes",
+                "plant_tissue_testing": "yes",
+                "grazing_management": "yes",
+                "grazing_management": "yes",
+                "grazing_management_fencing": "yes",
+                "range_plantings": "yes",
+                "watering_facility": "yes",
+                "water_wells": "yes",
+                "weed_prevention": "yes",
+                "pest_prevention": "yes",
+                "conservation_cover": "yes",
+                "tree_shrub": "yes",
+                "upland_habitat": "yes",
+                "riparian_fencing": "yes",
+                "fish_screens": "yes",
+                "fish_passages": "yes",
+                "streambank_stabilization": "yes",
+                "in_stream_restoration": "yes"
+              }
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. VSP reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        },
+        {
+          "header": "Stewardship Practices Detail",
+          "type": "fixedTable",
+          "stripeColor": "#fbf6ed",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Stewardship practice",
+              "type": "string",
+              "fractionalWidth": 2
+            },
+            {
+              "header": "Countywide",
+              "type": "numeric"
+            },
+            {
+              "header": "Benchmark Objective",
+              "type": "numeric"
+            },
+            {
+              "header": "Benchmark Status",
+              "type": "badge"
+            },
+            {
+              "header": "Enhanced Objective",
+              "type": "numeric"
+            },
+            {
+              "header": "Enhanced Status",
+              "type": "badge"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "value": "Gated Pipe"
+                },
+                {
+                  "value": ["get-sum", "gated_pipe_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Handline/Wheel Line Sprinklers"
+                },
+                {
+                  "value": ["get-sum", "line_sprinklers_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Center Pivot/Linear Sprinklers"
+                },
+                {
+                  "value": ["get-sum", "pivot_sprinklers_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Micro (Drip) Irrigation"
+                },
+                {
+                  "value": ["get-sum", "micro_irrigation_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Pipeline Irrigation"
+                },
+                {
+                  "value": ["get-sum", "pipeline_irrigation_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Irrigation Scheduling"
+                },
+                {
+                  "value": ["get-sum", "irrigation_scheduling_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Polyacrylamide"
+                },
+                {
+                  "value": ["get-sum", "polyacrylamide_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Cover Crop"
+                },
+                {
+                  "value": ["get-sum", "cover_crop_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Permanent Cover Crop"
+                },
+                {
+                  "value": ["get-sum", "permanent_cover_crop_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "No till"
+                },
+                {
+                  "value": ["get-sum", "no_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Reduced Till"
+                },
+                {
+                  "value": ["get-sum", "reduced_till_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Soil Testing"
+                },
+                {
+                  "value": ["get-sum", "soil_testing_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Plant Tissue Testing"
+                },
+                {
+                  "value": ["get-sum", "plant_tissue_testing_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Grazing Management"
+                },
+                {
+                  "value": ["get-sum", "grazing_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Fencing for Grazing Management"
+                },
+                {
+                  "value": ["get-sum", "grazing_management_fencing_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Range Plantings"
+                },
+                {
+                  "value": ["get-sum", "range_plantings_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Watering Facilities"
+                },
+                {
+                  "value": ["get-sum", "watering_facility_quantity"],
+                  "label": "facils."
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Facils."
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Facils."
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Water Wells"
+                },
+                {
+                  "value": ["get-sum", "water_wells_quantity"],
+                  "label": "wells"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Wells"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Wells"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Weed Prevention"
+                },
+                {
+                  "value": ["get-sum", "weed_prevention_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Pest Prevention"
+                },
+                {
+                  "value": ["get-sum", "pest_prevention_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Conservation Cover"
+                },
+                {
+                  "value": ["get-sum", "conservation_cover_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Tree/Shrub Establishment"
+                },
+                {
+                  "value": ["get-sum", "tree_shrub_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Upland Habitat Management"
+                },
+                {
+                  "value": ["get-sum", "upland_habitat_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Riparian Fencing"
+                },
+                {
+                  "value": ["get-sum", "riparian_fencing_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Fish Screens"
+                },
+                {
+                  "value": ["get-sum", "fish_screens_quantity"],
+                  "label": "screens"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Screens"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Screens"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Fish Passages"
+                },
+                {
+                  "value": ["get-sum", "fish_passages_quantity"],
+                  "label": "passages"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Passages"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Passages"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Streambank Stabilization"
+                },
+                {
+                  "value": ["get-sum", "streambank_stabilization_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "In-Stream Restoration"
+                },
+                {
+                  "value": ["get-sum", "in_stream_restoration_quantity"],
+                  "label": "feet"
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                },
+                {
+                  "value": ["literal", 0],
+                  "label": "Feet"
+                },
+                {
+                  "value": [
+                    "literal",
+                    { "label": "Not available", "color": "#ccc" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "header": "Landowner Summary",
+          "type": "freeTable",
+          "stripeColor": "#f8f5f5",
+          "layout": {
+            "start": 1,
+            "end": 13,
+            "height": 500
+          },
+          "columns": [
+            {
+              "header": "Name and contact",
+              "type": "string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                ["get-val", "private-landowner_name"],
+                ["get-val", "private-landowner_email"],
+                ["get-val", "private-landowner_phone"]
+              ]
+            },
+            {
+              "header": "Submitted report on",
+              "type": "date",
+              "fractionalWidth": 2,
+              "value": ["get-val", "created_datetime"]
+            },
+            {
+              "header": "OK to use photos?",
+              "type": "boolean",
+              "fractionalWidth": 1,
+              "value": ["get-val", "private-use_photos"]
+            },
+            {
+              "header": "Requesting Crit. Area Inventory?",
+              "type": "boolean",
+              "fractionalWidth": 1,
+              "value": ["get-val", "vsp_inventory_request"]
+            },
+            {
+              "header": "Requesting information",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "gated_pipe"], "interested"],
+                  ["literal", "Gated Pipe"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "line_sprinklers"], "interested"],
+                  ["literal", "Handline/Wheel Line Sprinklers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pivot_sprinklers"], "interested"],
+                  ["literal", "Center Pivot/Linear Sprinklers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "micro_irrigation"], "interested"],
+                  ["literal", "Micro (Drip) Irrigation"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pipeline_irrigation"], "interested"],
+                  ["literal", "Pipeline Irrigation"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "irrigation_scheduling"], "interested"],
+                  ["literal", "Irrigation Scheduling"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "polyacrylamide"], "interested"],
+                  ["literal", "Polyacrylamide"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "cover_crop"], "interested"],
+                  ["literal", "Cover Crop"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "permanent_cover_crop"], "interested"],
+                  ["literal", "Permanent Cover Crop"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "interested"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "interested"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_testing"], "interested"],
+                  ["literal", "Soil Testing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "plant_tissue_testing"], "interested"],
+                  ["literal", "Plant Tissue Testing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grazing_management"], "interested"],
+                  ["literal", "Grazing Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "grazing_management_fencing"],
+                    "interested"
+                  ],
+                  ["literal", "Fencing for Grazing Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "range_plantings"], "interested"],
+                  ["literal", "Range Plantings"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "watering_facility"], "interested"],
+                  ["literal", "Watering Facilities"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "water_wells"], "interested"],
+                  ["literal", "Water Wells"],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
+              "header": "Practices Implemented",
+              "type": "unstyled-string",
+              "fractionalWidth": 3,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "gated_pipe"], "yes"],
+                  ["literal", "Gated Pipe"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "line_sprinklers"], "yes"],
+                  ["literal", "Handline/Wheel Line Sprinklers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pivot_sprinklers"], "yes"],
+                  ["literal", "Center Pivot/Linear Sprinklers"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "micro_irrigation"], "yes"],
+                  ["literal", "Micro (Drip) Irrigation"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pipeline_irrigation"], "yes"],
+                  ["literal", "Pipeline Irrigation"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "irrigation_scheduling"], "yes"],
+                  ["literal", "Irrigation Scheduling"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "polyacrylamide"], "yes"],
+                  ["literal", "Polyacrylamide"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "cover_crop"], "yes"],
+                  ["literal", "Cover Crop"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "permanent_cover_crop"], "yes"],
+                  ["literal", "Permanent Cover Crop"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "no_till"], "yes"],
+                  ["literal", "No Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "reduced_till"], "yes"],
+                  ["literal", "Reduced Till"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "soil_testing"], "yes"],
+                  ["literal", "Soil Testing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "plant_tissue_testing"], "yes"],
+                  ["literal", "Plant Tissue Testing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grazing_management"], "yes"],
+                  ["literal", "Grazing Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "grazing_management_fencing"], "yes"],
+                  ["literal", "Fencing for Grazing Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "range_plantings"], "yes"],
+                  ["literal", "Range Plantings"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "watering_facility"], "yes"],
+                  ["literal", "Watering Facilities"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "water_wells"], "yes"],
+                  ["literal", "Water Wells"],
+                  ["literal", ""]
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "map": {
     "measurementToolEnabled": true,
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
     "geocodeHint": [-120.549183, 46.9999019],
-    "offlineBoundingBox": {
-      "southWest": {
-        "lat": 46.709206,
-        "lng": -121.476997
-      },
-      "northEast": {
-        "lat": 47.633585,
-        "lng": -119.891353
-      }
-    },
     "scrollZoomAroundCenter": true,
     "mapViewport": {
       "latitude": 47.18554,
@@ -116,10 +1367,10 @@
           "https://vector-tiles.mapseed.org/kittitas-wetlands/{z}/{x}/{y}.pbf"
         ]
       },
-      "kittitas-conservation-areas": {
+      "kittitas-conservation-areas-ver-2": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-conservation-areas/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-conservation-areas-ver-2/{z}/{x}/{y}.pbf"
         ]
       },
       "kittitas-conservation-waterways": {
@@ -383,8 +1634,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "fill",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "kittitas-conservation-areas-ver-2",
+            "source-layer": "kittitas-conservation-areas-ver-2",
             "paint": {
               "fill-pattern": "conservation-fill-alt.png",
               "fill-opacity": 0.7
@@ -402,8 +1653,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "line",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "kittitas-conservation-areas-ver-2",
+            "source-layer": "kittitas-conservation-areas-ver-2",
             "paint": {
               "line-color": "#6dd84a",
               "line-width": 2,
@@ -442,8 +1693,8 @@
               ["==", ["geometry-type"], "Polygon"]
             ],
             "type": "symbol",
-            "source": "kittitas-conservation-areas",
-            "source-layer": "kittitas-conservation-areas",
+            "source": "kittitas-conservation-areas-ver-2",
+            "source-layer": "kittitas-conservation-areas-ver-2",
             "paint": {
               "text-color": "#618141",
               "text-halo-color": "#f0f4ec",
@@ -596,7 +1847,7 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 5,
+            "end_field_index": 4,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -604,8 +1855,8 @@
             ]
           },
           {
-            "start_field_index": 6,
-            "end_field_index": 9,
+            "start_field_index": 5,
+            "end_field_index": 8,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-wetlands",
@@ -613,8 +1864,8 @@
             ]
           },
           {
-            "start_field_index": 10,
-            "end_field_index": 13,
+            "start_field_index": 9,
+            "end_field_index": 12,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-frequently-flooded",
@@ -622,8 +1873,8 @@
             ]
           },
           {
-            "start_field_index": 14,
-            "end_field_index": 17,
+            "start_field_index": 13,
+            "end_field_index": 16,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-geologic-hazard",
@@ -631,8 +1882,8 @@
             ]
           },
           {
-            "start_field_index": 18,
-            "end_field_index": 21,
+            "start_field_index": 17,
+            "end_field_index": 20,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-critical-aquifer",
@@ -640,8 +1891,8 @@
             ]
           },
           {
-            "start_field_index": 22,
-            "end_field_index": 25,
+            "start_field_index": 21,
+            "end_field_index": 24,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-conservation-areas",
@@ -649,8 +1900,8 @@
             ]
           },
           {
-            "start_field_index": 26,
-            "end_field_index": 46,
+            "start_field_index": 25,
+            "end_field_index": 26,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -658,8 +1909,8 @@
             ]
           },
           {
-            "start_field_index": 47,
-            "end_field_index": 65,
+            "start_field_index": 27,
+            "end_field_index": 47,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -667,8 +1918,8 @@
             ]
           },
           {
-            "start_field_index": 66,
-            "end_field_index": 74,
+            "start_field_index": 48,
+            "end_field_index": 66,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -676,8 +1927,8 @@
             ]
           },
           {
-            "start_field_index": 75,
-            "end_field_index": 92,
+            "start_field_index": 67,
+            "end_field_index": 75,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -685,8 +1936,8 @@
             ]
           },
           {
-            "start_field_index": 93,
-            "end_field_index": 101,
+            "start_field_index": 76,
+            "end_field_index": 93,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -694,8 +1945,8 @@
             ]
           },
           {
-            "start_field_index": 102,
-            "end_field_index": 128,
+            "start_field_index": 94,
+            "end_field_index": 102,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -703,8 +1954,8 @@
             ]
           },
           {
-            "start_field_index": 129,
-            "end_field_index": 130,
+            "start_field_index": 103,
+            "end_field_index": 129,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -712,8 +1963,17 @@
             ]
           },
           {
-            "start_field_index": 131,
-            "end_field_index": 143,
+            "start_field_index": 130,
+            "end_field_index": 131,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "kittitas-vsp-input",
+              "kittitas-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 132,
+            "end_field_index": 141,
             "visibleLayerGroupIds": [
               "satellite",
               "kittitas-vsp-input",
@@ -723,10 +1983,6 @@
         ],
         "label": "VSP Report",
         "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
           {
             "name": "location_information_header",
             "type": "informational_html",
@@ -745,6 +2001,7 @@
           {
             "name": "address",
             "type": "geocoding",
+            "reverseGeocode": false,
             "prompt": "Search by address",
             "placeholder": "Your address will never be shared",
             "optional": true
@@ -902,13 +2159,35 @@
           {
             "name": "fish_wildlife_habitat_disclaimer",
             "type": "informational_html",
-            "content": "<p style='font-size:0.9rem;color:#777'><em>The Fish and Wildlife Conservation areas are provided by the Washington State Department of Fish and Wildlife’s Priority Habitats and Species (PHS) Program. For more specific information on habitats or species on or near your property, contact the KCCD.</em></p>"
+            "content": "<p style='font-size:0.9rem;color:#777'><em>The Fish and Wildlife Conservation areas are provided by the Washington State Department of Fish and Wildlife's Priority Habitats and Species (PHS) Program. For more specific information on habitats or species on or near your property, contact the KCCD.</em></p>"
+          },
+          {
+            "//": "---------------------VSP INVENTORY REQUEST-------------------------",
+            "name": "vsp_inventory_request_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. VSP Inventory Request</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>The information you just reviewed is the available data for critical areas in Kittitas County. Because much of the data is completed at a larger scale, it can sometimes not be accurate for a specific property. If you would like to know more about critical areas associated with your property, KCCD staff can complete an in-depth inventory and provide it to you.</p>"
+          },
+          {
+            "name": "vsp_inventory_request",
+            "type": "big_radio",
+            "prompt": "Would you like a VSP Inventory completed for your property?",
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ],
+            "optional": true
           },
           {
             "//": "---------------------WATER USE EFFICIENCY-------------------------",
             "name": "water_use_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Water Use Efficiency</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Water Use Efficiency</h2>"
           },
           {
             "name": "water_user_information",
@@ -1194,7 +2473,7 @@
             "//": "=============== IRRIGATION SCHEDULING ========================",
             "name": "irrigation_scheduling",
             "type": "big_radio",
-            "prompt": "Irrigation scheduling – monitoring soil moisture and adjusting water applications accordingly",
+            "prompt": "Irrigation scheduling - monitoring soil moisture and adjusting water applications accordingly",
             "label": "Irrigation scheduling",
             "optional": true,
             "triggers": [
@@ -1246,7 +2525,7 @@
             "//": "--------------SECTION: SOIL HEALTH & EROSION MGMT---------------------------",
             "name": "soil_management",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Soil Health & Erosion Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Soil Health & Erosion Management</h2>"
           },
           {
             "name": "soil_management_information",
@@ -1531,7 +2810,7 @@
             "//": "-------------SECTION: NUTRIENT MGMT-----------------",
             "name": "nutrient_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Nutrient Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Nutrient Management</h2>"
           },
           {
             "name": "nutrient_management_information",
@@ -1661,7 +2940,7 @@
             "//": "--------------SECTION: RANGE MGMT---------------------------",
             "name": "range_management",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Range Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Range Management</h2>"
           },
           {
             "name": "range_management_information",
@@ -1944,7 +3223,7 @@
             "//": "------------SECTION: PEST MGMT--------------------",
             "name": "pest_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Pest Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Pest Management</h2>"
           },
           {
             "name": "pest_management_information",
@@ -2077,7 +3356,7 @@
             "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
             "name": "fish_wildlife_management",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Fish & Wildlife Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Fish & Wildlife Management</h2>"
           },
           {
             "name": "fish_wildlife_management_information",
@@ -2513,7 +3792,7 @@
             "//": "---------------SECTION: OTHER PRACTICES-------------------",
             "name": "other_practices_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Other VSP Practices</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Other VSP Practices</h2>"
           },
           {
             "name": "other_practices",
@@ -2526,7 +3805,7 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>15. Almost completed!</h2>"
           },
           {
             "name": "additional_info",

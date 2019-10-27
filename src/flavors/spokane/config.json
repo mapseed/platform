@@ -12,7 +12,8 @@
         "datasetSlug": "spokane-input",
         "value": "agriculture",
         "label": "Agricultural stewardship",
-        "setDefault": true
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-agriculture.png"
       },
       {
         "placeProperty": "practice_types",
@@ -20,7 +21,8 @@
         "datasetSlug": "spokane-input",
         "value": "forestry",
         "label": "Forestry stewardship",
-        "setDefault": true
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-forestry.png"
       },
       {
         "placeProperty": "practice_types",
@@ -28,7 +30,8 @@
         "datasetSlug": "spokane-input",
         "value": "livestock",
         "label": "Livestock stewardship",
-        "setDefault": true
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-livestock.png"
       }
     ]
   },
@@ -41,7 +44,25 @@
           "abilities": ["create"],
           "submission_set": "*"
         }
-      ]
+      ],
+      "placeConfirmationModal": {
+        "nonPrivate": {
+          "header": "Thanks for reporting your voluntary stewardship!",
+          "body": [
+            "If you need to make any changes to your submission, contact Doug Phelps:",
+            "Phone: 509-535-7274 x240",
+            "Email: doug-phelps@sccd.org"
+          ]
+        },
+        "privateNonAdmin": {
+          "header": "Thanks for reporting your voluntary stewardship!",
+          "body": [
+            "Your information was submitted successfully but will remain private and will not appear on the map. If you need to make any changes to your submission, contact Doug Phelps:",
+            "Phone: 509-535-7274 x240",
+            "Email: doug-phelps@sccd.org"
+          ]
+        }
+      }
     }
   ],
   "app": {
@@ -131,55 +152,67 @@
             {
               "header": "Lower Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit"], "lower-spokane"]
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Lower Spokane"
+              ]
             },
             {
               "header": "Upper Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit"], "upper-spokane"]
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Upper Spokane"
+              ]
             },
             {
               "header": "Little Spokane WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit"], "little-spokane"]
+              "filter": [
+                "==",
+                ["get-val", "analysis_unit_NAME"],
+                "Little Spokane"
+              ]
             },
             {
               "header": "Pend Oreille Lake WAU",
               "type": "numeric",
               "filter": [
                 "==",
-                ["get-val", "analysis_unit"],
-                "pend-oreille-lake"
+                ["get-val", "analysis_unit_NAME"],
+                "Pend Oreille Lake"
               ]
             },
             {
               "header": "Hangman WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit"], "hangman"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Hangman"]
             },
             {
               "header": "Coeur d'Alene Lake WAU",
               "type": "numeric",
               "filter": [
                 "==",
-                ["get-val", "analysis_unit"],
-                "coeur-dalene-lake"
+                ["get-val", "analysis_unit_NAME"],
+                "Coeur d'Alene Lake"
               ]
             },
             {
               "header": "Upper Crab WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit"], "upper-crab"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Upper Crab"]
             },
             {
               "header": "Palouse WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit"], "palouse"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Palouse"]
             },
             {
               "header": "Rock WAU",
               "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit"], "rock"]
+              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Rock"]
             },
             {
               "header": "Countywide",
@@ -985,47 +1018,27 @@
             {
               "header": "Wetlands",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_wetlands"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_wetlands"], true]
             },
             {
               "header": "Frequently flooded areas",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_frequently_flooded"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_frequently_flooded"], true]
             },
             {
               "header": "Hazardous areas",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_geologic_hazard"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_geologic_hazard"], true]
             },
             {
               "header": "Critical aquifers",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_critical_aquifer"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_critical_aquifer"], true]
             },
             {
               "header": "Critical conservation areas",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "private-property_on_critical_conservation"],
-                "yes"
-              ]
+              "filter": ["==", ["get-val", "on_critical_conservation"], true]
             }
           ],
           "rows": [
@@ -1658,40 +1671,130 @@
         "datasetSlug": "spokane-input",
         "visibleDefault": true,
         "interactive": true,
-        "legend": [
-          {
-            "icon": "/static/css/images/markers/marker-field.png",
-            "label": "Agricultural stewardship"
-          },
-          {
-            "icon": "/static/css/images/markers/marker-forest.png",
-            "label": "Forestry stewardship"
-          },
-          {
-            "icon": "/static/css/images/markers/marker-livestock.png",
-            "label": "Livestock stewardship"
-          }
-        ],
         "mapboxFocusedLayers": [
           {
             "id": "spokane-input-focused",
             "type": "symbol",
             "source": "spokane-input",
             "layout": {
-              "icon-size": 0.5,
+              "icon-size": 0.3,
               "icon-anchor": "bottom",
               "icon-image": [
-                "match",
-                ["at", 0, ["get", "practice_types"]],
-                "agriculture",
-                "marker-field.png",
-                "livestock",
+                "case",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "agriculture"]
+                ],
+                "marker-agriculture.png",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "livestock"]
+                ],
                 "marker-livestock.png",
-                "forestry",
-                "marker-forest.png",
-                "marker-forest.png"
-              ],
-              "icon-allow-overlap": true
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "forestry"]
+                ],
+                "marker-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ]
+                ],
+                "marker-livestock-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock-forestry.png",
+                "marker-agriculture.png"
+              ]
             }
           }
         ],
@@ -1703,17 +1806,122 @@
             "layout": {
               "icon-anchor": "bottom",
               "icon-image": [
-                "match",
-                ["at", 0, ["get", "practice_types"]],
-                "agriculture",
-                "marker-field.png",
-                "livestock",
+                "case",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "agriculture"]
+                ],
+                "marker-agriculture.png",
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "livestock"]
+                ],
                 "marker-livestock.png",
-                "forestry",
-                "marker-forest.png",
-                "marker-forest.png"
+                [
+                  "all",
+                  ["==", ["length", ["get", "practice_types"]], 1],
+                  ["==", ["at", 0, ["get", "practice_types"]], "forestry"]
+                ],
+                "marker-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 2],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
+                  ]
+                ],
+                "marker-livestock-forestry.png",
+                [
+                  "any",
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
+                  ],
+                  [
+                    "all",
+                    ["==", ["length", ["get", "practice_types"]], 3],
+                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
+                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
+                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
+                  ]
+                ],
+                "marker-agriculture-livestock-forestry.png",
+                "marker-agriculture.png"
               ],
-              "icon-size": ["step", ["zoom"], 0.3, 11, 0.4, 16, 0.5],
+              "icon-size": ["step", ["zoom"], 0.1, 11, 0.2, 16, 0.3],
               "icon-allow-overlap": true
             }
           }
@@ -1829,6 +2037,31 @@
                 "name": "NAME"
               }
             ]
+          },
+          {
+            "name": "on_frequently_flooded",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-frequently-flooded.geojson"
+          },
+          {
+            "name": "on_critical_conservation",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-critical-conservation-areas.geojson"
+          },
+          {
+            "name": "on_geologic_hazard",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-geologic-hazard.geojson"
+          },
+          {
+            "name": "on_critical_aquifer",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-critical-aquifer.geojson"
+          },
+          {
+            "name": "on_wetlands",
+            "type": "pointInPolygon",
+            "analysisTarget": "spokane-wetlands.geojson"
           }
         ],
         "value": "VSP Report",
@@ -1880,7 +2113,7 @@
           },
           {
             "start_field_index": 75,
-            "end_field_index": 91,
+            "end_field_index": 92,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -2038,32 +2271,48 @@
           {
             "name": "no_till_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been practicing no till?",
+            "prompt": "When did you begin practicing no till?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2119,32 +2368,48 @@
           {
             "name": "conventinal_till_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been using conventional till techniques?",
+            "prompt": "When did you begin practicing conventional till techniques?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2197,32 +2462,48 @@
           {
             "name": "reduced_till_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been using reduced till techniques?",
+            "prompt": "When did you begin practicing reduced till techniques?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2295,32 +2576,48 @@
           {
             "name": "soil_tests_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been conducting soil tests?",
+            "prompt": "When did you begin conducting soil tests?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2425,6 +2722,7 @@
             "name": "synthetic_fertilization_yield_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Yield map for synthetic fertilization",
             "prompt": "Do you base your synthetic fertilizing off of a yield map?",
             "optional": true,
             "content": [
@@ -2442,6 +2740,7 @@
             "name": "synthetic_fertilization_zone_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Zone map for synthetic fertilization",
             "prompt": "Have you developed a zone map for synthetic fertilization?",
             "optional": true,
             "content": [
@@ -2459,6 +2758,7 @@
             "name": "organic_fertilization_yield_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Yield map for organic fertilization",
             "prompt": "Do you base your organic fertilizing off of a yield map?",
             "optional": true,
             "content": [
@@ -2476,6 +2776,7 @@
             "name": "organic_fertilization_zone_map",
             "type": "big_radio",
             "hidden_default": true,
+            "label": "Zone map for organic fertilization",
             "prompt": "Have you developed a zone map for organic fertilization?",
             "optional": true,
             "content": [
@@ -2503,32 +2804,48 @@
           {
             "name": "synthetic_fertilization_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been fertilizing your fields synthetically?",
+            "prompt": "When did you begin fertilizing your fields synthetically?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2546,32 +2863,48 @@
           {
             "name": "organic_fertilization_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been fertilizing your fields organically?",
+            "prompt": "When did you begin fertilizing your fields organically?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2680,32 +3013,48 @@
           {
             "name": "buffers_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been installing buffers?",
+            "prompt": "When did you begin installing buffers?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2716,14 +3065,14 @@
             "hidden_default": true,
             "triggers": [
               {
-                "value": "yes-program",
+                "value": "yes-buffer-program",
                 "targets": ["buffer_program_types"]
               }
             ],
             "content": [
               {
                 "label": "Yes",
-                "value": "buffer-program"
+                "value": "yes-buffer-program"
               },
               {
                 "label": "No",
@@ -2803,32 +3152,48 @@
           {
             "name": "grassed_waterways_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been using grassed waterways?",
+            "prompt": "When did you begin installing grassed waterways?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2864,32 +3229,48 @@
           {
             "name": "commodity_buffer_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been participating in the commodity buffer program?",
+            "prompt": "When did you begin participating in the commodity buffer program?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -2946,32 +3327,48 @@
           {
             "name": "riparian_forest_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been enhancing wildlife habitat?",
+            "prompt": "When did you begin enhancing wildlife habitats?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3072,32 +3469,48 @@
           {
             "name": "stream_crossing_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been installing stream crossings?",
+            "prompt": "When did you begin installing stream crossings?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3150,32 +3563,48 @@
           {
             "name": "fencing_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been installing and maintaining fencing?",
+            "prompt": "When did you begin installing and maintaining fencing?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3257,32 +3686,48 @@
           {
             "name": "mud_manure_management_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been practicing mud and manure management?",
+            "prompt": "When did you begin practicing mud and manure management?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3324,32 +3769,48 @@
           {
             "name": "off_creek_stock_watering_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been maintaining off creek stock watering systems?",
+            "prompt": "When did you begin maintaining off creek stock watering systems?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3426,32 +3887,48 @@
           {
             "name": "forest_management_duration",
             "type": "dropdown",
-            "prompt": "For how long have you been managing your forest?",
+            "prompt": "When did you begin managing your forest?",
             "hidden_default": true,
             "content": [
               {
-                "label": "0-5 years",
-                "value": "0-5"
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
               },
               {
-                "label": "6-10 years",
-                "value": "6-10"
+                "label": "2012",
+                "value": "2012"
               },
               {
-                "label": "11-15 years",
-                "value": "11-15"
+                "label": "2013",
+                "value": "2013"
               },
               {
-                "label": "16-20 years",
-                "value": "16-20"
+                "label": "2014",
+                "value": "2014"
               },
               {
-                "label": "21-35 years",
-                "value": "21-35"
+                "label": "2015",
+                "value": "2015"
               },
               {
-                "label": "36 years or more",
-                "value": "36-or-more"
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
               }
             ]
           },
@@ -3519,6 +3996,12 @@
             "optional": true
           },
           {
+            "name": "private-general_questions",
+            "type": "textarea",
+            "prompt": "Do you have any questions?",
+            "optional": true
+          },
+          {
             "name": "private-landowner_name",
             "type": "text",
             "placeholder": "Your name will only be shared if you are logged in",
@@ -3580,42 +4063,20 @@
             "optional": true
           },
           {
-            "name": "allow_followup",
-            "type": "big_radio",
-            "optional": true,
-            "prompt": "May we follow up with you if we have any questions?",
-            "triggers": [
-              {
-                "value": "allow-followup",
-                "targets": [
-                  "private-landowner_email",
-                  "private-landowner_phone"
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "allow-followup"
-              },
-              {
-                "label": "No",
-                "value": "no-allow-followup"
-              }
-            ]
+            "name": "contact_info",
+            "type": "informational_html",
+            "content": "<p style='margin:8px 8px 0 8px;font-size:1.1rem;font-style:italic;'>Please provide your contact information so that we may follow up with you to verify your post.</p>"
           },
           {
             "name": "private-landowner_email",
             "type": "text",
-            "hidden_default": true,
-            "optional": true,
+            "optional": false,
             "placeholder": "Your email address will never be shared",
             "prompt": "What is your email address?"
           },
           {
             "name": "private-landowner_phone",
             "type": "text",
-            "hidden_default": true,
             "prompt": "What is your phone number?",
             "placeholder": "Your phone number will never be shared",
             "optional": true
@@ -3732,8 +4193,7 @@
           "prompt": "Your Name",
           "type": "text",
           "name": "submitter_name",
-          "placeholder": "Name is optional",
-          "optional": true
+          "placeholder": "Name"
         },
         {
           "type": "submit",
@@ -3780,6 +4240,11 @@
       "title": "Funding",
       "type": "internal_link",
       "url": "/page/funding"
+    },
+    {
+      "title": "Other Projects",
+      "type": "internal_link",
+      "url": "/page/other-projects"
     }
   ],
   "pages": [
@@ -3812,16 +4277,7 @@
       "slug": "funding",
       "content": [
         "<h3 id='about-page-header'>Stewardship Practices Examples and Funding Opportunities</h3>",
-        "<p>The Spokane Conservation District partners with other agencies such as the NRCS and the WSCC to match landowners with programs that best fit their needs.</p>",
-        "<p>Contact Walt Edelen or Doug Phelps with questions:</p>",
-        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
-        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
-        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
-        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
-        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
-        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>",
+        "<p>The Spokane Conservation District partners with other agencies such as the NRCS and the WSCC to match landowners with programs that best fit their needs. Here are some examples:</p>",
         "<div style='display:flex;padding:8px;border-bottom:1px solid #bbb;margin-bottom:8px;'><span style='flex:1;margin-right:8px;'>Management Type</span><span style='flex:1;margin-right:8px;'>Conservation Practices</span><span style='flex:1'>NRCS Code</span><span style='flex:1'>Potential Funding</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Tillage</span><span style='flex:1;margin-right:8px;'>Conservation Tillage No-Till</span><span style='flex:1;margin-right:8px;'>329</span><span style='flex:1;'>$35-$50/acre (max 1,500 acres per entity)</span></div>",
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Tillage</span><span style='flex:1;margin-right:8px;'>Conservation Tillage Mulch-Till</span><span style='flex:1;margin-right:8px;'>345</span><span style='flex:1;'>Up to $45/acre (max 1,500 acres per entity)</span></div>",
@@ -3833,7 +4289,41 @@
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Waste Storage Facility</span><span style='flex:1;margin-right:8px;'>313</span><span style='flex:1;'>Varies</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Off Creek Watering</span><span style='flex:1;margin-right:8px;'>516/533/614/561/642</span><span style='flex:1;'>Varies</span></div>",
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Forest Stand Improvement (thinning, pruning and slash treatment)</span><span style='flex:1;margin-right:8px;'>660/666</span><span style='flex:1;'>Typically about $1,000/acre</span></div>",
-        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Tree and Shrub Establishment</span><span style='flex:1;margin-right:8px;'>612</span><span style='flex:1;'>Typically about $400/acre</span></div>"
+        "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Tree and Shrub Establishment</span><span style='flex:1;margin-right:8px;'>612</span><span style='flex:1;'>Typically about $400/acre</span></div>",
+        "<p style='margin-top:32px;'>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
+      ]
+    },
+    {
+      "slug": "other-projects",
+      "content": [
+        "<h3 id='about-page-header'>Other Projects</h3>",
+        "<p>Whether you are an agricultural producer or just interested in conserving the natural resources around your home, feel free to contact us.  We offer technical assistance regardless of current funding opportunities.  Here are some examples of issues we can assist you with:</p>",
+        "<ul style='font-size:1.1rem;line-height:1.7rem;font-style:italic;color:#555;'>",
+        "<li>Streambank erosion restoration</li>",
+        "<li>Fish and wildlife habitat</li>",
+        "<li>Tree and shrub establishment</li>",
+        "<li>Urban/Homesite forestry</li>",
+        "<li>Smartscape</li>",
+        "<li>Septic assistance</li>",
+        "<li>Soil Health</li>",
+        "</ul>",
+        "<p style='margin-top:32px;'>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
+        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
+        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
+        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
       ]
     }
   ],

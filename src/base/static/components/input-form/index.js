@@ -12,7 +12,7 @@ import WarningMessagesContainer from "../molecules/warning-messages-container";
 import FormStageHeaderBar from "../molecules/form-stage-header-bar";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
 import InfoModal from "../organisms/info-modal";
-import { Spinner } from "../atoms/imagery";
+import { LoadingBar } from "../atoms/imagery";
 
 import { withTranslation } from "react-i18next";
 import { extractEmbeddedImages } from "../../utils/embedded-images";
@@ -24,6 +24,7 @@ import { createPlace } from "../../state/ducks/places";
 import {
   datasetClientSlugSelector,
   datasetReportSelector,
+  datasetPlaceConfirmationModalSelector,
 } from "../../state/ducks/datasets-config";
 import {
   createFeaturesInGeoJSONSource,
@@ -189,6 +190,7 @@ class InputForm extends Component {
               : this.selectedCategoryConfig.category + field.name,
             isAutoFocusing: prevFields.get("isAutoFocusing"),
             advanceStage: field.advance_stage_on_value,
+            advanceToArbitraryStage: field.advance_to_arbitrary_stage,
           }),
         );
       }, OrderedMap());
@@ -265,6 +267,28 @@ class InputForm extends Component {
         });
         this.setState({
           currentStage: this.state.currentStage + 1,
+          showValidityStatus: false,
+          formValidationErrors: new Set(),
+        });
+      });
+    }
+
+    // Check if this field should advance to an arbitrary stage.
+    if (
+      fieldStatus.get("advanceToArbitraryStage") &&
+      fieldStatus.get("advanceToArbitraryStage").value ===
+        fieldStatus.get("value") &&
+      !isInitializing
+    ) {
+      this.validateForm(() => {
+        jumpTo({
+          contentPanelInnerContainerRef: this.props
+            .contentPanelInnerContainerRef,
+          scrollPosition: 0,
+          layout: this.props.layout,
+        });
+        this.setState({
+          currentStage: fieldStatus.get("advanceToArbitraryStage").stage,
           showValidityStatus: false,
           formValidationErrors: new Set(),
         });
@@ -440,6 +464,11 @@ class InputForm extends Component {
       });
     }
 
+    const {
+      privateNonAdmin,
+      privateAdmin,
+      nonPrivate,
+    } = this.props.placeConfirmationModal(this.props.datasetSlug);
     if (
       placeResponse.private &&
       this.props.hasGroupAbilitiesInDatasets({
@@ -448,39 +477,59 @@ class InputForm extends Component {
         datasetSlugs: [this.props.datasetSlug],
       })
     ) {
-      // If this is a private Place and the current user has
-      // can_access_protected privileges, add the Place to the places duck and
-      // route the user to the Place's detail view, explaining that the Place
-      // is not visible to the general public.
-      this.setState({
-        isInfoModalOpen: true,
-        infoModalHeader: this.props.t("privateSubmissionModalHeader"),
-        infoModalBody: [this.props.t("privateSubmissionModalBodyAdmin")],
-        routeOnClose: `${this.props.datasetClientSlugSelector(
-          this.props.datasetSlug,
-        )}/${placeResponse.id}`,
-      });
+      // Private submission made by an admin.
+      if (privateAdmin) {
+        this.setState({
+          isInfoModalOpen: true,
+          infoModalHeader: privateAdmin.header,
+          infoModalBody: privateAdmin.body,
+          routeOnClose: `${this.props.datasetClientSlugSelector(
+            this.props.datasetSlug,
+          )}/${placeResponse.id}`,
+        });
+      } else {
+        this.props.history.push(
+          `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
+            placeResponse.id
+          }`,
+        );
+      }
       this.defaultPostSave(placeResponse);
     } else if (placeResponse.private) {
-      // If this is a private Place and the current user does not have
-      // can_access_protected privileges, confirm the Place's submission but do
-      // not add the Place to the places duck, and route to the root.
-      this.setState({ isFormSubmitting: false, showValidityStatus: false });
-      this.setState({
-        isInfoModalOpen: true,
-        infoModalHeader: this.props.t("privateSubmissionModalHeader"),
-        infoModalBody: [this.props.t("privateSubmissionModalBodyNonAdmin")],
-        routeOnClose: "/",
-      });
+      // Private submission made by a non-admin.
+      if (privateNonAdmin) {
+        this.setState({
+          isFormSubmitting: false,
+          showValidityStatus: false,
+          isInfoModalOpen: true,
+          infoModalHeader: privateNonAdmin.header,
+          infoModalBody: privateNonAdmin.body,
+          routeOnClose: "/",
+        });
+      } else {
+        this.props.history.push("/");
+      }
     } else {
-      // If the Place is note private, follow the default route-to-detail-view
-      // behavior.
+      // Public ("non-private") submission.
+      if (nonPrivate) {
+        this.setState({
+          isFormSubmitting: false,
+          showValidityStatus: false,
+          isInfoModalOpen: true,
+          infoModalHeader: nonPrivate.header,
+          infoModalBody: nonPrivate.body,
+          routeOnClose: `${this.props.datasetClientSlugSelector(
+            this.props.datasetSlug,
+          )}/${placeResponse.id}`,
+        });
+      } else {
+        this.props.history.push(
+          `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
+            placeResponse.id
+          }`,
+        );
+      }
       this.defaultPostSave(placeResponse);
-      this.props.history.push(
-        `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
-          placeResponse.id
-        }`,
-      );
     }
   };
 
@@ -613,7 +662,7 @@ class InputForm extends Component {
               ))
               .toArray()}
           </form>
-          {this.state.isFormSubmitting && <Spinner />}
+          {this.state.isFormSubmitting && <LoadingBar />}
 
           {this.selectedCategoryConfig.multi_stage && (
             <FormStageControlBar
@@ -691,6 +740,7 @@ InputForm.propTypes = {
   layout: PropTypes.string.isRequired,
   onCategoryChange: PropTypes.func,
   placeConfig: PropTypes.object.isRequired,
+  placeConfirmationModal: PropTypes.func.isRequired,
   renderCount: PropTypes.number,
   selectedCategory: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
@@ -718,6 +768,8 @@ const mapStateToProps = state => ({
   layerGroups: layerGroupsSelector(state),
   layout: layoutSelector(state),
   placeConfig: placeConfigSelector(state),
+  placeConfirmationModal: datasetSlug =>
+    datasetPlaceConfirmationModalSelector(state, datasetSlug),
   mapViewport: mapViewportSelector(state),
 });
 

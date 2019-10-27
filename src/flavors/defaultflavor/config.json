@@ -852,7 +852,7 @@
           {
             "name": "LID_master_score",
             "type": "pointInPolygon",
-            "targetUrl": "https://raw.githubusercontent.com/mapseed/data/master/scorecard.geojson",
+            "analysisTarget": "scorecard.geojson",
             "propertiesToPluck": [
               {
                 "name": "LID_Checklist_Master_score"

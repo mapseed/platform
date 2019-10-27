@@ -14,7 +14,15 @@
           "abilities": ["create"],
           "submission_set": "*"
         }
-      ]
+      ],
+      "placeConfirmationModal": {
+        "privateNonAdmin": {
+          "header": "Thanks for reporting your voluntary stewardship!",
+          "body": [
+            "Your information was submitted successfully but will remain private and will not appear on the Garfield County VSP map."
+          ]
+        }
+      }
     }
   ],
   "app": {
@@ -8611,7 +8619,7 @@
           },
           {
             "start_field_index": 110,
-            "end_field_index": 121,
+            "end_field_index": 120,
             "header": "Garfield County",
             "description": "Voluntary Stewardship Program",
             "visibleLayerGroupIds": [

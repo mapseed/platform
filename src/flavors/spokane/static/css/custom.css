@@ -59,6 +59,8 @@ header {
 [data-field-name="other_practices_description"],
 [data-field-name="title"],
 [data-field-name="practices_description"],
+[data-field-name="private-general_questions"],
+[data-field-name="contact_info"],
 [data-field-name="stewardship_difficulties"],
 [data-field-name="private-landowner_name"],
 [data-field-name="other_buffer_type"],
@@ -79,7 +81,10 @@ header {
 [data-field-name="acres_farmed"],
 [data-field-name="years_farming"],
 [data-field-name="practices_description"],
+[data-field-name="contact_info"],
 [data-field-name="stewardship_difficulties"],
+[data-field-name="private-general_questions"],
+[data-field-name="private"],
 [data-field-name="private-landowner_name"] {
   margin-top: 15px !important;
 }

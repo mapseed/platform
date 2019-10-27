@@ -5,6 +5,88 @@
       "label": "English"
     }
   },
+  "dashboard": [
+    {
+      "header": "An Anthropocene River: Posting Summary",
+      "isExportable": true,
+      "datasetSlug": "mississippi-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total posts"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Posting history",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of posts",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        }
+      ]
+    },
+    {
+      "header": "An Anthropocene River: Featured Posting Summary",
+      "isExportable": true,
+      "datasetSlug": "mississippi-featured",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total posts"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Posting history",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of posts",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        }
+      ]
+    }
+  ],
   "datasets": [
     {
       "slug": "mississippi-input",
@@ -168,6 +250,13 @@
         ],
         "tileSize": 256
       },
+      "districts": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/districts/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
       "oceans": {
         "type": "raster",
         "tiles": [
@@ -179,6 +268,20 @@
         "type": "raster",
         "tiles": [
           "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
+      "hydro": {
+        "type": "raster",
+        "tiles": [
+          "https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/{z}/{y}/{x}"
+        ],
+        "tileSize": 256
+      },
+      "hillshade": {
+        "type": "raster",
+        "tiles": [
+          "https://services.arcgisonline.com/arcgis/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}"
         ],
         "tileSize": 256
       },
@@ -208,6 +311,11 @@
         "tiles": [
           "https://ecotopia.today/Mississippi/NoHeartOfFear/{z}/{x}/{y}.png"
         ],
+        "tileSize": 256
+      },
+      "hypoxia": {
+        "type": "raster",
+        "tiles": ["https://ecotopia.today/Mississippi/Hypoxia/{z}/{x}/{y}.png"],
         "tileSize": 256
       },
       "navigation": {
@@ -276,6 +384,14 @@
       "InactiveCoalMines": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/InactiveCoalMines.geojson"
+      },
+      "basin": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/MissBasin.geojson"
+      },
+      "mask": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Mask.geojson"
       },
       "NuclearComplex": {
         "type": "geojson",
@@ -425,6 +541,109 @@
         ]
       },
       {
+        "id": "hillshade-group",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "hillshade-group",
+            "type": "raster",
+            "source": "hillshade",
+            "paint": {
+              "raster-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "districts-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "districts-basemap",
+            "type": "raster",
+            "source": "districts",
+            "paint": {
+              "raster-opacity": 0.3
+            }
+          }
+        ]
+      },
+      {
+        "id": "hydro-group",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "hydro-group",
+            "type": "raster",
+            "source": "hydro",
+            "paint": {
+              "raster-opacity": 0.9
+            }
+          }
+        ]
+      },
+      {
+        "id": "hydro2-group",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "hydro2-group",
+            "type": "raster",
+            "source": "hydro",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                13,
+                0,
+                14,
+                1,
+                17,
+                1,
+                18,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "mask-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "mask-group",
+            "type": "fill",
+            "source": "mask",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "#00AADD",
+              "fill-opacity": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "basin-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "basin-group",
+            "type": "fill",
+            "source": "basin",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "peru",
+              "fill-opacity": 0.2
+            }
+          }
+        ]
+      },
+      {
         "id": "confluence-group",
         "basemap": false,
         "visibleDefault": false,
@@ -522,6 +741,25 @@
         ]
       },
       {
+        "id": "protected2",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee district:</strong></p><p>{{name}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "protected2",
+            "type": "fill",
+            "source": "protected",
+            "source-layer": "protected",
+            "paint": {
+              "fill-color": "#e47901",
+              "fill-opacity": 0
+            }
+          }
+        ]
+      },
+      {
         "id": "MissUndammed-group",
         "basemap": false,
         "visibleDefault": false,
@@ -571,6 +809,35 @@
                 0,
                 8.5,
                 2,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "levees2-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p><strong>Levee sponsor and county:</strong></p><p>{{sponsors}}, {{counties}}</p><p>NLD Risk assessment <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/risk' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "levees2-group",
+            "type": "line",
+            "source": "levees",
+            "source-layer": "levees",
+            "paint": {
+              "line-color": "#dd3300",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3.5,
+                0,
+                4,
+                1.5,
                 14,
                 12
               ]
@@ -634,6 +901,21 @@
         ]
       },
       {
+        "id": "hypoxia-group",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "hypoxia-basemap",
+            "type": "raster",
+            "source": "hypoxia",
+            "paint": {
+              "raster-opacity": 1
+            }
+          }
+        ]
+      },
+      {
         "id": "streets-group",
         "basemap": false,
         "visibleDefault": true,
@@ -687,7 +969,7 @@
       {
         "id": "MARBpumps-group",
         "basemap": false,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "interactive": true,
         "popupContent": "<div style='max-width: 350px'><p><strong>Pump Station</strong></p><p>{{SYSTEM_NAME}}, {{FEATURE_NAME}}</p><p>Flood source: {{FLOOD_SOURCE}}</p>{{PUMP_CONFIG}},  {{PUMP_DRIVE}}</p>Other levee features <a href='https://levees.sec.usace.army.mil/#/levees/system/{{SYSTEM_ID}}/features' target='_blank' rel='noopener noreferrer'>here</a>.",
         "mapboxLayers": [
@@ -697,7 +979,7 @@
             "source": "MARBpumps",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0, 11, 0.8],
+              "icon-size": ["step", ["zoom"], 0, 9, 0.7, 15, 1.5],
               "icon-anchor": "center",
               "icon-image": "pump.png"
             }
@@ -862,13 +1144,40 @@
       },
       {
         "id": "NewMadrid-group",
+        "basemap": true,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "{{Photo}}",
+        "mapboxLayers": [
+          {
+            "id": "NewMadrid-group",
+            "type": "circle",
+            "source": "NewMadrid",
+            "paint": {
+              "circle-radius": 8,
+              "circle-color": "coral",
+              "circle-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                10,
+                1
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "NewMadrid2-group",
         "basemap": false,
         "visibleDefault": false,
         "interactive": true,
         "popupContent": "{{Photo}}",
         "mapboxLayers": [
           {
-            "id": "NewMadrid-labels",
+            "id": "NewMadrid2-group",
             "type": "circle",
             "source": "NewMadrid",
             "paint": {
@@ -1159,7 +1468,7 @@
             "source": "MissGagesUSGS",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0, 3, 0.4, 10, 0.9, 17, 0],
+              "icon-size": ["step", ["zoom"], 0, 3, 0.3, 10, 0.9, 17, 0],
               "icon-anchor": "center",
               "icon-image": "gauge.png"
             }
@@ -1203,7 +1512,7 @@
             "type": "symbol",
             "source": "mississippi-input",
             "layout": {
-              "icon-size": 0.9,
+              "icon-size": 1,
               "icon-anchor": "center",
               "icon-image": [
                 "match",
@@ -3979,16 +4288,19 @@
         "spotlight": false
       },
       {
-        "placeId": 7598,
-        "pan_to": [-96.793, 40.178],
-        "zoom": 4.5,
-        "iconUrl": "/static/css/images/markers/gauge.png",
+        "placeId": 7791,
+        "pan_to": [-93.897, 33.937],
+        "zoom": 5.8,
+        "iconUrl": "/static/css/images/markers/pump.png",
         "visibleLayerGroupIds": [
-          "ocean-satellite",
-          "mississippi-group",
-          "USGSstations-group",
-          "USACEstations-group",
-          "streets2-group"
+          "hydro-group",
+          "mask-group",
+          "basin-group",
+          "hillshade-group",
+          "districts-group",
+          "MARBpumps-group",
+          "levees2-group",
+          "protected2"
         ],
         "spotlight": false
       },
@@ -4007,6 +4319,20 @@
         "spotlight": false
       },
       {
+        "placeId": 7598,
+        "pan_to": [-96.793, 40.178],
+        "zoom": 4.5,
+        "iconUrl": "/static/css/images/markers/gauge.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "USGSstations-group",
+          "USACEstations-group",
+          "streets2-group"
+        ],
+        "spotlight": false
+      },
+      {
         "placeId": 7532,
         "pan_to": [-94.0, 42.4],
         "zoom": 4.6,
@@ -4021,6 +4347,19 @@
           "GlacialMaximum-group",
           "mississippi-input",
           "topomap-group"
+        ],
+        "spotlight": false
+      },
+      {
+        "placeId": 7538,
+        "pan_to": [-93.97, 39.44],
+        "zoom": 4.5,
+        "iconUrl": "/static/css/images/markers/atom.png",
+        "visibleLayerGroupIds": [
+          "ocean-satellite",
+          "mississippi-group",
+          "streets-group",
+          "nuclear-plants-timeslider-group"
         ],
         "spotlight": false
       },
@@ -4060,24 +4399,12 @@
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "confluence-group",
-          "NewMadrid-group",
+          "NewMadrid2-group",
           "InactiveCoalMines-group",
           "ActiveCoalMines-group",
           "streets2-group",
+          "hydro2-group",
           "mississippi-input"
-        ],
-        "spotlight": false
-      },
-      {
-        "placeId": 7538,
-        "pan_to": [-93.97, 39.44],
-        "zoom": 4.5,
-        "iconUrl": "/static/css/images/markers/atom.png",
-        "visibleLayerGroupIds": [
-          "ocean-satellite",
-          "mississippi-group",
-          "streets-group",
-          "nuclear-plants-timeslider-group"
         ],
         "spotlight": false
       },

@@ -5,7 +5,7 @@ import styled from "../../utils/styled";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { jsx, css } from "@emotion/core";
 
-import { FontAwesomeIcon, Spinner } from "../atoms/imagery";
+import { FontAwesomeIcon, LoadingSpinner } from "../atoms/imagery";
 import { HorizontalRule } from "../atoms/layout";
 import { TinyTitle } from "../atoms/typography";
 
@@ -111,7 +111,7 @@ const OptionSelector: React.FunctionComponent<
         <LayerGroupsStatusContainer>
           {props.isLayerGroupVisible && props.loadStatus === "loading" && (
             <SpinnerContainer className="map-layer-status-spinner">
-              <Spinner style={{ width: "20px", height: "20px" }} />
+              <LoadingSpinner size={10} />
             </SpinnerContainer>
           )}
           {props.isLayerGroupVisible &&

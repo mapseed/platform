@@ -46,8 +46,8 @@
   "app": {
     "title": "Bellevue Bike Sharing",
     "name": "Bellevue Bike Sharing",
-    "logo": "/static/css/images/logo-2.png",
-    "meta_description": "_(Decide where to put dockless bike sharing in Bellevue!)",
+    "logo": "/static/css/images/logo-3.png",
+    "meta_description": "Decide where to put dockless bike sharing in Bellevue!",
     "meta_author": "mapseed.org",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
@@ -75,7 +75,7 @@
   "dashboard": [
     {
       "header": "Bellevue Bikeshare - Community Reports",
-      "isExportable": false,
+      "isExportable": true,
       "backgroundColor": "#f5f3f0",
       "datasetSlug": "bellevue-bike-share",
       "widgets": [
@@ -188,7 +188,7 @@
       "bellevue-transit": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/bellevue-transit/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/bellevue-transit-ver-2/{z}/{x}/{y}.pbf"
         ]
       }
     },
@@ -344,9 +344,9 @@
       },
       {
         "id": "bellevue-existing-hubs",
-        "visibleDefault": false,
+        "visibleDefault": true,
         "interactive": true,
-        "popupContent": "<div style='font-family: PTSans, sans-serif;'><p style='display:flex;'><strong>Status:  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubStatus}}</span></p><p style='display:flex;'><strong>Painted symbol?  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubPaint}}</span></p><p style='display:flex;'><strong>Bike rack?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{BikeRack}}</span></p><p style='display:flex;'><strong>Is this a mini-hub?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{MiniHub}}</span></p></div>",
+        "popupContent": "<div style='font-family: PTSans, sans-serif;'><p style='display:flex;'><strong>Status:  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubStatus}}</span></p><p style='display:flex;'><strong>Painted symbol?  </strong><span style='color:#444;margin-left:auto;font-style:italic;'>{{HubPaint}}</span></p><p style='display:flex;'><strong>Bike rack?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{BikeRack}}</span></p><p style='display:flex;'><strong>Is this a mini-hub?  </strong><span style='color:#444;font-style:italic;margin-left:auto;'>{{MiniHub}}</span></p></div><img style='width: 200px; max-width:200px;' src='{{PicURL}}' alt='Existing bike hub' onerror='this.style.display=\"none\"' />",
         "mapboxLayers": [
           {
             "id": "bellevue-existing-hubs",
@@ -618,7 +618,39 @@
         "multi_stage": [
           {
             "start_field_index": 1,
-            "end_field_index": 1,
+            "end_field_index": 3,
+            "visibleLayerGroupIds": [
+              "f4",
+              "overlay",
+              "bellevue-existing-hubs",
+              "bellevue-bike-share"
+            ],
+            "viewport": {
+              "latitude": 47.58713,
+              "longitude": -122.15581,
+              "zoom": 11.3,
+              "pitch": 30
+            }
+          },
+          {
+            "start_field_index": 4,
+            "end_field_index": 4,
+            "visibleLayerGroupIds": [
+              "f4",
+              "overlay",
+              "bellevue-existing-hubs",
+              "bellevue-bike-share"
+            ],
+            "viewport": {
+              "latitude": 47.58713,
+              "longitude": -122.15581,
+              "zoom": 11.3,
+              "pitch": 30
+            }
+          },
+          {
+            "start_field_index": 5,
+            "end_field_index": 5,
             "visibleLayerGroupIds": ["f4", "overlay"],
             "viewport": {
               "latitude": 47.58713,
@@ -628,8 +660,8 @@
             }
           },
           {
-            "start_field_index": 2,
-            "end_field_index": 2,
+            "start_field_index": 6,
+            "end_field_index": 6,
             "visibleLayerGroupIds": ["f4", "bellevue-grid", "overlay"],
             "viewport": {
               "latitude": 47.58713,
@@ -639,8 +671,8 @@
             }
           },
           {
-            "start_field_index": 3,
-            "end_field_index": 3,
+            "start_field_index": 7,
+            "end_field_index": 7,
             "visibleLayerGroupIds": [
               "f4",
               "bellevue-grid",
@@ -656,8 +688,8 @@
             }
           },
           {
-            "start_field_index": 4,
-            "end_field_index": 4,
+            "start_field_index": 8,
+            "end_field_index": 8,
             "visibleLayerGroupIds": [
               "f4",
               "bellevue-grid",
@@ -672,8 +704,8 @@
             }
           },
           {
-            "start_field_index": 5,
-            "end_field_index": 5,
+            "start_field_index": 9,
+            "end_field_index": 9,
             "visibleLayerGroupIds": [
               "f4",
               "bellevue-grid",
@@ -682,11 +714,10 @@
             ]
           },
           {
-            "start_field_index": 6,
-            "end_field_index": 14,
+            "start_field_index": 10,
+            "end_field_index": 18,
             "visibleLayerGroupIds": [
               "f4",
-              "bellevue-transit",
               "bellevue-existing-hubs",
               "overlay",
               "bellevue-grid",
@@ -696,24 +727,73 @@
         ],
         "fields": [
           {
+            "name": "request_bikeshare_parking",
+            "type": "informational_html",
+            "prompt": " ",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Request bikeshare parking!</h1><img style='width:100%;' src='/static/css/images/request-bikeshare-parking.png' alt='Bikeshare parking' />"
+          },
+          {
+            "name": "skip_to_map_use",
+            "type": "big_toggle",
+            "prompt": " ",
+            "advance_to_arbitrary_stage": {
+              "value": "map-use",
+              "stage": 2
+            },
+            "content": [
+              {
+                "label": "How do I use this map?",
+                "value": "map-use"
+              },
+              {
+                "label": "How do I use this map?",
+                "value": "no-map-use"
+              }
+            ]
+          },
+          {
+            "name": "skip_to_questionnaire",
+            "type": "big_toggle",
+            "prompt": " ",
+            "advance_to_arbitrary_stage": {
+              "value": "skip",
+              "stage": 8
+            },
+            "content": [
+              {
+                "label": "I'm ready to suggest a location!",
+                "value": "skip"
+              },
+              {
+                "label": "I'm ready to suggest a location!",
+                "value": "no-skip"
+              }
+            ]
+          },
+          {
+            "name": "map_use",
+            "type": "informational_html",
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>How do I use this map?</h1><img style='width:100%;' src='/static/css/images/map-use-graphic.png' alt='Map use graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>As you click through the next few pages, this guide will show you other map layers you can turn on and off to help you think about where to suggest a parking area. Click on the layers button (circled in <span style='color:#a3d469'>green</span>) to see all your options! The map will move each time you click Next, so please wait until page 8 to place the pin where you want it.</p><p class='form-stage-text' >Do you have more questions about bikeshare parking in Bellevue? Click on the “FAQ” button at the top of the map (circled in <span style='color:#eb7d3c'>orange</span>) for more information.</p>"
+          },
+          {
             "name": "hub_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What is a hub?</h1><img style='width:100%;' src='/static/css/images/bike-share-hub.jpg' alt='Walkshed graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>Hubs are preferred parking areas for bikeshare bicycles. These are places where bikeshare users are encouraged to park when ending a trip and where Lime relocates bikes to provide convenient and reliable service.</p><p class='form-stage-text' >Hubs are marked with white boxes and symbols painted on sidewalks or street shoulders, and they are shown in operators’ mobile apps.</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What is a hub?</h1><img style='width:100%;' src='/static/css/images/bike-share-hub.jpg' alt='Walkshed graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>Hubs are preferred parking areas for bikeshare bicycles. These are places where bikeshare users are encouraged to park when ending a trip and where operators relocate bikes to provide convenient and reliable service.</p><p class='form-stage-text' >Hubs are marked with white boxes and symbols painted on sidewalks or street shoulders, and they are shown in operators' mobile apps.</p>"
           },
           {
             "name": "hub_location_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Where should hubs go?</h1><img style='width:100%;' src='/static/css/images/gridlines-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Anywhere you want to go by bike! We’re aiming to provide a network of conveniently located hubs citywide. Suggest locations in your neighborhood, outside your workplace, at your local park, near your favorite café, restaurants, and shops.</p><p class='form-stage-text' >If you don’t see a suggested location in the half-mile (solid) or quarter-mile (dashed) grid squares near places you want to use bikeshare, that is an especially good place to suggest one.</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Where should hubs go?</h1><img style='width:100%;' src='/static/css/images/gridlines-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>We want to provide a network of convenient hubs citywide. Suggest locations in your neighborhood, outside your workplace, at your local park, near your favorite café, restaurants, and shops-anywhere you want to go by bike!</p><p class='form-stage-text' >If you don't see a suggested location in the half-mile (solid) or quarter-mile (dashed) grid squares near places you want to go, that is an especially good place to suggest one.</p>"
           },
           {
             "name": "existing_hubs_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Existing hubs</h1><img style='width:100%;' src='/static/css/images/existing-bikeshare-hubs-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Hubs have already been installed at 50 locations across the city, including in Downtown, Crossroads, Factoria, and near major bus stops and community spaces.</p><p class='form-stage-text' >Toggle these with the Existing Hubs layer.</p>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Existing hubs</h1><img style='width:100%;' src='/static/css/images/existing-bikeshare-hubs-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Hubs have already been installed at 50 locations across the city, including in Downtown, Crossroads, Factoria, and near major bus stops and community spaces.</p><p class='form-stage-text' >Toggle these with the Existing Hubs layer, and click on icons for more information and photos. Large icons are painted areas; small icons are public bike racks, or \"mini hubs.\"</p>"
           },
           {
             "name": "bicycle_network_information",
             "type": "informational_html",
-            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Bicycle network</h1><img style='width:100%;' src='/static/css/images/bike-network-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Not sure where to ride? Toggle the Bike Network layer to see where bike lanes and offstreet paths are near where you want to go.</p><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/bike-sharrows.jpg' alt='Bike sharrows' /><figcaption style='font-style:italic;color:#888;'>Bike sharrows</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/bike-lane.jpg' alt='Bike lane' /><figcaption style='font-style:italic;color:#888;'>Bike lane</figcaption></figure></div><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/wide-shoulder.jpg' alt='Shoulder / wide lane' /><figcaption style='font-style:italic;color:#888;'>Shoulder / wide lane</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/offstreet-path.png' alt='Offstreet path' /><figcaption style='font-style:italic;color:#888;'>Offstreet path</figcaption></figure></div>"
+            "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Bicycle network</h1><img style='width:100%;' src='/static/css/images/bike-network-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Not sure where to ride? Toggle the Bike Network layer to see where bike lanes and offstreet paths are near where you want to go.</p><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/bike-sharrows-ver-2.png' alt='Bike sharrows' /><figcaption style='font-style:italic;color:#888;'>Bike sharrows</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/bike-lane-ver-2.png' alt='Bike lane' /><figcaption style='font-style:italic;color:#888;'>Bike lane</figcaption></figure></div><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/wide-shoulder-ver-2.png' alt='Shoulder / wide lane' /><figcaption style='font-style:italic;color:#888;'>Shoulder / wide lane</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/offstreet-path-ver-2.png' alt='Offstreet path' /><figcaption style='font-style:italic;color:#888;'>Offstreet path</figcaption></figure></div>"
           },
           {
             "name": "access_to_transit_information",
@@ -747,7 +827,7 @@
           {
             "name": "live_work_visit",
             "type": "big_checkbox",
-            "prompt": "Regarding your bikeshare parking request, check all that apply:",
+            "prompt": "Check all that apply:",
             "optional": true,
             "content": [
               {
@@ -783,7 +863,7 @@
             "name": "my_image",
             "type": "file",
             "label": "Add image",
-            "prompt": "Have an image of this location? Add it!",
+            "prompt": "Upload an image of this location:",
             "optional": true
           },
           {
@@ -904,20 +984,22 @@
     {
       "slug": "about",
       "content": [
-        "<div style='display:flex; align-items:center'><img style='width:80px;min-width:80px;max-width:80px;height:80px;max-height:80px;min-height:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1>Bellevue Bikeshare! But Where?</h1></div>",
+        "<div style='display:flex; align-items:center'><img style='width:80px;min-width:80px;max-width:80px;height:80px;max-height:80px;min-height:80px;margin-right:24px;' src='/static/css/images/bellevue-logo.jpg' alt='City of Bellevue logo' /><h1>Bikeshare! But Where?</h1></div>",
         "<img src='/static/css/images/bike-sharing.jpg' alt='Bike sharing' />",
-        "<p>Have you used bikeshare in Bellevue? Maybe you’ve seen them around?</p>",
-        "<p>The City of Bellevue is striving to make bikeshare easier to use while reducing the number of bikes left in places where they shouldn’t be. That’s where you come in.</p>",
-        "<p>Help us select good places in your neighborhood to designate as preferred parking areas, called “bike hubs.” A good location is one where bikes are convenient to find when you want one and out of the way when you don’t. Add your suggestions to the map and comment on locations submitted by other members of your community.</p>",
-        "<p>The Transportation Department will review every suggestion we receive, and we’ll periodically update this map to communicate the current status of a suggested bike hub location.</p>",
-        "<p>To provide more general feedback about bikeshare in Bellevue, take the City’s online questionnaire at [external link to come later].</p>",
-        "<p>Thanks for taking the time to participate and help make Bellevue a great place to bike.</p>",
-        "<p class='btn btn-block btn-large'><a href='/new' rel='internal'>Request bikeshare parking!</a></p>"
+        "<pThe City is working to make bikeshare easier to use and better manage where bikes are parked. We want your input!</p>",
+        "<p>Help us pick good places in your neighborhood to designate as preferred parking areas, called “bike hubs.” A good location is one where bikes are convenient to find when you want one and out of the way when you don't. Add your suggestions to the map and comment on locations submitted by other members of your community.</p>",
+        "<p>The Transportation Department will review every suggestion submitted, and this map will be updated to share the current status.</p>",
+        "<p>To provide more general feedback about bikeshare in Bellevue, take the City's online questionnaire at <a href='https://www.surveymonkey.com/r/bellevuebikeshare' target='_blank'>https://www.surveymonkey.com/r/bellevuebikeshare</a>.</p>",
+        "<p>Thanks for taking the time to participate!</p>",
+        "<div class='page-button'><a href='/new' rel='internal'>Start!</a></div>"
       ]
     },
     {
       "slug": "faq",
-      "content": ["<p>FAQ content to come...</p>"]
+      "content": [
+        "<h1>FAQ</h1>",
+        "<p>For information explaining what bike share is and how to use it, visit the City's Frequently Asked Questions guide: <a target='_blank' href='http://bit.ly/2IwmA0b'>http://bit.ly/2IwmA0b</a></p>"
+      ]
     }
   ],
   "notifications": {
