@@ -93,6 +93,10 @@ const ThemeProvider = ({ flavorTheme, children }) => {
     flavorTheme,
   );
   const flavorBodyFontFamily = lookup(["text", "bodyFontFamily"], flavorTheme);
+  const flavorStrongBodyFontFamily = lookup(
+    ["text", "strongBodyFontFamily"],
+    flavorTheme,
+  );
   const muiTheme = createMuiTheme({
     palette: {
       primary: flavorPrimaryColor
@@ -140,6 +144,7 @@ const ThemeProvider = ({ flavorTheme, children }) => {
       },
       strong: {
         ...strong,
+        fontFamily: flavorStrongBodyFontFamily || strong.fontFamily,
       },
     },
   });

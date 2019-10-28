@@ -45,5 +45,4 @@ const TextField = ({
   );
 };
 
-// TODO: useTranslation
 export default withTranslation("TextField")(TextField);

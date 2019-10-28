@@ -51,7 +51,8 @@
         "tertiary": "#ef5f46",
         "titleFontFamily": "Raleway-Regular,sans-serif",
         "bodyFontFamily": "Raleway-Light,sans-serif",
-        "navBarFontFamily": "PTSans-Regular, sans-serif"
+        "navBarFontFamily": "PTSans-Regular, sans-serif",
+        "strongBodyFontFamily": "Raleway-ExtraBold, sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#115588",

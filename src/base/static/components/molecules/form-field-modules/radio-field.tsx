@@ -7,6 +7,7 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapseedRadioFieldModule } from "../../../state/ducks/forms";
+import { FieldPrompt } from "../../atoms/typography";
 
 type RadioFieldModuleProps = {
   mapseedField: MapseedRadioFieldModule;
@@ -19,7 +20,7 @@ const RadioField = ({
 }: RadioFieldModuleProps) => {
   return (
     <React.Fragment>
-      <FormLabel>{prompt}</FormLabel>
+      {prompt && <FieldPrompt>{prompt}</FieldPrompt>}
       <RadioGroup
         value={value}
         onChange={onChange}
@@ -29,7 +30,7 @@ const RadioField = ({
       >
         {options.map(({ label, value }) => (
           <FormControlLabel
-            key={value}
+            key={String(value)}
             value={value}
             control={<Radio />}
             label={label}

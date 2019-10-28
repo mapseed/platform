@@ -12,6 +12,7 @@ const FieldPaper = ({ children, isWithValidationError }: FieldPaperProps) => {
       style={{
         backgroundColor: isWithValidationError ? "#f9d7d9" : "rgb(239,239,239)",
         padding: "16px",
+        marginBottom: "16px",
       }}
       square={true}
     >

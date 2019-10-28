@@ -7,6 +7,7 @@ import {
   FormikProps,
   FormikValues,
   connect as formikConnect,
+  FormikContext,
 } from "formik";
 import Typography from "@material-ui/core/Typography";
 import FormControl from "@material-ui/core/FormControl";
@@ -28,14 +29,12 @@ import FieldPaper from "../molecules/field-paper";
 import {
   FormModule,
   updateFormModuleVisibilities,
+  RadioFieldOption,
 } from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
 
 // TODO:
-//  - visibility triggering
-//  - grouping
-//  - styling
-//  - admin-only fields
+//  - admin-only fields (??)
 
 type OwnProps = {
   modules: FormModule[];
@@ -92,6 +91,7 @@ const getValidator = (isRequired, variant) => {
 
 const MapseedFormModule = ({
   name,
+  idx,
   variant,
   fieldError,
   type,
@@ -99,22 +99,26 @@ const MapseedFormModule = ({
   formModule,
   isValid,
   onClickSkipStage,
+  setFieldValue,
 }) => {
   const ModuleType = MODULES[type];
 
   return isFormField(type) ? (
     <React.Fragment>
-      <FieldPaper isWithValidationError={!!fieldError}>
-        <FormControl fullWidth={true} margin="none" variant="outlined">
-          <Field
-            id={name}
-            name={name}
-            validate={getValidator(isRequired, variant)}
-            component={ModuleType}
-            mapseedField={formModule}
-          />
-        </FormControl>
-      </FieldPaper>
+      <FormControl
+        fullWidth={true}
+        margin={idx === 0 ? "none" : "normal"}
+        variant="outlined"
+      >
+        <Field
+          id={name}
+          name={name}
+          validate={getValidator(isRequired, variant)}
+          component={ModuleType}
+          mapseedField={formModule}
+          setFieldValue={setFieldValue}
+        />
+      </FormControl>
       {!!fieldError && (
         <Typography
           css={css`
@@ -139,16 +143,27 @@ const MapseedFormModule = ({
   );
 };
 
+const usePrevious = value => {
+  const ref = React.useRef();
+  React.useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+};
+
 const VisibilityTriggerEffect = formikConnect(
-  ({ formik, formModule: { key, options }, children }) => {
-    const { values } = formik;
+  // TODO: Figure out the correct typing to use here.
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  ({ formik: { values }, formModule: { key, options }, children }) => {
     const dispatch = useDispatch();
+    const val = values[key];
+    const prevVal = usePrevious(val);
 
     React.useEffect(() => {
-      if (options) {
-        const optionsConfig = options.find(
-          ({ value }) => value === values[key],
-        );
+      if (options && val !== prevVal) {
+        const optionsConfig = options.find(({ value }) => value === val);
         if (optionsConfig && optionsConfig.groupVisibilityTriggers) {
           dispatch(
             updateFormModuleVisibilities(
@@ -158,7 +173,7 @@ const VisibilityTriggerEffect = formikConnect(
           );
         }
       }
-    }, [values]);
+    }, [val]);
 
     return children;
   },
@@ -170,35 +185,47 @@ const BaseForm = ({
   errors,
   onClickSkipStage,
   isValid,
+  setFieldValue,
 }: BaseFormProps) => {
   return (
     <FormikForm>
-      {modules.map(formModule =>
-        (formModule.type === "groupmodule"
-          ? (formModule.modules as FormModule[])
-          : [formModule]
-        )
-          .filter(subModule => subModule.isVisible)
-          .map((subModule: FormModule) => {
-            const { key, variant, isRequired, type } = subModule;
+      {modules.map(formModule => {
+        const subModules =
+          formModule.type === "groupmodule"
+            ? (formModule.modules as FormModule[])
+            : [formModule];
+        const isWithValidationError = subModules.some(({ key }) =>
+          Boolean(errors[key]),
+        );
 
-            return (
-              <VisibilityTriggerEffect formModule={subModule}>
-                <MapseedFormModule
-                  key={key}
-                  name={key}
-                  variant={variant}
-                  type={type}
-                  isRequired={isRequired}
-                  formModule={subModule}
-                  fieldError={errors[key]}
-                  isValid={isValid}
-                  onClickSkipStage={onClickSkipStage}
-                />
-              </VisibilityTriggerEffect>
-            );
-          }),
-      )}
+        return (
+          <FieldPaper isWithValidationError={isWithValidationError}>
+            {subModules
+              .filter(({ isVisible }) => isVisible)
+              .map((subModule: FormModule, idx) => {
+                const { key, variant, isRequired, type } = subModule;
+
+                return (
+                  <VisibilityTriggerEffect formModule={subModule}>
+                    <MapseedFormModule
+                      key={key}
+                      idx={idx}
+                      name={key}
+                      variant={variant}
+                      type={type}
+                      isRequired={isRequired}
+                      formModule={subModule}
+                      fieldError={errors[key]}
+                      isValid={isValid}
+                      onClickSkipStage={onClickSkipStage}
+                      setFieldValue={setFieldValue}
+                    />
+                  </VisibilityTriggerEffect>
+                );
+              })}
+          </FieldPaper>
+        );
+      })}
     </FormikForm>
   );
 };
