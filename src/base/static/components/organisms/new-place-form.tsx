@@ -33,6 +33,7 @@ const NewPlaceForm = props => {
     async placeData => {
       Util.log("USER", "new-place", "submit-place-btn-click");
       Mixpanel.track("Clicked place form submit");
+      console.log("placeData", placeData)
 
       // Run geospatial analyses:
       //if (
