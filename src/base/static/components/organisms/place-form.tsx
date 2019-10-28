@@ -6,7 +6,11 @@ import { Formik } from "formik";
 
 import BaseForm from "./base-form";
 import FormStageControlBar from "../molecules/form-stage-control-bar";
-import { PlaceForm, FormModule } from "../../state/ducks/forms";
+import {
+  PlaceForm,
+  FormModule,
+  placeFormInitialValuesSelector,
+} from "../../state/ducks/forms";
 import { mapViewportSelector, MapViewport } from "../../state/ducks/map";
 import {
   layerGroupsSelector,
@@ -18,28 +22,6 @@ import eventEmitter from "../../utils/event-emitter";
 import { LoadingBar } from "../atoms/imagery";
 import { isFormField } from "../../utils/place-utils";
 
-// Generate initial values for fields only (i.e. not for HTML blocks, submit
-// button, etc.)
-// TODO: submodule initial values in grouped fields
-const calculateInitialValues = (form: PlaceForm) =>
-  form.stages
-    .reduce(
-      (formModules, stage) =>
-        formModules.concat(
-          stage.modules.filter(formModule => isFormField(formModule.type)),
-        ),
-      [] as FormModule[],
-    )
-    .reduce((initialValues, { key, defaultValue }) => {
-      return {
-        ...initialValues,
-        // TODO: other default value use cases:
-        //   - load from form state dump
-        //   - editor
-        [key]: defaultValue || "",
-      };
-    }, {});
-
 const layerGroupsEqualityComparator = (a, b) =>
   a.allIds.length === b.allIds.length;
 
@@ -47,6 +29,7 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
   const [currentStage, setCurrentStage] = React.useState<number>(0);
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
   const mapViewport: MapViewport = useSelector(mapViewportSelector);
+  const initialValues = useSelector(placeFormInitialValuesSelector);
   const layout: Layout = useSelector(layoutSelector);
   const dispatch = useDispatch();
   const layerGroups: LayerGroups = useSelector(
@@ -112,9 +95,9 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
       {isSubmitting && <LoadingBar />}
       <Formik
         validateOnChange={false}
-        validateOnBlur={true}
+        validateOnBlur={false}
         onSubmit={preprocessSubmission}
-        initialValues={calculateInitialValues(placeForm)}
+        initialValues={initialValues}
         render={formikProps => {
           return (
             <React.Fragment>

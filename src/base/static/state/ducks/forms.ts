@@ -4,9 +4,16 @@ import camelcaseKeys from "camelcase-keys";
 import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapViewport } from "./map";
+import { isFormField } from "../../utils/place-utils";
 
 // Types:
 // NOTE: Typings reflect loaded, transformed data.
+type Flavor = {
+  id: number;
+  displayName: string;
+  forms: MapseedForm[];
+};
+
 type FormModuleVariant = "EM" | "PH";
 
 interface BaseFormModule {
@@ -49,15 +56,31 @@ export interface MapseedSkipStageModule extends BaseFormModule {
   stageId: number;
 }
 
-type RadioFieldOption = {
+export type RadioFieldOption = {
   order: number;
   label: string;
   value: string | number | boolean;
   icon?: string;
+  groupVisibilityTriggers?: number[];
 };
 
 export interface MapseedRadioFieldModule extends BaseFormModule {
   options: RadioFieldOption[];
+}
+
+export interface MapseedNumberFieldModule extends BaseFormModule {
+  maximum?: number;
+  minimum?: number;
+  placeholder?: string;
+  units?: string;
+}
+
+export interface MapseedDateFieldModule extends BaseFormModule {
+  formFormat: string;
+  labelFormat: string;
+  placeholder?: string;
+  includeOngoing: boolean;
+  ongoingLabel?: string;
 }
 
 export type FormModule =
@@ -67,7 +90,9 @@ export type FormModule =
   | MapseedTextFieldModule
   | MapseedAddressFieldModule
   | MapseedSkipStageModule
-  | MapseedRadioFieldModule;
+  | MapseedRadioFieldModule
+  | MapseedNumberFieldModule
+  | MapseedDateFieldModule;
 
 export type PlaceFormStage = {
   visibleLayerGroups: string[];
@@ -97,8 +122,24 @@ const placeFormIdSelector = state =>
 const flattenedPlaceFormSelector = state =>
   state.forms.entities.form[placeFormIdSelector(state)];
 
+export const placeFormInitialValuesSelector = createSelector(
+  [formModulesSelector],
+  formModules => {
+    return (Object.values(formModules) as FormModule[])
+      .filter(({ type }) => isFormField(type))
+      .reduce((initialValues, { key, defaultValue }) => {
+        return {
+          ...initialValues,
+          // TODO: other initial value use cases:
+          //   - load from form state dump
+          //   - editor
+          [key]: defaultValue || "",
+        };
+      }, {});
+  },
+);
+
 // TODO: Break this into a few separate selectors:
-//  - a "field key" selector, which Formik can use to populate initial state
 //  - a "stage field" selector, which selects stage field configurations
 //  - a "group module" selector, which selects nested modules within groupmodules
 export const placeFormSelector = createSelector(
@@ -229,8 +270,30 @@ export function updateFormModuleVisibilities(
   };
 }
 
+interface NormalizedData<T> {
+  [uuid: string]: T;
+}
+
+interface NormalizedState {
+  result: number | null;
+  entities: {
+    flavor: NormalizedData<Flavor>;
+    form: NormalizedData<MapseedForm>;
+    stages: NormalizedData<PlaceFormStage>;
+    modules: NormalizedData<FormModule>;
+  };
+}
+
 // Reducers:
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+  result: null,
+  entities: {
+    modules: {},
+    stages: {},
+    form: {},
+    flavor: {},
+  },
+} as NormalizedState;
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -244,14 +307,16 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         entities: {
           ...state.entities,
-          modules: Object.values(state.entities.modules).reduce((memo, val) => {
+          modules: (Object.values(
+            state.entities.modules,
+          ) as FormModule[]).reduce((memo, val: FormModule) => {
             return {
               ...memo,
               [val.id]: action.payload.moduleIds.includes(val.id)
-                ? {
+                ? ({
                     ...val,
                     isVisible: action.payload.isVisible,
-                  }
+                  } as FormModule)
                 : val,
             };
           }, {}),

@@ -4,6 +4,8 @@ import classNames from "classnames";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { darken } from "@material-ui/core/styles/colorManipulator";
+import { useTheme } from "@material-ui/styles";
+import Typography from "@material-ui/core/Typography";
 
 import "./typography.scss";
 
@@ -286,6 +288,23 @@ Badge.propTypes = {
   color: PropTypes.string.isRequired,
 };
 
+const FieldPrompt = ({ children }) => {
+  const theme = useTheme();
+
+  return (
+    <Typography
+      paragraph={true}
+      style={{
+        fontFamily: theme.typography.strong.fontFamily,
+      }}
+      variant="strong"
+      variantMapping={{ strong: "strong" }}
+    >
+      {children}
+    </Typography>
+  );
+};
+
 export {
   ExternalLink,
   InternalLink,
@@ -310,4 +329,5 @@ export {
   MicroText,
   DashboardText,
   Badge,
+  FieldPrompt,
 };

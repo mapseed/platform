@@ -5,6 +5,7 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import SearchIcon from "@material-ui/icons/Search";
 import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";
+import { useTheme } from "@material-ui/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { FieldProps as FormikFieldProps } from "formik";
@@ -19,6 +20,7 @@ import {
 } from "../../../state/ducks/map";
 import { LoadingSpinner } from "../../atoms/imagery";
 import eventEmitter from "../../../utils/event-emitter";
+import { FieldPrompt } from "../../atoms/typography";
 
 type TextFieldModuleProps = {
   mapseedField: MapseedAddressFieldModule;
@@ -135,24 +137,13 @@ const AddressField = ({
     if (isWithGeocodingError) {
       setTimeout(() => {
         setIsWithGeocodingError(false);
-      }, 5000);
+      }, 3000);
     }
   }, [isWithGeocodingError]);
 
   return (
     <React.Fragment>
-      {prompt && (
-        <InputLabel
-          style={{
-            backgroundColor: "rgb(239,239,239)",
-            paddingLeft: "4px",
-            paddingRight: "4px",
-          }}
-          htmlFor={name}
-        >
-          {prompt}
-        </InputLabel>
-      )}
+      {prompt && <FieldPrompt>{prompt}</FieldPrompt>}
       <OutlinedInput
         type={"text"}
         notched={true}
