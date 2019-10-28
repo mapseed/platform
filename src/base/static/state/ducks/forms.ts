@@ -109,7 +109,7 @@ export type PlaceForm = {
 
 export type CommentForm = {}; // TODO
 
-export type MapseedForm = PlaceForm | CommentForm;
+export type MapseedForm = PlaceForm;
 
 // Selectors:
 const formModulesSelector = state => state.forms.entities.modules;

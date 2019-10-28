@@ -10,7 +10,6 @@ export { default as DropdownFieldResponse } from "./dropdown-field-response";
 export { default as AutocompleteComboboxFieldResponse } from "./autocomplete-combobox-field-response";
 export { default as CheckboxField } from "./checkbox-field";
 export { default as DropdownField } from "./dropdown-field";
-export { default as FileField } from "./file-field";
 export { default as RadioField } from "./radio-field";
 export { default as RangeField } from "./range-field";
 export { default as TextareaField } from "./textarea-field";
