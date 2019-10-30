@@ -2,7 +2,10 @@ import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import BaseForm from "./base-form";
-import { placeFormInitialValuesSelector } from "../../state/ducks/forms";
+import {
+  placeFormInitialValuesSelector,
+  MapseedAttachment,
+} from "../../state/ducks/forms";
 import { mapViewportSelector, MapViewport } from "../../state/ducks/map";
 import {
   layerGroupsSelector,
@@ -17,6 +20,10 @@ const layerGroupsEqualityComparator = (a, b) =>
 const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
   const mapViewport: MapViewport = useSelector(mapViewportSelector);
   const initialValues = useSelector(placeFormInitialValuesSelector);
+
+  // NOTE: Attachments are managed here (instead of in BaseForm) since not all
+  // forms may be sent to an endpoint capable of handling attachments.
+  const [attachments, setAttachments] = React.useState<MapseedAttachment[]>([]);
   const dispatch = useDispatch();
   const layerGroups: LayerGroups = useSelector(
     layerGroupsSelector,
@@ -50,11 +57,14 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
       };
 
       onSubmit({
-        ...values,
-        geometry,
+        data: {
+          ...values,
+          geometry,
+        },
+        attachments,
       });
     },
-    [mapViewport, onSubmit],
+    [mapViewport, onSubmit, attachments],
   );
 
   return (
@@ -64,6 +74,8 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
       form={placeForm}
       onChangeStage={onChangeStage}
       isSubmitting={false}
+      attachments={attachments}
+      setAttachments={setAttachments}
     />
   );
 };

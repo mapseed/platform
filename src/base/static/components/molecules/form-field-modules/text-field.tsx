@@ -5,6 +5,7 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapseedTextFieldModule } from "../../../state/ducks/forms";
+import { FieldPrompt } from "../../atoms/typography";
 
 type TextFieldModuleProps = {
   mapseedField: MapseedTextFieldModule;
@@ -18,18 +19,7 @@ const TextField = ({
 }: TextFieldModuleProps) => {
   return (
     <React.Fragment>
-      {prompt && (
-        <InputLabel
-          style={{
-            backgroundColor: "#fff",
-            paddingLeft: "4px",
-            paddingRight: "4px",
-          }}
-          htmlFor={name}
-        >
-          {prompt}
-        </InputLabel>
-      )}
+      {prompt && <FieldPrompt>{prompt}</FieldPrompt>}
       <OutlinedInput
         type={"text"}
         notched={true}

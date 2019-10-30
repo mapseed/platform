@@ -8,42 +8,30 @@ import loadImage from "blueimp-load-image";
 
 import { PlaceholderPicture } from "../../atoms/icons";
 import { CloseButton } from "../../atoms/navigation";
-import { MapseedFileFieldModule } from "../../../state/ducks/forms";
+import {
+  MapseedFileFieldModule,
+  MapseedAttachment,
+} from "../../../state/ducks/forms";
 
 type FileFieldProps = {
   mapseedModule: MapseedFileFieldModule;
+  setAttachments: (attachments: MapseedAttachment[]) => void;
+  attachments: MapseedAttachment[];
 } & WithTranslation;
 
-type ThumbnailInfo = {
-  canvas: HTMLCanvasElement;
-  filename: string;
-  uploadedDatetime: number;
-};
-
-const fileToCanvas = (file, callback) => {
-  loadImage(
-    file,
-    canvas => {
-      callback(canvas);
-    },
-    {
-      maxWidth: 800,
-      maxHeight: 800,
-      orientation: true,
-      canvas: true,
-    },
-  );
-};
 const THUMBNAIL_WIDTH = 100;
 
-const CanvasThumbnail = ({ canvas, onClickRemoveThumbnail, idx }) => {
+const CanvasThumbnail = ({
+  attachment: { canvas },
+  onClickRemoveThumbnail,
+  idx,
+}) => {
   const canvasThumbnailRef = React.useRef<HTMLCanvasElement>(null);
   React.useEffect(() => {
     if (!canvasThumbnailRef || !canvasThumbnailRef.current) {
       return;
     }
 
-    // TOOD: fix crash on bad file types.
     const scale = THUMBNAIL_WIDTH / canvas.width;
     const height = canvas.height * scale;
     canvasThumbnailRef.current.width = THUMBNAIL_WIDTH;
@@ -83,49 +71,55 @@ const CanvasThumbnail = ({ canvas, onClickRemoveThumbnail, idx }) => {
   );
 };
 
-const FileField = ({ mapseedModule: { label }, t }: FileFieldProps) => {
+const FileField = ({
+  mapseedModule: { label, id },
+  t,
+  setAttachments,
+  attachments,
+}: FileFieldProps) => {
   const fileFieldRef = React.useRef<HTMLInputElement>(null);
-  const [thumbnails, setThumbnails] = React.useState<ThumbnailInfo[]>([]);
   const handleFileChange = React.useCallback(
     evt => {
       if (evt.target.files && evt.target.files.length > 0) {
         Promise.all(
           // NOTE: `evt.target.files` is a FileList object.
           // See: https://developer.mozilla.org/en-US/docs/Web/API/FileList
-          [...evt.target.files].map(file => {
-            return new Promise(resolve => {
-              fileToCanvas(file, canvas => {
-                resolve({
-                  canvas,
-                  filename: file.name,
-                  uploadedDatetime: new Date().getTime(),
-                } as ThumbnailInfo);
-
-                //canvas.toBlob(blob => {
-                //  const fileObj = {
-                //    name: file.name,
-                //    blob: blob,
-                //    file: canvas.toDataURL("image/jpeg"),
-                //    type: "CO", // cover image
-                //  };
-
-                //  // TODO: onchange here with file blob contents
-                //}, "image/jpeg");
+          [...evt.target.files].map(
+            (file): Promise<MapseedAttachment> => {
+              return new Promise(resolve => {
+                loadImage(
+                  file,
+                  canvas => {
+                    resolve({
+                      canvas,
+                      blob: file,
+                      name: file.name,
+                      uploadedDatetime: new Date().getTime(),
+                      type: "CO", // cover image
+                    } as MapseedAttachment);
+                  },
+                  {
+                    maxWidth: 800,
+                    maxHeight: 800,
+                    orientation: true,
+                    canvas: true,
+                  },
+                );
               });
-            });
-          }),
-        ).then(newThumbnails => {
-          setThumbnails(thumbnails.concat(newThumbnails as ThumbnailInfo[]));
+            },
+          ),
+        ).then(newAttachments => {
+          setAttachments(newAttachments);
         });
       }
     },
-    [thumbnails],
+    [setAttachments],
   );
   const onClickRemoveThumbnail = React.useCallback(
     idx => {
-      setThumbnails(thumbnails.filter((_, i) => i !== idx));
+      setAttachments(attachments.filter((_, i) => i !== idx));
     },
-    [thumbnails],
+    [attachments, setAttachments],
   );
 
   return (
@@ -136,6 +130,7 @@ const FileField = ({ mapseedModule: { label }, t }: FileFieldProps) => {
         multiple={true}
         type="file"
         onChange={handleFileChange}
+        accept="image/png, image/jpeg"
       />
       <Button
         variant="outlined"
@@ -145,7 +140,7 @@ const FileField = ({ mapseedModule: { label }, t }: FileFieldProps) => {
           fileFieldRef && fileFieldRef.current && fileFieldRef.current.click();
         }}
       >
-        {label}
+        {t(`fileFieldLabel${id}`, label)}
       </Button>
       <div
         css={css`
@@ -158,19 +153,19 @@ const FileField = ({ mapseedModule: { label }, t }: FileFieldProps) => {
           min-height: 88px;
         `}
       >
-        {thumbnails.length === 0 ? (
+        {attachments.length === 0 ? (
           <PlaceholderPicture
             css={css`
               margin: 8px;
             `}
           />
         ) : (
-          thumbnails.map((thumbnail, idx) => (
+          attachments.map((attachment, idx) => (
             <CanvasThumbnail
-              key={`${thumbnail.filename}${thumbnail.uploadedDatetime}`}
+              key={`${attachment.name}${attachment.uploadedDatetime}`}
               idx={idx}
               onClickRemoveThumbnail={idx => onClickRemoveThumbnail(idx)}
-              canvas={thumbnail.canvas}
+              attachment={attachment}
             />
           ))
         )}
