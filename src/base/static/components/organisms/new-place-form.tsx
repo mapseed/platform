@@ -1,22 +1,18 @@
-/** @jsx jsx */
-import * as React from "react";
-import { jsx, css } from "@emotion/core";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import PlaceForm from "./place-form";
-import { LoadingBar } from "../atoms/imagery";
 import Util from "../../js/utils.js";
 import { Mixpanel } from "../../utils/mixpanel";
 import {
-  FormModule,
   placeFormSelector,
   PlaceForm as MapseedPlaceForm,
 } from "../../state/ducks/forms";
-import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
+//import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import mapseedApiClient from "../../client/mapseed-api-client";
 
-const NewPlaceForm = props => {
+const NewPlaceForm = () => {
   const placeForm: MapseedPlaceForm = useSelector(placeFormSelector);
   //const clientSlug = useSelector(state =>
   //  datasetClientSlugSelector(state, placeForm.slug),
@@ -30,10 +26,9 @@ const NewPlaceForm = props => {
     }),
   );
   const onSubmit = React.useCallback(
-    async placeData => {
+    async ({ data, attachments }) => {
       Util.log("USER", "new-place", "submit-place-btn-click");
       Mixpanel.track("Clicked place form submit");
-      console.log("placeData", placeData)
 
       // Run geospatial analyses:
       //if (
@@ -55,38 +50,35 @@ const NewPlaceForm = props => {
       //}
 
       const { dataset } = placeForm;
+      // Save Place.
       const placeResponse = await mapseedApiClient.place.create({
         dataset,
-        placeData,
+        placeData: data,
         //clientSlug,
         includePrivate,
       });
 
-      // Save attachments.
-      //if (this.attachments.length) {
-      //  await Promise.all(
-      //    this.attachments.map(async attachment => {
-      //      const attachmentResponse = await mapseedApiClient.attachments.create(
-      //        {
-      //          placeUrl: placeResponse.url,
-      //          attachment,
-      //          includePrivate: this.props.hasGroupAbilitiesInDatasets({
-      //            abilities: ["can_access_protected"],
-      //            datasetSlugs: [this.props.datasetSlug],
-      //            submissionSet: "places",
-      //          }),
-      //        },
-      //      );
-      //      if (attachmentResponse) {
-      //        placeResponse.attachments.push(attachmentResponse);
-      //        Util.log("USER", "dataset", "successfully-add-attachment");
-      //      } else {
-      //        alert("Oh dear. It looks like an attachment didn't save.");
-      //        Util.log("USER", "place", "fail-to-add-attachment");
-      //      }
-      //    }),
-      //  );
-      //}
+      // Save Place attachments.
+      if (attachments.length > 0) {
+        await Promise.all(
+          attachments.map(async attachment => {
+            const attachmentResponse = await mapseedApiClient.attachments.create(
+              {
+                placeUrl: placeResponse.url,
+                attachment,
+                includePrivate,
+              },
+            );
+            if (attachmentResponse) {
+              placeResponse.attachments.push(attachmentResponse);
+              Util.log("USER", "dataset", "successfully-add-attachment");
+            } else {
+              alert("Oh dear. It looks like an attachment didn't save.");
+              Util.log("USER", "place", "fail-to-add-attachment");
+            }
+          }),
+        );
+      }
 
       //// Generate a PDF for the user if configured to do so.
       //if (this.props.datasetReportSelector(this.props.datasetSlug)) {
@@ -118,14 +110,10 @@ const NewPlaceForm = props => {
       //  return;
       //}
     },
-    [includePrivate],
+    [includePrivate, placeForm],
   );
 
-  return (
-    <React.Fragment>
-      <PlaceForm onSubmit={onSubmit} placeForm={placeForm} />
-    </React.Fragment>
-  );
+  return <PlaceForm onSubmit={onSubmit} placeForm={placeForm} />;
 };
 
 export default NewPlaceForm;

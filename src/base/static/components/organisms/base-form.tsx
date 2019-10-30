@@ -30,6 +30,7 @@ import {
   FormModule,
   updateFormModuleVisibilities,
   MapseedForm,
+  MapseedAttachment,
 } from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
 import { LoadingBar } from "../atoms/imagery";
@@ -38,6 +39,8 @@ import { LoadingBar } from "../atoms/imagery";
 //  - admin-only fields (??)
 
 type BaseFormProps = {
+  attachments?: MapseedAttachment[]; // Forms may or may not support attachment adding.
+  setAttachments: (attachments: MapseedAttachment[]) => void;
   form: MapseedForm;
   onSubmit: (values: FormikValues) => void;
   onChangeStage: (newStage: number) => void;
@@ -47,7 +50,7 @@ type BaseFormProps = {
 
 const UnknownModule = () => null;
 
-const MODULES = {
+const BACKEND_MODULES = {
   htmlmodule: HTMLModule,
   textfield: TextField,
   submitbuttonmodule: SubmitButtonModule,
@@ -101,11 +104,18 @@ const MapseedFormModule = ({
   formModule,
   isValid,
   onClickSkipStage,
-  onAddAttachment,
+  attachments,
+  setAttachments,
   setFieldValue,
 }) => {
-  const ModuleType = MODULES[type];
+  const BackendModule = BACKEND_MODULES[type];
 
+  // NOTE: A `form field` is a form control which ultimately produces a value
+  // that will be managed by Formik. A `form module` is a component which
+  // produces a form side effect, such as skipping a stage, adding an
+  // attachment, etc. This is different from the terminology used on the
+  // backend, where all form components are `modules`.  We make that distinction
+  // here.
   return isFormField(type) ? (
     <React.Fragment>
       <FormControl
@@ -117,7 +127,7 @@ const MapseedFormModule = ({
           id={name}
           name={name}
           validate={getValidator(isRequired, variant)}
-          component={ModuleType}
+          component={BackendModule}
           mapseedField={formModule}
           setFieldValue={setFieldValue}
         />
@@ -138,11 +148,12 @@ const MapseedFormModule = ({
       )}
     </React.Fragment>
   ) : (
-    <ModuleType
+    <BackendModule
       mapseedModule={formModule}
       onClickSkipStage={onClickSkipStage}
-      onAddAttachment={onAddAttachment}
       isValid={isValid}
+      attachments={attachments}
+      setAttachments={setAttachments}
     />
   );
 };
@@ -190,6 +201,8 @@ const BaseForm = ({
   initialValues,
   isSubmitting,
   onChangeStage,
+  attachments,
+  setAttachments,
 }: BaseFormProps) => {
   const [currentStage, setCurrentStage] = React.useState<number>(0);
   const onClickAdvanceStage = React.useCallback(
@@ -219,7 +232,6 @@ const BaseForm = ({
   }, [currentStage, onChangeStage]);
   const onClickSkipStage = stageId => setCurrentStage(stageId - 1);
   const layout: Layout = useSelector(layoutSelector);
-  const onAddAttachment = React.useCallback(() => null, []);
 
   return (
     <Formik
@@ -271,7 +283,8 @@ const BaseForm = ({
                               isValid={Boolean(errors[key])}
                               onClickSkipStage={onClickSkipStage}
                               setFieldValue={setFieldValue}
-                              onAddAttachment={onAddAttachment}
+                              attachments={attachments}
+                              setAttachments={setAttachments}
                             />
                           </VisibilityTriggerEffect>
                         );

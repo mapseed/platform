@@ -16,6 +16,17 @@ type Flavor = {
 
 type FormModuleVariant = "EM" | "PH";
 
+type AttachmentType = "CO" | "RT";
+
+export type MapseedAttachment = {
+  canvas: HTMLCanvasElement; // Used only for client-side previews.
+  name: string;
+  type: AttachmentType;
+  file: string;
+  blob: Blob;
+  uploadedDatetime: number;
+};
+
 interface BaseFormModule {
   id: number;
   key: string;

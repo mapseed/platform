@@ -15,13 +15,7 @@ const SubmitButtonModule = ({
   t,
 }: SubmitButtonModuleProps) => {
   return (
-    <Button
-      disabled={!isValid}
-      type="submit"
-      variant="contained"
-      color="primary"
-      size="large"
-    >
+    <Button type="submit" variant="contained" color="primary" size="large">
       {t(`submitButtonLabel${id}`, label)}
     </Button>
   );
