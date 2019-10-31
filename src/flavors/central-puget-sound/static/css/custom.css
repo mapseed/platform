@@ -61,76 +61,10 @@
   content: "✔";
 }
 
-/* =Dynamic form big button overrides
--------------------------------------------------------------- */
-.big-btn + label {
-  color: #555;
-}
-
-.big-btn:checked + label:before {
-  font-weight: normal !important;
-  color: #FFF !important;
-}
-
-.form-field label {
-  font-size: 1em;
-}
-
-.fileinput-container {
-  width: 150px !important;
-  font-size: 0.9em;
-}
-
-
 /* =Map
 -------------------------------------------------------------- */
 #map {
   background: #777;
-}
-
-/* Custom cluster icons */
-.cluster-subgroup-container {
-    position: absolute;
-}
-
-.cluster-subgroup-container.faded {
-    opacity: 0.3;
-}
-
-.custom-cluster-icon {
-    width: 30px !important;
-}
-
-.cluster-child-counter {
-    z-index: 400;
-    position: absolute;
-    line-height: 2.3em;
-    text-shadow: #000 0px 0px 1px;
-    text-align: center;
-    color: #FFF;
-    font-size: 1.4em;
-    font-weight: bold;
-    top: -10px;
-    left: -10px;
-    width: 40px;
-    height: 40px;
-    -moz-border-radius:    11px;
-    -webkit-border-radius: 11px;
-    border-radius:         11px;
-    -webkit-box-shadow: -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
-    -moz-box-shadow:    -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
-    box-shadow:         -3px 4px 5px 0px rgba(50, 50, 50, 0.4);
-    background-color: #c7a935 !important;
-}
-
-.cluster-child-counter.cluster-group {
-    border-radius: 50%;
-    box-shadow: 0px 0px 0px 5px rgba(240, 204, 64, 0.7);
-}
-
-.cluster-child-counter.cluster-group.top-right {
-    top: -10px;
-    left: 18px;
 }
 
 /* =Grid-based layout on about page
