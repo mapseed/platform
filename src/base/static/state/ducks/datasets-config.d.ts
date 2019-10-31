@@ -20,6 +20,13 @@ type DatasetReport = {
 export type Ability = "create" | "retrieve" | "update" | "destroy";
 export type SubmissionSet = "comments" | "support" | "places";
 
+type PlaceConfirmationModal = {
+  [submissionType: string]: {
+    header?: string;
+    body: string[];
+  };
+};
+
 export type DatasetConfig = {
   url: string;
   slug: string;
@@ -29,13 +36,13 @@ export type DatasetConfig = {
     submission_set: string;
   }[];
   report?: DatasetReport;
-  placeConfirmationModal: {
-    [submissionType: string]: {
-      header: string;
-      body: string[];
-    };
-  };
+  placeConfirmationModal?: PlaceConfirmationModal;
 };
+
+export const datasetPlaceConfirmationModalSelector: (
+  state: any,
+  datasetSlug?: string,
+) => PlaceConfirmationModal;
 
 export const hasAnonAbilitiesInAnyDataset: ({
   state,

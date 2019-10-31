@@ -15,9 +15,14 @@ export const datasetReportSelector = (state, datasetSlug) =>
   state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
     .report;
 
-export const datasetPlaceConfirmationModalSelector = (state, datasetSlug) =>
-  state.datasetsConfig.find(datasetConfig => datasetConfig.slug === datasetSlug)
-    .placeConfirmationModal;
+export const datasetPlaceConfirmationModalSelector = (state, datasetSlug) => {
+  const config =
+    state.datasetsConfig.find(
+      datasetConfig => datasetConfig.slug === datasetSlug,
+    ) || {};
+
+  return config.placeConfirmationModal || {};
+};
 
 export const datasetsConfigPropType = PropTypes.arrayOf(
   PropTypes.shape({

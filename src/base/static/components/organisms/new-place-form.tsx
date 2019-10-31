@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import PlaceForm from "./place-form";
 import Util from "../../js/utils.js";
@@ -8,12 +9,39 @@ import {
   placeFormSelector,
   PlaceForm as MapseedPlaceForm,
 } from "../../state/ducks/forms";
-//import { datasetClientSlugSelector } from "../../state/ducks/datasets-config";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import mapseedApiClient from "../../client/mapseed-api-client";
+import { datasetPlaceConfirmationModalSelector } from "../../state/ducks/datasets-config";
+import InfoModal from "./info-modal";
+import { LoadingBar } from "../atoms/imagery";
+import { createPlace } from "../../state/ducks/places";
+import { createFeaturesInGeoJSONSource } from "../../state/ducks/map-style";
+import { toClientGeoJSONFeature } from "../../utils/place-utils";
+
+type InfoModal = {
+  isOpen: boolean;
+  header?: string;
+  body: string[];
+  routeOnClose: string | null;
+};
 
 const NewPlaceForm = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
+  const [infoModalState, setInfoModalState] = React.useState<InfoModal>({
+    isOpen: false,
+    header: "",
+    body: [],
+    routeOnClose: null,
+  });
   const placeForm: MapseedPlaceForm = useSelector(placeFormSelector);
+  const placeConfirmationModal = useSelector(state =>
+    datasetPlaceConfirmationModalSelector(
+      state,
+      placeForm.dataset.split("/").pop(),
+    ),
+  );
   //const clientSlug = useSelector(state =>
   //  datasetClientSlugSelector(state, placeForm.slug),
   //);
@@ -29,6 +57,7 @@ const NewPlaceForm = () => {
     async ({ data, attachments }) => {
       Util.log("USER", "new-place", "submit-place-btn-click");
       Mixpanel.track("Clicked place form submit");
+      setIsSubmitting(true);
 
       // Run geospatial analyses:
       //if (
@@ -50,13 +79,31 @@ const NewPlaceForm = () => {
       //}
 
       const { dataset } = placeForm;
+      const datasetSlug = dataset.split("/").pop();
+
       // Save Place.
       const placeResponse = await mapseedApiClient.place.create({
         dataset,
         placeData: data,
-        //clientSlug,
         includePrivate,
       });
+
+      if (!placeResponse) {
+        alert("Oh dear. It looks like that didn't save. Please try again.");
+        Util.log("USER", "place", "fail-to-create-place");
+
+        return;
+      }
+
+      if (placeResponse.isOffline) {
+        alert(
+          "No internet connection detected. Your submission may not be successful until you are back online.",
+        );
+        Util.log("USER", "place", "submitted-offline-place");
+        history.push("/");
+
+        return;
+      }
 
       // Save Place attachments.
       if (attachments.length > 0) {
@@ -69,6 +116,7 @@ const NewPlaceForm = () => {
                 includePrivate,
               },
             );
+
             if (attachmentResponse) {
               placeResponse.attachments.push(attachmentResponse);
               Util.log("USER", "dataset", "successfully-add-attachment");
@@ -94,26 +142,93 @@ const NewPlaceForm = () => {
       //  });
       //}
 
-      // TODO: post-submission routing.
+      // Post-submission routing:
+      const {
+        privateNonAdmin,
+        privateAdmin,
+        nonPrivate,
+      } = placeConfirmationModal;
+      if (
+        placeResponse.private // TEMP
+        //this.props.hasGroupAbilitiesInDatasets({
+        //  abilities: ["can_access_protected"],
+        //  submissionSet: "places",
+        //  datasetSlugs: [datasetSlug],
+        //})
+      ) {
+        // Private submission made by an administrator.
+        if (privateAdmin) {
+          setIsSubmitting(false);
+          setInfoModalState({
+            isOpen: true,
+            header: privateAdmin.header,
+            body: privateAdmin.body,
+            routeOnClose: `place/${placeResponse.id}`,
+          });
+        } else {
+          history.push(`place/${placeResponse.id}`);
+        }
 
-      //if (!placeResponse) {
-      //  alert("Oh dear. It looks like that didn't save. Please try again.");
-      //  Util.log("USER", "place", "fail-to-create-place");
-      //  return;
-      //}
-      //if (placeResponse.isOffline) {
-      //  alert(
-      //    "No internet connection detected. Your submission may not be successful until you are back online.",
-      //  );
-      //  Util.log("USER", "place", "submitted-offline-place");
-      //  this.props.history.push("/");
-      //  return;
-      //}
+        createPlace(placeResponse);
+        dispatch(
+          createFeaturesInGeoJSONSource(datasetSlug, [
+            toClientGeoJSONFeature(placeResponse),
+          ]),
+        );
+      } else if (placeResponse.private) {
+        // Private submission made by a non-admin.
+        if (privateNonAdmin) {
+          setIsSubmitting(false);
+          setInfoModalState({
+            isOpen: true,
+            header: privateNonAdmin.header,
+            body: privateNonAdmin.body,
+            routeOnClose: "/",
+          });
+        } else {
+          history.push("/");
+        }
+      } else {
+        // Public ("non-private") submission.
+        if (nonPrivate) {
+          setIsSubmitting(false);
+          setInfoModalState({
+            isOpen: true,
+            header: nonPrivate.header,
+            body: nonPrivate.body,
+            routeOnClose: `place/${placeResponse.id}`,
+          });
+        } else {
+          history.push(`place/${placeResponse.id}`);
+        }
+
+        dispatch(createPlace(placeResponse));
+        createFeaturesInGeoJSONSource(
+          // "sourceId" and a place's datasetSlug are the same thing.
+          datasetSlug,
+          [toClientGeoJSONFeature(placeResponse)],
+        );
+      }
     },
-    [includePrivate, placeForm],
+    [includePrivate, placeForm, history],
   );
 
-  return <PlaceForm onSubmit={onSubmit} placeForm={placeForm} />;
+  const { isOpen, header, body, routeOnClose } = infoModalState;
+  return (
+    <React.Fragment>
+      <InfoModal
+        isModalOpen={isOpen}
+        header={header}
+        body={body}
+        onClose={() => {
+          setInfoModalState({ ...infoModalState, isOpen: false });
+          routeOnClose && history.push(routeOnClose);
+        }}
+      />
+      {isSubmitting && <LoadingBar />}
+      <PlaceForm onSubmit={onSubmit} placeForm={placeForm} />
+    </React.Fragment>
+  );
 };
 
 export default NewPlaceForm;
