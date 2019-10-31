@@ -1,5 +1,5 @@
-/** @jsx jsx */
 import * as React from "react";
+/** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { findDOMNode } from "react-dom";
 import { connect } from "react-redux";
@@ -10,18 +10,23 @@ import WebMercatorViewport from "viewport-mercator-project";
 import { LargeTitle } from "../atoms/typography";
 import PromotionBar from "../molecules/promotion-bar";
 import MetadataBar from "../molecules/metadata-bar";
-import Survey from "./survey";
+//import Survey from "./survey";
 import EditorBar from "./editor-bar";
 import TagBar from "../organisms/tag-bar";
-import PlaceDetailEditor from "./place-detail-editor";
+//import PlaceDetailEditor from "./place-detail-editor";
+import {
+  placeDetailViewModulesSelector,
+  FormModule,
+} from "../../state/ducks/forms";
 
-import FieldSummary from "./field-summary";
+import SubmittedFieldDetail from "../organisms/submitted-field-detail";
+//import FieldSummary from "./field-summary";
 
 // Flavor custom code
-import SnohomishFieldSummary from "./snohomish-field-summary";
-import PalouseFieldSummary from "./palouse-field-summary";
-import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
-import KittitasFireReadyFieldSummary from "./kittitas-fire-ready-field-summary";
+//import SnohomishFieldSummary from "./snohomish-field-summary";
+//import PalouseFieldSummary from "./palouse-field-summary";
+//import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
+//import KittitasFireReadyFieldSummary from "./kittitas-fire-ready-field-summary";
 
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import {
@@ -105,6 +110,7 @@ type StateProps = {
   commentFormConfig: CommentFormConfig;
   supportConfig: SupportConfig;
   placeConfig: PlaceConfig;
+  detailViewFormModules: FormModule[];
 };
 
 type Props = {
@@ -318,58 +324,64 @@ class PlaceDetail extends React.Component<Props, State> {
     });
 
     // TODO: dissolve when flavor abstraction is ready
-    let fieldSummary;
-    if (
-      this.props.customComponents.FieldSummary === "SnohomishFieldSummary" &&
-      this.props.focusedPlace.location_type === "conservation-actions"
-    ) {
-      fieldSummary = (
-        <SnohomishFieldSummary
-          fields={categoryConfig.fields}
-          place={this.props.focusedPlace}
-        />
-      );
-    } else if (
-      this.props.customComponents.FieldSummary ===
-      "KittitasFireReadyFieldSummary"
-    ) {
-      fieldSummary = (
-        <KittitasFireReadyFieldSummary
-          fields={categoryConfig.fields}
-          place={this.props.focusedPlace}
-        />
-      );
-    } else if (
-      this.props.customComponents.FieldSummary === "PalouseFieldSummary" &&
-      this.props.focusedPlace.location_type === "reports"
-    ) {
-      fieldSummary = (
-        <PalouseFieldSummary
-          fields={categoryConfig.fields}
-          place={this.props.focusedPlace}
-        />
-      );
-    } else if (
-      this.props.customComponents.FieldSummary ===
-        "PBDurhamProjectProposalFieldSummary" &&
-      ["projects", "cycle1-projects"].includes(
-        this.props.focusedPlace.location_type,
-      )
-    ) {
-      fieldSummary = (
-        <PBDurhamProjectProposalFieldSummary
-          fields={categoryConfig.fields}
-          place={this.props.focusedPlace}
-        />
-      );
-    } else {
-      fieldSummary = (
-        <FieldSummary
-          fields={categoryConfig.fields}
-          place={this.props.focusedPlace}
-        />
-      );
-    }
+    const submittedFieldDetail = (
+      <SubmittedFieldDetail
+        place={this.props.focusedPlace}
+        formModules={this.props.detailViewFormModules}
+      />
+    );
+
+    //if (
+    //  this.props.customComponents.FieldSummary === "SnohomishFieldSummary" &&
+    //  this.props.focusedPlace.location_type === "conservation-actions"
+    //) {
+    //  fieldSummary = (
+    //    <SnohomishFieldSummary
+    //      fields={categoryConfig.fields}
+    //      place={this.props.focusedPlace}
+    //    />
+    //  );
+    //} else if (
+    //  this.props.customComponents.FieldSummary ===
+    //  "KittitasFireReadyFieldSummary"
+    //) {
+    //  fieldSummary = (
+    //    <KittitasFireReadyFieldSummary
+    //      fields={categoryConfig.fields}
+    //      place={this.props.focusedPlace}
+    //    />
+    //  );
+    //} else if (
+    //  this.props.customComponents.FieldSummary === "PalouseFieldSummary" &&
+    //  this.props.focusedPlace.location_type === "reports"
+    //) {
+    //  fieldSummary = (
+    //    <PalouseFieldSummary
+    //      fields={categoryConfig.fields}
+    //      place={this.props.focusedPlace}
+    //    />
+    //  );
+    //} else if (
+    //  this.props.customComponents.FieldSummary ===
+    //    "PBDurhamProjectProposalFieldSummary" &&
+    //  ["projects", "cycle1-projects"].includes(
+    //    this.props.focusedPlace.location_type,
+    //  )
+    //) {
+    //  fieldSummary = (
+    //    <PBDurhamProjectProposalFieldSummary
+    //      fields={categoryConfig.fields}
+    //      place={this.props.focusedPlace}
+    //    />
+    //  );
+    //} else {
+    //  fieldSummary = (
+    //    <SubmittedFieldDetail
+    //      place={this.props.focusedPlace}
+    //      formModules={this.props.detailViewFormModules}
+    //    />
+    //  );
+    //}
 
     return (
       <div
@@ -449,19 +461,11 @@ class PlaceDetail extends React.Component<Props, State> {
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
         {this.props.isEditModeToggled && this.state.isPlaceDetailEditable ? (
-          <PlaceDetailEditor
-            place={this.props.focusedPlace}
-            onRequestEnd={() => this.setState({ placeRequestType: null })}
-            placeRequestType={this.state.placeRequestType}
-            setPlaceRequestType={this.setPlaceRequestType}
-            contentPanelInnerContainerRef={
-              this.props.contentPanelInnerContainerRef
-            }
-          />
+          <div>PLACE DETAIL EDITOR</div>
         ) : (
-          fieldSummary
+          submittedFieldDetail
         )}
-        <Survey
+        {/* <Survey
           placeUrl={this.props.focusedPlace.url}
           placeId={this.props.focusedPlace.id}
           datasetSlug={this.props.focusedPlace.datasetSlug}
@@ -472,7 +476,7 @@ class PlaceDetail extends React.Component<Props, State> {
           comments={comments}
           onMountTargetResponse={this.onMountTargetResponse.bind(this)}
           submitter={this.props.focusedPlace.submitter}
-        />
+        /> */}
       </div>
     );
   }
@@ -490,6 +494,7 @@ const mapStateToProps = (state: any, ownProps: OwnProps): StateProps => ({
   appConfig: appConfigSelector(state),
   currentUser: userSelector(state),
   customComponents: customComponentsConfigSelector(state),
+  detailViewFormModules: placeDetailViewModulesSelector(state),
   focusedPlace: focusedPlaceSelector(state),
   featuredPlaces: featuredPlacesSelector(state),
   hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),

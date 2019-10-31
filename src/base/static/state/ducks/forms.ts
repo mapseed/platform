@@ -38,6 +38,7 @@ interface BaseFormModule {
   variant?: FormModuleVariant;
   prompt?: string;
   modules?: FormModule[];
+  label?: string;
 }
 
 export interface MapseedHTMLModule extends BaseFormModule {
@@ -180,6 +181,15 @@ export const placeFormSelector = createSelector(
     };
   },
 );
+
+// TODO: handle multiple datasets
+export const placeDetailViewModulesSelector = state =>
+  (Object.values(state.forms.entities.modules) as FormModule[]).filter(
+    ({ type, key }: { type: string; key: string }): boolean =>
+      isFormField(type) &&
+      !key.startsWith("private-") && // Private fields are never shown on detail views, even to admins.
+      !["title", "name", "submitterName"].includes(key),
+  );
 
 // Actions:
 const LOAD = "forms/LOAD";
