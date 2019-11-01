@@ -134,20 +134,24 @@ const placeFormIdSelector = state =>
 const flattenedPlaceFormSelector = state =>
   state.forms.entities.form[placeFormIdSelector(state)];
 
-export const placeFormInitialValuesSelector = createSelector(
+export const formFieldsSelector = createSelector(
   [formModulesSelector],
   formModules => {
-    return (Object.values(formModules) as FormModule[])
-      .filter(({ type }) => isFormField(type))
-      .reduce((initialValues, { key, defaultValue }) => {
-        return {
-          ...initialValues,
-          // TODO: other initial value use cases:
-          //   - load from form state dump
-          //   - editor
-          [key]: defaultValue || "",
-        };
-      }, {});
+    return (Object.values(formModules) as FormModule[]).filter(({ type }) =>
+      isFormField(type),
+    );
+  },
+);
+
+export const newPlaceFormInitialValuesSelector = createSelector(
+  [formFieldsSelector],
+  formFields => {
+    return formFields.reduce((initialValues, { key, defaultValue }) => {
+      return {
+        ...initialValues,
+        [key]: defaultValue || "",
+      };
+    }, {});
   },
 );
 

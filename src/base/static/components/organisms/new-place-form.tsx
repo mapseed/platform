@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { FormikValues } from "formik";
 
 import PlaceForm from "./place-form";
 import Util from "../../js/utils.js";
@@ -8,6 +9,7 @@ import { Mixpanel } from "../../utils/mixpanel";
 import {
   placeFormSelector,
   PlaceForm as MapseedPlaceForm,
+  newPlaceFormInitialValuesSelector,
 } from "../../state/ducks/forms";
 import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
 import mapseedApiClient from "../../client/mapseed-api-client";
@@ -28,6 +30,9 @@ type InfoModal = {
 const NewPlaceForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const initialValues: FormikValues = useSelector(
+    newPlaceFormInitialValuesSelector,
+  );
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
   const [infoModalState, setInfoModalState] = React.useState<InfoModal>({
     isOpen: false,
@@ -42,9 +47,6 @@ const NewPlaceForm = () => {
       placeForm.dataset.split("/").pop(),
     ),
   );
-  //const clientSlug = useSelector(state =>
-  //  datasetClientSlugSelector(state, placeForm.slug),
-  //);
   const includePrivate = useSelector(state =>
     hasGroupAbilitiesInDatasets({
       state,
@@ -226,7 +228,11 @@ const NewPlaceForm = () => {
         }}
       />
       {isSubmitting && <LoadingBar />}
-      <PlaceForm onSubmit={onSubmit} placeForm={placeForm} />
+      <PlaceForm
+        onSubmit={onSubmit}
+        placeForm={placeForm}
+        initialValues={initialValues}
+      />
     </React.Fragment>
   );
 };

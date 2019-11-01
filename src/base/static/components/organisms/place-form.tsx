@@ -1,11 +1,9 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Formik, FormikValues } from "formik";
 
 import BaseForm from "./base-form";
-import {
-  placeFormInitialValuesSelector,
-  MapseedAttachment,
-} from "../../state/ducks/forms";
+import { MapseedAttachment, PlaceForm } from "../../state/ducks/forms";
 import { mapViewportSelector, MapViewport } from "../../state/ducks/map";
 import {
   layerGroupsSelector,
@@ -13,13 +11,33 @@ import {
   LayerGroups,
 } from "../../state/ducks/map-style";
 import eventEmitter from "../../utils/event-emitter";
+import { PlaceDataBlob } from "../../models/place";
+
+type MapseedPlaceFormProps = {
+  onSubmit: ({
+    data,
+    attachments,
+  }: {
+    data: PlaceDataBlob;
+    attachments: MapseedAttachment[];
+  }) => void;
+  placeForm: PlaceForm;
+  initialValues: FormikValues;
+  baseFormRef?: React.RefObject<Formik<FormikValues>>;
+  handleChange?: (event: React.FormEvent<HTMLFormElement>) => void;
+};
 
 const layerGroupsEqualityComparator = (a, b) =>
   a.allIds.length === b.allIds.length;
 
-const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
+const MapseedPlaceForm = ({
+  onSubmit,
+  placeForm,
+  initialValues,
+  baseFormRef,
+  handleChange,
+}: MapseedPlaceFormProps) => {
   const mapViewport: MapViewport = useSelector(mapViewportSelector);
-  const initialValues = useSelector(placeFormInitialValuesSelector);
 
   // NOTE: Attachments are managed here (instead of in BaseForm) since not all
   // forms may be sent to an endpoint capable of handling attachments.
@@ -73,9 +91,10 @@ const MapseedPlaceForm = ({ onSubmit, placeForm }) => {
       initialValues={initialValues}
       form={placeForm}
       onChangeStage={onChangeStage}
-      isSubmitting={false}
       attachments={attachments}
       setAttachments={setAttachments}
+      baseFormRef={baseFormRef}
+      handleChange={handleChange}
     />
   );
 };

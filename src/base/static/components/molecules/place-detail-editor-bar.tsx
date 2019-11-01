@@ -13,8 +13,6 @@ type EditorBarProps = {
   isPlaceDetailEditable: boolean;
   isTagBarEditable: boolean;
   onToggleEditMode: Function;
-  onClickUpdatePlace: Function;
-  onClickRemovePlace: Function;
   isEditModeToggled: boolean;
   isRightSidebarVisible: boolean;
   layout: string;
@@ -59,31 +57,6 @@ const EditorBar: React.FunctionComponent<Props> = props => {
         isEditModeToggled={props.isEditModeToggled}
         onClick={props.onToggleEditMode}
       />
-      {props.isEditModeToggled && props.isPlaceDetailEditable && props.isAdmin && (
-        <EditorButton
-          css={css`
-            float: right;
-          `}
-          label={props.t("removeBtn")}
-          type="remove"
-          onClick={() => {
-            if (confirm(props.t("confirmRemove"))) {
-              props.onClickRemovePlace();
-            }
-          }}
-        />
-      )}
-      {props.isEditModeToggled && props.isPlaceDetailEditable && (
-        <EditorButton
-          css={css`
-            float: right;
-            margin-right: 8px;
-          `}
-          label={props.t("saveBtn")}
-          type="save"
-          onClick={props.onClickUpdatePlace}
-        />
-      )}
       <div
         css={css`
           clear: both;

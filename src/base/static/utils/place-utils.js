@@ -51,11 +51,9 @@ const createGeoJSONFromPlaces = places => {
   };
 };
 
-const fromGeoJSONFeature = ({ feature, datasetSlug, clientSlug }) => ({
+const fromGeoJSONFeature = ({ feature }) => ({
   ...feature.properties,
   geometry: feature.geometry,
-  datasetSlug,
-  clientSlug,
 });
 
 // Turn GeoJSON FeatureCollections into plain objects of Place data.
