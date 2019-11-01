@@ -473,17 +473,14 @@ class MainMap extends React.Component<Props, State> {
       !this.props.isMapDraggingOrZooming &&
       feature &&
       feature.properties &&
-      feature.properties.clientSlug
+      // TODO: a better way of determining Places.
+      feature.properties.submission_sets
     ) {
-      // If the topmost clicked-on feature has a clientSlug property, there's
-      // a good bet we've clicked on a Place. Assume we have and route to the
-      // Place's detail view.
       const placeId = feature.properties.id;
-      const clientSlug = feature.properties.clientSlug;
 
       Mixpanel.track("Clicked place on map", { placeId });
 
-      this.props.history.push(`/${clientSlug}/${placeId}`);
+      this.props.history.push(`/place/${placeId}`);
     }
     if (
       feature &&

@@ -25,3 +25,7 @@ export interface Comment extends SubmittedThing {
   comment: string;
   submitter_name?: string;
 }
+
+export type PlaceDataBlob = {
+  [key: string]: string | number | boolean | string[];
+};

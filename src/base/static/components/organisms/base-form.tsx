@@ -33,7 +33,6 @@ import {
   MapseedAttachment,
 } from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
-import { LoadingBar } from "../atoms/imagery";
 
 // TODO:
 //  - admin-only fields (??)
@@ -45,7 +44,8 @@ type BaseFormProps = {
   onSubmit: (values: FormikValues) => void;
   onChangeStage: (newStage: number) => void;
   initialValues: FormikValues;
-  isSubmitting: boolean;
+  baseFormRef?: React.RefObject<Formik<FormikValues>>;
+  handleChange?: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
 const UnknownModule = () => null;
@@ -199,10 +199,11 @@ const BaseForm = ({
   form,
   onSubmit,
   initialValues,
-  isSubmitting,
   onChangeStage,
   attachments,
   setAttachments,
+  baseFormRef,
+  handleChange,
 }: BaseFormProps) => {
   const [currentStage, setCurrentStage] = React.useState<number>(0);
   const onClickAdvanceStage = React.useCallback(
@@ -235,6 +236,7 @@ const BaseForm = ({
 
   return (
     <Formik
+      ref={baseFormRef}
       validateOnChange={false}
       validateOnBlur={false}
       onSubmit={onSubmit}
@@ -246,8 +248,7 @@ const BaseForm = ({
               margin-bottom: ${form.stages.length > 1 ? "112px" : 0};
             `}
           >
-            {isSubmitting && <LoadingBar />}
-            <FormikForm>
+            <FormikForm onChange={handleChange}>
               {form.stages[currentStage].modules.map(formModule => {
                 const subModules =
                   formModule.type === "groupmodule"

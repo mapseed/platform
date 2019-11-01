@@ -10,8 +10,6 @@ import {
 const updatePlace = async ({
   placeUrl,
   placeData,
-  datasetSlug,
-  clientSlug,
   hasAdminAbilities = false,
 }) => {
   placeData = toServerGeoJSONFeature(placeData);
@@ -42,7 +40,7 @@ const updatePlace = async ({
 
   const feature = await response.json();
 
-  return fromGeoJSONFeature({ feature, datasetSlug, clientSlug });
+  return fromGeoJSONFeature({ feature });
 };
 
 const createPlace = async ({

@@ -11,9 +11,9 @@ import { LargeTitle } from "../atoms/typography";
 import PromotionBar from "../molecules/promotion-bar";
 import MetadataBar from "../molecules/metadata-bar";
 //import Survey from "./survey";
-import EditorBar from "./editor-bar";
+import PlaceDetailEditorBar from "../molecules/place-detail-editor-bar";
 import TagBar from "../organisms/tag-bar";
-//import PlaceDetailEditor from "./place-detail-editor";
+import PlaceDetailEditor from "./place-detail-editor";
 import {
   placeDetailViewModulesSelector,
   FormModule,
@@ -78,7 +78,6 @@ import Util from "../../js/utils.js";
 import { jumpTo } from "../../utils/scroll-helpers";
 
 import { withTranslation, WithTranslation } from "react-i18next";
-import "./index.scss";
 import eventEmitter from "../../utils/event-emitter";
 import { MapViewportDiff } from "../../state/ducks/map";
 
@@ -126,14 +125,12 @@ type Props = {
 type State = {
   isSurveyEditFormSubmitting: boolean;
   isPlaceDetailEditable: boolean;
-  placeRequestType: string | null;
 };
 
 class PlaceDetail extends React.Component<Props, State> {
   state: State = {
     isSurveyEditFormSubmitting: false,
     isPlaceDetailEditable: false,
-    placeRequestType: null,
   };
 
   componentDidMount() {
@@ -295,12 +292,6 @@ class PlaceDetail extends React.Component<Props, State> {
     });
   }
 
-  setPlaceRequestType = requestType => {
-    this.setState({
-      placeRequestType: requestType,
-    });
-  };
-
   componentWillUnmount() {
     this.props.removeFocusedGeoJSONFeatures();
   }
@@ -394,7 +385,7 @@ class PlaceDetail extends React.Component<Props, State> {
         }}
       >
         {(this.state.isPlaceDetailEditable || isTagBarEditable) && (
-          <EditorBar
+          <PlaceDetailEditorBar
             isAdmin={this.props.hasAdminAbilities(
               this.props.focusedPlace.datasetSlug,
             )}
@@ -404,8 +395,6 @@ class PlaceDetail extends React.Component<Props, State> {
             isPlaceDetailEditable={this.state.isPlaceDetailEditable}
             isTagBarEditable={isTagBarEditable}
             isGeocodingBarEnabled={this.props.isGeocodingBarEnabled}
-            onClickRemovePlace={() => this.setPlaceRequestType("remove")}
-            onClickUpdatePlace={() => this.setPlaceRequestType("update")}
             onToggleEditMode={() => {
               this.props.updateEditModeToggled(!this.props.isEditModeToggled);
             }}
@@ -461,7 +450,7 @@ class PlaceDetail extends React.Component<Props, State> {
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
         {this.props.isEditModeToggled && this.state.isPlaceDetailEditable ? (
-          <div>PLACE DETAIL EDITOR</div>
+          <PlaceDetailEditor place={this.props.focusedPlace} />
         ) : (
           submittedFieldDetail
         )}
