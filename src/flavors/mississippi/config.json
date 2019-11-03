@@ -212,6 +212,17 @@
         "label": "The nuclear complex in",
         "property": "date",
         "comparator": "<="
+      },
+
+      "filterSlider": {
+        "layerGroupId": "platforms-timeslider-group",
+        "initialValue": 1947,
+        "min": 1947,
+        "max": 2019,
+        "step": 1,
+        "label": "Offshore oil rigs:",
+        "property": "Date",
+        "comparator": "<="
       }
     }
   },
@@ -243,10 +254,24 @@
         "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
         "tileSize": 256
       },
+      "Surveilled": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Surveilled/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
       "confluence": {
         "type": "raster",
         "tiles": [
           "https://ecotopia.today/Mississippi/Confluence/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256
+      },
+      "Louisiana": {
+        "type": "raster",
+        "tiles": [
+          "https://ecotopia.today/Mississippi/Louisiana/{z}/{x}/{y}.png"
         ],
         "tileSize": 256
       },
@@ -262,7 +287,8 @@
         "tiles": [
           "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"
         ],
-        "tileSize": 256
+        "tileSize": 256,
+        "maxZoom": 12
       },
       "satellite": {
         "type": "raster",
@@ -336,6 +362,14 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/NitrogenPlants2.geojson"
       },
+      "CancerAlley": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/CancerAlley.geojson"
+      },
+      "SurveilledTemp": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Surveilled-10-19-trim.geojson"
+      },
       "StLouis": {
         "type": "raster",
         "tiles": ["https://ecotopia.today/Mississippi/StLouis/{z}/{x}/{y}.png"],
@@ -381,6 +415,22 @@
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/MissNoDriftless.geojson"
       },
+      "ConfluenceLevees": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/ConfluenceLevees.geojson"
+      },
+      "ConfluencePumps": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/ConfluencePumps.geojson"
+      },
+      "LouisianaLevees": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/LouisianaLevees.geojson"
+      },
+      "LouisianaPumps": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/LouisianaPumps.geojson"
+      },
       "InactiveCoalMines": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/InactiveCoalMines.geojson"
@@ -404,6 +454,14 @@
       "mississippi-nuclear-plants": {
         "type": "geojson",
         "data": "https://ecotopia.today/Mississippi/Data/nuclear-legacy.geojson"
+      },
+      "platforms": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/platforms.geojson"
+      },
+      "pipelines": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/pipelines.geojson"
       },
       "ActiveCoalMines": {
         "type": "geojson",
@@ -430,6 +488,14 @@
           "https://ecotopia.today/Mississippi/LeveeVectortiles/{z}/{x}/{y}.pbf"
         ],
         "maxZoom": 18
+      },
+      "wells": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/Wells.geojson"
+      },
+      "abandoned": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Mississippi/Data/AbandonedWells.geojson"
       },
       "protected": {
         "type": "vector",
@@ -474,6 +540,31 @@
                 1,
                 10,
                 0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "mask2-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "mask2-group",
+            "type": "fill",
+            "source": "mask",
+            "paint": {
+              "fill-outline-color": "black",
+              "fill-color": "#0F2A35",
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11.98,
+                0,
+                11.99,
+                1
               ]
             }
           }
@@ -667,6 +758,29 @@
         ]
       },
       {
+        "id": "Louisiana-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "Louisiana-basemap",
+            "type": "raster",
+            "source": "Louisiana",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                14,
+                1,
+                16,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
         "id": "MissNoDriftless-group",
         "basemap": false,
         "visibleDefault": false,
@@ -782,6 +896,44 @@
                 3,
                 12,
                 0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "pipelines-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": "true",
+        "popupContent": "<div style='max-width: 350px'><p><strong>Company: </strong>{{SDE_COMPAN}}</p><p>Product: {{PROD_CODE}}</p><p>Status: {{STATUS_COD}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "pipelines-group",
+            "type": "line",
+            "source": "pipelines",
+            "paint": {
+              "line-color": [
+                "match",
+                ["get", "STATUS_COD"],
+                "Abandoned",
+                "dimgray",
+                "Active",
+                "black",
+                "darkgray"
+              ],
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                8,
+                0,
+                8.5,
+                1,
+                10.5,
+                1,
+                12,
+                4
               ]
             }
           }
@@ -1197,6 +1349,81 @@
         ]
       },
       {
+        "id": "ConfluenceLevees-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p><strong>Levee sponsor and county:</strong></p><p>{{sponsors}}, {{counties}}</p><p>NLD Risk assessment <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/risk' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "ConfluenceLevees-labels",
+            "type": "line",
+            "source": "ConfluenceLevees",
+            "paint": {
+              "line-color": "#d44901",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9.5,
+                0,
+                10,
+                4,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "LouisianaLevees-group",
+        "basemap": false,
+        "visibleDefault": true,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>Levee name:</strong></p><p>{{name}}</p><p><strong>Levee sponsor and county:</strong></p><p>{{sponsors}}, {{counties}}</p><p>NLD Risk assessment <a href='https://levees.sec.usace.army.mil/#/levees/system/{{id}}/risk' target='_blank' rel='noopener noreferrer'>here</a></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "LouisianaLevees-labels",
+            "type": "line",
+            "source": "LouisianaLevees",
+            "paint": {
+              "line-color": "firebrick",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                9,
+                0,
+                9.5,
+                2,
+                14,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "SurveilledTemp-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><br><strong>Water temperature: {{water_temp}}</strong><br><br>Air pressure: {{AirPressure}}<br><br>Air humidity: {{AirHumid}}<br><br>Air temperature: {{AirTemp}}<br><br>Heading: {{heading}}<br><br>Speed: {{speed}}</div>",
+        "mapboxLayers": [
+          {
+            "id": "SurveilledTemp-group",
+            "type": "circle",
+            "source": "SurveilledTemp",
+            "paint": {
+              "circle-radius": 5,
+              "circle-color": "white",
+              "circle-opacity": 0
+            }
+          }
+        ]
+      },
+      {
         "id": "FS2sites-group",
         "basemap": false,
         "visibleDefault": false,
@@ -1246,6 +1473,40 @@
               ],
               "icon-anchor": "center",
               "icon-image": "scissors.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "CancerAlley-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='width: 1010px; height: 750px'><strong>{{fnm}}</strong>, {{fad}}, {{fcty}}, {{fst}}; see complete EPA information <a href='https://iaspub.epa.gov/triexplorer/release_fac_profile?TRI={{facn}}&TRILIB=TRIQ1&FLD=&FLD=RELLBY&FLD=TSFDSP&OFFDISPD=&OTHDISPD=&ONDISPD=&OTHOFFD=&YEAR=2011' target='_blank' rel='noopener noreferrer'>here</a><br><iframe src='https://iaspub.epa.gov/triexplorer/facility_profile_charts?p_tri={{facn}}&p_VAR=RE_TOLBY&p_LABEL=Total+On_+and+Off-site+Releases (Pounds)' height='740' width='1010'></iframe></div>",
+        "mapboxLayers": [
+          {
+            "id": "CancerAlley-labels",
+            "type": "symbol",
+            "source": "CancerAlley",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": [
+                "step",
+                ["zoom"],
+                0,
+                9,
+                0.3,
+                10,
+                0.5,
+                11,
+                0.7,
+                12,
+                1,
+                15,
+                0
+              ],
+              "icon-anchor": "center",
+              "icon-image": "toxic.png"
             }
           }
         ]
@@ -1314,6 +1575,118 @@
                 "4-now.png",
                 "__no-icon-image__"
               ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "abandoned-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>ABANDONED WELL</strong><br><br>{{ORG_OPER_N}}<br><br>{{LEGEND_DES}}<br><br>Measured depth: {{MEASURED_D}} ft.<br><br>Date of permit: {{PERMIT_DAT}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "abandoned-labels",
+            "type": "circle",
+            "source": "abandoned",
+            "paint": {
+              "circle-color": "lightgray",
+              "circle-opacity": 0.8,
+              "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                0,
+                11,
+                3,
+                17,
+                12,
+                18,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "wells-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>{{ORG_OPER_N}}</strong><br><br>{{LEGEND_DES}}<br><br>Measured depth: {{MEASURED_D}} ft.<br><br>Date of permit: {{PERMIT_DAT}}</p></div>",
+        "mapboxLayers": [
+          {
+            "id": "wells-labels",
+            "type": "symbol",
+            "source": "wells",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": [
+                "step",
+                ["zoom"],
+                0,
+                9,
+                0.3,
+                10,
+                0.5,
+                11,
+                0.7,
+                12,
+                0.9,
+                13,
+                1.1,
+                17.5,
+                0
+              ],
+              "icon-anchor": "center",
+              "icon-image": "oil.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "platforms-timeslider-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 300px'><p><strong>{{BusAscNa}}</strong></p>Installation date: {{InstallDa}}<br><br>Type: {{StrucType}}<br><br>Water depth: {{WaterDept}} ft - Manned 24hrs: {{Manned24}}<br><br>{{RemovalDa}}<br><br>More info <a href='https://atlas.geoportalmaps.com/ocs/q/Platform?COMPLEX_ID={{ComplexId}}' target='_blank' rel='noopener noreferrer'>here</a><br>(try the \"Identify\" button at upper left)<br><br></p></div>",
+        "mapboxLayers": [
+          {
+            "id": "platforms-timeslider-labels",
+            "type": "circle",
+            "source": "platforms",
+            "paint": {
+              "circle-radius": [
+                "step",
+                ["zoom"],
+                0,
+                6,
+                3,
+                8,
+                4,
+                10,
+                5,
+                12,
+                6,
+                14,
+                7,
+                17.5,
+                0
+              ],
+              "circle-color": [
+                "match",
+                ["get", "ColorKey"],
+                "Removed",
+                "crimson",
+                "Still operating",
+                "darkgreen",
+                "silver"
+              ],
+              "circle-stroke-width": 1,
+              "circle-stroke-color": "black",
+              "circle-opacity": 1
             }
           }
         ]
@@ -1409,6 +1782,46 @@
         ]
       },
       {
+        "id": "ConfluencePumps-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 350px'><p><strong>Pump Station</strong></p><p>{{SYSTEM_NAME}}, {{FEATURE_NAME}}</p><p>Flood source: {{FLOOD_SOURCE}}</p>{{PUMP_CONFIG}},  {{PUMP_DRIVE}}</p>Other levee features <a href='https://levees.sec.usace.army.mil/#/levees/system/{{SYSTEM_ID}}/features' target='_blank' rel='noopener noreferrer'>here</a>.",
+        "mapboxLayers": [
+          {
+            "id": "ConfluencePumps-labels",
+            "type": "symbol",
+            "source": "ConfluencePumps",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 10, 0.6, 15, 1.3],
+              "icon-anchor": "center",
+              "icon-image": "pump.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "LouisianaPumps-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 350px'><p><strong>Pump Station</strong></p><p>{{SYSTEM_NAME}}, {{FEATURE_NAME}}</p><p>Flood source: {{FLOOD_SOURCE}}</p>{{PUMP_CONFIG}},  {{PUMP_DRIVE}}</p>Other levee features <a href='https://levees.sec.usace.army.mil/#/levees/system/{{SYSTEM_ID}}/features' target='_blank' rel='noopener noreferrer'>here</a>.",
+        "mapboxLayers": [
+          {
+            "id": "LouisianaPumps-labels",
+            "type": "symbol",
+            "source": "LouisianaPumps",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 10, 0.6, 15, 1.3],
+              "icon-anchor": "center",
+              "icon-image": "pump.png"
+            }
+          }
+        ]
+      },
+      {
         "id": "navigation-group",
         "basemap": false,
         "visibleDefault": false,
@@ -1496,6 +1909,33 @@
                 16,
                 1,
                 17.5,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Surveilled-group",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "Surveilled-labels",
+            "type": "raster",
+            "source": "Surveilled",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                4,
+                0,
+                5,
+                1,
+                15,
+                1,
+                17,
                 0
               ]
             }
@@ -1931,16 +2371,6 @@
           {
             "layerGroupId": "nitrogen-plants-group",
             "title": "Nitrogen Plants"
-          }
-        ]
-      },
-      {
-        "id": "grp-nuclear",
-        "title": "Nuclear",
-        "options": [
-          {
-            "layerGroupId": "nuclear-plants-timeslider-group",
-            "title": "Nuclear Plants"
           }
         ]
       }
@@ -4328,6 +4758,8 @@
           "mississippi-group",
           "USGSstations-group",
           "USACEstations-group",
+          "Surveilled-group",
+          "SurveilledTemp-group",
           "streets2-group"
         ],
         "spotlight": false
@@ -4404,6 +4836,8 @@
           "ActiveCoalMines-group",
           "streets2-group",
           "hydro2-group",
+          "ConfluenceLevees-group",
+          "ConfluencePumps-group",
           "mississippi-input"
         ],
         "spotlight": false
@@ -4423,14 +4857,22 @@
       },
       {
         "placeId": 7597,
-        "pan_to": [-90.12, 29.94],
-        "zoom": 12,
+        "pan_to": [-91.61, 30.18],
+        "zoom": 7,
         "iconUrl": "/static/css/images/markers/Fractal6.png",
         "visibleLayerGroupIds": [
           "ocean-satellite",
           "streets-group",
           "mississippi-input",
-          "mississippi-group"
+          "Louisiana-group",
+          "platforms-timeslider-group",
+          "CancerAlley-group",
+          "wells-group",
+          "abandoned-group",
+          "pipelines-group",
+          "mask2-group",
+          "LouisianaPumps-group",
+          "LouisianaLevees-group"
         ],
         "spotlight": false
       }
