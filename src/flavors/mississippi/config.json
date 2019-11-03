@@ -223,9 +223,9 @@
         "label": "Offshore oil rigs:",
         "property": "Date",
         "comparator": "<="
+      }
     }
-  }
-},
+  },
   "mapStyle": {
     "mapboxSources": {
       "streets": {
@@ -251,9 +251,7 @@
       },
       "mississippi-watershed": {
         "type": "raster",
-        "tiles": [
-          "https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"
-        ],
+        "tiles": ["https://ecotopia.today/Mississippi/Basemap/{z}/{x}/{y}.png"],
         "tileSize": 256
       },
       "Surveilled": {
@@ -916,11 +914,13 @@
             "source": "pipelines",
             "paint": {
               "line-color": [
-              "match",
-              ["get", "STATUS_COD"],
-              "Abandoned", "dimgray",
-              "Active", "black",
-              "darkgray"
+                "match",
+                ["get", "STATUS_COD"],
+                "Abandoned",
+                "dimgray",
+                "Active",
+                "black",
+                "darkgray"
               ],
               "line-width": [
                 "interpolate",
@@ -1594,17 +1594,17 @@
               "circle-color": "lightgray",
               "circle-opacity": 0.8,
               "circle-radius": [
-                  "interpolate",
-                  ["linear"],
-                  ["zoom"],
-                  10,
-                  0,
-                  11,
-                  3,
-                  17,
-                  12,
-                  18,
-                  0
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                0,
+                11,
+                3,
+                17,
+                12,
+                18,
+                0
               ]
             }
           }
@@ -1623,7 +1623,23 @@
             "source": "wells",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0, 9, 0.3, 10, 0.5, 11, 0.7, 12, 0.9, 13, 1.1, 17.5, 0],
+              "icon-size": [
+                "step",
+                ["zoom"],
+                0,
+                9,
+                0.3,
+                10,
+                0.5,
+                11,
+                0.7,
+                12,
+                0.9,
+                13,
+                1.1,
+                17.5,
+                0
+              ],
               "icon-anchor": "center",
               "icon-image": "oil.png"
             }
@@ -1642,13 +1658,31 @@
             "type": "circle",
             "source": "platforms",
             "paint": {
-              "circle-radius": ["step", ["zoom"], 0, 6, 3, 8, 4, 10, 5, 12, 6, 14, 7, 17.5, 0],
+              "circle-radius": [
+                "step",
+                ["zoom"],
+                0,
+                6,
+                3,
+                8,
+                4,
+                10,
+                5,
+                12,
+                6,
+                14,
+                7,
+                17.5,
+                0
+              ],
               "circle-color": [
-              "match",
-              ["get", "ColorKey"],
-              "Removed", "crimson",
-              "Still operating", "darkgreen",
-              "silver"
+                "match",
+                ["get", "ColorKey"],
+                "Removed",
+                "crimson",
+                "Still operating",
+                "darkgreen",
+                "silver"
               ],
               "circle-stroke-width": 1,
               "circle-stroke-color": "black",
