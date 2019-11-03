@@ -458,7 +458,7 @@
       "maxZoom": 18
     },
     "mapWidgets": {
-      "filterSlider": [
+      "filterSliders": [
         {
           "layerGroupId": "wa-state-large-fires-1973-2018-100-acres-plus",
           "initialValue": 2018,
