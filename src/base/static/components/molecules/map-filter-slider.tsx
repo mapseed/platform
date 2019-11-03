@@ -56,6 +56,7 @@ const MapFilterSlider: React.FunctionComponent = () => {
         property: config.property,
         updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
       });
+      setSliderValue(config.initialValue);
     }
   }, [dispatch, layerGroups, config]);
 
