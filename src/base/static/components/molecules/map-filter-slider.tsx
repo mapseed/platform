@@ -31,37 +31,47 @@ const buildAndApplyMapLayerFilters = ({
 };
 
 const MapFilterSlider: React.FunctionComponent = () => {
-  const mapFilterSliderConfig: MapFilterSliderConfig = useSelector(
+  const dispatch = useDispatch();
+  const mapFilterSliderConfig: MapFilterSliderConfig[] = useSelector(
     mapFilterSliderConfigSelector,
   );
 
+  const layerGroups = useSelector(layerGroupsSelector);
+  const config: MapFilterSliderConfig | undefined = mapFilterSliderConfig.find(
+    config =>
+      layerGroups.byId[config.layerGroupId] &&
+      layerGroups.byId[config.layerGroupId].isVisible,
+  );
+  const [sliderValue, setSliderValue] = React.useState(
+    config && config.initialValue,
+  );
+
+  React.useEffect(() => {
+    if (config) {
+      const layerGroup = layerGroups.byId[config.layerGroupId];
+      buildAndApplyMapLayerFilters({
+        filterValue: config.initialValue,
+        layerIds: layerGroup.layerIds,
+        comparator: config.comparator,
+        property: config.property,
+        updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
+      });
+    }
+  }, [dispatch, layerGroups, config]);
+
+  if (!config) {
+    return null;
+  }
+
+  const layerGroup = layerGroups.byId[config.layerGroupId];
   const {
     min,
     max,
     step,
-    initialValue,
     comparator,
     property,
     label,
-    layerGroupId,
-  }: MapFilterSliderConfig = mapFilterSliderConfig;
-  const layerGroups = useSelector(layerGroupsSelector);
-  const layerGroup = layerGroups.byId[layerGroupId];
-  const dispatch = useDispatch();
-  const [sliderValue, setSliderValue] = React.useState(initialValue);
-  React.useEffect(() => {
-    buildAndApplyMapLayerFilters({
-      filterValue: initialValue,
-      layerIds: layerGroup.layerIds,
-      comparator,
-      property,
-      updateLayerFilters: filters => dispatch(updateLayerFilters(filters)),
-    });
-  }, [initialValue, comparator, dispatch, property, layerGroup]);
-
-  if (!layerGroup || !layerGroup.isVisible) {
-    return null;
-  }
+  }: MapFilterSliderConfig = config;
 
   // TODO: Use Matrial text atoms and tie into themeing passed from
   // MapWidgetWrapper.

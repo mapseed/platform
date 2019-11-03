@@ -458,16 +458,18 @@
       "maxZoom": 18
     },
     "mapWidgets": {
-      "filterSlider": {
-        "layerGroupId": "wa-state-large-fires-1973-2018-100-acres-plus",
-        "initialValue": 2018,
-        "min": 1973,
-        "max": 2018,
-        "step": 1,
-        "label": "Large wildfires to date:",
-        "property": "YEAR",
-        "comparator": "<="
-      }
+      "filterSlider": [
+        {
+          "layerGroupId": "wa-state-large-fires-1973-2018-100-acres-plus",
+          "initialValue": 2018,
+          "min": 1973,
+          "max": 2018,
+          "step": 1,
+          "label": "Large wildfires to date:",
+          "property": "YEAR",
+          "comparator": "<="
+        }
+      ]
     }
   },
   "mapStyle": {
