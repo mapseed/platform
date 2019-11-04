@@ -2130,6 +2130,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
+            "header_text": "Your Property",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-your-property.jpg' alt='Your property section'/></figure>"
           },
           {
@@ -2154,6 +2155,7 @@
             "//": "---------------SECTION: PRACTICE TYPES-------------------",
             "name": "practice_types_header",
             "type": "informational_html",
+            "header_text": "Land Use",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Land Use</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-land-use.jpg' alt='Practice types section'/></figure>"
           },
           {
@@ -2219,6 +2221,7 @@
             "//": "---------------SECTION: AGRICULTURE-------------------",
             "name": "agriculture_header",
             "type": "informational_html",
+            "header_text": "Agriculture",
             "hidden_default": true,
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Agriculture</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-agriculture.png' alt='Agriculture section'/></figure>"
           },
@@ -3390,6 +3393,7 @@
             "name": "livestock_header",
             "hidden_default": true,
             "type": "informational_html",
+            "header_text": "Livestock",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Livestock</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-livestock.jpg' alt='Livestock section'/></figure>"
           },
           {
@@ -3823,6 +3827,7 @@
             "//": "---------------SECTION: FORESTRY-------------------",
             "name": "forest_header",
             "type": "informational_html",
+            "header_text": "Forestry",
             "hidden_default": true,
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Forestry</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-forestry.jpg' alt='Forestry section'/></figure>"
           },
@@ -3980,6 +3985,7 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
+            "header_text": "Almost Completed",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Almost completed</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-almost-completed.jpg' alt='Additional info section'/></figure>"
           },
           {

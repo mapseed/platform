@@ -5849,6 +5849,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
+            "header_text": "Your Property",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2>"
           },
           {
@@ -5871,6 +5872,7 @@
           {
             "name": "analysis_units_header",
             "type": "informational_html",
+            "header_text": "Watershed Analysis Unit",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watershed analysis unit</h2>"
           },
           {
@@ -5896,6 +5898,7 @@
           {
             "name": "wetlands_header",
             "type": "informational_html",
+            "header_text": "Wetland Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland areas</h2>"
           },
           {
@@ -5922,6 +5925,7 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
+            "header_text": "Frequently Flooded Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h2>"
           },
           {
@@ -5948,6 +5952,7 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
+            "header_text": "Severe Geologic Hazard Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Severe geologic hazard areas</h2>"
           },
           {
@@ -5974,6 +5979,7 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
+            "header_text": "Critical Aquifer Recharge Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical aquifer recharge areas</h2>"
           },
           {
@@ -6000,6 +6006,7 @@
           {
             "name": "wildlife_conservation_header",
             "type": "informational_html",
+            "header_text": "Fish & Wildlife Conservation Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Fish & wildlife conservation areas</h2>"
           },
           {
@@ -6026,6 +6033,7 @@
           {
             "name": "residue_tillage_header",
             "type": "informational_html",
+            "header_text": "Residue and Tillage Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Residue and Tillage Management</h2>"
           },
           {
@@ -6152,6 +6160,7 @@
             "//": "------------SECTION: PEST MGMT--------------------",
             "name": "pest_management_header",
             "type": "informational_html",
+            "header_text": "Pest Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Pest Management</h2>"
           },
           {
@@ -6233,6 +6242,7 @@
             "//": "-------------SECTION: NUTRIENT MGMT-----------------",
             "name": "nutrient_management_header",
             "type": "informational_html",
+            "header_text": "Nutrient Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Nutrient Management</h2>"
           },
           {
@@ -6314,6 +6324,7 @@
             "//": "--------------SECTION: RANGE MGMT---------------------------",
             "name": "range_management",
             "type": "informational_html",
+            "header_text": "Range Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Range Management</h2>"
           },
           {
@@ -6545,6 +6556,7 @@
             "//": "--------------SECTION: SOIL MGMT---------------------------",
             "name": "soil_management",
             "type": "informational_html",
+            "header_text": "Soil & Erosion Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Soil & Erosion Management</h2>"
           },
           {
@@ -6724,6 +6736,7 @@
             "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
             "name": "fish_wildlife_management",
             "type": "informational_html",
+            "header_text": "Fish & Wildife Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Fish & Wildlife Management</h2>"
           },
           {
@@ -7365,6 +7378,7 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
+            "header_text": "Almost Completed!",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost completed!</h2>"
           },
           {

@@ -1988,6 +1988,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
+            "header_text": "Your property",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2>"
           },
           {
@@ -2011,6 +2012,7 @@
           {
             "name": "wetlands_header",
             "type": "informational_html",
+            "header_text": "Wetland Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Wetland Areas</h2>"
           },
           {
@@ -2042,6 +2044,7 @@
           {
             "name": "frequently_flooded_header",
             "type": "informational_html",
+            "header_text": "Frequently Flooded Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Frequently Flooded Areas</h2>"
           },
           {
@@ -2073,6 +2076,7 @@
           {
             "name": "geologic_hazard_header",
             "type": "informational_html",
+            "header_text": "Severe Geologic Hazard Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Severe Geologic Hazard Areas</h2>"
           },
           {
@@ -2104,6 +2108,7 @@
           {
             "name": "critical_aquifer_header",
             "type": "informational_html",
+            "header_text": "Critical Aquifer Recharge Areas",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Critical Aquifer Recharge Areas</h2>"
           },
           {
@@ -2135,6 +2140,7 @@
           {
             "name": "fish_wildlife_habitat_header",
             "type": "informational_html",
+            "header_text": "Fish & Widlife Habitat",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Fish & Wildlife Habitat</h2>"
           },
           {
@@ -2167,6 +2173,7 @@
             "//": "---------------------VSP INVENTORY REQUEST-------------------------",
             "name": "vsp_inventory_request_header",
             "type": "informational_html",
+            "header_text": "VSP Inventory Request",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. VSP Inventory Request</h2><p style='margin:8px 0 8px 0;font-size:1.2rem;font-style:italic;color:#555;'>The information you just reviewed is the available data for critical areas in Kittitas County. Because much of the data is completed at a larger scale, it can sometimes not be accurate for a specific property. If you would like to know more about critical areas associated with your property, KCCD staff can complete an in-depth inventory and provide it to you.</p>"
           },
           {
@@ -2189,6 +2196,7 @@
             "//": "---------------------WATER USE EFFICIENCY-------------------------",
             "name": "water_use_header",
             "type": "informational_html",
+            "header_text": "Water Use Efficiency",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Water Use Efficiency</h2>"
           },
           {
@@ -2527,6 +2535,7 @@
             "//": "--------------SECTION: SOIL HEALTH & EROSION MGMT---------------------------",
             "name": "soil_management",
             "type": "informational_html",
+            "header_text": "Soil Health & Erosion Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Soil Health & Erosion Management</h2>"
           },
           {
@@ -2812,6 +2821,7 @@
             "//": "-------------SECTION: NUTRIENT MGMT-----------------",
             "name": "nutrient_management_header",
             "type": "informational_html",
+            "header_text": "Nutrient Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Nutrient Management</h2>"
           },
           {
@@ -2942,6 +2952,7 @@
             "//": "--------------SECTION: RANGE MGMT---------------------------",
             "name": "range_management",
             "type": "informational_html",
+            "header_text": "Range Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Range Management</h2>"
           },
           {
@@ -3225,6 +3236,7 @@
             "//": "------------SECTION: PEST MGMT--------------------",
             "name": "pest_management_header",
             "type": "informational_html",
+            "header_text": "Pest Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Pest Management</h2>"
           },
           {
@@ -3358,6 +3370,7 @@
             "//": "---------------SECTION: FISH & WILDLIFE MGMT------------------",
             "name": "fish_wildlife_management",
             "type": "informational_html",
+            "header_text": "Fish & Wildlife Management",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Fish & Wildlife Management</h2>"
           },
           {
@@ -3794,6 +3807,7 @@
             "//": "---------------SECTION: OTHER PRACTICES-------------------",
             "name": "other_practices_header",
             "type": "informational_html",
+            "header_text": "Other VSP Practices",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Other VSP Practices</h2>"
           },
           {
@@ -3807,6 +3821,7 @@
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
+            "header_text": "Almost Completed!",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>15. Almost completed!</h2>"
           },
           {
