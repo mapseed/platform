@@ -44,9 +44,10 @@ export const mapWidgetsSelector = state => {
   return state.map.mapWidgets;
 };
 export const mapFilterSliderConfigSelector = state =>
-  state.map.mapWidgets.filterSlider;
+  state.map.mapWidgets.filterSliders;
 export const isWithMapFilterSliderSelector = state =>
-  !!state.map.mapWidgets.filterSlider;
+  state.map.mapWidgets.filterSliders &&
+  state.map.mapWidgets.filterSliders.length > 0;
 export const mapRadioMenuConfigSelector = state =>
   state.map.mapWidgets.radioMenu;
 export const isWithMapRadioMenuSelector = state =>

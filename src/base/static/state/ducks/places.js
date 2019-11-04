@@ -252,7 +252,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         // request was sent, perform a check here to make sure we don't add a
         // duplicate copy of the Place.
         placeModels: state.placeModels.find(
-          place => place.id === action.payload,
+          place => place.id === action.payload.id,
         )
           ? state.placeModels
           : state.placeModels.concat(action.payload),

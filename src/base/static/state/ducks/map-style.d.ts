@@ -5,21 +5,6 @@ type MapseedGeometry = Point | LineString | Polygon;
 
 export const mapViewportPropType: any;
 
-export type FilterSlider = {
-  initialValue?: number;
-  min: number;
-  max: number;
-  step?: number;
-  label?: string;
-  property: string;
-  comparator: string;
-};
-
-export type FilterableLayerGroup = {
-  layerIds: string[];
-  filterSlider: FilterSlider;
-};
-
 export type MapContainerDimensions = {
   width: number;
   height: number;
@@ -51,8 +36,6 @@ export type LegendItem = {
 export type LayerGroup = {
   id: string;
   popupContent: string;
-  // TODO: move this into it's own MapWidget config
-  filterSlider?: FilterSlider;
   isBasemap: boolean;
   isVisible: boolean;
   isVisibleDefault: boolean;
