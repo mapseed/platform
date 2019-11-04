@@ -33,6 +33,7 @@ import {
   MapseedAttachment,
 } from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
+import { LoadingBar } from "../atoms/imagery";
 
 // TODO:
 //  - admin-only fields (??)
@@ -66,6 +67,7 @@ const BACKEND_MODULES = {
 };
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const PHONE_REGEX = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/i;
 
 // TODO: i18n for validation messages.
 const getValidator = (isRequired, variant) => {
@@ -87,6 +89,12 @@ const getValidator = (isRequired, variant) => {
     return value => {
       if (!value.match(EMAIL_REGEX)) {
         return "Please enter a valid email address";
+      }
+    };
+  } else if (variant === "PH") {
+    return value => {
+      if (!value.match(PHONE_REGEX)) {
+        return "Please enter a valid phone number";
       }
     };
   } else {
@@ -173,26 +181,35 @@ const VisibilityTriggerEffect = formikConnect(
   // @ts-ignore
   ({ formik: { values }, formModule: { key, options }, children }) => {
     const dispatch = useDispatch();
-    const val = values[key];
-    const prevVal = usePrevious(val);
+    const currentVal = values[key];
+    const previousVal = usePrevious(currentVal);
 
     React.useEffect(() => {
-      if (options && val !== prevVal) {
-        const optionsConfig = options.find(({ value }) => value === val);
-        if (optionsConfig && optionsConfig.groupVisibilityTriggers) {
+      // We're making the assumption that visibility triggers will only exist
+      // on field controls with `options` (dropdowns, radios, checkboxes).
+      if (options && currentVal !== previousVal) {
+        const { groupVisibilityTriggers, value: triggerValue } =
+          options.find(({ groupVisibilityTriggers }) =>
+            Boolean(groupVisibilityTriggers),
+          ) || {};
+
+        if (groupVisibilityTriggers) {
           dispatch(
             updateFormModuleVisibilities(
-              optionsConfig.groupVisibilityTriggers,
-              true,
+              groupVisibilityTriggers,
+              triggerValue === currentVal,
             ),
           );
         }
       }
-    }, [val, dispatch, options, prevVal]);
+    }, [dispatch, options, previousVal, currentVal]);
 
     return children;
   },
 );
+
+const isRaisedModule = type =>
+  !["submitbuttonmodule", "skipstagemodule"].includes(type);
 
 // TODO: Save all form state to Redux on unmount, as a backup.
 const BaseForm = ({
@@ -208,10 +225,27 @@ const BaseForm = ({
   const [currentStage, setCurrentStage] = React.useState<number>(0);
   const onClickAdvanceStage = React.useCallback(
     validateField => {
+      // TODO: This validation routine produces a slight but noticeable lag
+      // when advancing stages, due I think to Formik's internal use of
+      // `dispatch`. Can we speed this up somehow?
       Promise.all(
         form.stages[currentStage].modules
-          .filter(({ type }) => isFormField(type))
-          .map(({ key }) => validateField(key)),
+          // TODO: Maybe the duck should provide a way of selecting all
+          // modules, including nested modules inside groups?
+          .reduce(
+            (modules, module) => {
+              return modules.concat(
+                module.type === "groupmodule"
+                  ? (module.modules as FormModule[])
+                  : module,
+              );
+            },
+            [] as FormModule[],
+          )
+          .filter(({ type, isVisible }) => isVisible && isFormField(type))
+          .map(({ key }) => {
+            return validateField(key);
+          }),
       ).then(result => {
         if (!result.some(msg => typeof msg === "string")) {
           if (currentStage < form.stages.length - 1) {
@@ -235,78 +269,81 @@ const BaseForm = ({
   const layout: Layout = useSelector(layoutSelector);
 
   return (
-    <Formik
-      ref={baseFormRef}
-      validateOnChange={false}
-      validateOnBlur={false}
-      onSubmit={onSubmit}
-      initialValues={initialValues}
-      render={({ setFieldValue, errors, validateField }) => {
-        return (
-          <div
-            css={css`
-              margin-bottom: ${form.stages.length > 1 ? "112px" : 0};
-            `}
-          >
-            <FormikForm onChange={handleChange}>
-              {form.stages[currentStage].modules.map(formModule => {
-                const subModules =
-                  formModule.type === "groupmodule"
-                    ? (formModule.modules as FormModule[])
-                    : [formModule];
-                const isWithValidationError = subModules.some(({ key }) =>
-                  Boolean(errors[key]),
-                );
+    <React.Fragment>
+      <Formik
+        ref={baseFormRef}
+        validateOnChange={false}
+        validateOnBlur={false}
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        render={({ setFieldValue, errors, validateField }) => {
+          return (
+            <div
+              css={css`
+                margin-bottom: ${form.stages.length > 1 ? "112px" : 0};
+              `}
+            >
+              <FormikForm onChange={handleChange}>
+                {form.stages[currentStage].modules.map(formModule => {
+                  const subModules =
+                    formModule.type === "groupmodule"
+                      ? (formModule.modules as FormModule[])
+                      : [formModule];
+                  const isWithValidationError = subModules.some(({ key }) =>
+                    Boolean(errors[key]),
+                  );
 
-                return (
-                  <FieldPaper
-                    key={String(formModule.id)}
-                    isWithValidationError={isWithValidationError}
-                  >
-                    {subModules
-                      .filter(({ isVisible }) => isVisible)
-                      .map((subModule: FormModule, idx) => {
-                        const { key, variant, isRequired, type } = subModule;
+                  return (
+                    <FieldPaper
+                      key={String(formModule.id)}
+                      isWithValidationError={isWithValidationError}
+                      raised={isRaisedModule(formModule.type)}
+                    >
+                      {subModules
+                        .filter(({ isVisible }) => isVisible)
+                        .map((subModule: FormModule, idx) => {
+                          const { key, variant, isRequired, type } = subModule;
 
-                        return (
-                          <VisibilityTriggerEffect
-                            key={idx}
-                            formModule={subModule}
-                          >
-                            <MapseedFormModule
-                              idx={idx}
-                              name={key}
-                              variant={variant}
-                              type={type}
-                              isRequired={isRequired}
+                          return (
+                            <VisibilityTriggerEffect
+                              key={idx}
                               formModule={subModule}
-                              fieldError={errors[key]}
-                              isValid={Boolean(errors[key])}
-                              onClickSkipStage={onClickSkipStage}
-                              setFieldValue={setFieldValue}
-                              attachments={attachments}
-                              setAttachments={setAttachments}
-                            />
-                          </VisibilityTriggerEffect>
-                        );
-                      })}
-                  </FieldPaper>
-                );
-              })}
-            </FormikForm>
-            {form.stages.length > 0 && (
-              <FormStageControlBar
-                layout={layout}
-                onClickAdvanceStage={() => onClickAdvanceStage(validateField)}
-                onClickRetreatStage={onClickRetreatStage}
-                currentStage={currentStage}
-                numStages={form.stages.length}
-              />
-            )}
-          </div>
-        );
-      }}
-    />
+                            >
+                              <MapseedFormModule
+                                idx={idx}
+                                name={key}
+                                variant={variant}
+                                type={type}
+                                isRequired={isRequired}
+                                formModule={subModule}
+                                fieldError={errors[key]}
+                                isValid={Boolean(errors[key])}
+                                onClickSkipStage={onClickSkipStage}
+                                setFieldValue={setFieldValue}
+                                attachments={attachments}
+                                setAttachments={setAttachments}
+                              />
+                            </VisibilityTriggerEffect>
+                          );
+                        })}
+                    </FieldPaper>
+                  );
+                })}
+              </FormikForm>
+              {form.stages.length > 0 && (
+                <FormStageControlBar
+                  layout={layout}
+                  onClickAdvanceStage={() => onClickAdvanceStage(validateField)}
+                  onClickRetreatStage={onClickRetreatStage}
+                  currentStage={currentStage}
+                  numStages={form.stages.length}
+                />
+              )}
+            </div>
+          );
+        }}
+      />
+    </React.Fragment>
   );
 };
 
