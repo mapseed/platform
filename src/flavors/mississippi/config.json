@@ -203,27 +203,29 @@
           }
         ]
       },
-      "filterSlider": {
-        "layerGroupId": "nuclear-plants-timeslider-group",
-        "initialValue": 1944,
-        "min": 1941,
-        "max": 2019,
-        "step": 1,
-        "label": "The nuclear complex in",
-        "property": "date",
-        "comparator": "<="
-      },
+      "filterSliders": [
+        {
+          "layerGroupId": "nuclear-plants-timeslider-group",
+          "initialValue": 1944,
+          "min": 1941,
+          "max": 2019,
+          "step": 1,
+          "label": "The nuclear complex in",
+          "property": "date",
+          "comparator": "<="
+        },
 
-      "filterSlider": {
-        "layerGroupId": "platforms-timeslider-group",
-        "initialValue": 1947,
-        "min": 1947,
-        "max": 2019,
-        "step": 1,
-        "label": "Offshore oil rigs:",
-        "property": "Date",
-        "comparator": "<="
-      }
+        {
+          "layerGroupId": "platforms-timeslider-group",
+          "initialValue": 1947,
+          "min": 1947,
+          "max": 2019,
+          "step": 1,
+          "label": "Offshore oil rigs:",
+          "property": "Date",
+          "comparator": "<="
+        }
+      ]
     }
   },
   "mapStyle": {

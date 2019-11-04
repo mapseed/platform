@@ -63,7 +63,7 @@ export type RadioMenuConfig = {
 };
 
 export type MapWidgetsConfig = {
-  filterSlider?: MapFilterSliderConfig;
+  filterSlider?: MapFilterSliderConfig[];
   radioMenu?: RadioMenuConfig;
 };
 
@@ -106,7 +106,7 @@ export const mapWidgetsSelector: any;
 export const isWithMapFilterSliderSelector: (state: any) => boolean;
 export const mapFilterSliderConfigSelector: (
   state: any,
-) => MapFilterSliderConfig;
+) => MapFilterSliderConfig[];
 export const mapRadioMenuConfigSelector: (state: any) => RadioMenuConfig;
 export const isWithMapRadioMenuSelector: (state: any) => boolean;
 export const measurementToolEnabledSelector: any;
