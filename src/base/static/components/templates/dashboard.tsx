@@ -2,7 +2,6 @@
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import PropTypes from "prop-types";
-import "moment-timezone";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 

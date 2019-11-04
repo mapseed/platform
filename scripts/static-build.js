@@ -66,15 +66,6 @@ try {
   throw e;
 }
 
-try {
-  fs.copySync(
-    path.resolve(__dirname, "../src/base/static/legacy-libs"),
-    path.resolve(outputPath, "legacy-libs"),
-  );
-} catch (e) {
-  logError("Error copying flavor libs files: " + e);
-  throw e;
-}
 
 // Build the symbol spritesheet for Mapbox.
 // -----------------------------------------------------------------------------

@@ -813,7 +813,7 @@
           },
           {
             "name": "submission_info",
-            "type": "What do you think?",
+            "header_text": "What do you think?",
             "type": "informational_html",
             "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What do <span style='font-style:italic;'>you</span> think?</h1><p class='form-stage-text'>Drag and zoom the map to let us know where you think we should add a bikeshare hub! Fill out the form below to give us some more information about your suggestion:</p>"
           },
