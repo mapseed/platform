@@ -774,31 +774,37 @@
           {
             "name": "map_use",
             "type": "informational_html",
+            "header_text": "How do I use this map?",
             "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>How do I use this map?</h1><img style='width:100%;' src='/static/css/images/map-use-graphic.png' alt='Map use graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>As you click through the next few pages, this guide will show you other map layers you can turn on and off to help you think about where to suggest a parking area. Click on the layers button (circled in <span style='color:#a3d469'>green</span>) to see all your options! The map will move each time you click Next, so please wait until page 8 to place the pin where you want it.</p><p class='form-stage-text' >Do you have more questions about bikeshare parking in Bellevue? Click on the “FAQ” button at the top of the map (circled in <span style='color:#eb7d3c'>orange</span>) for more information.</p>"
           },
           {
             "name": "hub_information",
             "type": "informational_html",
+            "header_text": "What is a hub?",
             "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What is a hub?</h1><img style='width:100%;' src='/static/css/images/bike-share-hub.jpg' alt='Walkshed graphic' /><p class='form-stage-text' style='font-family: PTSans, sans-serif;'>Hubs are preferred parking areas for bikeshare bicycles. These are places where bikeshare users are encouraged to park when ending a trip and where operators relocate bikes to provide convenient and reliable service.</p><p class='form-stage-text' >Hubs are marked with white boxes and symbols painted on sidewalks or street shoulders, and they are shown in operators' mobile apps.</p>"
           },
           {
             "name": "hub_location_information",
             "type": "informational_html",
+            "header_text": "Where should hubs go?",
             "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Where should hubs go?</h1><img style='width:100%;' src='/static/css/images/gridlines-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>We want to provide a network of convenient hubs citywide. Suggest locations in your neighborhood, outside your workplace, at your local park, near your favorite café, restaurants, and shops-anywhere you want to go by bike!</p><p class='form-stage-text' >If you don't see a suggested location in the half-mile (solid) or quarter-mile (dashed) grid squares near places you want to go, that is an especially good place to suggest one.</p>"
           },
           {
             "name": "existing_hubs_information",
             "type": "informational_html",
+            "header_text": "Exisiting hubs",
             "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Existing hubs</h1><img style='width:100%;' src='/static/css/images/existing-bikeshare-hubs-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Hubs have already been installed at 50 locations across the city, including in Downtown, Crossroads, Factoria, and near major bus stops and community spaces.</p><p class='form-stage-text' >Toggle these with the Existing Hubs layer, and click on icons for more information and photos. Large icons are painted areas; small icons are public bike racks, or \"mini hubs.\"</p>"
           },
           {
             "name": "bicycle_network_information",
             "type": "informational_html",
+            "header_text": "Bicycle network",
             "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Bicycle network</h1><img style='width:100%;' src='/static/css/images/bike-network-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Not sure where to ride? Toggle the Bike Network layer to see where bike lanes and offstreet paths are near where you want to go.</p><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/bike-sharrows-ver-2.png' alt='Bike sharrows' /><figcaption style='font-style:italic;color:#888;'>Bike sharrows</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/bike-lane-ver-2.png' alt='Bike lane' /><figcaption style='font-style:italic;color:#888;'>Bike lane</figcaption></figure></div><div style='display:flex;'><figure style='flex:1;'><img src='/static/css/images/wide-shoulder-ver-2.png' alt='Shoulder / wide lane' /><figcaption style='font-style:italic;color:#888;'>Shoulder / wide lane</figcaption></figure><figure style='flex:1;'><img src='/static/css/images/offstreet-path-ver-2.png' alt='Offstreet path' /><figcaption style='font-style:italic;color:#888;'>Offstreet path</figcaption></figure></div>"
           },
           {
             "name": "access_to_transit_information",
             "type": "informational_html",
+            "header_text": "Access to transit",
             "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>Access to transit</h1><img style='width:100%;' src='/static/css/images/walkshed-graphic.png' alt='Walkshed graphic' /><p class='form-stage-text'  style='font-family: PTSans, sans-serif;'>Bikeshare can help people get to and from transit more quickly. By locating hubs within walking distance of frequent bus routes, buses and bikeshare can both be more useful.</p><p class='form-stage-text' >This map shows the quarter-mile walkshed around Bellevue's frequent transit network.</p>"
           },
           {
@@ -807,6 +813,7 @@
           },
           {
             "name": "submission_info",
+            "type": "What do you think?",
             "type": "informational_html",
             "content": "<h1 style='font-family: PTSansBold, sans-serif; margin: 0 0 16px 0;'>What do <span style='font-style:italic;'>you</span> think?</h1><p class='form-stage-text'>Drag and zoom the map to let us know where you think we should add a bikeshare hub! Fill out the form below to give us some more information about your suggestion:</p>"
           },
