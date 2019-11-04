@@ -4,13 +4,24 @@ import Paper from "@material-ui/core/Paper";
 type FieldPaperProps = {
   children: React.ReactNode;
   isWithValidationError: boolean;
+  raised: boolean;
 };
 
-const FieldPaper = ({ children, isWithValidationError }: FieldPaperProps) => {
+const FieldPaper = ({
+  children,
+  isWithValidationError,
+  raised,
+}: FieldPaperProps) => {
   return (
     <Paper
+      elevation={raised ? 1 : 0}
       style={{
-        backgroundColor: isWithValidationError ? "#f9d7d9" : "rgb(239,239,239)",
+        background: raised ? "initial" : "none",
+        backgroundColor: isWithValidationError
+          ? "#f9d7d9"
+          : raised
+          ? "rgb(239,239,239)"
+          : "unset",
         padding: "16px",
         marginBottom: "16px",
       }}

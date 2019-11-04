@@ -58,6 +58,10 @@ export interface MapseedTextFieldModule extends BaseFormModule {
   placeholder: string;
 }
 
+export interface MapseedTextareaFieldModule extends BaseFormModule {
+  placeholder: string;
+}
+
 export interface MapseedAddressFieldModule extends BaseFormModule {
   reverseGeocode: boolean;
   placeholder?: string;
@@ -100,6 +104,7 @@ export type FormModule =
   | MapseedSubmitButtonModule
   | MapseedFileFieldModule
   | MapseedTextFieldModule
+  | MapseedTextareaFieldModule
   | MapseedAddressFieldModule
   | MapseedSkipStageModule
   | MapseedRadioFieldModule

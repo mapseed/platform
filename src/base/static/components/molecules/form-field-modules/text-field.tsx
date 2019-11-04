@@ -29,7 +29,7 @@ const TextField = ({
         value={value}
         onBlur={onBlur}
         onChange={onChange}
-        placeholder={t(`textFieldLabel${id}`, placeholder)}
+        placeholder={t(`textFieldPlaceholder${id}`, placeholder)}
       />
     </React.Fragment>
   );
