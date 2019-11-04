@@ -6,9 +6,6 @@ import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import CustomPage from "./custom-page";
-const FormCategoryMenuWrapper = React.lazy(() =>
-  import("../input-form/form-category-menu-wrapper"),
-);
 const PlaceDetail = React.lazy(() => import("./place-detail"));
 const NewPlaceForm = React.lazy(() => import("./new-place-form"));
 import constants from "../../constants";
