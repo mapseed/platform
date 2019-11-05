@@ -505,44 +505,32 @@
           {
             "start_field_index": 1,
             "end_field_index": 3,
-            "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "Please set your location",
-            "description": "Setting your location will help us list streams as safe. Your address will not be shared on the map."
+            "icon_url": "/static/css/images/form-stage-header-graphic.png"
           },
           {
             "start_field_index": 4,
-            "end_field_index": 24,
-            "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "Farm Conservation",
-            "description": "Tell us what you've done on your farm to protect natural resources"
+            "end_field_index": 25,
+            "icon_url": "/static/css/images/form-stage-header-graphic.png"
           },
           {
-            "start_field_index": 25,
-            "end_field_index": 45,
-            "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "Forest Conservation",
-            "description": "Tell us what you've done to improve forest conservation"
+            "start_field_index": 26,
+            "end_field_index": 47,
+            "icon_url": "/static/css/images/form-stage-header-graphic.png"
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 68,
-            "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "Shoreline or Streamside Conservation",
-            "description": "Tell us what you've done to improve shoreline or streamside conservation"
+            "start_field_index": 48,
+            "end_field_index": 71,
+            "icon_url": "/static/css/images/form-stage-header-graphic.png"
           },
           {
-            "start_field_index": 69,
-            "end_field_index": 97,
-            "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "Urban / Suburban Conservation",
-            "description": "Tell us what you've done to improve urban / surburban conservation"
+            "start_field_index": 72,
+            "end_field_index": 101,
+            "icon_url": "/static/css/images/form-stage-header-graphic.png"
           },
           {
-            "start_field_index": 98,
-            "end_field_index": 102,
-            "icon_url": "/static/css/images/form-stage-header-graphic.png",
-            "header": "Almost Done!",
-            "description": " "
+            "start_field_index": 102,
+            "end_field_index": 107,
+            "icon_url": "/static/css/images/form-stage-header-graphic.png"
           }
         ],
         "label": "Conservation Actions",
@@ -555,7 +543,8 @@
             "name": "location-information",
             "type": "informational_html",
             "prompt": " ",
-            "content": "<h3 class=\"map-drag-header\">You may drag the map to set your location.</h3><h3 class=\"map-drag-header\">Or, you may enter your address:</h3>"
+            "header_text": "Please set your location",
+            "content": "<h1>Please set your location</h1><p>Setting your location will help us list streams as safe. Your address will not be shared on the map.</p><h3 class=\"map-drag-header\">You may drag the map to set your location.</h3><h3 class=\"map-drag-header\">Or, you may enter your address:</h3>"
           },
           {
             "name": "private-address",
@@ -564,6 +553,13 @@
             "display_prompt": "Address",
             "placeholder": "Enter your address",
             "optional": false
+          },
+          {
+            "name": "farm-information",
+            "type": "informational_html",
+            "prompt": " ",
+            "header_text": "Farm Conservation",
+            "content": "<h1>Farm Conservation</h1><p>Tell us what you've done on your farm to protect natural resources</p>"
           },
           {
             "name": "farm_no-farm",
@@ -915,6 +911,13 @@
             "optional": true
           },
           {
+            "name": "forest-information",
+            "type": "informational_html",
+            "prompt": " ",
+            "header_text": "Forest Conservation",
+            "content": "<h1>Forest Conservation</h1><p>Tell us what you've done to improve forest conservation.</p>"
+          },
+          {
             "name": "forest_no-forest",
             "type": "big_toggle",
             "prompt": " ",
@@ -1255,6 +1258,13 @@
             "display_prompt": " ",
             "placeholder": "Enter your comments...",
             "optional": true
+          },
+          {
+            "name": "shoreline-information",
+            "type": "informational_html",
+            "prompt": " ",
+            "header_text": "Shoreline or Streamside Conservation",
+            "content": "<h1>Shoreline or Streamside Conservation</h1><p>Tell us what you've done to improve shoreline or streamside conservation.</p>"
           },
           {
             "name": "shoreline_no-shoreline",
@@ -1646,6 +1656,13 @@
             "display_prompt": " ",
             "placeholder": "Enter your comments...",
             "optional": true
+          },
+          {
+            "name": "urban-suburban-information",
+            "type": "informational_html",
+            "prompt": " ",
+            "header_text": "Urban / Suburban Conservation",
+            "content": "<h1>Urban / Suburban Conservation</h1><p>Tell us what you've done to improve urban / suburban conservation.</p>"
           },
           {
             "name": "urban-suburban_no-urban-suburban",
@@ -2142,6 +2159,13 @@
             "display_prompt": " ",
             "placeholder": "Enter your comments...",
             "optional": true
+          },
+          {
+            "name": "final-information",
+            "type": "informational_html",
+            "prompt": " ",
+            "header_text": "Almost Done!",
+            "content": "<h1>Almost Done!</h1>"
           },
           {
             "name": "title",
