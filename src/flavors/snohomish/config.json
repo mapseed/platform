@@ -2280,7 +2280,7 @@
         "<img class='custom-page-img' src='/static/css/images/stanwood-volunteers-cropped.jpg' alt='restoration crew'>",
         "<p><strong>Help us celebrate the power of community action!</strong> The purpose of this online tool is to collect information about the actions we are all taking to clean up our local streams and rivers.</p>",
         "<h3 class='custom-page-header'>Please help us by...</h3>",
-        "Sharing what you have done on your property to keep our local waterways clean, improve wildlife habitat, or protect our natural resources for the future!",
+        "<p>Sharing what you have done on your property to keep our local waterways clean, improve wildlife habitat, or protect our natural resources for the future!</p>",
         "<div class='next-btn-container'>",
         "<a href='/new' rel='internal' class='next-btn'>Let's get started</a>",
         "</div>",
@@ -2301,6 +2301,42 @@
       "snohomish-input"
     ],
     "order": [
+      {
+        "placeId": 7994,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 7993,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 7992,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 7991,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 7990,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 7989,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 7988,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 7983,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
+      {
+        "placeId": 7982,
+        "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"
+      },
       {
         "placeId": 4310,
         "sidebar_icon_url": "/static/css/images/markers/map-pin-star-marker.png"

@@ -209,6 +209,7 @@
 }
 
 .form-stage-header-bar__header {
+  font-family: Raleway-ExtraBold, sans-serif;
   font-size: 2em !important;
   line-height: 1em !important;
   text-align: center !important;
@@ -282,6 +283,7 @@
 }
 
 .custom-page-header {
+  font-family: Raleway-ExtraBold, sans-serif !important;
   color: #02440b !important;
   font-weight: 800 !important;
   font-size: 2em !important;
@@ -328,7 +330,7 @@
 }
 
 .snohomish-stage-summary {
-  font-family: Roboto, sans-serif;
+  font-family: Raleway-Regular, sans-serif;
 }
 
 .snohomish-stage-action-summary {
