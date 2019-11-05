@@ -80,7 +80,7 @@
     "immer": "^4.0.2",
     "immutable": "^3.8.2",
     "lodash.groupby": "^4.6.0",
-    "mixpanel-browser": "^2.29.1",
+    "mixpanel-browser": "^2.30.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
     "node-env-file": "^0.1.7",
