@@ -1545,17 +1545,15 @@
         ]
       },
       {
-        "formId": "conserve-water",
-        "category": "conserve-water",
+        "formId": "pledge",
+        "category": "pledge",
         "includeOnForm": true,
         "includeOnList": true,
         "engage_text": "I'm an individual and I want to pledge to live more sustainably",
-        "name": "location_type",
         "datasetSlug": "mw",
         "icon_url": "/static/css/images/markers/marker-conserve-water.png",
-        "value": "conserve-water",
         "visibleLayerGroupIds": ["mw"],
-        "label": "I will conserve water",
+        "label": "I will pledge to live more sustainably",
         "fields": [
           {
             "name": "lng-lat",
@@ -1570,10 +1568,93 @@
             "type": "common_form_element"
           },
           {
-            "name": "pledge_type",
+            "name": "location_type",
+            "type": "dropdown",
+            "optional": "false",
+            "prompt": "What type of pledge are you making?",
+            "display_prompt": "Pledge type:",
+            "triggers": [
+              {
+                "value": "conserve-water",
+                "targets": ["conserve_water_actions"]
+              },
+              {
+                "value": "prevent-stormwater",
+                "targets": ["prevent_stormwater_actions"]
+              },
+              {
+                "value": "only-flush",
+                "targets": ["only_flush_actions"]
+              },
+              {
+                "value": "conserve-energy",
+                "targets": ["conserve_energy_actions"]
+              },
+              {
+                "value": "waste-less",
+                "targets": ["waste_less_actions"]
+              },
+              {
+                "value": "commute-low-carbon",
+                "targets": ["commute_low_carbon_actions"]
+              },
+              {
+                "value": "eat-local-organic",
+                "targets": ["eat_local_organic_actions"]
+              },
+              {
+                "value": "restore-salmon-habitat",
+                "targets": ["restore_salmon_habitat_actions"]
+              }
+            ],
+            "content": [
+              {
+                "label": "I will conserve water",
+                "value": "conserve-water",
+                "icon_url": "/static/css/images/markers/marker-conserve-water.png"
+              },
+              {
+                "label": "I will prevent stormwater pollution",
+                "value": "prevent-stormwater",
+                "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png"
+              },
+              {
+                "label": "I will reduce wastewater pollution",
+                "value": "only-flush",
+                "icon_url": "/static/css/images/markers/marker-only-flush.png"
+              },
+              {
+                "label": "I will conserve energy",
+                "value": "conserve-energy",
+                "icon_url": "/static/css/images/markers/marker-conserve-energy.png"
+              },
+              {
+                "label": "I will waste less",
+                "value": "waste-less",
+                "icon_url": "/static/css/images/markers/marker-waste-less.png"
+              },
+              {
+                "label": "I will commute on low-carbon transit",
+                "value": "commute-low-carbon",
+                "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png"
+              },
+              {
+                "label": "I will eat local and organic",
+                "value": "eat-local-organic",
+                "icon_url": "/static/css/images/markers/marker-eat-local-organic.png"
+              },
+              {
+                "label": "I will help restore salmon habitats",
+                "value": "restore-salmon-habitat",
+                "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png"
+              }
+            ]
+          },
+          {
+            "name": "conserve_water_actions",
             "type": "big_checkbox",
-            "prompt": "My actions:",
-            "display_prompt": "My actions:",
+            "hidden_default": true,
+            "optional": true,
             "content": [
               {
                 "label": "Conducted a Home Water Audit",
@@ -1635,65 +1716,13 @@
                 "label": "Removed lawn",
                 "value": "removed-lawn"
               }
-            ],
-            "optional": true
+            ]
           },
           {
-            "name": "comments",
-            "type": "common_form_element"
-          },
-          {
-            "name": "school-name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
-      },
-      {
-        "formId": "prevent-stormwater",
-        "category": "prevent-stormwater",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "engage_text": "I'm an individual and I want to pledge to live more sustainably",
-        "name": "location_type",
-        "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-prevent-stormwater-pollution.png",
-        "value": "prevent-stormwater",
-        "visibleLayerGroupIds": ["mw"],
-        "label": "I will prevent stormwater pollution",
-        "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
-          {
-            "name": "address",
-            "type": "common_form_element"
-          },
-          {
-            "name": "title",
-            "type": "common_form_element"
-          },
-          {
-            "name": "pledge_type",
+            "name": "prevent_stormwater_actions",
             "type": "big_checkbox",
-            "prompt": "My actions:",
-            "display_prompt": "My actions:",
+            "hidden_default": true,
+            "optional": true,
             "content": [
               {
                 "label": "Scoop the poop and put in the trash",
@@ -1758,61 +1787,10 @@
             ]
           },
           {
-            "name": "comments",
-            "type": "common_form_element"
-          },
-          {
-            "name": "school-name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
-      },
-      {
-        "formId": "only-flush",
-        "category": "only-flush",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "engage_text": "I'm an individual and I want to pledge to live more sustainably",
-        "name": "location_type",
-        "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-only-flush.png",
-        "value": "only-flush",
-        "visibleLayerGroupIds": ["mw"],
-        "label": "I will reduce wastewater pollution",
-        "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
-          {
-            "name": "address",
-            "type": "common_form_element"
-          },
-          {
-            "name": "title",
-            "type": "common_form_element"
-          },
-          {
-            "name": "pledge_type",
+            "name": "only_flush_actions",
             "type": "big_checkbox",
-            "prompt": "My actions:",
-            "display_prompt": "My actions:",
+            "hidden_default": true,
+            "optional": true,
             "content": [
               {
                 "label": "I only flush the 4 P's - Pee, Poop, Toilet Paper, Puke",
@@ -1869,61 +1847,10 @@
             ]
           },
           {
-            "name": "comments",
-            "type": "common_form_element"
-          },
-          {
-            "name": "school-name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
-      },
-      {
-        "formId": "conserve-energy",
-        "category": "conserve-energy",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "name": "location_type",
-        "engage_text": "I'm an individual and I want to pledge to live more sustainably",
-        "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-conserve-energy.png",
-        "value": "conserve-energy",
-        "visibleLayerGroupIds": ["mw"],
-        "label": "I will conserve energy",
-        "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
-          {
-            "name": "address",
-            "type": "common_form_element"
-          },
-          {
-            "name": "title",
-            "type": "common_form_element"
-          },
-          {
-            "name": "pledge_type",
+            "name": "conserve_energy_actions",
             "type": "big_checkbox",
-            "prompt": "My actions:",
-            "display_prompt": "My actions:",
+            "hidden_default": true,
+            "optional": true,
             "content": [
               {
                 "label": "Completed a Home Energy Audit",
@@ -1969,65 +1896,13 @@
                 "label": "Added solar power to my house",
                 "value": "added-solar-power"
               }
-            ],
-            "optional": false
+            ]
           },
           {
-            "name": "comments",
-            "type": "common_form_element"
-          },
-          {
-            "name": "school-name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
-      },
-      {
-        "formId": "waste-less",
-        "category": "waste-less",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "engage_text": "I'm an individual and I want to pledge to live more sustainably",
-        "name": "location_type",
-        "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-waste-less.png",
-        "value": "waste-less",
-        "visibleLayerGroupIds": ["mw"],
-        "label": "I will waste less",
-        "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
-          {
-            "name": "address",
-            "type": "common_form_element"
-          },
-          {
-            "name": "title",
-            "type": "common_form_element"
-          },
-          {
-            "name": "pledge_type",
+            "name": "waste_less_actions",
             "type": "big_checkbox",
-            "prompt": "My actions:",
-            "display_prompt": "My actions:",
+            "hidden_default": true,
+            "optional": true,
             "content": [
               {
                 "label": "Recycle glass, paper, metal, plastic",
@@ -2069,65 +1944,13 @@
                 "label": "Use the \"Take it Back Network\"",
                 "value": "use-take-it-back-network"
               }
-            ],
-            "optional": false
+            ]
           },
           {
-            "name": "comments",
-            "type": "common_form_element"
-          },
-          {
-            "name": "school-name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
-      },
-      {
-        "formId": "commute-low-carbon",
-        "category": "commute-low-carbon",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "engage_text": "I'm an individual and I want to pledge to live more sustainably",
-        "name": "location_type",
-        "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-commute-low-carbon.png",
-        "value": "commute-low-carbon",
-        "visibleLayerGroupIds": ["mw"],
-        "label": "I will commute on low carbon transit",
-        "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
-          {
-            "name": "address",
-            "type": "common_form_element"
-          },
-          {
-            "name": "title",
-            "type": "common_form_element"
-          },
-          {
-            "name": "pledge_type",
+            "name": "commute_low_carbon_actions",
             "type": "big_checkbox",
-            "prompt": "My actions:",
-            "display_prompt": "My actions:",
+            "hidden_default": true,
+            "optional": true,
             "content": [
               {
                 "label": "Mostly walk commute (to school, work, or for errands)",
@@ -2161,65 +1984,13 @@
                 "label": "Fly as little as possible",
                 "value": "fly-rarely"
               }
-            ],
-            "optional": false
+            ]
           },
           {
-            "name": "comments",
-            "type": "common_form_element"
-          },
-          {
-            "name": "school-name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
-      },
-      {
-        "formId": "eat-local-organic",
-        "category": "eat-local-organic",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "engage_text": "I'm an individual and I want to pledge to live more sustainably",
-        "name": "location_type",
-        "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-eat-local-organic.png",
-        "value": "eat-local-organic",
-        "visibleLayerGroupIds": ["mw"],
-        "label": "I will eat local and organic",
-        "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
-          {
-            "name": "address",
-            "type": "common_form_element"
-          },
-          {
-            "name": "title",
-            "type": "common_form_element"
-          },
-          {
-            "name": "pledge_type",
+            "name": "eat_local_organic_actions",
             "type": "big_checkbox",
-            "prompt": "My actions:",
-            "display_prompt": "My actions:",
+            "hidden_default": true,
+            "optional": true,
             "content": [
               {
                 "label": "Grow food to eat in my garden",
@@ -2245,65 +2016,13 @@
                 "label": "Shop in grocery stores mostly for local and organic foods",
                 "value": "shop-local-organic"
               }
-            ],
-            "optional": false
+            ]
           },
           {
-            "name": "comments",
-            "type": "common_form_element"
-          },
-          {
-            "name": "school-name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
-      },
-      {
-        "formId": "restore-salmon-habitat",
-        "category": "restore-salmon-habitat",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "engage_text": "I'm an individual and I want to pledge to live more sustainably",
-        "name": "location_type",
-        "datasetSlug": "mw",
-        "icon_url": "/static/css/images/markers/marker-restore-salmon-habitat.png",
-        "value": "restore-salmon-habitat",
-        "visibleLayerGroupIds": ["mw"],
-        "label": "I will help restore salmon habitat",
-        "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
-          {
-            "name": "address",
-            "type": "common_form_element"
-          },
-          {
-            "name": "title",
-            "type": "common_form_element"
-          },
-          {
-            "name": "pledge_type",
+            "name": "restore_salmon_habitat_actions",
             "type": "big_checkbox",
-            "prompt": "My actions:",
-            "display_prompt": "My actions:",
+            "hidden_default": true,
+            "optional": true,
             "content": [
               {
                 "label": "Regularly volunteer to remove invasive plants from streams and rivers",
@@ -2321,8 +2040,7 @@
                 "label": "Certified my yard as \"Backyard Wildlife Habitat\"",
                 "value": "backyard-wildlife-habitat"
               }
-            ],
-            "optional": false
+            ]
           },
           {
             "name": "comments",
