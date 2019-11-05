@@ -1744,6 +1744,7 @@
           {
             "name": "large_fires_header",
             "type": "informational_html",
+            "header_text": "Kittitas County: a Fire Environment",
             "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);'>Kittitas County:</h1><h2 style='font-family:Raleway-ExtraBold,sans-serif;border-bottom:3px solid #ef5f46;color:#888;margin-top:0;padding-top:4px;padding-bottom:8px;margin-bottom:0;'>a Fire Environment</h2><figure style='margin: 16px 0 0 0;'><img src='/static/css/images/table-mountain-fire.jpg' alt='Table Mountain fire' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>The Table Mountain Fire burns in 2012.</figcaption></figure>"
           },
           {
@@ -1761,6 +1762,7 @@
           {
             "name": "forest_type_header",
             "type": "informational_html",
+            "header_text": "Forest Type",
             "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0 0 16px 0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Forest Type</h1>"
           },
           {
@@ -1799,6 +1801,7 @@
           {
             "name": "fire_risk_header",
             "type": "informational_html",
+            "header_text": "Kittitas County Wildfire Risk",
             "content": "<h1 style='font-family:Raleway-ExtraBold;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom: 8px;'>Kittitas County Wildfire Risk</h1>"
           },
           {
@@ -1809,6 +1812,7 @@
           {
             "name": "fire_resources_header",
             "type": "informational_html",
+            "header_text": "Kittitas County Fire Resources",
             "content": "<h1 style='font-family:Raleway-ExtraBold,sans-serif;margin:0;color:rgba(0,0,0,0.7);border-bottom:3px solid #ef5f46;padding-bottom:8px;'>Kittitas County Fire Resources</h1><figure style='margin: 16px 0 24px 0;'><img src='/static/css/images/kittitas-county-fire-rescue.jpeg' alt='Kittitas County Fire and Rescue' style='width: 100%;' /><figcaption style='font-style:italic; font-size: 1rem; color: #888;'>Image: www.kittitascountyfirerescue.com</figcaption></figure>"
           },
           {
@@ -1958,6 +1962,7 @@
           {
             "name": "assistance_information_header",
             "type": "informational_html",
+            "header_text": "Technical and Financial Assistance",
             "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Technical and Financial Assistance</h2>"
           },
           {
@@ -2023,6 +2028,7 @@
           {
             "name": "landowner_information_header",
             "type": "informational_html",
+            "header_text": "Almost Done!",
             "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Almost Done!</h2>"
           },
           {
@@ -2102,6 +2108,7 @@
     "common_form_elements": {
       "fire_resiliency_header": {
         "type": "informational_html",
+        "header_text": "Your Path to Wildfire Resilience",
         "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:3px solid #ef5f46;margin:0;color:rgba(0,0,0,0.7)'>Your Path to Wildfire Resilience</h2>"
       },
       "fire_resiliency_information": {
@@ -2110,6 +2117,7 @@
       },
       "immediate_zone_header": {
         "type": "informational_html",
+        "header_text": "Immediate Zone Actions",
         "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Immediate Zone Actions</h2>"
       },
       "immediate_zone_information": {
@@ -2118,6 +2126,7 @@
       },
       "intermediate_zone_header": {
         "type": "informational_html",
+        "header_text": "Intermediate Zone Actions",
         "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Intermediate Zone Actions</h2>"
       },
       "intermediate_zone_information": {
@@ -2126,6 +2135,7 @@
       },
       "extended_zone_header": {
         "type": "informational_html",
+        "header_text": "Extended Zone Actions",
         "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Extended Zone Actions</h2>"
       },
       "extended_zone_information": {
@@ -2134,6 +2144,7 @@
       },
       "emergency_evacuation_header": {
         "type": "informational_html",
+        "header_text": "Emergency and Evacuation Planning",
         "content": "<h2 style='font-family:Raleway-ExtraBold,sans-serif;padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7);margin-bottom:24px;'>Emergency and Evacuation Planning</h2>"
       },
       "clean_roofs": {
