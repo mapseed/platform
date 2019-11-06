@@ -41,7 +41,7 @@
     "prettier:fix": "prettier --write \"{src,scripts}/**/*.{js,jsx,ts,tsx,json}\""
   },
   "dependencies": {
-    "@babel/polyfill": "^7.6.0",
+    "@babel/polyfill": "^7.7.0",
     "@babel/runtime": "^7.6.3",
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
