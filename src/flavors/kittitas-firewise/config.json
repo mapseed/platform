@@ -1729,7 +1729,7 @@
           },
           {
             "start_field_index": 49,
-            "end_field_index": 59,
+            "end_field_index": 57,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",
