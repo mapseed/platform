@@ -168,7 +168,7 @@ class PlaceDetail extends React.Component<Props, State> {
         this.props.hasGroupAbilitiesInDatasets({
           abilities: ["update"],
           submissionSet: "places",
-          datasets: [this.props.focusedPlace.datasetSlug],
+          datasets: [this.props.focusedPlace.dataset],
         }),
     });
   }
@@ -314,7 +314,7 @@ class PlaceDetail extends React.Component<Props, State> {
     const isTagBarEditable = this.props.hasGroupAbilitiesInDatasets({
       abilities: ["update", "destroy", "create"],
       submissionSet: "tags",
-      datasets: [this.props.focusedPlace.datasetSlug],
+      datasets: [this.props.focusedPlace.dataset],
     });
 
     // TODO: dissolve when flavor abstraction is ready
@@ -390,7 +390,7 @@ class PlaceDetail extends React.Component<Props, State> {
         {(this.state.isPlaceDetailEditable || isTagBarEditable) && (
           <PlaceDetailEditorBar
             isAdmin={this.props.hasAdminAbilities(
-              this.props.focusedPlace.datasetSlug,
+              this.props.focusedPlace.dataset,
             )}
             isRightSidebarVisible={this.props.isRightSidebarVisible}
             layout={this.props.layout}
@@ -407,7 +407,7 @@ class PlaceDetail extends React.Component<Props, State> {
           isEditModeToggled={this.props.isEditModeToggled}
           isEditable={isTagBarEditable}
           placeTags={this.props.focusedPlace.tags}
-          datasetSlug={this.props.focusedPlace.datasetSlug}
+          dataset={this.props.focusedPlace.dataset}
           placeUrl={this.props.focusedPlace.url}
           placeId={this.props.focusedPlace.id}
         />

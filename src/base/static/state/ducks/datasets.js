@@ -38,9 +38,11 @@ export const datasetsPropType = PropTypes.arrayOf(
 // Selectors:
 export const datasetsSelector = state => state.datasets.datasetModels;
 
-export const datasetUrlSelector = (state, datasetSlug) => {
+export const datasetUrlSelector = (state, dataset) => {
   return state.datasets.datasetModels.find(
-    dataset => dataset.slug === datasetSlug,
+    // TODO: Use full dataset urls instead of slugs once datasets are sent from
+    // the backend.
+    datasetModel => dataset.Modelslug === dataset.split("/").pop(),
   ).url;
 };
 
@@ -110,19 +112,19 @@ export function loadDatasets(datasets) {
   return { type: LOAD, payload: datasets };
 }
 
-export const getTagFromUrl = ({ state, datasetSlug, tagUrl }) =>
+export const getTagFromUrl = ({ state, dataset, tagUrl }) =>
   state.datasets.datasetModels
-    .find(dataset => dataset.slug === datasetSlug)
+    .find(datasetModel => datasetModel.slug === dataset.split("/").pop())
     .tags.find(tag => tag.url === tagUrl);
 
-export const getAllTagsForDataset = (state, datasetSlug) =>
+export const getAllTagsForDataset = (state, dataset) =>
   state.datasets.datasetModels
-    .find(dataset => dataset.slug === datasetSlug)
+    .find(datasetModel => datasetModel.slug === dataset.split("/").pop())
     .tags.filter(tag => tag.isEnabled);
 
-export const getColorForTag = ({ state, datasetSlug, tagUrl }) =>
+export const getColorForTag = ({ state, dataset, tagUrl }) =>
   state.datasets.datasetModels
-    .find(dataset => dataset.slug === datasetSlug)
+    .find(datasetModel => datasetModel.slug === dataset.split("/").pop())
     .tags.find(tag => tag.url === tagUrl).color;
 
 // Reducers:

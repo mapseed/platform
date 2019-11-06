@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { withTranslation, WithTranslation } from "react-i18next";
 import Typography from "@material-ui/core/Typography";
-import { Formik, FormikValues } from "formik";
+import { Formik, FormikConfig, FormikValues } from "formik";
 
 import PlaceForm from "./place-form";
 import { Mixpanel } from "../../utils/mixpanel";
@@ -42,7 +42,7 @@ const getInitialValues = (formFields, place) =>
   }, {});
 
 const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
-  const baseFormRef = React.useRef<Formik<FormikValues>>(null);
+  const baseFormRef = React.useRef<FormikConfig<FormikValues>>(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
@@ -93,6 +93,8 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
       });
 
       if (placeResponse) {
+        baseFormRef.current && baseFormRef.current.setSubmitting(false);
+
         // TODO
         //// Save attachments.
         //if (this.attachments.length) {
@@ -172,7 +174,7 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
       //  this.props.setPlaceRequestType(null);
       //}
     },
-    [dispatch, hasAdminAbilities, place],
+    [dispatch, hasAdminAbilities, place, baseFormRef],
   );
 
   const onClickRemovePlace = React.useCallback(async () => {

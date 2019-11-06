@@ -1,8 +1,11 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
+import { withTranslation, WithTranslation } from "react-i18next";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Formik,
+  FormikConfig,
   Field,
   Form as FormikForm,
   FormikValues,
@@ -10,7 +13,11 @@ import {
 } from "formik";
 import Typography from "@material-ui/core/Typography";
 import FormControl from "@material-ui/core/FormControl";
-import { useSelector, useDispatch } from "react-redux";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import StarIcon from "@material-ui/icons/Star";
 
 import HTMLModule from "../molecules/form-field-modules/html-module";
 import TextField from "../molecules/form-field-modules/text-field";
@@ -20,7 +27,6 @@ import NumberField from "../molecules/form-field-modules/number-field";
 import DateField from "../molecules/form-field-modules/date-field";
 import TextareaField from "../molecules/form-field-modules/textarea-field";
 import RadioField from "../molecules/form-field-modules/radio-field";
-import GroupModule from "../molecules/form-field-modules/group-module";
 import SubmitButtonModule from "../molecules/form-field-modules/submit-button-module";
 import SkipStageModule from "../molecules/form-field-modules/skip-stage-module";
 import FieldPaper from "../molecules/field-paper";
@@ -34,6 +40,7 @@ import {
 } from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
 import { LoadingBar } from "../atoms/imagery";
+import { isMapDraggedOrZoomedByUser as isMapDraggedOrZoomedByUserSelector } from "../../state/ducks/map";
 
 // TODO:
 //  - admin-only fields (??)
@@ -45,9 +52,10 @@ type BaseFormProps = {
   onSubmit: (values: FormikValues) => void;
   onChangeStage: (newStage: number) => void;
   initialValues: FormikValues;
-  baseFormRef?: React.RefObject<Formik<FormikValues>>;
+  baseFormRef?: React.RefObject<FormikConfig<FormikValues>>;
   handleChange?: (event: React.FormEvent<HTMLFormElement>) => void;
-};
+  onValidationError: () => void;
+} & WithTranslation;
 
 const UnknownModule = () => null;
 
@@ -62,7 +70,6 @@ const BACKEND_MODULES = {
   numberfield: NumberField,
   datefield: DateField,
   textareafield: TextareaField,
-  groupmodule: GroupModule,
   unknownmodule: UnknownModule,
 };
 
@@ -98,8 +105,84 @@ const getValidator = (isRequired, variant) => {
       }
     };
   } else {
+    // NOTE: An `undefined` response from a field's validator indicates a
+    // successful validation.
     return () => undefined;
   }
+};
+
+const DRAG_MAP_ERROR = "__DRAG_MAP_ERROR__";
+const getErrorInfo = error => {
+  console.log("error", error);
+  if (error === DRAG_MAP_ERROR) {
+    return {
+      i18nextKey: "dragMapErrorMsg",
+      msg: "Please drag and zoom the map to set a location for your submission",
+    };
+  } else {
+    return {
+      i18nextKey: "fieldErrorMsg",
+      msg: "Please complete the field(s) highlighted below",
+    };
+  }
+};
+
+const ValidationErrors = ({ errors, t }) => {
+  return (
+    <div
+      css={css`
+        background-color: #fff2f3;
+        border-radius: 4px;
+        border: 2px solid #ffdadc;
+        padding: 8px;
+        margin-bottom: 24px;
+      `}
+    >
+      <Typography
+        variant="body2"
+        style={{
+          color: "#444",
+        }}
+      >
+        {t(
+          "validationErrorsHeader",
+          "Your submission is looking good, but we need a little more information before we can continue:",
+        )}
+      </Typography>
+      <List>
+        {Object.values(errors).map((error, i) => {
+          const { i18nextKey, msg } = getErrorInfo(error);
+
+          return (
+            <ListItem key={i}>
+              <ListItemIcon
+                style={{
+                  minWidth: "unset",
+                  paddingRight: "8px",
+                }}
+              >
+                <StarIcon
+                  style={{
+                    color: "#aaa",
+                  }}
+                />
+              </ListItemIcon>
+              <ListItemText
+                style={{
+                  color: "#666",
+                  fontStyle: "italic",
+                }}
+                primary={t(i18nextKey, msg)}
+                primaryTypographyProps={{
+                  variant: "body1",
+                }}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+    </div>
+  );
 };
 
 const MapseedFormModule = ({
@@ -221,8 +304,26 @@ const BaseForm = ({
   setAttachments,
   baseFormRef,
   handleChange,
+  onValidationError,
+  t,
 }: BaseFormProps) => {
+  const layout: Layout = useSelector(layoutSelector);
   const [currentStage, setCurrentStage] = React.useState<number>(0);
+  const isMapDraggedOrZoomedByUser = useSelector(
+    isMapDraggedOrZoomedByUserSelector,
+  );
+  const validateAdditional = React.useCallback(() => {
+    const additionalErrors = {};
+
+    if (
+      form.stages[currentStage].validateGeometry &&
+      !isMapDraggedOrZoomedByUser
+    ) {
+      additionalErrors[DRAG_MAP_ERROR] = DRAG_MAP_ERROR;
+    }
+
+    return additionalErrors;
+  }, [currentStage, isMapDraggedOrZoomedByUser]);
   const onClickAdvanceStage = React.useCallback(
     validateField => {
       // TODO: This validation routine produces a slight but noticeable lag
@@ -246,17 +347,19 @@ const BaseForm = ({
           .map(({ key }) => {
             return validateField(key);
           }),
-      ).then(result => {
-        if (!result.some(msg => typeof msg === "string")) {
-          if (currentStage < form.stages.length - 1) {
-            const newStage = currentStage + 1;
-            setCurrentStage(newStage);
-            onChangeStage(newStage);
-          }
+      ).then(errorResult => {
+        // The presence of at least one error message in `errorResult`
+        // indicates that the validator encountered error(s).
+        const isWithErrors = errorResult.some(msg => typeof msg === "string");
+
+        if (!isWithErrors && currentStage < form.stages.length - 1) {
+          const newStage = currentStage + 1;
+          setCurrentStage(newStage);
+          onChangeStage(newStage);
         }
       });
     },
-    [currentStage, form, onChangeStage],
+    [currentStage, form, onChangeStage, isMapDraggedOrZoomedByUser, layout],
   );
   const onClickRetreatStage = React.useCallback(() => {
     if (currentStage > 0) {
@@ -265,8 +368,11 @@ const BaseForm = ({
       onChangeStage(newStage);
     }
   }, [currentStage, onChangeStage]);
-  const onClickSkipStage = stageId => setCurrentStage(stageId - 1);
-  const layout: Layout = useSelector(layoutSelector);
+  const onClickSkipStage = stageId => {
+    const newStage = stageId - 1;
+    setCurrentStage(newStage);
+    onChangeStage(newStage);
+  };
 
   return (
     <React.Fragment>
@@ -274,15 +380,28 @@ const BaseForm = ({
         ref={baseFormRef}
         validateOnChange={false}
         validateOnBlur={false}
+        validate={validateAdditional}
         onSubmit={onSubmit}
         initialValues={initialValues}
-        render={({ setFieldValue, errors, validateField }) => {
+        render={({
+          setFieldValue,
+          errors,
+          validateField,
+          isSubmitting,
+          isValid,
+        }) => {
+          React.useEffect(() => {
+            !isValid && Object.keys(errors).length > 0 && onValidationError();
+          }, [isValid, onValidationError, errors]);
+
           return (
             <div
               css={css`
                 margin-bottom: ${form.stages.length > 1 ? "112px" : 0};
+                opacity: ${isSubmitting ? 0.4 : 1};
               `}
             >
+              {!isValid && <ValidationErrors errors={errors} t={t} />}
               <FormikForm onChange={handleChange}>
                 {form.stages[currentStage].modules.map(formModule => {
                   const subModules =
@@ -347,4 +466,4 @@ const BaseForm = ({
   );
 };
 
-export default BaseForm;
+export default withTranslation("BaseForm")(BaseForm);

@@ -11,6 +11,7 @@ import { RegularText } from "../atoms/typography";
 const FormStageControlBar = props => {
   const { currentStage, numStages } = props;
   const adjustedStage = currentStage + 1;
+  //const isRightSidebarVisible = useSelecto) 
 
   let leftPosition;
   if (props.layout === "desktop" && props.isRightSidebarVisible) {
@@ -88,8 +89,6 @@ const FormStageControlBar = props => {
 
 FormStageControlBar.propTypes = {
   currentStage: PropTypes.number.isRequired,
-  isRightSidebarVisible: PropTypes.bool.isRequired,
-  isSingleCategory: PropTypes.bool.isRequired,
   layout: PropTypes.string.isRequired,
   numStages: PropTypes.number.isRequired,
   onClickAdvanceStage: PropTypes.func.isRequired,

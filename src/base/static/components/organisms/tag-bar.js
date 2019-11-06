@@ -22,11 +22,11 @@ const TagBarContainer = styled("div")({
 const TagBar = props => {
   return props.isEditModeToggled && props.isEditable ? (
     <TagBarContainer>
-      {props.getAllTagsForDataset(props.datasetSlug).map(tag => {
+      {props.getAllTagsForDataset(props.dataset).map(tag => {
         return (
           <TagEditor
             key={tag.id}
-            datasetSlug={props.datasetSlug}
+            dataset={props.dataset}
             backgroundColor={tag.color}
             tag={tag}
             placeId={props.placeId}
@@ -45,13 +45,12 @@ const TagBar = props => {
           return (
             <Tag
               key={placeTag.id}
-              datasetSlug={props.datasetSlug}
               backgroundColor={props.getColorForTag(
-                props.datasetSlug,
+                props.dataset,
                 placeTag.tag,
               )}
               placeTag={placeTag}
-              tag={props.getTagFromUrl(props.datasetSlug, placeTag.tag)}
+              tag={props.getTagFromUrl(props.dataset, placeTag.tag)}
             />
           );
         })}
@@ -61,7 +60,7 @@ const TagBar = props => {
 };
 
 TagBar.propTypes = {
-  datasetSlug: PropTypes.string.isRequired,
+  dataset: PropTypes.string.isRequired,
   getAllTagsForDataset: PropTypes.func.isRequired,
   getColorForTag: PropTypes.func.isRequired,
   getTagFromUrl: PropTypes.func.isRequired,
@@ -73,11 +72,11 @@ TagBar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  getAllTagsForDataset: datasetSlug => getAllTagsForDataset(state, datasetSlug),
-  getColorForTag: (datasetSlug, tagUrl) =>
-    getColorForTag({ state, datasetSlug, tagUrl }),
-  getTagFromUrl: (datasetSlug, tagUrl) =>
-    getTagFromUrl({ state, datasetSlug, tagUrl }),
+  getAllTagsForDataset: dataset => getAllTagsForDataset(state, dataset),
+  getColorForTag: (dataset, tagUrl) =>
+    getColorForTag({ state, dataset, tagUrl }),
+  getTagFromUrl: (dataset, tagUrl) =>
+    getTagFromUrl({ state, dataset, tagUrl }),
 });
 
 export default connect(mapStateToProps)(TagBar);

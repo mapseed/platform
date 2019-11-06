@@ -19,6 +19,8 @@ import { LoadingBar } from "../atoms/imagery";
 import { createPlace } from "../../state/ducks/places";
 import { createFeaturesInGeoJSONSource } from "../../state/ducks/map-style";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
+import { mapViewportSelector, MapViewport } from "../../state/ducks/map";
+import { updateUIVisibility } from "../../state/ducks/ui";
 
 type InfoModal = {
   isOpen: boolean;
@@ -27,7 +29,12 @@ type InfoModal = {
   routeOnClose: string | null;
 };
 
-const NewPlaceForm = () => {
+type NewPlaceFormProps = {
+  contentPanelInnerContainerRef: React.RefObject<HTMLDivElement>;
+};
+
+const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
+  const mapViewport: MapViewport = useSelector(mapViewportSelector);
   const history = useHistory();
   const dispatch = useDispatch();
   const initialValues: FormikValues = useSelector(
@@ -47,6 +54,9 @@ const NewPlaceForm = () => {
       placeForm.dataset.split("/").pop(),
     ),
   );
+  React.useEffect(() => {
+    dispatch(updateUIVisibility("mapCenterpoint", true));
+  }, []);
   const includePrivate = useSelector(state =>
     hasGroupAbilitiesInDatasets({
       state,
@@ -82,11 +92,16 @@ const NewPlaceForm = () => {
 
       const { dataset } = placeForm;
       const datasetSlug = dataset.split("/").pop();
+      const { longitude, latitude } = mapViewport;
+      const geometry = {
+        type: "Point",
+        coordinates: [longitude, latitude],
+      };
 
       // Save Place.
       const placeResponse = await mapseedApiClient.place.create({
         dataset,
-        placeData: data,
+        placeData: { ...data, geometry },
         includePrivate,
       });
 
@@ -212,7 +227,7 @@ const NewPlaceForm = () => {
         );
       }
     },
-    [includePrivate, placeForm, history],
+    [includePrivate, placeForm, history, mapViewport],
   );
 
   const { isOpen, header, body, routeOnClose } = infoModalState;
@@ -229,6 +244,7 @@ const NewPlaceForm = () => {
       />
       {isSubmitting && <LoadingBar />}
       <PlaceForm
+        contentPanelInnerContainerRef={contentPanelInnerContainerRef}
         onSubmit={onSubmit}
         placeForm={placeForm}
         initialValues={initialValues}

@@ -141,7 +141,9 @@ const ContentPanel = (props: Props) => {
         )}
         {props.contentPanelComponent === "InputForm" && (
           <React.Suspense fallback={<LoadingBar />}>
-            <NewPlaceForm />
+            <NewPlaceForm
+              contentPanelInnerContainerRef={contentPanelInnerContainerRef}
+            />
             {/* <FormCategoryMenuWrapper
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
               layout={props.layout}

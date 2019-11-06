@@ -65,6 +65,7 @@
         "titleColor": "#fff",
         "titleFontFamily": "Montserrat, PTSansBold, sans-serif",
         "bodyFontFamily": "PTSans, sans-serif",
+        "strongBodyFontFamily": "PTSans-Bold, sans-serif",
         "navBarFontFamily": "PTSans, sans-serif"
       },
       "map": {
@@ -480,13 +481,7 @@
               "icon-allow-overlap": true,
               "icon-size": 0.5,
               "icon-anchor": "bottom",
-              "icon-image": [
-                "match",
-                ["get", "location_type"],
-                "bike-share",
-                "bike-marker.png",
-                "__no-icon-image__"
-              ]
+              "icon-image": "bike-marker.png"
             }
           }
         ],

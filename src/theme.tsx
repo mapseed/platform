@@ -239,10 +239,12 @@ export const baseMuiTheme = {
     body1: {
       fontFamily: "PTSans-Regular,sans-serif",
       fontSize: "1.1rem",
+      lineHeight: "1.2rem",
     },
     body2: {
       fontFamily: "PTSans-Regular,sans-serif",
-      fontSize: "1rem",
+      fontSize: "1.1rem",
+      lineHeight: "1.2rem",
     },
     strong: {
       fontFamily: "PTSans-Bold,sans-serif",

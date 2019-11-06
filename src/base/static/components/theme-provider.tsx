@@ -31,30 +31,6 @@ declare module "@material-ui/core/styles/createPalette" {
   }
 }
 
-declare module "@material-ui/core/styles/createTypography" {
-  type ExtendedThemeStyle =
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
-    | "subtitle1"
-    | "subtitle2"
-    | "body1"
-    | "body2"
-    | "caption"
-    | "button"
-    | "overline"
-    | "strong";
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface TypographyOptions
-    extends Partial<
-      Record<ExtendedThemeStyle, TypographyStyleOptions> & FontStyleOptions
-    > {}
-}
-
 const lookup = (path, obj) =>
   path.reduce((memo, key) => (memo && memo[key] ? memo[key] : null), obj);
 
@@ -72,17 +48,7 @@ const ThemeProvider = ({ flavorTheme, children }) => {
 
   // TODO: When Emotion themeing is gone, restructure flavor themes to match
   // the MUI schema.
-  const {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    body1,
-    body2,
-    strong,
-  } = baseMuiTheme.typography;
+  const { h1, h2, h3, h4, h5, h6, body1, body2 } = baseMuiTheme.typography;
   const { primary, secondary, accent, error } = baseMuiTheme.palette;
   const flavorPrimaryColor = lookup(["brand", "primary"], flavorTheme);
   const flavorSecondaryColor = lookup(["brand", "secondary"], flavorTheme);
@@ -140,11 +106,7 @@ const ThemeProvider = ({ flavorTheme, children }) => {
       },
       body2: {
         ...body2,
-        fontFamily: flavorBodyFontFamily || body2.fontFamily,
-      },
-      strong: {
-        ...strong,
-        fontFamily: flavorStrongBodyFontFamily || strong.fontFamily,
+        fontFamily: flavorStrongBodyFontFamily || body2.fontFamily,
       },
     },
   });

@@ -86,7 +86,6 @@ Tag.propTypes = {
   backgroundColor: PropTypes.string,
   placeTag: placeTagPropType.isRequired,
   tag: tagPropType,
-  datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
 };
 

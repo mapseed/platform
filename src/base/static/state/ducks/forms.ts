@@ -115,6 +115,7 @@ export type PlaceFormStage = {
   visibleLayerGroups: string[];
   mapViewport: MapViewport;
   modules: FormModule[];
+  validateGeometry: boolean;
 };
 
 export type PlaceForm = {

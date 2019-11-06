@@ -182,7 +182,6 @@ TagEditor.propTypes = {
   placeUrl: PropTypes.string.isRequired,
   removePlaceTag: PropTypes.func.isRequired,
   tag: tagPropType,
-  datasetSlug: PropTypes.string.isRequired,
   t: PropTypes.func.isRequired,
   updatePlaceTag: PropTypes.func.isRequired,
 };
