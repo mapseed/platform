@@ -453,7 +453,10 @@ class PlaceDetail extends React.Component<Props, State> {
         </PromotionMetadataContainer>
         <div className="place-detail-view__clearfix" />
         {this.props.isEditModeToggled && this.state.isPlaceDetailEditable ? (
-          <PlaceDetailEditor place={this.props.focusedPlace} />
+          <PlaceDetailEditor
+            place={this.props.focusedPlace}
+            contentPanelInnerContainerRef={this.props.contentPanelInnerContainerRef}
+          />
         ) : (
           submittedFieldDetail
         )}

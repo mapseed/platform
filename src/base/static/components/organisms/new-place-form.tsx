@@ -18,9 +18,13 @@ import InfoModal from "./info-modal";
 import { LoadingBar } from "../atoms/imagery";
 import { createPlace } from "../../state/ducks/places";
 import { createFeaturesInGeoJSONSource } from "../../state/ducks/map-style";
+import { updateMapInteractionState } from "../../state/ducks/map";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
 import { mapViewportSelector, MapViewport } from "../../state/ducks/map";
-import { updateUIVisibility } from "../../state/ducks/ui";
+import {
+  updateUIVisibility,
+  updateSpotlightMaskVisibility,
+} from "../../state/ducks/ui";
 
 type InfoModal = {
   isOpen: boolean;
@@ -230,6 +234,25 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
     [includePrivate, placeForm, history, mapViewport],
   );
 
+  const handleChangeStage = React.useCallback(
+    currentStage => {
+      // Show the drag map overlay on the final stage or any stage configured
+      // to validate input geometry.
+      if (
+        currentStage === placeForm.stages.length - 1 ||
+        placeForm.stages[currentStage - 1].validateGeometry
+      ) {
+        dispatch(updateSpotlightMaskVisibility(true));
+        dispatch(
+          updateMapInteractionState({
+            isMapDraggedOrZoomedByUser: false,
+          }),
+        );
+      }
+    },
+    [placeForm, dispatch],
+  );
+
   const { isOpen, header, body, routeOnClose } = infoModalState;
   return (
     <React.Fragment>
@@ -248,6 +271,7 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
         onSubmit={onSubmit}
         placeForm={placeForm}
         initialValues={initialValues}
+        onChangeStage={handleChangeStage}
       />
     </React.Fragment>
   );

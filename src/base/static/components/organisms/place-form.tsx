@@ -11,8 +11,7 @@ import {
 } from "../../state/ducks/map-style";
 import eventEmitter from "../../utils/event-emitter";
 import { PlaceDataBlob } from "../../models/place";
-import { updateSpotlightMaskVisibility } from "../../state/ducks/ui";
-import { updateMapInteractionState, MapViewport } from "../../state/ducks/map";
+import { MapViewport } from "../../state/ducks/map";
 import { layoutSelector, Layout } from "../../state/ducks/ui";
 import { jumpTo } from "../../utils/scroll-helpers";
 
@@ -24,11 +23,13 @@ type MapseedPlaceFormProps = {
     data: PlaceDataBlob;
     attachments: MapseedAttachment[];
   }) => void;
+  isTriggeringSubmit?: boolean;
   placeForm: PlaceForm;
   initialValues: FormikValues;
-  baseFormRef?: React.RefObject<FormikConfig<FormikValues>>;
   handleChange?: (event: React.FormEvent<HTMLFormElement>) => void;
   contentPanelInnerContainerRef: React.RefObject<HTMLDivElement>;
+  onValidationError?: () => void;
+  onChangeStage?: (newStage: number) => void;
 };
 
 const layerGroupsEqualityComparator = (a, b) =>
@@ -36,11 +37,13 @@ const layerGroupsEqualityComparator = (a, b) =>
 
 const MapseedPlaceForm = ({
   onSubmit,
+  isTriggeringSubmit,
   placeForm,
   initialValues,
-  baseFormRef,
   handleChange,
   contentPanelInnerContainerRef,
+  onValidationError = () => null,
+  onChangeStage = () => null,
 }: MapseedPlaceFormProps) => {
   const layout: Layout = useSelector(layoutSelector);
   // NOTE: Attachments are managed here (instead of in BaseForm) since not all
@@ -51,7 +54,7 @@ const MapseedPlaceForm = ({
     layerGroupsSelector,
     layerGroupsEqualityComparator,
   );
-  const onChangeStage = React.useCallback(
+  const handleChangeStage = React.useCallback(
     currentStage => {
       jumpTo({
         contentPanelInnerContainerRef,
@@ -74,21 +77,16 @@ const MapseedPlaceForm = ({
         });
       }
 
-      // Show the drag map overlay on the final stage or any stage configured
-      // to validate input geometry.
-      if (
-        currentStage === placeForm.stages.length - 1 ||
-        placeForm.stages[currentStage - 1].validateGeometry
-      ) {
-        dispatch(updateSpotlightMaskVisibility(true));
-        dispatch(
-          updateMapInteractionState({
-            isMapDraggedOrZoomedByUser: false,
-          }),
-        );
-      }
+      onChangeStage(currentStage);
     },
-    [placeForm, dispatch, layerGroups, contentPanelInnerContainerRef, layout],
+    [
+      placeForm,
+      dispatch,
+      layerGroups,
+      contentPanelInnerContainerRef,
+      layout,
+      onChangeStage,
+    ],
   );
   const preprocessSubmission = React.useCallback(
     values => {
@@ -105,17 +103,19 @@ const MapseedPlaceForm = ({
       scrollPositon: 0,
       layout,
     });
-  }, [contentPanelInnerContainerRef, layout]);
+
+    onValidationError();
+  }, [contentPanelInnerContainerRef, layout, onValidationError]);
 
   return (
     <BaseForm
       onSubmit={preprocessSubmission}
       initialValues={initialValues}
+      isTriggeringSubmit={isTriggeringSubmit}
       form={placeForm}
-      onChangeStage={onChangeStage}
+      onChangeStage={handleChangeStage}
       attachments={attachments}
       setAttachments={setAttachments}
-      baseFormRef={baseFormRef}
       handleChange={handleChange}
       onValidationError={handleValidationError}
     />

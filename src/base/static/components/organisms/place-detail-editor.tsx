@@ -19,18 +19,20 @@ import {
   hasAdminAbilities as hasAdminAbilitiesInDataset,
 } from "../../state/ducks/user";
 import mapseedApiClient from "../../client/mapseed-api-client";
-import { LoadingBar } from "../atoms/imagery";
 import { removePlace, updatePlace, Place } from "../../state/ducks/places";
 import {
   removeFeatureInGeoJSONSource,
   updateFocusedGeoJSONFeatures,
   updateFeatureInGeoJSONSource,
 } from "../../state/ducks/map-style";
+import { updateMapInteractionState } from "../../state/ducks/map";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
 import { EditorButton } from "../atoms/buttons";
+import { updateSpotlightMaskVisibility } from "../../state/ducks/ui";
 
 type PlaceDetailEditorProps = {
   place: Place;
+  contentPanelInnerContainerRef: React.RefObject<HTMLDivElement>;
 } & WithTranslation;
 
 const getInitialValues = (formFields, place) =>
@@ -41,18 +43,29 @@ const getInitialValues = (formFields, place) =>
     };
   }, {});
 
-const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
-  const baseFormRef = React.useRef<FormikConfig<FormikValues>>(null);
+const PlaceDetailEditor = ({
+  place,
+  t,
+  contentPanelInnerContainerRef,
+}: PlaceDetailEditorProps) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
+  const [isTriggeringSubmit, setIsTriggeringSubmit] = React.useState<boolean>(
+    false,
+  );
+  const [isFormDirty, setIsFormDirty] = React.useState<boolean>(false);
   const placeForm: MapseedPlaceForm = useSelector(placeFormSelector);
   const hasAdminAbilities = useSelector(state =>
     hasAdminAbilitiesInDataset(state, place.dataset.split("/").pop() as string),
   );
   const formFields = useSelector(formFieldsSelector);
-  const [isFormDirty, setIsFormDirty] = React.useState<boolean>(false);
   const initialValues = getInitialValues(formFields, place);
+  React.useEffect(() => {
+    dispatch(updateSpotlightMaskVisibility(true));
+    // Prevent BaseForm from performing a drag map validation check:
+    dispatch(updateMapInteractionState({ isMapDraggedOrZoomedByUser: true }));
+  }, [dispatch]);
+
   //const includePrivate = useSelector(state =>
   //  hasGroupAbilitiesInDatasets({
   //    state,
@@ -68,8 +81,6 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
       Mixpanel.track("Updating Place", {
         placeUrl,
       });
-
-      setIsSubmitting(true);
 
       // TODO
       // Replace image data in rich text fields with placeholders built from each
@@ -92,9 +103,9 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
         hasAdminAbilities,
       });
 
-      if (placeResponse) {
-        baseFormRef.current && baseFormRef.current.setSubmitting(false);
+      setIsTriggeringSubmit(false);
 
+      if (placeResponse) {
         // TODO
         //// Save attachments.
         //if (this.attachments.length) {
@@ -147,7 +158,6 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
           ]),
         );
 
-        setIsSubmitting(false);
         setIsFormDirty(false);
         //this.props.updateEditModeToggled(false);
         //jumpTo({
@@ -174,12 +184,15 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
       //  this.props.setPlaceRequestType(null);
       //}
     },
-    [dispatch, hasAdminAbilities, place, baseFormRef],
+    [dispatch, hasAdminAbilities, place],
   );
+
+  const onClickUpdatePlace = React.useCallback(() => {
+    setIsTriggeringSubmit(true);
+  }, [setIsTriggeringSubmit]);
 
   const onClickRemovePlace = React.useCallback(async () => {
     const { id, url: placeUrl, dataset } = place;
-    setIsSubmitting(true);
 
     Mixpanel.track("Removing place", {
       placeUrl,
@@ -193,6 +206,8 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
       },
     });
 
+    setIsTriggeringSubmit(false);
+
     if (response) {
       dispatch(removePlace(id));
       dispatch(
@@ -204,17 +219,16 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
     }
   }, [dispatch, place, history]);
 
-  const onClickUpdatePlace = React.useCallback(() => {
-    baseFormRef.current && baseFormRef.current.submitForm();
-  }, [baseFormRef]);
-
   const handleChange = React.useCallback(() => {
     setIsFormDirty(true);
   }, [setIsFormDirty]);
 
+  const onValidationError = React.useCallback(() => {
+    setIsTriggeringSubmit(false);
+  }, [setIsTriggeringSubmit]);
+
   return (
     <React.Fragment>
-      {isSubmitting && <LoadingBar />}
       <div
         css={css`
           z-index: 100;
@@ -253,14 +267,13 @@ const PlaceDetailEditor = ({ place, t }: PlaceDetailEditorProps) => {
         </Typography>
       </div>
       <PlaceForm
-        css={css`
-          opacity: ${isSubmitting ? 0.4 : 1};
-        `}
         onSubmit={onSubmit}
         handleChange={handleChange}
         placeForm={placeForm}
         initialValues={initialValues}
-        baseFormRef={baseFormRef}
+        contentPanelInnerContainerRef={contentPanelInnerContainerRef}
+        isTriggeringSubmit={isTriggeringSubmit}
+        onValidationError={onValidationError}
       />
     </React.Fragment>
   );

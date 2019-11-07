@@ -39,8 +39,8 @@ import {
   MapseedAttachment,
 } from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
-import { LoadingBar } from "../atoms/imagery";
 import { isMapDraggedOrZoomedByUser as isMapDraggedOrZoomedByUserSelector } from "../../state/ducks/map";
+import { LoadingBar } from "../atoms/imagery";
 
 // TODO:
 //  - admin-only fields (??)
@@ -52,9 +52,9 @@ type BaseFormProps = {
   onSubmit: (values: FormikValues) => void;
   onChangeStage: (newStage: number) => void;
   initialValues: FormikValues;
-  baseFormRef?: React.RefObject<FormikConfig<FormikValues>>;
   handleChange?: (event: React.FormEvent<HTMLFormElement>) => void;
   onValidationError: () => void;
+  isTriggeringSubmit?: boolean; // Used for triggering a form submission from outside Formik's children.
 } & WithTranslation;
 
 const UnknownModule = () => null;
@@ -113,7 +113,6 @@ const getValidator = (isRequired, variant) => {
 
 const DRAG_MAP_ERROR = "__DRAG_MAP_ERROR__";
 const getErrorInfo = error => {
-  console.log("error", error);
   if (error === DRAG_MAP_ERROR) {
     return {
       i18nextKey: "dragMapErrorMsg",
@@ -297,12 +296,12 @@ const isRaisedModule = type =>
 // TODO: Save all form state to Redux on unmount, as a backup.
 const BaseForm = ({
   form,
+  isTriggeringSubmit = false,
   onSubmit,
   initialValues,
   onChangeStage,
   attachments,
   setAttachments,
-  baseFormRef,
   handleChange,
   onValidationError,
   t,
@@ -377,7 +376,6 @@ const BaseForm = ({
   return (
     <React.Fragment>
       <Formik
-        ref={baseFormRef}
         validateOnChange={false}
         validateOnBlur={false}
         validate={validateAdditional}
@@ -389,10 +387,14 @@ const BaseForm = ({
           validateField,
           isSubmitting,
           isValid,
+          submitForm,
         }) => {
           React.useEffect(() => {
             !isValid && Object.keys(errors).length > 0 && onValidationError();
           }, [isValid, onValidationError, errors]);
+          React.useEffect(() => {
+            isTriggeringSubmit && submitForm();
+          }, [isTriggeringSubmit, submitForm]);
 
           return (
             <div
@@ -401,6 +403,7 @@ const BaseForm = ({
                 opacity: ${isSubmitting ? 0.4 : 1};
               `}
             >
+              {isSubmitting && <LoadingBar />}
               {!isValid && <ValidationErrors errors={errors} t={t} />}
               <FormikForm onChange={handleChange}>
                 {form.stages[currentStage].modules.map(formModule => {
