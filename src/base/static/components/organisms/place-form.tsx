@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Formik, FormikValues, FormikConfig } from "formik";
+import { FormikValues } from "formik";
 
 import BaseForm from "./base-form";
 import { MapseedAttachment, PlaceForm } from "../../state/ducks/forms";

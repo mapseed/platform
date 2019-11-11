@@ -71,6 +71,7 @@ const CanvasThumbnail = ({
   );
 };
 
+// TODO: Consider imposing a limit to the number of attachments.
 const FileField = ({
   mapseedModule: { label, id },
   t,
@@ -90,13 +91,15 @@ const FileField = ({
                 loadImage(
                   file,
                   canvas => {
-                    resolve({
-                      canvas,
-                      blob: file,
-                      name: file.name,
-                      uploadedDatetime: new Date().getTime(),
-                      type: "CO", // cover image
-                    } as MapseedAttachment);
+                    canvas.toBlob(blob => {
+                      resolve({
+                        canvas,
+                        blob,
+                        name: file.name,
+                        uploadedDatetime: new Date().getTime(),
+                        type: "CO", // cover image
+                      } as MapseedAttachment);
+                    });
                   },
                   {
                     maxWidth: 800,

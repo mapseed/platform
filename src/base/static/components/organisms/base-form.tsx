@@ -5,7 +5,6 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Formik,
-  FormikConfig,
   Field,
   Form as FormikForm,
   FormikValues,
@@ -322,7 +321,7 @@ const BaseForm = ({
     }
 
     return additionalErrors;
-  }, [currentStage, isMapDraggedOrZoomedByUser]);
+  }, [currentStage, isMapDraggedOrZoomedByUser, form.stages]);
   const onClickAdvanceStage = React.useCallback(
     validateField => {
       // TODO: This validation routine produces a slight but noticeable lag
@@ -332,16 +331,13 @@ const BaseForm = ({
         form.stages[currentStage].modules
           // TODO: Maybe the duck should provide a way of selecting all
           // modules, including nested modules inside groups?
-          .reduce(
-            (modules, module) => {
-              return modules.concat(
-                module.type === "groupmodule"
-                  ? (module.modules as FormModule[])
-                  : module,
-              );
-            },
-            [] as FormModule[],
-          )
+          .reduce((modules, module) => {
+            return modules.concat(
+              module.type === "groupmodule"
+                ? (module.modules as FormModule[])
+                : module,
+            );
+          }, [] as FormModule[])
           .filter(({ type, isVisible }) => isVisible && isFormField(type))
           .map(({ key }) => {
             return validateField(key);
@@ -358,7 +354,7 @@ const BaseForm = ({
         }
       });
     },
-    [currentStage, form, onChangeStage, isMapDraggedOrZoomedByUser, layout],
+    [currentStage, form, onChangeStage],
   );
   const onClickRetreatStage = React.useCallback(() => {
     if (currentStage > 0) {
@@ -389,12 +385,8 @@ const BaseForm = ({
           isValid,
           submitForm,
         }) => {
-          React.useEffect(() => {
-            !isValid && Object.keys(errors).length > 0 && onValidationError();
-          }, [isValid, onValidationError, errors]);
-          React.useEffect(() => {
-            isTriggeringSubmit && submitForm();
-          }, [isTriggeringSubmit, submitForm]);
+          !isValid && Object.keys(errors).length > 0 && onValidationError();
+          isTriggeringSubmit && submitForm();
 
           return (
             <div

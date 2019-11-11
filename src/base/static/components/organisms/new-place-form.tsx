@@ -60,7 +60,7 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
   );
   React.useEffect(() => {
     dispatch(updateUIVisibility("mapCenterpoint", true));
-  }, []);
+  }, [dispatch]);
   const includePrivate = useSelector(state =>
     hasGroupAbilitiesInDatasets({
       state,
@@ -126,7 +126,6 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
         return;
       }
 
-      // Save Place attachments.
       if (attachments.length > 0) {
         await Promise.all(
           attachments.map(async attachment => {
@@ -231,7 +230,14 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
         );
       }
     },
-    [includePrivate, placeForm, history, mapViewport],
+    [
+      includePrivate,
+      placeForm,
+      history,
+      mapViewport,
+      dispatch,
+      placeConfirmationModal,
+    ],
   );
 
   const handleChangeStage = React.useCallback(

@@ -455,7 +455,9 @@ class PlaceDetail extends React.Component<Props, State> {
         {this.props.isEditModeToggled && this.state.isPlaceDetailEditable ? (
           <PlaceDetailEditor
             place={this.props.focusedPlace}
-            contentPanelInnerContainerRef={this.props.contentPanelInnerContainerRef}
+            contentPanelInnerContainerRef={
+              this.props.contentPanelInnerContainerRef
+            }
           />
         ) : (
           submittedFieldDetail

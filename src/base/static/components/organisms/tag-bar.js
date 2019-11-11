@@ -75,8 +75,7 @@ const mapStateToProps = state => ({
   getAllTagsForDataset: dataset => getAllTagsForDataset(state, dataset),
   getColorForTag: (dataset, tagUrl) =>
     getColorForTag({ state, dataset, tagUrl }),
-  getTagFromUrl: (dataset, tagUrl) =>
-    getTagFromUrl({ state, dataset, tagUrl }),
+  getTagFromUrl: (dataset, tagUrl) => getTagFromUrl({ state, dataset, tagUrl }),
 });
 
 export default connect(mapStateToProps)(TagBar);
