@@ -137,9 +137,9 @@ export const mapDraggedOrZoomedSelector = state =>
 export const mapContainerDimensionsSelector = state =>
   state.mapStyle.mapContainerDimensions;
 export const mapLayerPopupSelector = (layerId, state) => {
-  const metadata = Object.values(state.mapStyle.layerGroups.byId).find(
-    layerGroup => layerGroup.layerIds.includes(layerId),
-  );
+  const metadata = Object.values(
+    state.mapStyle.layerGroups.byId,
+  ).find(layerGroup => layerGroup.layerIds.includes(layerId));
 
   return metadata && metadata.popupContent ? metadata.popupContent : null;
 };

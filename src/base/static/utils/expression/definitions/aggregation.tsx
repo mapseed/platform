@@ -56,7 +56,7 @@ const makeAggregation = (op, aggregationFn) => {
     }
 
     static parse(
-      args: (Expression)[],
+      args: Expression[],
       parsingContext: ParsingContext,
     ): Expression | null {
       const operands = args

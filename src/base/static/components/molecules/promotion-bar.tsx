@@ -140,7 +140,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removePlaceSupport(placeId, supportId)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PromotionBar);
+export default connect(mapStateToProps, mapDispatchToProps)(PromotionBar);

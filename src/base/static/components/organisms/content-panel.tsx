@@ -50,12 +50,8 @@ type Props = {
   RouteComponentProps<{}>;
 
 const ContentPanel = (props: Props) => {
-  const contentPanelOuterContainerRef: React.RefObject<
-    HTMLElement
-  > = React.createRef();
-  const contentPanelInnerContainerRef: React.RefObject<
-    HTMLDivElement
-  > = React.createRef();
+  const contentPanelOuterContainerRef: React.RefObject<HTMLElement> = React.createRef();
+  const contentPanelInnerContainerRef: React.RefObject<HTMLDivElement> = React.createRef();
 
   return (
     <section

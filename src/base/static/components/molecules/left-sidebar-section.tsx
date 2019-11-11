@@ -76,9 +76,7 @@ type MapLayerSelectorProps = {
   option: LeftSidebarOption;
 };
 
-const OptionSelector: React.FunctionComponent<
-  MapLayerSelectorProps
-> = props => {
+const OptionSelector: React.FunctionComponent<MapLayerSelectorProps> = props => {
   return (
     <MapLayerSelectorContainer>
       <span
