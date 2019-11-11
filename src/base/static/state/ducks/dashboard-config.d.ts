@@ -110,7 +110,8 @@ type DashboardConfig = {
     | FreeBarChartWidget
     | FreeDonutChartWidget
     | FixedTableWidget
-    | FreeTableWidget)[];
+    | FreeTableWidget
+  )[];
 };
 
 export type DashboardsConfig = DashboardConfig[];

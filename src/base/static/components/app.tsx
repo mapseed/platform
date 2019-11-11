@@ -680,8 +680,5 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-  connect<StateProps, DispatchProps>(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(App),
+  connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(App),
 );

@@ -1269,7 +1269,10 @@
               "circle-radius": {
                 "property": "Current",
                 "type": "exponential",
-                "stops": [[4, 10], [1500000, 30]]
+                "stops": [
+                  [4, 10],
+                  [1500000, 30]
+                ]
               },
               "circle-color": "#f8f8f8",
               "circle-stroke-width": 1,

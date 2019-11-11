@@ -208,7 +208,10 @@ class PlaceDetail extends React.Component<Props, State> {
       const extent = getExtentFromGeometry(this.props.focusedPlace.geometry);
       const newViewport = this.getWebMercatorViewport().fitBounds(
         // WebMercatorViewport wants bounds in [[lng, lat], [lng lat]] form.
-        [[extent[0], extent[1]], [extent[2], extent[3]]],
+        [
+          [extent[0], extent[1]],
+          [extent[2], extent[3]],
+        ],
         { padding: 50 },
       );
 

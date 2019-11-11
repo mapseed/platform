@@ -292,10 +292,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withTranslation("PlaceList")(
-  withRouter(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(PlaceList),
-  ),
+  withRouter(connect(mapStateToProps, mapDispatchToProps)(PlaceList)),
 );

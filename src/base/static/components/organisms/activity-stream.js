@@ -140,7 +140,4 @@ const mapDispatchToProps = dispatch => ({
   loadActivity: activity => dispatch(loadActivity(activity)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ActivityStream);
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityStream);

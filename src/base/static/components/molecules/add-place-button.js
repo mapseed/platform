@@ -72,9 +72,6 @@ const mapStateToProps = state => ({
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-  null,
-  { forwardRef: true },
-)(AddPlaceButton);
+export default connect(mapStateToProps, null, null, { forwardRef: true })(
+  AddPlaceButton,
+);

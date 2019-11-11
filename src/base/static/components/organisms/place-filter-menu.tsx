@@ -47,9 +47,7 @@ type PlaceFilterMenuProps = StateProps &
   WithTranslation;
 
 const FILTER_MENU_ALL = "mapseed-place-filter-menu-all";
-const PlaceFilterMenu: React.FunctionComponent<
-  PlaceFilterMenuProps
-> = props => {
+const PlaceFilterMenu: React.FunctionComponent<PlaceFilterMenuProps> = props => {
   const handleChange = evt => {
     if (evt.target.value.includes(FILTER_MENU_ALL)) {
       props.updatePlaceFilters([]);
