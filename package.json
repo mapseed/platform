@@ -67,7 +67,7 @@
     "accessible-autocomplete": "github:mapseed/accessible-autocomplete#7e56b805ee7ce77bebae67f6454a5c3f5e4987a8",
     "browser-update": "^3.1.13",
     "classnames": "^2.2.5",
-    "d3-geo": "^1.11.7",
+    "d3-geo": "^1.11.8",
     "dom-to-image": "^2.6.0",
     "dotenv": "^8.2.0",
     "downloadjs": "^1.4.7",
