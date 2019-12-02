@@ -51,24 +51,16 @@ const createGeoJSONFromPlaces = places => {
   };
 };
 
-const fromGeoJSONFeature = ({ feature }) => ({
+const fromGeoJSONFeature = feature => ({
   ...feature.properties,
   geometry: feature.geometry,
 });
 
 // Turn GeoJSON FeatureCollections into plain objects of Place data.
-const fromGeoJSONFeatureCollection = ({
-  featureCollection,
-  datasetSlug,
-  clientSlug,
-}) =>
+const fromGeoJSONFeatureCollection = featureCollection =>
   featureCollection.features.map(feature => ({
     ...feature.properties,
     geometry: feature.geometry,
-    // Add a field for the slug each Place belongs to, so we can
-    // filter by dataset when we need to.
-    datasetSlug,
-    clientSlug,
   }));
 
 const toClientGeoJSONFeature = placeData => {
@@ -81,7 +73,7 @@ const toClientGeoJSONFeature = placeData => {
   };
 };
 
-const toServerGeoJSONFeature = placeData => {
+const toGeoJSONFeature = placeData => {
   // We intentionally strip out some keys from the placeData object which
   // should not be sent to the server in the request payload.
   const {
@@ -90,8 +82,6 @@ const toServerGeoJSONFeature = placeData => {
     tags,
     submission_sets,
     attachments,
-    datasetSlug,
-    clientSlug,
     ...rest
   } = placeData;
 
@@ -108,6 +98,6 @@ export {
   fromGeoJSONFeature,
   fromGeoJSONFeatureCollection,
   setPrivateParams,
-  toServerGeoJSONFeature,
+  toGeoJSONFeature,
   toClientGeoJSONFeature,
 };

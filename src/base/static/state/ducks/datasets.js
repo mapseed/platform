@@ -1,4 +1,3 @@
-import produce from "immer";
 import PropTypes from "prop-types";
 
 // Prop Types:
@@ -36,13 +35,16 @@ export const datasetsPropType = PropTypes.arrayOf(
 ).isRequired;
 
 // Selectors:
-export const datasetsSelector = state => state.datasets.datasetModels;
+export const datasetsSelector = state => state.datasets;
+
+export const datasetPlaceConfirmationModalSelector = (state, datsetUrl) =>
+  state.datasets.find(({ url }) => url === datasetUrl);
 
 export const datasetUrlSelector = (state, dataset) => {
-  return state.datasets.datasetModels.find(
+  return state.datasets.find(
     // TODO: Use full dataset urls instead of slugs once datasets are sent from
     // the backend.
-    datasetModel => dataset.Modelslug === dataset.split("/").pop(),
+    dataset => dataset.slug === dataset.split("/").pop(),
   ).url;
 };
 
@@ -113,31 +115,28 @@ export function loadDatasets(datasets) {
 }
 
 export const getTagFromUrl = ({ state, dataset, tagUrl }) =>
-  state.datasets.datasetModels
+  state.datasets
     .find(datasetModel => datasetModel.slug === dataset.split("/").pop())
     .tags.find(tag => tag.url === tagUrl);
 
 export const getAllTagsForDataset = (state, dataset) =>
-  state.datasets.datasetModels
+  state.datasets
     .find(datasetModel => datasetModel.slug === dataset.split("/").pop())
     .tags.filter(tag => tag.isEnabled);
 
 export const getColorForTag = ({ state, dataset, tagUrl }) =>
-  state.datasets.datasetModels
+  state.datasets
     .find(datasetModel => datasetModel.slug === dataset.split("/").pop())
     .tags.find(tag => tag.url === tagUrl).color;
 
 // Reducers:
-const INITIAL_STATE = {
-  datasetModels: [],
-  loadStatus: "unloaded",
-};
+const INITIAL_STATE = [];
 
-export default (state = INITIAL_STATE, action) =>
-  produce(state, draft => {
-    switch (action.type) {
-      case LOAD:
-        draft.datasetModels = action.payload;
-        return draft;
-    }
-  });
+export default (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case LOAD:
+      return action.payload;
+    default:
+      return state;
+  }
+};

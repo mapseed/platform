@@ -25,6 +25,7 @@ import AddressField from "../molecules/form-field-modules/address-field";
 import NumberField from "../molecules/form-field-modules/number-field";
 import DateField from "../molecules/form-field-modules/date-field";
 import TextareaField from "../molecules/form-field-modules/textarea-field";
+import RichTextareaField from "../molecules/form-field-modules/rich-textarea-field";
 import RadioField from "../molecules/form-field-modules/radio-field";
 import SubmitButtonModule from "../molecules/form-field-modules/submit-button-module";
 import SkipStageModule from "../molecules/form-field-modules/skip-stage-module";
@@ -69,6 +70,7 @@ const BACKEND_MODULES = {
   numberfield: NumberField,
   datefield: DateField,
   textareafield: TextareaField,
+  richtextareafield: RichTextareaField,
   unknownmodule: UnknownModule,
 };
 

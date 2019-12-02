@@ -54,6 +54,11 @@ export const datasetsSelector: (state: any) => Dataset[];
 
 export const datasetUrlSelector: (state: any, datasetSlug: string) => string;
 
+export const datasetPlaceConfirmationModalSelector: (
+  state: any,
+  datasetUrl: string,
+) => any;
+
 // Action creators:
 declare type Action = {
   type: string;

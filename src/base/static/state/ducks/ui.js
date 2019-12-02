@@ -82,7 +82,6 @@ const INITIAL_STATE = {
   activePageSlug: null,
   uiVisibility: {
     addPlaceButton: false,
-    contentPanel: false,
     mapCenterpoint: false,
     spotlightMask: false,
     rightSidebar: false,
@@ -140,7 +139,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         activePageSlug: null,
         uiVisibility: {
           ...state.uiVisibility,
-          contentPanel: false,
           mapCenterpoint: false,
           spotlightMask: false,
           rightSidebar: false,

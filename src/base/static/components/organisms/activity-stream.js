@@ -12,10 +12,10 @@ import {
 } from "../../state/ducks/forms-config";
 import { placeConfigSelector } from "../../state/ducks/place-config";
 import { loadActivity, activitySelector } from "../../state/ducks/activity";
-import {
-  datasetsConfigSelector,
-  datasetsConfigPropType,
-} from "../../state/ducks/datasets-config";
+//import {
+//  datasetsConfigSelector,
+//  datasetsConfigPropType,
+//} from "../../state/ducks/datasets-config";
 import { placeSelector } from "../../state/ducks/places";
 
 class ActivityStream extends Component {
@@ -118,7 +118,7 @@ class ActivityStream extends Component {
 
 ActivityStream.propTypes = {
   activity: PropTypes.array.isRequired, // TODO
-  datasetsConfig: datasetsConfigPropType,
+  //datasetsConfig: datasetsConfigPropType,
   loadActivity: PropTypes.func.isRequired,
   placeConfig: PropTypes.shape({
     action_text: PropTypes.string.isRequired,

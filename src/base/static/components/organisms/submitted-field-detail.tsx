@@ -5,7 +5,7 @@ import CoverImage from "../molecules/cover-image";
 import { Place } from "../../state/ducks/places";
 import { FormModule } from "../../state/ducks/forms";
 
-const ListSubmittedField = value => {
+const ListSubmittedField = ({ value }) => {
   value = Array.isArray(value) ? value : [value];
 
   return (
@@ -17,13 +17,13 @@ const ListSubmittedField = value => {
   );
 };
 
-const TextSubmittedField = value => <Typography>{value}</Typography>;
+const TextSubmittedField = ({ value }) => <Typography>{value}</Typography>;
 
-const RichTextSubmittedField = value => (
+const RichTextSubmittedField = ({ value }) => (
   <div dangerouslySetInnerHTML={{ __html: value }} />
 );
 
-const NumberSubmittedField = value => <Typography>{value}</Typography>; // TODO
+const NumberSubmittedField = ({ value }) => <Typography>{value}</Typography>; // TODO
 
 const getSubmittedFieldComponent = (type, variant) => {
   if (type === "radiofield" && variant === "RA") {

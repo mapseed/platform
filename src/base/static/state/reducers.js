@@ -16,7 +16,6 @@ import navBarConfigReducer from "./ducks/nav-bar-config";
 import pagesConfigReducer from "./ducks/pages-config";
 import dashboardConfigReducer from "./ducks/dashboard-config";
 import userReducer from "./ducks/user";
-import datasetsConfigReducer from "./ducks/datasets-config";
 import datasetsReducer from "./ducks/datasets";
 import activityReducer from "./ducks/activity";
 import customComponentsConfigReducer from "./ducks/custom-components-config";
@@ -40,7 +39,6 @@ const reducers = combineReducers({
   pagesConfig: pagesConfigReducer,
   dashboardConfig: dashboardConfigReducer,
   user: userReducer,
-  datasetsConfig: datasetsConfigReducer,
   datasets: datasetsReducer,
   activity: activityReducer,
   customComponentsConfig: customComponentsConfigReducer,

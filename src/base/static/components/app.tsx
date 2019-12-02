@@ -37,16 +37,13 @@ import { createFeaturesInGeoJSONSource } from "../state/ducks/map-style";
 import mapseedApiClient from "../client/mapseed-api-client";
 import translationServiceClient from "../client/translation-service-client";
 import {
-  datasetsConfigPropType,
-  datasetsConfigSelector,
-  datasetSlugsSelector,
-  hasAnonAbilitiesInAnyDataset,
-} from "../state/ducks/datasets-config";
-import { loadDatasets } from "../state/ducks/datasets";
+  loadDatasets,
+  datasetsSelector,
+  Dataset,
+} from "../state/ducks/datasets";
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
 import { AppConfig, loadAppConfig } from "../state/ducks/app-config";
 import { loadMapConfig } from "../state/ducks/map";
-import { loadDatasetsConfig } from "../state/ducks/datasets-config";
 import { loadPlaceConfig } from "../state/ducks/place-config";
 import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";
 import { loadRightSidebarConfig } from "../state/ducks/right-sidebar-config";
@@ -60,11 +57,14 @@ import { loadNavBarConfig } from "../state/ducks/nav-bar-config";
 import { loadMapStyle } from "../state/ducks/map-style";
 import { updatePlacesLoadStatus, loadPlaces } from "../state/ducks/places";
 import { loadCustomComponentsConfig } from "../state/ducks/custom-components-config";
-import { loadUser } from "../state/ducks/user";
+import {
+  loadUser,
+  datasetsWithCreatePlacesAbilitySelector,
+  datasetsWithAccessProtectedPlacesAbilitySelector,
+} from "../state/ducks/user";
 import { loadFlavorConfig } from "../state/ducks/flavor-config";
 import { loadForms } from "../state/ducks/forms";
 
-import { hasGroupAbilitiesInDatasets } from "../state/ducks/user";
 import { appConfigSelector } from "../state/ducks/app-config";
 import {
   loadFeaturedPlacesConfig,
@@ -121,10 +121,9 @@ const dispatchPropTypes = {
 type StateProps = {
   appConfig: AppConfig;
   currentTemplate: string;
-  datasetsConfig: PropTypes.InferProps<typeof datasetsConfigPropType>;
-  datasetSlugs: any[];
-  hasAnonAbilitiesInAnyDataset: Function;
-  hasGroupAbilitiesInDatasets: Function;
+  datasets: Dataset[];
+  datasetsWithCreatePlacesAbility: Dataset[];
+  datasetsWithAccessProtectedPlacesAbility: Dataset[];
   layout: string;
   featuredPlacesConfig: PropTypes.InferProps<
     typeof featuredPlacesConfigPropType
@@ -177,6 +176,14 @@ class App extends React.Component<Props, State> {
       Util.cookies.save("sa-api-sessionid", sessionJSON.sessionid);
     }
 
+    // Fetch and load datasets (combining config info with info returned from
+    // the `/datasets` endpoint.
+    const datasets = await mapseedApiClient.datasets.get(
+      config.datasets,
+      config.app.api_root,
+    );
+    this.props.loadDatasets(datasets);
+
     // Fetch and load user information.
     const authedUser = await mapseedApiClient.user.get(config.app.api_root);
     const user = authedUser
@@ -207,14 +214,7 @@ class App extends React.Component<Props, State> {
         id: user.id,
       });
     }
-    this.props.loadUser(user);
-
-    // Fetch and load datasets.
-    this.props.loadDatasetsConfig(config.datasets);
-    const datasets = await mapseedApiClient.datasets.get(
-      this.props.datasetsConfig,
-    );
-    this.props.loadDatasets(datasets);
+    this.props.loadUser(user, datasets);
 
     // Load all other ducks.
     this.props.loadAppConfig(config.app);
@@ -361,22 +361,20 @@ class App extends React.Component<Props, State> {
     this.props.updatePlacesLoadStatus("loading");
     const allPlacePagePromises: Promise<any>[] = [];
     await Promise.all(
-      this.props.datasetsConfig.map(async datasetConfig => {
+      this.props.datasets.map(async ({ url: datasetUrl, slug }) => {
         // Note that the response here is an array of page Promises.
         const response: Promise<any>[] = await mapseedApiClient.place.get({
-          datasetUrl: datasetConfig.url,
-          datasetSlug: datasetConfig.slug,
-          clientSlug: datasetConfig.clientSlug,
+          datasetUrl,
+          //datasetSlug: datasetConfig.slug,
+          //clientSlug: datasetConfig.clientSlug,
           placeParams: {
             // NOTE: this is to include comments/supports while fetching our place models
             include_submissions: true,
             include_tags: true,
           },
-          includePrivate: this.props.hasGroupAbilitiesInDatasets({
-            abilities: ["can_access_protected"],
-            datasets: [datasetConfig.slug],
-            submissionSet: "places",
-          }),
+          includePrivate: this.props.datasetsWithAccessProtectedPlacesAbility.includes(
+            datasetUrl,
+          ),
         });
 
         if (response) {
@@ -388,7 +386,7 @@ class App extends React.Component<Props, State> {
             // Update the map.
             this.props.createFeaturesInGeoJSONSource(
               // "sourceId" and a dataset's slug are the same thing.
-              datasetConfig.slug,
+              slug,
               pageData.map(place => {
                 const { geometry, ...rest } = place;
 
@@ -428,7 +426,11 @@ class App extends React.Component<Props, State> {
   }
 
   render() {
-    const sharedMapTemplateProps = {
+    if (!this.state.isInitialDataLoaded) {
+      return <LoadingBar />;
+    }
+
+    const mapTemplateProps = {
       isStartPageViewed: this.state.isStartPageViewed,
       onViewStartPage: this.onViewStartPage,
       currentLanguageCode: this.state.currentLanguageCode,
@@ -440,19 +442,24 @@ class App extends React.Component<Props, State> {
       currentLanguageCode: this.state.currentLanguageCode,
       onChangeLanguage: this.onChangeLanguage,
     };
+    const {
+      datasetsWithCreatePlacesAbility,
+      history,
+      currentTemplate,
+      layout,
+      appConfig,
+      pageExists,
+    } = this.props;
 
-    if (!this.state.isInitialDataLoaded) {
-      return <LoadingBar />;
-    }
     return (
       <div
         css={{
           overflow:
             // The report template is a special case, and needs `overflow: visible`
             // for PDFs longer than one page to render.
-            this.props.currentTemplate === "report"
+            currentTemplate === "report"
               ? "visible"
-              : this.props.layout === "desktop"
+              : layout === "desktop"
               ? "hidden"
               : "auto",
           width: "100%",
@@ -464,20 +471,16 @@ class App extends React.Component<Props, State> {
         }}
       >
         <React.Fragment>
-          {this.props.appConfig.enableCookieConsent && <CookieConsentBanner />}
+          {appConfig.enableCookieConsent && <CookieConsentBanner />}
           <Switch>
             <Route
               exact
               path="/"
-              render={props => {
+              render={({ match }) => {
                 return (
                   <React.Suspense fallback={<Fallback />}>
                     <SiteHeader {...headerProps} />
-                    <MapTemplate
-                      uiConfiguration="map"
-                      {...sharedMapTemplateProps}
-                      {...props.match}
-                    />
+                    <MapTemplate {...mapTemplateProps} {...match} />
                   </React.Suspense>
                 );
               }}
@@ -485,15 +488,11 @@ class App extends React.Component<Props, State> {
             <Route
               exact
               path="/:zoom(\d*\.\d+)/:lat(-?\d*\.\d+)/:lng(-?\d*\.\d+)"
-              render={props => {
+              render={({ match }) => {
                 return (
                   <React.Suspense fallback={<Fallback />}>
                     <SiteHeader {...headerProps} />
-                    <MapTemplate
-                      uiConfiguration="map"
-                      {...sharedMapTemplateProps}
-                      {...props.match}
-                    />
+                    <MapTemplate {...mapTemplateProps} {...match} />
                   </React.Suspense>
                 );
               }}
@@ -510,31 +509,17 @@ class App extends React.Component<Props, State> {
               )}
             />
             <Route
-              exact
-              path="/new"
-              render={props => {
-                if (
-                  this.props.hasAnonAbilitiesInAnyDataset("places", [
-                    "create",
-                  ]) ||
-                  this.props.hasGroupAbilitiesInDatasets({
-                    submissionSet: "places",
-                    abilities: ["create"],
-                    datasets: this.props.datasetSlugs,
-                  })
-                ) {
+              path="/new/:formId?"
+              render={({ match }) => {
+                if (datasetsWithCreatePlacesAbility.length > 0) {
                   return (
                     <React.Suspense fallback={<Fallback />}>
                       <SiteHeader {...headerProps} />
-                      <MapTemplate
-                        uiConfiguration="newPlace"
-                        {...sharedMapTemplateProps}
-                        {...props.match}
-                      />
+                      <MapTemplate {...mapTemplateProps} {...match} />
                     </React.Suspense>
                   );
                 } else {
-                  this.props.history.push("/");
+                  history.push("/");
                   return;
                 }
               }}
@@ -542,13 +527,13 @@ class App extends React.Component<Props, State> {
             <Route
               exact
               path="/dashboard"
-              render={props => {
+              render={({ match }) => {
                 return (
                   <React.Suspense fallback={<Fallback />}>
                     <SiteHeader {...headerProps} />
                     <DashboardTemplate
-                      apiRoot={this.props.appConfig.api_root}
-                      {...props.match}
+                      apiRoot={appConfig.api_root}
+                      {...match}
                     />
                   </React.Suspense>
                 );
@@ -557,10 +542,10 @@ class App extends React.Component<Props, State> {
             <Route
               exact
               path="/print-report/:datasetClientSlug/:placeId"
-              render={props => {
+              render={({ match }) => {
                 return (
                   <React.Suspense fallback={<Fallback />}>
-                    <ReportTemplate {...props.match} />
+                    <ReportTemplate {...match} />
                   </React.Suspense>
                 );
               }}
@@ -568,16 +553,12 @@ class App extends React.Component<Props, State> {
             <Route
               exact
               path="/page/:pageSlug"
-              render={props => {
-                if (!this.props.pageExists(props.match.params.pageSlug)) {
+              render={({ match }) => {
+                if (!pageExists(match.params.pageSlug)) {
                   return (
                     <React.Suspense fallback={<Fallback />}>
                       <SiteHeader {...headerProps} />
-                      <MapTemplate
-                        uiConfiguration="mapWithInvalidRoute"
-                        {...sharedMapTemplateProps}
-                        {...props.match}
-                      />
+                      <MapTemplate {...mapTemplateProps} {...match} />
                     </React.Suspense>
                   );
                 }
@@ -585,11 +566,7 @@ class App extends React.Component<Props, State> {
                 return (
                   <React.Suspense fallback={<Fallback />}>
                     <SiteHeader {...headerProps} />
-                    <MapTemplate
-                      uiConfiguration="customPage"
-                      {...sharedMapTemplateProps}
-                      {...props.match}
-                    />
+                    <MapTemplate {...mapTemplateProps} {...match} />
                   </React.Suspense>
                 );
               }}
@@ -597,15 +574,11 @@ class App extends React.Component<Props, State> {
             <Route
               exact
               path="/:datasetClientSlug/:placeId"
-              render={props => {
+              render={({ match }) => {
                 return (
                   <React.Suspense fallback={<Fallback />}>
                     <SiteHeader {...headerProps} />
-                    <MapTemplate
-                      uiConfiguration="placeDetail"
-                      {...sharedMapTemplateProps}
-                      {...props.match}
-                    />
+                    <MapTemplate {...mapTemplateProps} {...match} />
                   </React.Suspense>
                 );
               }}
@@ -613,29 +586,21 @@ class App extends React.Component<Props, State> {
             <Route
               exact
               path="/:datasetClientSlug/:placeId/response/:responseId"
-              render={props => {
+              render={({ match }) => {
                 return (
                   <React.Suspense fallback={<Fallback />}>
                     <SiteHeader {...headerProps} />
-                    <MapTemplate
-                      uiConfiguration="placeDetail"
-                      {...sharedMapTemplateProps}
-                      {...props.match}
-                    />
+                    <MapTemplate {...mapTemplateProps} {...match} />
                   </React.Suspense>
                 );
               }}
             />
             <Route
-              render={props => {
+              render={({ match }) => {
                 return (
                   <React.Suspense fallback={<Fallback />}>
                     <SiteHeader {...headerProps} />
-                    <MapTemplate
-                      uiConfiguration="mapWithInvalidRoute"
-                      {...sharedMapTemplateProps}
-                      {...props.match}
-                    />
+                    <MapTemplate {...mapTemplateProps} {...match} />
                   </React.Suspense>
                 );
               }}
@@ -652,17 +617,13 @@ type MapseedReduxState = any;
 const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   appConfig: appConfigSelector(state),
   currentTemplate: currentTemplateSelector(state),
-  datasetSlugs: datasetSlugsSelector(state),
-  datasetsConfig: datasetsConfigSelector(state),
-  hasAnonAbilitiesInAnyDataset: (submissionSet, abilities) =>
-    hasAnonAbilitiesInAnyDataset({ state, submissionSet, abilities }),
-  hasGroupAbilitiesInDatasets: ({ abilities, datasets, submissionSet }) =>
-    hasGroupAbilitiesInDatasets({
-      abilities,
-      state,
-      datasets,
-      submissionSet,
-    }),
+  datasets: datasetsSelector(state),
+  datasetsWithCreatePlacesAbility: datasetsWithCreatePlacesAbilitySelector(
+    state,
+  ),
+  datasetsWithAccessProtectedPlacesAbility: datasetsWithAccessProtectedPlacesAbilitySelector(
+    state,
+  ),
   layout: layoutSelector(state),
   pageExists: slug => pageExistsSelector({ state, slug }),
   featuredPlacesConfig: featuredPlacesConfigSelector(state),
@@ -675,7 +636,6 @@ const mapDispatchToProps = {
   updateLayout,
   updatePlacesLoadStatus,
   updateUIVisibility,
-  loadDatasetsConfig,
   loadDashboardConfig,
   loadMapConfig,
   loadPlaceConfig,

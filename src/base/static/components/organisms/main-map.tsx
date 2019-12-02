@@ -144,7 +144,6 @@ const statePropTypes = {
   filteredPlaces: placesPropType.isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string.isRequired)
     .isRequired,
-  isContentPanelVisible: PropTypes.bool.isRequired,
   mapConfig: mapConfigPropType,
   mapContainerDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -179,8 +178,7 @@ type DispatchProps = {
 };
 
 type ParentProps = {
-  mapContainerWidthDeclaration: string;
-  mapContainerHeightDeclaration: string;
+  isContentPanelVisible: boolean;
   mapContainerRef: React.RefObject<HTMLElement>;
   onUpdateSourceLoadStatus: Function;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
@@ -324,9 +322,9 @@ class MainMap extends React.Component<Props, State> {
   componentDidMount() {
     this.map = (this.mapRef.current as InteractiveMap).getMap();
 
-    window.addEventListener("resize", () => {
-      this.resizeMap();
-    });
+    //window.addEventListener("resize", () => {
+    //  this.resizeMap();
+    //});
 
     eventEmitter.on("setMapViewport", (viewport: MapViewportDiff): void => {
       this.setMapViewport(viewport);
@@ -344,13 +342,13 @@ class MainMap extends React.Component<Props, State> {
     // applied when returning to the map template.
     this.applyFeatureFilters();
 
-    requestAnimationFrame(() => {
-      this.resizeMap();
-    });
+    //requestAnimationFrame(() => {
+    //  this.resizeMap();
+    //});
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.resizeMap);
+    //window.removeEventListener("resize", this.resizeMap);
     if (this.map) {
       this.map.off("error", this.errorListener);
       this.map.off("sourcedata", this.sourceDataListener);
@@ -377,20 +375,20 @@ class MainMap extends React.Component<Props, State> {
     );
   });
 
-  resizeMap = () => {
-    const node = findDOMNode(this.props.mapContainerRef.current);
-    if (node instanceof Element) {
-      const containerDims = node.getBoundingClientRect();
+  //resizeMap = () => {
+  //  const node = findDOMNode(this.props.mapContainerRef.current);
+  //  if (node instanceof Element) {
+  //    const containerDims = node.getBoundingClientRect();
 
-      this.props.updateMapContainerDimensions({
-        height: containerDims.height,
-        width: containerDims.width,
-      });
-    } else {
-      // eslint-disable-next-line no-console
-      console.warn("resizemap: node is not element! node:", node);
-    }
-  };
+  //    this.props.updateMapContainerDimensions({
+  //      height: containerDims.height,
+  //      width: containerDims.width,
+  //    });
+  //  } else {
+  //    // eslint-disable-next-line no-console
+  //    console.warn("resizemap: node is not element! node:", node);
+  //  }
+  //};
 
   applyFeatureFilters() {
     this.props.datasets
@@ -410,14 +408,18 @@ class MainMap extends React.Component<Props, State> {
   componentDidUpdate(prevProps) {
     // NOTE: These checks are not comparing numerical dimensions; rather they
     // are comparing CSS width and height declarations in string form.
-    if (
-      this.props.mapContainerHeightDeclaration !==
-        prevProps.mapContainerHeightDeclaration ||
-      this.props.mapContainerWidthDeclaration !==
-        prevProps.mapContainerWidthDeclaration
-    ) {
-      this.resizeMap();
-    }
+    //if (
+    //  this.props.mapContainerHeightDeclaration !==
+    //    prevProps.mapContainerHeightDeclaration ||
+    //  this.props.mapContainerWidthDeclaration !==
+    //    prevProps.mapContainerWidthDeclaration
+    //) {
+    //  this.resizeMap();
+    //}
+
+    //if (this.props.isContentPanelVisible !== prevProps.isContentPanelVisible) {
+    //  this.resizeMap();
+    //}
 
     if (this.props.placeFilters !== prevProps.placeFilters) {
       // Filters have been added or removed.
@@ -560,8 +562,8 @@ class MainMap extends React.Component<Props, State> {
         <MapGL
           attributionControl={false}
           ref={this.mapRef}
-          width={this.props.mapContainerDimensions.width}
-          height={this.props.mapContainerDimensions.height}
+          width={"100%"}
+          height={"100%"}
           latitude={this.state.mapViewport.latitude}
           longitude={this.state.mapViewport.longitude}
           pitch={this.state.mapViewport.pitch}
@@ -665,7 +667,6 @@ class MainMap extends React.Component<Props, State> {
 const mapStateToProps = (state): StateProps => ({
   activeEditPlaceId: activeEditPlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
-  isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   isMapDraggingOrZooming: isMapDraggingOrZooming(state),
   isMapDraggedOrZoomedByUser: isMapDraggedOrZoomedByUser(state),

@@ -11,9 +11,9 @@ import {
   PlaceForm as MapseedPlaceForm,
   newPlaceFormInitialValuesSelector,
 } from "../../state/ducks/forms";
-import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
+import { datasetsWithAccessProtectedPlacesAbilitySelector } from "../../state/ducks/user";
 import mapseedApiClient from "../../client/mapseed-api-client";
-import { datasetPlaceConfirmationModalSelector } from "../../state/ducks/datasets-config";
+import { datasetPlaceConfirmationModalSelector } from "../../state/ducks/datasets";
 import InfoModal from "./info-modal";
 import { LoadingBar } from "../atoms/imagery";
 import { createPlace } from "../../state/ducks/places";
@@ -53,21 +53,19 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
   });
   const placeForm: MapseedPlaceForm = useSelector(placeFormSelector);
   const placeConfirmationModal = useSelector(state =>
-    datasetPlaceConfirmationModalSelector(
-      state,
-      placeForm.dataset.split("/").pop(),
-    ),
+    datasetPlaceConfirmationModalSelector(state, placeForm.dataset),
   );
   React.useEffect(() => {
     dispatch(updateUIVisibility("mapCenterpoint", true));
   }, [dispatch]);
-  const includePrivate = useSelector(state =>
-    hasGroupAbilitiesInDatasets({
-      state,
-      abilities: ["can_access_protected"],
-      datasets: [placeForm.dataset],
-      submissionSet: "places",
-    }),
+  const datasetsWithAccessProtectedPlacesAbility = useSelector(
+    datasetsWithAccessProtectedPlacesAbilitySelector,
+  );
+  const includePrivate = React.useMemo(
+    datasetsWithAccessProtectedPlacesAbility
+      .map(({ url }) => url)
+      .includes(placeForm.dataset),
+    [datasetsWithAccessProtectedPlacesAbility],
   );
   const onSubmit = React.useCallback(
     async ({ data, attachments }) => {

@@ -62,6 +62,10 @@ export interface MapseedTextareaFieldModule extends BaseFormModule {
   placeholder: string;
 }
 
+export interface MapseedRichTextareaFieldModule extends BaseFormModule {
+  placeholder: string;
+}
+
 export interface MapseedAddressFieldModule extends BaseFormModule {
   reverseGeocode: boolean;
   placeholder?: string;
@@ -105,6 +109,7 @@ export type FormModule =
   | MapseedFileFieldModule
   | MapseedTextFieldModule
   | MapseedTextareaFieldModule
+  | MapseedRichTextareaFieldModule
   | MapseedAddressFieldModule
   | MapseedSkipStageModule
   | MapseedRadioFieldModule
@@ -133,9 +138,8 @@ export type MapseedForm = PlaceForm;
 const formModulesSelector = state => state.forms.entities.modules;
 const formStagesSelector = state => state.forms.entities.stages;
 const placeFormIdSelector = state =>
-  // TODO: Eventually the comment form may be sent along with the Place form.
-  // For now, we assume there is a single form in the `forms` array and that
-  // form is the Place form.
+  // TODO: Eventually the comment form may be sent along with the Place form(s).
+  // For now, we assume that all `forms` are Place form(s).
   state.forms.entities.flavor[state.forms.result].forms[0];
 const flattenedPlaceFormSelector = state =>
   state.forms.entities.form[placeFormIdSelector(state)];
@@ -161,7 +165,7 @@ export const newPlaceFormInitialValuesSelector = createSelector(
   },
 );
 
-// TODO: Break this into a few separate selectors:
+// TODO: Break this into a few separate selectors, maybe:
 //  - a "stage field" selector, which selects stage field configurations
 //  - a "group module" selector, which selects nested modules within groupmodules
 export const placeFormSelector = createSelector(
@@ -207,43 +211,51 @@ const UPDATE_MODULE_VISIBILITIES = "forms/UPDATE_MODULE_VISIBILITIES";
 
 const getModuleType = rawFormModule => {
   if (rawFormModule.htmlmodule) {
-    return "htmlmodule";
+    return { key: "htmlmodule", variant: "htmlmodule" };
   } else if (rawFormModule.textfield) {
-    return "textfield";
+    return { key: "textfield", variant: "textfield" };
   } else if (rawFormModule.submitbuttonmodule) {
-    return "submitbuttonmodule";
+    return { key: "submitbuttonmodule", variant: "submitbuttonmodule" };
   } else if (rawFormModule.filefield) {
-    return "filefield";
+    return { key: "filefield", variant: "filefield" };
   } else if (rawFormModule.skipstagemodule) {
-    return "skipstagemodule";
+    return { key: "skipstagemodule", variant: "skipstagemodule" };
   } else if (rawFormModule.addressfield) {
-    return "addressfield";
+    return { key: "addressfield", variant: "addressfield" };
   } else if (rawFormModule.radiofield) {
-    return "radiofield";
+    return { key: "radiofield", variant: "radiofield" };
   } else if (rawFormModule.numberfield) {
-    return "numberfield";
+    return { key: "numberfield", variant: "numberfield" };
   } else if (rawFormModule.datefield) {
-    return "datefield";
-  } else if (rawFormModule.textareafield) {
-    return "textareafield";
+    return { key: "datefield", variant: "datefield" };
+  } else if (
+    rawFormModule.textareafield &&
+    !rawFormModule.textareafield.rich_text
+  ) {
+    return { key: "textareafield", variant: "textareafield" };
+  } else if (
+    rawFormModule.textareafield &&
+    rawFormModule.textareafield.rich_text
+  ) {
+    return { key: "textareafield", variant: "richtextareafield" };
   } else if (rawFormModule.groupmodule) {
-    return "groupmodule";
+    return { key: "groupmodule", variant: "groupmodule" };
   } else {
     // eslint-disable-next-line no-console
     console.error(
       `[Forms duck]: ERROR: encountered unknown raw form module with id ${rawFormModule.id}`,
     );
 
-    return "unknownmodule";
+    return { key: "unknownmodule", variant: "unknownmodule" };
   }
 };
 
 const formModuleProcessStrategy = (rawFormModule): FormModule => {
   // Flatten module configs keyed by module name:
   const { visible: isVisible, id } = rawFormModule;
-  const moduleType = getModuleType(rawFormModule);
+  const { key, variant } = getModuleType(rawFormModule);
   const { private: isPrivate, required: isRequired, ...rest } = rawFormModule[
-    moduleType
+    key
   ];
 
   return {
@@ -251,11 +263,11 @@ const formModuleProcessStrategy = (rawFormModule): FormModule => {
     // expects each module to have this property. Those that do will have this
     // generic key overwritten by the `rest` properties below.
     key: `module-${id}`,
-    type: moduleType,
+    type: variant,
     id,
-    isVisible: !!isVisible,
-    isPrivate: !!isPrivate,
-    isRequired: !!isRequired,
+    isVisible: Boolean(isVisible),
+    isPrivate: Boolean(isPrivate),
+    isRequired: Boolean(isRequired),
     ...rest,
   };
 };

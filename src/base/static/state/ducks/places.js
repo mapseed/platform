@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { createSelector } from "reselect"
 
 // prop types:
 export const placePropType = PropTypes.shape({
@@ -63,8 +64,18 @@ export const datasetLengthSelector = (state, datasetSlug) =>
   state.places.placeModels.filter(place => place.datasetSlug === datasetSlug)
     .length;
 
+export const memoizedPlaceSelector = createSelector(
+  state => state.places,
+  (_, placeId) => placeId,
+  (places, placeId) => {
+    console.log("placeId", placeId)
+    return places.placeModels.find(place => place.id === Number(placeId))
+
+  }
+);
+
 export const placeSelector = (state, placeId) => {
-  return state.places.placeModels.find(place => place.id === parseInt(placeId));
+  return state.places.placeModels.find(place => place.id === Number(placeId));
 };
 
 export const focusedPlaceSelector = state =>

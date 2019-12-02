@@ -111,6 +111,7 @@
   ],
   "app": {
     "title": "an anthropocene river",
+    "flavorSlug": "mississippi",
     "name": "Mississippi",
     "enableCookieConsent": true,
     "show_name_in_header": true,
@@ -1950,6 +1951,7 @@
       {
         "id": "mississippi-input",
         "datasetSlug": "mississippi-input",
+        "interactive": true,
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {

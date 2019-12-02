@@ -14,7 +14,7 @@ import {
   dashboardConfigSelector,
 } from "../../state/ducks/dashboard-config";
 
-import { hasAdminAbilities, User } from "../../state/ducks/user";
+import { hasAdminAbilitiesSelector, User } from "../../state/ducks/user";
 import { OfflineConfig, offlineConfigSelector } from "../../state/ducks/map";
 
 import mq from "../../../../media-queries";
@@ -178,7 +178,8 @@ const UserMenu: React.FunctionComponent<Props> = props => {
 };
 
 const mapStateToProps = (state: any): StateProps => ({
-  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  hasAdminAbilities: datasetSlug =>
+    hasAdminAbilitiesSelector(state, datasetSlug),
   offlineBoundingBox: offlineConfigSelector(state),
   dashboardConfig: dashboardConfigSelector(state),
 });

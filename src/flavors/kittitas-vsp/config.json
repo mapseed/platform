@@ -7,10 +7,10 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/kittitas-vsp-input",
+      "user": "smartercleanup",
       "slug": "kittitas-vsp-input",
       "clientSlug": "report",
-      "anonymous_permissions": [
+      "anonymousPermissions": [
         {
           "abilities": ["create"],
           "submission_set": "*"
@@ -29,7 +29,7 @@
   "app": {
     "title": "Kittitas County Voluntary Stewardship Program",
     "name": "Kittitas County Voluntary Stewardship Program",
-    "flavorSlug": "kittitas-vsp",
+    "flavorSlug": "kittitas-vsp-action",
     "logo": "/static/css/images/logo.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",

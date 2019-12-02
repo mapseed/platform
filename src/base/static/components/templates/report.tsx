@@ -10,13 +10,8 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 import { placeSelector, placePropType } from "../../state/ducks/places";
 import { updateCurrentTemplate } from "../../state/ducks/ui";
 import KittitasFirewiseReport from "../organisms/reports/kittitas-firewise/report";
-import {
-  datasetsConfigSelector,
-  datasetsConfigPropType,
-} from "../../state/ducks/datasets-config";
 
 const statePropTypes = {
-  datasetsConfig: datasetsConfigPropType,
   placeSelector: PropTypes.func.isRequired,
 };
 const dispatchPropTypes = {
@@ -38,17 +33,19 @@ const reports = {
 
 const ReportTemplate = (props: Props) => {
   const [place, updatePlace] = useState(null);
-  const datasetConfig = props.datasetsConfig.find(
-    config => config.clientSlug === props.params.datasetClientSlug,
-  );
+  // TODO
+  //const datasetConfig = props.datasetsConfig.find(
+  //  config => config.clientSlug === props.params.datasetClientSlug,
+  //);
 
   let Report;
-  if (
-    datasetConfig.report &&
-    datasetConfig.report.templateName === "kittitasFirewiseReport"
-  ) {
-    Report = KittitasFirewiseReport;
-  }
+  // TODO
+  //if (
+  //  datasetConfig.report &&
+  //  datasetConfig.report.templateName === "kittitasFirewiseReport"
+  //) {
+  //  Report = KittitasFirewiseReport;
+  //}
 
   async function fetchPlace() {
     let includePrivate = false;
@@ -60,9 +57,9 @@ const ReportTemplate = (props: Props) => {
     }
 
     const response = await mapseedApiClient.place.getPlace({
-      datasetUrl: datasetConfig.url,
+      //datasetUrl: datasetConfig.url,
       clientSlug: props.params.datasetClientSlug,
-      datasetSlug: datasetConfig.slug,
+      //datasetSlug: datasetConfig.slug,
       placeId: parseInt(props.params.placeId),
       placeParams: {
         include_submissions: true,
@@ -88,7 +85,6 @@ const ReportTemplate = (props: Props) => {
 type MapseedReduxState = any;
 
 const mapStateToProps = (state: MapseedReduxState): StateProps => ({
-  datasetsConfig: datasetsConfigSelector(state),
   placeSelector: placeId => placeSelector(state, placeId),
 });
 

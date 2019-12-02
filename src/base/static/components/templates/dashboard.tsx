@@ -9,10 +9,7 @@ import { Button } from "../atoms/buttons";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { datasetPlacesSelector } from "../../state/ducks/places";
-import {
-  datasetsConfigPropType,
-  datasetsConfigSelector,
-} from "../../state/ducks/datasets-config";
+import { datasetsSelector, Dataset } from "../../state/ducks/datasets";
 import {
   dashboardConfigSelector,
   DashboardsConfig,
@@ -38,7 +35,7 @@ type StateProps = {
   datasetPlacesSelector: Function;
   placeFormsConfig: PlaceFormsConfig;
   formFieldsConfig: FormFieldsConfig;
-  datasetsConfig: PropTypes.InferProps<typeof datasetsConfigPropType>;
+  datasets: Dataset[];
 };
 
 type OwnProps = {
@@ -93,9 +90,9 @@ class Dashboard extends React.Component<Props, State> {
   render() {
     const dataset =
       this.state.dashboard &&
-      this.props.datasetsConfig.find(
-        config => config.slug === this.state.dashboard.datasetSlug,
-      );
+      this.props.datasets.find(
+        ({ slug }) => slug === this.state.dashboard.datasetSlug,
+      ) || "";
 
     return this.state.dashboard ? (
       <div
@@ -165,9 +162,9 @@ class Dashboard extends React.Component<Props, State> {
                     onClose={this.closeDashboardDropdown}
                   >
                     {this.allowedDashboardConfigs.map(dashboardConfig => {
-                      const dataset = this.props.datasetsConfig.find(
-                        config => config.slug === dashboardConfig.datasetSlug,
-                      );
+                      const dataset = this.props.datasets.find(
+                        ({ slug }) => slug === dashboardConfig.datasetSlug,
+                      ) as Dataset;
 
                       return (
                         <MenuItem
@@ -259,7 +256,7 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   dashboardConfig: dashboardConfigSelector(state),
   placeFormsConfig: placeFormsConfigSelector(state),
   formFieldsConfig: formFieldsConfigSelector(state),
-  datasetsConfig: datasetsConfigSelector(state),
+  datasets: datasetsSelector(state),
 });
 
 export default withRouter(

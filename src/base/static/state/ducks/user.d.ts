@@ -22,6 +22,10 @@ export type User = {
 // Selectors:
 export const userSelector: (state: any) => User;
 
+export const datasetsWithCreatePlacesAbilitySelector: (any) => any;
+
+export const datasetsWithAccessProtectedPlacesAbilitySelector: (any) => any;
+
 export const hasGroupAbilitiesInDatasets: (options: {
   state: any;
   abilities: string[];
@@ -36,12 +40,6 @@ export const hasUserAbilitiesInPlace: (options: {
 }) => boolean;
 
 export const hasAdminAbilities: (state: any, datasetSlug: string) => boolean;
-
-export const isInAtLeastOneGroup: (
-  state: any,
-  groupNames: string[],
-  datasetSlug: string,
-) => boolean;
 
 // Action creators:
 export const loadUser: any;

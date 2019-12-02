@@ -1,14 +1,11 @@
 /** @jsx jsx */
 import * as React from "react";
-import { findDOMNode } from "react-dom";
 import { css, jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "../../utils/styled";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { withTranslation, WithTranslation } from "react-i18next";
-
-import emitter from "../../utils/event-emitter";
 
 const MainMap = React.lazy(() => import("../organisms/main-map"));
 import ContentPanel from "../organisms/content-panel";
@@ -23,7 +20,12 @@ import {
   navBarConfigSelector,
   NavBarConfig,
 } from "../../state/ducks/nav-bar-config";
-import { userSelector, User } from "../../state/ducks/user";
+import {
+  userSelector,
+  User,
+  datasetsWithCreatePlacesAbilitySelector,
+  datasetsWithAccessProtectedPlacesAbilitySelector,
+} from "../../state/ducks/user";
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import {
   layoutSelector,
@@ -35,15 +37,10 @@ import {
   updateCurrentTemplate,
 } from "../../state/ducks/ui";
 import {
-  hasAnonAbilitiesInAnyDataset,
-  datasetSlugsSelector,
-} from "../../state/ducks/datasets-config";
-import {
   placeConfigPropType,
   placeConfigSelector,
 } from "../../state/ducks/place-config";
-import { datasetsSelector, Dataset } from "../../state/ducks/datasets";
-import { hasGroupAbilitiesInDatasets } from "../../state/ducks/user";
+import { Dataset } from "../../state/ducks/datasets";
 import { isLeftSidebarExpandedSelector } from "../../state/ducks/left-sidebar";
 import { isRightSidebarEnabledSelector } from "../../state/ducks/right-sidebar-config";
 import {
@@ -59,17 +56,9 @@ import {
   mapSourcesPropType,
 } from "../../state/ducks/map-style";
 import {
-  updateFocusedPlaceId,
   updateScrollToResponseId,
   loadPlaceAndSetIgnoreFlag,
 } from "../../state/ducks/places";
-
-import {
-  getMainContentAreaWidth,
-  getMainContentAreaHeight,
-} from "../../utils/layout-utils";
-import { Mixpanel } from "../../utils/mixpanel";
-import LoginModal from "../molecules/login-modal";
 
 const SpotlightMask = styled("div")({
   pointerEvents: "none",
@@ -99,11 +88,8 @@ const dispatchPropTypes = {
 
 type StateProps = {
   appConfig: AppConfig;
-  datasets: Dataset[];
-  hasAddPlacePermission: boolean;
-  hasGroupAbilitiesInDatasets: Function;
-  isAddPlaceButtonVisible: boolean;
-  isContentPanelVisible: boolean;
+  datasetsWithCreatePlacesAbility: Dataset[];
+  datasetsWithAccessProtectedPlacesAbility: Dataset[];
   isGeocodeAddressBarEnabled: boolean;
   isLeftSidebarExpanded: boolean;
   isRightSidebarEnabled: boolean;
@@ -119,13 +105,13 @@ type StateProps = {
 
 type DispatchProps = PropTypes.InferProps<typeof dispatchPropTypes>;
 interface OwnProps {
-  uiConfiguration: string;
   isStartPageViewed?: boolean;
   onViewStartPage?: () => void;
   currentLanguageCode: string;
   defaultLanguageCode: string;
   params: {
     datasetClientSlug?: string;
+    formId?: string;
     responseId?: string;
     pageSlug?: string;
     placeId?: string;
@@ -135,9 +121,6 @@ interface OwnProps {
   };
 }
 interface State {
-  addPlaceButtonHeight: number;
-  mapContainerHeightDeclaration: string;
-  mapContainerWidthDeclaration: string;
   mapSourcesLoadStatus: MapSourcesLoadStatus;
 }
 
@@ -149,15 +132,8 @@ type Props = StateProps &
 
 class MapTemplate extends React.Component<Props, State> {
   private mapContainerRef = React.createRef<HTMLDivElement>();
-  private addPlaceButtonRef = React.createRef<HTMLDivElement>();
 
   state: State = {
-    // NOTE: These dimension "declarations" will be CSS strings, as set by the
-    // utility methods getMainContentAreaHeight() and
-    // getMainContentAreaWidth().
-    mapContainerHeightDeclaration: "",
-    mapContainerWidthDeclaration: "",
-    addPlaceButtonHeight: 0,
     // Sources load status terminology:
     // ------------------------------------
     // "unloaded": The map has not yet begun to fetch data for this source.
@@ -176,8 +152,6 @@ class MapTemplate extends React.Component<Props, State> {
   };
 
   async componentDidMount() {
-    this.recalculateContainerSize();
-    this.updateUIConfiguration(this.props.uiConfiguration);
     this.props.updateCurrentTemplate("map");
 
     const { zoom, lat, lng } = this.props.params;
@@ -189,49 +163,45 @@ class MapTemplate extends React.Component<Props, State> {
       });
     }
 
-    const startPageConfig = this.props.navBarConfig.find(
-      navItem => navItem.start_page,
-    );
-    if (
-      this.props.uiConfiguration === "map" &&
-      startPageConfig &&
-      startPageConfig.url &&
-      !this.props.isStartPageViewed
-    ) {
-      this.props.history.push(startPageConfig.url);
-      this.props.onViewStartPage && this.props.onViewStartPage();
-    }
+    // TODO
+    //const startPageConfig = this.props.navBarConfig.find(
+    //  navItem => navItem.start_page,
+    //);
+    //if (
+    //  this.props.uiConfiguration === "map" &&
+    //  startPageConfig &&
+    //  startPageConfig.url &&
+    //  !this.props.isStartPageViewed
+    //) {
+    //  this.props.history.push(startPageConfig.url);
+    //  this.props.onViewStartPage && this.props.onViewStartPage();
+    //}
 
     const { datasetClientSlug, placeId, responseId } = this.props.params;
 
     // When this component mounts in the Place detail configuration, fetch the
     // requested Place directly from the API for a better UX.
     if (placeId) {
-      const dataset = this.props.datasets.find(
-        dataset => dataset.clientSlug === datasetClientSlug,
+      const dataset = this.props.datasetsWithCreatePlacesAbility.find(
+        ({ clientSlug }) => clientSlug === datasetClientSlug,
       );
 
       if (!dataset) {
-        // If we can't find a datasetConfig, it's likely because an invalid
-        // clientSlug was supplied. In this case route back to the root.
         this.props.history.push("/");
+
         return;
       }
 
       const response = await mapseedApiClient.place.getPlace({
         datasetUrl: dataset.url,
-        clientSlug: datasetClientSlug,
-        datasetSlug: dataset.slug,
-        placeId: parseInt(placeId),
+        placeId,
         placeParams: {
           include_submissions: true,
           include_tags: true,
         },
-        includePrivate: this.props.hasGroupAbilitiesInDatasets({
-          abilities: ["can_access_protected"],
-          datasets: [dataset.slug],
-          submissionSet: "places",
-        }),
+        includePrivate: this.props.datasetsWithAccessProtectedPlacesAbility.includes(
+          dataset.url,
+        ),
       });
 
       if (response) {
@@ -254,47 +224,6 @@ class MapTemplate extends React.Component<Props, State> {
         this.props.history.push("/");
       }
     }
-
-    this.recalculateContainerSize();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.props.layout !== prevProps.layout ||
-      this.props.isContentPanelVisible !== prevProps.isContentPanelVisible ||
-      this.props.isRightSidebarVisible !== prevProps.isRightSidebarVisible ||
-      this.props.isAddPlaceButtonVisible !== prevProps.isAddPlaceButtonVisible
-    ) {
-      this.recalculateContainerSize();
-    }
-
-    if (
-      this.props.params.placeId &&
-      this.props.params.placeId !== prevProps.params.placeId
-    ) {
-      this.props.updateEditModeToggled(false);
-      this.props.updateFocusedPlaceId(parseInt(this.props.params.placeId));
-    }
-
-    if (this.props.uiConfiguration !== prevProps.uiConfiguration) {
-      this.updateUIConfiguration(this.props.uiConfiguration);
-    }
-
-    if (
-      this.props.params.pageSlug &&
-      this.props.params.pageSlug !== prevProps.params.pageSlug
-    ) {
-      this.props.updateActivePage(this.props.params.pageSlug);
-    }
-
-    if (
-      this.props.params.responseId &&
-      this.props.params.responseId !== prevProps.params.responseId
-    ) {
-      this.props.updateScrollToResponseId(
-        parseInt(this.props.params.responseId),
-      );
-    }
   }
 
   onUpdateSourceLoadStatus = (sourceId, loadStatus) => {
@@ -306,86 +235,30 @@ class MapTemplate extends React.Component<Props, State> {
     }));
   };
 
-  recalculateContainerSize() {
-    const addPlaceButton = findDOMNode(
-      this.addPlaceButtonRef.current,
-    ) as Element;
-    const addPlaceButtonDims =
-      addPlaceButton && addPlaceButton.getBoundingClientRect();
-
-    this.setState({
-      addPlaceButtonHeight: addPlaceButtonDims
-        ? addPlaceButtonDims.height
-        : this.state.addPlaceButtonHeight,
-      mapContainerHeightDeclaration: getMainContentAreaHeight({
-        isContentPanelVisible: this.props.isContentPanelVisible,
-        isGeocodeAddressBarEnabled: this.props.isGeocodeAddressBarEnabled,
-        layout: this.props.layout,
-        isAddPlaceButtonVisible:
-          this.props.isAddPlaceButtonVisible &&
-          this.props.hasAddPlacePermission,
-        addPlaceButtonDims: addPlaceButtonDims,
-      }),
-      mapContainerWidthDeclaration: getMainContentAreaWidth({
-        isContentPanelVisible: this.props.isContentPanelVisible,
-        isRightSidebarVisible: this.props.isRightSidebarVisible,
-        layout: this.props.layout,
-      }),
-    });
-  }
-
-  updateUIConfiguration(uiConfiguration) {
-    // TODO: allow batch updating of ui visibilities.
-    switch (uiConfiguration) {
-      case "newPlace":
-        this.props.updateUIVisibility("contentPanel", true);
-        this.props.updateUIVisibility("addPlaceButton", false);
-        this.props.updateContentPanelComponent("InputForm");
-        break;
-      case "map":
-        this.props.updateUIVisibility("contentPanel", false);
-        this.props.updateUIVisibility("spotlightMask", false);
-        this.props.updateUIVisibility("mapCenterpoint", false);
-        this.props.updateUIVisibility("addPlaceButton", true);
-        break;
-      case "placeDetail":
-        this.props.updateEditModeToggled(false);
-        this.props.updateUIVisibility("contentPanel", true);
-        this.props.updateUIVisibility("mapCenterpoint", false);
-        this.props.updateUIVisibility("addPlaceButton", true);
-        this.props.updateContentPanelComponent("PlaceDetail");
-        break;
-      case "inputForm":
-        this.props.updateUIVisibility("addPlaceButton", false);
-        this.props.updateUIVisibility("contentPanel", true);
-        this.props.updateContentPanelComponent("InputForm");
-        break;
-      case "customPage":
-        this.props.updateUIVisibility("contentPanel", true);
-        this.props.updateUIVisibility("spotlightMask", false);
-        this.props.updateUIVisibility("mapCenterpoint", false);
-        this.props.updateUIVisibility("addPlaceButton", true);
-        this.props.updateActivePage(this.props.params.pageSlug);
-        this.props.updateContentPanelComponent("CustomPage");
-        break;
-      case "mapWithInvalidRoute":
-        this.props.history.push("/");
-        break;
-    }
-  }
-
   render() {
+    const { url } = this.props.match;
+    const { formId, placeId, pageSlug, responseId } = this.props.params;
+    const isContentPanelVisible = Boolean(
+      formId || placeId || url === "/new" || pageSlug,
+    );
+    const { datasetsWithCreatePlacesAbility } = this.props;
+    const isAddPlaceButtonVisible =
+      url !== "/new" && datasetsWithCreatePlacesAbility.length > 0;
+
     return (
-      <React.Fragment>
+      <div
+        css={css`
+          display: flex;
+          height: 100%;
+        `}
+      >
         {this.props.isGeocodeAddressBarEnabled && (
           <GeocodeAddressBar mapConfig={this.props.mapConfig} />
         )}
         <div
           css={css`
             position: relative;
-            overflow: hidden;
-            width: ${this.state.mapContainerWidthDeclaration};
-            height: ${this.state.mapContainerHeightDeclaration};
+            flex: 3;
           `}
           ref={this.mapContainerRef}
         >
@@ -397,59 +270,38 @@ class MapTemplate extends React.Component<Props, State> {
           <React.Suspense fallback={<LoadingBar />}>
             <MainMap
               mapContainerRef={this.mapContainerRef}
-              mapContainerWidthDeclaration={
-                this.state.mapContainerWidthDeclaration
-              }
-              mapContainerHeightDeclaration={
-                this.state.mapContainerHeightDeclaration
-              }
               mapSourcesLoadStatus={this.state.mapSourcesLoadStatus}
               onUpdateSourceLoadStatus={this.onUpdateSourceLoadStatus}
+              isContentPanelVisible={isContentPanelVisible}
             />
           </React.Suspense>
           {this.props.isSpotlightMaskVisible && <SpotlightMask />}
         </div>
-        {this.props.isContentPanelVisible && (
+        {isContentPanelVisible && (
           <ContentPanel
-            addPlaceButtonHeight={this.state.addPlaceButtonHeight}
             currentLanguageCode={this.props.currentLanguageCode}
             defaultLanguageCode={this.props.defaultLanguageCode}
             mapContainerRef={this.mapContainerRef}
+            placeId={placeId}
+            responseId={responseId}
+            url={url}
+            pageSlug={pageSlug}
           />
         )}
-        {this.props.isAddPlaceButtonVisible &&
-          this.props.hasAddPlacePermission && (
-            <LoginModal
-              appConfig={this.props.appConfig}
-              render={openModal => (
-                <AddPlaceButton
-                  ref={this.addPlaceButtonRef}
-                  layout={this.props.layout}
-                  onClick={() => {
-                    Mixpanel.track("Click Add Place Button");
-                    // If we aren't logged in, and one or more datasets are
-                    // auth_only, then render the login modal:
-                    if (
-                      !this.props.user.isAuthenticated &&
-                      this.props.datasets.some(dataset => dataset.auth_required)
-                    ) {
-                      openModal();
-                    } else {
-                      this.props.history.push("/new");
-                    }
-                  }}
-                >
-                  {this.props.t(
-                    "addPlaceButtonLabel",
-                    this.props.placeConfig.add_button_label,
-                  )}
-                </AddPlaceButton>
-              )}
-            />
-          )}
+        {isAddPlaceButtonVisible && (
+          <AddPlaceButton
+            layout={this.props.layout}
+            onClick={() => this.props.history.push("/new")}
+          >
+            {this.props.t(
+              "addPlaceButtonLabel",
+              this.props.placeConfig.add_button_label,
+            )}
+          </AddPlaceButton>
+        )}
         {this.props.layout === "desktop" &&
           this.props.isRightSidebarEnabled && <RightSidebar />}
-      </React.Fragment>
+      </div>
     );
   }
 }
@@ -458,29 +310,12 @@ type MapseedReduxState = any;
 
 const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   appConfig: appConfigSelector(state),
-  datasets: datasetsSelector(state),
-  hasAddPlacePermission:
-    hasAnonAbilitiesInAnyDataset({
-      state: state,
-      submissionSet: "places",
-      abilities: ["create"],
-    }) ||
-    hasGroupAbilitiesInDatasets({
-      state: state,
-      submissionSet: "places",
-      abilities: ["create"],
-      // TODO
-      datasets: datasetSlugsSelector(state),
-    }),
-  hasGroupAbilitiesInDatasets: ({ abilities, submissionSet, datasets }) =>
-    hasGroupAbilitiesInDatasets({
-      state,
-      abilities,
-      submissionSet,
-      datasets,
-    }),
-  isAddPlaceButtonVisible: uiVisibilitySelector("addPlaceButton", state),
-  isContentPanelVisible: uiVisibilitySelector("contentPanel", state),
+  datasetsWithCreatePlacesAbility: datasetsWithCreatePlacesAbilitySelector(
+    state,
+  ),
+  datasetsWithAccessProtectedPlacesAbility: datasetsWithAccessProtectedPlacesAbilitySelector(
+    state,
+  ),
   isGeocodeAddressBarEnabled: geocodeAddressBarEnabledSelector(state),
   isLeftSidebarExpanded: isLeftSidebarExpandedSelector(state),
   isRightSidebarEnabled: isRightSidebarEnabledSelector(state),
@@ -499,10 +334,7 @@ const mapDispatchToProps = {
   loadPlaceAndSetIgnoreFlag,
   updateUIVisibility,
   updateActivePage,
-  updateContentPanelComponent,
-  updateFocusedPlaceId,
   updateEditModeToggled,
-  updateScrollToResponseId,
   updateCurrentTemplate,
   updateMapViewport,
 };

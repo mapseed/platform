@@ -1,4 +1,7 @@
 import PropTypes from "prop-types";
+import { createSelector } from "reselect";
+
+import { datasetsSelector } from "./datasets";
 
 export const userPropType = PropTypes.shape({
   id: PropTypes.number,
@@ -24,58 +27,104 @@ export const userPropType = PropTypes.shape({
 });
 
 // Selectors:
-export const userSelector = state => {
-  return state.user;
+export const userSelector = ({ user }) => user;
+
+// Determine whether the current user has permission for the passed ability and
+// submission set in the target dataset, either as a member of a group or
+// anonymously.
+// TODO: Replace anonymous permissions with origin permissions once we begin
+// serializing them.
+const testAllPermissionsForDataset = ({
+  targetDatasetUrl,
+  anonymousPermissions,
+  groups,
+  submissionSet,
+  abilities,
+}) => {
+  const groupPermissions = groups
+    .filter(({ dataset: datasetUrl }) => datasetUrl === targetDatasetUrl)
+    .map(({ permissions }) => permissions)
+    .reduce((flat, toFlatten) => flat.concat(toFlatten), []);
+
+  return groupPermissions.concat(anonymousPermissions).some(
+    ({ abilities: allowedAbilities, submission_set }) =>
+      (submission_set === "*" || submission_set === submissionSet) &&
+      // All of the passed abilities must be allowed.
+      abilities.filter(ability => allowedAbilities.includes(ability)).length ===
+        abilities.length,
+  );
 };
 
-export const hasGroupAbilitiesInDatasets = ({
-  state,
-  abilities,
-  submissionSet,
-  datasets,
-}) =>
-  state.user.groups
-    .filter(group => datasets.includes(group.dataset))
-    .some(group =>
-      group.permissions.some(
-        perm =>
-          datasets.includes(group.dataset) &&
-          (perm.submission_set === "*" ||
-            perm.submission_set === submissionSet) &&
-          // All the passed abilities must exist in the array of allowed
-          // abilities.
-          abilities.filter(ability => perm.abilities.includes(ability))
-            .length === abilities.length,
-      ),
-    );
-export const hasUserAbilitiesInPlace = ({
-  state,
-  submitter,
-  isSubmitterEditingSupported = false,
-}) =>
-  // Users are assumed to have all abilities on their own places, except for
-  // the ability to edit tags.
-  isSubmitterEditingSupported &&
-  submitter &&
-  state.user.username === submitter.username &&
-  state.user.id === submitter.id;
-export const hasAdminAbilities = (state, datasetSlug) =>
+export const datasetsWithCreatePlacesAbilitySelector = createSelector(
+  [datasetsSelector, userSelector],
+  (datasets, { groups }) =>
+    datasets.filter(({ url: targetDatasetUrl, anonymousPermissions }) =>
+      testAllPermissionsForDataset({
+        targetDatasetUrl,
+        anonymousPermissions,
+        groups,
+        submissionSet: "places",
+        abilities: ["create"],
+      }),
+    ),
+);
+
+export const datasetsWithUpdatePlacesAbilitySelector = createSelector(
+  [datasetsSelector, userSelector],
+  (datasets, { groups }) =>
+    datasets.filter(({ url: targetDatasetUrl, anonymousPermissions }) =>
+      testAllPermissionsForDataset({
+        targetDatasetUrl,
+        anonymousPermissions,
+        groups,
+        submissionSet: "places",
+        abilities: ["update"],
+      }),
+    ),
+);
+
+export const datasetsWithAccessProtectedPlacesAbilitySelector = createSelector(
+  [datasetsSelector, userSelector],
+  (datasets, { groups }) =>
+    datasets.filter(({ url: targetDatasetUrl, anonymousPermissions }) =>
+      testAllPermissionsForDataset({
+        targetDatasetUrl,
+        anonymousPermissions,
+        groups,
+        submissionSet: "places",
+        abilities: ["can_access_protected"],
+      }),
+    ),
+);
+
+export const datasetsWithEditTagsAbilitySelector = createSelector(
+  [datasetsSelector, userSelector],
+  (datasets, { groups }) =>
+    datasets.filter(({ url: targetDatasetUrl, anonymousPermissions }) =>
+      testAllPermissionsForDataset({
+        targetDatasetUrl,
+        anonymousPermissions,
+        groups,
+        submissionSet: "tags",
+        abilities: ["update", "destroy", "create"],
+      }),
+    ),
+);
+
+export const hasAdminAbilitiesSelector = (state, dataset) =>
   state.user.groups.some(
-    group =>
-      group.dataset_slug === datasetSlug && group.name === "administrators",
+    group => group.dataset === dataset && group.name === "administrators",
   );
-export const isInAtLeastOneGroup = (state, groupNames, datasetSlug) =>
-  state.user.groups
-    .filter(group => group.dataset_slug === datasetSlug)
-    .map(group => group.name)
-    .some(groupName => groupNames.includes(groupName));
 
 // Actions:
 const LOAD = "user/LOAD";
 
 // Action creators:
-export function loadUser(user) {
-  return { type: LOAD, payload: user };
+export function loadUser(user, datasets) {
+  return {
+    type: LOAD,
+    payload: user,
+  };
 }
 
 // Reducers:
