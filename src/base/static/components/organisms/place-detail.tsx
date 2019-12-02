@@ -19,17 +19,15 @@ import {
   FormModule,
 } from "../../state/ducks/forms";
 import { Place, placeSelector } from "../../state/ducks/places";
-
+import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import SubmittedFieldDetail from "../organisms/submitted-field-detail";
-//import FieldSummary from "./field-summary";
 
 // Flavor custom code
-//import SnohomishFieldSummary from "./snohomish-field-summary";
-//import PalouseFieldSummary from "./palouse-field-summary";
-//import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
-//import KittitasFireReadyFieldSummary from "./kittitas-fire-ready-field-summary";
+import SnohomishFieldDetail from "./flavor-submitted-field-detail/snohomish";
+import VSPFieldDetail from "./flavor-submitted-field-detail/vsp";
+import PBDurhamProjectProposalFieldDetail from "./flavor-submitted-field-detail/pbdurham-project-proposal";
+import KittitasFireReadyAdaptedDetail from "./flavor-submitted-field-detail/kittitas-fire-adapted";
 
-import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import {
   CommentFormConfig,
   commentFormConfigSelector,
@@ -122,6 +120,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   );
   const user = useSelector(userSelector);
   const place = useSelector(state => placeSelector(state, placeId));
+  const { FieldDetail } = useSelector(customComponentsConfigSelector);
   const layerGroups = useSelector(layerGroupsSelector);
   const isTagBarEditable = useSelector(
     datasetsWithEditTagsAbilitySelector,
@@ -243,62 +242,46 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   }, [place, mapContainerRef, layout, dispatch, layerGroups.allIds]);
 
   // TODO: dissolve when flavor abstraction is ready
-  const submittedFieldDetail = (
-    <SubmittedFieldDetail place={place} formModules={detailViewFormModules} />
-  );
-
-  //if (
-  //  this.props.customComponents.FieldSummary === "SnohomishFieldSummary" &&
-  //  this.props.place.location_type === "conservation-actions"
-  //) {
-  //  fieldSummary = (
-  //    <SnohomishFieldSummary
-  //      fields={categoryConfig.fields}
-  //      place={this.props.place}
-  //    />
-  //  );
-  //} else if (
-  //  this.props.customComponents.FieldSummary ===
-  //  "KittitasFireReadyFieldSummary"
-  //) {
-  //  fieldSummary = (
-  //    <KittitasFireReadyFieldSummary
-  //      fields={categoryConfig.fields}
-  //      place={this.props.place}
-  //    />
-  //  );
-  //} else if (
-  //  this.props.customComponents.FieldSummary === "PalouseFieldSummary" &&
-  //  this.props.place.location_type === "reports"
-  //) {
-  //  fieldSummary = (
-  //    <PalouseFieldSummary
-  //      fields={categoryConfig.fields}
-  //      place={this.props.place}
-  //    />
-  //  );
-  //} else if (
-  //  this.props.customComponents.FieldSummary ===
-  //    "PBDurhamProjectProposalFieldSummary" &&
-  //  ["projects", "cycle1-projects"].includes(
-  //    this.props.place.location_type,
-  //  )
-  //) {
-  //  fieldSummary = (
-  //    <PBDurhamProjectProposalFieldSummary
-  //      fields={categoryConfig.fields}
-  //      place={this.props.place}
-  //    />
-  //  );
-  //} else {
-  //  fieldSummary = (
-  //    <SubmittedFieldDetail
-  //      place={this.props.place}
-  //      formModules={this.props.detailViewFormModules}
-  //    />
-  //  );
-  //}
-  //const place = this.props.placeSelector(this.props.placeId);
+  let SubmittedFieldDetailComponent;
+  if (
+    FieldDetail === "SnohomishFieldDetail" &&
+    place.location_type === "conservation-actions"
+  ) {
+    SubmittedFieldDetailComponent = (
+      <SnohomishFieldDetail
+        place={place}
+        formModules={detailViewFormModules}
+      />
+    );
+  } else if (FieldDetail === "KittitasFireReadyFieldDetail") {
+    SubmittedFieldDetailComponent = (
+      <KittitasFireReadyFieldDetail
+        place={place}
+        formModules={detailViewFormModules}
+      />
+    );
+  } else if (
+    FieldDetail === "VSPFieldDetail" &&
+    place.location_type === "reports"
+  ) {
+    SubmittedFieldDetailComponent = (
+      <VSPFieldDetail place={place} formModules={detailViewFormModules} />
+    );
+  } else if (
+    FieldDetail === "PBDurhamProjectProposalFieldDetail" &&
+    ["projects", "cycle1-projects"].includes(place.location_type)
+  ) {
+    SubmittedFieldDetailComponent = (
+      <PBDurhamProjectProposalFieldDetail
+        place={place}
+        formModules={detailViewFormModules}
+      />
+    );
+  } else {
+    SubmittedFieldDetailComponent = (
+      <SubmittedFieldDetail place={place} formModules={detailViewFormModules} />
+    );
+  }
 
   return (
     <div
@@ -374,7 +357,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
           contentPanelInnerContainerRef={contentPanelInnerContainerRef}
         />
       ) : (
-        submittedFieldDetail
+        SubmittedFieldDetailComponent
       )}
       {/* <Survey
           placeUrl={this.props.focusedPlace.url}

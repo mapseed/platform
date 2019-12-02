@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import fieldResponseFilter from "../../utils/field-response-filter";
-import { Header1, Header4, Paragraph } from "../atoms/typography";
-import CoverImage from "../molecules/cover-image";
+//import fieldResponseFilter from "../../../utils/field-response-filter";
+import { Header1, Header4, Paragraph } from "../../atoms/typography";
+import CoverImage from "../../molecules/cover-image";
 
-import { placePropType } from "../../state/ducks/places";
+import { placePropType } from "../../../state/ducks/places";
 
-import constants from "../../constants";
+import constants from "../../../constants";
 
 const filterStage = (fieldConfigs, stageName) => {
   return fieldConfigs
@@ -20,11 +20,12 @@ const filterStage = (fieldConfigs, stageName) => {
 };
 
 const SnohomishFieldSummary = props => {
-  const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
-    fieldConfig =>
-      fieldConfig.type === constants.BIG_TOGGLE_FIELD_TYPENAME &&
-      props.place[fieldConfig.name] === "yes",
-  );
+  //const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
+  //  fieldConfig =>
+  //    fieldConfig.type === constants.BIG_TOGGLE_FIELD_TYPENAME &&
+  //    props.place[fieldConfig.name] === "yes",
+  //);
+  const fieldConfigs = [];
   const stages = {
     farm: filterStage(fieldConfigs, "farm"),
     forest: filterStage(fieldConfigs, "forest"),

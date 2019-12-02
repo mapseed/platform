@@ -9,14 +9,13 @@ import {
   SmallText,
   RegularText,
   LargeText,
-} from "../atoms/typography";
-import { InternalLink } from "../atoms/typography";
-import { HorizontalRule } from "../atoms/layout";
-import CoverImage from "../molecules/cover-image";
-import TextArea from "../molecules/place-detail-fields/textarea";
-import { placeSelector } from "../../state/ducks/places";
+} from "../../atoms/typography";
+import { InternalLink } from "../../atoms/typography";
+import { HorizontalRule } from "../../atoms/layout";
+import CoverImage from "../../molecules/cover-image";
+import { placeSelector } from "../../../state/ducks/places";
 
-import { placePropType } from "../../state/ducks/places";
+import { placePropType } from "../../../state/ducks/places";
 
 const lowScoreMsgKeys = {
   feasibility: "notFeasibleMsg",
@@ -160,6 +159,9 @@ const UnpublishedWarning = styled("div")({
   borderRadius: "8px",
   padding: "8px",
 });
+
+// TODO
+const TextArea = () => null;
 
 const PBDurhamProjectProposalFieldSummary = props => {
   const equityScore = parseFloat(props.place["delegate_equity_score"]) || 0;

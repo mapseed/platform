@@ -4015,6 +4015,6 @@
     }
   ],
   "custom_components": {
-    "FieldSummary": "PalouseFieldSummary"
+    "FieldDetail": "VSPFieldDetail"
   }
 }

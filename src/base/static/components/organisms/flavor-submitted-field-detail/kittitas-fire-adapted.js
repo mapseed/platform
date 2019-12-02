@@ -3,16 +3,17 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 
-import fieldResponseFilter from "../../utils/field-response-filter";
-import { LargeText, RegularText } from "../atoms/typography";
-import CoverImage from "../molecules/cover-image";
+//import fieldResponseFilter from "../../../utils/field-response-filter";
+import { LargeText, RegularText } from "../../atoms/typography";
+import CoverImage from "../../molecules/cover-image";
 
-import { placePropType } from "../../state/ducks/places";
+import { placePropType } from "../../../state/ducks/places";
 
 const KittitasFireReadyFieldSummary = props => {
-  const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
-    fieldConfig => props.place[fieldConfig.name] === "yes",
-  );
+  //const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
+  //  fieldConfig => props.place[fieldConfig.name] === "yes",
+  //);
+  const fieldConfigs = [];
   const totalActions = fieldConfigs.length;
 
   return (
