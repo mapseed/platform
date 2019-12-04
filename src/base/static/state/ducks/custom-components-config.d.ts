@@ -1,6 +1,6 @@
 export type CustomComponentsConfig = {
   InputForm?: string;
-  FieldSummary?: string;
+  FieldDetail?: string;
 };
 // Selectors:
 export const customComponentsConfigSelector: (

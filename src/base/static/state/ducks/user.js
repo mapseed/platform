@@ -113,7 +113,8 @@ export const datasetsWithEditTagsAbilitySelector = createSelector(
 
 export const hasAdminAbilitiesSelector = (state, dataset) =>
   state.user.groups.some(
-    group => group.dataset === dataset && group.name === "administrators",
+    ({ dataset: groupDataset, name }) =>
+      groupDataset === dataset && name === "administrators",
   );
 
 // Actions:

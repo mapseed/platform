@@ -3,7 +3,7 @@ import * as React from "react";
 import { jsx } from "@emotion/core";
 import { CloseButton } from "../atoms/buttons";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 
 import CustomPage from "./custom-page";
 import MultiDatasetMenu from "./multi-dataset-menu";
@@ -14,31 +14,25 @@ import { layoutSelector, Layout } from "../../state/ducks/ui";
 import { LoadingBar } from "../atoms/imagery";
 import { datasetsWithCreatePlacesAbilitySelector } from "../../state/ducks/user";
 
-type OwnProps = {
-  placeId: string;
-  url: string;
+type ContentPanelProps = {
   currentLanguageCode: string;
   defaultLanguageCode: string;
   mapContainerRef: React.RefObject<HTMLElement>;
 };
 
-type ContentPanelProps = {
-  layout: Layout;
-  pageSlug: string;
-} & OwnProps;
-
 const getContentPanelComponent = ({
-  url,
+  pathname,
   placeId,
+  formId,
   pageSlug,
-  datasetsWithCreatePlacesAbility,
+  numDatasetsWithCreatePlacesAbility,
 }) => {
   if (pageSlug) {
     return "CustomPage";
-  } else if (url === "/new" && datasetsWithCreatePlacesAbility.length > 1) {
+  } else if (pathname === "/new" && numDatasetsWithCreatePlacesAbility > 1) {
     return "MultiDatasetMenu";
-  } else if (url === "/new" && datasetsWithCreatePlacesAbility.length === 1) {
-    return "InputForm";
+  } else if (formId) {
+    return "NewPlaceForm";
   } else if (placeId) {
     return "PlaceDetail";
   } else {
@@ -48,26 +42,24 @@ const getContentPanelComponent = ({
 
 const ContentPanel = ({
   mapContainerRef,
-  placeId,
-  //responseId,
-  url,
-  pageSlug,
   currentLanguageCode,
-  // formId,
   defaultLanguageCode,
 }: ContentPanelProps) => {
   const contentPanelOuterContainerRef: React.RefObject<HTMLElement> = React.createRef();
   const contentPanelInnerContainerRef: React.RefObject<HTMLDivElement> = React.createRef();
   const history = useHistory();
   const layout = useSelector(layoutSelector);
+  const { placeId, pageSlug, formId, responseId } = useParams();
+  const { pathname } = useLocation();
   const datasetsWithCreatePlacesAbility = useSelector(
     datasetsWithCreatePlacesAbilitySelector,
   );
   const component = getContentPanelComponent({
-    url,
+    pathname,
     placeId,
     pageSlug,
-    datasetsWithCreatePlacesAbility,
+    formId,
+    numDatasetsWithCreatePlacesAbility: datasetsWithCreatePlacesAbility.length,
   });
 
   return (
@@ -140,15 +132,15 @@ const ContentPanel = ({
             <PlaceDetail
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
               mapContainerRef={mapContainerRef}
-              isGeocodingBarEnabled={false}
-              placeId={placeId}
+              placeId={placeId!}
             />
           </React.Suspense>
         )}
         {component === "MultiDatasetMenu" && <MultiDatasetMenu />}
-        {component === "InputForm" && (
+        {component === "NewPlaceForm" && (
           <React.Suspense fallback={<LoadingBar />}>
             <NewPlaceForm
+              formId={formId}
               contentPanelInnerContainerRef={contentPanelInnerContainerRef}
             />
           </React.Suspense>

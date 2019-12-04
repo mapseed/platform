@@ -1,16 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// Selectors:
-export const placeConfigSelector: any;
-
 export const placeConfigPropType: any;
 export type PlaceConfig = {
   anonymous_name: string;
   action_text: string;
-  place_detail: {
-    category: string;
-    label: string;
-    icon_url?: string;
-  }[];
+  label: string;
   list: {
     fields: {
       name: string;
@@ -36,6 +29,9 @@ export type PlaceConfig = {
     }[];
   }[];
 };
+
+// Selectors:
+export const placeConfigSelector: (state: any) => PlaceConfig;
 
 // Action creators:
 export const loadPlaceConfig: any;

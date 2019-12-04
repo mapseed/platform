@@ -35,9 +35,6 @@ export function resetUi() {
 export function updateCurrentTemplate(templateName) {
   return { type: UPDATE_CURRENT_TEMPLATE, payload: templateName };
 }
-export function updateEditModeToggled(isToggled) {
-  return { type: UPDATE_EDIT_MODE_TOGGLED, payload: isToggled };
-}
 // TODO: Replace this general visibility updater with UI-specific action
 // creators.
 export function updateUIVisibility(uiComponentName, isVisible) {
@@ -87,10 +84,8 @@ const INITIAL_STATE = {
     rightSidebar: false,
     measurementTool: false,
   },
-  contentPanelComponent: null,
   leftSidebarComponent: null,
   currentTemplate: "map",
-  isEditModeToggled: false,
   // Currently either "desktop" or "mobile"
   layout: getLayout(),
 };
@@ -127,11 +122,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         currentTemplate: action.payload,
-      };
-    case UPDATE_EDIT_MODE_TOGGLED:
-      return {
-        ...state,
-        isEditModeToggled: action.payload,
       };
     case RESET_UI:
       return {

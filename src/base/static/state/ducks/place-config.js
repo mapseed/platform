@@ -1,19 +1,11 @@
 import PropTypes from "prop-types";
 
 // Selectors:
-export const placeConfigSelector = state => {
-  return state.placeConfig;
-};
+export const placeConfigSelector = ({ placeConfig }) => placeConfig;
 
 export const placeConfigPropType = PropTypes.shape({
   anonymous_name: PropTypes.string.isRequired,
   action_text: PropTypes.string.isRequired,
-  place_detail: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    }),
-  ),
   list: PropTypes.shape({
     fields: PropTypes.arrayOf(
       PropTypes.shape({
@@ -54,28 +46,7 @@ export const placeConfigPropType = PropTypes.shape({
 const LOAD = "place-config/LOAD";
 
 // Action creators:
-export function loadPlaceConfig(config, user) {
-  config.place_detail = config.place_detail.map(category => {
-    category.fields = category.fields.map(field => {
-      if (!field.restrict_to_groups) {
-        // If a form field is not restricted to any groups, assume it should be
-        // visible to all users.
-        field.isVisible = true;
-      } else {
-        // Otherwise, determine if the field should be shown for the current
-        // user. If the user groups array and the field admin_groups array share
-        // a common element, this field should be visible for the current user.
-        field.isVisible = user.groups
-          .filter(group => group.dataset_slug === category.datasetSlug)
-          .some(group => field.restrict_to_groups.includes(group.name));
-      }
-
-      return field;
-    });
-
-    return category;
-  });
-
+export function loadPlaceConfig(config) {
   return { type: LOAD, payload: config };
 }
 
@@ -84,7 +55,6 @@ export function loadPlaceConfig(config, user) {
 const INITIAL_STATE = {
   anonymous_name: "",
   action_text: "",
-  formCategoryHeaders: {},
 };
 
 export default function reducer(state = INITIAL_STATE, action) {

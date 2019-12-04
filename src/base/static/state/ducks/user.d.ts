@@ -1,3 +1,5 @@
+import { Dataset } from "./datasets";
+
 export type userPropType = any;
 export type UserGroup = {
   dataset: string;
@@ -22,16 +24,15 @@ export type User = {
 // Selectors:
 export const userSelector: (state: any) => User;
 
-export const datasetsWithCreatePlacesAbilitySelector: (any) => any;
+export const datasetsWithCreatePlacesAbilitySelector: (state: any) => Dataset[];
 
-export const datasetsWithAccessProtectedPlacesAbilitySelector: (any) => any;
+export const datasetsWithAccessProtectedPlacesAbilitySelector: (
+  state: any,
+) => Dataset[];
 
-export const hasGroupAbilitiesInDatasets: (options: {
-  state: any;
-  abilities: string[];
-  submissionSet: string;
-  datasets: string[];
-}) => boolean;
+export const datasetsWithEditTagsAbilitySelector: (state: any) => Dataset[];
+
+export const datasetsWithUpdatePlacesAbilitySelector: (state: any) => Dataset[];
 
 export const hasUserAbilitiesInPlace: (options: {
   state: any;
@@ -39,7 +40,10 @@ export const hasUserAbilitiesInPlace: (options: {
   isSubmitterEditingSupported: boolean;
 }) => boolean;
 
-export const hasAdminAbilities: (state: any, datasetSlug: string) => boolean;
+export const hasAdminAbilitiesSelector: (
+  state: any,
+  datasetSlug: string,
+) => boolean;
 
 // Action creators:
 export const loadUser: any;

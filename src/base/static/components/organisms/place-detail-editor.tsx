@@ -10,12 +10,13 @@ import PlaceForm from "./place-form";
 import { Mixpanel } from "../../utils/mixpanel";
 import {
   placeFormSelector,
+  placeFormIdSelector,
   PlaceForm as MapseedPlaceForm,
   formFieldsSelector,
 } from "../../state/ducks/forms";
 import {
-  hasGroupAbilitiesInDatasets,
-  hasAdminAbilities as hasAdminAbilitiesInDataset,
+  datasetsWithAccessProtectedPlacesAbilitySelector,
+  hasAdminAbilitiesSelector,
 } from "../../state/ducks/user";
 import mapseedApiClient from "../../client/mapseed-api-client";
 import {
@@ -58,10 +59,15 @@ const PlaceDetailEditor = ({
   const [isTriggeringSubmit, setIsTriggeringSubmit] = React.useState<boolean>(
     false,
   );
+  const formId = useSelector(state =>
+    placeFormIdSelector(state, place.dataset),
+  );
   const [isFormDirty, setIsFormDirty] = React.useState<boolean>(false);
-  const placeForm: MapseedPlaceForm = useSelector(placeFormSelector);
+  const placeForm: MapseedPlaceForm = useSelector(state =>
+    placeFormSelector(state, formId),
+  );
   const hasAdminAbilities = useSelector(state =>
-    hasAdminAbilitiesInDataset(state, place.dataset.split("/").pop() as string),
+    hasAdminAbilitiesSelector(state, place.dataset),
   );
   const formFields = useSelector(formFieldsSelector);
   const initialValues = getInitialValues(formFields, place);
@@ -71,14 +77,6 @@ const PlaceDetailEditor = ({
     // Prevent BaseForm from performing a drag map validation check:
     dispatch(updateMapInteractionState({ isMapDraggedOrZoomedByUser: true }));
   }, [dispatch]);
-  const includePrivate = useSelector(state =>
-    hasGroupAbilitiesInDatasets({
-      state,
-      abilities: ["can_access_protected"],
-      datasets: [placeForm.dataset],
-      submissionSet: "places",
-    }),
-  );
 
   const onSubmit = React.useCallback(
     async ({ data, attachments }) => {
@@ -86,6 +84,11 @@ const PlaceDetailEditor = ({
       Mixpanel.track("Updating Place", {
         placeUrl,
       });
+      const includePrivate =
+        placeForm &&
+        !!useSelector(datasetsWithAccessProtectedPlacesAbilitySelector).find(
+          ({ url }) => url === placeForm.dataset,
+        );
 
       // TODO
       // Replace image data in rich text fields with placeholders built from each
@@ -160,7 +163,7 @@ const PlaceDetailEditor = ({
         alert("Oh dear. It looks like that didn't save. Please try again.");
       }
     },
-    [dispatch, hasAdminAbilities, place, includePrivate],
+    [dispatch, hasAdminAbilities, place],
   );
 
   const onClickUpdatePlace = React.useCallback(() => {

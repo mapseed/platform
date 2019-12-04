@@ -98,7 +98,6 @@ const dispatchPropTypes = {
   loadPlaces: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
-  loadDatasetsConfig: PropTypes.func.isRequired,
   loadMapConfig: typeof loadMapConfig,
   loadPlaceConfig: PropTypes.func.isRequired,
   loadLeftSidebarConfig: PropTypes.func.isRequired,
@@ -176,6 +175,18 @@ class App extends React.Component<Props, State> {
       Util.cookies.save("sa-api-sessionid", sessionJSON.sessionid);
     }
 
+    // Fetch and load flavor information.
+    const flavor = await mapseedApiClient.flavor.get(
+      config.app.api_root,
+      config.app.flavorSlug,
+    );
+
+    if (flavor) {
+      this.props.loadForms(flavor);
+    } else {
+      Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
+    }
+
     // Fetch and load datasets (combining config info with info returned from
     // the `/datasets` endpoint.
     const datasets = await mapseedApiClient.datasets.get(
@@ -219,7 +230,7 @@ class App extends React.Component<Props, State> {
     // Load all other ducks.
     this.props.loadAppConfig(config.app);
     this.props.loadMapConfig(config.map);
-    this.props.loadPlaceConfig(config.place, user);
+    this.props.loadPlaceConfig(config.place);
     this.props.loadLeftSidebarConfig(config.leftSidebar);
     this.props.loadRightSidebarConfig(config.right_sidebar);
     if (config.featuredPlaces) {
@@ -345,18 +356,6 @@ class App extends React.Component<Props, State> {
       recordGoogleAnalyticsHit(location.pathname);
     });
 
-    // Fetch and load flavor information.
-    const flavor = await mapseedApiClient.flavor.get(
-      config.app.api_root,
-      config.app.flavorSlug,
-    );
-
-    if (flavor) {
-      this.props.loadForms(flavor);
-    } else {
-      Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
-    }
-
     // Fetch and load Places.
     this.props.updatePlacesLoadStatus("loading");
     const allPlacePagePromises: Promise<any>[] = [];
@@ -372,8 +371,8 @@ class App extends React.Component<Props, State> {
             include_submissions: true,
             include_tags: true,
           },
-          includePrivate: this.props.datasetsWithAccessProtectedPlacesAbility.includes(
-            datasetUrl,
+          includePrivate: !!this.props.datasetsWithAccessProtectedPlacesAbility.find(
+            ({ url }) => url === datasetUrl,
           ),
         });
 

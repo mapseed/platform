@@ -32,8 +32,6 @@ import {
   uiVisibilitySelector,
   updateUIVisibility,
   updateActivePage,
-  updateContentPanelComponent,
-  updateEditModeToggled,
   updateCurrentTemplate,
 } from "../../state/ducks/ui";
 import {
@@ -55,10 +53,8 @@ import {
   mapSourcesSelector,
   mapSourcesPropType,
 } from "../../state/ducks/map-style";
-import {
-  updateScrollToResponseId,
-  loadPlaceAndSetIgnoreFlag,
-} from "../../state/ducks/places";
+import { loadPlaceAndSetIgnoreFlag } from "../../state/ducks/places";
+import { placeFormIdSelector } from "../../state/ducks/forms";
 
 const SpotlightMask = styled("div")({
   pointerEvents: "none",
@@ -78,10 +74,6 @@ const dispatchPropTypes = {
   loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   updateActivePage: PropTypes.func.isRequired,
-  updateContentPanelComponent: PropTypes.func.isRequired,
-  updateFocusedPlaceId: PropTypes.func.isRequired,
-  updateEditModeToggled: PropTypes.func.isRequired,
-  updateScrollToResponseId: PropTypes.func.isRequired,
   updateCurrentTemplate: PropTypes.func.isRequired,
   updateMapViewport: PropTypes.func.isRequired,
 };
@@ -100,6 +92,7 @@ type StateProps = {
   mapConfig: PropTypes.InferProps<typeof mapConfigPropType>;
   navBarConfig: NavBarConfig;
   placeConfig: PropTypes.InferProps<typeof placeConfigPropType.isRequired>;
+  placeFormIdSelector: (datasetUrl: string) => string | undefined;
   user: User;
 };
 
@@ -199,8 +192,8 @@ class MapTemplate extends React.Component<Props, State> {
           include_submissions: true,
           include_tags: true,
         },
-        includePrivate: this.props.datasetsWithAccessProtectedPlacesAbility.includes(
-          dataset.url,
+        includePrivate: !!this.props.datasetsWithAccessProtectedPlacesAbility.find(
+          ({ url }) => url === dataset.url,
         ),
       });
 
@@ -216,13 +209,27 @@ class MapTemplate extends React.Component<Props, State> {
           },
         ]);
 
-        this.props.updateEditModeToggled(false);
-        this.props.updateFocusedPlaceId(parseInt(placeId));
-        responseId && this.props.updateScrollToResponseId(parseInt(responseId));
+        //this.props.updateEditModeToggled(false);
+        //this.props.updateFocusedPlaceId(parseInt(placeId));
+        //responseId && this.props.updateScrollToResponseId(parseInt(responseId));
       } else {
         // The Place doesn't exist, so route back to the map.
         this.props.history.push("/");
       }
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.match.url !== "/new" &&
+      this.props.match.url === "/new" &&
+      this.props.datasetsWithCreatePlacesAbility.length === 1
+    ) {
+      this.props.history.push(
+        `/new/${this.props.placeFormIdSelector(
+          this.props.datasetsWithCreatePlacesAbility[0].url,
+        )}`,
+      );
     }
   }
 
@@ -282,10 +289,6 @@ class MapTemplate extends React.Component<Props, State> {
             currentLanguageCode={this.props.currentLanguageCode}
             defaultLanguageCode={this.props.defaultLanguageCode}
             mapContainerRef={this.mapContainerRef}
-            placeId={placeId}
-            responseId={responseId}
-            url={url}
-            pageSlug={pageSlug}
           />
         )}
         {isAddPlaceButtonVisible && (
@@ -327,6 +330,7 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   navBarConfig: navBarConfigSelector(state),
   placeConfig: placeConfigSelector(state),
   user: userSelector(state),
+  placeFormIdSelector: datasetUrl => placeFormIdSelector(state, datasetUrl),
 });
 
 const mapDispatchToProps = {
@@ -334,7 +338,6 @@ const mapDispatchToProps = {
   loadPlaceAndSetIgnoreFlag,
   updateUIVisibility,
   updateActivePage,
-  updateEditModeToggled,
   updateCurrentTemplate,
   updateMapViewport,
 };

@@ -21,7 +21,7 @@ import {
   formFieldsConfigSelector,
   FormFieldsConfig,
 } from "../../state/ducks/forms-config";
-import { hasAdminAbilities } from "../../state/ducks/user";
+import { hasAdminAbilitiesSelector } from "../../state/ducks/user";
 import { RegularTitle, SmallText, ExternalLink } from "../atoms/typography";
 import { FontAwesomeIcon } from "../atoms/imagery";
 import ChartWrapper from "../organisms/dashboard/chart-wrapper";
@@ -89,10 +89,11 @@ class Dashboard extends React.Component<Props, State> {
 
   render() {
     const dataset =
-      this.state.dashboard &&
-      this.props.datasets.find(
-        ({ slug }) => slug === this.state.dashboard.datasetSlug,
-      ) || "";
+      (this.state.dashboard &&
+        this.props.datasets.find(
+          ({ slug }) => slug === this.state.dashboard.datasetSlug,
+        )) ||
+      "";
 
     return this.state.dashboard ? (
       <div
@@ -196,7 +197,7 @@ class Dashboard extends React.Component<Props, State> {
                     css={css`
                       display: flex;
                     `}
-                    href={`${this.props.apiRoot}smartercleanup/datasets/${dataset.slug}/mapseed-places.csv?format=csv&include_submissions&include_private_places&include_private_fields&page_size=10000`}
+                    href={`${this.props.apiRoot}smartercleanup/datasets/${this.state.dashboard.datasetSlug}/mapseed-places.csv?format=csv&include_submissions&include_private_places&include_private_fields&page_size=10000`}
                   >
                     <SmallText
                       weight="black"
@@ -250,7 +251,8 @@ type MapseedReduxState = any;
 
 const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   appConfig: appConfigSelector(state),
-  hasAdminAbilities: datasetSlug => hasAdminAbilities(state, datasetSlug),
+  hasAdminAbilities: datasetSlug =>
+    hasAdminAbilitiesSelector(state, datasetSlug),
   datasetPlacesSelector: datasetSlug =>
     datasetPlacesSelector(datasetSlug, state),
   dashboardConfig: dashboardConfigSelector(state),

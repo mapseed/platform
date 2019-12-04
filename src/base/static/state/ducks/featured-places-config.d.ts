@@ -26,7 +26,7 @@ export type FeaturedPlacesConfig = {
 // Selectors:
 export const featuredPlacesConfigSelector: any;
 
-export const featuredPlacesSelector: any;
+export const featuredPlacesSelector: (state: any) => FeaturedPlace[];
 
 // Action creators:
 export const loadFeaturedPlacesConfig: any;

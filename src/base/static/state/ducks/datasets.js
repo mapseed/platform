@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+import { formsSelector } from "./forms";
+
 // Prop Types:
 export const tagPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
@@ -37,7 +39,7 @@ export const datasetsPropType = PropTypes.arrayOf(
 // Selectors:
 export const datasetsSelector = state => state.datasets;
 
-export const datasetPlaceConfirmationModalSelector = (state, datsetUrl) =>
+export const datasetPlaceConfirmationModalSelector = (state, datasetUrl) =>
   state.datasets.find(({ url }) => url === datasetUrl);
 
 export const datasetUrlSelector = (state, dataset) => {

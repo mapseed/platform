@@ -26,7 +26,7 @@ import SubmittedFieldDetail from "../organisms/submitted-field-detail";
 import SnohomishFieldDetail from "./flavor-submitted-field-detail/snohomish";
 import VSPFieldDetail from "./flavor-submitted-field-detail/vsp";
 import PBDurhamProjectProposalFieldDetail from "./flavor-submitted-field-detail/pbdurham-project-proposal";
-import KittitasFireReadyAdaptedDetail from "./flavor-submitted-field-detail/kittitas-fire-adapted";
+import KittitasFireAdaptedFieldDetail from "./flavor-submitted-field-detail/kittitas-fire-adapted";
 
 import {
   CommentFormConfig,
@@ -36,10 +36,7 @@ import {
   supportConfigSelector,
   SupportConfig,
 } from "../../state/ducks/support-config";
-import {
-  placeConfigSelector,
-  PlaceConfig,
-} from "../../state/ducks/place-config";
+import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
   featuredPlacesSelector,
   FeaturedPlace,
@@ -55,7 +52,6 @@ import {
   layoutSelector,
   updateSpotlightMaskVisibility,
   rightSidebarVisibilitySelector,
-  Layout,
 } from "../../state/ducks/ui";
 import {
   removeFocusedGeoJSONFeatures,
@@ -108,7 +104,6 @@ const getWebMercatorViewport = node => {
 const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   placeId,
   mapContainerRef,
-  isGeocodingBarEnabled,
   contentPanelInnerContainerRef,
 }) => {
   const detailViewFormModules = useSelector(placeDetailViewModulesSelector);
@@ -130,7 +125,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   );
   const appConfig = useSelector(appConfigSelector);
   const dispatch = useDispatch();
-  const layout: Layout = useSelector(layoutSelector);
+  const layout = useSelector(layoutSelector);
   const placeConfig = useSelector(placeConfigSelector);
   const isPlaceDetailEditable =
     datasetsWithUpdatePlacesAbility.includes(place.dataset) ||
@@ -143,11 +138,6 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   const featuredPlaces = useSelector(featuredPlacesSelector);
   const supports = place.submission_sets.support;
   const comments = place.submission_sets.comments;
-  //const categoryConfig = getCategoryConfig(
-  //  this.props.placeConfig,
-  //  place.location_type,
-  //);
-  const categoryConfig = {};
   const submitterName = place.submitter
     ? place.submitter.name
     : place.submitter_name || placeConfig.anonymous_name;
@@ -167,7 +157,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
           // layers.
           updateLayerGroupVisibility(
             layerGroupId,
-            featuredPlace.visibleLayerGroupIds.includes(layerGroupId),
+            featuredPlace.visibleLayerGroupIds!.includes(layerGroupId),
           ),
         ),
       );
@@ -248,14 +238,11 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
     place.location_type === "conservation-actions"
   ) {
     SubmittedFieldDetailComponent = (
-      <SnohomishFieldDetail
-        place={place}
-        formModules={detailViewFormModules}
-      />
+      <SnohomishFieldDetail place={place} formModules={detailViewFormModules} />
     );
-  } else if (FieldDetail === "KittitasFireReadyFieldDetail") {
+  } else if (FieldDetail === "KittitasFireAdaptedFieldDetail") {
     SubmittedFieldDetailComponent = (
-      <KittitasFireReadyFieldDetail
+      <KittitasFireAdaptedFieldDetail
         place={place}
         formModules={detailViewFormModules}
       />
@@ -298,7 +285,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
           isEditModeToggled={isEditModeToggled}
           isPlaceDetailEditable={isPlaceDetailEditable}
           isTagBarEditable={isTagBarEditable}
-          isGeocodingBarEnabled={isGeocodingBarEnabled}
+          isGeocodingBarEnabled={false}
           onToggleEditMode={() => {
             setIsEditModeToggled(!isEditModeToggled);
           }}
@@ -321,7 +308,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
       </LargeTitle>
       <PromotionMetadataContainer>
         <MetadataBar
-          label={categoryConfig.label}
+          label={placeConfig.label}
           createdDatetime={place.created_datetime}
           submitterName={submitterName}
           submitterAvatarUrl={

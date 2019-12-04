@@ -14,8 +14,6 @@ type EditorBarProps = {
   isTagBarEditable: boolean;
   onToggleEditMode: Function;
   isEditModeToggled: boolean;
-  isRightSidebarVisible: boolean;
-  layout: string;
 };
 
 type Props = WithTranslation & EditorBarProps;
@@ -42,7 +40,8 @@ const EditorBar: React.FunctionComponent<Props> = props => {
           padding-top: 15px;
           border-bottom: 2px solid #ddd;
           width: calc(40% - 20px);
-          left: ${getLeftOffset(props.layout, props.isRightSidebarVisible)};
+          // TODO
+          left: 40%;
           top: ${constants.HEADER_HEIGHT}px;
         }
       `}

@@ -1,24 +1,4 @@
 // NOTE: These utility methods transform sections of the config for use by the app.
-
-// Transform the place_detail section of the config to resolve
-// common_form_element references.
-
-const transformCommonFormElements = (placeDetail, commonFormElements) => {
-  return placeDetail.map(category => {
-    category.fields = category.fields.map(field => {
-      if (field.type === "common_form_element") {
-        return Object.assign({}, commonFormElements[field.name], {
-          name: field.name,
-        });
-      } else {
-        return field;
-      }
-    });
-
-    return category;
-  });
-};
-
 const setConfigDefaults = config => {
   // set the default values for our config:
 
@@ -34,6 +14,5 @@ const setConfigDefaults = config => {
 };
 
 module.exports = {
-  transformCommonFormElements,
   setConfigDefaults,
 };

@@ -124,8 +124,11 @@ export type PlaceFormStage = {
 };
 
 export type PlaceForm = {
+  id: number;
   label: string;
   isEnabled: boolean;
+  engagementText?: string;
+  image?: string;
   dataset: string;
   stages: PlaceFormStage[];
 };
@@ -137,12 +140,9 @@ export type MapseedForm = PlaceForm;
 // Selectors:
 const formModulesSelector = state => state.forms.entities.modules;
 const formStagesSelector = state => state.forms.entities.stages;
-const placeFormIdSelector = state =>
-  // TODO: Eventually the comment form may be sent along with the Place form(s).
-  // For now, we assume that all `forms` are Place form(s).
-  state.forms.entities.flavor[state.forms.result].forms[0];
-const flattenedPlaceFormSelector = state =>
-  state.forms.entities.form[placeFormIdSelector(state)];
+const flattenedFormSelector = (state, formId) => {
+  return state.forms.entities.form[formId];
+};
 
 export const formFieldsSelector = createSelector(
   [formModulesSelector],
@@ -165,34 +165,41 @@ export const newPlaceFormInitialValuesSelector = createSelector(
   },
 );
 
+export const placeFormIdSelector = (state, datasetUrl) =>
+  state.forms.formIdsByDatasetUrl[datasetUrl];
+
 // TODO: Break this into a few separate selectors, maybe:
 //  - a "stage field" selector, which selects stage field configurations
 //  - a "group module" selector, which selects nested modules within groupmodules
+// TODO: Eventually the comment form may be sent along with the Place form(s).
+// For now, we assume that all `forms` are Place forms.
 export const placeFormSelector = createSelector(
-  [formStagesSelector, formModulesSelector, flattenedPlaceFormSelector],
+  [formStagesSelector, formModulesSelector, flattenedFormSelector],
   (formStages, formModules, placeForm) => {
-    return {
-      ...placeForm,
-      stages: placeForm.stages.map(stageId => {
-        const stage = formStages[stageId];
+    return placeForm
+      ? {
+          ...placeForm,
+          stages: placeForm.stages.map(stageId => {
+            const stage = formStages[stageId];
 
-        return {
-          ...stage,
-          modules: stage.modules.map(moduleId => {
-            const formModule = formModules[moduleId];
+            return {
+              ...stage,
+              modules: stage.modules.map(moduleId => {
+                const formModule = formModules[moduleId];
 
-            return formModule.type === "groupmodule"
-              ? {
-                  ...formModule,
-                  modules: formModule.modules.map(
-                    subFormModuleId => formModules[subFormModuleId],
-                  ),
-                }
-              : formModule;
+                return formModule.type === "groupmodule"
+                  ? {
+                      ...formModule,
+                      modules: formModule.modules.map(
+                        subFormModuleId => formModules[subFormModuleId],
+                      ),
+                    }
+                  : formModule;
+              }),
+            };
           }),
-        };
-      }),
-    };
+        }
+      : null;
   },
 );
 
@@ -273,10 +280,35 @@ const formModuleProcessStrategy = (rawFormModule): FormModule => {
 };
 
 // Action creators:
+interface NormalizedData<T> {
+  [uuid: string]: T;
+}
+
+type Entities = {
+  flavor: NormalizedData<Flavor>;
+  form: NormalizedData<MapseedForm>;
+  stages: NormalizedData<PlaceFormStage>;
+  modules: NormalizedData<FormModule>;
+};
+
+interface NormalizedState {
+  result: number | null;
+  entities: Entities;
+  formIdsByDatasetUrl: {
+    [datasetUrl: string]: number;
+  };
+}
+
 const formModuleSchema = new schema.Entity(
   "modules",
   {},
-  { processStrategy: formModuleProcessStrategy },
+  {
+    processStrategy: formModuleProcessStrategy,
+    idAttribute: ({ id }, { type }) =>
+      // `type` here is the parent entity's type. Module and group submodule
+      // `id`s may overlap, so we need to distinguish between them here.
+      type === "groupmodule" ? `groupmodule${id}` : id,
+  },
 );
 const formModulesSchema = new schema.Array(formModuleSchema);
 
@@ -294,9 +326,25 @@ const flavorSchema = new schema.Entity("flavor", {
 });
 
 export function loadForms(flavor) {
+  const normalizedState = camelcaseKeys(normalize(flavor, flavorSchema), {
+    deep: true,
+  });
+  const formIdsByDatasetUrl = Object.values(
+    (normalizedState.entities as Entities).form,
+  ).reduce(
+    (memo, { dataset, id }) => ({
+      ...memo,
+      [dataset]: id,
+    }),
+    {},
+  );
+
   return {
     type: LOAD,
-    payload: camelcaseKeys(normalize(flavor, flavorSchema), { deep: true }),
+    payload: {
+      ...normalizedState,
+      formIdsByDatasetUrl,
+    },
   };
 }
 
@@ -313,20 +361,6 @@ export function updateFormModuleVisibilities(
   };
 }
 
-interface NormalizedData<T> {
-  [uuid: string]: T;
-}
-
-interface NormalizedState {
-  result: number | null;
-  entities: {
-    flavor: NormalizedData<Flavor>;
-    form: NormalizedData<MapseedForm>;
-    stages: NormalizedData<PlaceFormStage>;
-    modules: NormalizedData<FormModule>;
-  };
-}
-
 // Reducers:
 const INITIAL_STATE = {
   result: null,
@@ -336,6 +370,7 @@ const INITIAL_STATE = {
     form: {},
     flavor: {},
   },
+  formIdsByDatasetUrl: {},
 } as NormalizedState;
 
 export default function reducer(state = INITIAL_STATE, action) {

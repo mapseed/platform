@@ -35,9 +35,10 @@ type InfoModal = {
 
 type NewPlaceFormProps = {
   contentPanelInnerContainerRef: React.RefObject<HTMLDivElement>;
+  formId?: string;
 };
 
-const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
+const NewPlaceForm = (props: NewPlaceFormProps) => {
   const mapViewport: MapViewport = useSelector(mapViewportSelector);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -51,27 +52,38 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
     body: [],
     routeOnClose: null,
   });
-  const placeForm: MapseedPlaceForm = useSelector(placeFormSelector);
-  const placeConfirmationModal = useSelector(state =>
-    datasetPlaceConfirmationModalSelector(state, placeForm.dataset),
+  const placeForm: MapseedPlaceForm = useSelector(state =>
+    placeFormSelector(state, props.formId),
   );
+
+  React.useEffect(() => {
+    if (!placeForm) {
+      history.push("/");
+    }
+
+    return;
+  }, [placeForm, history]);
+
+  const placeConfirmationModal =
+    placeForm &&
+    useSelector(state =>
+      datasetPlaceConfirmationModalSelector(state, placeForm.dataset),
+    );
   React.useEffect(() => {
     dispatch(updateUIVisibility("mapCenterpoint", true));
   }, [dispatch]);
-  const datasetsWithAccessProtectedPlacesAbility = useSelector(
-    datasetsWithAccessProtectedPlacesAbilitySelector,
-  );
-  const includePrivate = React.useMemo(
-    datasetsWithAccessProtectedPlacesAbility
-      .map(({ url }) => url)
-      .includes(placeForm.dataset),
-    [datasetsWithAccessProtectedPlacesAbility],
-  );
+
   const onSubmit = React.useCallback(
     async ({ data, attachments }) => {
       Util.log("USER", "new-place", "submit-place-btn-click");
       Mixpanel.track("Clicked place form submit");
       setIsSubmitting(true);
+
+      const includePrivate =
+        placeForm &&
+        !!useSelector(datasetsWithAccessProtectedPlacesAbilitySelector).find(
+          ({ url }) => url === placeForm.dataset,
+        );
 
       // Run geospatial analyses:
       //if (
@@ -228,14 +240,7 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
         );
       }
     },
-    [
-      includePrivate,
-      placeForm,
-      history,
-      mapViewport,
-      dispatch,
-      placeConfirmationModal,
-    ],
+    [placeForm, history, mapViewport, dispatch, placeConfirmationModal],
   );
 
   const handleChangeStage = React.useCallback(
@@ -258,6 +263,11 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
   );
 
   const { isOpen, header, body, routeOnClose } = infoModalState;
+
+  if (!placeForm) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <InfoModal
@@ -271,7 +281,7 @@ const NewPlaceForm = ({ contentPanelInnerContainerRef }: NewPlaceFormProps) => {
       />
       {isSubmitting && <LoadingBar />}
       <PlaceForm
-        contentPanelInnerContainerRef={contentPanelInnerContainerRef}
+        contentPanelInnerContainerRef={props.contentPanelInnerContainerRef}
         onSubmit={onSubmit}
         placeForm={placeForm}
         initialValues={initialValues}

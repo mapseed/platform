@@ -15,11 +15,5 @@ module.exports = function(config) {
     config.app.api_root = process.env.API_ROOT;
   }
 
-  // Resolve fields of type common_form_element.
-  config.place.place_detail = transformCommonFormElements(
-    config.place.place_detail,
-    config.place.common_form_elements,
-  );
-
   return config;
 };

@@ -2683,6 +2683,6 @@
     }
   ],
   "custom_components": {
-    "FieldSummary": "KittitasFireReadyFieldSummary"
+    "FieldDetail": "KittitasFireAdaptedFieldDetail"
   }
 }
