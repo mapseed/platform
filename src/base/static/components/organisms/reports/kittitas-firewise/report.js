@@ -75,7 +75,7 @@ const fireDistrictInfo = {
     phone: "509-649-3105",
   },
   "City of Cle Elum Volunteer Fire Department": {
-    website: "bit.ly/2lTvVGT",
+    website: "bit.ly/36qBtuJ",
     phone: "509-674-1748",
   },
   "Fire District #1 (Thorp)": {
@@ -92,7 +92,7 @@ const fireDistrictInfo = {
   },
   "Cle Elum Fire Department": {
     website: "bit.ly/2lLj1ei",
-    phone: "509-933-7235",
+    phone: "509-674-5371",
   },
 };
 
