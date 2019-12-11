@@ -20,7 +20,8 @@
   "app": {
     "title": "Count Us in KC",
     "name": "Count Us in KC",
-    "logo": "/static/css/images/logo-3.png",
+    "show_name_in_header": true,
+    "logo": "/static/css/images/count-us-in-graphic.png",
     "meta_description": "Record homeless camp sites in King County",
     "meta_author": "mapseed.org",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
@@ -35,23 +36,23 @@
         "light": "#217b87"
       },
       "text": {
-        "titleColor": "#fff",
+        "titleColor": "#75beb1",
         "titleFontFamily": "PTSansBold, sans-serif",
         "bodyFontFamily": "PTSans, sans-serif",
         "navBarFontFamily": "PTSans, sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#ea8a51",
-        "addPlaceButtonHoverBackgroundColor": "#0098ad"
+        "addPlaceButtonHoverBackgroundColor": "#efb491"
       }
     }
   },
   "dashboard": [
     {
-      "header": "Count Us in KC data export",
+      "header": "Count Us in KC",
       "isExportable": true,
       "backgroundColor": "#f5f3f0",
-      "datasetSlug": "count-us-in-kc-input",
+      "datasetSlug": "kc-homeless-count-input",
       "widgets": [
         {
           "header": "Overview",
@@ -147,20 +148,14 @@
         "visibleDefault": true,
         "mapboxFocusedLayers": [
           {
-            "id": "kc-homeless-sites",
+            "id": "kc-homeless-sites-focused",
             "type": "symbol",
             "source": "kc-homeless-count-input",
             "layout": {
               "icon-allow-overlap": true,
               "icon-size": 0.5,
               "icon-anchor": "bottom",
-              "icon-image": [
-                "match",
-                ["get", "location_type"],
-                "bike-share",
-                "bike-marker.png",
-                "__no-icon-image__"
-              ]
+              "icon-image": "homeless-camp-marker.png"
             }
           }
         ],
@@ -176,9 +171,9 @@
               "icon-image": [
                 "step",
                 ["zoom"],
-                "marker-dot-217b87.png",
+                "marker-dot-ea8a51.png",
                 12,
-                "bike-marker.png"
+                "homeless-camp-marker.png"
               ]
             }
           }
@@ -230,8 +225,8 @@
     "location_item_name": "location",
     "place_detail": [
       {
-        "category": "homeless-sites",
-        "formId": "homeless-sites",
+        "category": "homeless-site",
+        "formId": "homeless-site",
         "includeOnForm": true,
         "includeOnList": false,
         "name": "location_type",
@@ -249,9 +244,17 @@
             "optional": false
           },
           {
+            "name": "agency_name",
+            "type": "text",
+            "prompt": "Agency name",
+            "display_prompt": "Title:",
+            "placeholder": "Enter agency name...",
+            "optional": true
+          },
+          {
             "name": "description",
             "type": "textarea",
-            "prompt": "Why does this location need bikeshare parking?",
+            "prompt": "General description of this location:",
             "placeholder": "...",
             "optional": true
           },
@@ -265,7 +268,7 @@
           {
             "name": "submit",
             "type": "submit",
-            "label": "Suggest it!"
+            "label": "Add to map"
           }
         ]
       }
@@ -305,7 +308,7 @@
     },
     "places": [
       {
-        "id": "homeless-sites",
+        "id": "homeless-site",
         "datasetSlug": "kc-homeless-count-input",
         "label": "Reported Homeless Camp Sites",
         "icon": "/static/css/images/markers/bike-marker.png"
@@ -363,8 +366,9 @@
   "pages": [
     {
       "slug": "about",
-      "content": [
-        "<h1>[Optional About Page content]</h1>"
+      "content": ["<h1>[Optional About Page content]</h1>",
+      "<img src='/static/css/images/VN_Logo-rev350-1.png' alt='VN Research logo' />"
+      
       ]
     }
   ]
