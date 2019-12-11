@@ -18,8 +18,8 @@
     }
   ],
   "app": {
-    "title": "Count Us in KC",
-    "name": "Count Us in KC",
+    "title": "Count Us In KC",
+    "name": "Count Us In KC",
     "show_name_in_header": true,
     "logo": "/static/css/images/count-us-in-graphic.png",
     "meta_description": "Record homeless camp sites in King County",
@@ -49,7 +49,7 @@
   },
   "dashboard": [
     {
-      "header": "Count Us in KC",
+      "header": "Count Us In KC",
       "isExportable": true,
       "backgroundColor": "#f5f3f0",
       "datasetSlug": "kc-homeless-count-input",
@@ -88,9 +88,9 @@
     "cartodbEnabled": true,
     "geocodingEnabled": false,
     "mapViewport": {
-      "latitude": 47.58713,
-      "longitude": -122.15581,
-      "zoom": 11.3,
+      "latitude": 47.47187,
+      "longitude": -122.10341,
+      "zoom": 9.29,
       "pitch": 30,
       "minZoom": 1,
       "maxZoom": 18
@@ -117,7 +117,7 @@
       {
         "id": "f4",
         "basemap": true,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "f4-basemap",
@@ -132,7 +132,7 @@
       {
         "id": "satellite",
         "basemap": true,
-        "visibleDefault": false,
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "satellite-basemap",
@@ -368,14 +368,18 @@
     {
       "slug": "about",
       "content": [
-        "<h1>Count Us in KC</h1>",
-        "<h3>King County's Annual Point in Time Count</h3>",
-        "<figure>",
-        "<img style='max-width:100%;width:100%' src='/static/css/images/homeless-camp.jpg' alt='Homeless camp' />",
-        "<figcaption><em>Photo credit: The Seattle Times</em></figcaption>",
+        "<h1 style='margin-bottom:4px;color:#75beb1;'>Count Us In KC</h1>",
+        "<h3 style='color:#333;font-family:PTSans-Regular;'>King County's Annual Point in Time Count</h3>",
+        "<figure style='padding:0;margin-bottom:8px;'>",
+        "<img style='max-width:100%;width:100%;margin-bottom:0;' src='/static/css/images/homeless-camp.jpg' alt='Homeless camp' />",
+        "<figcaption><em style='color:#aaa;font-size:0.8rem;'>Photo credit: The Seattle Times</em></figcaption>",
         "</figure>",
-        "<p><The core purpose of our annual PIT Count is to collect data on the needs of people experiencing homelessness in our community. The count also provides an excellent opportunity to increase awareness of homelessness and to spark action. A successful and accurate PIT Count is an essential component to informing our system response to the need in our community and to ultimately making homelessness rare, brief and one-time./p>",
-        "<img src='/static/css/images/VN_Logo-rev350-1.png' alt='VN Research logo' />"
+        "<p style='color:#333;'>The core purpose of our annual PIT Count is to collect data on the needs of people experiencing homelessness in our community. The count also provides an excellent opportunity to increase awareness of homelessness and to spark action. A successful and accurate PIT Count is an essential component to informing our system response to the need in our community and to ultimately making homelessness rare, brief and one-time.</p>",
+        "<div style='display:flex;align-items:center;'>",
+        "<div style='margin:8px;'><img src='/static/css/images/count-us-in-graphic.png' alt='Count Us In graphic' /></div>",
+        "<div style='margin:8px;'><img src='/static/css/images/vn-logo-background.png' alt='VN Research logo' /></div>",
+        "<div style='margin:8px;'><img src='/static/css/images/kc-logo.jpg' alt='King County logo' /></div>",
+        "</div>"
       ]
     }
   ]
