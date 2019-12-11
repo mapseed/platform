@@ -247,7 +247,7 @@
             "name": "agency_name",
             "type": "text",
             "prompt": "Agency name",
-            "display_prompt": "Title:",
+            "display_prompt": "Agency name:",
             "placeholder": "Enter agency name...",
             "optional": true
           },
@@ -255,6 +255,7 @@
             "name": "description",
             "type": "textarea",
             "prompt": "General description of this location:",
+            "display_prompt": "General description:",
             "placeholder": "...",
             "optional": true
           },
@@ -366,9 +367,15 @@
   "pages": [
     {
       "slug": "about",
-      "content": ["<h1>[Optional About Page content]</h1>",
-      "<img src='/static/css/images/VN_Logo-rev350-1.png' alt='VN Research logo' />"
-      
+      "content": [
+        "<h1>Count Us in KC</h1>",
+        "<h3>King County's Annual Point in Time Count</h3>",
+        "<figure>",
+        "<img style='max-width:100%;width:100%' src='/static/css/images/homeless-camp.jpg' alt='Homeless camp' />",
+        "<figcaption><em>Photo credit: The Seattle Times</em></figcaption>",
+        "</figure>",
+        "<p><The core purpose of our annual PIT Count is to collect data on the needs of people experiencing homelessness in our community. The count also provides an excellent opportunity to increase awareness of homelessness and to spark action. A successful and accurate PIT Count is an essential component to informing our system response to the need in our community and to ultimately making homelessness rare, brief and one-time./p>",
+        "<img src='/static/css/images/VN_Logo-rev350-1.png' alt='VN Research logo' />"
       ]
     }
   ]
