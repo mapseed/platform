@@ -45,7 +45,8 @@
         "addPlaceButtonBackgroundColor": "#ea8a51",
         "addPlaceButtonHoverBackgroundColor": "#efb491"
       }
-    }
+    },
+    "sharingProviders": []
   },
   "dashboard": [
     {
@@ -83,9 +84,9 @@
     }
   ],
   "map": {
-    "geolocationEnabled": false,
+    "geolocationEnabled": true,
+    "geocodeFieldLabel": "Search for an address...",
     "geolocationOnload": false,
-    "cartodbEnabled": true,
     "geocodingEnabled": false,
     "mapViewport": {
       "latitude": 47.47187,
@@ -217,7 +218,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "Report Homeless Camp Site",
+    "add_button_label": "Drop a Pin",
     "title": "Tell us more...",
     "action_text": "created",
     "anonymous_name": "Someone",
@@ -236,20 +237,12 @@
         "label": "Homeless Site Report",
         "fields": [
           {
-            "name": "title",
-            "type": "text",
-            "prompt": "Add a descriptive title:",
-            "display_prompt": "Title:",
-            "placeholder": "Enter title...",
-            "optional": false
-          },
-          {
             "name": "agency_name",
             "type": "text",
             "prompt": "Agency name",
             "display_prompt": "Agency name:",
             "placeholder": "Enter agency name...",
-            "optional": true
+            "optional": false
           },
           {
             "name": "description",
@@ -257,14 +250,7 @@
             "prompt": "General description of this location:",
             "display_prompt": "General description:",
             "placeholder": "...",
-            "optional": true
-          },
-          {
-            "name": "my_image",
-            "type": "file",
-            "label": "Add image",
-            "prompt": "Upload an image of this location:",
-            "optional": true
+            "optional": false
           },
           {
             "name": "submit",
@@ -377,7 +363,7 @@
         "<p style='color:#333;'>The core purpose of our annual PIT Count is to collect data on the needs of people experiencing homelessness in our community. The count also provides an excellent opportunity to increase awareness of homelessness and to spark action. A successful and accurate PIT Count is an essential component to informing our system response to the need in our community and to ultimately making homelessness rare, brief and one-time.</p>",
         "<div style='display:flex;align-items:center;'>",
         "<div style='margin:8px;'><img src='/static/css/images/count-us-in-graphic.png' alt='Count Us In graphic' /></div>",
-        "<div style='margin:8px;'><img src='/static/css/images/vn-logo-background.png' alt='VN Research logo' /></div>",
+        "<div style='margin:8px;'><img src='/static/css/images/vn-logo-white-background.jpg' alt='VN Research logo' /></div>",
         "<div style='margin:8px;'><img src='/static/css/images/kc-logo.jpg' alt='King County logo' /></div>",
         "</div>"
       ]

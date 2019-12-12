@@ -11,3 +11,7 @@ figure {
   height: 56px !important;
   margin-left: 0 !important;
 }
+
+.mapseed-promotion-bar {
+  display: none !important;
+}
