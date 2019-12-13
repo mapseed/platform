@@ -85,9 +85,10 @@
   ],
   "map": {
     "geolocationEnabled": true,
+    "geocodingBarEnabled": true,
+    "geocodeHint": [-122.307054, 47.604147],
     "geocodeFieldLabel": "Search for an address...",
     "geolocationOnload": false,
-    "geocodingEnabled": false,
     "mapViewport": {
       "latitude": 47.47187,
       "longitude": -122.10341,
