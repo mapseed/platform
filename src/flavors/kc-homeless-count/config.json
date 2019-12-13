@@ -1,0 +1,372 @@
+{
+  "flavor": {
+    "defaultLanguage": {
+      "code": "en",
+      "label": "English"
+    }
+  },
+  "datasets": [
+    {
+      "slug": "kc-homeless-count-input",
+      "clientSlug": "site",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "Count Us In KC",
+    "name": "Count Us In KC",
+    "show_name_in_header": true,
+    "logo": "/static/css/images/count-us-in-graphic.png",
+    "meta_description": "Record homeless camp sites in King County",
+    "meta_author": "mapseed.org",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "theme": {
+      "brand": {
+        "primary": "#75beb1",
+        "secondary": "#5b5349",
+        "accent": "#ea8a51"
+      },
+      "bg": {
+        "default": "#fcfeff",
+        "light": "#217b87"
+      },
+      "text": {
+        "titleColor": "#75beb1",
+        "titleFontFamily": "PTSansBold, sans-serif",
+        "bodyFontFamily": "PTSans, sans-serif",
+        "navBarFontFamily": "PTSans, sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#ea8a51",
+        "addPlaceButtonHoverBackgroundColor": "#efb491"
+      }
+    },
+    "sharingProviders": []
+  },
+  "dashboard": [
+    {
+      "header": "Count Us In KC",
+      "isExportable": true,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "kc-homeless-count-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total Reports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        }
+      ]
+    }
+  ],
+  "map": {
+    "geolocationEnabled": true,
+    "geocodeFieldLabel": "Search for an address...",
+    "geolocationOnload": false,
+    "geocodingEnabled": false,
+    "mapViewport": {
+      "latitude": 47.47187,
+      "longitude": -122.10341,
+      "zoom": 9.29,
+      "pitch": 30,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
+    "mapboxSources": {
+      "f4": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tileSize": 256,
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/lakewashington.p9ccgp63/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibGFrZXdhc2hpbmd0b24iLCJhIjoiY2lsNnhjdGhzMDZ4ZnUybHpvbzN0Y2dobiJ9.7e88oaSsl-d0ZQYD_5in9w"
+        ],
+        "tileSize": 256,
+        "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
+      }
+    },
+    "layerGroups": [
+      {
+        "id": "f4",
+        "basemap": true,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "f4-basemap",
+            "type": "raster",
+            "source": "f4",
+            "paint": {
+              "raster-opacity": 0.6
+            }
+          }
+        ]
+      },
+      {
+        "id": "satellite",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
+      },
+      {
+        "id": "kc-homeless-sites",
+        "datasetSlug": "kc-homeless-count-input",
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "kc-homeless-sites-focused",
+            "type": "symbol",
+            "source": "kc-homeless-count-input",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": 0.5,
+              "icon-anchor": "bottom",
+              "icon-image": "homeless-camp-marker.png"
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "kc-homeless-sites",
+            "type": "symbol",
+            "source": "kc-homeless-count-input",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.3, 12, 0.3],
+              "icon-anchor": ["step", ["zoom"], "center", 12, "bottom"],
+              "icon-image": [
+                "step",
+                ["zoom"],
+                "marker-dot-ea8a51.png",
+                12,
+                "homeless-camp-marker.png"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": false
+  },
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
+      {
+        "title": "Basemaps",
+        "options": [
+          {
+            "layerGroupId": "satellite",
+            "title": "Satellite"
+          },
+          {
+            "layerGroupId": "f4",
+            "title": "Streets"
+          }
+        ]
+      },
+      {
+        "title": "Homeless sites",
+        "options": [
+          {
+            "layerGroupId": "kc-homeless-sites",
+            "title": "Reported homeless camp sites"
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": false
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "Drop a Pin",
+    "title": "Tell us more...",
+    "action_text": "created",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Submit",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "category": "homeless-site",
+        "formId": "homeless-site",
+        "includeOnForm": true,
+        "includeOnList": false,
+        "name": "location_type",
+        "datasetSlug": "kc-homeless-count-input",
+        "icon_url": "/static/css/images/markers/bike-marker.png",
+        "value": "homeless-site",
+        "label": "Homeless Site Report",
+        "fields": [
+          {
+            "name": "agency_name",
+            "type": "text",
+            "prompt": "Agency name",
+            "display_prompt": "Agency name:",
+            "placeholder": "Enter agency name...",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "prompt": "General description of this location:",
+            "display_prompt": "General description:",
+            "placeholder": "...",
+            "optional": false
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "label": "Add to map"
+          }
+        ]
+      }
+    ]
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "adding_enabled": false,
+      "show_responses": true,
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
+      "items": [
+        {
+          "prompt": "Comment",
+          "label": "Comment",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "Your Name",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "Comment"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "homeless-site",
+        "datasetSlug": "kc-homeless-count-input",
+        "label": "Reported Homeless Camp Sites",
+        "icon": "/static/css/images/markers/bike-marker.png"
+      }
+    ]
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "comment",
+    "response_plural_name": "comments",
+    "action_text": "commented on",
+    "anonymous_name": "Someone",
+    "title": "Leave a Comment",
+    "form_link_text": "Leave a Comment",
+    "submit_btn_text": "Comment",
+    "items": [
+      {
+        "prompt": "Comment",
+        "label": "Comment",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "Your Name",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "Comment"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
+    "action_text": "supported",
+    "anonymous_name": "Someone"
+  },
+  "nav_bar": [
+    {
+      "title": "About",
+      "type": "internal_link",
+      "url": "/page/about",
+      "name": "overview",
+      "start_page": true
+    }
+  ],
+  "pages": [
+    {
+      "slug": "about",
+      "content": [
+        "<h1 style='margin-bottom:4px;color:#75beb1;'>Count Us In KC</h1>",
+        "<h3 style='color:#333;font-family:PTSans-Regular;'>King County's Annual Point in Time Count</h3>",
+        "<figure style='padding:0;margin-bottom:8px;'>",
+        "<img style='max-width:100%;width:100%;margin-bottom:0;' src='/static/css/images/homeless-camp.jpg' alt='Homeless camp' />",
+        "<figcaption><em style='color:#aaa;font-size:0.8rem;'>Photo credit: The Seattle Times</em></figcaption>",
+        "</figure>",
+        "<p style='color:#333;'>The core purpose of our annual PIT Count is to collect data on the needs of people experiencing homelessness in our community. The count also provides an excellent opportunity to increase awareness of homelessness and to spark action. A successful and accurate PIT Count is an essential component to informing our system response to the need in our community and to ultimately making homelessness rare, brief and one-time.</p>",
+        "<div style='display:flex;align-items:center;'>",
+        "<div style='margin:8px;'><img src='/static/css/images/count-us-in-graphic.png' alt='Count Us In graphic' /></div>",
+        "<div style='margin:8px;'><img src='/static/css/images/vn-logo-white-background.jpg' alt='VN Research logo' /></div>",
+        "<div style='margin:8px;'><img src='/static/css/images/kc-logo.jpg' alt='King County logo' /></div>",
+        "</div>"
+      ]
+    }
+  ]
+}

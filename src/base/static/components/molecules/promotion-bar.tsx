@@ -92,7 +92,7 @@ class PromotionBar extends React.Component<PromotionBarProps> {
 
   render() {
     return (
-      <div>
+      <div className="mapseed-promotion-bar">
         <LoginModal
           appConfig={this.props.appConfig}
           render={openModal => (
