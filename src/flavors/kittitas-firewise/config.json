@@ -7,7 +7,6 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/kittitas-firewise-input",
       "slug": "kittitas-firewise-input",
       "clientSlug": "report",
       "anonymous_permissions": [
