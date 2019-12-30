@@ -24,7 +24,7 @@
     "logo": "/static/css/images/count-us-in-graphic.png",
     "meta_description": "Record homeless camp sites in King County",
     "meta_author": "mapseed.org",
-    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "apiRoot": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#75beb1",

@@ -174,7 +174,7 @@ const LoginModal = ({
               <SocialLoginButton
                 key={loginProvider.provider}
                 loginProvider={loginProvider}
-                apiRoot={appConfig.api_root}
+                apiRoot={appConfig.apiRoot}
               />
             ))}
           </List>

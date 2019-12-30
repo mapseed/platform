@@ -1,5 +1,6 @@
 {
   "flavor": {
+    "slug": "bellevue-bike-share",
     "defaultLanguage": {
       "code": "en",
       "label": "English"
@@ -29,29 +30,84 @@
         "code": "ru",
         "label": "русский"
       }
+    ],
+    "datasets": [
+      {
+        "datasetSlug": "bellevue-bike-share",
+        "user": "smartercleanup",
+        "clientSlug": "report",
+        "anonymousPermissions": [
+          {
+            "abilities": ["create"],
+            "submission_set": "*"
+          }
+        ]
+      }
+    ],
+    "forms": [
+      {
+        "type": "place",
+        "datasetSlug": "bellevue-bike-share",
+        "label": "Suggested Bike Share Locations",
+        "responseLabel": "Bike Share Request",
+        "actionText": "added",
+        "anonymousName": "Someone",
+        "icon": "/static/css/images/markers/bike-marker.png",
+        "includeOnList": true
+      },
+      {
+        "type": "placeSurvey",
+        "id": "bellevue-bike-share-comments-form",
+        "surveyType": "comments",
+        "datasetSlug": "bellevue-bike-share",
+        "responseLabel": "comment",
+        "responsePluralLabel": "comments",
+        "actionText": "commented on",
+        "anonymousName": "Someone",
+        "stages": [
+          {
+            "id": "bellevue-bike-share-comments-form-stage-1",
+            "modules": [
+              {
+                "id": "bellevue-bike-share-comments-form-module-1",
+                "visible": true,
+                "textareafield": {
+                  "key": "comment",
+                  "prompt": "Comment",
+                  "label": "Comment",
+                  "placeholder": "...",
+                  "required": true
+                }
+              },
+              {
+                "id": "bellevue-bike-share-comments-form-module-2",
+                "visible": true,
+                "textfield": {
+                  "key": "submitter_name",
+                  "prompt": "Your Name",
+                  "required": false
+                }
+              },
+              {
+                "id": "bellevue-bike-share-comments-form-module-2",
+                "visible": true,
+                "submitbuttonmodule": {
+                  "label": "Comment"
+                }
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
-  "datasets": [
-    {
-      "user": "smartercleanup",
-      "slug": "bellevue-bike-share",
-      "clientSlug": "report",
-      "anonymousPermissions": [
-        {
-          "abilities": ["create"],
-          "submission_set": "*"
-        }
-      ]
-    }
-  ],
   "app": {
     "title": "Bellevue Bike Sharing",
     "name": "Bellevue Bike Sharing",
-    "flavorSlug": "bellevue-bike-share",
     "logo": "/static/css/images/logo-3.png",
     "meta_description": "Decide where to put dockless bike sharing in Bellevue!",
     "meta_author": "mapseed.org",
-    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "apiRoot": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#217b87",
@@ -566,89 +622,6 @@
   },
   "activity": {
     "enabled": false
-  },
-  "place": {
-    "adding_supported": true,
-    "add_button_label": "Request bikeshare parking!",
-    "show_list_button_label": "See all comments",
-    "show_map_button_label": "Show the Map",
-    "title": "Tell us more...",
-    "action_text": "created",
-    "anonymous_name": "Someone",
-    "submit_button_label": "Submit",
-    "location_item_name": "location"
-  },
-  "forms": {
-    "comments": {
-      "submission_type": "comments",
-      "adding_enabled": false,
-      "show_responses": true,
-      "response_name": "comment",
-      "response_plural_name": "comments",
-      "action_text": "commented on",
-      "anonymous_name": "Someone",
-      "title": "Leave a Comment",
-      "form_link_text": "Leave a Comment",
-      "submit_btn_text": "Comment",
-      "items": [
-        {
-          "prompt": "Comment",
-          "label": "Comment",
-          "type": "textarea",
-          "name": "comment"
-        },
-        {
-          "prompt": "Your Name",
-          "type": "text",
-          "name": "submitter_name",
-          "optional": true
-        },
-        {
-          "type": "submit",
-          "name": "submit",
-          "label": "Comment"
-        }
-      ]
-    },
-    "places": [
-      {
-        "id": "bike-share",
-        "datasetSlug": "bellevue-bike-share",
-        "label": "Suggested Bike Share Locations",
-        "icon": "/static/css/images/markers/bike-marker.png"
-      }
-    ]
-  },
-  "survey": {
-    "submission_type": "comments",
-    "show_responses": true,
-    "single_submission": false,
-    "response_name": "comment",
-    "response_plural_name": "comments",
-    "action_text": "commented on",
-    "anonymous_name": "Someone",
-    "title": "Leave a Comment",
-    "form_link_text": "Leave a Comment",
-    "submit_btn_text": "Comment",
-    "items": [
-      {
-        "prompt": "Comment",
-        "label": "Comment",
-        "type": "textarea",
-        "name": "comment"
-      },
-      {
-        "prompt": "Your Name",
-        "type": "text",
-        "name": "submitter_name",
-        "optional": true
-      },
-      {
-        "type": "submit",
-        "name": "submit",
-        "label": "Comment"
-      }
-    ]
   },
   "support": {
     "submission_type": "support",

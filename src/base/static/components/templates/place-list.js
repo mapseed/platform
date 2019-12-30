@@ -11,10 +11,11 @@ import {
   filteredPlacesSelector,
   placesPropType,
 } from "../../state/ducks/places";
+import { placeDetailViewModulesSelector } from "../../state/ducks/forms";
 import {
-  placeConfigSelector,
-  placeConfigPropType,
-} from "../../state/ducks/place-config";
+  placeFormsConfigSelector,
+  placeFormsConfigPropType,
+} from "../../state/ducks/forms-config";
 import { updateCurrentTemplate } from "../../state/ducks/ui";
 import PlaceListItem from "../molecules/place-list-item";
 import Button from "@material-ui/core/Button";
@@ -96,13 +97,13 @@ class PlaceList extends React.Component {
   _sortAndFilterPlaces = (places, sortBy, query) => {
     // only render place surveys that are flagged with 'includeOnList':
     const includedPlaces = places.filter(place => {
-      const placeDetailConfig = this.props.placeConfig.place_detail.find(
-        survey => survey.category === place.location_type,
+      const placeFormConfig = this.props.placeFormsConfig.find(
+        ({ datasetSlug }) => datasetSlug === place.dataset.split("/").pop(),
       );
 
-      return typeof placeDetailConfig === "undefined"
+      return typeof placeFormConfig === "undefined"
         ? false
-        : placeDetailConfig.includeOnList;
+        : placeFormConfig.includeOnList;
     });
     const filteredPlaces = query
       ? includedPlaces.filter(place => {
@@ -185,6 +186,8 @@ class PlaceList extends React.Component {
           <div role="row" style={style} key={place.id}>
             <PlaceListItem
               place={place}
+              formModules={this.props.formModules}
+              responseLabel={""}
               onLoad={measure}
               router={this.props.router}
               t={this.props.t}
@@ -275,15 +278,16 @@ class PlaceList extends React.Component {
 }
 
 PlaceList.propTypes = {
+  placeFormsConfig: placeFormsConfigPropType.isRequired,
   places: placesPropType.isRequired,
-  placeConfig: placeConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
   updateCurrentTemplate: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
+  formModules: placeDetailViewModulesSelector(state),
   places: filteredPlacesSelector(state),
-  placeConfig: placeConfigSelector(state),
+  placeFormsConfig: placeFormsConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

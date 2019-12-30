@@ -305,6 +305,25 @@ const FieldPrompt = ({ children }) => {
   );
 };
 
+const ListSubmittedField = ({ value }) => {
+  value = Array.isArray(value) ? value : [value];
+
+  return (
+    <ul>
+      {value.map((item, i) => (
+        <li key={i}>{item}</li>
+      ))}
+    </ul>
+  );
+};
+
+const TextSubmittedField = ({ value }) => <Typography>{value}</Typography>;
+
+const RichTextSubmittedField = ({ value }) => (
+  <div dangerouslySetInnerHTML={{ __html: value }} />
+);
+
+const NumberSubmittedField = ({ value }) => <Typography>{value}</Typography>; // TODO
 export {
   ExternalLink,
   InternalLink,
@@ -330,4 +349,8 @@ export {
   DashboardText,
   Badge,
   FieldPrompt,
+  ListSubmittedField,
+  TextSubmittedField,
+  RichTextSubmittedField,
+  NumberSubmittedField,
 };

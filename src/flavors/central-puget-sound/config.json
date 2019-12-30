@@ -46,7 +46,7 @@
     "show_name_in_header": true,
     "meta_description": "Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "apiRoot": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "accent": "#007fbf"

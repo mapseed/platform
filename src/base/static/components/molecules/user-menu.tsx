@@ -166,7 +166,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
               textTransform: "uppercase",
               width: "100%",
             }}
-            href={`${props.appConfig.api_root}users/logout/`}
+            href={`${props.appConfig.apiRoot}users/logout/`}
             onClick={() => Mixpanel.track("Clicked logout button")}
           >
             {t("logOut", "Log out")}

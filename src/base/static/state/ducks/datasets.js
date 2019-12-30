@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { createSelector } from "reselect";
 
 import { formsSelector } from "./forms";
 
@@ -37,18 +38,27 @@ export const datasetsPropType = PropTypes.arrayOf(
 ).isRequired;
 
 // Selectors:
-export const datasetsSelector = state => state.datasets;
+export const datasetsSelector = ({ datasets }) => datasets;
 
-export const datasetPlaceConfirmationModalSelector = (state, datasetUrl) =>
-  state.datasets.find(({ url }) => url === datasetUrl);
+export const datasetsByUrlSelector = createSelector(
+  [datasetsSelector],
+  datasets =>
+    datasets.reduce(
+      (datasetsByUrl, { url, ...rest }) => ({
+        ...datasetsByUrl,
+        [url]: {
+          ...rest,
+        },
+      }),
+      {},
+    ),
+);
 
-export const datasetUrlSelector = (state, dataset) => {
-  return state.datasets.find(
-    // TODO: Use full dataset urls instead of slugs once datasets are sent from
-    // the backend.
-    dataset => dataset.slug === dataset.split("/").pop(),
-  ).url;
-};
+export const datasetPlaceConfirmationModalSelector = (
+  { datasets },
+  datasetUrl,
+) =>
+  (datasets.find(({ url }) => url === datasetUrl) || {}).placeConfirmationModal;
 
 // Actions:
 const LOAD = "datasets/LOAD";

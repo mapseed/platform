@@ -6,12 +6,13 @@ import mapseedApiClient from "../../client/mapseed-api-client";
 
 import ActivityItem from "../molecules/activity-item";
 
-import {
-  commentFormConfigPropType,
-  commentFormConfigSelector,
-} from "../../state/ducks/forms-config";
-import { placeConfigSelector } from "../../state/ducks/place-config";
+//import {
+//  commentFormConfigPropType,
+//  commentFormConfigSelector,
+//} from "../../state/ducks/forms-config";
+//import { placeConfigSelector } from "../../state/ducks/place-config";
 import { loadActivity, activitySelector } from "../../state/ducks/activity";
+//// TODO
 //import {
 //  datasetsConfigSelector,
 //  datasetsConfigPropType,
@@ -120,19 +121,20 @@ ActivityStream.propTypes = {
   activity: PropTypes.array.isRequired, // TODO
   //datasetsConfig: datasetsConfigPropType,
   loadActivity: PropTypes.func.isRequired,
-  placeConfig: PropTypes.shape({
-    action_text: PropTypes.string.isRequired,
-    anonymous_name: PropTypes.string.isRequired,
-  }).isRequired,
+  //placeConfig: PropTypes.shape({
+  //  action_text: PropTypes.string.isRequired,
+  //  anonymous_name: PropTypes.string.isRequired,
+  //}).isRequired,
   placeSelector: PropTypes.func.isRequired,
-  commentFormConfig: commentFormConfigPropType.isRequired,
+  //commentFormConfig: commentFormConfigPropType.isRequired,
 };
 
 const mapStateToProps = state => ({
   activity: activitySelector(state),
   datasetsConfig: datasetsConfigSelector(state),
-  placeConfig: placeConfigSelector(state),
-  commentFormConfig: commentFormConfigSelector(state),
+  //placeConfig: placeConfigSelector(state),
+  commentFormConfig: {}, // TODO
+  //commentFormConfig: commentFormConfigSelector(state),
   placeSelector: placeId => placeSelector(state, placeId),
 });
 

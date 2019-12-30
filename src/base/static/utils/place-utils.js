@@ -1,4 +1,22 @@
+import {
+  ListSubmittedField,
+  TextSubmittedField,
+  RichTextSubmittedField,
+  NumberSubmiittedField,
+} from "../components/atoms/typography";
 import constants from "../constants";
+
+const getSubmittedFieldComponent = (type, variant) => {
+  if (type === "radiofield" && variant === "RA") {
+    return ListSubmittedField;
+  } else if (type === "radiofield" && variant === "CH") {
+    return ListSubmittedField;
+  } else if (type === "richtext") {
+    return RichTextSubmittedField;
+  } else {
+    return TextSubmittedField;
+  }
+};
 
 const FIELDS = [
   "textfield",
@@ -78,10 +96,16 @@ const toGeoJSONFeature = placeData => {
   // should not be sent to the server in the request payload.
   const {
     geometry,
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    /* eslint-disable no-unused-vars */
     submitter,
     tags,
+    // eslint-disable-next-line @typescript-eslint/camelcase
     submission_sets,
     attachments,
+    __clientSideMetadata,
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+    /* eslint-enable no-unused-vars */
     ...rest
   } = placeData;
 
@@ -93,6 +117,7 @@ const toGeoJSONFeature = placeData => {
 };
 
 export {
+  getSubmittedFieldComponent,
   isFormField,
   createGeoJSONFromPlaces,
   fromGeoJSONFeature,

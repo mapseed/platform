@@ -24,10 +24,8 @@ import {
   interactiveLayerIdsSelector,
   mapStyleSelector,
   mapStylePropType,
-  updateFeaturesInGeoJSONSource,
   updateLayers,
   updateMapContainerDimensions,
-  mapContainerDimensionsSelector,
   mapLayerPopupSelector,
   isWithMapLegendWidgetSelector,
 } from "../../state/ducks/map-style";
@@ -49,7 +47,6 @@ import {
   measurementToolEnabledSelector,
 } from "../../state/ducks/map";
 import {
-  activeEditPlaceIdSelector,
   filteredPlacesSelector,
   placesPropType,
 } from "../../state/ducks/places";
@@ -140,15 +137,10 @@ const mapViewportReducer = (
 declare const MAP_PROVIDER_TOKEN: string;
 
 const statePropTypes = {
-  activeEditPlaceId: PropTypes.number,
   filteredPlaces: placesPropType.isRequired,
   interactiveLayerIds: PropTypes.arrayOf(PropTypes.string.isRequired)
     .isRequired,
   mapConfig: mapConfigPropType,
-  mapContainerDimensions: PropTypes.shape({
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-  }).isRequired,
   mapLayerPopupSelector: PropTypes.func.isRequired,
   mapStyle: mapStylePropType.isRequired,
   placeFilters: PropTypes.array.isRequired,
@@ -169,7 +161,7 @@ interface StateProps extends PropTypes.InferProps<typeof statePropTypes> {
 }
 
 type DispatchProps = {
-  updateFeaturesInGeoJSONSource: typeof updateFeaturesInGeoJSONSource;
+  //updateFeaturesInGeoJSONSource: typeof updateFeaturesInGeoJSONSource;
   updateLayers: typeof updateLayers;
   updateMapContainerDimensions: typeof updateMapContainerDimensions;
   updateMapViewport: typeof updateMapViewport;
@@ -322,10 +314,6 @@ class MainMap extends React.Component<Props, State> {
   componentDidMount() {
     this.map = (this.mapRef.current as InteractiveMap).getMap();
 
-    //window.addEventListener("resize", () => {
-    //  this.resizeMap();
-    //});
-
     eventEmitter.on("setMapViewport", (viewport: MapViewportDiff): void => {
       this.setMapViewport(viewport);
     });
@@ -335,20 +323,10 @@ class MainMap extends React.Component<Props, State> {
     // these events to a ref of the map because react-map-gl does not expose
     // the event binding API itself.
     this.map.on("error", this.errorListener);
-
     this.map.on("sourcedata", this.sourceDataListener);
-
-    // Ensure that any filters set on another template (like the list) are
-    // applied when returning to the map template.
-    this.applyFeatureFilters();
-
-    //requestAnimationFrame(() => {
-    //  this.resizeMap();
-    //});
   }
 
   componentWillUnmount() {
-    //window.removeEventListener("resize", this.resizeMap);
     if (this.map) {
       this.map.off("error", this.errorListener);
       this.map.off("sourcedata", this.sourceDataListener);
@@ -375,56 +353,20 @@ class MainMap extends React.Component<Props, State> {
     );
   });
 
-  //resizeMap = () => {
-  //  const node = findDOMNode(this.props.mapContainerRef.current);
-  //  if (node instanceof Element) {
-  //    const containerDims = node.getBoundingClientRect();
-
-  //    this.props.updateMapContainerDimensions({
-  //      height: containerDims.height,
-  //      width: containerDims.width,
-  //    });
-  //  } else {
-  //    // eslint-disable-next-line no-console
-  //    console.warn("resizemap: node is not element! node:", node);
-  //  }
-  //};
-
-  applyFeatureFilters() {
-    this.props.datasets
-      .map(dataset => dataset.slug)
-      .forEach(sourceId => {
-        this.props.updateFeaturesInGeoJSONSource(
-          sourceId,
-          createGeoJSONFromPlaces(
-            this.props.filteredPlaces.filter(
-              place => place.datasetSlug === sourceId,
-            ),
-          ).features,
-        );
-      });
-  }
-
   componentDidUpdate(prevProps) {
-    // NOTE: These checks are not comparing numerical dimensions; rather they
-    // are comparing CSS width and height declarations in string form.
-    //if (
-    //  this.props.mapContainerHeightDeclaration !==
-    //    prevProps.mapContainerHeightDeclaration ||
-    //  this.props.mapContainerWidthDeclaration !==
-    //    prevProps.mapContainerWidthDeclaration
-    //) {
-    //  this.resizeMap();
+    //if (this.props.filteredPlaces.length !== prevProps.filteredPlaces.length) {
+    //  // Filters have been added or removed.
+    //  this.props.datasets.forEach(({ slug, dataset: datasetUrl }) => {
+    //    this.props.updateFeaturesInGeoJSONSource(
+    //      slug,
+    //      createGeoJSONFromPlaces(
+    //        this.props.filteredPlaces.filter(
+    //          ({ dataset: placeDatasetUrl }) => datasetUrl === placeDatasetUrl,
+    //        ),
+    //      ).features,
+    //    );
+    //  });
     //}
-
-    //if (this.props.isContentPanelVisible !== prevProps.isContentPanelVisible) {
-    //  this.resizeMap();
-    //}
-
-    if (this.props.placeFilters !== prevProps.placeFilters) {
-      // Filters have been added or removed.
-      this.applyFeatureFilters();
-    }
   }
 
   parsePopupContent = (popupContent: string, properties: GeoJsonProperties) => {
@@ -449,7 +391,7 @@ class MainMap extends React.Component<Props, State> {
   };
 
   beginFeatureQuery = evt => {
-    if (!this.isMapEvent(event)) {
+    if (!this.isMapEvent(evt)) {
       return;
     }
     // Relying on react-map-gl's built-in onClick handler produces a noticeable
@@ -665,7 +607,6 @@ class MainMap extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state): StateProps => ({
-  activeEditPlaceId: activeEditPlaceIdSelector(state),
   filteredPlaces: filteredPlacesSelector(state),
   isMapCenterpointVisible: uiVisibilitySelector("mapCenterpoint", state),
   isMapDraggingOrZooming: isMapDraggingOrZooming(state),
@@ -674,7 +615,6 @@ const mapStateToProps = (state): StateProps => ({
   interactiveLayerIds: interactiveLayerIdsSelector(state),
   mapConfig: mapConfigSelector(state),
   mapViewport: mapViewportSelector(state),
-  mapContainerDimensions: mapContainerDimensionsSelector(state),
   mapLayerPopupSelector: layerId => mapLayerPopupSelector(layerId, state),
   mapStyle: mapStyleSelector(state),
   placeFilters: placeFiltersSelector(state),
@@ -687,7 +627,6 @@ const mapStateToProps = (state): StateProps => ({
 });
 
 const mapDispatchToProps = {
-  updateFeaturesInGeoJSONSource,
   updateLayers,
   updateMapContainerDimensions,
   updateMapViewport,

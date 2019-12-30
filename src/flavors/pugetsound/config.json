@@ -58,7 +58,7 @@
     "logo": "/static/css/images/soundkeeper-logo-high-res-small.png",
     "meta_description": "Welcome!",
     "meta_author": "SmarterCleanup.org",
-    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "apiRoot": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#007ec0"

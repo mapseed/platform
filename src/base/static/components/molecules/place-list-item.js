@@ -9,8 +9,8 @@ import { SmallTitle } from "../atoms/typography";
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, SmallText, InternalLink } from "../atoms/typography";
 import {
-  placeConfigSelector,
-  placeConfigPropType,
+  placeFormsConfigSelector,
+  placeFormsConfigPropType,
 } from "../../state/ducks/place-config";
 import { placePropType } from "../../state/ducks/places";
 import { supportConfigSelector } from "../../state/ducks/support-config";
@@ -23,6 +23,7 @@ import { translate } from "react-i18next";
 import { HorizontalRule } from "../atoms/layout";
 import sharePlace from "../../utils/share-place";
 import { lighten } from "../../utils/color";
+import { getSubmittedFieldComponent } from "../../utils/place-utils";
 
 const PlaceBodyContainer = styled("div")({
   display: "flex",
@@ -117,67 +118,67 @@ const PlaceFieldText = styled(RegularText)({
   width: "100%",
 });
 
-const PlaceField = ({ field, place, t, placeFieldIndex }) => {
-  const prompt = field.label || field.display_prompt || null;
-  const fieldValue = place[field.name];
-  if (field.type === "textarea" || field.type === "text") {
-    return (
-      <>
-        {!!prompt && (
-          <PlaceFieldTitle>
-            {t(`placeFieldPrompt${placeFieldIndex}`, prompt)}
-          </PlaceFieldTitle>
-        )}
-        <p
-          css={css`
-            margin-top: 4px;
-          `}
-        >
-          <PlaceFieldText>{fieldValue}</PlaceFieldText>
-        </p>
-      </>
-    );
-  } else if (field.type === "rich_textarea") {
-    return <div dangerouslySetInnerHTML={{ __html: place[field.name] }} />;
-  } else if (field.type === "big_radio") {
-    const label = field.content.find(item => item.value === fieldValue).label;
-    return (
-      <>
-        {!!prompt && (
-          <PlaceFieldTitle>
-            {t(`placeFieldPropmpt${placeFieldIndex}`, prompt)}
-          </PlaceFieldTitle>
-        )}
-        <p
-          css={css`
-            margin-top: 4px;
-          `}
-        >
-          <PlaceFieldText>{label}</PlaceFieldText>
-        </p>
-      </>
-    );
-  } else if (field.type === "dropdown_autocomplete") {
-    return (
-      <>
-        {!!prompt && (
-          <PlaceFieldTitle>
-            {t(`placeFieldPrompt${placeFieldIndex}`, prompt)}
-          </PlaceFieldTitle>
-        )}
-        <p
-          css={css`
-            margin-top: 4px;
-          `}
-        >
-          <PlaceFieldText>{fieldValue}</PlaceFieldText>
-        </p>
-      </>
-    );
-  } else {
-    throw new Error(`field type is not supported: ${field.type}`);
-  }
-};
+//const PlaceField = ({ field, place, t, placeFieldIndex }) => {
+//  const prompt = field.label || field.display_prompt || null;
+//  const fieldValue = place[field.name];
+//  if (field.type === "textarea" || field.type === "text") {
+//    return (
+//      <>
+//        {!!prompt && (
+//          <PlaceFieldTitle>
+//            {t(`placeFieldPrompt${placeFieldIndex}`, prompt)}
+//          </PlaceFieldTitle>
+//        )}
+//        <p
+//          css={css`
+//            margin-top: 4px;
+//          `}
+//        >
+//          <PlaceFieldText>{fieldValue}</PlaceFieldText>
+//        </p>
+//      </>
+//    );
+//  } else if (field.type === "rich_textarea") {
+//    return <div dangerouslySetInnerHTML={{ __html: place[field.name] }} />;
+//  } else if (field.type === "big_radio") {
+//    const label = field.content.find(item => item.value === fieldValue).label;
+//    return (
+//      <>
+//        {!!prompt && (
+//          <PlaceFieldTitle>
+//            {t(`placeFieldPropmpt${placeFieldIndex}`, prompt)}
+//          </PlaceFieldTitle>
+//        )}
+//        <p
+//          css={css`
+//            margin-top: 4px;
+//          `}
+//        >
+//          <PlaceFieldText>{label}</PlaceFieldText>
+//        </p>
+//      </>
+//    );
+//  } else if (field.type === "dropdown_autocomplete") {
+//    return (
+//      <>
+//        {!!prompt && (
+//          <PlaceFieldTitle>
+//            {t(`placeFieldPrompt${placeFieldIndex}`, prompt)}
+//          </PlaceFieldTitle>
+//        )}
+//        <p
+//          css={css`
+//            margin-top: 4px;
+//          `}
+//        >
+//          <PlaceFieldText>{fieldValue}</PlaceFieldText>
+//        </p>
+//      </>
+//    );
+//  } else {
+//    throw new Error(`field type is not supported: ${field.type}`);
+//  }
+//};
 
 const PlaceListItem = props => {
   const numberOfComments = props.place.submission_sets.comments
@@ -198,9 +199,8 @@ const PlaceListItem = props => {
       appThumbnail: props.appConfig.thumbnail,
     });
   };
-  const placeDetailConfig = props.placeConfig.place_detail.find(
-    detailConfig => detailConfig.category === props.place.location_type,
-  );
+  const placeDetailConfig = {};
+
   return (
     <>
       <div
@@ -261,7 +261,7 @@ const PlaceListItem = props => {
                   "placeActionText",
                   `${props.placeConfig.action_text} this`,
                 )}{" "}
-                {placeDetailConfig.label}
+                {placeFormConfig.responseLabel}
               </RegularText>
               <CommentsText>
                 {numberOfComments}{" "}
@@ -296,19 +296,16 @@ const PlaceListItem = props => {
               </PlaceImage>
             )}
             <PlaceFieldsContainer>
-              {props.placeConfig.place_detail
-                .find(survey => survey.category === props.place.location_type)
-                .fields.filter(field => field.includeOnListItem)
-                .filter(field => props.place[field.name])
-                .map((field, index) => (
-                  <PlaceField
-                    placeFieldIndex={index}
-                    key={field.name}
-                    field={field}
-                    place={props.place}
-                    t={props.t}
-                  />
-                ))}
+              {props.formModules
+                .filter(({ key }) => props.place[key])
+                .map(({ type, variant, key }, index) => {
+                  const SubmittedFieldComponent = getSubmittedFieldComponent(
+                    type,
+                    variant,
+                  );
+
+                  return <SubmittedFieldComponent value={props.place[key]} />;
+                })}
             </PlaceFieldsContainer>
           </PlaceContent>
         </PlaceBodyContainer>
@@ -320,17 +317,17 @@ const PlaceListItem = props => {
 
 PlaceListItem.propTypes = {
   place: placePropType.isRequired,
+  placeFormsConfig: placeFormsConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
   supportConfig: PropTypes.shape({
     action_text: PropTypes.string.isRequired,
   }),
-  placeConfig: placeConfigPropType.isRequired,
   appConfig: appConfigPropType.isRequired,
   onLoad: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  placeConfig: placeConfigSelector(state),
+  placeFormsConfig: placeFormsConfigSelector(state),
   supportConfig: supportConfigSelector(state),
   appConfig: appConfigSelector(state),
 });

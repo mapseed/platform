@@ -24,7 +24,7 @@
     "show_name_in_header": true,
     "logo": "/static/css/images/Logo2.png",
     "meta_description": "This map is dedicated to all the imhabitants of Cascadia, of every race and species",
-    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "apiRoot": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#175f54",

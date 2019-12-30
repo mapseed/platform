@@ -3,6 +3,8 @@ import { createSelector } from "reselect";
 
 import PropTypes from "prop-types";
 import { RESET_UI } from "./ui";
+import { placesBySourceIdSelector } from "./places";
+import { toClientGeoJSONFeature } from "../../utils/place-utils";
 
 ////////////////////////////////////////////////////////////////////////////////
 // PROPTYPES
@@ -97,9 +99,27 @@ const getPaintFromAggregators = (aggregators, layerPaint) => {
   };
 };
 
+const placeSourcesSelector = createSelector(
+  [placesBySourceIdSelector],
+  placesBySourceId =>
+    Object.entries(placesBySourceId).reduce(
+      (sources, [sourceId, places]) => ({
+        ...sources,
+        [sourceId]: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: places.map(place => toClientGeoJSONFeature(place)),
+          },
+        },
+      }),
+      {},
+    ),
+);
+
 export const mapStyleSelector = createSelector(
-  [getStyle, layersSelector, layerGroupsSelector],
-  (style, layers, layerGroups) => {
+  [getStyle, layersSelector, layerGroupsSelector, placeSourcesSelector],
+  (style, layers, layerGroups, placeSources) => {
     return {
       ...style,
       // Convert our internal layer representation into the Mapbox layer spec:
@@ -120,6 +140,10 @@ export const mapStyleSelector = createSelector(
           },
         };
       }),
+      sources: {
+        ...style.sources,
+        ...placeSources,
+      },
     };
   },
 );
@@ -134,8 +158,6 @@ export const mapDraggingOrZoomingSelector = state =>
   state.mapStyle.isMapDraggingOrZooming;
 export const mapDraggedOrZoomedSelector = state =>
   state.mapStyle.isMapDraggedOrZoomed;
-export const mapContainerDimensionsSelector = state =>
-  state.mapStyle.mapContainerDimensions;
 export const mapLayerPopupSelector = (layerId, state) => {
   const metadata = Object.values(
     state.mapStyle.layerGroups.byId,
@@ -156,8 +178,6 @@ const UPDATE_FEATURES_IN_GEOJSON_SOURCE =
   "map-style-style/UPDATE_FEATURES_IN_GEOJSON_SOURCE";
 const UPDATE_FEATURE_IN_GEOJSON_SOURCE =
   "map-style/UPDATE_FEATURE_IN_GEOJSON_SOURCE";
-const CREATE_FEATURES_IN_GEOJSON_SOURCE =
-  "map-style/CREATE_FEATURES_IN_GEOJSON_SOURCE";
 const REMOVE_FEATURE_IN_GEOJSON_SOURCE =
   "map-style/REMOVE_FEATURE_IN_GEOJSON_SOURCE";
 const LOAD_STYLE_AND_METADATA = "map-style/LOAD_STYLE_AND_METADATA";
@@ -228,60 +248,10 @@ export function updateMapStyle(style) {
   return { type: UPDATE_STYLE, payload: style };
 }
 
-export function updateFeaturesInGeoJSONSource(sourceId, newFeatures) {
-  return {
-    type: UPDATE_FEATURES_IN_GEOJSON_SOURCE,
-    payload: {
-      sourceId,
-      newFeatures,
-    },
-  };
-}
-
-export function updateFeatureInGeoJSONSource({ sourceId, featureId, feature }) {
-  return {
-    type: UPDATE_FEATURE_IN_GEOJSON_SOURCE,
-    payload: {
-      sourceId,
-      featureId,
-      feature,
-    },
-  };
-}
-
-export function createFeaturesInGeoJSONSource(sourceId, newFeatures) {
-  return {
-    type: CREATE_FEATURES_IN_GEOJSON_SOURCE,
-    payload: { sourceId, newFeatures },
-  };
-}
-
-export function removeFeatureInGeoJSONSource(sourceId, featureId) {
-  return {
-    type: REMOVE_FEATURE_IN_GEOJSON_SOURCE,
-    payload: { sourceId, featureId },
-  };
-}
-
-export function loadMapStyle(mapStyleConfig, datasetsConfig) {
+export function loadMapStyle(mapStyleConfig, datasets) {
   const style = {
     sources: {
       ...mapStyleConfig.mapboxSources,
-      ...datasetsConfig.reduce(
-        (memo, config) => ({
-          ...memo,
-          // Add an empty GeoJSON source for each dataset of Places declared in
-          // the config, namespaced by its slug.
-          [config.slug]: {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: [],
-            },
-          },
-        }),
-        {},
-      ),
       // Add an empty GeoJSON source that will hold all features that have
       // become "focused" (i.e. because the user clicked on a Place). We
       // maintain a separate source for focused features because reflowing the
@@ -408,10 +378,6 @@ export function loadMapStyle(mapStyleConfig, datasetsConfig) {
 // REDUCER
 ////////////////////////////////////////////////////////////////////////////////
 const INITIAL_STATE = {
-  mapContainerDimensions: {
-    width: 0,
-    height: 0,
-  },
   style: {
     version: 8,
     name: "Mapseed",
@@ -432,35 +398,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case UPDATE_FEATURE_IN_GEOJSON_SOURCE:
-        draft.style.sources[
-          action.payload.sourceId
-        ].data.features = draft.style.sources[
-          action.payload.sourceId
-        ].data.features.map(feature => {
-          return action.payload.featureId === feature.properties.id
-            ? action.payload.feature
-            : feature;
-        });
-        return;
-      case UPDATE_FEATURES_IN_GEOJSON_SOURCE:
-        draft.style.sources[action.payload.sourceId].data.features =
-          action.payload.newFeatures;
-        return;
-      case CREATE_FEATURES_IN_GEOJSON_SOURCE:
-        draft.style.sources[action.payload.sourceId].data.features.push(
-          ...action.payload.newFeatures,
-        );
-        return;
-      case REMOVE_FEATURE_IN_GEOJSON_SOURCE:
-        draft.style.sources[
-          action.payload.sourceId
-        ].data.features = draft.style.sources[
-          action.payload.sourceId
-        ].data.features.filter(
-          feature => feature.properties.id !== action.payload.featureId,
-        );
-        return;
       case REMOVE_FOCUSED_GEOJSON_FEATURES:
         draft.style.sources["__mapseed-focused-source__"] = {
           type: "geojson",

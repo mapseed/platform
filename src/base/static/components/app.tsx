@@ -33,7 +33,6 @@ const ReportTemplate = React.lazy(() => import("./templates/report"));
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import config from "config";
-import { createFeaturesInGeoJSONSource } from "../state/ducks/map-style";
 import mapseedApiClient from "../client/mapseed-api-client";
 import translationServiceClient from "../client/translation-service-client";
 import {
@@ -44,10 +43,8 @@ import {
 import { loadDashboardConfig } from "../state/ducks/dashboard-config";
 import { AppConfig, loadAppConfig } from "../state/ducks/app-config";
 import { loadMapConfig } from "../state/ducks/map";
-import { loadPlaceConfig } from "../state/ducks/place-config";
 import { loadLeftSidebarConfig } from "../state/ducks/left-sidebar";
 import { loadRightSidebarConfig } from "../state/ducks/right-sidebar-config";
-import { loadFormsConfig } from "../state/ducks/forms-config";
 import { loadSupportConfig } from "../state/ducks/support-config";
 import {
   loadPagesConfig,
@@ -93,19 +90,16 @@ const Fallback = () => {
 };
 
 const dispatchPropTypes = {
-  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   loadDatasets: PropTypes.func.isRequired,
   loadPlaces: PropTypes.func.isRequired,
   updatePlacesLoadStatus: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   loadMapConfig: typeof loadMapConfig,
-  loadPlaceConfig: PropTypes.func.isRequired,
   loadLeftSidebarConfig: PropTypes.func.isRequired,
   loadRightSidebarConfig: PropTypes.func.isRequired,
   loadFeaturedPlacesConfig: PropTypes.func.isRequired,
   loadAppConfig: PropTypes.func.isRequired,
   loadForms: PropTypes.func.isRequired,
-  loadFormsConfig: PropTypes.func.isRequired,
   loadSupportConfig: PropTypes.func.isRequired,
   loadPagesConfig: PropTypes.func.isRequired,
   loadNavBarConfig: PropTypes.func.isRequired,
@@ -169,34 +163,36 @@ class App extends React.Component<Props, State> {
   };
 
   async componentDidMount() {
-    const sessionJSON = await mapseedApiClient.session.get(config.app.api_root);
+    const sessionJSON = await mapseedApiClient.session.get(config.app.apiRoot);
 
     if (sessionJSON) {
       Util.cookies.save("sa-api-sessionid", sessionJSON.sessionid);
     }
 
-    // Fetch and load flavor information.
-    const flavor = await mapseedApiClient.flavor.get(
-      config.app.api_root,
-      config.app.flavorSlug,
-    );
-
-    if (flavor) {
-      this.props.loadForms(flavor);
-    } else {
-      Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
-    }
-
-    // Fetch and load datasets (combining config info with info returned from
-    // the `/datasets` endpoint.
+    // Fetch and load datasets.
     const datasets = await mapseedApiClient.datasets.get(
-      config.datasets,
-      config.app.api_root,
+      config.flavor.datasets,
+      config.app.apiRoot,
     );
     this.props.loadDatasets(datasets);
 
+    // Fetch and load flavor information.
+    const flavorFromAPI = await mapseedApiClient.flavor.get(
+      config.app.apiRoot,
+      config.flavor.slug,
+    );
+
+    if (flavorFromAPI) {
+      // Combine API forms information with supplemental config information.
+      this.props.loadForms({
+        apiForms: flavorFromAPI.forms,
+        configForms: config.flavor.forms,
+        datasets: this.props.datasets,
+      });
+    }
+
     // Fetch and load user information.
-    const authedUser = await mapseedApiClient.user.get(config.app.api_root);
+    const authedUser = await mapseedApiClient.user.get(config.app.apiRoot);
     const user = authedUser
       ? {
           token: `user:${authedUser.id}`,
@@ -230,18 +226,16 @@ class App extends React.Component<Props, State> {
     // Load all other ducks.
     this.props.loadAppConfig(config.app);
     this.props.loadMapConfig(config.map);
-    this.props.loadPlaceConfig(config.place);
     this.props.loadLeftSidebarConfig(config.leftSidebar);
     this.props.loadRightSidebarConfig(config.right_sidebar);
     if (config.featuredPlaces) {
       this.props.loadFeaturedPlacesConfig(config.featuredPlaces);
     }
-    this.props.loadFormsConfig(config.forms);
     this.props.loadSupportConfig(config.support);
     this.props.loadPagesConfig(config.pages);
     this.props.loadNavBarConfig(config.nav_bar);
     this.props.loadCustomComponentsConfig(config.custom_components);
-    this.props.loadMapStyle(config.mapStyle, config.datasets);
+    this.props.loadMapStyle(config.mapStyle, datasets);
     this.props.loadFlavorConfig(config.flavor);
     config.dashboard && this.props.loadDashboardConfig(config.dashboard);
     config.right_sidebar.is_visible_default &&
@@ -360,19 +354,19 @@ class App extends React.Component<Props, State> {
     this.props.updatePlacesLoadStatus("loading");
     const allPlacePagePromises: Promise<any>[] = [];
     await Promise.all(
-      this.props.datasets.map(async ({ url: datasetUrl, slug }) => {
+      this.props.datasets.map(async datasetConfig => {
         // Note that the response here is an array of page Promises.
         const response: Promise<any>[] = await mapseedApiClient.place.get({
-          datasetUrl,
-          //datasetSlug: datasetConfig.slug,
-          //clientSlug: datasetConfig.clientSlug,
+          datasetUrl: datasetConfig.url,
           placeParams: {
             // NOTE: this is to include comments/supports while fetching our place models
+            // eslint-disable-next-line @typescript-eslint/camelcase
             include_submissions: true,
+            // eslint-disable-next-line @typescript-eslint/camelcase
             include_tags: true,
           },
           includePrivate: !!this.props.datasetsWithAccessProtectedPlacesAbility.find(
-            ({ url }) => url === datasetUrl,
+            ({ url }) => url === datasetConfig.url,
           ),
         });
 
@@ -380,22 +374,7 @@ class App extends React.Component<Props, State> {
           response.forEach(async placePagePromise => {
             allPlacePagePromises.push(placePagePromise);
             const pageData = await placePagePromise;
-            this.props.loadPlaces(pageData);
-
-            // Update the map.
-            this.props.createFeaturesInGeoJSONSource(
-              // "sourceId" and a dataset's slug are the same thing.
-              slug,
-              pageData.map(place => {
-                const { geometry, ...rest } = place;
-
-                return {
-                  type: "Feature",
-                  geometry,
-                  properties: rest,
-                };
-              }),
-            );
+            this.props.loadPlaces(pageData, datasetConfig);
           });
         } else {
           Util.log("USER", "dataset", "fail-to-fetch-places-from-dataset");
@@ -530,10 +509,7 @@ class App extends React.Component<Props, State> {
                 return (
                   <React.Suspense fallback={<Fallback />}>
                     <SiteHeader {...headerProps} />
-                    <DashboardTemplate
-                      apiRoot={appConfig.api_root}
-                      {...match}
-                    />
+                    <DashboardTemplate apiRoot={appConfig.apiRoot} {...match} />
                   </React.Suspense>
                 );
               }}
@@ -629,7 +605,6 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
 });
 
 const mapDispatchToProps = {
-  createFeaturesInGeoJSONSource,
   loadDatasets,
   loadPlaces,
   updateLayout,
@@ -637,13 +612,11 @@ const mapDispatchToProps = {
   updateUIVisibility,
   loadDashboardConfig,
   loadMapConfig,
-  loadPlaceConfig,
   loadLeftSidebarConfig,
   loadRightSidebarConfig,
   loadFeaturedPlacesConfig,
   loadAppConfig,
   loadForms,
-  loadFormsConfig,
   loadSupportConfig,
   loadPagesConfig,
   loadNavBarConfig,

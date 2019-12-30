@@ -15,10 +15,10 @@ import {
 } from "geojson";
 
 import { MapViewport, mapViewportSelector } from "../../state/ducks/map";
-import {
-  mapContainerDimensionsSelector,
-  MapContainerDimensions,
-} from "../../state/ducks/map-style";
+//import {
+//  mapContainerDimensionsSelector,
+//  MapContainerDimensions,
+//} from "../../state/ducks/map-style";
 import { measurementToolVisibilitySelector } from "../../state/ducks/ui";
 import { redraw } from "../../utils/geo";
 
@@ -58,9 +58,9 @@ const MapMeasurementOverlay = (props: MapMeasurementOverlayProps) => {
   const isMeasurementToolVisible: boolean = useSelector(
     measurementToolVisibilitySelector,
   );
-  const mapContainerDimensions: MapContainerDimensions = useSelector(
-    mapContainerDimensionsSelector,
-  );
+  //const mapContainerDimensions: MapContainerDimensions = useSelector(
+  //  mapContainerDimensionsSelector,
+  //);
   const mapViewport: MapViewport = useSelector(mapViewportSelector);
   const webMercatorViewport = React.useRef<WebMercatorViewport>();
   const overlayRef = React.useRef<ExposedCanvasOverlay>(null);
@@ -139,13 +139,13 @@ const MapMeasurementOverlay = (props: MapMeasurementOverlayProps) => {
   React.useEffect(() => {
     webMercatorViewport.current = getNewViewport({
       ...mapViewport,
-      width: mapContainerDimensions.width,
-      height: mapContainerDimensions.height,
+      //width: mapContainerDimensions.width,
+      //height: mapContainerDimensions.height,
     });
   }, [
     mapViewport,
-    mapContainerDimensions.width,
-    mapContainerDimensions.height,
+    //mapContainerDimensions.width,
+    //mapContainerDimensions.height,
   ]);
 
   if (!isMeasurementToolVisible) {

@@ -25,11 +25,7 @@ import {
   removePlaceAttachment,
   Place,
 } from "../../state/ducks/places";
-import {
-  removeFeatureInGeoJSONSource,
-  updateFocusedGeoJSONFeatures,
-  updateFeatureInGeoJSONSource,
-} from "../../state/ducks/map-style";
+import { updateFocusedGeoJSONFeatures } from "../../state/ducks/map-style";
 import { updateMapInteractionState } from "../../state/ducks/map";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
 import { EditorButton } from "../atoms/buttons";
@@ -71,6 +67,11 @@ const PlaceDetailEditor = ({
   );
   const formFields = useSelector(formFieldsSelector);
   const initialValues = getInitialValues(formFields, place);
+  const includePrivate =
+    placeForm &&
+    !!useSelector(datasetsWithAccessProtectedPlacesAbilitySelector).find(
+      ({ url }) => url === placeForm.dataset,
+    );
   React.useEffect(() => {
     dispatch(updateSpotlightMaskVisibility(true));
 
@@ -84,11 +85,6 @@ const PlaceDetailEditor = ({
       Mixpanel.track("Updating Place", {
         placeUrl,
       });
-      const includePrivate =
-        placeForm &&
-        !!useSelector(datasetsWithAccessProtectedPlacesAbilitySelector).find(
-          ({ url }) => url === placeForm.dataset,
-        );
 
       // TODO
       // Replace image data in rich text fields with placeholders built from each
@@ -135,15 +131,9 @@ const PlaceDetailEditor = ({
         }
 
         dispatch(updatePlace(placeResponse));
-        dispatch(
-          updateFeatureInGeoJSONSource({
-            sourceId: dataset.split("/").pop() as string,
-            featureId: id,
-            feature: toClientGeoJSONFeature(placeResponse),
-          }),
-        );
 
         // Update the focused feature.
+        // TODO: Is this needed?
         const { geometry, ...rest } = placeResponse;
         dispatch(
           updateFocusedGeoJSONFeatures([
@@ -188,9 +178,7 @@ const PlaceDetailEditor = ({
 
     if (response) {
       dispatch(removePlace(id));
-      dispatch(
-        removeFeatureInGeoJSONSource(dataset.split("/").pop() as string, id),
-      );
+
       history.push("/");
     } else {
       alert("Oh dear. It looks like that didn't save. Please try again.");

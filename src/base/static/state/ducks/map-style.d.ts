@@ -105,12 +105,4 @@ export const updateMapContainerDimensions: any;
 
 export const updateMapStyle: any;
 
-export const updateFeaturesInGeoJSONSource: any;
-
-export const updateFeatureInGeoJSONSource: any;
-
-export const createFeaturesInGeoJSONSource: any;
-
-export const removeFeatureInGeoJSONSource: any;
-
 export const loadMapStyle: any;

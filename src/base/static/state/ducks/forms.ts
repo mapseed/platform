@@ -1,7 +1,6 @@
-import { normalize, schema } from "normalizr";
+import { normalize, denormalize, schema } from "normalizr";
 import { createSelector } from "reselect";
 import camelcaseKeys from "camelcase-keys";
-import { FieldProps as FormikFieldProps } from "formik";
 
 import { MapViewport } from "./map";
 import { isFormField } from "../../utils/place-utils";
@@ -165,43 +164,29 @@ export const newPlaceFormInitialValuesSelector = createSelector(
   },
 );
 
-export const placeFormIdSelector = (state, datasetUrl) =>
-  state.forms.formIdsByDatasetUrl[datasetUrl];
+const _formsSelector = ({ forms: { entities } }) => entities.forms;
 
-// TODO: Break this into a few separate selectors, maybe:
-//  - a "stage field" selector, which selects stage field configurations
-//  - a "group module" selector, which selects nested modules within groupmodules
-// TODO: Eventually the comment form may be sent along with the Place form(s).
-// For now, we assume that all `forms` are Place forms.
-export const placeFormSelector = createSelector(
-  [formStagesSelector, formModulesSelector, flattenedFormSelector],
-  (formStages, formModules, placeForm) => {
-    return placeForm
-      ? {
-          ...placeForm,
-          stages: placeForm.stages.map(stageId => {
-            const stage = formStages[stageId];
-
-            return {
-              ...stage,
-              modules: stage.modules.map(moduleId => {
-                const formModule = formModules[moduleId];
-
-                return formModule.type === "groupmodule"
-                  ? {
-                      ...formModule,
-                      modules: formModule.modules.map(
-                        subFormModuleId => formModules[subFormModuleId],
-                      ),
-                    }
-                  : formModule;
-              }),
-            };
-          }),
-        }
-      : null;
-  },
+export const formConfigsByDatasetAndTypeSelector = createSelector(
+  [_formsSelector],
+  forms =>
+    Object.values(forms).reduce(
+      (memo, { dataset, type, ...rest }) => ({
+        ...memo,
+        [dataset]: {
+          ...memo[dataset],
+          [type]: { ...rest },
+        },
+      }),
+      {},
+    ),
 );
+
+export const placeFormIdSelector = ({ forms: { entities } }, datasetUrl) =>
+  (
+    Object.values(entities.forms).find(
+      ({ type, dataset }) => type === "place" && dataset === datasetUrl,
+    ) || {}
+  ).id;
 
 // TODO: handle multiple datasets
 export const placeDetailViewModulesSelector = state =>
@@ -285,18 +270,14 @@ interface NormalizedData<T> {
 }
 
 type Entities = {
-  flavor: NormalizedData<Flavor>;
-  form: NormalizedData<MapseedForm>;
+  forms: NormalizedData<MapseedForm>;
   stages: NormalizedData<PlaceFormStage>;
   modules: NormalizedData<FormModule>;
 };
 
 interface NormalizedState {
-  result: number | null;
+  result: (number | string)[];
   entities: Entities;
-  formIdsByDatasetUrl: {
-    [datasetUrl: string]: number;
-  };
 }
 
 const formModuleSchema = new schema.Entity(
@@ -305,8 +286,9 @@ const formModuleSchema = new schema.Entity(
   {
     processStrategy: formModuleProcessStrategy,
     idAttribute: ({ id }, { type }) =>
-      // `type` here is the parent entity's type. Module and group submodule
-      // `id`s may overlap, so we need to distinguish between them here.
+      // Supplied module and group submodule `id`s may overlap, so we need to
+      // distinguish between them. Note that `type` here is the parent entity's
+      // type.
       type === "groupmodule" ? `groupmodule${id}` : id,
   },
 );
@@ -318,33 +300,50 @@ formModuleSchema.define({ modules: formModulesSchema });
 const formStageSchema = new schema.Entity("stages", {
   modules: formModulesSchema,
 });
-const formSchema = new schema.Entity("form", {
+const formsSchema = new schema.Entity("forms", {
   stages: [formStageSchema],
 });
-const flavorSchema = new schema.Entity("flavor", {
-  forms: [formSchema],
-});
+const formsDuckSchema = new schema.Array(formsSchema);
 
-export function loadForms(flavor) {
-  const normalizedState = camelcaseKeys(normalize(flavor, flavorSchema), {
-    deep: true,
-  });
-  const formIdsByDatasetUrl = Object.values(
-    (normalizedState.entities as Entities).form,
-  ).reduce(
-    (memo, { dataset, id }) => ({
-      ...memo,
-      [dataset]: id,
-    }),
-    {},
-  );
+// TODO: Break this into a few separate selectors, maybe:
+//  - a "stage field" selector, which selects stage field configurations
+//  - a "group module" selector, which selects nested modules within groupmodules
+// TODO: does this handle groupmodules correctly?
+// TODO: memoize this?
+export const placeFormSelector = ({ forms: { entities } }, formId) =>
+  denormalize(entities.forms[formId], formsSchema, entities);
+
+export function loadForms({ apiForms, configForms, datasets }) {
+  // Preprocess forms in order to merge API-based forms info with config-based
+  // forms info. It would be nice to perform this work within Normalizr itself,
+  // but there doesn't seem to be a way to do this.
+  const placeSurveyForms = configForms
+    .filter(({ type }) => type === "placeSurvey")
+    .map(form => ({
+      ...form,
+      dataset: (datasets.find(({ slug }) => slug === form.datasetSlug) || {})
+        .url,
+    }));
+  const mergedForms = apiForms
+    .map(apiForm => {
+      // This *should* be a safe way to obtain the slug for each form's dataset.
+      const derivedDatasetSlug = apiForm.dataset.split("/").pop();
+
+      return {
+        ...apiForm,
+        ...(configForms.find(
+          ({ datasetSlug }) => datasetSlug === derivedDatasetSlug,
+        ) || {}),
+      };
+    })
+    .concat(placeSurveyForms);
 
   return {
     type: LOAD,
-    payload: {
-      ...normalizedState,
-      formIdsByDatasetUrl,
-    },
+    payload: normalize(
+      camelcaseKeys(mergedForms, { deep: true }),
+      formsDuckSchema,
+    ),
   };
 }
 
@@ -363,14 +362,12 @@ export function updateFormModuleVisibilities(
 
 // Reducers:
 const INITIAL_STATE = {
-  result: null,
+  result: [],
   entities: {
     modules: {},
     stages: {},
-    form: {},
-    flavor: {},
+    forms: {},
   },
-  formIdsByDatasetUrl: {},
 } as NormalizedState;
 
 export default function reducer(state = INITIAL_STATE, action) {

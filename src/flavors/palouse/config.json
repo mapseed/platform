@@ -31,7 +31,7 @@
     "logo": "/static/css/images/whitman-vsp-logo-large.png",
     "meta_description": "Welcome!",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "apiRoot": "https://dev-api.mapseed.org/api/v2/",
     "isShowingMobileUserMenu": true,
     "theme": {
       "brand": {

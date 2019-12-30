@@ -15,12 +15,12 @@ import {
   DashboardsConfig,
 } from "../../state/ducks/dashboard-config";
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
-import {
-  placeFormsConfigSelector,
-  PlaceFormsConfig,
-  formFieldsConfigSelector,
-  FormFieldsConfig,
-} from "../../state/ducks/forms-config";
+//import {
+//  placeFormsConfigSelector,
+//  PlaceFormsConfig,
+//  formFieldsConfigSelector,
+//  FormFieldsConfig,
+//} from "../../state/ducks/forms-config";
 import { hasAdminAbilitiesSelector } from "../../state/ducks/user";
 import { RegularTitle, SmallText, ExternalLink } from "../atoms/typography";
 import { FontAwesomeIcon } from "../atoms/imagery";
@@ -33,8 +33,8 @@ type StateProps = {
   appConfig: AppConfig;
   hasAdminAbilities: Function;
   datasetPlacesSelector: Function;
-  placeFormsConfig: PlaceFormsConfig;
-  formFieldsConfig: FormFieldsConfig;
+  //placeFormsConfig: PlaceFormsConfig;
+  //formFieldsConfig: FormFieldsConfig;
   datasets: Dataset[];
 };
 
@@ -256,8 +256,8 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   datasetPlacesSelector: datasetSlug =>
     datasetPlacesSelector(datasetSlug, state),
   dashboardConfig: dashboardConfigSelector(state),
-  placeFormsConfig: placeFormsConfigSelector(state),
-  formFieldsConfig: formFieldsConfigSelector(state),
+  //placeFormsConfig: placeFormsConfigSelector(state),
+  //formFieldsConfig: formFieldsConfigSelector(state),
   datasets: datasetsSelector(state),
 });
 

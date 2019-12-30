@@ -1,5 +1,9 @@
 import PropTypes from "prop-types";
-import { createSelector } from "reselect"
+import { createSelector } from "reselect";
+import groupBy from "lodash.groupby";
+
+import { datasetsByUrlSelector } from "./datasets";
+import { formConfigsByDatasetAndTypeSelector } from "./forms";
 
 // prop types:
 export const placePropType = PropTypes.shape({
@@ -8,30 +12,97 @@ export const placePropType = PropTypes.shape({
   created_datetime: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
-  datasetSlug: PropTypes.string.isRequired,
-  submitter_name: PropTypes.string,
   submission_sets: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
   title: PropTypes.string,
-  location_type: PropTypes.string.isRequired,
   submitter: PropTypes.object,
+  __clientSideMetadata: PropTypes.object.isRequired,
 });
 
 export const placesPropType = PropTypes.arrayOf(placePropType);
 
+const ensureSubmissionSetsAndMetadata = ({
+  place,
+  dataset: { clientSlug, slug: datasetSlug },
+  formConfigsByType: {
+    place: {
+      anonymousName: placeAnonymousName = "Someone",
+      actionText: placeActionText = "created",
+      responseLabel: placeResponseLabel = "post",
+      includeOnList = true,
+    },
+    placeSurvey: {
+      id: placeSurveyFormId,
+      surveyType,
+      anonymousName: placeSurveyAnonymousName = "Someone",
+      responseLabel: placeSurveyResponseLabel = "",
+      responsePluralLabel: placeSurveyResponsePluralLabel = "",
+      actionText: placeSurveyActionText = "",
+    } = {},
+  },
+}) => ({
+  ...place,
+  submission_sets: {
+    ...place.submission_sets,
+    support: place.submission_sets.support || [],
+    comments: place.submission_sets.comments || [],
+  },
+  // Data that's useful to attach to the Place model on the client side:
+  __clientSideMetadata: {
+    clientSlug,
+    datasetSlug,
+    includeOnList,
+    placeAnonymousName,
+    placeResponseLabel,
+    placeActionText,
+    placeSurveyAnonymousName,
+    placeSurveyResponseLabel,
+    placeSurveyResponsePluralLabel,
+    placeSurveyActionText,
+    placeSurveyFormId,
+  },
+});
+
 // Selectors:
-export const placesLoadStatusSelector = state => {
-  return state.places.loadStatus;
-};
-export const placesSelector = state => {
-  return state.places.placeModels;
-};
-export const datasetPlacesSelector = (datasetSlug, state) => {
-  return state.places.placeModels.filter(
-    place => place.datasetSlug === datasetSlug,
+export const placesLoadStatusSelector = ({ places: { loadStatus } }) =>
+  loadStatus;
+
+const _placesSelector = ({ places: { placeModels } }) => placeModels;
+
+export const placesSelector = createSelector(
+  [_placesSelector, datasetsByUrlSelector, formConfigsByDatasetAndTypeSelector],
+  (places, datasetsByUrl, formConfigsByDatasetAndType) =>
+    places.map(place =>
+      ensureSubmissionSetsAndMetadata({
+        place,
+        dataset: datasetsByUrl[place.dataset],
+        formConfigsByType: formConfigsByDatasetAndType[place.dataset],
+      }),
+    ),
+);
+
+export const placeSelectorFactory = () =>
+  createSelector(
+    placesSelector,
+    (_, placeId) => Number(placeId),
+    (places, placeId) => places.find(({ id }) => id === placeId),
   );
-};
+
+export const placesBySourceIdSelector = createSelector(
+  [placesSelector],
+  places =>
+    groupBy(
+      places,
+      ({ __clientSideMetadata: { datasetSlug: sourceId } }) => sourceId,
+    ),
+);
+
+//export const datasetPlacesSelector = (datasetSlug, state) => {
+//  return state.places.placeModels.filter(
+//    place => place.datasetSlug === datasetSlug,
+//  );
+//};
 
 export const filteredPlacesSelector = state => {
   const placeFilters = state.placeFilters;
@@ -64,33 +135,6 @@ export const datasetLengthSelector = (state, datasetSlug) =>
   state.places.placeModels.filter(place => place.datasetSlug === datasetSlug)
     .length;
 
-export const memoizedPlaceSelector = createSelector(
-  state => state.places,
-  (_, placeId) => placeId,
-  (places, placeId) => {
-    console.log("placeId", placeId)
-    return places.placeModels.find(place => place.id === Number(placeId))
-
-  }
-);
-
-export const placeSelector = (state, placeId) => {
-  return state.places.placeModels.find(place => place.id === Number(placeId));
-};
-
-export const focusedPlaceSelector = state =>
-  state.places.placeModels.find(
-    place => place.id === state.places.focusedPlaceId,
-  );
-
-export const activeEditPlaceIdSelector = state => {
-  return state.places.activeEditPlaceId;
-};
-
-export const scrollToResponseIdSelector = state => {
-  return state.places.scrollToResponseId;
-};
-
 // Actions:
 const LOAD_PLACES = "places/LOAD";
 const LOAD_PLACE_AND_SET_IGNORE_FLAG = "places/LOAD_PLACE_AND_SET_IGNORE_FLAG";
@@ -120,37 +164,18 @@ export function updateScrollToResponseId(responseId) {
   };
 }
 
-export function updateFocusedPlaceId(placeId) {
+export function loadPlaces(places) {
   return {
-    type: UPDATE_FOCUSED_PLACE_ID,
-    payload: placeId,
+    type: LOAD_PLACES,
+    payload: places,
   };
 }
 
-const mapPlaceWithSubmissionSets = place => ({
-  ...place,
-  submission_sets: {
-    ...place.submission_sets,
-    support: place.submission_sets.support || [],
-    comments: place.submission_sets.comments || [],
-  },
-});
-
-export function loadPlaces(places) {
-  places = places.map(place => mapPlaceWithSubmissionSets(place));
-
-  return { type: LOAD_PLACES, payload: places };
-}
-
-export function loadPlaceAndSetIgnoreFlag(placeModel) {
+export function loadPlaceAndSetIgnoreFlag(place) {
   return {
     type: LOAD_PLACE_AND_SET_IGNORE_FLAG,
-    payload: mapPlaceWithSubmissionSets(placeModel),
+    payload: place,
   };
-}
-
-export function updateActiveEditPlaceId(placeId) {
-  return { type: UPDATE_ACTIVE_EDIT_PLACE_ID, payload: placeId };
 }
 
 export function updatePlace(place) {
@@ -227,25 +252,11 @@ export function updatePlacesLoadStatus(loadStatus) {
   };
 }
 
-const normalizeSubmissionSets = place => {
-  // A place with no comments or supports will arrive from the API without any
-  // information about these submission sets. Because we assume that comments
-  // and supports are a part of every Mapseed instance, make sure we at least
-  // have an empty array for comments and supports on every place.
-  place.submission_sets.support = place.submission_sets.support || [];
-  place.submission_sets.comments = place.submission_sets.comments || [];
-
-  return place;
-};
-
 // Reducers:
 const INITIAL_STATE = {
   placeModels: [],
   loadStatus: "unloaded",
-  activeEditPlaceId: null,
-  focusedPlaceId: null,
   ignorePlaceId: null,
-  scrollToResponseId: null,
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -282,7 +293,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         placeModels: state.placeModels.map(placeModel => {
           if (placeModel.id === action.payload.id) {
-            placeModel = normalizeSubmissionSets(action.payload);
+            placeModel = action.payload;
           }
 
           return placeModel;
@@ -291,10 +302,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     case CREATE_PLACE:
       return {
         ...state,
-        placeModels: [
-          ...state.placeModels,
-          normalizeSubmissionSets(action.payload),
-        ],
+        placeModels: [...state.placeModels, action.payload],
       };
     case REMOVE_PLACE:
       return {
@@ -468,21 +476,6 @@ export default function reducer(state = INITIAL_STATE, action) {
 
           return place;
         }),
-      };
-    case UPDATE_ACTIVE_EDIT_PLACE_ID:
-      return {
-        ...state,
-        activeEditPlaceId: action.payload,
-      };
-    case UPDATE_FOCUSED_PLACE_ID:
-      return {
-        ...state,
-        focusedPlaceId: action.payload,
-      };
-    case UPDATE_SCROLL_TO_RESPONSE_ID:
-      return {
-        ...state,
-        scrollToResponseId: action.payload,
       };
     default:
       return state;

@@ -8,14 +8,6 @@ import { UserAvatar } from "../atoms/imagery";
 import SubmitterName from "../ui-elements/submitter-name";
 import { SmallText, RegularText } from "../atoms/typography";
 
-import {
-  commentFormConfigSelector,
-  CommentFormConfig,
-} from "../../state/ducks/forms-config";
-import {
-  placeConfigSelector,
-  PlaceConfig,
-} from "../../state/ducks/place-config";
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import { scrollToResponseIdSelector } from "../../state/ducks/places";
 import { Comment } from "../../models/place";
@@ -29,11 +21,10 @@ const SurveyResponse = (props: SurveyResponseProps) => {
   const { comment, onMountTargetResponse } = props;
   const responseRef: React.RefObject<HTMLElement> = React.useRef(null);
   const appConfig: AppConfig = useSelector(appConfigSelector);
-  const commentFormConfig: CommentFormConfig = useSelector(
-    commentFormConfigSelector,
-  );
-  const placeConfig: PlaceConfig = useSelector(placeConfigSelector);
   const scrollToResponseId: number = useSelector(scrollToResponseIdSelector);
+  // TODO
+  const commentFormConfig = { items: [] };
+  const placeConfig = { anonymous_name: "" };
 
   React.useEffect(() => {
     if (comment.id === scrollToResponseId) {
@@ -73,9 +64,13 @@ const SurveyResponse = (props: SurveyResponseProps) => {
       >
         {commentFormConfig.items
           .filter(
+            // TODO
+            // @ts-ignore
             field => field.type !== "submit" && field.name !== "submitter_name",
           )
           .map(field => (
+            // TODO
+            // @ts-ignore
             <RegularText key={field.name}>{comment[field.name]}</RegularText>
           ))}
       </div>

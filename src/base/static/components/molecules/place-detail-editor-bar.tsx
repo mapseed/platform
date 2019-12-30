@@ -5,7 +5,6 @@ import { withTranslation, WithTranslation } from "react-i18next";
 
 import mq from "../../../../media-queries";
 import { EditorButton } from "../atoms/buttons";
-import constants from "../../constants";
 
 type EditorBarProps = {
   isAdmin: boolean;
@@ -18,14 +17,6 @@ type EditorBarProps = {
 
 type Props = WithTranslation & EditorBarProps;
 
-const getLeftOffset = (layout, isRightSidebarVisible) => {
-  if (layout === "mobile") {
-    return "8px";
-  }
-
-  return isRightSidebarVisible ? "calc(45% + 8px)" : "calc(60% + 8px)";
-};
-
 const EditorBar: React.FunctionComponent<Props> = props => {
   return (
     <div
@@ -33,16 +24,15 @@ const EditorBar: React.FunctionComponent<Props> = props => {
         margin-bottom: 25px;
 
         ${mq[1]} {
+          position: absolute;
+          top: 0;
+          left: 10px;
+          width: calc(100% - 20px);
           z-index: 100;
           background-color: #fff;
-          position: fixed;
           padding-bottom: 15px;
           padding-top: 15px;
           border-bottom: 2px solid #ddd;
-          width: calc(40% - 20px);
-          // TODO
-          left: 40%;
-          top: ${constants.HEADER_HEIGHT}px;
         }
       `}
     >

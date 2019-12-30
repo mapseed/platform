@@ -42,7 +42,7 @@ export type AppConfig = {
   title: string;
   meta_description: string;
   thumbnail?: string;
-  api_root: string;
+  apiRoot: string;
   dataset_download: {};
   name?: string;
   time_zone: string;

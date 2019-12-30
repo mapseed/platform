@@ -1,5 +1,5 @@
-import * as React from "react";
 import PropTypes from "prop-types";
+import * as React from "react";
 import styled from "@emotion/styled";
 import { connect } from "react-redux";
 import { withTheme } from "emotion-theming";
@@ -7,10 +7,10 @@ import { themePropType } from "../../state/ducks/app-config";
 import { withTranslation } from "react-i18next";
 import { getReadableColor } from "../../utils/color";
 
-import {
-  placeFormsConfigPropType,
-  placeFormsConfigSelector,
-} from "../../state/ducks/forms-config";
+//import {
+//  placeFormsConfigPropType,
+//  placeFormsConfigSelector,
+//} from "../../state/ducks/forms-config";
 
 import { Image } from "../atoms/imagery";
 import { RegularLabel } from "../atoms/typography";
@@ -57,14 +57,15 @@ const MapLegendPanel = props => {
 };
 
 MapLegendPanel.propTypes = {
-  placeFormsConfig: placeFormsConfigPropType.isRequired,
+  //placeFormsConfig: placeFormsConfigPropType.isRequired,
   isThemed: PropTypes.bool,
   t: PropTypes.func.isRequired,
   theme: themePropType,
 };
 
 const mapStateToProps = state => ({
-  placeFormsConfig: placeFormsConfigSelector(state),
+  placeFormsConfig: {}, // TODO
+  //placeFormsConfig: placeFormsConfigSelector(state),
 });
 
 export default withTheme(

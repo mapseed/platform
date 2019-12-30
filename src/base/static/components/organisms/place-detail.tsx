@@ -18,7 +18,10 @@ import {
   placeDetailViewModulesSelector,
   FormModule,
 } from "../../state/ducks/forms";
-import { Place, placeSelector } from "../../state/ducks/places";
+import {
+  PlaceWithMetadata,
+  placeSelectorFactory,
+} from "../../state/ducks/places";
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import SubmittedFieldDetail from "../organisms/submitted-field-detail";
 
@@ -29,14 +32,9 @@ import PBDurhamProjectProposalFieldDetail from "./flavor-submitted-field-detail/
 import KittitasFireAdaptedFieldDetail from "./flavor-submitted-field-detail/kittitas-fire-adapted";
 
 import {
-  CommentFormConfig,
-  commentFormConfigSelector,
-} from "../../state/ducks/forms-config";
-import {
   supportConfigSelector,
   SupportConfig,
 } from "../../state/ducks/support-config";
-import { placeConfigSelector } from "../../state/ducks/place-config";
 import {
   featuredPlacesSelector,
   FeaturedPlace,
@@ -114,19 +112,19 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
     false,
   );
   const user = useSelector(userSelector);
+  const placeSelector = React.useMemo(placeSelectorFactory, []);
   const place = useSelector(state => placeSelector(state, placeId));
   const { FieldDetail } = useSelector(customComponentsConfigSelector);
   const layerGroups = useSelector(layerGroupsSelector);
-  const isTagBarEditable = useSelector(
-    datasetsWithEditTagsAbilitySelector,
-  ).includes(place.dataset);
+  const isTagBarEditable = useSelector(datasetsWithEditTagsAbilitySelector)
+    .map(({ url }) => url)
+    .includes(place.dataset);
   const datasetsWithUpdatePlacesAbility = useSelector(
     datasetsWithUpdatePlacesAbilitySelector,
   );
   const appConfig = useSelector(appConfigSelector);
   const dispatch = useDispatch();
   const layout = useSelector(layoutSelector);
-  const placeConfig = useSelector(placeConfigSelector);
   const isPlaceDetailEditable =
     datasetsWithUpdatePlacesAbility.includes(place.dataset) ||
     // If the current user created this Place, grant editing abilities.
@@ -138,9 +136,6 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   const featuredPlaces = useSelector(featuredPlacesSelector);
   const supports = place.submission_sets.support;
   const comments = place.submission_sets.comments;
-  const submitterName = place.submitter
-    ? place.submitter.name
-    : place.submitter_name || placeConfig.anonymous_name;
   const hasAdminAbilities = useSelector(state =>
     hasAdminAbilitiesSelector(state, place.dataset),
   );
@@ -307,18 +302,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
         {place.title}
       </LargeTitle>
       <PromotionMetadataContainer>
-        <MetadataBar
-          label={placeConfig.label}
-          createdDatetime={place.created_datetime}
-          submitterName={submitterName}
-          submitterAvatarUrl={
-            place.submitter && place.submitter.avatar_url
-              ? place.submitter.avatar_url
-              : undefined
-          }
-          numComments={comments.length}
-          actionText={placeConfig.action_text}
-        />
+        <MetadataBar place={place} numComments={comments.length} />
         <PromotionBar
           appConfig={appConfig}
           numSupports={supports.length}

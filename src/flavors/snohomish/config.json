@@ -33,7 +33,7 @@
     "logo": "/static/css/images/better-ground-logo.png",
     "meta_description": "Welcome!",
     "meta_author": "HaxGeo.com",
-    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "apiRoot": "https://dev-api.mapseed.org/api/v2/",
     "list_enabled": false,
     "theme": {
       "brand": {

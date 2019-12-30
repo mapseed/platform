@@ -34,10 +34,10 @@ import {
   updateActivePage,
   updateCurrentTemplate,
 } from "../../state/ducks/ui";
-import {
-  placeConfigPropType,
-  placeConfigSelector,
-} from "../../state/ducks/place-config";
+//import {
+//  placeConfigPropType,
+//  placeConfigSelector,
+//} from "../../state/ducks/place-config";
 import { Dataset } from "../../state/ducks/datasets";
 import { isLeftSidebarExpandedSelector } from "../../state/ducks/left-sidebar";
 import { isRightSidebarEnabledSelector } from "../../state/ducks/right-sidebar-config";
@@ -49,7 +49,6 @@ import {
   updateMapViewport,
 } from "../../state/ducks/map";
 import {
-  createFeaturesInGeoJSONSource,
   mapSourcesSelector,
   mapSourcesPropType,
 } from "../../state/ducks/map-style";
@@ -70,7 +69,7 @@ const SpotlightMask = styled("div")({
 });
 
 const dispatchPropTypes = {
-  createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
+  //createFeaturesInGeoJSONSource: PropTypes.func.isRequired,
   loadPlaceAndSetIgnoreFlag: PropTypes.func.isRequired,
   updateUIVisibility: PropTypes.func.isRequired,
   updateActivePage: PropTypes.func.isRequired,
@@ -91,7 +90,7 @@ type StateProps = {
   layout: string;
   mapConfig: PropTypes.InferProps<typeof mapConfigPropType>;
   navBarConfig: NavBarConfig;
-  placeConfig: PropTypes.InferProps<typeof placeConfigPropType.isRequired>;
+  //placeConfig: PropTypes.InferProps<typeof placeConfigPropType.isRequired>;
   placeFormIdSelector: (datasetUrl: string) => string | undefined;
   user: User;
 };
@@ -198,20 +197,16 @@ class MapTemplate extends React.Component<Props, State> {
       });
 
       if (response) {
-        // Add this Place to the places duck and update the map.
+        // Add this Place to the places duck.
         this.props.loadPlaceAndSetIgnoreFlag(response);
-        const { geometry, ...rest } = response;
-        this.props.createFeaturesInGeoJSONSource(dataset.slug, [
-          {
-            type: "Feature",
-            geometry,
-            properties: rest,
-          },
-        ]);
-
-        //this.props.updateEditModeToggled(false);
-        //this.props.updateFocusedPlaceId(parseInt(placeId));
-        //responseId && this.props.updateScrollToResponseId(parseInt(responseId));
+        //const { geometry, ...rest } = response;
+        //this.props.createFeaturesInGeoJSONSource(dataset.slug, [
+        //  {
+        //    type: "Feature",
+        //    geometry,
+        //    properties: rest,
+        //  },
+        //]);
       } else {
         // The Place doesn't exist, so route back to the map.
         this.props.history.push("/");
@@ -298,7 +293,9 @@ class MapTemplate extends React.Component<Props, State> {
           >
             {this.props.t(
               "addPlaceButtonLabel",
-              this.props.placeConfig.add_button_label,
+              // TODO
+              // @ts-ignore
+              /*this.props.placeConfig.add_button_label,*/
             )}
           </AddPlaceButton>
         )}
@@ -328,13 +325,12 @@ const mapStateToProps = (state: MapseedReduxState): StateProps => ({
   layout: layoutSelector(state),
   mapConfig: mapConfigSelector(state),
   navBarConfig: navBarConfigSelector(state),
-  placeConfig: placeConfigSelector(state),
+  //placeConfig: placeConfigSelector(state),
   user: userSelector(state),
   placeFormIdSelector: datasetUrl => placeFormIdSelector(state, datasetUrl),
 });
 
 const mapDispatchToProps = {
-  createFeaturesInGeoJSONSource,
   loadPlaceAndSetIgnoreFlag,
   updateUIVisibility,
   updateActivePage,

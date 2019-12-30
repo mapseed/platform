@@ -1,15 +1,21 @@
 import { Dataset, DatasetFromAPI } from "../../state/ducks/datasets";
 
-const getDatasets = async (
-  datasetConfigs,
-  apiRoot,
-): Promise<Dataset[]> => {
+const getDatasets = async (datasetConfigs, apiRoot): Promise<Dataset[]> => {
   return Promise.all(
     datasetConfigs.map(
-      async ({ user, slug, anonymousPermissions, placeConfirmationModal }) => {
-        const response = await fetch(`${apiRoot}${user}/datasets/${slug}`, {
-          credentials: "include",
-        });
+      async ({
+        datasetSlug,
+        user,
+        clientSlug,
+        anonymousPermissions,
+        placeConfirmationModal,
+      }) => {
+        const response = await fetch(
+          `${apiRoot}${user}/datasets/${datasetSlug}`,
+          {
+            credentials: "include",
+          },
+        );
 
         if (response.status < 200 || response.status >= 300) {
           throw Error(
@@ -25,6 +31,7 @@ const getDatasets = async (
           // served from the `/datasets` endpoint.
           anonymousPermissions,
           placeConfirmationModal,
+          clientSlug,
         };
       },
     ),

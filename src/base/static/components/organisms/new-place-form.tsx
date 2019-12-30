@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import { FormikValues } from "formik";
 
 import PlaceForm from "./place-form";
-import Util from "../../js/utils.js";
 import { Mixpanel } from "../../utils/mixpanel";
 import {
   placeFormSelector,
@@ -17,7 +16,6 @@ import { datasetPlaceConfirmationModalSelector } from "../../state/ducks/dataset
 import InfoModal from "./info-modal";
 import { LoadingBar } from "../atoms/imagery";
 import { createPlace } from "../../state/ducks/places";
-import { createFeaturesInGeoJSONSource } from "../../state/ducks/map-style";
 import { updateMapInteractionState } from "../../state/ducks/map";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
 import { mapViewportSelector, MapViewport } from "../../state/ducks/map";
@@ -56,6 +54,22 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
     placeFormSelector(state, props.formId),
   );
 
+  const includePrivate =
+    placeForm &&
+    !!useSelector(datasetsWithAccessProtectedPlacesAbilitySelector).find(
+      ({ url }) => url === placeForm.dataset,
+    );
+
+  const placeConfirmationModal =
+    placeForm &&
+    useSelector(state =>
+      datasetPlaceConfirmationModalSelector(state, placeForm.dataset),
+    );
+
+  React.useEffect(() => {
+    dispatch(updateUIVisibility("mapCenterpoint", true));
+  }, [dispatch]);
+
   React.useEffect(() => {
     if (!placeForm) {
       history.push("/");
@@ -64,26 +78,10 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
     return;
   }, [placeForm, history]);
 
-  const placeConfirmationModal =
-    placeForm &&
-    useSelector(state =>
-      datasetPlaceConfirmationModalSelector(state, placeForm.dataset),
-    );
-  React.useEffect(() => {
-    dispatch(updateUIVisibility("mapCenterpoint", true));
-  }, [dispatch]);
-
   const onSubmit = React.useCallback(
     async ({ data, attachments }) => {
-      Util.log("USER", "new-place", "submit-place-btn-click");
       Mixpanel.track("Clicked place form submit");
       setIsSubmitting(true);
-
-      const includePrivate =
-        placeForm &&
-        !!useSelector(datasetsWithAccessProtectedPlacesAbilitySelector).find(
-          ({ url }) => url === placeForm.dataset,
-        );
 
       // Run geospatial analyses:
       //if (
@@ -121,7 +119,6 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
 
       if (!placeResponse) {
         alert("Oh dear. It looks like that didn't save. Please try again.");
-        Util.log("USER", "place", "fail-to-create-place");
 
         return;
       }
@@ -130,7 +127,6 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
         alert(
           "No internet connection detected. Your submission may not be successful until you are back online.",
         );
-        Util.log("USER", "place", "submitted-offline-place");
         history.push("/");
 
         return;
@@ -149,10 +145,8 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
 
             if (attachmentResponse) {
               placeResponse.attachments.push(attachmentResponse);
-              Util.log("USER", "dataset", "successfully-add-attachment");
             } else {
               alert("Oh dear. It looks like an attachment didn't save.");
-              Util.log("USER", "place", "fail-to-add-attachment");
             }
           }),
         );
@@ -193,18 +187,13 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
             isOpen: true,
             header: privateAdmin.header,
             body: privateAdmin.body,
-            routeOnClose: `place/${placeResponse.id}`,
+            routeOnClose: `/place/${placeResponse.id}`,
           });
         } else {
-          history.push(`place/${placeResponse.id}`);
+          history.push(`/place/${placeResponse.id}`);
         }
 
-        createPlace(placeResponse);
-        dispatch(
-          createFeaturesInGeoJSONSource(datasetSlug, [
-            toClientGeoJSONFeature(placeResponse),
-          ]),
-        );
+        dispatch(createPlace(placeResponse));
       } else if (placeResponse.private) {
         // Private submission made by a non-admin.
         if (privateNonAdmin) {
@@ -226,18 +215,13 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
             isOpen: true,
             header: nonPrivate.header,
             body: nonPrivate.body,
-            routeOnClose: `place/${placeResponse.id}`,
+            routeOnClose: `/place/${placeResponse.id}`,
           });
         } else {
-          history.push(`place/${placeResponse.id}`);
+          history.push(`/place/${placeResponse.id}`);
         }
 
         dispatch(createPlace(placeResponse));
-        createFeaturesInGeoJSONSource(
-          // "sourceId" and a place's datasetSlug are the same thing.
-          datasetSlug,
-          [toClientGeoJSONFeature(placeResponse)],
-        );
       }
     },
     [placeForm, history, mapViewport, dispatch, placeConfirmationModal],

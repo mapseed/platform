@@ -14,32 +14,43 @@ export type Place = {
   created_datetime: string;
   dataset: string;
   visible: boolean;
-  datasetSlug: string;
   submitter_name?: string;
+  title?: string;
+  location_type?: string;
   submission_sets: {
     support: Support[];
     comments: Comment[];
   };
   id: number;
   url: string;
-  title: string;
-  clientSlug: string;
-  location_type: string;
   submitter?: any;
   geometry: MapseedGeometry;
   tags: PlaceTag[];
-  // TODO: Deprecate this, if possible:
-  story: any;
+};
+
+export type PlaceWithMetadata = Place & {
+  __clientSideMetadata: {
+    clientSlug: string;
+    datasetSlug: string;
+    includeOnList: boolean;
+    placeAnonymousName: string;
+    placeResponseLabel: string;
+    placeActionText: string;
+    placeSurveyAnonymousName: string;
+    placeSurveyResponseLabel: string;
+    placeSurveyResponsePluralLabel: string;
+    placeSurveyActionText: string;
+    placeSurveyFormId: string | number;
+  };
 };
 
 export const placesLoadStatusSelector: any;
-export const placesSelector: any;
+
+export const placesSelector: (state: any) => PlaceWithMetadata[];
 
 export const filteredPlacesSelector: any;
 
 export const datasetLengthSelector: any;
-
-export const placeSelector: any;
 
 export const focusedPlaceSelector: (state: any) => Place;
 

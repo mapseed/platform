@@ -118,7 +118,7 @@
     "isShowingMobileUserMenu": true,
     "logo": "https://ecotopia.today/Mississippi/Images/Logo.png",
     "meta_description": "This map documents a regional project linked to the Anthropocene Curriculum program organized by Haus der Kulturen der Welt and the Max Planck Institute, Berlin.",
-    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "apiRoot": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
         "primary": "#175f54",

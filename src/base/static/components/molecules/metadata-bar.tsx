@@ -1,81 +1,87 @@
 /** @jsx jsx */
-import React from "react";
-import { connect } from "react-redux";
+import * as React from "react";
 import { css, jsx } from "@emotion/core";
 import moment from "moment";
 
 import { UserAvatar } from "../atoms/imagery";
 import { SmallText, RegularText } from "../atoms/typography";
 import { withTranslation, WithTranslation } from "react-i18next";
-
-import {
-  commentFormConfigSelector,
-  CommentFormConfig,
-} from "../../state/ducks/forms-config";
-import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
+import { PlaceWithMetadata } from "../../state/ducks/places";
 
 type OwnProps = {
-  actionText: string;
-  createdDatetime: string;
-  label: string;
   numComments: number;
-  submitterName: string;
-  submitterAvatarUrl?: string;
+  place: PlaceWithMetadata;
 };
 
-type StateProps = {
-  appConfig: AppConfig;
-  commentFormConfig: CommentFormConfig;
-};
+type MetadataBarProps = OwnProps & WithTranslation;
 
-type MetadataBarProps = OwnProps & StateProps & WithTranslation;
+const MetadataBar = ({
+  numComments,
+  t,
+  place: {
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    created_datetime,
+    submitter,
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    submitter_name,
+    __clientSideMetadata: {
+      placeAnonymousName,
+      placeActionText,
+      placeResponseLabel,
+      placeSurveyResponsePluralLabel,
+      placeSurveyResponseLabel,
+    },
+  },
+}: MetadataBarProps) => {
+  const submitterName =
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    (submitter && submitter.name) || submitter_name || placeAnonymousName;
 
-const MetadataBar = (props: MetadataBarProps) => (
-  <div
-    css={theme => css`
-      font-family: ${theme.text.bodyFontFamily};
-      position: relative;
-      line-height: 0.9rem;
-    `}
-  >
+  return (
     <div
-      css={css`
-        position: absolute;
-        top: 0;
-        left: 0;
+      css={theme => css`
+        font-family: ${theme.text.bodyFontFamily};
+        position: relative;
+        line-height: 0.9rem;
       `}
     >
-      <UserAvatar size="large" src={props.submitterAvatarUrl} />
-    </div>
-    <div
-      css={css`
-        margin-left: 60px;
-        margin-right: 8px;
-      `}
-    >
-      <div>
-        <RegularText weight="black">{props.submitterName}</RegularText>{" "}
-        <RegularText>
-          {props.t("placeActionText", `${props.actionText}`)}{" "}
-          {props.t("this", "this")} {props.label}
-        </RegularText>
-      </div>
-      <SmallText
+      <div
         css={css`
-          line-height: 0.9rem;
+          position: absolute;
+          top: 0;
+          left: 0;
         `}
-        display="block"
-        textTransform="uppercase"
       >
-        {props.numComments}{" "}
-        {props.numComments === 1
-          ? props.t("surveyResponseName", props.commentFormConfig.response_name)
-          : props.t(
-              "surveyResponsePluralName",
-              props.commentFormConfig.response_plural_name,
-            )}
-      </SmallText>
-      {props.appConfig.show_timestamps && (
+        <UserAvatar size="large" src={submitter && submitter.avatar_url} />
+      </div>
+      <div
+        css={css`
+          margin-left: 60px;
+          margin-right: 8px;
+        `}
+      >
+        <div>
+          <RegularText weight="black">{submitterName}</RegularText>{" "}
+          <RegularText>
+            {t("placeActionText", `${placeActionText}`)} {t("this", "this")}{" "}
+            {placeResponseLabel}
+          </RegularText>
+        </div>
+        <SmallText
+          css={css`
+            line-height: 0.9rem;
+          `}
+          display="block"
+          textTransform="uppercase"
+        >
+          {numComments}{" "}
+          {numComments === 1
+            ? t("placeSurveyResponseLabel", placeSurveyResponseLabel)
+            : t(
+                "placeSurveyResponsePluralLabel",
+                placeSurveyResponsePluralLabel,
+              )}
+        </SmallText>
         <SmallText
           css={css`
             line-height: -0.9rem;
@@ -83,18 +89,11 @@ const MetadataBar = (props: MetadataBarProps) => (
           display="block"
           textTransform="uppercase"
         >
-          <time>{moment(props.createdDatetime).fromNow()}</time>
+          <time>{moment(created_datetime).fromNow()}</time>
         </SmallText>
-      )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-const mapStateToProps = (state: any): StateProps => ({
-  appConfig: appConfigSelector(state),
-  commentFormConfig: commentFormConfigSelector(state),
-});
-
-export default connect(mapStateToProps)(
-  withTranslation("MetadataBar")(MetadataBar),
-);
+export default withTranslation("MetadataBar")(MetadataBar);
