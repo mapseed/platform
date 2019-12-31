@@ -4,6 +4,7 @@ import camelcaseKeys from "camelcase-keys";
 
 import { MapViewport } from "./map";
 import { isFormField } from "../../utils/place-utils";
+import { Dataset } from "./datasets";
 
 // Types:
 // NOTE: Typings reflect loaded, transformed data.
@@ -130,6 +131,7 @@ export type PlaceForm = {
   image?: string;
   dataset: string;
   stages: PlaceFormStage[];
+  type: "place";
 };
 
 export type CommentForm = {}; // TODO
@@ -164,7 +166,8 @@ export const newPlaceFormInitialValuesSelector = createSelector(
   },
 );
 
-const _formsSelector = ({ forms: { entities } }) => entities.forms;
+const _formsSelector = ({ forms: { entities } }: { forms: NormalizedState }) =>
+  entities.forms;
 
 export const formConfigsByDatasetAndTypeSelector = createSelector(
   [_formsSelector],
@@ -181,7 +184,10 @@ export const formConfigsByDatasetAndTypeSelector = createSelector(
     ),
 );
 
-export const placeFormIdSelector = ({ forms: { entities } }, datasetUrl) =>
+export const placeFormIdSelector = (
+  { forms: { entities } }: { forms: NormalizedState },
+  datasetUrl: string,
+) =>
   (
     Object.values(entities.forms).find(
       ({ type, dataset }) => type === "place" && dataset === datasetUrl,

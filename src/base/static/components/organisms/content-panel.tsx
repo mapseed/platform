@@ -113,7 +113,7 @@ const ContentPanel = ({
           width: "100%",
           height: "100%",
           overflow: layout === "desktop" ? "auto" : "visible",
-          padding: "15px", // TODO
+          padding: "15px 15px 60px 15px",
           boxSizing: "border-box",
           scrollbarWidth: "none",
         }}

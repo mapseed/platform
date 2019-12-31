@@ -90,8 +90,7 @@ type StateProps = {
   layout: string;
   mapConfig: PropTypes.InferProps<typeof mapConfigPropType>;
   navBarConfig: NavBarConfig;
-  //placeConfig: PropTypes.InferProps<typeof placeConfigPropType.isRequired>;
-  placeFormIdSelector: (datasetUrl: string) => string | undefined;
+  placeFormIdSelector: (datasetUrl: string) => number | undefined;
   user: User;
 };
 

@@ -7,12 +7,13 @@ import { connect } from "react-redux";
 import qs from "qs";
 
 import mapseedApiClient from "../../client/mapseed-api-client";
-import { placeSelector, placePropType } from "../../state/ducks/places";
+import { placeSelectorFactory, placePropType } from "../../state/ducks/places";
 import { updateCurrentTemplate } from "../../state/ducks/ui";
 import KittitasFirewiseReport from "../organisms/reports/kittitas-firewise/report";
 
 const statePropTypes = {
-  placeSelector: PropTypes.func.isRequired,
+  // TODO
+  /*placeSelector: PropTypes.func.isRequired,*/
 };
 const dispatchPropTypes = {
   updateCurrentTemplate: PropTypes.func.isRequired,
@@ -84,9 +85,13 @@ const ReportTemplate = (props: Props) => {
 
 type MapseedReduxState = any;
 
-const mapStateToProps = (state: MapseedReduxState): StateProps => ({
-  placeSelector: placeId => placeSelector(state, placeId),
-});
+const mapStateToProps = (state: MapseedReduxState): StateProps => {
+  const placeSelector = placeSelectorFactory();
+
+  return state => ({
+    placeSelector: placeId => placeSelector(state, placeId),
+  });
+};
 
 const mapDispatchToProps = (
   dispatch: any,

@@ -113,7 +113,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   );
   const user = useSelector(userSelector);
   const placeSelector = React.useMemo(placeSelectorFactory, []);
-  const place = useSelector(state => placeSelector(state, placeId));
+  const place = useSelector((state: any) => placeSelector(state, placeId));
   const { FieldDetail } = useSelector(customComponentsConfigSelector);
   const layerGroups = useSelector(layerGroupsSelector);
   const isTagBarEditable = useSelector(datasetsWithEditTagsAbilitySelector)
@@ -126,7 +126,9 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   const dispatch = useDispatch();
   const layout = useSelector(layoutSelector);
   const isPlaceDetailEditable =
-    datasetsWithUpdatePlacesAbility.includes(place.dataset) ||
+    datasetsWithUpdatePlacesAbility
+      .map(({ url }) => url)
+      .includes(place.dataset) ||
     // If the current user created this Place, grant editing abilities.
     // TODO: Make this configurable?
     (place &&
@@ -136,7 +138,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   const featuredPlaces = useSelector(featuredPlacesSelector);
   const supports = place.submission_sets.support;
   const comments = place.submission_sets.comments;
-  const hasAdminAbilities = useSelector(state =>
+  const hasAdminAbilities = useSelector((state: any) =>
     hasAdminAbilitiesSelector(state, place.dataset),
   );
 

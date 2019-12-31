@@ -12,10 +12,10 @@ import {
   placesPropType,
 } from "../../state/ducks/places";
 import { placeDetailViewModulesSelector } from "../../state/ducks/forms";
-import {
-  placeFormsConfigSelector,
-  placeFormsConfigPropType,
-} from "../../state/ducks/forms-config";
+//import {
+//  placeFormsConfigSelector,
+//  placeFormsConfigPropType,
+//} from "../../state/ducks/forms-config";
 import { updateCurrentTemplate } from "../../state/ducks/ui";
 import PlaceListItem from "../molecules/place-list-item";
 import Button from "@material-ui/core/Button";
@@ -287,7 +287,7 @@ PlaceList.propTypes = {
 const mapStateToProps = state => ({
   formModules: placeDetailViewModulesSelector(state),
   places: filteredPlacesSelector(state),
-  placeFormsConfig: placeFormsConfigSelector(state),
+  //placeFormsConfig: placeFormsConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

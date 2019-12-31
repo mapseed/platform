@@ -55,14 +55,14 @@ const PlaceDetailEditor = ({
   const [isTriggeringSubmit, setIsTriggeringSubmit] = React.useState<boolean>(
     false,
   );
-  const formId = useSelector(state =>
+  const formId = useSelector((state: any) =>
     placeFormIdSelector(state, place.dataset),
   );
   const [isFormDirty, setIsFormDirty] = React.useState<boolean>(false);
-  const placeForm: MapseedPlaceForm = useSelector(state =>
+  const placeForm: MapseedPlaceForm = useSelector((state: any) =>
     placeFormSelector(state, formId),
   );
-  const hasAdminAbilities = useSelector(state =>
+  const hasAdminAbilities = useSelector((state: any) =>
     hasAdminAbilitiesSelector(state, place.dataset),
   );
   const formFields = useSelector(formFieldsSelector);

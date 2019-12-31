@@ -50,7 +50,7 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
     body: [],
     routeOnClose: null,
   });
-  const placeForm: MapseedPlaceForm = useSelector(state =>
+  const placeForm: MapseedPlaceForm = useSelector((state: any) =>
     placeFormSelector(state, props.formId),
   );
 

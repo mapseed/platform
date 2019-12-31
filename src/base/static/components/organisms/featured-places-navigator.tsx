@@ -75,7 +75,7 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
         .map(featuredPlace => {
           const place = props.places.find(
             place => place.id === featuredPlace.placeId,
-          );
+          ) as PlaceWithMetadata;
           return {
             featuredPlace,
             place,

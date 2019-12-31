@@ -2,7 +2,7 @@
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
 import moment from "moment";
-import "moment-timezone";
+/*import "moment-timezone";*/
 import groupBy from "lodash.groupby";
 import {
   LineChart,
@@ -69,7 +69,8 @@ const getLineChartData = ({
           maxDate = date;
         }
 
-        return date.tz(timeZone).format(DATETIME_FORMAT);
+        // TOOD
+        /*return date.tz(timeZone).format(DATETIME_FORMAT);*/
       })
     : {};
 

@@ -8,7 +8,7 @@ type Props = {
   placeUrl: string;
   iconUrl?: string;
   isSelected: boolean;
-  title: string;
+  title?: string;
 };
 
 const FeaturedPlace: React.FunctionComponent<Props> = props => {

@@ -8,10 +8,10 @@ import { HeartIcon } from "../atoms/icons";
 import { SmallTitle } from "../atoms/typography";
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, SmallText, InternalLink } from "../atoms/typography";
-import {
-  placeFormsConfigSelector,
-  placeFormsConfigPropType,
-} from "../../state/ducks/place-config";
+//import {
+//  placeFormsConfigSelector,
+//  placeFormsConfigPropType,
+//} from "../../state/ducks/place-config";
 import { placePropType } from "../../state/ducks/places";
 import { supportConfigSelector } from "../../state/ducks/support-config";
 import {
@@ -327,7 +327,7 @@ PlaceListItem.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  placeFormsConfig: placeFormsConfigSelector(state),
+  //placeFormsConfig: placeFormsConfigSelector(state),
   supportConfig: supportConfigSelector(state),
   appConfig: appConfigSelector(state),
 });

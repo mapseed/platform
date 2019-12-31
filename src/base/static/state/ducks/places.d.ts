@@ -16,7 +16,7 @@ export type Place = {
   visible: boolean;
   submitter_name?: string;
   title?: string;
-  location_type?: string;
+  location_type: string;
   submission_sets: {
     support: Support[];
     comments: Comment[];
@@ -61,6 +61,11 @@ export const activeEditPlaceIdSelector: any;
 export const scrollToResponseIdSelector: (state: any) => number;
 
 export const datasetPlacesSelector: any;
+
+export const placeSelectorFactory: () => (
+  state: any,
+  placeId: string,
+) => PlaceWithMetadata;
 
 // Action creators:
 export const updateScrollToResponseId: any;
