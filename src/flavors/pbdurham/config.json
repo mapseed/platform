@@ -25,7 +25,7 @@
         "datasetSlug": "pbdurham-projects",
         "value": "projects",
         "label": "Proposals",
-        "icon": "/static/css/images/markers/money-greyscale.png"
+        "icon": "/static/css/images/markers/marker-project.png"
       },
       {
         "placeProperty": "location_type",
@@ -755,13 +755,13 @@
                 "match",
                 ["get", "ward"],
                 "ward_1",
-                "project-ward-1-unapproved.png",
+                "project-ward-1-unapproved-focused.png",
                 "ward_2",
-                "project-ward-2-unapproved.png",
+                "project-ward-2-unapproved-focused.png",
                 "ward_3",
-                "project-ward-3-unapproved.png",
+                "project-ward-3-unapproved-focused.png",
                 "citywide",
-                "project-citywide-unapproved.png",
+                "project-citywide-unapproved-focused.png",
                 "money.png"
               ],
               "icon-size": 0.3,
@@ -1149,7 +1149,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "pbdurham-projects",
-        "icon_url": "/static/css/images/markers/money-greyscale.png",
+        "icon_url": "/static/css/images/markers/marker-project.png",
         "value": "project",
         "label": "Project Proposal",
         "fields": [
@@ -1963,7 +1963,7 @@
         "id": "projects",
         "datasetSlug": "pbdurham-projects",
         "label": "Proposals",
-        "icon": "/static/css/images/markers/money-greyscale.png"
+        "icon": "/static/css/images/markers/marker-project.png"
       },
       {
         "id": "culture",
@@ -2087,9 +2087,9 @@
       "start_page": true
     },
     {
-      "title": "Guidelines",
+      "title": "Cycle 1 Ideas",
       "type": "internal_link",
-      "url": "/page/guidelines"
+      "url": "/page/cycle-1-ideas"
     },
     {
       "title": "Get Involved",
@@ -2112,14 +2112,11 @@
       "content": [
         "<h1>Get Involved</h1>",
         "<a href='http://durhamnc.gov/' target='_blank'><img id='get-involved-img' src='/static/css/images/durham-city-hall.jpg' alt='Durham City Hall' /></a>",
-        "<p>Already submitted an idea? There are many more ways to get involved in participatory budgeting:</p>",
-        "<p><strong>Become a Budget Delegate</strong></p>",
-        "<p>Volunteers will be recruited to serve as Budget Delegates. During the Proposal Development phase of the process, these volunteer Budget Delegates will work the community and staff of relevant city of Durham departments to develop ideas into budget proposals. They will receive training and support from Durham PB Implementation Staff to do so.  In addition to supporting the Budget Delegates, Durham PB Implementation staff will also serve to facilitate communication so that projects can be developed in a timely manner.</p>",
-        "<p><strong>Attend a Neighborhood Assembly</strong></p>",
-        "<p>Each ward will have a neighborhood assembly and other, informal idea collection events, to encourage widespread participation. Visit <a href='http://www.pbdurham.org' target='_blank'>www.pbdurham.org</a> for upcoming assembly dates, times, and locations.</p>",
+        "<p>Interested in getting involved in local government?</p>",
+        "<p>Check out the City of Durham Boards, Commissions, and Committees <a href='https://durhamnc.gov/238/Boards-Committees-Commissions' target='_blank'>vacancies</a> to learn how you can serve your community!</p>",
         "<p><strong>Connect with Us</strong></p>",
         "<a href='https://www.facebook.com/pbdurhamnc/' target='_blank'>",
-        "<img src='/static/css/images/facebook-32.png' style='width:32px' alt='Facebook icon' />",
+        "<img src='/static/css/images/facebook-32.png' style='width:32px;margin-right:8px;' alt='Facebook icon' />",
         "</a>",
         "<a href='https://twitter.com/PBDurhamNC' target='_blank'>",
         "<img src='/static/css/images/twitter-32.png' style='width:32px' alt='Twitter icon' />",
@@ -2131,16 +2128,15 @@
       ]
     },
     {
-      "slug": "guidelines",
+      "slug": "cycle-1-ideas",
       "content": [
         "<div class='clearfix'>",
-        "<h1>Project Idea Guidelines</h1>",
+        "<h1>Cycle 1 Ideas</h1>",
         "<div id='guidelines-video-container'>",
         "<iframe id='guidelines-video' src='https://player.vimeo.com/video/162743651?color=ff9933&byline=0' width='100%' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>",
         "</div>",
-        "<p>Residents and students of Durham age 13 and older can generate initial project ideas at idea collection assemblies, \"pop-up\" events, and online at <a href='https://www.pbdurham.org' target='_blank'>pbdurham.org</a>.</p>",
-        "<p>Idea Collection is open from November 1st - December 21st.</p>",
-        "<p>To review all guidelines for the process please read the PB Rulebook (link to come).</p>",
+        "<p>Submitted an idea in Cycle 1 of PB Durham and wondering what happened??</p>",
+        "<p>Residents from the community served as budget delegates. Budget delegates were responsible for reviewing, scoring, and developing ideas into project proposals using a <a href='https://d3n8a8pro7vhmx.cloudfront.net/durhamnis/pages/551/attachments/original/1556303496/Project_Evaluation_Matrix_and_Instructions_Template.pdf?1556303496' target='_blank'>project evaluation matrix</a> established by the PB Steering Committee. This phase of PB Durham was called <strong>proposal development</strong> and lasted from January-April 2019. If you idea did not make it to the ballot it was shared with the department in the City that most closely related to the idea.</p>",
         "</div>"
       ]
     },
@@ -2151,8 +2147,12 @@
         "<h2>Put your money where your ideas are!</h2>",
         "<img id='about-img' src='/static/css/images/democracy-hands.jpg' alt='Participatory Budgeting Durham'>",
         "<p>Durham Participatory Budgeting is a democratic process in which community members from all three City Council wards are directly deciding how to spend $2.4 million ($800,000 per ward).</p>",
-        "<p>From November 2018 to March 2019, volunteer budget delegates will work to develop these initial ideas into full project proposals. Durham residents will be able to vote in May 2019 to determine the winning projects.</p>",
-        "<p>\"One-time projects\" are projects with one-time expenditures that address a community need. Projects can be built on City, Durham Housing Authority, and private land, upon donation. \"One-time projects\" may include physical infrastructure, technological improvements, and community enhancements. Examples of \"one-time projects\" include park improvements, computers for a community center, bus shelters, and bike-lanes. \"One-time projects\" may have some sort of associated operating cost. However, they do not require the City to hire additional staff.</p>",
+        "<p>Since its launch PB Durham has engaged over 14,000 residents and students. Approximately 500 ideas were submitted in its first cycle. In May 2019, over 10,000 Durham residents and students voted on over 20 projects. Project implementation and program evaluation began in Fall 2019 with the goal of implementing at least 50% of the winning projects by June 2020.</p>",
+        "<p>If you submitted an idea and want more information on your idea’s status, you can:</p>",
+        "<ul><li><p>Use the address search bar to enter the location of your idea</p></li>",
+        "<li><p>When you’ve found your idea on the map, click on it to see its status. Your idea will be tagged with a banner, similar to these:</p>",
+        "<img src='/static/css/images/approved-tag-graphic.png' alt='Approved tag graphic' />",
+        "<img src='/static/css/images/removed-tag-graphic.png' alt='Removed tag graphic' /></li></ul>",
         "<p>For more information on participatory budgeting in Durham, <a href='https://www.pbdurham.org' target='_blank'>Click here!</a></p>",
         "<p>For information on the nationwide movement for PB, visit the website of the <a href='http://www.participatorybudgeting.org/' target='_blank'>Participatory Budgeting Project.</a></p>"
       ]
