@@ -12,10 +12,6 @@ import {
   placesPropType,
 } from "../../state/ducks/places";
 import { placeDetailViewModulesSelector } from "../../state/ducks/forms";
-//import {
-//  placeFormsConfigSelector,
-//  placeFormsConfigPropType,
-//} from "../../state/ducks/forms-config";
 import { updateCurrentTemplate } from "../../state/ducks/ui";
 import PlaceListItem from "../molecules/place-list-item";
 import Button from "@material-ui/core/Button";
@@ -96,15 +92,9 @@ class PlaceList extends React.Component {
 
   _sortAndFilterPlaces = (places, sortBy, query) => {
     // only render place surveys that are flagged with 'includeOnList':
-    const includedPlaces = places.filter(place => {
-      const placeFormConfig = this.props.placeFormsConfig.find(
-        ({ datasetSlug }) => datasetSlug === place.dataset.split("/").pop(),
-      );
-
-      return typeof placeFormConfig === "undefined"
-        ? false
-        : placeFormConfig.includeOnList;
-    });
+    const includedPlaces = places.filter(
+      ({ __clientSideMetadata: { includeOnList } }) => includeOnList,
+    );
     const filteredPlaces = query
       ? includedPlaces.filter(place => {
           return Object.values(place).some(field => {
@@ -278,7 +268,6 @@ class PlaceList extends React.Component {
 }
 
 PlaceList.propTypes = {
-  placeFormsConfig: placeFormsConfigPropType.isRequired,
   places: placesPropType.isRequired,
   t: PropTypes.func.isRequired,
   updateCurrentTemplate: PropTypes.func.isRequired,
@@ -287,7 +276,6 @@ PlaceList.propTypes = {
 const mapStateToProps = state => ({
   formModules: placeDetailViewModulesSelector(state),
   places: filteredPlacesSelector(state),
-  //placeFormsConfig: placeFormsConfigSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

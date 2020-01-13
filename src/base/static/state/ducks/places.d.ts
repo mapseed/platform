@@ -67,6 +67,11 @@ export const placeSelectorFactory: () => (
   placeId: string,
 ) => PlaceWithMetadata;
 
+export const placesByDatasetUrlSelectorFactory: () => (
+  state: any,
+  datasetUrl: string,
+) => PlaceWithMetadata[];
+
 // Action creators:
 export const updateScrollToResponseId: any;
 
@@ -93,6 +98,7 @@ export const createPlaceComment: any;
 export const removePlaceComment: any;
 
 export const updatePlaceComment: any;
+
 export const createPlaceTag: any;
 
 export const removePlaceTag: any;

@@ -137,7 +137,7 @@ const UserMenu: React.FunctionComponent<Props> = props => {
       )}
       <ul css={menuStyles({ isMenuOpen, isLoggedIn: true })}>
         {!!props.dashboardConfig.length &&
-          props.hasAdminAbilities(props.dashboardConfig[0].datasetSlug) && (
+          props.hasAdminAbilities(props.dashboardConfig[0].datasetUrl) && (
             <MenuItem
               onClick={() => setIsMenuToggled(isMenuOpen => !isMenuOpen)}
             >

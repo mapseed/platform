@@ -7,8 +7,16 @@ export const dashboardConfigSelector = state => {
 const LOAD = "dashboard-config/LOAD";
 
 // Action creators:
-export function loadDashboardConfig(dashboardConfig) {
-  return { type: LOAD, payload: dashboardConfig };
+export function loadDashboardConfig(dashboardConfig, datasets) {
+  return {
+    type: LOAD,
+    payload: dashboardConfig.map(config => ({
+      ...config,
+      datasetUrl: (
+        datasets.find(({ slug }) => slug === config.datasetSlug) || {}
+      ).url,
+    })),
+  };
 }
 
 const INITIAL_STATE = [];

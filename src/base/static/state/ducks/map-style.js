@@ -248,7 +248,7 @@ export function updateMapStyle(style) {
   return { type: UPDATE_STYLE, payload: style };
 }
 
-export function loadMapStyle(mapStyleConfig, datasets) {
+export function loadMapStyle(mapStyleConfig) {
   const style = {
     sources: {
       ...mapStyleConfig.mapboxSources,

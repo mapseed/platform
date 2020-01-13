@@ -111,17 +111,17 @@ export const datasetsWithEditTagsAbilitySelector = createSelector(
     ),
 );
 
-export const hasAdminAbilitiesSelector = (state, dataset) =>
+export const hasAdminAbilitiesSelector = (state, datasetUrl) =>
   state.user.groups.some(
-    ({ dataset: groupDataset, name }) =>
-      groupDataset === dataset && name === "administrators",
+    ({ name, dataset: groupDatasetUrl }) =>
+      datasetUrl === groupDatasetUrl && name === "administrators",
   );
 
 // Actions:
 const LOAD = "user/LOAD";
 
 // Action creators:
-export function loadUser(user, datasets) {
+export function loadUser(user) {
   return {
     type: LOAD,
     payload: user,

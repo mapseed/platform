@@ -3,23 +3,17 @@ import * as React from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
-import { Button, IconButton } from "../atoms/buttons";
+import { IconButton } from "../atoms/buttons";
 import { HeartIcon } from "../atoms/icons";
 import { SmallTitle } from "../atoms/typography";
 import { UserAvatar } from "../atoms/imagery";
 import { RegularText, SmallText, InternalLink } from "../atoms/typography";
-//import {
-//  placeFormsConfigSelector,
-//  placeFormsConfigPropType,
-//} from "../../state/ducks/place-config";
 import { placePropType } from "../../state/ducks/places";
-import { supportConfigSelector } from "../../state/ducks/support-config";
 import {
   appConfigSelector,
   appConfigPropType,
 } from "../../state/ducks/app-config";
 import { connect } from "react-redux";
-import { translate } from "react-i18next";
 import { HorizontalRule } from "../atoms/layout";
 import sharePlace from "../../utils/share-place";
 import { lighten } from "../../utils/color";
@@ -107,99 +101,44 @@ const PlaceImage = styled("div")({
 const PlaceFieldsContainer = styled("div")({
   textAlign: "justify",
 });
-const PlaceFieldTitle = styled(props => (
-  <RegularText className={props.className} weight="bold">
-    {props.children}
-  </RegularText>
-))({
-  width: "100%",
-});
-const PlaceFieldText = styled(RegularText)({
-  width: "100%",
-});
 
-//const PlaceField = ({ field, place, t, placeFieldIndex }) => {
-//  const prompt = field.label || field.display_prompt || null;
-//  const fieldValue = place[field.name];
-//  if (field.type === "textarea" || field.type === "text") {
-//    return (
-//      <>
-//        {!!prompt && (
-//          <PlaceFieldTitle>
-//            {t(`placeFieldPrompt${placeFieldIndex}`, prompt)}
-//          </PlaceFieldTitle>
-//        )}
-//        <p
-//          css={css`
-//            margin-top: 4px;
-//          `}
-//        >
-//          <PlaceFieldText>{fieldValue}</PlaceFieldText>
-//        </p>
-//      </>
-//    );
-//  } else if (field.type === "rich_textarea") {
-//    return <div dangerouslySetInnerHTML={{ __html: place[field.name] }} />;
-//  } else if (field.type === "big_radio") {
-//    const label = field.content.find(item => item.value === fieldValue).label;
-//    return (
-//      <>
-//        {!!prompt && (
-//          <PlaceFieldTitle>
-//            {t(`placeFieldPropmpt${placeFieldIndex}`, prompt)}
-//          </PlaceFieldTitle>
-//        )}
-//        <p
-//          css={css`
-//            margin-top: 4px;
-//          `}
-//        >
-//          <PlaceFieldText>{label}</PlaceFieldText>
-//        </p>
-//      </>
-//    );
-//  } else if (field.type === "dropdown_autocomplete") {
-//    return (
-//      <>
-//        {!!prompt && (
-//          <PlaceFieldTitle>
-//            {t(`placeFieldPrompt${placeFieldIndex}`, prompt)}
-//          </PlaceFieldTitle>
-//        )}
-//        <p
-//          css={css`
-//            margin-top: 4px;
-//          `}
-//        >
-//          <PlaceFieldText>{fieldValue}</PlaceFieldText>
-//        </p>
-//      </>
-//    );
-//  } else {
-//    throw new Error(`field type is not supported: ${field.type}`);
-//  }
-//};
-
-const PlaceListItem = props => {
-  const numberOfComments = props.place.submission_sets.comments
-    ? props.place.submission_sets.comments.length
-    : 0;
-  const numberOfSupports = props.place.submission_sets.support
-    ? props.place.submission_sets.support.length
-    : 0;
-  const submitterName = props.place.submitter
-    ? props.place.submitter.name
-    : props.place.submitter_name || props.placeConfig.anonymous_name;
+const PlaceListItem = ({
+  appConfig: {
+    title: appTitle,
+    meta_description: appMetaDescription,
+    thumbnail: appThumbnail,
+  },
+  place: {
+    __clientSideMetadata: {
+      placeAnonymousName,
+      placeActionText,
+      placeResponseLabel,
+      clientSlug,
+    },
+    id,
+    submission_sets: { comments, support },
+    submitter,
+    ...placeData
+  },
+  onLoad,
+  formModules,
+  t,
+}) => {
+  const numberOfComments = comments.length;
+  const numberOfSupports = support.length;
+  const submitterName =
+    (submitter && submitter.name) ||
+    placeData.submitter_name ||
+    placeAnonymousName;
   const onSocialShare = service => {
     sharePlace({
-      place: props.place,
+      place: placeData,
       service,
-      appTitle: props.appConfig.title,
-      appMetaDescription: props.appConfig.meta_description,
-      appThumbnail: props.appConfig.thumbnail,
+      appTitle,
+      appMetaDescription,
+      appThumbnail,
     });
   };
-  const placeDetailConfig = {};
 
   return (
     <>
@@ -224,7 +163,7 @@ const PlaceListItem = props => {
             marginBottom: "4px",
           }}
         >
-          <SmallTitle>{props.place.title}</SmallTitle>
+          <SmallTitle>{placeData.title}</SmallTitle>
           <PlaceSocialContainer>
             <SupportText noWrap={true} textTransform="uppercase">
               <SupportHeartIcon />
@@ -247,64 +186,57 @@ const PlaceListItem = props => {
             <AvatarContainer>
               <UserAvatar
                 size="large"
-                src={
-                  props.place.submitter
-                    ? props.place.submitter.avatar_url
-                    : undefined
-                }
+                src={submitter && submitter.avatar_url}
               />
             </AvatarContainer>
             <PlaceInfoContainer>
               <RegularText weight="bold">{submitterName}</RegularText>
               <RegularText>
-                {props.t(
-                  "placeActionText",
-                  `${props.placeConfig.action_text} this`,
-                )}{" "}
-                {placeFormConfig.responseLabel}
+                {t("placeActionText", `${placeActionText} this`)}{" "}
+                {placeResponseLabel}
               </RegularText>
               <CommentsText>
                 {numberOfComments}{" "}
-                {props.t(
+                {t(
                   numberOfComments === 1
                     ? "commentsLabel"
                     : "commentsPluralLabel",
                   `comment${numberOfComments === 1 ? "" : "s"}`,
                 )}
               </CommentsText>
-              <PlaceInfoLink
-                href={`/${props.place.clientSlug}/${props.place.id}`}
-              >
+              <PlaceInfoLink href={`/${clientSlug}/${id}`}>
                 <SmallText
                   css={css`
                     color: #fff;
                   `}
                 >
-                  {props.t("viewOnMap", "View on map")}
+                  {t("viewOnMap", "View on map")}
                 </SmallText>
               </PlaceInfoLink>
             </PlaceInfoContainer>
           </PlaceInfo>
           <PlaceContent>
-            {!!props.place.attachments.length && (
+            {placeData.attachments.length > 0 && (
               <PlaceImage>
                 <img
                   style={{ width: "100%" }}
-                  src={props.place.attachments[0].file}
-                  onLoad={props.onLoad}
+                  src={placeData.attachments[0].file}
+                  onLoad={onLoad}
                 />
               </PlaceImage>
             )}
             <PlaceFieldsContainer>
-              {props.formModules
-                .filter(({ key }) => props.place[key])
-                .map(({ type, variant, key }, index) => {
+              {formModules
+                .filter(({ key }) => placeData[key])
+                .map(({ type, variant, key }) => {
                   const SubmittedFieldComponent = getSubmittedFieldComponent(
                     type,
                     variant,
                   );
 
-                  return <SubmittedFieldComponent value={props.place[key]} />;
+                  return (
+                    <SubmittedFieldComponent key={key} value={placeData[key]} />
+                  );
                 })}
             </PlaceFieldsContainer>
           </PlaceContent>
@@ -317,18 +249,12 @@ const PlaceListItem = props => {
 
 PlaceListItem.propTypes = {
   place: placePropType.isRequired,
-  placeFormsConfig: placeFormsConfigPropType.isRequired,
   t: PropTypes.func.isRequired,
-  supportConfig: PropTypes.shape({
-    action_text: PropTypes.string.isRequired,
-  }),
   appConfig: appConfigPropType.isRequired,
   onLoad: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  //placeFormsConfig: placeFormsConfigSelector(state),
-  supportConfig: supportConfigSelector(state),
   appConfig: appConfigSelector(state),
 });
 

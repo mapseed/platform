@@ -4,14 +4,18 @@ import groupBy from "lodash.groupby";
 
 import { datasetsByUrlSelector } from "./datasets";
 import { formConfigsByDatasetAndTypeSelector } from "./forms";
+import { placeFiltersSelector } from "./place-filters";
 
 // prop types:
 export const placePropType = PropTypes.shape({
   attachments: PropTypes.array.isRequired,
+  // eslint-disable-next-line @typescript-eslint/camelcase
   updated_datetime: PropTypes.string.isRequired,
+  // eslint-disable-next-line @typescript-eslint/camelcase
   created_datetime: PropTypes.string.isRequired,
   dataset: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
+  // eslint-disable-next-line @typescript-eslint/camelcase
   submission_sets: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
   url: PropTypes.string.isRequired,
@@ -34,7 +38,6 @@ const ensureSubmissionSetsAndMetadata = ({
     },
     placeSurvey: {
       id: placeSurveyFormId,
-      surveyType,
       anonymousName: placeSurveyAnonymousName = "Someone",
       responseLabel: placeSurveyResponseLabel = "",
       responsePluralLabel: placeSurveyResponsePluralLabel = "",
@@ -43,6 +46,7 @@ const ensureSubmissionSetsAndMetadata = ({
   },
 }) => ({
   ...place,
+  // eslint-disable-next-line @typescript-eslint/camelcase
   submission_sets: {
     ...place.submission_sets,
     support: place.submission_sets.support || [],
@@ -82,6 +86,49 @@ export const placesSelector = createSelector(
     ),
 );
 
+export const filteredPlacesSelector = createSelector(
+  [placesSelector, placeFiltersSelector],
+  (places, placeFilters) => {
+    if (placeFilters.length === 0) {
+      return places;
+    }
+
+    return places.filter(
+      ({
+        __clientSideMetadata: { datasetSlug: placeDatasetSlug },
+        ...place
+      }) => {
+        return placeFilters.some(
+          ({ placeProperty, operator, datasetSlug, value }) => {
+            switch (operator) {
+              case "includes":
+                return (
+                  datasetSlug === placeDatasetSlug &&
+                  Array.isArray(place[placeProperty]) &&
+                  place[placeProperty].includes(value)
+                );
+              case "equals":
+              default:
+                return (
+                  datasetSlug === placeDatasetSlug &&
+                  place[placeProperty] === value
+                );
+            }
+          },
+        );
+      },
+    );
+  },
+);
+
+export const placesByDatasetUrlSelectorFactory = () =>
+  createSelector(
+    placesSelector,
+    (_, datasetUrl) => datasetUrl,
+    (places, datasetUrl) =>
+      places.filter(({ dataset }) => dataset === datasetUrl),
+  );
+
 export const placeSelectorFactory = () =>
   createSelector(
     placesSelector,
@@ -97,39 +144,6 @@ export const placesBySourceIdSelector = createSelector(
       ({ __clientSideMetadata: { datasetSlug: sourceId } }) => sourceId,
     ),
 );
-
-//export const datasetPlacesSelector = (datasetSlug, state) => {
-//  return state.places.placeModels.filter(
-//    place => place.datasetSlug === datasetSlug,
-//  );
-//};
-
-export const filteredPlacesSelector = state => {
-  const placeFilters = state.placeFilters;
-
-  if (!state.places.placeModels || placeFilters.length === 0) {
-    return state.places.placeModels;
-  }
-
-  return state.places.placeModels.filter(place => {
-    return placeFilters.some(placeFilter => {
-      switch (placeFilter.operator) {
-        case "includes":
-          return (
-            placeFilter.datasetSlug === place.datasetSlug &&
-            Array.isArray(place[placeFilter.placeProperty]) &&
-            place[placeFilter.placeProperty].includes(placeFilter.value)
-          );
-        case "equals":
-        default:
-          return (
-            placeFilter.datasetSlug === place.datasetSlug &&
-            place[placeFilter.placeProperty] === placeFilter.value
-          );
-      }
-    });
-  });
-};
 
 export const datasetLengthSelector = (state, datasetSlug) =>
   state.places.placeModels.filter(place => place.datasetSlug === datasetSlug)
@@ -152,8 +166,6 @@ const UPDATE_PLACE_TAG = "places/UPDATE_PLACE_TAG";
 const REMOVE_PLACE_ATTACHMENT = "places/REMOVE_PLACE_ATTACHMENT";
 const CREATE_PLACE_ATTACHMENT = "places/CREATE_PLACE_ATTACHMENT";
 const UPDATE_LOAD_STATUS = "places/UPDATE_LOAD_STATUS";
-const UPDATE_ACTIVE_EDIT_PLACE_ID = "places/UPDATE_ACTIVE_EDIT_PLACE_ID";
-const UPDATE_FOCUSED_PLACE_ID = "places/UPDATE_FOCUSED_PLACE_ID";
 const UPDATE_SCROLL_TO_RESPONSE_ID = "places/UPDATE_SCROLL_TO_RESPONSE_ID";
 
 // Action creators:
@@ -318,6 +330,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           if (place.id === action.payload.placeId) {
             return {
               ...place,
+              // eslint-disable-next-line @typescript-eslint/camelcase
               submission_sets: {
                 ...place.submission_sets,
                 support: place.submission_sets.support.concat(
@@ -337,6 +350,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           if (place.id === action.payload.placeId) {
             return {
               ...place,
+              // eslint-disable-next-line @typescript-eslint/camelcase
               submission_sets: {
                 ...place.submission_sets,
                 support: place.submission_sets.support.filter(
@@ -356,6 +370,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           if (place.id === action.payload.placeId) {
             return {
               ...place,
+              // eslint-disable-next-line @typescript-eslint/camelcase
               submission_sets: {
                 ...place.submission_sets,
                 comments: place.submission_sets.comments.concat(
@@ -375,6 +390,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           if (place.id === action.payload.placeId) {
             return {
               ...place,
+              // eslint-disable-next-line @typescript-eslint/camelcase
               submission_sets: {
                 ...place.submission_sets,
                 comments: place.submission_sets.comments.filter(
@@ -394,6 +410,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           if (place.id === action.payload.placeId) {
             return {
               ...place,
+              // eslint-disable-next-line @typescript-eslint/camelcase
               submission_sets: {
                 ...place.submission_sets,
                 comments: place.submission_sets.comments.map(comment => {

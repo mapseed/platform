@@ -169,12 +169,23 @@ class App extends React.Component<Props, State> {
       Util.cookies.save("sa-api-sessionid", sessionJSON.sessionid);
     }
 
+    // NOTE(goldpbear): The data loading pattern here is generally to fetch an
+    // API endpoint, merge that information with complementary config-based
+    // information where necessary, then use the merged result in other
+    // data-loading steps.
+    // It's kind of clunky and linear, and I think it could be improved
+    // significantly with something like Redux Sagas.
+
     // Fetch and load datasets.
-    const datasets = await mapseedApiClient.datasets.get(
+    const datasetsFromAPI = await mapseedApiClient.datasets.get(
+      // TODO: Move this config-api merge step to the load action creator
       config.flavor.datasets,
       config.app.apiRoot,
     );
-    this.props.loadDatasets(datasets);
+
+    if (datasetsFromAPI) {
+      this.props.loadDatasets(datasetsFromAPI);
+    }
 
     // Fetch and load flavor information.
     const flavorFromAPI = await mapseedApiClient.flavor.get(
@@ -221,23 +232,23 @@ class App extends React.Component<Props, State> {
         id: user.id,
       });
     }
-    this.props.loadUser(user, datasets);
+    this.props.loadUser(user);
 
     // Load all other ducks.
     this.props.loadAppConfig(config.app);
     this.props.loadMapConfig(config.map);
     this.props.loadLeftSidebarConfig(config.leftSidebar);
     this.props.loadRightSidebarConfig(config.right_sidebar);
-    if (config.featuredPlaces) {
+    config.featuredPlaces &&
       this.props.loadFeaturedPlacesConfig(config.featuredPlaces);
-    }
     this.props.loadSupportConfig(config.support);
     this.props.loadPagesConfig(config.pages);
     this.props.loadNavBarConfig(config.nav_bar);
     this.props.loadCustomComponentsConfig(config.custom_components);
-    this.props.loadMapStyle(config.mapStyle, datasets);
+    this.props.loadMapStyle(config.mapStyle);
     this.props.loadFlavorConfig(config.flavor);
-    config.dashboard && this.props.loadDashboardConfig(config.dashboard);
+    config.dashboard &&
+      this.props.loadDashboardConfig(config.dashboard, this.props.datasets);
     config.right_sidebar.is_visible_default &&
       this.props.updateUIVisibility("rightSidebar", true);
 

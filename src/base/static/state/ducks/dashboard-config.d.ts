@@ -104,6 +104,7 @@ type DashboardConfig = {
   isExportable?: boolean;
   backgroundColor?: string;
   datasetSlug: string;
+  datasetUrl: string;
   widgets: (
     | StatSummaryWidget
     | LineChartWidget

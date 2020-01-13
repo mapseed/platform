@@ -8,7 +8,10 @@ import { connect } from "react-redux";
 import { Button } from "../atoms/buttons";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { datasetPlacesSelector } from "../../state/ducks/places";
+import {
+  placesByDatasetUrlSelectorFactory,
+  PlaceWithMetadata,
+} from "../../state/ducks/places";
 import { datasetsSelector, Dataset } from "../../state/ducks/datasets";
 import {
   dashboardConfigSelector,
@@ -32,7 +35,7 @@ type StateProps = {
   dashboardConfig: DashboardsConfig;
   appConfig: AppConfig;
   hasAdminAbilities: Function;
-  datasetPlacesSelector: Function;
+  placesByDatasetUrlSelector: (datasetUrl: string) => PlaceWithMetadata[];
   //placeFormsConfig: PlaceFormsConfig;
   //formFieldsConfig: FormFieldsConfig;
   datasets: Dataset[];
@@ -57,8 +60,8 @@ class Dashboard extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.allowedDashboardConfigs = this.props.dashboardConfig.filter(config =>
-      this.props.hasAdminAbilities(config.datasetSlug),
+    this.allowedDashboardConfigs = this.props.dashboardConfig.filter(
+      ({ datasetUrl }) => this.props.hasAdminAbilities(datasetUrl),
     );
 
     if (this.allowedDashboardConfigs.length < 1) {
@@ -236,8 +239,8 @@ class Dashboard extends React.Component<Props, State> {
               widget={widget}
               widgetIndex={i}
               timeZone={this.props.appConfig.time_zone}
-              places={this.props.datasetPlacesSelector(
-                this.state.dashboard.datasetSlug,
+              places={this.props.placesByDatasetUrlSelector(
+                this.state.dashboard.datasetUrl,
               )}
             />
           ))}
@@ -249,17 +252,21 @@ class Dashboard extends React.Component<Props, State> {
 
 type MapseedReduxState = any;
 
-const mapStateToProps = (state: MapseedReduxState): StateProps => ({
-  appConfig: appConfigSelector(state),
-  hasAdminAbilities: datasetSlug =>
-    hasAdminAbilitiesSelector(state, datasetSlug),
-  datasetPlacesSelector: datasetSlug =>
-    datasetPlacesSelector(datasetSlug, state),
-  dashboardConfig: dashboardConfigSelector(state),
-  //placeFormsConfig: placeFormsConfigSelector(state),
-  //formFieldsConfig: formFieldsConfigSelector(state),
-  datasets: datasetsSelector(state),
-});
+const mapStateToProps = (state: MapseedReduxState) => {
+  const placesByDatasetUrlSelector = placesByDatasetUrlSelectorFactory();
+
+  return (state): StateProps => ({
+    appConfig: appConfigSelector(state),
+    hasAdminAbilities: datasetUrl =>
+      hasAdminAbilitiesSelector(state, datasetUrl),
+    placesByDatasetUrlSelector: datasetUrl =>
+      placesByDatasetUrlSelector(state, datasetUrl),
+    dashboardConfig: dashboardConfigSelector(state),
+    //placeFormsConfig: placeFormsConfigSelector(state),
+    //formFieldsConfig: formFieldsConfigSelector(state),
+    datasets: datasetsSelector(state),
+  });
+};
 
 export default withRouter(
   connect<StateProps, OwnProps>(mapStateToProps)(Dashboard),
