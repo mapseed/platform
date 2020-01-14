@@ -114,7 +114,7 @@
     "@babel/core": "^7.7.5",
     "@babel/plugin-proposal-async-generator-functions": "^7.7.4",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
-    "@babel/plugin-transform-async-to-generator": "^7.7.0",
+    "@babel/plugin-transform-async-to-generator": "^7.8.3",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/plugin-transform-destructuring": "^7.7.4",
