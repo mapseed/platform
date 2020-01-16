@@ -30,7 +30,7 @@
   "app": {
     "title": "Snohomish Conservation",
     "name": "Snohomish Conservation",
-    "logo": "/static/css/images/scdHorizontal.png",
+    "logo": "/static/css/images/better-ground-logo.png",
     "meta_description": "Welcome!",
     "meta_author": "HaxGeo.com",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
@@ -51,7 +51,7 @@
         "textTransform": "uppercase"
       },
       "bg": {
-        "default": "#f3f5e7",
+        "default": "rgba(148,155,88,0.38)",
         "light": "#02440c"
       }
     }
@@ -115,8 +115,9 @@
       "sub-basins": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/western-wash-subbasins/{z}/{x}/{y}.pbf"
-        ]
+          "https://vector-tiles.mapseed.org/western-wash-waus-clipped/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
       },
       "wria-boundaries": {
         "type": "vector",
@@ -201,45 +202,49 @@
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "western-wash-subbasins",
+            "id": "sub-basins",
             "type": "fill",
             "source": "sub-basins",
-            "source-layer": "western-wash-subbasins",
+            "source-layer": "western-wash-waus-clipped",
             "paint": {
               "fill-color": [
                 "case",
-                ["==", ["get", "basin"], "Cedar-Sammamish"],
-                "#ffcc00",
-                ["==", ["get", "basin"], "Puget Sound"],
-                "#1f78b4",
-                ["==", ["get", "basin"], "Skagit"],
-                "#a53ed5",
-                ["==", ["get", "basin"], "Snohomish"],
-                "#0f3b82",
-                ["==", ["get", "basin"], "Stillaguamish"],
-                "#f84f40",
+                ["==", ["get", "wria_nm"], "Cedar-Sammamish"],
+                "#e41a1c",
+                ["==", ["get", "wria_nm"], "Skagit"],
+                "#377eb8",
+                ["==", ["get", "wria_nm"], "Snohomish"],
+                "#4daf4a",
+                ["==", ["get", "wria_nm"], "Stillaguamish"],
+                "#984ea3",
+                ["==", ["get", "wria_nm"], "Island"],
+                "#ff7f00",
+                ["==", ["get", "wria_nm"], "Lower Skagit / Samish"],
+                "#ffff33",
+                ["==", ["get", "wria_nm"], "Upper Skagit"],
+                "#a65628",
                 "#000000"
               ],
-              "fill-opacity": 0.7
+              "fill-opacity": 0.5
             }
           },
           {
-            "id": "western-wash-subbasins-outline",
+            "id": "sub-basins-outline",
             "type": "line",
             "source": "sub-basins",
-            "source-layer": "western-wash-subbasins",
+            "source-layer": "western-wash-waus-clipped",
             "paint": {
               "line-color": "#fff",
               "line-width": 1.5
             }
           },
           {
-            "id": "western-wash-subbasins-labels",
+            "id": "sub-basins-labels",
             "type": "symbol",
             "source": "sub-basins",
-            "source-layer": "western-wash-subbasins",
+            "source-layer": "western-wash-waus-clipped",
             "layout": {
-              "text-field": ["get", "subbasin"]
+              "text-field": ["get", "WAU_LABEL_"]
             },
             "paint": {
               "text-color": "#000000",

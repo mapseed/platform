@@ -390,6 +390,10 @@
   .place-detail-view__header {
     font-size: 1.5em !important;
   }
+
+  #mapseed-site-logo {
+    height: 48px !important;
+  }
 }
 
 // Screen sizes above 60em width
@@ -408,12 +412,5 @@
 
   #pages-nav-container {
     margin-left: 450px !important;
-  }
-
-  #site-header {
-    background: url("/static/css/images/scdHorizontal.png") !important;
-    background-size: auto 64px !important;
-    background-color: #f3f5e7 !important;
-    background-repeat: no-repeat !important;
   }
 }
