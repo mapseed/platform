@@ -183,7 +183,7 @@
       },
       {
         "id": "boundary",
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "boundary",
