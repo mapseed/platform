@@ -115,13 +115,7 @@
       "sub-basins": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/western-wash-subbasins/{z}/{x}/{y}.pbf"
-        ]
-      },
-      "admin-units": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/washington-watershed-administrative-units/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/western-wash-waus-clipped/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -208,69 +202,16 @@
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "western-wash-subbasins",
+            "id": "sub-basins",
             "type": "fill",
             "source": "sub-basins",
-            "source-layer": "western-wash-subbasins",
-            "paint": {
-              "fill-color": [
-                "case",
-                ["==", ["get", "basin"], "Cedar-Sammamish"],
-                "#ffcc00",
-                ["==", ["get", "basin"], "Puget Sound"],
-                "#1f78b4",
-                ["==", ["get", "basin"], "Skagit"],
-                "#a53ed5",
-                ["==", ["get", "basin"], "Snohomish"],
-                "#0f3b82",
-                ["==", ["get", "basin"], "Stillaguamish"],
-                "#f84f40",
-                "#000000"
-              ],
-              "fill-opacity": 0.7
-            }
-          },
-          {
-            "id": "western-wash-subbasins-outline",
-            "type": "line",
-            "source": "sub-basins",
-            "source-layer": "western-wash-subbasins",
-            "paint": {
-              "line-color": "#fff",
-              "line-width": 1.5
-            }
-          },
-          {
-            "id": "western-wash-subbasins-labels",
-            "type": "symbol",
-            "source": "sub-basins",
-            "source-layer": "western-wash-subbasins",
-            "layout": {
-              "text-field": ["get", "subbasin"]
-            },
-            "paint": {
-              "text-color": "#000000",
-              "text-halo-color": "#ffffff",
-              "text-halo-width": 0.5
-            }
-          }
-        ]
-      },
-      {
-        "id": "admin-units",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "admin-units",
-            "type": "fill",
-            "source": "admin-units",
-            "source-layer": "washington-watershed-administrative-units",
+            "source-layer": "western-wash-waus-clipped",
             "paint": {
               "fill-color": [
                 "case",
                 ["==", ["get", "wria_nm"], "Cedar-Sammamish"],
                 "#e41a1c",
-                ["==", ["get", "wria_nm"], "Upper Skagit"],
+                ["==", ["get", "wria_nm"], "Skagit"],
                 "#377eb8",
                 ["==", ["get", "wria_nm"], "Snohomish"],
                 "#4daf4a",
@@ -286,20 +227,20 @@
             }
           },
           {
-            "id": "admin-units-outline",
+            "id": "sub-basins-outline",
             "type": "line",
-            "source": "admin-units",
-            "source-layer": "washington-watershed-administrative-units",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
             "paint": {
               "line-color": "#fff",
               "line-width": 1.5
             }
           },
           {
-            "id": "admin-units-labels",
+            "id": "sub-basins-labels",
             "type": "symbol",
-            "source": "admin-units",
-            "source-layer": "washington-watershed-administrative-units",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
             "layout": {
               "text-field": ["get", "WAU_LABEL_"]
             },
@@ -479,10 +420,6 @@
           {
             "layerGroupId": "sub-basins",
             "title": "Sub-basins"
-          },
-          {
-            "layerGroupId": "admin-units",
-            "title": "Watershed administrative units"
           },
           {
             "layerGroupId": "wria-boundaries",
