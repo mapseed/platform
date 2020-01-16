@@ -221,9 +221,11 @@
                 "#ff7f00",
                 ["==", ["get", "wria_nm"], "Lower Skagit / Samish"],
                 "#ffff33",
+                ["==", ["get", "wria_nm"], "Upper Skagit"],
+                "#a65628",
                 "#000000"
               ],
-              "fill-opacity": 0.7
+              "fill-opacity": 0.5
             }
           },
           {
