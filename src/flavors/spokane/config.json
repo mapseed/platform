@@ -4143,7 +4143,7 @@
             "name": "private",
             "type": "big_radio",
             "prompt": "Place your pin on the map? (Your address and other property identifying information will not be published.)",
-            "default_value": "yes",
+            "default_value": "no",
             "content": [
               {
                 "label": "Yes",
