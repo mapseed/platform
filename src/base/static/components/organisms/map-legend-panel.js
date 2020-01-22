@@ -40,11 +40,12 @@ const LegendIcon = styled(Image)({
 });
 
 const MapLegendPanel = props => {
+  const placeFormsConfig = []; // TEMP
   const backgroundColor = props.isThemed ? props.theme.brand.secondary : "#fff";
   const labelColor = getReadableColor(backgroundColor);
   return (
     <MapLegendPanelContainer backgroundColor={backgroundColor}>
-      {props.placeFormsConfig.map((placeForm, i) => (
+      {placeFormsConfig.map((placeForm, i) => (
         <MapLegendItemContainer key={placeForm.id}>
           <LegendIcon src={placeForm.icon} />
           <LegendLabel color={labelColor}>

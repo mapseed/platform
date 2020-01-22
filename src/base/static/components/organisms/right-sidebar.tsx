@@ -14,7 +14,7 @@ import {
   rightSidebarConfigPropType,
   rightSidebarConfigSelector,
 } from "../../state/ducks/right-sidebar-config";
-import { placesSelector, PlaceWithMetadata } from "../../state/ducks/places";
+import { placesSelector, PlaceWithConfiguration } from "../../state/ducks/places";
 import { updateUIVisibility, uiVisibilitySelector } from "../../state/ducks/ui";
 import constants from "../../constants";
 
@@ -27,7 +27,7 @@ const RightSidebarInnerContainer = styled("div")({
 
 type Props = {
   isRightSidebarVisible: boolean;
-  places: PlaceWithMetadata[];
+  places: PlaceWithConfiguration[];
   rightSidebarConfig: rightSidebarConfigPropType.isRequired;
   updateUIVisibility: Function;
 };

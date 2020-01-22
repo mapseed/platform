@@ -93,7 +93,7 @@ class PlaceList extends React.Component {
   _sortAndFilterPlaces = (places, sortBy, query) => {
     // only render place surveys that are flagged with 'includeOnList':
     const includedPlaces = places.filter(
-      ({ __clientSideMetadata: { includeOnList } }) => includeOnList,
+      ({ mapseedConfiguration: { includeOnList } }) => includeOnList,
     );
     const filteredPlaces = query
       ? includedPlaces.filter(place => {
@@ -274,7 +274,9 @@ PlaceList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  formModules: placeDetailViewModulesSelector(state),
+  // TODO: each PlaceListItem should be responsible for looking up its own modules,
+  // using the selector factory pattern.
+  formModules: placeDetailModulesSelector(state),
   places: filteredPlacesSelector(state),
 });
 

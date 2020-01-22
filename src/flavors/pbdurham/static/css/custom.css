@@ -43,59 +43,6 @@ h5 {
   color: #fff;
 }
 
-/* Forms */
-label {
-}
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="tel"],
-input[type="text"],
-input[type="time"],
-input[type="url"],
-input[type="week"],
-select,
-textarea {
-  border: 0.25em solid #a695ab !important;
-}
-input:focus,
-textarea:focus {
-  border: 0.25em solid #302d43;
-  outline: 2px solid #302d43;
-}
-
-.help-text {
-  font-size: small;
-  opacity: 0.8;
-}
-
-.input-form-category-button__image-container--active {
-  background-color: rgba(166, 149, 171, 0.43) !important;
-}
-
-.input-form-category-button__label:hover {
-  border-color: rgba(166, 149, 171, 1) !important;
-}
-
-.input-form-category-button__label-text--active {
-  border-color: rgba(166, 149, 171, 1) !important;
-  background-color: rgba(166, 149, 171, 1) !important;
-}
-
-.big-checkbox-field__label--toggled,
-.big-toggle-field__label--toggled {
-  border-color: rgba(166, 149, 171, 1) !important;
-}
-
-.big-checkbox-field__label--toggled:before,
-.big-toggle-field__label--toggled:before {
-  background-color: rgba(166, 149, 171, 1) !important;
-}
-
 /* =Map
 -------------------------------------------------------------- */
 #map-container {
@@ -106,26 +53,6 @@ textarea:focus {
   background: #ccc;
 }
 
-#centerpoint.newpin .overlay {
-  &:before {
-    text-align: center;
-    letter-spacing: 1px;
-    font-weight: 800;
-    font-size: 1.1em;
-    content: "Drag the map";
-    background-image: url(/static/css/images/marker-arrow-overlay.png);
-    background-size: cover;
-    width: 139px;
-    height: 162px;
-    left: -58px;
-    top: -75px;
-    position: absolute;
-    text-transform: uppercase;
-    color: yellow;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-      1px 1px 0 #000;
-  }
-}
 
 /* =Custom pages
 -------------------------------------------------------------- */

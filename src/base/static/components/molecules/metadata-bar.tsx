@@ -6,11 +6,12 @@ import moment from "moment";
 import { UserAvatar } from "../atoms/imagery";
 import { SmallText, RegularText } from "../atoms/typography";
 import { withTranslation, WithTranslation } from "react-i18next";
-import { PlaceWithMetadata } from "../../state/ducks/places";
+import { PlaceWithConfiguration } from "../../state/ducks/places";
 
 type OwnProps = {
+  locationTypeLabel: string;
   numComments: number;
-  place: PlaceWithMetadata;
+  place: PlaceWithConfiguration;
 };
 
 type MetadataBarProps = OwnProps & WithTranslation;
@@ -18,13 +19,14 @@ type MetadataBarProps = OwnProps & WithTranslation;
 const MetadataBar = ({
   numComments,
   t,
+  locationTypeLabel,
   place: {
     // eslint-disable-next-line @typescript-eslint/camelcase
     created_datetime,
     submitter,
     // eslint-disable-next-line @typescript-eslint/camelcase
     submitter_name,
-    __clientSideMetadata: {
+    mapseedConfiguration: {
       placeAnonymousName,
       placeActionText,
       placeResponseLabel,

@@ -10,7 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import {
   placesByDatasetUrlSelectorFactory,
-  PlaceWithMetadata,
+  PlaceWithConfiguration,
 } from "../../state/ducks/places";
 import { datasetsSelector, Dataset } from "../../state/ducks/datasets";
 import {
@@ -35,7 +35,7 @@ type StateProps = {
   dashboardConfig: DashboardsConfig;
   appConfig: AppConfig;
   hasAdminAbilities: Function;
-  placesByDatasetUrlSelector: (datasetUrl: string) => PlaceWithMetadata[];
+  placesByDatasetUrlSelector: (datasetUrl: string) => PlaceWithConfiguration[];
   //placeFormsConfig: PlaceFormsConfig;
   //formFieldsConfig: FormFieldsConfig;
   datasets: Dataset[];

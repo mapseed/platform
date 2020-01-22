@@ -305,13 +305,24 @@ const FieldPrompt = ({ children }) => {
   );
 };
 
-const ListSubmittedField = ({ value }) => {
+const ListSubmittedField = ({ value, options }) => {
   value = Array.isArray(value) ? value : [value];
 
   return (
     <ul>
       {value.map((item, i) => (
-        <li key={i}>{item}</li>
+        <li key={i}>
+          {
+            // For ListSubmittedFields, the value we want to display is not
+            // stored in the Place, but rather in the configuration of the
+            // form that generated the Place, so we need to look that label
+            // up here.
+            (
+              options.find(({ value: optionValue }) => optionValue === item) ||
+              {}
+            ).label
+          }
+        </li>
       ))}
     </ul>
   );

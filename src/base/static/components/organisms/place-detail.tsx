@@ -15,13 +15,10 @@ import PlaceDetailEditorBar from "../molecules/place-detail-editor-bar";
 import TagBar from "../organisms/tag-bar";
 import PlaceDetailEditor from "./place-detail-editor";
 import {
-  placeDetailViewModulesSelector,
+  placeDetailModulesSelectorFactory,
   FormModule,
 } from "../../state/ducks/forms";
-import {
-  PlaceWithMetadata,
-  placeSelectorFactory,
-} from "../../state/ducks/places";
+import { PlaceWithConfiguration, placeSelector } from "../../state/ducks/places";
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import SubmittedFieldDetail from "../organisms/submitted-field-detail";
 
@@ -104,7 +101,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
   mapContainerRef,
   contentPanelInnerContainerRef,
 }) => {
-  const detailViewFormModules = useSelector(placeDetailViewModulesSelector);
+  /*const detailViewFormModules = useSelector(placeDetailViewModulesSelector);*/
   //const [isSurveyFormSubmitting, setIsSurveyFormSubmitting] = React.useState<
   //  boolean
   //>(false);
@@ -112,8 +109,18 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
     false,
   );
   const user = useSelector(userSelector);
-  const placeSelector = React.useMemo(placeSelectorFactory, []);
-  const place = useSelector((state: any) => placeSelector(state, placeId));
+  const placeDetailModulesSelector = React.useMemo(
+    placeDetailModulesSelectorFactory,
+    [],
+  );
+  const place = useSelector(state => placeSelector(state, placeId));
+  const { placeDetailModules, locationTypeLabel } = useSelector((state: any) =>
+    placeDetailModulesSelector(
+      state,
+      place.mapseedConfiguration.placeFormId,
+      place["location_type"],
+    ),
+  );
   const { FieldDetail } = useSelector(customComponentsConfigSelector);
   const layerGroups = useSelector(layerGroupsSelector);
   const isTagBarEditable = useSelector(datasetsWithEditTagsAbilitySelector)
@@ -235,13 +242,13 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
     place.location_type === "conservation-actions"
   ) {
     SubmittedFieldDetailComponent = (
-      <SnohomishFieldDetail place={place} formModules={detailViewFormModules} />
+      <SnohomishFieldDetail place={place} formModules={placeDetailModules} />
     );
   } else if (FieldDetail === "KittitasFireAdaptedFieldDetail") {
     SubmittedFieldDetailComponent = (
       <KittitasFireAdaptedFieldDetail
         place={place}
-        formModules={detailViewFormModules}
+        formModules={placeDetailModules}
       />
     );
   } else if (
@@ -249,7 +256,7 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
     place.location_type === "reports"
   ) {
     SubmittedFieldDetailComponent = (
-      <VSPFieldDetail place={place} formModules={detailViewFormModules} />
+      <VSPFieldDetail place={place} formModules={placeDetailModules} />
     );
   } else if (
     FieldDetail === "PBDurhamProjectProposalFieldDetail" &&
@@ -258,12 +265,12 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
     SubmittedFieldDetailComponent = (
       <PBDurhamProjectProposalFieldDetail
         place={place}
-        formModules={detailViewFormModules}
+        formModules={placeDetailModules}
       />
     );
   } else {
     SubmittedFieldDetailComponent = (
-      <SubmittedFieldDetail place={place} formModules={detailViewFormModules} />
+      <SubmittedFieldDetail place={place} formModules={placeDetailModules} />
     );
   }
 
@@ -304,7 +311,11 @@ const PlaceDetail: React.FunctionComponent<PlaceDetailProps> = ({
         {place.title}
       </LargeTitle>
       <PromotionMetadataContainer>
-        <MetadataBar place={place} numComments={comments.length} />
+        <MetadataBar
+          place={place}
+          locationTypeLabel={locationTypeLabel}
+          numComments={comments.length}
+        />
         <PromotionBar
           appConfig={appConfig}
           numSupports={supports.length}

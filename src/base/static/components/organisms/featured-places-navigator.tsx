@@ -9,7 +9,7 @@ import {
   featuredPlacesConfigSelector,
   FeaturedPlacesConfig,
 } from "../../state/ducks/featured-places-config";
-import { PlaceWithMetadata } from "../../state/ducks/places";
+import { PlaceWithConfiguration } from "../../state/ducks/places";
 
 import FeaturedPlace from "../molecules/featured-place";
 import { TinyTitle, Paragraph } from "../atoms/typography";
@@ -18,7 +18,7 @@ type StateProps = {
   featuredPlacesConfig: FeaturedPlacesConfig;
 };
 type Props = {
-  places: PlaceWithMetadata[];
+  places: PlaceWithConfiguration[];
 } & StateProps &
   RouteComponentProps<{}>;
 
@@ -75,7 +75,7 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
         .map(featuredPlace => {
           const place = props.places.find(
             place => place.id === featuredPlace.placeId,
-          ) as PlaceWithMetadata;
+          ) as PlaceWithConfiguration;
           return {
             featuredPlace,
             place,
@@ -90,7 +90,7 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
               title={place!.title}
               iconUrl={iconUrl}
               isSelected={currentPlaceId === featuredPlace.placeId}
-              placeUrl={`${place.__clientSideMetadata.clientSlug}/${featuredPlace.placeId}`}
+              placeUrl={`${place.mapseedConfiguration.clientSlug}/${featuredPlace.placeId}`}
             />
           );
         })}

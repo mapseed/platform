@@ -14,7 +14,7 @@ const SubmittedFieldSummary = ({
   formModules: FormModule[];
 }) => {
   return (
-    <div>
+    <React.Fragment>
       {place.attachments
         .filter(({ type }) => type === "CO")
         .map(({ file }) => (
@@ -22,20 +22,20 @@ const SubmittedFieldSummary = ({
         ))}
       {formModules
         .filter(({ key }) => !!place[key])
-        .map(({ label, key, type, variant }) => {
+        .map(({ label, key, type, variant, options = null }) => {
           const SubmittedFieldComponent = getSubmittedFieldComponent(
             type,
             variant,
           );
 
           return (
-            <React.Fragment key={key}>
+            <div key={key}>
               {label && <Typography>{label}</Typography>}
-              <SubmittedFieldComponent value={place[key]} />
-            </React.Fragment>
+              <SubmittedFieldComponent value={place[key]} options={options} />
+            </div>
           );
         })}
-    </div>
+    </React.Fragment>
   );
 };
 

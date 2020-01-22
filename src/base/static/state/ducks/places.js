@@ -21,7 +21,7 @@ export const placePropType = PropTypes.shape({
   url: PropTypes.string.isRequired,
   title: PropTypes.string,
   submitter: PropTypes.object,
-  __clientSideMetadata: PropTypes.object.isRequired,
+  mapseedConfiguration: PropTypes.object.isRequired,
 });
 
 export const placesPropType = PropTypes.arrayOf(placePropType);
@@ -31,6 +31,7 @@ const ensureSubmissionSetsAndMetadata = ({
   dataset: { clientSlug, slug: datasetSlug },
   formConfigsByType: {
     place: {
+      id: placeFormId,
       anonymousName: placeAnonymousName = "Someone",
       actionText: placeActionText = "created",
       responseLabel: placeResponseLabel = "post",
@@ -53,7 +54,7 @@ const ensureSubmissionSetsAndMetadata = ({
     comments: place.submission_sets.comments || [],
   },
   // Data that's useful to attach to the Place model on the client side:
-  __clientSideMetadata: {
+  mapseedConfiguration: {
     clientSlug,
     datasetSlug,
     includeOnList,
@@ -64,6 +65,7 @@ const ensureSubmissionSetsAndMetadata = ({
     placeSurveyResponseLabel,
     placeSurveyResponsePluralLabel,
     placeSurveyActionText,
+    placeFormId,
     placeSurveyFormId,
   },
 });
@@ -95,7 +97,7 @@ export const filteredPlacesSelector = createSelector(
 
     return places.filter(
       ({
-        __clientSideMetadata: { datasetSlug: placeDatasetSlug },
+        mapseedConfiguration: { datasetSlug: placeDatasetSlug },
         ...place
       }) => {
         return placeFilters.some(
@@ -129,19 +131,18 @@ export const placesByDatasetUrlSelectorFactory = () =>
       places.filter(({ dataset }) => dataset === datasetUrl),
   );
 
-export const placeSelectorFactory = () =>
-  createSelector(
-    placesSelector,
-    (_, placeId) => Number(placeId),
-    (places, placeId) => places.find(({ id }) => id === placeId),
-  );
+export const placeSelector = createSelector(
+  placesSelector,
+  (_, placeId) => Number(placeId),
+  (places, placeId) => places.find(({ id }) => id === placeId),
+);
 
 export const placesBySourceIdSelector = createSelector(
   [placesSelector],
   places =>
     groupBy(
       places,
-      ({ __clientSideMetadata: { datasetSlug: sourceId } }) => sourceId,
+      ({ mapseedConfiguration: { datasetSlug: sourceId } }) => sourceId,
     ),
 );
 

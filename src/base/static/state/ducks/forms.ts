@@ -1,10 +1,10 @@
 import { normalize, denormalize, schema } from "normalizr";
 import { createSelector } from "reselect";
 import camelcaseKeys from "camelcase-keys";
+import isempty from "lodash.isempty";
 
 import { MapViewport } from "./map";
 import { isFormField } from "../../utils/place-utils";
-import { Dataset } from "./datasets";
 
 // Types:
 // NOTE: Typings reflect loaded, transformed data.
@@ -27,6 +27,14 @@ export type MapseedAttachment = {
   uploadedDatetime: number;
 };
 
+export type FieldOption = {
+  order: number;
+  label: string;
+  value: string | number | boolean;
+  icon?: string;
+  groupVisibilityTriggers?: number[];
+};
+
 interface BaseFormModule {
   id: number;
   key: string;
@@ -39,6 +47,7 @@ interface BaseFormModule {
   prompt?: string;
   modules?: FormModule[];
   label?: string;
+  options?: FieldOption[];
 }
 
 export interface MapseedHTMLModule extends BaseFormModule {
@@ -76,16 +85,12 @@ export interface MapseedSkipStageModule extends BaseFormModule {
   stageId: number;
 }
 
-export type RadioFieldOption = {
-  order: number;
-  label: string;
-  value: string | number | boolean;
-  icon?: string;
-  groupVisibilityTriggers?: number[];
-};
-
 export interface MapseedRadioFieldModule extends BaseFormModule {
-  options: RadioFieldOption[];
+  options: FieldOption[];
+}
+
+export interface MapseedCheckboxFieldModule extends BaseFormModule {
+  options: FieldOption[];
 }
 
 export interface MapseedNumberFieldModule extends BaseFormModule {
@@ -114,7 +119,8 @@ export type FormModule =
   | MapseedSkipStageModule
   | MapseedRadioFieldModule
   | MapseedNumberFieldModule
-  | MapseedDateFieldModule;
+  | MapseedDateFieldModule
+  | MapseedCheckboxFieldModule;
 
 export type PlaceFormStage = {
   visibleLayerGroups: string[];
@@ -139,49 +145,66 @@ export type CommentForm = {}; // TODO
 export type MapseedForm = PlaceForm;
 
 // Selectors:
-const formModulesSelector = state => state.forms.entities.modules;
-const formStagesSelector = state => state.forms.entities.stages;
-const flattenedFormSelector = (state, formId) => {
-  return state.forms.entities.form[formId];
+const _formsSelector = ({ forms: { entities } }: { forms: NormalizedState }) =>
+  entities;
+
+type FormConfigsByDatasetAndType = {
+  [datasetUrl: string]: {
+    place: {
+      type: "place";
+      id: string | number;
+      datasetSlug: string;
+      label: string;
+      anonymousName?: string;
+      includeOnList?: boolean;
+    };
+    placeSurvey: {
+      type: "placeSurvey";
+      surveyType: "comments"; // Could be expanded to other survey types in the future.
+      id: string | number;
+      datasetSlug: string;
+      responseLabel: string;
+      responsePluralLabel: string;
+      actionText: string;
+      anonymousName?: string;
+    };
+  };
 };
 
-export const formFieldsSelector = createSelector(
-  [formModulesSelector],
-  formModules => {
-    return (Object.values(formModules) as FormModule[]).filter(({ type }) =>
-      isFormField(type),
-    );
-  },
-);
-
-export const newPlaceFormInitialValuesSelector = createSelector(
-  [formFieldsSelector],
-  formFields => {
-    return formFields.reduce((initialValues, { key, defaultValue }) => {
-      return {
-        ...initialValues,
-        [key]: defaultValue || "",
-      };
-    }, {});
-  },
-);
-
-const _formsSelector = ({ forms: { entities } }: { forms: NormalizedState }) =>
-  entities.forms;
-
+const EXPECTED_CONFIG_NAMES = ["place", "placeSurvey"];
 export const formConfigsByDatasetAndTypeSelector = createSelector(
   [_formsSelector],
-  forms =>
-    Object.values(forms).reduce(
+  ({ forms }) => {
+    const configsByDatasetUrl: FormConfigsByDatasetAndType = Object.values(
+      forms,
+    ).reduce(
       (memo, { dataset, type, ...rest }) => ({
         ...memo,
         [dataset]: {
+          placeSurvey: {},
           ...memo[dataset],
           [type]: { ...rest },
         },
       }),
       {},
-    ),
+    );
+
+    // Generally we expect that datasets will require supporting configuration
+    // for both `place` and `placeSurvey` forms. This isn't a requirement, but
+    // we warn about missing configurations.
+    Object.entries(configsByDatasetUrl).forEach(([datasetUrl, config]) => {
+      EXPECTED_CONFIG_NAMES.forEach(configName => {
+        if (isempty(config[configName])) {
+          // eslint-disable-next-line no-console
+          console.warn(
+            `[Forms duck]: WARNING: Supporting configuration for '${configName}' form for dataset with url ${datasetUrl} not found. Configure this in the 'forms' array of the flavor config.`,
+          );
+        }
+      });
+    });
+
+    return configsByDatasetUrl;
+  },
 );
 
 export const placeFormIdSelector = (
@@ -193,15 +216,6 @@ export const placeFormIdSelector = (
       ({ type, dataset }) => type === "place" && dataset === datasetUrl,
     ) || {}
   ).id;
-
-// TODO: handle multiple datasets
-export const placeDetailViewModulesSelector = state =>
-  (Object.values(state.forms.entities.modules) as FormModule[]).filter(
-    ({ type, key }: { type: string; key: string }): boolean =>
-      isFormField(type) &&
-      !key.startsWith("private-") && // Private fields are never shown on detail views, even to admins.
-      !["title", "name", "submitterName"].includes(key),
-  );
 
 // Actions:
 const LOAD = "forms/LOAD";
@@ -226,6 +240,8 @@ const getModuleType = rawFormModule => {
     return { key: "numberfield", variant: "numberfield" };
   } else if (rawFormModule.datefield) {
     return { key: "datefield", variant: "datefield" };
+  } else if (rawFormModule.checkboxfield) {
+    return { key: "checkboxfield", variant: "checkboxfield" };
   } else if (
     rawFormModule.textareafield &&
     !rawFormModule.textareafield.rich_text
@@ -315,9 +331,62 @@ const formsDuckSchema = new schema.Array(formsSchema);
 //  - a "stage field" selector, which selects stage field configurations
 //  - a "group module" selector, which selects nested modules within groupmodules
 // TODO: does this handle groupmodules correctly?
-// TODO: memoize this?
-export const placeFormSelector = ({ forms: { entities } }, formId) =>
-  denormalize(entities.forms[formId], formsSchema, entities);
+// TODO: this isn't just for placeForms?
+export const placeFormSelector = createSelector(
+  _formsSelector,
+  (_, formId) => formId,
+  (entities, formId) =>
+    denormalize(entities.forms[formId], formsSchema, entities),
+);
+
+export const newPlaceFormInitialValuesSelector = createSelector(
+  [placeFormSelector],
+  ({ stages }) =>
+    stages
+      .map(({ modules }) => modules)
+      .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+      .filter(({ type }) => isFormField(type))
+      .reduce(
+        (initialValues, { key, defaultValue }) => ({
+          ...initialValues,
+          [key]: defaultValue || "",
+        }),
+        {},
+      ),
+);
+
+export const placeDetailModulesSelectorFactory = () =>
+  createSelector(
+    placeFormSelector,
+    (_, __, locationType) => locationType,
+    ({ stages }, locationType = "") => {
+      const placeDetailModules = stages
+        .map(({ modules }) => modules)
+        .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+        .filter(
+          ({ type, key }: { type: string; key: string }): boolean =>
+            isFormField(type) &&
+            !key.startsWith("private-") &&
+            !["title", "name", "submitterName"].includes(key),
+        );
+
+      // For legacy reasons it's convenient to pull out the value of the form
+      // module with key `location_type`, since this value is used in various
+      // places, like the PlaceDetailView. We default to the empty string when
+      // no `location_type` module exists.
+      const locationTypeLabel = (
+        (
+          (placeDetailModules.find(({ key }) => key === "location_type") || {})
+            .options || []
+        ).find(({ value }) => value === locationType) || { label: "" }
+      ).label;
+
+      return {
+        placeDetailModules,
+        locationTypeLabel,
+      };
+    },
+  );
 
 export function loadForms({ apiForms, configForms, datasets }) {
   // Preprocess forms in order to merge API-based forms info with config-based

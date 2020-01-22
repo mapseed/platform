@@ -109,7 +109,7 @@ const PlaceListItem = ({
     thumbnail: appThumbnail,
   },
   place: {
-    __clientSideMetadata: {
+    mapseedConfiguration: {
       placeAnonymousName,
       placeActionText,
       placeResponseLabel,

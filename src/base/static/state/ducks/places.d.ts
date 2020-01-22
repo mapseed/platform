@@ -28,8 +28,8 @@ export type Place = {
   tags: PlaceTag[];
 };
 
-export type PlaceWithMetadata = Place & {
-  __clientSideMetadata: {
+export type PlaceWithConfiguration = Place & {
+  mapseedConfiguration: {
     clientSlug: string;
     datasetSlug: string;
     includeOnList: boolean;
@@ -41,12 +41,18 @@ export type PlaceWithMetadata = Place & {
     placeSurveyResponsePluralLabel: string;
     placeSurveyActionText: string;
     placeSurveyFormId: string | number;
+    placeFormId: number;
   };
 };
 
 export const placesLoadStatusSelector: any;
 
-export const placesSelector: (state: any) => PlaceWithMetadata[];
+export const placeSelector: (
+  state: any,
+  placeId: string | number,
+) => PlaceWithConfiguration;
+
+export const placesSelector: (state: any) => PlaceWithConfiguration[];
 
 export const filteredPlacesSelector: any;
 
@@ -65,12 +71,12 @@ export const datasetPlacesSelector: any;
 export const placeSelectorFactory: () => (
   state: any,
   placeId: string,
-) => PlaceWithMetadata;
+) => PlaceWithConfiguration;
 
 export const placesByDatasetUrlSelectorFactory: () => (
   state: any,
   datasetUrl: string,
-) => PlaceWithMetadata[];
+) => PlaceWithConfiguration[];
 
 // Action creators:
 export const updateScrollToResponseId: any;

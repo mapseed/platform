@@ -7,9 +7,7 @@ import {
 import constants from "../constants";
 
 const getSubmittedFieldComponent = (type, variant) => {
-  if (type === "radiofield" && variant === "RA") {
-    return ListSubmittedField;
-  } else if (type === "radiofield" && variant === "CH") {
+  if (type === "radiofield" || type === "checkboxfield") {
     return ListSubmittedField;
   } else if (type === "richtext") {
     return RichTextSubmittedField;
@@ -22,6 +20,7 @@ const FIELDS = [
   "textfield",
   "addressfield",
   "radiofield",
+  "checkboxfield",
   "textareafield",
   "numberfield",
   "datefield",
@@ -103,7 +102,7 @@ const toGeoJSONFeature = placeData => {
     // eslint-disable-next-line @typescript-eslint/camelcase
     submission_sets,
     attachments,
-    __clientSideMetadata,
+    mapseedConfiguration,
     /* eslint-enable @typescript-eslint/no-unused-vars */
     /* eslint-enable no-unused-vars */
     ...rest

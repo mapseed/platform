@@ -18,7 +18,7 @@ import { LoadingBar } from "../atoms/imagery";
 import { createPlace } from "../../state/ducks/places";
 import { updateMapInteractionState } from "../../state/ducks/map";
 import { toClientGeoJSONFeature } from "../../utils/place-utils";
-import { mapViewportSelector, MapViewport } from "../../state/ducks/map";
+import { mapViewportSelector } from "../../state/ducks/map";
 import {
   updateUIVisibility,
   updateSpotlightMaskVisibility,
@@ -37,11 +37,11 @@ type NewPlaceFormProps = {
 };
 
 const NewPlaceForm = (props: NewPlaceFormProps) => {
-  const mapViewport: MapViewport = useSelector(mapViewportSelector);
+  const mapViewport = useSelector(mapViewportSelector);
   const history = useHistory();
   const dispatch = useDispatch();
-  const initialValues: FormikValues = useSelector(
-    newPlaceFormInitialValuesSelector,
+  const initialValues: FormikValues = useSelector((state: any) =>
+    newPlaceFormInitialValuesSelector(state, props.formId),
   );
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
   const [infoModalState, setInfoModalState] = React.useState<InfoModal>({
@@ -53,13 +53,11 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
   const placeForm: MapseedPlaceForm = useSelector((state: any) =>
     placeFormSelector(state, props.formId),
   );
-
   const includePrivate =
     placeForm &&
     !!useSelector(datasetsWithAccessProtectedPlacesAbilitySelector).find(
       ({ url }) => url === placeForm.dataset,
     );
-
   const placeConfirmationModal =
     placeForm &&
     useSelector(state =>
@@ -83,6 +81,7 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
       Mixpanel.track("Clicked place form submit");
       setIsSubmitting(true);
 
+      // TODO
       // Run geospatial analyses:
       //if (
       //  this.selectedCategoryConfig.geospatialAnalysis &&
@@ -152,6 +151,7 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
         );
       }
 
+      // TODO
       //// Generate a PDF for the user if configured to do so.
       //if (this.props.datasetReportSelector(this.props.datasetSlug)) {
       //  mapseedPDFServiceClient.getPDF({
