@@ -167,11 +167,8 @@ const NewPlaceForm = (props: NewPlaceFormProps) => {
       //}
 
       // Post-submission routing:
-      const {
-        privateNonAdmin,
-        privateAdmin,
-        nonPrivate,
-      } = placeConfirmationModal;
+      const { privateNonAdmin, privateAdmin, nonPrivate } =
+        placeConfirmationModal || {};
       if (
         placeResponse.private // TEMP
         //this.props.hasGroupAbilitiesInDatasets({

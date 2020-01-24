@@ -3,22 +3,32 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withTranslation, Trans } from "react-i18next";
 import { css, jsx } from "@emotion/core";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import Button from "@material-ui/core/Button";
 
-import { Button } from "../atoms/buttons";
 import { ProgressBar } from "../atoms/imagery";
 import { RegularText } from "../atoms/typography";
 
-const FormStageControlBar = props => {
-  const { currentStage, numStages } = props;
+const FormStageControlBar = ({
+  currentStage,
+  numStages,
+  isWithStageError,
+  layout,
+  isRightSidebarVisible,
+  onClickAdvanceStage,
+  onClickRetreatStage,
+  t,
+}) => {
   const adjustedStage = currentStage + 1;
   //const isRightSidebarVisible = useSelecto)
 
+  // TODO
   let leftPosition;
-  if (props.layout === "desktop" && props.isRightSidebarVisible) {
+  if (layout === "desktop" && isRightSidebarVisible) {
     leftPosition = "45%";
-  } else if (props.layout === "desktop" && !props.isRightSidebarVisible) {
+  } else if (layout === "desktop" && !isRightSidebarVisible) {
     leftPosition = "60%";
-  } else if (props.layout === "mobile") {
+  } else if (layout === "mobile") {
     leftPosition = 0;
   }
 
@@ -28,21 +38,21 @@ const FormStageControlBar = props => {
         z-index: 100;
         margin-top: 30px;
         padding-left: 10px;
-        padding-top: ${props.layout === "desktop" ? "20px" : "10px"};
+        padding-top: ${layout === "desktop" ? "20px" : "10px"};
         padding-right: 10px;
         padding-bottom: 10px;
         position: fixed;
         bottom: 0;
         box-sizing: border-box;
-        width: ${props.layout === "desktop" ? "40%" : "100%"};
+        width: ${layout === "desktop" ? "40%" : "100%"};
         background-color: #fff;
         left: ${leftPosition};
         box-shadow: 0px -3px 2px rgba(0, 0, 0, 0.1);
-        height: ${props.layout === "desktop" ? "92px" : "unset"};
-        min-height: ${props.layout === "desktop" ? "92px" : "unset"};
+        height: ${layout === "desktop" ? "92px" : "unset"};
+        min-height: ${layout === "desktop" ? "92px" : "unset"};
       `}
     >
-      {props.layout === "desktop" && (
+      {layout === "desktop" && (
         <RegularText
           css={css`
             margin-left: 8px;
@@ -61,26 +71,27 @@ const FormStageControlBar = props => {
           align-items: center;
         `}
       >
-        <ProgressBar total={props.numStages} currentProgress={adjustedStage} />
+        <ProgressBar total={numStages} currentProgress={adjustedStage} />
         <Button
           style={{ marginLeft: "8px" }}
-          disabled={props.adjustedStage === 1}
-          variant="flat"
+          disabled={adjustedStage === 1}
+          variant="outlined"
           color="primary"
-          size="regular"
-          onClick={props.onClickRetreatStage}
+          size="medium"
+          onClick={onClickRetreatStage}
         >
-          <RegularText>{props.t("previousStageLinkLabel", "Back")}</RegularText>
+          <RegularText>{t("previousStageLinkLabel", "Back")}</RegularText>
         </Button>
         <Button
           style={{ marginLeft: "8px" }}
-          disabled={adjustedStage === props.numStages}
-          variant="flat"
+          disabled={adjustedStage === numStages || isWithStageError}
+          variant="contained"
           color="primary"
-          size="regular"
-          onClick={props.onClickAdvanceStage}
+          size="medium"
+          endIcon={<ArrowForwardIcon />}
+          onClick={onClickAdvanceStage}
         >
-          <RegularText>{props.t("nextStageLinkLabel", "Next")}</RegularText>
+          <RegularText>{t("nextStageLinkLabel", "Next")}</RegularText>
         </Button>
       </div>
     </div>

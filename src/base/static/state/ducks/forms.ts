@@ -429,7 +429,9 @@ export function updateFormModuleVisibilities(
   return {
     type: UPDATE_MODULE_VISIBILITIES,
     payload: {
-      moduleIds,
+      // NOTE: Group visibility triggers can only trigger `groupmodule`s, so we
+      // prepend the `groupmodule` identifier here.
+      moduleIds: moduleIds.map(moduleId => `groupmodule${moduleId}`),
       isVisible,
     },
   };
@@ -457,19 +459,19 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         entities: {
           ...state.entities,
-          modules: (Object.values(
-            state.entities.modules,
-          ) as FormModule[]).reduce((memo, val: FormModule) => {
-            return {
-              ...memo,
-              [val.id]: action.payload.moduleIds.includes(val.id)
-                ? ({
-                    ...val,
-                    isVisible: action.payload.isVisible,
-                  } as FormModule)
-                : val,
-            };
-          }, {}),
+          modules: {
+            ...state.entities.modules,
+            ...action.payload.moduleIds.reduce(
+              (memo, moduleId) => ({
+                ...memo,
+                [moduleId]: {
+                  ...state.entities.modules[moduleId],
+                  isVisible: action.payload.isVisible,
+                },
+              }),
+              {},
+            ),
+          },
         },
       };
     default:

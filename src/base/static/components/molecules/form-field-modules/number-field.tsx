@@ -17,6 +17,22 @@ const NumberField = ({
   mapseedField: { placeholder, id, prompt, minimum, maximum },
   t,
 }: NumberFieldModuleProps) => {
+  const handleOnWheel = evt => evt.preventDefault();
+
+  // Newer versions of Chrome don't allow preventDefault() to be called on
+  // `wheel` events in React. The manual event binding below is a workaround.
+  // See: https://github.com/facebook/react/issues/14856
+  //
+  // We prevent `wheel` events on number fields because the act of trying to
+  // scroll the content panel while hovering a number field would otherwise
+  // result in the number field changing value.
+  React.useEffect(() => {
+    document.getElementById(name).addEventListener("wheel", handleOnWheel);
+
+    return () =>
+      document.getElementById(name).removeEventListener("wheel", handleOnWheel);
+  }, []);
+
   return (
     <React.Fragment>
       {prompt && <FieldPrompt>{prompt}</FieldPrompt>}

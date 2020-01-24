@@ -18,12 +18,17 @@ const HTMLModule = ({ mapseedModule: { id, content }, t }: HTMLModuleProps) => {
         p {
           font-family: ${theme.typography.body1.fontFamily};
           font-size: ${theme.typography.body1.fontSize};
-          margin: 0 0 16px 0;
+          margin: 0;
+
+          &:not(:last-child) {
+            margin-bottom: 16px;
+          }
         }
         img {
           margin: 0 0 24px 0;
           width: 100%;
           max-width: 100%;
+          height: auto;
         }
         figure {
           margin: 0 0 24px 0;

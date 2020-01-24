@@ -1,31 +1,89 @@
 {
   "flavor": {
+    "slug": "kittitas-vsp",
     "defaultLanguage": {
       "code": "en",
       "label": "English"
-    }
-  },
-  "datasets": [
-    {
-      "user": "smartercleanup",
-      "slug": "kittitas-vsp-input",
-      "clientSlug": "report",
-      "anonymousPermissions": [
-        {
-          "abilities": ["create"],
-          "submission_set": "*"
-        }
-      ],
-      "placeConfirmationModal": {
-        "privateNonAdmin": {
-          "header": "Thanks for reporting your voluntary stewardship!",
-          "body": [
-            "Your information was submitted successfully but will remain private and will not appear on the Kittitas County VSP map."
-          ]
+    },
+    "datasets": [
+      {
+        "datasetSlug": "kittitas-vsp-input",
+        "user": "smartercleanup",
+        "clientSlug": "report",
+        "anonymousPermissions": [
+          {
+            "abilities": ["create"],
+            "submission_set": "*"
+          }
+        ],
+        "placeConfirmationModal": {
+          "privateNonAdmin": {
+            "header": "Thanks for reporting your voluntary stewardship!",
+            "body": [
+              "Your information was submitted successfully but will remain private and will not appear on the Kittitas County VSP map."
+            ]
+          }
         }
       }
-    }
-  ],
+    ],
+    "forms": [
+      {
+        "type": "place",
+        "datasetSlug": "kittitas-vsp-input",
+        "label": "VSP Report",
+        "responseLabel": "VSP Report",
+        "actionText": "added",
+        "anonymousName": "Someone",
+        "includeOnList": true
+      },
+      {
+        "type": "placeSurvey",
+        "id": "kittitas-vsp-comments-form",
+        "surveyType": "comments",
+        "datasetSlug": "kittitas-vsp-input",
+        "responseLabel": "comment",
+        "responsePluralLabel": "comments",
+        "actionText": "commented on",
+        "anonymousName": "Someone",
+        "stages": [
+          {
+            "id": "kittitas-vsp-comments-form-stage-1",
+            "modules": [
+              {
+                "id": "kittitas-vsp-comments-form-module-1",
+                "visible": true,
+                "textareafield": {
+                  "key": "comment",
+                  "prompt": "Comment",
+                  "label": "Comment",
+                  "placeholder": "...",
+                  "required": true
+                }
+              },
+              {
+                "id": "kittitas-vsp-comments-form-module-2",
+                "visible": true,
+                "textfield": {
+                  "key": "submitter_name",
+                  "prompt": "Your Name",
+                  "required": false
+                }
+              },
+              {
+                "id": "kittitas-vsp-comments-form-module-3",
+                "visible": true,
+                "submitbuttonmodule": {
+                  "label": "Comment"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    
+    
+    ]
+  },
   "app": {
     "title": "Kittitas County Voluntary Stewardship Program",
     "name": "Kittitas County Voluntary Stewardship Program",
@@ -1824,58 +1882,6 @@
             "title": "Community Reports"
           }
         ]
-      }
-    ]
-  },
-  "place": {
-    "adding_supported": true,
-    "add_button_label": "Share Your Stewardship",
-    "action_text": "added",
-    "title": "Tell us more...",
-    "anonymous_name": "Someone",
-    "submit_button_label": "Put it on the map!",
-    "location_item_name": "location",
-    "label": "VSP Report"
-  },
-  "forms": {
-    "comments": {
-      "submission_type": "comments",
-      "show_responses": true,
-      "single_submission": false,
-      "response_name": "comment",
-      "response_plural_name": "comments",
-      "action_text": "commented on",
-      "anonymous_name": "Someone",
-      "title": "Leave a Comment",
-      "form_link_text": "Leave a Comment",
-      "submit_btn_text": "Comment",
-      "items": [
-        {
-          "prompt": "Comment",
-          "label": "Comment",
-          "type": "textarea",
-          "name": "comment"
-        },
-        {
-          "prompt": "Your Name",
-          "type": "text",
-          "name": "submitter_name",
-          "placeholder": "Name is optional",
-          "optional": true
-        },
-        {
-          "type": "submit",
-          "name": "submit",
-          "label": "Comment"
-        }
-      ]
-    },
-    "places": [
-      {
-        "id": "reports",
-        "datasetId": "kittitas-vsp-input",
-        "label": "Actions",
-        "icon": "/static/css/images/markers/marker-field.png"
       }
     ]
   },

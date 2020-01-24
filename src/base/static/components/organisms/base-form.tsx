@@ -42,6 +42,7 @@ import {
 import { isFormField } from "../../utils/place-utils";
 import { isMapDraggedOrZoomedByUser as isMapDraggedOrZoomedByUserSelector } from "../../state/ducks/map";
 import { LoadingBar } from "../atoms/imagery";
+import { SmallTitle } from "../atoms/typography";
 
 // TODO:
 //  - admin-only fields (??)
@@ -195,11 +196,12 @@ const MapseedFormModule = ({
   type,
   isRequired,
   formModule,
-  isValid,
+  isTouched,
   onClickSkipStage,
   attachments,
   setAttachments,
   setFieldValue,
+  hasAttemptedStageAdvance,
 }) => {
   const BackendModule = BACKEND_MODULES[type];
 
@@ -225,7 +227,7 @@ const MapseedFormModule = ({
           setFieldValue={setFieldValue}
         />
       </FormControl>
-      {Boolean(fieldError) && (
+      {Boolean(fieldError) && (isTouched || hasAttemptedStageAdvance) && (
         <Typography
           css={css`
             margin-left: 12px;
@@ -244,7 +246,7 @@ const MapseedFormModule = ({
     <BackendModule
       mapseedModule={formModule}
       onClickSkipStage={onClickSkipStage}
-      isValid={isValid}
+      isValid={!Boolean(fieldError)}
       attachments={attachments}
       setAttachments={setAttachments}
     />
@@ -296,6 +298,19 @@ const VisibilityTriggerEffect = formikConnect(
 const isRaisedModule = type =>
   !["submitbuttonmodule", "skipstagemodule"].includes(type);
 
+const StageTitle = ({ children }) => (
+  <SmallTitle
+    css={css`
+      padding-bottom: 8px;
+      margin-top: 0;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 24px;
+    `}
+  >
+    {children}
+  </SmallTitle>
+);
+
 // TODO: Save all form state to Redux on unmount, as a backup.
 const BaseForm = ({
   form,
@@ -311,6 +326,10 @@ const BaseForm = ({
 }: BaseFormProps) => {
   const layout: Layout = useSelector(layoutSelector);
   const [currentStage, setCurrentStage] = React.useState<number>(0);
+  const [
+    hasAttemptedStageAdvance,
+    setHasAttemptedStageAdvance,
+  ] = React.useState<boolean>(false);
   const isMapDraggedOrZoomedByUser = useSelector(
     isMapDraggedOrZoomedByUserSelector,
   );
@@ -328,13 +347,14 @@ const BaseForm = ({
   }, [currentStage, isMapDraggedOrZoomedByUser, form.stages]);
   const onClickAdvanceStage = React.useCallback(
     validateField => {
+      setHasAttemptedStageAdvance(true);
+
+      // Validate all modules and submodules on stage advance.
       // TODO: This validation routine produces a slight but noticeable lag
       // when advancing stages, due I think to Formik's internal use of
       // `dispatch`. Can we speed this up somehow?
       Promise.all(
         form.stages[currentStage].modules
-          // TODO: Maybe the duck should provide a way of selecting all
-          // modules, including nested modules inside groups?
           .reduce((modules, module) => {
             return modules.concat(
               module.type === "groupmodule"
@@ -355,28 +375,46 @@ const BaseForm = ({
           const newStage = currentStage + 1;
           setCurrentStage(newStage);
           onChangeStage(newStage);
+          setHasAttemptedStageAdvance(false);
+        } else if (isWithErrors) {
+          onValidationError();
         }
       });
     },
-    [currentStage, form, onChangeStage],
+    [
+      currentStage,
+      form,
+      onChangeStage,
+      setHasAttemptedStageAdvance,
+      onValidationError,
+    ],
   );
-  const onClickRetreatStage = React.useCallback(() => {
-    if (currentStage > 0) {
-      const newStage = currentStage - 1;
-      setCurrentStage(newStage);
-      onChangeStage(newStage);
-    }
-  }, [currentStage, onChangeStage]);
+  const onClickRetreatStage = React.useCallback(
+    setErrors => {
+      if (currentStage > 0) {
+        // We want to clear any stage errors in the current stage before 
+        // retreating, so these errors don't persist on the stage we're
+        // retreating to.
+        setErrors({});
+        const newStage = currentStage - 1;
+        setCurrentStage(newStage);
+        onChangeStage(newStage);
+        setHasAttemptedStageAdvance(false);
+      }
+    },
+    [currentStage, onChangeStage, setHasAttemptedStageAdvance],
+  );
   const onClickSkipStage = stageId => {
     const newStage = stageId - 1;
     setCurrentStage(newStage);
     onChangeStage(newStage);
+    setHasAttemptedStageAdvance(false);
   };
 
   return (
     <React.Fragment>
       <Formik
-        validateOnChange={false}
+        validateOnChange={true}
         validateOnBlur={false}
         validate={validateAdditional}
         onSubmit={onSubmit}
@@ -384,12 +422,13 @@ const BaseForm = ({
         render={({
           setFieldValue,
           errors,
+          setErrors,
           validateField,
           isSubmitting,
           isValid,
           submitForm,
+          touched,
         }) => {
-          !isValid && Object.keys(errors).length > 0 && onValidationError();
           isTriggeringSubmit && submitForm();
 
           return (
@@ -400,13 +439,21 @@ const BaseForm = ({
               `}
             >
               {isSubmitting && <LoadingBar />}
-              {!isValid && <ValidationErrors errors={errors} t={t} />}
+              {!isValid && hasAttemptedStageAdvance && (
+                <ValidationErrors errors={errors} t={t} />
+              )}
+              {form.stages[currentStage].headerText && (
+                <StageTitle>
+                  {currentStage + 1}. {form.stages[currentStage].headerText}
+                </StageTitle>
+              )}
               <FormikForm onChange={handleChange}>
                 {form.stages[currentStage].modules.map(formModule => {
                   const subModules =
                     formModule.type === "groupmodule"
                       ? (formModule.modules as FormModule[])
                       : [formModule];
+
                   const isWithValidationError = subModules.some(({ key }) =>
                     Boolean(errors[key]),
                   );
@@ -414,7 +461,9 @@ const BaseForm = ({
                   return (
                     <FieldPaper
                       key={String(formModule.id)}
-                      isWithValidationError={isWithValidationError}
+                      isWithValidationError={
+                        isWithValidationError && hasAttemptedStageAdvance
+                      }
                       raised={isRaisedModule(formModule.type)}
                     >
                       {subModules
@@ -434,12 +483,15 @@ const BaseForm = ({
                                 type={type}
                                 isRequired={isRequired}
                                 formModule={subModule}
+                                isTouched={Boolean(touched[key])}
                                 fieldError={errors[key]}
-                                isValid={Boolean(errors[key])}
                                 onClickSkipStage={onClickSkipStage}
                                 setFieldValue={setFieldValue}
                                 attachments={attachments}
                                 setAttachments={setAttachments}
+                                hasAttemptedStageAdvance={
+                                  hasAttemptedStageAdvance
+                                }
                               />
                             </VisibilityTriggerEffect>
                           );
@@ -452,9 +504,10 @@ const BaseForm = ({
                 <FormStageControlBar
                   layout={layout}
                   onClickAdvanceStage={() => onClickAdvanceStage(validateField)}
-                  onClickRetreatStage={onClickRetreatStage}
+                  onClickRetreatStage={() => onClickRetreatStage(setErrors)}
                   currentStage={currentStage}
                   numStages={form.stages.length}
+                  isWithStageError={!isValid && hasAttemptedStageAdvance}
                 />
               )}
             </div>
