@@ -1,9 +1,3 @@
-@import "variables";
-
-/*
-  Links
-*/
-
 .mapseed__link {
   text-transform: uppercase;
 
@@ -33,47 +27,10 @@
   box-shadow: -0.25em 0.25em 0 rgba(0, 0, 0, 0.1);
 }
 
-.mapseed__link--color-primary {
-  background-color: $primary-color;
-  // TODO: remove these !important flags when we can be sure it's ok to remove
-  // the more specific selector from the non-React part of the codebase.
-  color: #fff !important;
-
-  &:hover {
-    color: $secondary-color !important;
-  }
-}
-
-.mapseed__link--color-secondary {
-  background-color: $secondary-color;
-  color: $primary-color;
-
-  &:hover {
-    color: #000;
-  }
-}
-
-.mapseed__link--color-accent {
-  background-color: $accent-color-1;
-  color: #fff;
-}
-
 .mapseed__link--depressable {
   &:active {
     box-shadow: none;
     transform: translate(-0.25em, 0.25em);
-  }
-}
-
-.mapseed__link--unstyled {
-  padding: 0 !important;
-  text-transform: none !important;
-  background-color: transparent !important;
-  color: $link-color !important;
-  font-size: 1em !important;
-
-  &:hover {
-    color: $link-hover-color !important;
   }
 }
 

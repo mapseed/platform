@@ -18,7 +18,7 @@ const FieldPaper = ({
       style={{
         background: raised ? "initial" : "none",
         backgroundColor: isWithValidationError
-          ? "#f9d7d9"
+          ? "rgb(253,236,234)"
           : raised
           ? "rgb(239,239,239)"
           : "unset",

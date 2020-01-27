@@ -5,6 +5,9 @@ import { withTranslation, Trans } from "react-i18next";
 import { css, jsx } from "@emotion/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 
 import { ProgressBar } from "../atoms/imagery";
 import { RegularText } from "../atoms/typography";
@@ -18,6 +21,7 @@ const FormStageControlBar = ({
   onClickAdvanceStage,
   onClickRetreatStage,
   t,
+  hasAttemptedStageAdvance,
 }) => {
   const adjustedStage = currentStage + 1;
   //const isRightSidebarVisible = useSelecto)
@@ -38,35 +42,82 @@ const FormStageControlBar = ({
         z-index: 100;
         margin-top: 30px;
         padding-left: 10px;
-        padding-top: ${layout === "desktop" ? "20px" : "10px"};
+        padding-top: ${layout === "desktop" ? "15px" : "10px"};
         padding-right: 10px;
         padding-bottom: 10px;
         position: fixed;
         bottom: 0;
         box-sizing: border-box;
         width: ${layout === "desktop" ? "40%" : "100%"};
-        background-color: #fff;
+        background-color: ${isWithStageError ? "rgb(253,236,234)" : "#fff"};
         left: ${leftPosition};
         box-shadow: 0px -3px 2px rgba(0, 0, 0, 0.1);
         height: ${layout === "desktop" ? "92px" : "unset"};
         min-height: ${layout === "desktop" ? "92px" : "unset"};
+        transition: background-color 0.5s;
       `}
     >
       {layout === "desktop" && (
-        <RegularText
+        <div
           css={css`
-            margin-left: 8px;
-            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
           `}
-          weight="bold"
         >
-          <Trans i18nKey="progressCounter">
-            Page {{ adjustedStage }} of {{ numStages }}
-          </Trans>
-        </RegularText>
+          <Typography
+            style={{
+              marginLeft: "8px",
+              marginTop: 0,
+            }}
+          >
+            <Trans i18nKey="progressCounter">
+              Page {{ adjustedStage }} of {{ numStages }}
+            </Trans>
+          </Typography>
+          {isWithStageError && (
+            <div
+              style={{
+                color: "rgb(97,26,21)",
+                display: "flex",
+              }}
+            >
+              <Typography
+                variant="body1"
+                css={{ marginRight: "6px", fontStyle: "italic" }}
+              >
+                {t("formStageErrorMsg", "Please address any issues above")}
+              </Typography>
+              <ErrorOutlineIcon
+                fontSize="small"
+                css={{ color: "rgb(244,67,54)" }}
+              />
+            </div>
+          )}
+          {!isWithStageError && hasAttemptedStageAdvance && (
+            <div
+              style={{
+                color: "rgb(30,70,32)",
+                display: "flex",
+              }}
+            >
+              <Typography
+                variant="body1"
+                css={{ marginRight: "6px", fontStyle: "italic" }}
+              >
+                {t("formStageFixedErrorsMsg", "Thanks!")}
+              </Typography>
+              <CheckCircleOutlineIcon
+                fontSize="small"
+                css={{ color: "rgb(76,175,80)" }}
+              />
+            </div>
+          )}
+        </div>
       )}
       <div
         css={css`
+          margin-top: 12px;
           display: flex;
           align-items: center;
         `}

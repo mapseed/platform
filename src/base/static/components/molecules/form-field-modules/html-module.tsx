@@ -15,7 +15,7 @@ const HTMLModule = ({ mapseedModule: { id, content }, t }: HTMLModuleProps) => {
   return (
     <div
       css={css`
-        p {
+        p, em {
           font-family: ${theme.typography.body1.fontFamily};
           font-size: ${theme.typography.body1.fontSize};
           margin: 0;
@@ -48,7 +48,7 @@ const HTMLModule = ({ mapseedModule: { id, content }, t }: HTMLModuleProps) => {
           margin: 0 0 12px 0;
         }
         strong {
-          font-family: ${theme.typography.strong.fontFamily};
+          font-family: ${theme.typography.body2.fontFamily};
         }
       `}
       dangerouslySetInnerHTML={{

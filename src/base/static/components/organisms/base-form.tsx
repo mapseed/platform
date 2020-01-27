@@ -17,6 +17,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import StarIcon from "@material-ui/icons/Star";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import Paper from "@material-ui/core/Paper";
 
 import HTMLModule from "../molecules/form-field-modules/html-module";
 import TextField from "../molecules/form-field-modules/text-field";
@@ -38,6 +40,7 @@ import {
   updateFormModuleVisibilities,
   MapseedForm,
   MapseedAttachment,
+  groupVisibilityTriggersIdsToKeysSelector,
 } from "../../state/ducks/forms";
 import { isFormField } from "../../utils/place-utils";
 import { isMapDraggedOrZoomedByUser as isMapDraggedOrZoomedByUserSelector } from "../../state/ducks/map";
@@ -132,59 +135,69 @@ const getErrorInfo = error => {
 
 const ValidationErrors = ({ errors, t }) => {
   return (
-    <div
-      css={css`
-        background-color: #fff2f3;
-        border-radius: 4px;
-        border: 2px solid #ffdadc;
-        padding: 8px;
-        margin-bottom: 24px;
-      `}
+    <Paper
+      elevation={5}
+      css={{
+        backgroundColor: "rgb(253, 236, 234)",
+        padding: "12px 18px 12px 18px",
+        borderLeft: "4px solid rgb(244,67,54)",
+        marginBottom: "24px",
+      }}
     >
-      <Typography
-        variant="body2"
-        style={{
-          color: "#444",
-        }}
+      <div
+        css={css`
+          display: flex;
+          align-items: center;
+        `}
       >
-        {t(
-          "validationErrorsHeader",
-          "Your submission is looking good, but we need a little more information before we can continue:",
-        )}
-      </Typography>
-      <List>
-        {Object.values(errors).map((error, i) => {
-          const { i18nextKey, msg } = getErrorInfo(error);
+        <ErrorOutlineIcon
+          fontSize="medium"
+          css={{ color: "rgb(244,67,54)", marginRight: "12px" }}
+        />
+        <Typography
+          variant="body2"
+          style={{
+            color: "rgb(102, 60, 0)",
+          }}
+        >
+          {t(
+            "validationErrorsHeader",
+            "Your submission is looking good, but we need a little more information before we can continue:",
+          )}
+        </Typography>
+      </div>
+      <div
+        css={css`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <ErrorOutlineIcon
+          fontSize="medium"
+          css={{ opacity: 0, marginRight: "12px" }}
+        />
+        <List disablePadding={true}>
+          {Object.values(errors).map((error, i) => {
+            const { i18nextKey, msg } = getErrorInfo(error);
 
-          return (
-            <ListItem key={i}>
-              <ListItemIcon
-                style={{
-                  minWidth: "unset",
-                  paddingRight: "8px",
-                }}
-              >
-                <StarIcon
-                  style={{
-                    color: "#aaa",
+            return (
+              <ListItem key={i} disableGutters={true}>
+                <ListItemText
+                  primary={t(i18nextKey, msg)}
+                  primaryTypographyProps={{
+                    variant: "body1",
+                    style: {
+                      color: "rgb(102,60,0)",
+                      fontSize: "1rem",
+                    },
                   }}
                 />
-              </ListItemIcon>
-              <ListItemText
-                style={{
-                  color: "#666",
-                  fontStyle: "italic",
-                }}
-                primary={t(i18nextKey, msg)}
-                primaryTypographyProps={{
-                  variant: "body1",
-                }}
-              />
-            </ListItem>
-          );
-        })}
-      </List>
-    </div>
+              </ListItem>
+            );
+          })}
+        </List>
+      </div>
+    </Paper>
   );
 };
 
@@ -266,30 +279,41 @@ const VisibilityTriggerEffect = formikConnect(
   // TODO: Figure out the correct typing to use here.
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
-  ({ formik: { values }, formModule: { key, options }, children }) => {
+  ({
+    formik: { values, setErrors, setFieldValue },
+    formModule: {
+      key,
+      options,
+      groupTriggerInfo: {
+        groupVisibilityTriggers: triggers,
+        value: triggerVal,
+      } = {},
+    },
+    children,
+  }) => {
     const dispatch = useDispatch();
     const currentVal = values[key];
     const previousVal = usePrevious(currentVal);
+    const triggersByKey =
+      triggers &&
+      useSelector(state =>
+        groupVisibilityTriggersIdsToKeysSelector(state, triggers),
+      );
 
     React.useEffect(() => {
-      // We're making the assumption that visibility triggers will only exist
-      // on field controls with `options` (dropdowns, radios, checkboxes).
-      if (options && currentVal !== previousVal) {
-        const { groupVisibilityTriggers, value: triggerValue } =
-          options.find(({ groupVisibilityTriggers }) =>
-            Boolean(groupVisibilityTriggers),
-          ) || {};
-
-        if (groupVisibilityTriggers) {
-          dispatch(
-            updateFormModuleVisibilities(
-              groupVisibilityTriggers,
-              triggerValue === currentVal,
-            ),
-          );
+      if (triggersByKey && currentVal !== previousVal) {
+        if (triggerVal !== currentVal && currentVal !== previousVal) {
+          // A field or fields have been hidden.
+          // Remove any stored values on fields that have been shown and hidden
+          // again.
+          setFieldValue(key, "");
         }
+
+        dispatch(
+          updateFormModuleVisibilities(triggers, triggerVal === currentVal),
+        );
       }
-    }, [dispatch, options, previousVal, currentVal]);
+    }, [dispatch, previousVal, currentVal, triggersByKey]);
 
     return children;
   },
@@ -351,21 +375,20 @@ const BaseForm = ({
 
       // Validate all modules and submodules on stage advance.
       // TODO: This validation routine produces a slight but noticeable lag
-      // when advancing stages, due I think to Formik's internal use of
-      // `dispatch`. Can we speed this up somehow?
+      // when advancing stages. Can we speed this up somehow?
       Promise.all(
         form.stages[currentStage].modules
-          .reduce((modules, module) => {
-            return modules.concat(
-              module.type === "groupmodule"
-                ? (module.modules as FormModule[])
-                : module,
-            );
-          }, [] as FormModule[])
+          .reduce(
+            (modules, module) =>
+              modules.concat(
+                module.type === "groupmodule"
+                  ? (module.modules as FormModule[])
+                  : module,
+              ),
+            [] as FormModule[],
+          )
           .filter(({ type, isVisible }) => isVisible && isFormField(type))
-          .map(({ key }) => {
-            return validateField(key);
-          }),
+          .map(({ key }) => validateField(key)),
       ).then(errorResult => {
         // The presence of at least one error message in `errorResult`
         // indicates that the validator encountered error(s).
@@ -392,7 +415,7 @@ const BaseForm = ({
   const onClickRetreatStage = React.useCallback(
     setErrors => {
       if (currentStage > 0) {
-        // We want to clear any stage errors in the current stage before 
+        // We want to clear any stage errors in the current stage before
         // retreating, so these errors don't persist on the stage we're
         // retreating to.
         setErrors({});
@@ -439,23 +462,23 @@ const BaseForm = ({
               `}
             >
               {isSubmitting && <LoadingBar />}
-              {!isValid && hasAttemptedStageAdvance && (
-                <ValidationErrors errors={errors} t={t} />
-              )}
               {form.stages[currentStage].headerText && (
                 <StageTitle>
                   {currentStage + 1}. {form.stages[currentStage].headerText}
                 </StageTitle>
               )}
+              {!isValid && hasAttemptedStageAdvance && (
+                <ValidationErrors errors={errors} t={t} />
+              )}
               <FormikForm onChange={handleChange}>
                 {form.stages[currentStage].modules.map(formModule => {
-                  const subModules =
+                  const moduleOrGroupSubModules =
                     formModule.type === "groupmodule"
                       ? (formModule.modules as FormModule[])
                       : [formModule];
 
-                  const isWithValidationError = subModules.some(({ key }) =>
-                    Boolean(errors[key]),
+                  const isWithValidationError = moduleOrGroupSubModules.some(
+                    ({ key }) => Boolean(errors[key]),
                   );
 
                   return (
@@ -466,15 +489,15 @@ const BaseForm = ({
                       }
                       raised={isRaisedModule(formModule.type)}
                     >
-                      {subModules
-                        .filter(({ isVisible }) => isVisible)
-                        .map((subModule: FormModule, idx) => {
-                          const { key, variant, isRequired, type } = subModule;
+                      {moduleOrGroupSubModules
+                        .filter(({ isVisible, key }) => isVisible)
+                        .map((module: FormModule, idx) => {
+                          const { key, variant, isRequired, type } = module;
 
                           return (
                             <VisibilityTriggerEffect
                               key={idx}
-                              formModule={subModule}
+                              formModule={module}
                             >
                               <MapseedFormModule
                                 idx={idx}
@@ -482,7 +505,7 @@ const BaseForm = ({
                                 variant={variant}
                                 type={type}
                                 isRequired={isRequired}
-                                formModule={subModule}
+                                formModule={module}
                                 isTouched={Boolean(touched[key])}
                                 fieldError={errors[key]}
                                 onClickSkipStage={onClickSkipStage}
@@ -508,6 +531,7 @@ const BaseForm = ({
                   currentStage={currentStage}
                   numStages={form.stages.length}
                   isWithStageError={!isValid && hasAttemptedStageAdvance}
+                  hasAttemptedStageAdvance={hasAttemptedStageAdvance}
                 />
               )}
             </div>

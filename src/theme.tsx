@@ -12,23 +12,23 @@ import {
 export const globalStyles = theme => css`
   // We support five fonts that can be used throughout Mapseed flavors.
   @font-face {
-    font-family: "Raleway-Light";
+    font-family: "Raleway-Light", sans-serif;
     src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-Light.ttf");
   }
   @font-face {
-    font-family: "Raleway-Regular";
+    font-family: "Raleway-Regular", sans-serif;
     src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-Regular.ttf");
   }
   @font-face {
-    font-family: "Raleway-ExtraBold";
+    font-family: "Raleway-ExtraBold", sans-serif;
     src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/Raleway-ExtraBold.ttf");
   }
   @font-face {
-    font-family: "PTSans-Regular";
+    font-family: "PTSans-Regular", sans-serif;
     src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/PTSans-Regular.ttf");
   }
   @font-face {
-    font-family: "PTSans-Bold";
+    font-family: "PTSans-Bold", sans-serif;
     src: url("https://s3-us-west-2.amazonaws.com/assets.mapseed.org/fonts/PTSans-Bold.ttf");
   }
   // These styles are intended to mimic the styling of our Atoms on custom

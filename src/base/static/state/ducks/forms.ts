@@ -271,12 +271,18 @@ const formModuleProcessStrategy = (rawFormModule): FormModule => {
   const { private: isPrivate, required: isRequired, ...rest } = rawFormModule[
     key
   ];
+  const groupTriggerInfo =
+    rest.options &&
+    rest.options.find(({ groupVisibilityTriggers }) =>
+      Boolean(groupVisibilityTriggers),
+    );
 
   return {
     // Certain modules do not have a `key`, but our forms' business logic
     // expects each module to have this property. Those that do will have this
     // generic key overwritten by the `rest` properties below.
     key: `module-${id}`,
+    groupTriggerInfo,
     type: variant,
     id,
     isVisible: Boolean(isVisible),
@@ -330,13 +336,24 @@ const formsDuckSchema = new schema.Array(formsSchema);
 // TODO: Break this into a few separate selectors, maybe:
 //  - a "stage field" selector, which selects stage field configurations
 //  - a "group module" selector, which selects nested modules within groupmodules
-// TODO: does this handle groupmodules correctly?
 // TODO: this isn't just for placeForms?
 export const placeFormSelector = createSelector(
   _formsSelector,
   (_, formId) => formId,
   (entities, formId) =>
     denormalize(entities.forms[formId], formsSchema, entities),
+);
+
+export const groupVisibilityTriggersIdsToKeysSelector = createSelector(
+  ({
+    forms: {
+      entities: { modules },
+    },
+  }) => modules,
+  (_, triggerIds) => triggerIds,
+  (modules, triggerIds) => {
+    return triggerIds.map(triggerId => modules[`groupmodule${triggerId}`].key);
+  },
 );
 
 export const newPlaceFormInitialValuesSelector = createSelector(
