@@ -10207,7 +10207,7 @@
           {
             "name": "learned_about_vsp_map",
             "type": "big_checkbox",
-            "prompt": "How did you find out about the Whitman County VSP map? Please check all that apply:",
+            "prompt": "How did you find out about the Garfield County VSP map? Please check all that apply:",
             "optional": true,
             "content": [
               {
