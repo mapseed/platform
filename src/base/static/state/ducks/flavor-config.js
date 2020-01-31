@@ -1,5 +1,6 @@
 // TODO: Move language configuration from AppView into this duck.
 // TODO: Dissolve app-config into this duck.
+ console.log()
 
 // Selectors:
 export const placeFiltersConfigSelector = state =>

@@ -140,7 +140,7 @@ const GeocodingField: React.FunctionComponent<Props> = ({
         // eslint-disable-next-line no-console
         console.error("There was an error while reverse geocoding: ", err);
       });
-  }, [mapViewport, isMapDraggingOrZooming]);
+  }, [mapViewport, isMapDraggingOrZooming, name, onChange, reverseGeocode]);
 
   React.useEffect(() => {
     if (isTriggeringGeocode) {
@@ -243,6 +243,7 @@ GeocodingField.defaultProps = {
   reverseGeocode: true,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapStateToProps = (state): any => ({
   mapViewport: mapViewportSelector(state),
   mapConfig: mapConfigSelector(state),

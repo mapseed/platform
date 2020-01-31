@@ -5,6 +5,7 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Formik,
+  FormikProps,
   Field,
   Form as FormikForm,
   FormikValues,
@@ -15,8 +16,6 @@ import FormControl from "@material-ui/core/FormControl";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import StarIcon from "@material-ui/icons/Star";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import Paper from "@material-ui/core/Paper";
 
@@ -46,6 +45,7 @@ import { isFormField } from "../../utils/place-utils";
 import { isMapDraggedOrZoomedByUser as isMapDraggedOrZoomedByUserSelector } from "../../state/ducks/map";
 import { LoadingBar } from "../atoms/imagery";
 import { SmallTitle } from "../atoms/typography";
+import MapseedState from "../../state/type";
 
 // TODO:
 //  - admin-only fields (??)
@@ -137,7 +137,7 @@ const ValidationErrors = ({ errors, t }) => {
   return (
     <Paper
       elevation={5}
-      css={{
+      style={{
         backgroundColor: "rgb(253, 236, 234)",
         padding: "12px 18px 12px 18px",
         borderLeft: "4px solid rgb(244,67,54)",
@@ -151,8 +151,8 @@ const ValidationErrors = ({ errors, t }) => {
         `}
       >
         <ErrorOutlineIcon
-          fontSize="medium"
-          css={{ color: "rgb(244,67,54)", marginRight: "12px" }}
+          fontSize="default"
+          css={{ color: "rgb(244,67,54)", marginRight: "16px" }}
         />
         <Typography
           variant="body2"
@@ -172,9 +172,10 @@ const ValidationErrors = ({ errors, t }) => {
           align-items: center;
         `}
       >
+        {/* This 0-opacity icon exists for alignment purposes. */}
         <ErrorOutlineIcon
-          fontSize="medium"
-          css={{ opacity: 0, marginRight: "12px" }}
+          fontSize="default"
+          css={{ opacity: 0, marginRight: "16px" }}
         />
         <List disablePadding={true}>
           {Object.values(errors).map((error, i) => {
@@ -259,7 +260,7 @@ const MapseedFormModule = ({
     <BackendModule
       mapseedModule={formModule}
       onClickSkipStage={onClickSkipStage}
-      isValid={!Boolean(fieldError)}
+      isValid={!fieldError}
       attachments={attachments}
       setAttachments={setAttachments}
     />
@@ -276,18 +277,19 @@ const usePrevious = value => {
 };
 
 const VisibilityTriggerEffect = formikConnect(
-  // TODO: Figure out the correct typing to use here.
+  // TODO: Figure out how to type this component correctly...
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   ({
-    formik: { values, setErrors, setFieldValue },
+    formik: { values, setFieldValue },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     formModule: {
       key,
-      options,
       groupTriggerInfo: {
         groupVisibilityTriggers: triggers,
         value: triggerVal,
-      } = {},
+      },
     },
     children,
   }) => {
@@ -296,7 +298,7 @@ const VisibilityTriggerEffect = formikConnect(
     const previousVal = usePrevious(currentVal);
     const triggersByKey =
       triggers &&
-      useSelector(state =>
+      useSelector((state: MapseedState) =>
         groupVisibilityTriggersIdsToKeysSelector(state, triggers),
       );
 
@@ -305,15 +307,26 @@ const VisibilityTriggerEffect = formikConnect(
         if (triggerVal !== currentVal && currentVal !== previousVal) {
           // A field or fields have been hidden.
           // Remove any stored values on fields that have been shown and hidden
-          // again.
+          // again. This also removes any validation checks in place.
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
           setFieldValue(key, "");
         }
 
         dispatch(
-          updateFormModuleVisibilities(triggers, triggerVal === currentVal),
+          updateFormModuleVisibilities(triggers!, triggerVal === currentVal),
         );
       }
-    }, [dispatch, previousVal, currentVal, triggersByKey]);
+    }, [
+      dispatch,
+      previousVal,
+      currentVal,
+      triggersByKey,
+      key,
+      setFieldValue,
+      triggerVal,
+      triggers,
+    ]);
 
     return children;
   },
@@ -334,6 +347,9 @@ const StageTitle = ({ children }) => (
     {children}
   </SmallTitle>
 );
+
+const preventEnterSubmit = evt =>
+  (evt.charCode || evt.keyCode) === 13 && evt.preventDefault();
 
 // TODO: Save all form state to Redux on unmount, as a backup.
 const BaseForm = ({
@@ -470,7 +486,10 @@ const BaseForm = ({
               {!isValid && hasAttemptedStageAdvance && (
                 <ValidationErrors errors={errors} t={t} />
               )}
-              <FormikForm onChange={handleChange}>
+              <FormikForm
+                onChange={handleChange}
+                onKeyDown={preventEnterSubmit}
+              >
                 {form.stages[currentStage].modules.map(formModule => {
                   const moduleOrGroupSubModules =
                     formModule.type === "groupmodule"

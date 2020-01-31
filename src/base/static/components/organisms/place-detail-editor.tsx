@@ -12,7 +12,7 @@ import {
   placeFormSelector,
   placeFormIdSelector,
   PlaceForm as MapseedPlaceForm,
-  formFieldsSelector,
+  //formFieldsSelector,
 } from "../../state/ducks/forms";
 import {
   datasetsWithAccessProtectedPlacesAbilitySelector,
@@ -65,7 +65,8 @@ const PlaceDetailEditor = ({
   const hasAdminAbilities = useSelector((state: any) =>
     hasAdminAbilitiesSelector(state, place.dataset),
   );
-  const formFields = useSelector(formFieldsSelector);
+  //const formFields = useSelector(formFieldsSelector);
+  const formFields = []; // TODO
   const initialValues = getInitialValues(formFields, place);
   const includePrivate =
     placeForm &&

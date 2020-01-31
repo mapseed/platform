@@ -27,11 +27,13 @@ const NumberField = ({
   // scroll the content panel while hovering a number field would otherwise
   // result in the number field changing value.
   React.useEffect(() => {
-    document.getElementById(name).addEventListener("wheel", handleOnWheel);
+    const numberInput = document.getElementById(name);
+    numberInput && numberInput.addEventListener("wheel", handleOnWheel);
 
-    return () =>
-      document.getElementById(name).removeEventListener("wheel", handleOnWheel);
-  }, []);
+    return () => {
+      numberInput && numberInput.removeEventListener("wheel", handleOnWheel);
+    };
+  }, [handleOnWheel]);
 
   return (
     <React.Fragment>

@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import React from "react";
+
+import { MouseEvent } from "react";
 import PropTypes from "prop-types";
-import { withTranslation, Trans } from "react-i18next";
+import { withTranslation, Trans, WithTranslation } from "react-i18next";
 import { css, jsx } from "@emotion/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import Button from "@material-ui/core/Button";
@@ -12,19 +13,30 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { ProgressBar } from "../atoms/imagery";
 import { RegularText } from "../atoms/typography";
 
+type FormStageControlBarProps = {
+  currentStage: number;
+  numStages: number;
+  isWithStageError: boolean;
+  layout: string;
+  //isRightSidebarVisible: boolean;
+  onClickAdvanceStage: (evt: MouseEvent<HTMLButtonElement>) => void;
+  onClickRetreatStage: (evt: MouseEvent<HTMLButtonElement>) => void;
+  hasAttemptedStageAdvance: boolean;
+} & WithTranslation;
+
 const FormStageControlBar = ({
   currentStage,
   numStages,
   isWithStageError,
   layout,
-  isRightSidebarVisible,
+  //isRightSidebarVisible,
   onClickAdvanceStage,
   onClickRetreatStage,
   t,
   hasAttemptedStageAdvance,
-}) => {
+}: FormStageControlBarProps) => {
   const adjustedStage = currentStage + 1;
-  //const isRightSidebarVisible = useSelecto)
+  const isRightSidebarVisible = false; // TODO
 
   // TODO
   let leftPosition;

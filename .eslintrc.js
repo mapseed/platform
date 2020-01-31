@@ -30,7 +30,6 @@ module.exports = {
     MAP_PROVIDER_TOKEN: false,
     MIXPANEL_TOKEN: false,
     GIT_SHA: false,
-    L: false,
     ga: false,
     workbox: false,
     NODE_ENV: false,

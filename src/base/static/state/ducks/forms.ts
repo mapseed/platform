@@ -5,6 +5,7 @@ import isempty from "lodash.isempty";
 
 import { MapViewport } from "./map";
 import { isFormField } from "../../utils/place-utils";
+import MapseedState from "../type";
 
 // Types:
 // NOTE: Typings reflect loaded, transformed data.
@@ -48,6 +49,10 @@ interface BaseFormModule {
   modules?: FormModule[];
   label?: string;
   options?: FieldOption[];
+  groupTriggerInfo: {
+    value: string | null;
+    groupVisibilityTriggers: number[] | null;
+  };
 }
 
 export interface MapseedHTMLModule extends BaseFormModule {
@@ -127,6 +132,7 @@ export type PlaceFormStage = {
   mapViewport: MapViewport;
   modules: FormModule[];
   validateGeometry: boolean;
+  headerText?: string;
 };
 
 export type PlaceForm = {
@@ -192,6 +198,8 @@ export const formConfigsByDatasetAndTypeSelector = createSelector(
     // Generally we expect that datasets will require supporting configuration
     // for both `place` and `placeSurvey` forms. This isn't a requirement, but
     // we warn about missing configurations.
+    // TODO: Eventually all supporting configuration should be migrated to the
+    // backend.
     Object.entries(configsByDatasetUrl).forEach(([datasetUrl, config]) => {
       EXPECTED_CONFIG_NAMES.forEach(configName => {
         if (isempty(config[configName])) {
@@ -268,14 +276,19 @@ const formModuleProcessStrategy = (rawFormModule): FormModule => {
   // Flatten module configs keyed by module name:
   const { visible: isVisible, id } = rawFormModule;
   const { key, variant } = getModuleType(rawFormModule);
-  const { private: isPrivate, required: isRequired, ...rest } = rawFormModule[
-    key
-  ];
-  const groupTriggerInfo =
-    rest.options &&
-    rest.options.find(({ groupVisibilityTriggers }) =>
+  const {
+    private: isPrivate,
+    required: isRequired,
+    options = [],
+    ...rest
+  } = rawFormModule[key];
+  const groupTriggerInfo = {
+    groupVisibilityTriggers: null,
+    value: null,
+    ...options.find(({ groupVisibilityTriggers }) =>
       Boolean(groupVisibilityTriggers),
-    );
+    ),
+  };
 
   return {
     // Certain modules do not have a `key`, but our forms' business logic
@@ -288,6 +301,7 @@ const formModuleProcessStrategy = (rawFormModule): FormModule => {
     isVisible: Boolean(isVisible),
     isPrivate: Boolean(isPrivate),
     isRequired: Boolean(isRequired),
+    options: options.length > 0 ? options : undefined,
     ...rest,
   };
 };
@@ -303,10 +317,15 @@ type Entities = {
   modules: NormalizedData<FormModule>;
 };
 
-interface NormalizedState {
+export interface NormalizedState {
   result: (number | string)[];
   entities: Entities;
 }
+
+// API-supplied numeric module and group submodule `id`s may overlap, so we need
+// to distinguish between them. The use of the `groupmodule` prefix here is
+// arbitrary; we could use any string.
+const getGroupModuleId = id => `groupmodule${id}`;
 
 const formModuleSchema = new schema.Entity(
   "modules",
@@ -314,12 +333,11 @@ const formModuleSchema = new schema.Entity(
   {
     processStrategy: formModuleProcessStrategy,
     idAttribute: ({ id }, { type }) =>
-      // Supplied module and group submodule `id`s may overlap, so we need to
-      // distinguish between them. Note that `type` here is the parent entity's
-      // type.
-      type === "groupmodule" ? `groupmodule${id}` : id,
+      // Note that `type` here is the parent entity's type.
+      type === "groupmodule" ? getGroupModuleId(id) : id,
   },
 );
+
 const formModulesSchema = new schema.Array(formModuleSchema);
 
 // Use a recursive schema definition here to accommodate `groupmodules`, which
@@ -345,22 +363,27 @@ export const placeFormSelector = createSelector(
 );
 
 export const groupVisibilityTriggersIdsToKeysSelector = createSelector(
-  ({
-    forms: {
-      entities: { modules },
-    },
-  }) => modules,
+  (state: MapseedState) => state.forms.entities.modules,
+  //({
+  //  forms: {
+  //    entities: { modules },
+  //  },
+  //}) => modules,
   (_, triggerIds) => triggerIds,
-  (modules, triggerIds) => {
-    return triggerIds.map(triggerId => modules[`groupmodule${triggerId}`].key);
-  },
+  (modules, triggerIds) =>
+    triggerIds.map(triggerId => modules[`groupmodule${triggerId}`].key),
 );
 
+// Formik requires `initialValues` for all fields, visible or not, grouped or
+// not, on all form stages. This selector returns the data structure Formik is
+// expecting.
 export const newPlaceFormInitialValuesSelector = createSelector(
   [placeFormSelector],
   ({ stages }) =>
     stages
       .map(({ modules }) => modules)
+      .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
+      .map(module => (module.type === "groupmodule" ? module.modules : module))
       .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
       .filter(({ type }) => isFormField(type))
       .reduce(
@@ -447,8 +470,8 @@ export function updateFormModuleVisibilities(
     type: UPDATE_MODULE_VISIBILITIES,
     payload: {
       // NOTE: Group visibility triggers can only trigger `groupmodule`s, so we
-      // prepend the `groupmodule` identifier here.
-      moduleIds: moduleIds.map(moduleId => `groupmodule${moduleId}`),
+      // need to use the groupmodule id format.
+      moduleIds: moduleIds.map(id => getGroupModuleId(id)),
       isVisible,
     },
   };
@@ -464,6 +487,7 @@ const INITIAL_STATE = {
   },
 } as NormalizedState;
 
+// TODO: Use immer here.
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOAD:

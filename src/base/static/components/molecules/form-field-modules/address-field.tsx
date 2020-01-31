@@ -1,11 +1,15 @@
 /** @jsx jsx */
 import * as React from "react";
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Switch from "@material-ui/core/Switch";
+import Typography from "@material-ui/core/Typography";
 import SearchIcon from "@material-ui/icons/Search";
-import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";
-import { useTheme } from "@material-ui/styles";
+import Popper from "@material-ui/core/Popper";
+import Paper from "@material-ui/core/Paper";
+import Fade from "@material-ui/core/Fade";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { FieldProps as FormikFieldProps } from "formik";
@@ -24,16 +28,26 @@ import { FieldPrompt } from "../../atoms/typography";
 
 type TextFieldModuleProps = {
   mapseedField: MapseedAddressFieldModule;
+  setFieldValue: (key: string, value: string) => null;
 } & FormikFieldProps &
   WithTranslation;
 
 declare const MAP_PROVIDER_TOKEN: string;
 
 const AddressField = ({
-  field: { name, value, onBlur, onChange },
+  field: { name, value, onChange },
   mapseedField: { prompt, placeholder, id, reverseGeocode },
   t,
+  setFieldValue,
 }: TextFieldModuleProps) => {
+  // NOTE: The `AddressField` accepts a prop which controls the default reverse
+  // geocoding behavior. However, we also provide a way for users to active and
+  // deactivate the reverse geocoding feature manually. We do this because the
+  // geocoder and reverse geocoder don't always agree, and subtle differences
+  // have proven to be a source of frustration for users.
+  const [shouldReverseGeocode, setShouldReverseGeocode] = React.useState<
+    boolean
+  >(reverseGeocode);
   const [isGeocoding, setIsGeocoding] = React.useState<boolean>(false);
   const [isWithGeocodingError, setIsWithGeocodingError] = React.useState<
     boolean
@@ -42,11 +56,13 @@ const AddressField = ({
   const isMounted = React.useRef<boolean>(true);
   const isMapDraggingOrZooming = useSelector(isMapDraggingOrZoomingSelector);
   const { geocodeBoundingBox, geocodeHint } = useSelector(mapConfigSelector);
+  const inputRef = React.useRef<HTMLElement>(null);
 
   // Reverse geocode on map viewport change.
   React.useEffect(() => {
-    // Only reverse geocode when the map has come to rest.
-    if (!reverseGeocode || isMapDraggingOrZooming) {
+    // Only reverse geocode when configured to do so and when the map has come
+    // to rest.
+    if (!shouldReverseGeocode || isMapDraggingOrZooming) {
       return;
     }
 
@@ -64,7 +80,7 @@ const AddressField = ({
         if (placeName && isMounted.current) {
           setIsGeocoding(false);
           setIsWithGeocodingError(false);
-          onChange(placeName);
+          setFieldValue(name, placeName);
         } else if (isMounted.current) {
           setIsGeocoding(false);
           setIsWithGeocodingError(true);
@@ -77,9 +93,16 @@ const AddressField = ({
         }
 
         // eslint-disable-next-line no-console
-        console.error("There was an error while reverse geocoding: ", err);
+        console.error("There was an error while reverse geocoding:", err);
       });
-  }, [mapViewport, isMapDraggingOrZooming, name, onChange, reverseGeocode]);
+  }, [
+    mapViewport,
+    isMapDraggingOrZooming,
+    name,
+    setFieldValue,
+    reverseGeocode,
+    shouldReverseGeocode,
+  ]);
 
   const doGeocode = React.useCallback(() => {
     setIsGeocoding(true);
@@ -87,7 +110,7 @@ const AddressField = ({
 
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
       value,
-    )}.json?access_token=${MAP_PROVIDER_TOKEN}${
+    )}.json?&access_token=${MAP_PROVIDER_TOKEN}${
       geocodeHint ? "&proximity=" + geocodeHint.join(",") : ""
     }${geocodeBoundingBox ? "&bbox=" + geocodeBoundingBox.join(",") : ""}`;
 
@@ -127,12 +150,6 @@ const AddressField = ({
       });
   }, [value, geocodeBoundingBox, geocodeHint]);
 
-  //React.useEffect(() => {
-  //  if (isTriggeringGeocode) {
-  //    doGeocode();
-  //  }
-  //}, [isTriggeringGeocode, doGeocode]);
-
   React.useEffect(() => {
     if (isWithGeocodingError) {
       setTimeout(() => {
@@ -141,60 +158,95 @@ const AddressField = ({
     }
   }, [isWithGeocodingError]);
 
+  const handleKeyDown = React.useCallback(
+    evt => {
+      // Geocode on Enter press.
+      (evt.charCode || evt.keyCode) === 13 && doGeocode();
+    },
+    [doGeocode],
+  );
+
   return (
     <React.Fragment>
       {prompt && <FieldPrompt>{prompt}</FieldPrompt>}
       <OutlinedInput
-        type={"text"}
-        notched={true}
+        ref={inputRef}
+        style={{ paddingLeft: "4px" }}
+        onKeyUp={handleKeyDown}
+        type="text"
+        notched
         id={name}
         name={name}
         labelWidth={0}
         value={value}
-        onBlur={onBlur}
         onChange={onChange}
         placeholder={t(`addressFieldLabel${id}`, placeholder)}
         disabled={isGeocoding}
         startAdornment={
-          isGeocoding ? (
-            <div
-              css={css`
-                padding: 14px;
-              `}
-            >
-              <LoadingSpinner size={16} />
-            </div>
-          ) : (
-            <InputAdornment position="start">
-              <IconButton onClick={doGeocode}>
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          )
+          <InputAdornment
+            style={{ minWidth: "40px", maxWidth: "40px", paddingRight: "8px" }}
+            position="start"
+          >
+            <IconButton onClick={isGeocoding ? () => null : doGeocode}>
+              {isGeocoding ? <LoadingSpinner size={15} /> : <SearchIcon />}
+            </IconButton>
+          </InputAdornment>
         }
       />
-      <div
-        css={css`
-          opacity: ${isWithGeocodingError ? 1 : 0};
-          position: absolute;
-          top: 3em;
-          right: 0.5em;
-          bottom: auto;
-          left: 0.5em;
-          background-color: #bf6083;
-          color: #fff;
-          margin: 0;
-          padding: 0.25em 0.5em;
-          box-shadow: 2px 2px 0 #bf6083, 2px -2px 0 #bf6083, -2px 2px 0 #bf6083,
-            -2px -2px 0 #bf6083;
-          z-index: 14;
-          transition: opacity 0.5s ease;
-          box-sizing: border-box;
-          pointer-events: none;
-        `}
+      <Typography
+        variant="caption"
+        align="right"
+        style={{ color: "#9d9d9d", fontStyle: "italic" }}
       >
-        {t("locationNotFoundError")}
-      </div>
+        {t("geocodeDisclaimer", "Locations may be approximate")}
+      </Typography>
+      <FormControlLabel
+        style={{ marginLeft: "8px", marginTop: "8px", fontSize: "0.8rem" }}
+        control={
+          <Switch
+            checked={shouldReverseGeocode}
+            onChange={() => setShouldReverseGeocode(!shouldReverseGeocode)}
+          />
+        }
+        label={
+          <Typography
+            style={{
+              color: "rgba(0,0,0,0.87)",
+              fontSize: "1rem",
+            }}
+            variant="body1"
+          >
+            {shouldReverseGeocode
+              ? t(
+                  "shouldReverseGeocodeControlLabel",
+                  "Set address automatically",
+                )
+              : t(
+                  "shouldNotReverseGeocodeControlLabel",
+                  "Do not set address automatically",
+                )}
+          </Typography>
+        }
+      />
+      <Popper
+        open={isWithGeocodingError}
+        anchorEl={inputRef.current}
+        disablePortal
+        transition
+      >
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Paper style={{ padding: "8px 16px 8px 16px" }} elevation={5}>
+              <Typography variant="body1">
+                {t(
+                  "locationNotFoundError",
+                  "Sorry, we could not find that location",
+                )}
+              </Typography>
+            </Paper>
+          </Fade>
+        )}
+      </Popper>
     </React.Fragment>
   );
 };

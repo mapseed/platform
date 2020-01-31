@@ -1,7 +1,6 @@
 import React from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormGroup from "@material-ui/core/FormGroup";
-import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { FieldProps as FormikFieldProps } from "formik";
@@ -15,8 +14,8 @@ type CheckboxFieldModuleProps = {
   WithTranslation;
 
 const CheckboxField = ({
-  field: { name, value: fieldValue, onBlur, onChange },
-  mapseedField: { prompt, id, options },
+  field: { name, value: fieldValue, onChange },
+  mapseedField: { prompt, options },
 }: CheckboxFieldModuleProps) => {
   return (
     <React.Fragment>
