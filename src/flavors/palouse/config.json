@@ -507,17 +507,17 @@
                   ]
                 },
                 {
-                  "value": ["literal", 20018],
+                  "value": ["literal", 28018],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 20018]],
+                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 28018]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "no_till_quantity"], 20018],
+                    ["<", ["get-sum", "no_till_quantity"], 28018],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "no_till_quantity"], 20018],
+                    [">=", ["get-sum", "no_till_quantity"], 28018],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
