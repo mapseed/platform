@@ -54,6 +54,26 @@ section[class*="LeftSidebarOuterContainer"] span[class*="fa fa-times"] {
   }
 }
 
+.css-1ooh28x-Button-DesktopButton {
+  background-color: #ffffff;
+  color: black;
+  font-size: 1.1em;
+  text-transform: lowercase;
+  font-family: Raleway-Regular, sans-serif;
+  font-weight: 600;
+  padding: 4px 8px;
+}
+
+.css-1mee0ic-InternalLink {
+  border: 1px solid rgba(255,255,255,1);
+  text-transform: lowercase;
+  font-size: 1.1em;
+}
+
+.css-5c4xid-SiteHeader {
+  position: absolute;
+  right: 84px;
+}
 /* =Header
 -------------------------------------------------------------- */
 
