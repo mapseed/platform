@@ -65,7 +65,7 @@
     "mapViewport": {
       "latitude": -27.67790,
       "longitude": -61.86040,
-      "zoom": 4.3,
+      "zoom": 3.97,
       "pitch": 0,
       "minZoom": 1,
       "maxZoom": 19
@@ -314,7 +314,7 @@
           },
           {
             "layerGroupId": "argentina-campanas",
-            "title": "Campañas"
+            "title": "Enfoques"
           },
           {
             "layerGroupId": "presencia-agua",
@@ -780,7 +780,7 @@
   ],
   "featuredPlaces": {
     "name": "campanas",
-    "header": "Campañas",
+    "header": "Enfoques",
     "visibleLayerGroupIds": [
       "osm",
       "argentina-campanas",
@@ -788,6 +788,49 @@
       "argentina-featured"
     ],
     "order": [
+      {
+        "placeId": 8621,
+        "zoom": 6.29,
+        "pan_to": [-57.13, -18.34],
+        "spotlight": false
+      },
+      {
+        "placeId": 8620,
+        "zoom": 7.29,
+        "pan_to": [-57.70, -25.95],
+        "spotlight": false
+      },
+      {
+        "placeId": 8619,
+        "zoom": 7.62,
+        "pan_to": [-57.73, -28.12],
+        "spotlight": false
+      },
+      {
+        "placeId": 8618,
+        "zoom": 6.63,
+        "pan_to": [-60.09, -29.68],
+        "spotlight": false
+      },
+      {
+        "placeId": 8617,
+        "zoom": 7.29,
+        "pan_to": [-59.70, -33.21],
+        "spotlight": false
+      },
+      {
+        "placeId": 8616,
+        "zoom": 7.96,
+        "pan_to": [-57.53, -34.78],
+        "spotlight": false
+      },
+      {
+        "placeId": 6990,
+        "zoom": 4.63,
+        "pan_to": [-56.95, -26.34],
+        "visibleLayerGroupIds": ["osm", "presencia-agua"],
+        "spotlight": false
+      },
       {
         "placeId": 5343,
         "pan_to": [-60.5, -32.35],
@@ -812,13 +855,6 @@
         "placeId": 5346,
         "pan_to": [-57.91877, -34.88249],
         "zoom": 10
-      },
-      {
-        "placeId": 6990,
-        "zoom": 8,
-        "pan_to": [-60.1, -32.97],
-        "visibleLayerGroupIds": ["osm", "presencia-agua"],
-        "spotlight": false
       }
     ]
   }
