@@ -74,6 +74,15 @@ section[class*="LeftSidebarOuterContainer"] span[class*="fa fa-times"] {
   position: absolute;
   right: 84px;
 }
+
+.css-nnn1pv-Button-InputFormSubmitButton {
+  background-color: #e56036;
+}
+
+.css-nnn1pv-Button-InputFormSubmitButton:hover
+ {
+  background-color: #ff8c64;
+}
 /* =Header
 -------------------------------------------------------------- */
 
