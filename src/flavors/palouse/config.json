@@ -195,6 +195,41 @@
             {
               "cells": [
                 {
+                  "value": "Total reports by area (all dates)"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
+                  "value": 0
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": 0
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
                   "value": [
                     "cat-join",
                     "",
