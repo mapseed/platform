@@ -30,23 +30,23 @@
   "app": {
     "title": "TERRITORIOS DE COLABORACIÓN",
     "name": "TERRITORIOS DE COLABORACIÓN",
-    "show_name_in_header": true,
-    "logo": "/static/css/images/TDC.png",
-    "meta_description": "We are gathering public input on important issues in the community",
+    "show_name_in_header": false,
+    "logo": "/static/css/images/TDC2.png",
+    "meta_description": "Territorios de colaboración, una iniciativa de Casa Río en el marco de Humedales sin fronteras",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
-        "primary": "#6BC2D5",
+        "primary": "#000000",
         "accent": "#000000"
       },
       "bg": {
-        "default": "#6F4626",
-        "light": "#5ccbe6"
+        "default": "#000000",
+        "light": "#ffffff"
       },
       "text": {
-        "tertiary": "#5CCBE6",
+        "tertiary": "#000000",
         "titleFontFamily": "Roboto, sans-serif",
-        "titleColor": "#ffffff"
+        "titleColor": "#5ccbe6"
       }
     },
     "languages": [
@@ -63,9 +63,9 @@
     "geocodeFieldLabel": "Enter an address...",
     "geocodeBoundingBox": [39.830159, -75.478821, 40.167331, -74.781189],
     "mapViewport": {
-      "latitude": -33.41863,
-      "longitude": -59.50497,
-      "zoom": 7,
+      "latitude": -27.67790,
+      "longitude": -61.86040,
+      "zoom": 3.97,
       "pitch": 0,
       "minZoom": 1,
       "maxZoom": 19
@@ -183,7 +183,7 @@
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "source": "argentina-featured",
             "layout": {
-              "icon-image": "marker-star.png",
+              "icon-image": "",
               "icon-size": 1.1,
               "icon-anchor": "center"
             }
@@ -196,7 +196,7 @@
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "source": "argentina-featured",
             "layout": {
-              "icon-image": "marker-star.png",
+              "icon-image": "",
               "icon-size": 0.9,
               "icon-anchor": "center"
             }
@@ -241,7 +241,7 @@
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
-              "icon-size": ["step", ["zoom"], 1, 10, 0.5],
+              "icon-size": ["step", ["zoom"], 0.6, 7, 1, 10, 0.5],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -314,7 +314,7 @@
           },
           {
             "layerGroupId": "argentina-campanas",
-            "title": "Campañas"
+            "title": "Enfoques"
           },
           {
             "layerGroupId": "presencia-agua",
@@ -743,12 +743,12 @@
   },
   "nav_bar": [
     {
-      "title": "Sobre nosotros",
+      "title": "¿quienes somos?",
       "type": "internal_link",
       "url": "/page/about"
     },
     {
-      "title": "¿Cómo participar?",
+      "title": "¿cómo participar?",
       "type": "internal_link",
       "url": "/page/getinvolved"
     }
@@ -780,7 +780,7 @@
   ],
   "featuredPlaces": {
     "name": "campanas",
-    "header": "Campañas",
+    "header": "Enfoques",
     "visibleLayerGroupIds": [
       "osm",
       "argentina-campanas",
@@ -788,6 +788,49 @@
       "argentina-featured"
     ],
     "order": [
+      {
+        "placeId": 8621,
+        "zoom": 6.29,
+        "pan_to": [-57.13, -18.34],
+        "spotlight": false
+      },
+      {
+        "placeId": 8620,
+        "zoom": 7.29,
+        "pan_to": [-57.70, -25.95],
+        "spotlight": false
+      },
+      {
+        "placeId": 8619,
+        "zoom": 7.62,
+        "pan_to": [-57.73, -28.12],
+        "spotlight": false
+      },
+      {
+        "placeId": 8618,
+        "zoom": 6.63,
+        "pan_to": [-60.09, -29.68],
+        "spotlight": false
+      },
+      {
+        "placeId": 8617,
+        "zoom": 7.29,
+        "pan_to": [-59.70, -33.21],
+        "spotlight": false
+      },
+      {
+        "placeId": 8616,
+        "zoom": 7.96,
+        "pan_to": [-57.53, -34.78],
+        "spotlight": false
+      },
+      {
+        "placeId": 6990,
+        "zoom": 4.63,
+        "pan_to": [-56.95, -26.34],
+        "visibleLayerGroupIds": ["osm", "presencia-agua"],
+        "spotlight": false
+      },
       {
         "placeId": 5343,
         "pan_to": [-60.5, -32.35],
@@ -812,13 +855,6 @@
         "placeId": 5346,
         "pan_to": [-57.91877, -34.88249],
         "zoom": 10
-      },
-      {
-        "placeId": 6990,
-        "zoom": 8,
-        "pan_to": [-60.1, -32.97],
-        "visibleLayerGroupIds": ["osm", "presencia-agua"],
-        "spotlight": false
       }
     ]
   }
