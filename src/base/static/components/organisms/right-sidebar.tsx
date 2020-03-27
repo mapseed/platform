@@ -125,7 +125,4 @@ const mapDispatchToProps = {
   updateUIVisibility,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RightSidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(RightSidebar);

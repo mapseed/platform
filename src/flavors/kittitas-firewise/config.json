@@ -7,7 +7,6 @@
   },
   "datasets": [
     {
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/kittitas-firewise-input",
       "slug": "kittitas-firewise-input",
       "clientSlug": "report",
       "anonymous_permissions": [
@@ -517,7 +516,7 @@
       "kittitas-fire-districts": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/kittitas-county-fire-districts-ver-3/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/kittitas-county-fire-districts-ver-4/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -1532,7 +1531,7 @@
           {
             "name": "local_fire_district",
             "type": "pointInPolygon",
-            "analysisTarget": "kittitas-fire-districts-ver-3.geojson",
+            "analysisTarget": "kittitas-fire-districts-ver-4.geojson",
             "propertiesToPluck": [
               {
                 "name": "fire_distr"
@@ -1729,7 +1728,7 @@
           },
           {
             "start_field_index": 49,
-            "end_field_index": 59,
+            "end_field_index": 57,
             "visibleLayerGroupIds": [
               "light-satellite",
               "kittitas-fire-districts",

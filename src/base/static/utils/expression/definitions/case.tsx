@@ -14,7 +14,7 @@ class Case implements Expression {
     this.otherwise = otherwise;
   }
 
-  static parse(args: (Expression)[], parsingContext: ParsingContext) {
+  static parse(args: Expression[], parsingContext: ParsingContext) {
     const op = args[0];
     if (args.length < 4) {
       // eslint-disable-next-line no-console

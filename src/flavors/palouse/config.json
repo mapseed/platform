@@ -195,6 +195,41 @@
             {
               "cells": [
                 {
+                  "value": "Total reports by area (all dates)"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
+                  "value": 0
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                },
+                {
+                  "value": 0
+                },
+                {
+                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
                   "value": [
                     "cat-join",
                     "",
@@ -507,17 +542,17 @@
                   ]
                 },
                 {
-                  "value": ["literal", 20018],
+                  "value": ["literal", 28018],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 20018]],
+                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 28018]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "no_till_quantity"], 20018],
+                    ["<", ["get-sum", "no_till_quantity"], 28018],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "no_till_quantity"], 20018],
+                    [">=", ["get-sum", "no_till_quantity"], 28018],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -6152,7 +6187,7 @@
             "//": "------------SECTION: PEST MGMT--------------------",
             "name": "pest_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Pest Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Pest Management - Crop Land</h2>"
           },
           {
             "name": "pest_management_information",
@@ -6181,7 +6216,7 @@
             "//": "=============== PEST MGMT ========================",
             "name": "pest_management",
             "type": "big_radio",
-            "prompt": "Pest management practices: combination of weed and pest prevention, monitoring and suppression",
+            "prompt": "Pest management practices: combination of weed and pest prevention, monitoring and suppression on crop land",
             "label": "Pest management",
             "optional": true,
             "triggers": [
@@ -6233,7 +6268,7 @@
             "//": "-------------SECTION: NUTRIENT MGMT-----------------",
             "name": "nutrient_management_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Nutrient Management</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Nutrient Management - Crop Land</h2>"
           },
           {
             "name": "nutrient_management_information",
@@ -6262,7 +6297,7 @@
             "//": "=============== NUTRIENT MGMT ====================",
             "name": "nutrient_management",
             "type": "big_radio",
-            "prompt": "Nutrient management practices: soil and/or plant tissue tests",
+            "prompt": "Nutrient management practices: soil and/or plant tissue tests on crop land",
             "label": "Nutrient management",
             "optional": true,
             "triggers": [

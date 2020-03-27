@@ -92,7 +92,7 @@ class PromotionBar extends React.Component<PromotionBarProps> {
 
   render() {
     return (
-      <div>
+      <div className="mapseed-promotion-bar">
         <LoginModal
           appConfig={this.props.appConfig}
           render={openModal => (
@@ -140,7 +140,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removePlaceSupport(placeId, supportId)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PromotionBar);
+export default connect(mapStateToProps, mapDispatchToProps)(PromotionBar);

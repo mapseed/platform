@@ -1,0 +1,17 @@
+figure {
+  margin: 8px 0 0 0;
+  padding: 8px;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+#mapseed-site-logo {
+  height: 56px !important;
+  margin-left: 0 !important;
+}
+
+.mapseed-promotion-bar {
+  display: none !important;
+}

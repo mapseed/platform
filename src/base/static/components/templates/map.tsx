@@ -52,6 +52,7 @@ import {
   mapConfigSelector,
   mapConfigPropType,
   MapSourcesLoadStatus,
+  updateMapViewport,
 } from "../../state/ducks/map";
 import {
   createFeaturesInGeoJSONSource,
@@ -94,6 +95,7 @@ const dispatchPropTypes = {
   updateEditModeToggled: PropTypes.func.isRequired,
   updateScrollToResponseId: PropTypes.func.isRequired,
   updateCurrentTemplate: PropTypes.func.isRequired,
+  updateMapViewport: PropTypes.func.isRequired,
 };
 
 type StateProps = {
@@ -180,14 +182,13 @@ class MapTemplate extends React.Component<Props, State> {
     this.props.updateCurrentTemplate("map");
 
     const { zoom, lat, lng } = this.props.params;
-    zoom &&
-      lat &&
-      lng &&
-      emitter.emit("setMapViewport", {
+    if (zoom && lat && lng) {
+      this.props.updateMapViewport({
         zoom: parseFloat(zoom),
         latitude: parseFloat(lat),
         longitude: parseFloat(lng),
       });
+    }
 
     const startPageConfig = this.props.navBarConfig.find(
       navItem => navItem.start_page,
@@ -503,6 +504,7 @@ const mapDispatchToProps = {
   updateEditModeToggled,
   updateScrollToResponseId,
   updateCurrentTemplate,
+  updateMapViewport,
 };
 
 export default connect<StateProps, DispatchProps, OwnProps>(

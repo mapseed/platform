@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import browserUpdate from "browser-update";
 import { Mixpanel } from "../utils/mixpanel";
-import i18next, { ThirdPartyModule } from "i18next";
+import i18next, { ThirdPartyModule, ReactOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 import resourceBundle from "../../../locales";
 
@@ -154,12 +154,6 @@ interface State {
   availableLanguages?: Language[];
 }
 
-interface ExtendedReactOptions extends i18next.ReactOptions {
-  // The official typings seem to be missing this property, added here:
-  // https://github.com/i18next/react-i18next/pull/749
-  bindI18nStore?: string | false;
-}
-
 class App extends React.Component<Props, State> {
   private unlisten?: any;
 
@@ -248,7 +242,7 @@ class App extends React.Component<Props, State> {
         // Needed to rerender components after results from Translate API are
         // returned.
         bindI18nStore: "added",
-      } as ExtendedReactOptions,
+      } as ReactOptions,
       interpolation: { escapeValue: false },
       saveMissing: true,
       missingKeyHandler: async (lng, ns, key, fallbackValue) => {
@@ -686,8 +680,5 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-  connect<StateProps, DispatchProps>(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(App),
+  connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(App),
 );

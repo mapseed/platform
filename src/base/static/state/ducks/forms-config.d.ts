@@ -40,7 +40,8 @@ export type FormFieldsConfig = FormFieldConfig[];
 export type FormsConfig = (
   | PlaceFormsConfig
   | CommentFormConfig
-  | FormFieldConfig)[];
+  | FormFieldConfig
+)[];
 
 export const commentFormConfigSelector: (state: any) => CommentFormConfig;
 
