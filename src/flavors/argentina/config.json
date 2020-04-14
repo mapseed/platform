@@ -219,15 +219,15 @@
               "icon-image": [
                 "match",
                 ["get", "location_type"],
-                "observacion",
+                "observation",
                 "marker-observation.png",
-                "sustentabilidad",
+                "idea",
                 "marker-sustentabilidad.png",
-                "potencialidad",
-                "marker-potencialidad.png",
+                "question",
+                "marker-amenaza.png",
                 "intervencion",
                 "marker-intervention.png",
-                "amenaza",
+                "complaint",
                 "marker-amenaza.png",
                 "__no-icon-image__"
               ]
@@ -249,13 +249,13 @@
                 [
                   "match",
                   ["get", "location_type"],
-                  "observacion",
+                  "observation",
                   "Dot-observation.png",
-                  "sustentabilidad",
+                  "idea",
                   "Dot-sustentabilidad.png",
-                  "amenaza",
+                  "question",
                   "Dot-amenaza.png",
-                  "potencialidad",
+                  "complaint",
                   "Dot-potencialidad.png",
                   "intervencion",
                   "Dot-intervention.png",
@@ -265,13 +265,13 @@
                 [
                   "match",
                   ["get", "location_type"],
-                  "observacion",
+                  "observation",
                   "marker-observation.png",
-                  "sustentabilidad",
+                  "idea",
                   "marker-sustentabilidad.png",
-                  "amenaza",
+                  "question",
                   "marker-amenaza.png",
-                  "potencialidad",
+                  "complaint",
                   "marker-potencialidad.png",
                   "intervencion",
                   "marker-intervention.png",
@@ -383,8 +383,8 @@
         ]
       },
       {
-        "formId": "observacion",
-        "category": "observacion",
+        "formId": "observation",
+        "category": "observation",
         "submitter_editing_supported": true,
         "includeOnForm": true,
         "name": "location_type",
@@ -428,8 +428,8 @@
         ]
       },
       {
-        "formId": "amenaza",
-        "category": "amenaza",
+        "formId": "question",
+        "category": "question",
         "submitter_editing_supported": true,
         "includeOnForm": true,
         "name": "location_type",
@@ -472,8 +472,8 @@
         ]
       },
       {
-        "formId": "sustentabilidad",
-        "category": "sustentabilidad",
+        "formId": "idea",
+        "category": "idea",
         "submitter_editing_supported": true,
         "includeOnForm": true,
         "name": "location_type",
@@ -517,8 +517,8 @@
         ]
       },
       {
-        "formId": "potencialidad",
-        "category": "potencialidad",
+        "formId": "complaint",
+        "category": "complaint",
         "submitter_editing_supported": true,
         "includeOnForm": true,
         "name": "location_type",
@@ -633,7 +633,7 @@
         "options": [
           {
             "label": "Observación",
-            "value": "observacion"
+            "value": "observation"
           },
           {
             "label": "Question",
@@ -641,7 +641,7 @@
           },
           {
             "label": "Sustentabilidad",
-            "value": "sustentabilidad"
+            "value": "idea"
           },
           {
             "label": "Potencialidad",
@@ -649,7 +649,7 @@
           },
           {
             "label": "Intervención",
-            "value": "intervencion"
+            "value": "complaint"
           }
         ],
         "name": "location_type",
@@ -760,25 +760,25 @@
     },
     "places": [
       {
-        "id": "observacion",
+        "id": "observation",
         "datasetId": "argentina-input",
         "label": "Observación",
         "icon": "/static/css/images/markers/marker-observation.png"
       },
       {
-        "id": "amenaza",
+        "id": "question",
         "datasetId": "argentina-input",
         "label": "Amenaza",
         "icon": "/static/css/images/markers/marker-amenaza.png"
       },
       {
-        "id": "sustentabilidad",
+        "id": "idea",
         "datasetId": "argentina-input",
         "label": "Sustentabilidad",
         "icon": "/static/css/images/markers/marker-sustentabilidad.png"
       },
       {
-        "id": "potencialidad",
+        "id": "complaint",
         "datasetId": "argentina-input",
         "label": "Potencialidad",
         "icon": "/static/css/images/markers/marker-potencialidad.png"
@@ -788,12 +788,6 @@
         "datasetId": "argentina-input",
         "label": "Intervención",
         "icon": "/static/css/images/markers/marker-intervention.png"
-      },
-      {
-        "id": "intervencion",
-        "datasetId": "argentina-input",
-        "label": "Capas de análisis",
-        "icon": "/static/css/images/markers/marker-star-red-black.png"
       }
     ]
   },
