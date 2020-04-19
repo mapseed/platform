@@ -5123,6 +5123,11 @@
       "title": "Other Projects",
       "type": "internal_link",
       "url": "/page/other-projects"
+    },
+    {
+      "title": "Local Producers",
+      "type": "internal_link",
+      "url": "/page/local-producers"
     }
   ],
   "pages": [
@@ -5202,6 +5207,14 @@
         "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
         "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
         "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
+      ]
+    },
+    {
+      "slug": "local-producers",
+      "content": [
+        "<img style='display: block; width: 75%; margin: 16px auto 32px auto;' src='/static/css/images/grown-local-banner.png' alt='Grown local baner' />",
+        "<p>Check out these local Spokane County producers!</p>",
+        "<div class='videowrapper'><iframe src='https://www.youtube.com/embed/qXVVOn5uZCY' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>"
       ]
     }
   ],
