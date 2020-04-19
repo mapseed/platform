@@ -5232,7 +5232,11 @@
       "content": [
         "<img style='display: block; width: 75%; margin: 16px auto 32px auto;' src='/static/css/images/grown-local-banner.png' alt='Grown local baner' />",
         "<p>Check out these local Spokane County producers!</p>",
-        "<div class='videowrapper'><iframe src='https://www.youtube.com/embed/qXVVOn5uZCY' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>"
+        "<div class='videowrapper'><iframe src='https://www.youtube.com/embed/qXVVOn5uZCY' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='video-caption'>Beekeepers hard at work preseving pollinator habitats...</p>",
+        "<hr />",
+        "<div class='videowrapper'><iframe src='https://www.youtube.com/embed/hWkYtZxpQUo' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='video-caption'>Organic farming...</p>"
       ]
     }
   ],
