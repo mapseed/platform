@@ -3,7 +3,49 @@
     "defaultLanguage": {
       "code": "es",
       "label": "Español"
-    }
+    },
+    "placeFilters": [
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "observation",
+        "label": "Observación",
+        "icon": "/static/css/images/markers/marker-observation.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "question",
+        "label": "Amenaza",
+        "icon": "/static/css/images/markers/marker-amenaza.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "idea",
+        "label": "Sustenabilidad",
+        "icon": "/static/css/images/markers/marker-sustentabilidad.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "complaint",
+        "label": "Potencialidad",
+        "icon": "/static/css/images/markers/marker-potencialidad.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "intervencion",
+        "label": "Intervención",
+        "icon": "/static/css/images/markers/marker-intervention.png"
+      }
+    ]
   },
   "datasets": [
     {
@@ -809,6 +851,10 @@
       "title": "¿cómo participar?",
       "type": "internal_link",
       "url": "/page/getinvolved"
+    },
+    {
+      "title": "Filter",
+      "type": "filter"
     }
   ],
   "pages": [

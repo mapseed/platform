@@ -1,9 +1,3 @@
-/*
- * This CSS file follows the default Shareabouts style.css.
- * All rules herein will override the default Shareabouts styles.
- * NOTE: "With great power comes great responsibility."
- */
-
 #site-title a:link,
 #site-title a:visited {
   display: block;
@@ -54,15 +48,15 @@ section[class*="LeftSidebarOuterContainer"] span[class*="fa fa-times"] {
   }
 }
 
-.fa.fa-bars {
+.mapseed-map-controls .fa.fa-bars {
   color: gray;
 }
 
-#place-filter-menu {
-  color: white;
-}
 /* =Header
 -------------------------------------------------------------- */
+.mapseed-place-filter-menu__label {
+  color: white;
+}
 
 /* =Media Queries
 -------------------------------------------------------------- */
