@@ -74,6 +74,7 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
   };
   return (
     <div
+      className="mapseed-map-controls"
       css={{
         position: "absolute",
         top: "8px",

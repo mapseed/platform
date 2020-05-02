@@ -248,6 +248,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
   const defaultMapViewport = props.mapConfig.defaultMapViewport;
   return (
     <header
+      className="mapseed-site-header"
       css={theme => ({
         position: "relative",
         zIndex: 25,

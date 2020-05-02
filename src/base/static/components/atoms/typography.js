@@ -248,10 +248,10 @@ const ExternalLink = styled("a")({
   },
 });
 
-const InternalLink = styled(props => {
+const InternalLink = styled(({ children, className, href, ...rest }) => {
   return (
-    <Link to={props.href} className={props.className} {...props}>
-      {props.children}
+    <Link to={href} className={`mapseed-internal-link ${className}`} {...rest}>
+      {children}
     </Link>
   );
 })(props => ({
