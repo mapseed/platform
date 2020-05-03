@@ -7,10 +7,9 @@
   overflow: hidden;
 }
 
-section[class*="LeftSidebarOuterContainer"] {
-  width: auto;
-  background-color: #eaddc6;
-  opacity: 0.95;
+.mapseed-left-sidebar {
+  background-color: #eaddc6 !important;
+  opacity: 0.95 !important;
 }
 .btn-primary,
 .btn-primary:visited,
@@ -19,22 +18,22 @@ section[class*="LeftSidebarOuterContainer"] {
   color: #fff;
 }
 
-section[class*="LeftSidebarOuterContainer"] button[class*="CloseButton"] {
-  color: #bd9462;
-  background-color: #eaddc6;
-  opacity: 0.95;
+.mapseed-left-sidebar__close-button {
+  color: #bd9462 !important;
+  background-color: #eaddc6 !important;
+  opacity: 0.95 !important;
+
+  &:hover {
+    color: #cd2c67 !important;
+  }
 }
 
-section[class*="LeftSidebarOuterContainer"] button[class*="CloseButton"]:hover {
-  color: #cd2c67;
+.mapseed-left-sidebar .fa-check {
+  color: #bd9462 !important;
 }
 
-section[class*="LeftSidebarOuterContainer"] span[class*="fa fa-check"] {
-  color: #bd9462;
-}
-
-section[class*="LeftSidebarOuterContainer"] span[class*="fa fa-times"] {
-  color: black;
+.mapseed-left-sidebar .fa-times {
+  color: black !important;
 }
 
 .btn-primary:hover {
@@ -55,7 +54,7 @@ section[class*="LeftSidebarOuterContainer"] span[class*="fa fa-times"] {
 /* =Header
 -------------------------------------------------------------- */
 .mapseed-place-filter-menu__label {
-  color: white;
+  color: white !important;
 }
 
 /* =Media Queries
