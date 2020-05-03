@@ -193,7 +193,6 @@
           {
             "id": "argentina-featured",
             "type": "symbol",
-            "filter": ["==", ["get", "location_type"], "featured_place"],
             "source": "argentina-featured",
             "layout": {
               "icon-image": "",
@@ -223,11 +222,13 @@
                 "observation",
                 "marker-observation.png",
                 "idea",
-                "marker-idea.png",
-                "complaint",
-                "marker-question.png",
+                "marker-sustentabilidad.png",
                 "question",
-                "marker-complaint.png",
+                "marker-amenaza.png",
+                "intervencion",
+                "marker-intervention.png",
+                "complaint",
+                "marker-amenaza.png",
                 "__no-icon-image__"
               ]
             }
@@ -249,13 +250,15 @@
                   "match",
                   ["get", "location_type"],
                   "observation",
-                  "dot-0d85e9.png",
+                  "Dot-observation.png",
                   "idea",
-                  "dot-f95016.png",
+                  "Dot-sustentabilidad.png",
                   "question",
-                  "dot-e1264d.png",
+                  "Dot-amenaza.png",
                   "complaint",
-                  "dot-dbcf2c.png",
+                  "Dot-potencialidad.png",
+                  "intervencion",
+                  "Dot-intervention.png",
                   "__no-icon-image__"
                 ],
                 10,
@@ -265,11 +268,13 @@
                   "observation",
                   "marker-observation.png",
                   "idea",
-                  "marker-idea.png",
+                  "marker-sustentabilidad.png",
                   "question",
-                  "marker-complaint.png",
+                  "marker-amenaza.png",
                   "complaint",
-                  "marker-question.png",
+                  "marker-potencialidad.png",
+                  "intervencion",
+                  "marker-intervention.png",
                   "__no-icon-image__"
                 ]
               ]
@@ -282,7 +287,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "FeaturedPlacesNavigator"
+    "component": "FeaturedPlacesWithLegend"
   },
   "leftSidebar": {
     "icon": "fa fa-bars",
@@ -380,11 +385,12 @@
       {
         "formId": "observation",
         "category": "observation",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "name": "location_type",
         "datasetSlug": "argentina-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
-        "value": "observation",
+        "value": "observacion",
         "label": "Observación",
         "fields": [
           {
@@ -424,12 +430,13 @@
       {
         "formId": "question",
         "category": "question",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "name": "location_type",
         "datasetSlug": "argentina-input",
-        "icon_url": "/static/css/images/markers/marker-complaint.png",
-        "value": "question",
-        "label": "Amenazas / conflictos",
+        "icon_url": "/static/css/images/markers/marker-amenaza.png",
+        "value": "amenaza",
+        "label": "Amenaza",
         "fields": [
           {
             "name": "lng-lat",
@@ -467,12 +474,13 @@
       {
         "formId": "idea",
         "category": "idea",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "name": "location_type",
         "datasetSlug": "argentina-input",
-        "icon_url": "/static/css/images/markers/marker-idea.png",
-        "value": "idea",
-        "label": "Experiencias sustentables",
+        "icon_url": "/static/css/images/markers/marker-sustentabilidad.png",
+        "value": "sustentabilidad",
+        "label": "Sustentabilidad",
         "fields": [
           {
             "name": "lng-lat",
@@ -511,12 +519,13 @@
       {
         "formId": "complaint",
         "category": "complaint",
+        "submitter_editing_supported": true,
         "includeOnForm": true,
         "name": "location_type",
         "datasetSlug": "argentina-input",
-        "icon_url": "/static/css/images/markers/marker-question.png",
-        "value": "complaint",
-        "label": "Horizontes / potencialidades",
+        "icon_url": "/static/css/images/markers/marker-potencialidad.png",
+        "value": "potencialidad",
+        "label": "Perspectiva",
         "fields": [
           {
             "name": "lng-lat",
@@ -534,6 +543,51 @@
             "name": "description",
             "type": "rich_textarea",
             "prompt": "¿Cuáles son las actividades que nos permiten avizorar futuros sustentables?",
+            "display_prompt": " ",
+            "placeholder": "Descripción...",
+            "optional": false
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "formId": "intervencion",
+        "category": "intervencion",
+        "submitter_editing_supported": true,
+        "includeOnForm": true,
+        "name": "location_type",
+        "datasetSlug": "argentina-input",
+        "icon_url": "/static/css/images/markers/marker-intervention.png",
+        "value": "intervencion",
+        "label": "Intervención",
+        "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "Experiencias de identidad territorial:",
+            "placeholder": "Introducir título",
+            "display_prompt": " ",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "¿Proyectos comunitarios, micro experiencias, historias de vida, flujos de ideas, creaciónes artísticas?",
             "display_prompt": " ",
             "placeholder": "Descripción...",
             "optional": false
@@ -578,7 +632,7 @@
         "type": "select",
         "options": [
           {
-            "label": "Observation",
+            "label": "Observación",
             "value": "observation"
           },
           {
@@ -586,11 +640,15 @@
             "value": "question"
           },
           {
-            "label": "Idea",
+            "label": "Sustentabilidad",
             "value": "idea"
           },
           {
-            "label": "Complaint",
+            "label": "Potencialidad",
+            "value": "potencialidad"
+          },
+          {
+            "label": "Intervención",
             "value": "complaint"
           }
         ],
@@ -702,12 +760,6 @@
     },
     "places": [
       {
-        "id": "featured_place",
-        "datasetId": "argentina-featured",
-        "label": "Featured Site",
-        "icon": "/static/css/images/markers/marker-star.png"
-      },
-      {
         "id": "observation",
         "datasetId": "argentina-input",
         "label": "Observación",
@@ -716,20 +768,26 @@
       {
         "id": "question",
         "datasetId": "argentina-input",
-        "label": "Amenazas / conflictos",
-        "icon": "/static/css/images/markers/marker-complaint.png"
+        "label": "Amenaza",
+        "icon": "/static/css/images/markers/marker-amenaza.png"
       },
       {
         "id": "idea",
         "datasetId": "argentina-input",
-        "label": "Experiencias sustentables",
-        "icon": "/static/css/images/markers/marker-idea.png"
+        "label": "Sustentabilidad",
+        "icon": "/static/css/images/markers/marker-sustentabilidad.png"
       },
       {
         "id": "complaint",
         "datasetId": "argentina-input",
-        "label": "Horizontes / potencialidades",
-        "icon": "/static/css/images/markers/marker-question.png"
+        "label": "Potencialidad",
+        "icon": "/static/css/images/markers/marker-potencialidad.png"
+      },
+      {
+        "id": "intervencion",
+        "datasetId": "argentina-input",
+        "label": "Intervención",
+        "icon": "/static/css/images/markers/marker-intervention.png"
       }
     ]
   },
@@ -780,7 +838,7 @@
   ],
   "featuredPlaces": {
     "name": "campanas",
-    "header": "Enfoques",
+    "header": "Focos regionales",
     "visibleLayerGroupIds": [
       "osm",
       "argentina-campanas",
@@ -828,33 +886,9 @@
         "placeId": 6990,
         "zoom": 4.63,
         "pan_to": [-56.95, -26.34],
-        "visibleLayerGroupIds": ["osm", "presencia-agua"],
+        "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
+        "visibleLayerGroupIds": ["osm", "presencia-agua", "argentina-input"],
         "spotlight": false
-      },
-      {
-        "placeId": 5343,
-        "pan_to": [-60.5, -32.35],
-        "zoom": 10
-      },
-      {
-        "placeId": 5342,
-        "pan_to": [-60.58, -32.86],
-        "zoom": 10
-      },
-      {
-        "placeId": 5344,
-        "pan_to": [-58.53, -34.41313],
-        "zoom": 10
-      },
-      {
-        "placeId": 5345,
-        "pan_to": [-58.88098, -34.15955],
-        "zoom": 10
-      },
-      {
-        "placeId": 5346,
-        "pan_to": [-57.91877, -34.88249],
-        "zoom": 10
       }
     ]
   }
