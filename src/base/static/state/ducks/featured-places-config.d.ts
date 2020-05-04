@@ -8,11 +8,10 @@ export type FeaturedPlace = {
   hasCustomZoom?: boolean;
   panTo?: number[];
   visibleLayerGroupIds?: string[];
-  previous?: string;
-  next?: string;
   iconUrl?: string;
   spotlight?: boolean;
   sidebarIconUrl?: string;
+  renderIn: "RightSidebar" | "FeaturedPlacesMenu";
 };
 
 export type FeaturedPlacesConfig = {

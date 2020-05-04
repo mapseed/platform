@@ -93,7 +93,7 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
           };
         })
         .filter(
-          ({ place, iconUrl, renderIn }) =>
+          ({ place, iconUrl, featuredPlace: { renderIn } }) =>
             !!place && !!iconUrl && renderIn === "RightSidebar",
         )
         .map(({ place, featuredPlace, iconUrl }) => {

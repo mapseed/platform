@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import * as React from "react";
 import { jsx, css } from "@emotion/core";
-import { withTheme, WithTheme } from "emotion-theming";
+import { withTheme } from "emotion-theming";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withTranslation, WithTranslation } from "react-i18next";
@@ -17,9 +17,11 @@ import {
 } from "../../state/ducks/featured-places-config";
 import { placesSelector, Place } from "../../state/ducks/places";
 import { Image } from "../atoms/imagery";
+import { Theme } from "../../../../theme";
 
 type OwnProps = {
-  label: string;
+  title: string;
+  theme: Theme;
 };
 
 type StateProps = {
@@ -27,11 +29,7 @@ type StateProps = {
   places: Place[];
 };
 
-type PlaceFilterMenuProps = OwnProps &
-  StateProps &
-  OwnProps &
-  WithTranslation &
-  WithTheme;
+type PlaceFilterMenuProps = OwnProps & StateProps & OwnProps & WithTranslation;
 
 const FeaturedPlacesMenu: React.FunctionComponent<PlaceFilterMenuProps> = props => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -50,9 +48,6 @@ const FeaturedPlacesMenu: React.FunctionComponent<PlaceFilterMenuProps> = props 
         }
         ${[mq[1]]} {
           padding-left: 12px;
-          border-left: ${props.position > 0
-            ? "solid 1px " + props.theme.text.tertiary
-            : "none"};
         }
       `}
     >
@@ -73,37 +68,38 @@ const FeaturedPlacesMenu: React.FunctionComponent<PlaceFilterMenuProps> = props 
         {props.featuredPlacesConfig.places
           .filter(({ renderIn }) => renderIn === "FeaturedPlacesMenu")
           .map(({ iconUrl, placeId }) => {
-            const place =
-              props.places.find(place => place.id === placeId) || {};
+            const place = props.places.find(place => place.id === placeId);
 
             return (
-              <MenuItem key={placeId} onClick={handleClose}>
-                <Link
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    text-transform: none;
-                    text-decoration: none;
-                    color: ${props.theme.brand.primary};
-                  `}
-                  to={`/${place.clientSlug}/${placeId}`}
-                >
-                  {iconUrl && (
-                    <Image
-                      css={css`
-                        width: 20px;
-                        max-width: 20px;
-                        min-width: 20px;
-                        height: auto;
-                        margin-right: 12px;
-                      `}
-                      src={iconUrl}
-                      alt={"Featured Place marker"}
-                    />
-                  )}
-                  <ListItemText primary={place.title} />
-                </Link>
-              </MenuItem>
+              place && (
+                <MenuItem key={placeId} onClick={handleClose}>
+                  <Link
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      text-transform: none;
+                      text-decoration: none;
+                      color: ${props.theme.brand.primary};
+                    `}
+                    to={`/${place.clientSlug}/${placeId}`}
+                  >
+                    {iconUrl && (
+                      <Image
+                        css={css`
+                          width: 20px;
+                          max-width: 20px;
+                          min-width: 20px;
+                          height: auto;
+                          margin-right: 12px;
+                        `}
+                        src={iconUrl}
+                        alt={"Featured Place marker"}
+                      />
+                    )}
+                    <ListItemText primary={place.title} />
+                  </Link>
+                </MenuItem>
+              )
             );
           })}
       </Menu>
@@ -116,6 +112,6 @@ const mapStateToProps = (state): StateProps => ({
   places: placesSelector(state),
 });
 
-export default connect<StateProps, DispatchProps>(mapStateToProps)(
+export default connect<StateProps>(mapStateToProps)(
   withTheme(withTranslation("FeaturedPlacesMenu")(FeaturedPlacesMenu)),
 );
