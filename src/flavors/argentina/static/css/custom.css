@@ -53,7 +53,8 @@
 
 /* =Header
 -------------------------------------------------------------- */
-.mapseed-place-filter-menu__label {
+.mapseed-place-filter-menu__label,
+.mapseed-featured-places-header-menu__button {
   color: white !important;
 }
 
