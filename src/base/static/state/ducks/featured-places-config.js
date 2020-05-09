@@ -32,11 +32,11 @@ export const featuredPlacesPropType = PropTypes.arrayOf(
     hasCustomZoom: PropTypes.bool,
     panTo: PropTypes.arrayOf(PropTypes.number),
     visibleLaygerGroupIds: PropTypes.arrayOf(PropTypes.string),
-    previous: PropTypes.string,
-    next: PropTypes.string,
     iconUrl: PropTypes.string,
     spotlight: PropTypes.bool.isRequired,
     sidebarIconUrl: PropTypes.string,
+    renderIn: PropTypes.oneOf(["RightSidebar", "FeaturedPlacesMenu"])
+      .isRequired,
   }).isRequired,
 ).isRequired;
 
@@ -77,24 +77,17 @@ export function loadFeaturedPlacesConfig(config) {
           iconUrl: featuredPlace.iconUrl || null,
           visibleLayerGroupIds:
             featuredPlace.visibleLayerGroupIds || config.visibleLayerGroupIds,
-          previous: config.order[(i - 1 + numChapters) % numChapters].url,
-          next: config.order[(i + 1) % numChapters].url,
           spotlight: featuredPlace.spotlight === false ? false : true,
           sidebarIconUrl: featuredPlace.sidebar_icon_url,
+          renderIn: featuredPlace.renderIn || "RightSidebar",
         };
       }),
     },
   };
 }
 
-// return { type: LOAD, payload: { config, } };
-// }
-
 // Reducers:
 const INITIAL_STATE = { places: [] };
-// config: [],
-// chapters: [],
-// };
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {

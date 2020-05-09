@@ -110,6 +110,12 @@ const RightSidebar: React.FunctionComponent<Props> = props => {
             <FeaturedPlacesNavigator places={props.places} />
           </React.Fragment>
         )}
+        {props.rightSidebarConfig.component === "FeaturedPlacesWithBottomLegend" && (
+          <React.Fragment>
+            <FeaturedPlacesNavigator places={props.places} />
+            <MapLegendPanel isThemed={true} />
+          </React.Fragment>
+        )}
       </RightSidebarInnerContainer>
     </aside>
   );

@@ -19,6 +19,7 @@ import {
   navBarConfigSelector,
 } from "../../state/ducks/nav-bar-config";
 import PlaceFilterMenu from "./place-filter-menu";
+import FeaturedPlacesMenu from "./featured-places-menu";
 import { appConfigSelector, AppConfig } from "../../state/ducks/app-config";
 import { mapConfigSelector, MapConfig } from "../../state/ducks/map";
 import { currentTemplateSelector, resetUi } from "../../state/ducks/ui";
@@ -201,7 +202,11 @@ const navItemMappings = {
     },
   })),
   filter: PlaceFilterMenu,
+  featuredPlacesMenu: linkProps => (
+    <FeaturedPlacesMenu title={linkProps.navBarItem.title} />
+  ),
 };
+import { Image } from "../atoms/imagery";
 
 type ComponentPropTypes = {
   navBarConfig: NavBarConfig;
@@ -248,6 +253,7 @@ const SiteHeader: React.FunctionComponent<Props> = props => {
   const defaultMapViewport = props.mapConfig.defaultMapViewport;
   return (
     <header
+      className="mapseed-site-header"
       css={theme => ({
         position: "relative",
         zIndex: 25,

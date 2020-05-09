@@ -3,7 +3,49 @@
     "defaultLanguage": {
       "code": "es",
       "label": "Español"
-    }
+    },
+    "placeFilters": [
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "observation",
+        "label": "Observación",
+        "icon": "/static/css/images/markers/marker-observation.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "question",
+        "label": "Amenaza",
+        "icon": "/static/css/images/markers/marker-amenaza.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "idea",
+        "label": "Sustenabilidad",
+        "icon": "/static/css/images/markers/marker-sustentabilidad.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "complaint",
+        "label": "Potencialidad",
+        "icon": "/static/css/images/markers/marker-potencialidad.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "intervencion",
+        "label": "Intervención",
+        "icon": "/static/css/images/markers/marker-intervention.png"
+      }
+    ]
   },
   "datasets": [
     {
@@ -63,8 +105,8 @@
     "geocodeFieldLabel": "Enter an address...",
     "geocodeBoundingBox": [39.830159, -75.478821, 40.167331, -74.781189],
     "mapViewport": {
-      "latitude": -27.67790,
-      "longitude": -61.86040,
+      "latitude": -27.6779,
+      "longitude": -61.8604,
       "zoom": 3.97,
       "pitch": 0,
       "minZoom": 1,
@@ -287,7 +329,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "FeaturedPlacesWithLegend"
+    "component": "FeaturedPlacesWithBottomLegend"
   },
   "leftSidebar": {
     "icon": "fa fa-bars",
@@ -809,6 +851,14 @@
       "title": "¿cómo participar?",
       "type": "internal_link",
       "url": "/page/getinvolved"
+    },
+    {
+      "title": "Filter",
+      "type": "filter"
+    },
+    {
+      "title": "Capas de análisis",
+      "type": "featuredPlacesMenu"
     }
   ],
   "pages": [
@@ -865,7 +915,7 @@
       {
         "placeId": 8620,
         "zoom": 7.29,
-        "pan_to": [-57.70, -25.95],
+        "pan_to": [-57.7, -25.95],
         "spotlight": false
       },
       {
@@ -883,7 +933,7 @@
       {
         "placeId": 8617,
         "zoom": 7.29,
-        "pan_to": [-59.70, -33.21],
+        "pan_to": [-59.7, -33.21],
         "spotlight": false
       },
       {
@@ -893,6 +943,7 @@
         "spotlight": false
       },
       {
+        "renderIn": "FeaturedPlacesMenu",
         "placeId": 6990,
         "zoom": 4.63,
         "pan_to": [-56.95, -26.34],

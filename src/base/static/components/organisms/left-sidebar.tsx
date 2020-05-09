@@ -45,6 +45,7 @@ type Props = {
 
 const LeftSidebar: React.FunctionComponent<Props> = props => (
   <section
+    className="mapseed-left-sidebar"
     css={{
       position: "absolute",
       left: 0,
@@ -91,7 +92,10 @@ const LeftSidebar: React.FunctionComponent<Props> = props => (
           ),
         )}
     </div>
-    <CloseButton onClick={() => props.setLeftSidebarExpanded(false)}>
+    <CloseButton
+      className="mapseed-left-sidebar__close-button"
+      onClick={() => props.setLeftSidebarExpanded(false)}
+    >
       &#10005;
     </CloseButton>
   </section>
