@@ -79,7 +79,7 @@ export function loadFeaturedPlacesConfig(config) {
             featuredPlace.visibleLayerGroupIds || config.visibleLayerGroupIds,
           spotlight: featuredPlace.spotlight === false ? false : true,
           sidebarIconUrl: featuredPlace.sidebar_icon_url,
-          renderIn: featuredPlace.renderIn || "right-sidebar",
+          renderIn: featuredPlace.renderIn || "RightSidebar",
         };
       }),
     },

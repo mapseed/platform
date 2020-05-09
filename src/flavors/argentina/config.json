@@ -329,7 +329,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "FeaturedPlacesWithLegend"
+    "component": "FeaturedPlacesWithBottomLegend"
   },
   "leftSidebar": {
     "icon": "fa fa-bars",

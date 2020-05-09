@@ -48,10 +48,11 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
     return unlisten;
   }, [props.history]);
 
+  console.log("!!!", props.featuredPlacesConfig.places)
+
   return (
     <div
       css={{
-        height: "100%",
         paddingTop: "15px",
       }}
     >
