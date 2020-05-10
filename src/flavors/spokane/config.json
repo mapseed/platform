@@ -38,7 +38,7 @@
         "operator": "includes",
         "datasetSlug": "spokane-input",
         "value": "grown_local",
-        "label": "Grown Local",
+        "label": "Grown Local, Sold Local",
         "setDefault": true,
         "icon": "/static/css/images/markers/marker-grown-local.png"
       }
@@ -2239,7 +2239,7 @@
                 "value": "forestry"
               },
               {
-                "label": "Grown Local",
+                "label": "Grown Local, Sold Local",
                 "value": "grown_local"
               }
             ]
@@ -4015,7 +4015,7 @@
             "name": "grown_local_header",
             "type": "informational_html",
             "hidden_default": true,
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Grown Local</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-agriculture.png' alt='Grown local section'/></figure>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Grown Local, Sold Local</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/grown-local-main-photo.jpg' alt='Grown local section'/></figure>"
           },
           {
             "//": "=============== COVER CROPS ================================",
@@ -4048,7 +4048,7 @@
             "modal": {
               "header": "Cover crops",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-no-till.jpg' alt='No till' /><p><strong>NRCS code:</strong> 340</p><p>Cover crops...</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/cover-crop.jpg' alt='Cover crop' /><p><strong>NRCS code:</strong> 340</p><p>Cover crops...</p></div>"
               ]
             }
           },
@@ -4148,7 +4148,7 @@
             "modal": {
               "header": "Buffers",
               "body": [
-                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers-new.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/buffers.png' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
               ]
             }
           },
@@ -4334,7 +4334,7 @@
             "modal": {
               "header": "Pollinator habitat",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-no-till.jpg' alt='No till' /><p>Pollinator habitat</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/pollinators2.jpg' alt='No till' /><p>Pollinator habitat</p></div>"
               ]
             }
           },
@@ -4428,7 +4428,7 @@
             "modal": {
               "header": "Wildlife habitat enchancements",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-no-till.jpg' alt='No till' /><p><strong>NRCS code:</strong> xxx</p><p>Wildlife habitat enhancements</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/habitat.png' alt='Wildlife habitat' /><p><strong>NRCS code:</strong> xxx</p><p>Wildlife habitat enhancements</p></div>"
               ]
             }
           },
@@ -4522,7 +4522,7 @@
             "modal": {
               "header": "Conservation crop rotation",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/practice-no-till.jpg' alt='No till' /><p><strong>NRCS code:</strong> 328</p><p>Conservation crop rotation</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/crop-rotation.jpg' alt='Conservation crop rotation' /><p><strong>NRCS code:</strong> 328</p><p>Conservation crop rotation</p></div>"
               ]
             }
           },
@@ -4632,7 +4632,7 @@
             "modal": {
               "header": "Fertilization",
               "body": [
-                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/fertilizer.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
               ]
             }
           },
@@ -5143,9 +5143,9 @@
       "url": "/page/other-projects"
     },
     {
-      "title": "Local Producers",
+      "title": "Local Videos",
       "type": "internal_link",
-      "url": "/page/local-producers"
+      "url": "/page/local-videos"
     }
   ],
   "pages": [
@@ -5232,11 +5232,9 @@
       "content": [
         "<img style='display: block; width: 75%; margin: 16px auto 32px auto;' src='/static/css/images/grown-local-banner.png' alt='Grown local baner' />",
         "<p>Check out these local Spokane County producers!</p>",
-        "<div class='videowrapper'><iframe src='https://www.youtube.com/embed/qXVVOn5uZCY' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
-        "<p class='video-caption'>Beekeepers hard at work preseving pollinator habitats...</p>",
-        "<hr />",
-        "<div class='videowrapper'><iframe src='https://www.youtube.com/embed/hWkYtZxpQUo' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
-        "<p class='video-caption'>Organic farming...</p>"
+        "<div class='videowrapper'><iframe src='https://www.youtube.com/embed/vmlKfXFtp3Y' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='video-caption'>A short introduction to Eckhart Farms.</p>",
+        "<hr />"
       ]
     }
   ],
