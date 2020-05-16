@@ -3,7 +3,49 @@
     "defaultLanguage": {
       "code": "es",
       "label": "Español"
-    }
+    },
+    "placeFilters": [
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "observation",
+        "label": "Observación",
+        "icon": "/static/css/images/markers/marker-observation.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "question",
+        "label": "Amenaza",
+        "icon": "/static/css/images/markers/marker-amenaza.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "idea",
+        "label": "Sustenabilidad",
+        "icon": "/static/css/images/markers/marker-sustentabilidad.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "complaint",
+        "label": "Potencialidad",
+        "icon": "/static/css/images/markers/marker-potencialidad.png"
+      },
+      {
+        "placeProperty": "location_type",
+        "operator": "equals",
+        "datasetSlug": "argentina-input",
+        "value": "intervencion",
+        "label": "Intervención",
+        "icon": "/static/css/images/markers/marker-intervention.png"
+      }
+    ]
   },
   "datasets": [
     {
@@ -63,8 +105,8 @@
     "geocodeFieldLabel": "Enter an address...",
     "geocodeBoundingBox": [39.830159, -75.478821, 40.167331, -74.781189],
     "mapViewport": {
-      "latitude": -27.67790,
-      "longitude": -61.86040,
+      "latitude": -27.6779,
+      "longitude": -61.8604,
       "zoom": 3.97,
       "pitch": 0,
       "minZoom": 1,
@@ -242,7 +284,7 @@
             "layout": {
               "icon-allow-overlap": true,
               "icon-anchor": ["step", ["zoom"], "center", 10, "bottom"],
-              "icon-size": ["step", ["zoom"], 0.6, 7, 1, 10, 0.5],
+              "icon-size": ["step", ["zoom"], 0.5, 5, 1, 7, 0.5],
               "icon-image": [
                 "step",
                 ["zoom"],
@@ -261,7 +303,7 @@
                   "Dot-intervention.png",
                   "__no-icon-image__"
                 ],
-                10,
+                7,
                 [
                   "match",
                   ["get", "location_type"],
@@ -287,7 +329,7 @@
   "right_sidebar": {
     "is_enabled": true,
     "is_visible_default": true,
-    "component": "FeaturedPlacesWithLegend"
+    "component": "FeaturedPlacesWithBottomLegend"
   },
   "leftSidebar": {
     "icon": "fa fa-bars",
@@ -809,6 +851,14 @@
       "title": "¿cómo participar?",
       "type": "internal_link",
       "url": "/page/getinvolved"
+    },
+    {
+      "title": "Filter",
+      "type": "filter"
+    },
+    {
+      "title": "Capas de análisis",
+      "type": "featuredPlacesMenu"
     }
   ],
   "pages": [
@@ -816,23 +866,33 @@
       "slug": "about",
       "content": [
         "<h1>BIENVENIDA</h1>",
-        "<p><img src='/static/css/images/Territorios.png'><br><br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una iniciativa de la que participan investigadores-artistas junto a personas y organizaciones que habitan o trabajan en el delta del Paraná y la franja costera sur del Río de la Plata.<br><br>Un acercamiento que pretende proyectar interrogantes, preguntas que expandan los horizontes de comprensión sobre la riqueza de estos vastos ecosistemas y la simbiosis entre los seres vivos que los habitan. Sus particularidades hacen de éste territorio móvil, mutante y lleno de vida, un modelo del que aprender nuevas formas de habitar y relacionarse entre los seres humanos y no humanos.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es una de las etapas del proyecto <em>La Tierra NØ Resistirá</em>, un proceso de investigación, exhibición internacional y foro público que esta siendo curado por Graciela Carnevale, Brian Holmes y Alejandro Meitin y cuyos resultados se presentarán en el mes de marzo 2019 en el Centro Cultural Parque de España de Rosario.<br><br><strong>TERRITORIOS DE COLABORACIÓN. PEDAGOGÍAS DE LO ANEGADO</strong> es un proyecto de Casa Río en el marco del Programa Humedales Sin Fronteras, un programa que nace desde los pueblos del sistema de humedales de los Ríos Paraguay-Paraná. Coordinación: Both Ends con el apoyo de Dob Ecology.<br><br>Mas información: <a href='https://territorios.casarioarteyambiente.org'>https://territorios.casarioarteyambiente.org</a><br><br>Programación del mapa: <a href='https://mapseed.org'>https://mapseed.org</a></p>",
-        "<p class='btn btn-block btn-large'><a href='/' rel='internal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explorar los territorios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>"
+        "<p><img src='/static/css/images/Territorios.png'><br><br><br><strong>Humedales Sin Fronteras</strong> es un programa creado e implementado por organizaciones de la sociedad civil de Argentina, Bolivia, Brasil, Paraguay y de los Países Bajos. El objetivo de Humedales sin Fronteras es el de preservar y recuperar el corredor de humedales más extenso del planeta, el que transcurre libre de represamientos a lo largo de 3400 kilómetros por el valle central de la Cuenca del Plata a traves de los rios Paraguay y Paraná, desde el Gran Pantanal hasta el Río de la Plata. Este programa se concentra en generar las condiciones para fortalecer y movilizar a la sociedad civil y mejorar su capacidad de planificar, actuar y evaluar estratégicamente su trabajo frente a las amenazas y oportunidades que se presentan en este vasto territorio.<br><br><strong>Casa Río</strong> está desarrollando una herramienta de mapeo colaborativo elaborado por las personas que viven, sienten y conocen su lugar a lo largo de este extenso corredor de humedales del valle central de la Cuenca del Plata. Este es un ejercicio de visualización que pretende crear conocimiento y potenciar los procesos colectivos de integración territorial, dando ventaja a la emergencia de nuevas visiones desde los pueblos y de las actividades que sostienen la red de la vida. Los invitamos a participar de esta experiencia de percepción colectiva, agregando información al mapa: Micro experiencias, proyectos funcionando, producción sustentable, flujos de ideas, creación artística, luchas sociales, construcción de soberanías territoriales - todo lo que implica la vida del río y de sus humedales.<br><br><a href='https://www.casarioarteyambiente.org/' target='_blank'><img src='/static/css/images/DoubleLogo.png'></a></p>",
+
+        "<p style='text-align: center;'><strong>SOCIOS DEL PROGRAMA HUMEDALES SIN FRONTERAS :</strong></p>",
+
+        "<p class='align:center;'><img src='/static/css/images/organizaciones.png'></p>",
+
+        "<p style='text-align: center;'><strong>COORDINA :</strong></p>",
+
+        "<p class='align:center;'><a href='https://www.bothends.org/en/' target='_blank'><img src='/static/css/images/BothEndsLogo-w.png'></a></p>",
+
+        "<p style='text-align: center;'><strong>APOYA :</strong></p>",
+
+        "<p class='align:center;'><a href='https://www.dobecology.nl/' target='_blank'><img src='/static/css/images/DOBlogo-w.png'</a>></p>"
       ]
     },
     {
       "slug": "getinvolved",
       "content": [
         "<h1>INVOLUCRARSE</h1>",
-        "<p><img src='/static/css/images/Participar.png'></p>",
+        "<p><img src='/static/css/images/AnadirPunto.png'></p>",
         "<p>¿Querés participar en la construcción de este mapa? Es muy sencillo.</p>",
-        "<p>La mejor forma de hacerlo es tocar <span style='color:#E95A22'><strong>AÑADIR PUNTO</strong></span> y mover el mapa hacia el sitio de interés.</p>",
-        "<p>Una vez ubicado el punto, podes reportar sobre un tema que esté relacionado con alguna de las 4 categorias que aparecen:</p>",
-        "<p><strong>1. Observación<br>2. Amenazas / Conflictos<br>3. Experiencias Sustentables<br>4. Horizontes / Potencialidades</strong></p>",
+        "<p>La mejor forma de hacerlo es tocar <span style='color:#E95A22'><strong>AÑADIR PUNTO</strong></span> y mover el mapa, acercándose tanto que posible al sitio de interés.</p>",
+        "<p>Una vez ubicado el punto, podés reportar sobre un tema que esté relacionado con alguna de las 5 categorias que aparecen:</p>",
+        "<p><strong>1. Observación<br>2. Amenaza<br>3. Sustentabilidad<br>4. Perspectiva<br>5. Intervención</strong></p>",
         "<p>Podés añadir un enlace, una imágen o un video, utilizando los botónes del editor.</p>",
         "<p>También podés comentar el punto de otra persona.</p>",
-        "<p>Con tu colaboración podemos amplificar voces y difundir acciones desde la mirada de quien vive, siente y conoce su lugar.</p>",
-        "<p class='btn btn-block btn-large'><a href='/' rel='internal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explorar los territorios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p>"
+        "<p>Con tu colaboración podemos amplificar voces y difundir acciones desde la mirada de quien vive, siente y conoce su lugar.</p>"
       ]
     }
   ],
@@ -855,7 +915,7 @@
       {
         "placeId": 8620,
         "zoom": 7.29,
-        "pan_to": [-57.70, -25.95],
+        "pan_to": [-57.7, -25.95],
         "spotlight": false
       },
       {
@@ -873,7 +933,7 @@
       {
         "placeId": 8617,
         "zoom": 7.29,
-        "pan_to": [-59.70, -33.21],
+        "pan_to": [-59.7, -33.21],
         "spotlight": false
       },
       {
@@ -883,6 +943,7 @@
         "spotlight": false
       },
       {
+        "renderIn": "FeaturedPlacesMenu",
         "placeId": 6990,
         "zoom": 4.63,
         "pan_to": [-56.95, -26.34],
