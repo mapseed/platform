@@ -148,7 +148,7 @@
     "jest": "^24.9.0",
     "jest-runner-prettier": "^0.3.6",
     "json-loader": "^0.5.7",
-    "mini-css-extract-plugin": "^0.8.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "mv": "^2.1.1",
     "optimist": "^0.6.1",
     "prettier": "^1.19.1",
