@@ -80,7 +80,11 @@ const menuStyles = ({
   },
 });
 
-const MenuItem = styled("li")(({ theme }) => ({
+type MenuItemProps = {
+  onClick?: () => void
+}
+
+const MenuItem = styled("li")<MenuItemProps>(({ theme }) => ({
   float: "left",
   width: "100%",
   fontFamily: theme.text.navBarFontFamily,
