@@ -106,7 +106,7 @@
     "geocodeBoundingBox": [39.830159, -75.478821, 40.167331, -74.781189],
     "mapViewport": {
       "latitude": -27.6779,
-      "longitude": -61.8604,
+      "longitude": -59.0,
       "zoom": 3.97,
       "pitch": 0,
       "minZoom": 1,
@@ -126,6 +126,14 @@
         "type": "raster",
         "tiles": [
           "https://api.mapbox.com/styles/v1/bkholmes/cjpnap2zz2ln12rqonivzcpx0/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
+        ],
+        "tileSize": 256,
+        "attribution": "Hello World"
+      },
+      "cuenca": {
+        "type": "raster",
+        "tiles": [
+          "https://api.mapbox.com/styles/v1/bkholmes/ckaeva4dj04n11iql6q9isuu6/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmtob2xtZXMiLCJhIjoiNjlkYjI4MDUyYTRlZWEyYzkwYTdmOTgxNmMzOGYwMTUifQ.VSUo52PYOUzS60NR6jqXTw"
         ],
         "tileSize": 256,
         "attribution": "Hello World"
@@ -173,6 +181,26 @@
       "CuencaAltoParaguay-represas": {
         "type": "geojson",
         "data": "https://ecotopia.today/Territorios/AHEs.geojson"
+      },
+      "HydroMeander": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/HydroMeander.geojson"
+      },
+      "Hidrovia1": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/Hidrovia1.geojson"
+      },
+      "Hidrovia2": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/Hidrovia2.geojson"
+      },
+      "Hidrovia3": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/Hidrovia3.geojson"
+      },
+      "LogisticaFluvial": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/LogisticaFluvial.geojson"
       }
     },
     "layerGroups": [
@@ -190,7 +218,7 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                8,
+                10,
                 0,
                 11,
                 1
@@ -206,7 +234,7 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                8,
+                9,
                 0,
                 11,
                 1
@@ -222,15 +250,54 @@
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                8,
+                11,
                 1,
-                10,
+                12,
                 0
               ]
             }
           }
         ]
       },
+        {
+          "id": "cuenca-satelital",
+          "basemap": true,
+          "visibleDefault": true,
+          "mapboxLayers": [
+            {
+              "id": "satelital",
+              "type": "raster",
+              "source": "satelital",
+              "paint": {
+                "raster-opacity": [
+                  "interpolate",
+                  ["linear"],
+                  ["zoom"],
+                  10,
+                  0,
+                  11,
+                  1
+                ]
+              }
+            },
+            {
+              "id": "cuenca",
+              "type": "raster",
+              "source": "cuenca",
+              "paint": {
+                "raster-opacity": [
+                  "interpolate",
+                  ["linear"],
+                  ["zoom"],
+                  11,
+                  1,
+                  12.5,
+                  0
+                ]
+              }
+            }
+          ]
+        },
       {
         "id": "satellite",
         "basemap": true,
@@ -270,7 +337,147 @@
           {
             "id": "presencia-agua",
             "type": "raster",
-            "source": "presencia-agua"
+            "source": "presencia-agua",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                1,
+                12.5,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "HydroMeander",
+        "mapboxLayers": [
+          {
+            "id": "HydroMeander",
+            "type": "fill",
+            "source": "HydroMeander",
+            "paint": {
+              "fill-outline-color": "#2b5c81",
+              "fill-color": "#2b5c81",
+              "fill-opacity":  [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                6,
+                0.3,
+                10,
+                1,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Hidrovia1",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "Hidrovia1",
+            "type": "line",
+            "source": "Hidrovia1",
+            "paint": {
+              "line-color": "#EF3B5F",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                4,
+                6,
+                8,
+                12,
+                8,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Hidrovia2",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "Hidrovia2",
+            "type": "line",
+            "source": "Hidrovia2",
+            "paint": {
+              "line-color": "#F8A159",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                4,
+                6,
+                8,
+                12,
+                8,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Hidrovia3",
+        "basemap": false,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "Hidrovia3",
+            "type": "line",
+            "source": "Hidrovia3",
+            "paint": {
+              "line-color": "#19c3cf",
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                3,
+                2,
+                6,
+                6,
+                12,
+                6,
+                13,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "LogisticaFluvial",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<h3>{{title}}</h3>",
+        "mapboxLayers": [
+          {
+            "id": "LogisticaFluvial",
+            "type": "symbol",
+            "source": "LogisticaFluvial",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.0, 4.5, 0.1, 5, 0.3, 8, 0.8, 10, 1],
+              "icon-anchor": "center",
+              "icon-image": "puertos.png"
+            }
           }
         ]
       },
@@ -1015,7 +1222,7 @@
 
         "<p style='text-align: center;'><strong>APOYA :</strong></p>",
 
-        "<p class='align:center;'><a href='https://www.dobecology.nl/' target='_blank'><img src='/static/css/images/DOBlogo-w.png'</a>></p>"
+        "<p class='align:center;'><a href='https://www.dobecology.nl/' target='_blank'><img src='/static/css/images/DOBlogo-w.png'</a></p>"
       ]
     },
     {
@@ -1085,7 +1292,7 @@
         "zoom": 4.63,
         "pan_to": [-56.95, -26.34],
         "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
-        "visibleLayerGroupIds": ["mapacuenca-satelital", "presencia-agua", "argentina-input"],
+        "visibleLayerGroupIds": ["cuenca-satelital", "presencia-agua", "argentina-input"],
         "spotlight": false
       },
       {
@@ -1095,6 +1302,15 @@
         "pan_to": [ -57.2, -18.5 ],
         "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
         "visibleLayerGroupIds": ["mapacuenca-satelital", "CuencaAltoParaguay", "CuencaAltoParaguay-contorno", "CuencaAltoParaguay-represas", "argentina-input"],
+        "spotlight": false
+      },
+      {
+        "renderIn": "FeaturedPlacesMenu",
+        "placeId": 8701,
+        "zoom": 6.26,
+        "pan_to": [ -58.95, -32.34 ],
+        "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
+        "visibleLayerGroupIds": ["cuenca-satelital", "HydroMeander", "Hidrovia1", "Hidrovia2", "Hidrovia3", "LogisticaFluvial"],
         "spotlight": false
       }
     ]
