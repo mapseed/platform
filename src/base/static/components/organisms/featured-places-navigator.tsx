@@ -48,10 +48,11 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
     return unlisten;
   }, [props.history]);
 
+  console.log("!!!", props.featuredPlacesConfig.places)
+
   return (
     <div
       css={{
-        height: "100%",
         paddingTop: "15px",
       }}
     >
@@ -92,7 +93,10 @@ const FeaturedPlacesNavigator: React.FunctionComponent<Props> = props => {
               ) || {}) as any).icon_url,
           };
         })
-        .filter(({ place, iconUrl }) => !!place && !!iconUrl)
+        .filter(
+          ({ place, iconUrl, featuredPlace: { renderIn } }) =>
+            !!place && !!iconUrl && renderIn === "RightSidebar",
+        )
         .map(({ place, featuredPlace, iconUrl }) => {
           return (
             <FeaturedPlace

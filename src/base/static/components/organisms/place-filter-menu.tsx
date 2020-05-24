@@ -74,6 +74,7 @@ const PlaceFilterMenu: React.FunctionComponent<PlaceFilterMenuProps> = props => 
 
   return (
     <div
+      className="mapseed-place-filter-menu"
       css={css`
         ${[mq[0]]} {
           text-align: center;
@@ -96,6 +97,7 @@ const PlaceFilterMenu: React.FunctionComponent<PlaceFilterMenuProps> = props => 
           input={<Input id="place-filters" />}
           renderValue={() => (
             <span
+              className="mapseed-place-filter-menu__label"
               css={css`
                 font-family: ${props.theme.text.navBarFontFamily};
                 font-size: 0.9rem;
