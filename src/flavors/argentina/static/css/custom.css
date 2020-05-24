@@ -53,9 +53,20 @@
 
 /* =Header
 -------------------------------------------------------------- */
-.mapseed-place-filter-menu__label,
+.mapseed-place-filter-menu__label {
+  color: white !important;
+}
+
 .mapseed-featured-places-header-menu__button {
   color: white !important;
+  font-family: Raleway-Regular,sans-serif !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  padding-left: 0 !important;
+}
+
+.mapseed-site-header .fa.fa-bars {
+  color: white;
 }
 
 /* =Media Queries
