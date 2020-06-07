@@ -4428,7 +4428,7 @@
             "modal": {
               "header": "Wildlife habitat enchancements",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/habitat.png' alt='Wildlife habitat' /><p><strong>NRCS codes:</strong> 420, 644, 645, 649</p><p>Plantings or structures designed specifically for wildlife habitat</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/Habitat.png' alt='Wildlife habitat' /><p><strong>NRCS codes:</strong> 420, 644, 645, 649</p><p>Plantings or structures designed specifically for wildlife habitat</p></div>"
               ]
             }
           },
