@@ -2702,7 +2702,7 @@
             "modal": {
               "header": "Fertilization",
               "body": [
-                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods</p></div>"
               ]
             }
           },
@@ -2979,7 +2979,7 @@
             "modal": {
               "header": "Buffers",
               "body": [
-                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers-new.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers-new.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat</p></div>"
               ]
             }
           },
@@ -4148,7 +4148,7 @@
             "modal": {
               "header": "Buffers",
               "body": [
-                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/buffers.png' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/buffers.png' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat</p></div>"
               ]
             }
           },
@@ -4428,7 +4428,7 @@
             "modal": {
               "header": "Wildlife habitat enchancements",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/habitat.png' alt='Wildlife habitat' /><p><strong>NRCS code:</strong> 420, 644, 645, & 649</p><p>Plantings or structures designed specifically for wildlife habitat</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/habitat.png' alt='Wildlife habitat' /><p><strong>NRCS codes:</strong> 420, 644, 645, 649</p><p>Plantings or structures designed specifically for wildlife habitat</p></div>"
               ]
             }
           },
@@ -4632,7 +4632,7 @@
             "modal": {
               "header": "Fertilization",
               "body": [
-                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/fertilizer.jpg' alt='Fertilization' /><p><strong>NRCS code: </strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/fertilizer.jpg' alt='Fertilization' /><p><strong>NRCS code: </strong> 590</p><p>Crops can be fertilized with various products and application methods</p></div>"
               ]
             }
           },
