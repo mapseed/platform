@@ -4015,7 +4015,7 @@
             "name": "grown_local_header",
             "type": "informational_html",
             "hidden_default": true,
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Grown Local, Sold Local</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/grown-local-main-photo.jpg' alt='Grown local section'/></figure>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Grown Local, Sold Local</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/grown-local-main-photo-2.jpg' alt='Grown local section'/></figure>"
           },
           {
             "//": "=============== COVER CROPS ================================",
@@ -4048,7 +4048,7 @@
             "modal": {
               "header": "Cover crops",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/cover-crop.jpg' alt='Cover crop' /><p><strong>NRCS code:</strong> 340</p><p>Cover crops...</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/cover-crop.jpg' alt='Cover crop' /><p><strong>NRCS code:</strong> 340</p><p>Seasonal vegetative cover for natural resource protection or improvement</p></div>"
               ]
             }
           },
@@ -4334,7 +4334,7 @@
             "modal": {
               "header": "Pollinator habitat",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/pollinators2.jpg' alt='No till' /><p>Pollinator habitat</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/pollinators2.jpg' alt='No till' /><p>Plantings or structures designed to attract pollinator species</p></div>"
               ]
             }
           },
@@ -4428,7 +4428,7 @@
             "modal": {
               "header": "Wildlife habitat enchancements",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/habitat.png' alt='Wildlife habitat' /><p><strong>NRCS code:</strong> xxx</p><p>Wildlife habitat enhancements</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/habitat.png' alt='Wildlife habitat' /><p><strong>NRCS code:</strong> 420, 644, 645, & 649</p><p>Plantings or structures designed specifically for wildlife habitat</p></div>"
               ]
             }
           },
@@ -4522,7 +4522,7 @@
             "modal": {
               "header": "Conservation crop rotation",
               "body": [
-                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/crop-rotation.jpg' alt='Conservation crop rotation' /><p><strong>NRCS code:</strong> 328</p><p>Conservation crop rotation</p></div>"
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/crop-rotation.jpg' alt='Conservation crop rotation' /><p><strong>NRCS code:</strong> 328</p><p>Rotations designed to address natural resource conservation e.g. increasing organic matter, reducing erosion, etc.</p></div>"
               ]
             }
           },
@@ -4632,7 +4632,7 @@
             "modal": {
               "header": "Fertilization",
               "body": [
-                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/fertilizer.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/fertilizer.jpg' alt='Fertilization' /><p><strong>NRCS code: </strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
               ]
             }
           },
