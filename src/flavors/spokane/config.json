@@ -4148,7 +4148,7 @@
             "modal": {
               "header": "Buffers",
               "body": [
-                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/buffers.png' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat</p></div>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/Buffers.png' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat</p></div>"
               ]
             }
           },
