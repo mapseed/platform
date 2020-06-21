@@ -32,6 +32,15 @@
         "label": "Livestock stewardship",
         "setDefault": true,
         "icon": "/static/css/images/markers/marker-livestock.png"
+      },
+      {
+        "placeProperty": "practice_types",
+        "operator": "includes",
+        "datasetSlug": "spokane-input",
+        "value": "grown_local",
+        "label": "Grown Local, Sold Local",
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-grown-local.png"
       }
     ]
   },
@@ -1793,7 +1802,7 @@
                   ]
                 ],
                 "marker-agriculture-livestock-forestry.png",
-                "marker-agriculture.png"
+                "marker-grown-local.png"
               ]
             }
           }
@@ -1919,7 +1928,7 @@
                   ]
                 ],
                 "marker-agriculture-livestock-forestry.png",
-                "marker-agriculture.png"
+                "marker-grown-local.png"
               ],
               "icon-size": ["step", ["zoom"], 0.1, 11, 0.2, 16, 0.3],
               "icon-allow-overlap": true
@@ -2113,7 +2122,16 @@
           },
           {
             "start_field_index": 75,
-            "end_field_index": 92,
+            "end_field_index": 106,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "spokane-input",
+              "spokane-county-outline"
+            ]
+          },
+          {
+            "start_field_index": 107,
+            "end_field_index": 124,
             "visibleLayerGroupIds": [
               "satellite",
               "spokane-input",
@@ -2193,6 +2211,18 @@
                   "forest_questions",
                   "forest_management"
                 ]
+              },
+              {
+                "value": "grown_local",
+                "targets": [
+                  "grown_local_header",
+                  "cover_crops",
+                  "grown_local_buffers",
+                  "pollinator_habitat",
+                  "wildlife_habitat_enhancements",
+                  "conservation_crop_rotation",
+                  "grown_local_fertilization"
+                ]
               }
             ],
             "content": [
@@ -2207,6 +2237,10 @@
               {
                 "label": "Forestry",
                 "value": "forestry"
+              },
+              {
+                "label": "Grown Local, Sold Local",
+                "value": "grown_local"
               }
             ]
           },
@@ -2668,7 +2702,7 @@
             "modal": {
               "header": "Fertilization",
               "body": [
-                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods.</p></div>"
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/practice-fertilization.jpg' alt='Fertilization' /><p><strong>NRCS code: 590</strong> 590</p><p>Crops can be fertilized with various products and application methods</p></div>"
               ]
             }
           },
@@ -2945,7 +2979,7 @@
             "modal": {
               "header": "Buffers",
               "body": [
-                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers-new.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat.</p></div>"
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/practice-buffers-new.jpg' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat</p></div>"
               ]
             }
           },
@@ -3977,10 +4011,872 @@
             "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
           },
           {
+            "//": "---------------SECTION: GROWN LOCAL-------------------",
+            "name": "grown_local_header",
+            "type": "informational_html",
+            "hidden_default": true,
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Grown Local, Sold Local</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/grown-local-main-photo-3.jpg' alt='Grown local section'/></figure>"
+          },
+          {
+            "//": "=============== COVER CROPS ================================",
+            "name": "cover_crops",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Cover crops",
+            "label": "Cover crops",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["cover_crops_quantity", "cover_crops_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Cover crops",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/cover-crop.jpg' alt='Cover crop' /><p><strong>NRCS code:</strong> 340</p><p>Seasonal vegetative cover for natural resource protection or improvement</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "cover_crops_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you plant cover crops?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "cover_crops_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin planting cover crops?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== GROWN LOCAL BUFFERS =================================",
+            "name": "grown_local_buffers",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you have buffers on your waterways?",
+            "label": "Buffers",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "grown_local_buffer_types",
+                  "grown_local_other_buffer_type",
+                  "grown_local_buffer_program",
+                  "grown_local_buffers_quantity",
+                  "grown_local_buffers_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Buffers",
+              "body": [
+                "<div style='width: 300px;'><img style='width: 100%;' src='/static/css/images/Buffers.png' alt='Buffers' /><p><strong>NRCS codes:</strong> 342, 391, 580, 386, 393</p><p>Vegetated buffers reduce erosion and provide wildlife habitat</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "grown_local_buffer_types",
+            "type": "big_checkbox",
+            "hidden_default": true,
+            "prompt": "Which types of buffers do you have on your waterways?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Riparian Forest Buffer",
+                "value": "riparian_forest_buffer"
+              },
+              {
+                "label": "Filter Strip",
+                "value": "filter_strip"
+              },
+              {
+                "label": "Grass Waterway",
+                "value": "grass_waterway"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_other_buffer_type",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Do you have any other types of buffers on your property?",
+            "triggers": [
+              {
+                "value": "yes-other-buffers",
+                "targets": ["grown_local_other_buffer_type_description"]
+              }
+            ],
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes-other-buffers"
+              },
+              {
+                "label": "No",
+                "value": "no-other-buffers"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_other_buffer_type_description",
+            "type": "textarea",
+            "prompt": "Please describe your other buffer(s)",
+            "hidden_default": true
+          },
+          {
+            "name": "grown_local_buffers_quantity",
+            "type": "number",
+            "prompt": "How many feet of buffers have you installed?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "grown_local_buffers_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin installing buffers?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_buffer_program",
+            "type": "big_radio",
+            "prompt": "Did you install these buffers through a program?",
+            "hidden_default": true,
+            "triggers": [
+              {
+                "value": "yes-buffer-program",
+                "targets": ["grown_local_buffer_program_types"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes-buffer-program"
+              },
+              {
+                "label": "No",
+                "value": "no-buffer-program"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_buffer_program_types",
+            "type": "big_checkbox",
+            "prompt": "Which programs? (check all that apply)",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "NRCS CRP",
+                "value": "nrcs_crop"
+              },
+              {
+                "label": "Commodity Buffer Program",
+                "value": "commodity_buffer_program"
+              },
+              {
+                "label": "Other agency program",
+                "value": "other_agency_program"
+              }
+            ]
+          },
+          {
+            "//": "=============== POLLINATOR HABITAT ================================",
+            "name": "pollinator_habitat",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Pollinator habitat",
+            "label": "Pollinator habitat",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["pollinator_habitat_quantity", "pollinator_habitat_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Pollinator habitat",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/pollinators2.jpg' alt='No till' /><p>Plantings or structures designed to attract pollinator species</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "pollinator_habitat_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you maintain pollinator habitat?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "pollinator_habitat_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin maintaining pollinator habitat?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== WILDLIFE HABITAT ENHANCEMENTS ================================",
+            "name": "wildlife_habitat_enhancements",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Wildlife habitat enchancements",
+            "label": "Wildlife habitat enhancements",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["wildlife_habitat_enhancements_quantity", "wildlife_habitat_enhancements_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Wildlife habitat enchancements",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/Habitat.png' alt='Wildlife habitat' /><p><strong>NRCS codes:</strong> 420, 644, 645, 649</p><p>Plantings or structures designed specifically for wildlife habitat</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "wildlife_habitat_enhancements_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you maintain wildlife habitat enhancements?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "wildlife_habitat_enhancements_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin maintaining wildlife habitat enhancements?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== CONSERVATION CROP ROTATION ================================",
+            "name": "conservation_crop_rotation",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Conservation crop rotation",
+            "label": "Conservation crop rotation",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["conservation_crop_rotation_quantity", "conservation_crop_rotation_duration"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ],
+            "modal": {
+              "header": "Conservation crop rotation",
+              "body": [
+                "<div style='width:300px;'><img style='width:100%;' src='/static/css/images/crop-rotation.jpg' alt='Conservation crop rotation' /><p><strong>NRCS code:</strong> 328</p><p>Rotations designed to address natural resource conservation e.g. increasing organic matter, reducing erosion, etc.</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "conservation_crop_rotation_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you rotate conservation crops?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "conservation_crop_rotation_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin rotating conservation crops?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "//": "=============== GROWN LOCAL FIELD FERTILIZATION =================================",
+            "name": "grown_local_fertilization",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "How do you fertilize your field?",
+            "label": "Field fertilization",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "synthetically",
+                "targets": [
+                  "grown_local_synthetic_fertilization_types",
+                  "grown_local_synthetic_fertilization_yield_map",
+                  "grown_local_synthetic_fertilization_zone_map",
+                  "grown_local_synthetic_fertilization_quantity",
+                  "grown_local_synthetic_fertilization_duration"
+                ]
+              },
+              {
+                "value": "organically",
+                "targets": [
+                  "grown_local_organic_fertilization_types",
+                  "grown_local_organic_fertilization_yield_map",
+                  "grown_local_organic_fertilization_zone_map",
+                  "grown_local_organic_fertilization_quantity",
+                  "grown_local_organic_fertilization_duration"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Synthetically",
+                "value": "synthetically"
+              },
+              {
+                "label": "Organically",
+                "value": "organically"
+              },
+              {
+                "label": "Not applicable",
+                "value": "not-applicable"
+              }
+            ],
+            "modal": {
+              "header": "Fertilization",
+              "body": [
+                "<div style='width:300px;'><img style='width: 100%;' src='/static/css/images/fertilizer.jpg' alt='Fertilization' /><p><strong>NRCS code: </strong> 590</p><p>Crops can be fertilized with various products and application methods</p></div>"
+              ]
+            }
+          },
+          {
+            "name": "grown_local_synthetic_fertilization_types",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "Choose all fertilization types that apply:",
+            "content": [
+              {
+                "label": "Top dress",
+                "value": "top_dress"
+              },
+              {
+                "label": "Aerial",
+                "value": "aerial"
+              },
+              {
+                "label": "Subsurface fertilization while seeding",
+                "value": "subsurface_fertilization"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_organic_fertilization_types",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "Choose all fertilization types that apply:",
+            "content": [
+              {
+                "label": "Top dress",
+                "value": "top_dress"
+              },
+              {
+                "label": "Aerial",
+                "value": "aerial"
+              },
+              {
+                "label": "Subsurface fertilization while seeding",
+                "value": "subsurface_fertilization"
+              },
+              {
+                "label": "Biosolid",
+                "value": "biosolid"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_synthetic_fertilization_yield_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "label": "Yield map for synthetic fertilization",
+            "prompt": "Do you base your synthetic fertilizing off of a yield map?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "synthetic-yield-map"
+              },
+              {
+                "label": "No",
+                "value": "no-synthetic-yield-map"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_synthetic_fertilization_zone_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "label": "Zone map for synthetic fertilization",
+            "prompt": "Have you developed a zone map for synthetic fertilization?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "synthetic-zone-map"
+              },
+              {
+                "label": "No",
+                "value": "no-synthetic-zone-map"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_organic_fertilization_yield_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "label": "Yield map for organic fertilization",
+            "prompt": "Do you base your organic fertilizing off of a yield map?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "organic-yield-map"
+              },
+              {
+                "label": "No",
+                "value": "no-organic-yield-map"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_organic_fertilization_zone_map",
+            "type": "big_radio",
+            "hidden_default": true,
+            "label": "Zone map for organic fertilization",
+            "prompt": "Have you developed a zone map for organic fertilization?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "organic-zone-map"
+              },
+              {
+                "label": "No",
+                "value": "no-organic-zone-map"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_synthetic_fertilization_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use synthetic fertilizer?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "grown_local_synthetic_fertilization_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin fertilizing your fields synthetically?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
+            "name": "grown_local_organic_fertilization_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you use organic fertilizer?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "grown_local_organic_fertilization_duration",
+            "type": "dropdown",
+            "prompt": "When did you begin fertilizing your fields organically?",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "2011 or prior",
+                "value": "2011-or-prior"
+              },
+              {
+                "label": "2012",
+                "value": "2012"
+              },
+              {
+                "label": "2013",
+                "value": "2013"
+              },
+              {
+                "label": "2014",
+                "value": "2014"
+              },
+              {
+                "label": "2015",
+                "value": "2015"
+              },
+              {
+                "label": "2016",
+                "value": "2016"
+              },
+              {
+                "label": "2017",
+                "value": "2017"
+              },
+              {
+                "label": "2018",
+                "value": "2018"
+              },
+              {
+                "label": "2019",
+                "value": "2019"
+              },
+              {
+                "label": "Unknown",
+                "value": "unknown"
+              }
+            ]
+          },
+          {
             "//": "---------------SECTION: ADDITIONAL INFO-------------------",
             "name": "additional_info_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Almost completed</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-almost-completed.jpg' alt='Additional info section'/></figure>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Almost completed</h2><figure style='margin:8px 0 0 0;'><img style='width:100%;' src='/static/css/images/header-almost-completed.jpg' alt='Additional info section'/></figure>"
           },
           {
             "name": "practices_description",
@@ -4245,6 +5141,11 @@
       "title": "Other Projects",
       "type": "internal_link",
       "url": "/page/other-projects"
+    },
+    {
+      "title": "Local Videos",
+      "type": "internal_link",
+      "url": "/page/local-videos"
     }
   ],
   "pages": [
@@ -4324,6 +5225,16 @@
         "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
         "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
         "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
+      ]
+    },
+    {
+      "slug": "local-videos",
+      "content": [
+        "<img style='display: block; width: 75%; margin: 16px auto 32px auto;' src='/static/css/images/grown-local-banner.png' alt='Grown local baner' />",
+        "<p>Check out these local Spokane County producers!</p>",
+        "<div class='videowrapper'><iframe src='https://www.youtube.com/embed/vmlKfXFtp3Y' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='video-caption'>A short introduction to Eckhart Farms.</p>",
+        "<hr />"
       ]
     }
   ],
