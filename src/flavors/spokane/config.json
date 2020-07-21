@@ -3591,7 +3591,7 @@
             "placeholder": "Approximate footage",
             "hidden_default": true,
             "metadata": {
-              "units": "acres"
+              "units": "feet"
             }
           },
           {
@@ -4939,7 +4939,7 @@
             "type": "big_radio",
             "prompt": "Can Spokane County VSP highlight your photos on our website?",
             "hidden_default": true,
-            "default_value": "no-use-photos",
+            "default_value": "use-photos",
             "content": [
               {
                 "label": "Yes",
