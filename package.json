@@ -77,7 +77,7 @@
     "hoist-non-react-statics": "^3.3.0",
     "html-webpack-plugin": "^3.2.0",
     "i18next": "^19.4.4",
-    "immer": "^5.0.0",
+    "immer": "^7.0.9",
     "immutable": "^3.8.2",
     "lodash.groupby": "^4.6.0",
     "mixpanel-browser": "^2.31.0",
