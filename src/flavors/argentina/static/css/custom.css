@@ -33,7 +33,7 @@
 }
 
 .mapseed-left-sidebar .fa-times {
-  color: black !important;
+  color: white !important;
 }
 
 .btn-primary:hover {
@@ -50,6 +50,7 @@
 .mapseed-map-controls .fa.fa-bars {
   color: gray;
 }
+
 
 /* =Header
 -------------------------------------------------------------- */
@@ -68,6 +69,10 @@
 .mapseed-site-header .fa.fa-bars {
   color: white;
 }
+
+/* =Popup
+-------------------------------------------------------------- */
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
