@@ -201,6 +201,26 @@
       "LogisticaFluvial": {
         "type": "geojson",
         "data": "https://ecotopia.today/Territorios/LogisticaFluvial.geojson"
+      },
+      "Area1": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/ParanaInferior/Areas1.geojson"
+      },
+      "Area2": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/ParanaInferior/Areas2.geojson"
+      },
+      "Area3": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/ParanaInferior/Areas3.geojson"
+      },
+      "PuntosValiosos1": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/ParanaInferior/PuntosValiosos1.geojson"
+      },
+      "PuntosValiosos2": {
+        "type": "geojson",
+        "data": "https://ecotopia.today/Territorios/ParanaInferior/PuntosValiosos2.geojson"
       }
     },
     "layerGroups": [
@@ -485,7 +505,7 @@
                 ["linear"],
                 ["zoom"],
                 1,
-                0.1,
+                0.3,
                 11,
                 0
               ]
@@ -523,6 +543,137 @@
               "icon-size": ["step", ["zoom"], 0, 4, 0.3, 6, 0.5, 8, 0.7],
               "icon-anchor": "center",
               "icon-image": "represa.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "Area1",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 420px; max-height: 450px; overflow-x: auto;'><h3>{{Name}}</h3></div>",
+        "mapboxLayers": [
+          {
+            "id": "Area1",
+            "type": "fill",
+            "source": "Area1",
+            "paint": {
+              "fill-outline-color": "#ffffff",
+              "fill-color": "#aa57b7",
+              "fill-opacity":  [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                1,
+                1,
+                6,
+                0.9,
+                12,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Area2",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 420px; max-height: 450px; overflow-x: auto;'><h3>{{Name}}</h3></div>",
+        "mapboxLayers": [
+          {
+            "id": "Area2",
+            "type": "fill",
+            "source": "Area2",
+            "paint": {
+              "fill-outline-color": "#ffffff",
+              "fill-color": "#ec8248",
+              "fill-opacity":  [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                1,
+                1,
+                6,
+                0.9,
+                12,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Area3",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 420px; max-height: 450px; overflow-x: auto;'><h3>{{Name}}</h3></div>",
+        "mapboxLayers": [
+          {
+            "id": "Area3",
+            "type": "fill",
+            "source": "Area3",
+            "paint": {
+              "fill-outline-color": "#ffffff",
+              "fill-color": "#ec8248",
+              "fill-opacity":  [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                1,
+                1,
+                10,
+                0.9,
+                13,
+                0.5,
+                16.1,
+                0.5,
+                16.2,
+                0.2
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "PuntosValiosos1",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 420px; max-height: 500px; overflow-x: auto;'><h3>{{Name}}</h3><br><br>{{description}}</div>",
+        "mapboxLayers": [
+          {
+            "id": "PuntosValiosos1",
+            "type": "symbol",
+            "source": "PuntosValiosos1",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 7, 0.9],
+              "icon-anchor": "center",
+              "icon-image": "14.png"
+            }
+          }
+        ]
+      },
+      {
+        "id": "PuntosValiosos2",
+        "basemap": false,
+        "visibleDefault": false,
+        "interactive": true,
+        "popupContent": "<div style='max-width: 420px; max-height: 500px; overflow-x: auto;'><h3>{{Name}}</h3><br><br>{{description}}</div>",
+        "mapboxLayers": [
+          {
+            "id": "PuntosValiosos2",
+            "type": "symbol",
+            "source": "PuntosValiosos2",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0, 6, 0.5, 10, 0.8],
+              "icon-anchor": "center",
+              "icon-image": "37.png"
             }
           }
         ]
@@ -1300,6 +1451,15 @@
         "pan_to": [ -58.95, -32.34 ],
         "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
         "visibleLayerGroupIds": ["cuenca-satelital", "HydroMeander", "Hidrovia1", "Hidrovia2", "Hidrovia3", "LogisticaFluvial"],
+        "spotlight": false
+      },
+      {
+        "renderIn": "FeaturedPlacesMenu",
+        "placeId": 8908,
+        "zoom": 7.76,
+        "pan_to": [-60.45, -32.55],
+        "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
+        "visibleLayerGroupIds": ["cuenca-satelital", "Area1", "Area2", "Area3", "PuntosValiosos1", "PuntosValiosos2"],
         "spotlight": false
       }
     ]
