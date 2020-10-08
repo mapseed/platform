@@ -56,6 +56,80 @@
       }
     }
   },
+  "dashboard": [
+    {
+      "header": "Resident Projects",
+      "isExportable": true,
+      "datasetSlug": "snohomish-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total projects"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Engagement",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of projects reported",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        }
+      ]
+    },
+    {
+      "header": "Featured Posts",
+      "isExportable": true,
+      "datasetSlug": "snohomish-featured",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total featured posts"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Engagement",
+          "type": "lineChart",
+          "groupBy": "created_datetime",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of featured posts",
+          "layout": {
+            "start": 4,
+            "end": 13
+          }
+        }
+      ]
+    }
+  ],
   "map": {
     "geolocationEnabled": true,
     "geocodingEngine": "Mapbox",
