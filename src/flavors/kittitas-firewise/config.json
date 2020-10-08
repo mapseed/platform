@@ -489,7 +489,7 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+          "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmFpbHBhc3NlbmdlcnMiLCJhIjoiY2piNDI0bDhnMXl1OTJxbzZ3eWMxOGw1eiJ9.72C2t17NQeku5kLVptVNPQ"
         ],
         "tileSize": 256,
         "minzoom": 9,
