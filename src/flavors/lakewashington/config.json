@@ -8,7 +8,6 @@
   "datasets": [
     {
       "slug": "lakewashington",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/lakewashington",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -19,7 +18,6 @@
     },
     {
       "slug": "lakewashingtonfeatured",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/lakewashingtonfeatured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {
