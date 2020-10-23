@@ -76,7 +76,7 @@ const getMainContentAreaHeight = ({
         !isGeocodeAddressBarEnabled &&
         !isAddPlaceButtonVisible
       ) {
-        return `clac(100% - ${constants.HEADER_HEIGHT}px)`;
+        return `calc(100% - ${constants.HEADER_HEIGHT}px)`;
       } else if (
         !isContentPanelVisible &&
         !isGeocodeAddressBarEnabled &&

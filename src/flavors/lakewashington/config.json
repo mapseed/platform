@@ -8,7 +8,6 @@
   "datasets": [
     {
       "slug": "lakewashington",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/lakewashington",
       "clientSlug": "report",
       "anonymous_permissions": [
         {
@@ -19,7 +18,6 @@
     },
     {
       "slug": "lakewashingtonfeatured",
-      "url": "https://dev-api.mapseed.org/api/v2/smartercleanup/datasets/lakewashingtonfeatured",
       "clientSlug": "featured",
       "anonymous_permissions": [
         {
@@ -82,7 +80,7 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+          "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmFpbHBhc3NlbmdlcnMiLCJhIjoiY2piNDI0bDhnMXl1OTJxbzZ3eWMxOGw1eiJ9.72C2t17NQeku5kLVptVNPQ"
         ],
         "attribution": "<a href=\"/page/terms\">Terms and conditions</a>&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
       },

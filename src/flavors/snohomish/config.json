@@ -58,7 +58,76 @@
   },
   "dashboard": [
     {
-      "datasetSlug": "snohomish-input"
+      "header": "Resident Projects",
+      "isExportable": true,
+      "datasetSlug": "snohomish-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total projects"
+            },
+            {
+              "type": "commentCount",
+              "label": "Total comments"
+            },
+            {
+              "type": "supportCount",
+              "label": "Total supports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Engagement",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of projects reported",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 350
+          }
+        }
+      ]
+    },
+    {
+      "header": "Featured Posts",
+      "isExportable": true,
+      "datasetSlug": "snohomish-featured",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total featured posts"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Engagement",
+          "type": "lineChart",
+          "groupBy": "created_datetime",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "Number of featured posts",
+          "layout": {
+            "start": 4,
+            "end": 13
+          }
+        }
+      ]
     }
   ],
   "map": {
@@ -86,7 +155,7 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://api.tiles.mapbox.com/v4/smartercleanup.pe3o4gdn/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
+          "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         ],
         "tileSize": 256,
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">."
