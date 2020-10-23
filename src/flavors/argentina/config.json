@@ -204,23 +204,23 @@
       },
       "Area1": {
         "type": "geojson",
-        "data": "https://ecotopia.today/Territorios/ParanaInferior/Areas1.geojson"
+        "data": "https://www.casariolab.art/mapseed/ParanaInferior/Areas1.geojson"
       },
       "Area2": {
         "type": "geojson",
-        "data": "https://ecotopia.today/Territorios/ParanaInferior/Areas2.geojson"
+        "data": "https://www.casariolab.art/mapseed/ParanaInferior/Areas2.geojson"
       },
       "Area3": {
         "type": "geojson",
-        "data": "https://ecotopia.today/Territorios/ParanaInferior/Areas3.geojson"
+        "data": "https://www.casariolab.art/mapseed/ParanaInferior/Areas3.geojson"
       },
       "PuntosValiosos1": {
         "type": "geojson",
-        "data": "https://ecotopia.today/Territorios/ParanaInferior/PuntosValiosos1.geojson"
+        "data": "https://www.casariolab.art/mapseed/ParanaInferior/PuntosValiosos1.geojson"
       },
       "PuntosValiosos2": {
         "type": "geojson",
-        "data": "https://ecotopia.today/Territorios/ParanaInferior/PuntosValiosos2.geojson"
+        "data": "https://www.casariolab.art/mapseed/ParanaInferior/PuntosValiosos2.geojson"
       }
     },
     "layerGroups": [
@@ -651,9 +651,9 @@
             "source": "PuntosValiosos1",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0, 7, 0.9],
+              "icon-size": ["step", ["zoom"], 0, 6, 0.4, 11, 0.6],
               "icon-anchor": "center",
-              "icon-image": "14.png"
+              "icon-image": "desembocaduras.png"
             }
           }
         ]
@@ -671,9 +671,9 @@
             "source": "PuntosValiosos2",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0, 6, 0.5, 10, 0.8],
+              "icon-size": ["step", ["zoom"], 0, 6, 0.4, 11, 0.6],
               "icon-anchor": "center",
-              "icon-image": "37.png"
+              "icon-image": "areas-protegidas.png"
             }
           }
         ]
