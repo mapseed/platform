@@ -249,7 +249,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/question.png",
+        "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "Question",
         "fields": [
@@ -295,7 +295,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/idea.png",
+        "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "Idea",
         "fields": [
@@ -341,7 +341,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/observation.png",
+        "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "Observation",
         "fields": [
@@ -387,7 +387,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/compaint.png",
+        "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "Complaint",
         "fields": [
