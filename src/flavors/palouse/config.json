@@ -1095,7 +1095,7 @@
                   ]
                 },
                 {
-                  "value": ["literal", 3150],
+                  "value": ["literal", 4150],
                   "label": "Acres"
                 },
                 {
@@ -1104,12 +1104,12 @@
                     [
                       "<=",
                       ["get-sum", "managed_grazing_quantity"],
-                      ["*", 0.7, 3150]
+                      ["*", 0.7, 4150]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "managed_grazing_quantity"], 3150],
+                    ["<", ["get-sum", "managed_grazing_quantity"], 4150],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "managed_grazing_quantity"], 3150],
+                    [">=", ["get-sum", "managed_grazing_quantity"], 4150],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -1280,7 +1280,7 @@
                   ]
                 },
                 {
-                  "value": ["literal", 2000],
+                  "value": ["literal", 1000],
                   "label": "Acres"
                 },
                 {
@@ -1289,12 +1289,12 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 2000]
+                      ["*", 0.7, 1000]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 2000],
+                    ["<", ["get-sum", "range_plantings_quantity"], 1000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 2000],
+                    [">=", ["get-sum", "range_plantings_quantity"], 1000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -3002,26 +3002,6 @@
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 200],
-                  "label": "Acres"
-                },
-                {
-                  "value": [
-                    "case",
-                    [
-                      "<=",
-                      ["get-sum", "weed_control_quantity"],
-                      ["*", 0.7, 200]
-                    ],
-                    ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "weed_control_quantity"], 200],
-                    ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "weed_control_quantity"], 200],
-                    ["literal", { "label": "Target met", "color": "#d5f0d0" }],
-                    ["literal", { "label": "Not available", "color": "#aaa" }]
-                  ]
-                },
-                {
                   "value": ["literal", 800],
                   "label": "Acres"
                 },
@@ -3037,6 +3017,26 @@
                     ["<", ["get-sum", "weed_control_quantity"], 800],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [">=", ["get-sum", "weed_control_quantity"], 800],
+                    ["literal", { "label": "Target met", "color": "#d5f0d0" }],
+                    ["literal", { "label": "Not available", "color": "#aaa" }]
+                  ]
+                },
+                {
+                  "value": ["literal", 3400],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "<=",
+                      ["get-sum", "weed_control_quantity"],
+                      ["*", 0.7, 3400]
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fee0e3" }],
+                    ["<", ["get-sum", "weed_control_quantity"], 3400],
+                    ["literal", { "label": "In progress", "color": "#fbedc9" }],
+                    [">=", ["get-sum", "weed_control_quantity"], 3400],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -3814,7 +3814,7 @@
                   ]
                 },
                 {
-                  "value": ["literal", 5280],
+                  "value": ["literal", 4000],
                   "label": "Feet"
                 },
                 {
@@ -3823,12 +3823,12 @@
                     [
                       "<=",
                       ["get-sum", "hedgerow_planting_quantity"],
-                      ["*", 0.7, 5280]
+                      ["*", 0.7, 4000]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "hedgerow_planting_quantity"], 5280],
+                    ["<", ["get-sum", "hedgerow_planting_quantity"], 4000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "hedgerow_planting_quantity"], 5280],
+                    [">=", ["get-sum", "hedgerow_planting_quantity"], 4000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4338,7 +4338,7 @@
                   "label": "structs."
                 },
                 {
-                  "value": ["literal", 50],
+                  "value": ["literal", 25],
                   "label": "Structs."
                 },
                 {
@@ -4347,18 +4347,18 @@
                     [
                       "<=",
                       ["get-sum", "instream_habitat_quantity"],
-                      ["*", 0.7, 50]
+                      ["*", 0.7, 25]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "instream_habitat_quantity"], 50],
+                    ["<", ["get-sum", "instream_habitat_quantity"], 25],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "instream_habitat_quantity"], 50],
+                    [">=", ["get-sum", "instream_habitat_quantity"], 25],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 150],
+                  "value": ["literal", 60],
                   "label": "Structs."
                 },
                 {
@@ -4367,12 +4367,12 @@
                     [
                       "<=",
                       ["get-sum", "instream_habitat_quantity"],
-                      ["*", 0.7, 150]
+                      ["*", 0.7, 60]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "instream_habitat_quantity"], 150],
+                    ["<", ["get-sum", "instream_habitat_quantity"], 60],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "instream_habitat_quantity"], 150],
+                    [">=", ["get-sum", "instream_habitat_quantity"], 60],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4547,7 +4547,7 @@
                   "label": "feet"
                 },
                 {
-                  "value": ["literal", 1500],
+                  "value": ["literal", 2500],
                   "label": "Feet"
                 },
                 {
@@ -4556,18 +4556,18 @@
                     [
                       "<=",
                       ["get-sum", "streambank_protection_quantity"],
-                      ["*", 0.7, 1500]
+                      ["*", 0.7, 2500]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "streambank_protection_quantity"], 1500],
+                    ["<", ["get-sum", "streambank_protection_quantity"], 2500],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "streambank_protection_quantity"], 1500],
+                    [">=", ["get-sum", "streambank_protection_quantity"], 2500],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 5280],
+                  "value": ["literal", 6600],
                   "label": "Feet"
                 },
                 {
@@ -4576,12 +4576,12 @@
                     [
                       "<=",
                       ["get-sum", "streambank_protection_quantity"],
-                      ["*", 0.7, 5280]
+                      ["*", 0.7, 6600]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "streambank_protection_quantity"], 5280],
+                    ["<", ["get-sum", "streambank_protection_quantity"], 6600],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "streambank_protection_quantity"], 5280],
+                    [">=", ["get-sum", "streambank_protection_quantity"], 6600],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
