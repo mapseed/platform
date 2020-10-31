@@ -340,4 +340,22 @@ describe("Expressions", () => {
     expect(val).toEqual(true);
     expect(val2).toEqual(true);
   });
+
+  test("any returns expected results", () => {
+    const exp = [
+      "any",
+      ["==", ["get-val", "total_acres"], "33"],
+      ["==", ["get-val", "total_acres"], "19"],
+    ];
+    const parsedExp = makeParsedExpression(exp);
+
+    const result = dataset.filter(place => {
+      return parsedExp.evaluate({
+        dataset,
+        place
+      });
+    });
+
+    expect(result.length).toEqual(2);
+  });
 });

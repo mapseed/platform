@@ -19,6 +19,7 @@ import {
 import { Product, Sum, Mean, Max, Min } from "./aggregation";
 import { Cat, CatJoin } from "./catenation";
 import Case from "./case";
+import Any from "./any"
 
 export default {
   "==": Equals,
@@ -43,4 +44,5 @@ export default {
   cat: Cat,
   "cat-join": CatJoin,
   case: Case,
+  any: Any
 };
