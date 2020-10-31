@@ -61,9 +61,10 @@ class Dashboard extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.allowedDashboardConfigs = this.props.dashboardConfig.filter(config =>
-      this.props.hasAdminAbilities(config.datasetSlug),
-    );
+    //this.allowedDashboardConfigs = this.props.dashboardConfig.filter(config =>
+    //  this.props.hasAdminAbilities(config.datasetSlug),
+    //);
+    this.allowedDashboardConfigs = this.props.dashboardConfig
 
     if (this.allowedDashboardConfigs.length < 1) {
       // If the current user has no admin privileges in any dataset configured
