@@ -156,6 +156,11 @@
               "fractionalWidth": 3
             },
             {
+              "header": "Snake WAU",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "analysis_unit"], "snake"]
+            },
+            {
               "header": "Rock Lake WAU",
               "type": "numeric",
               "filter": ["==", ["get-val", "analysis_unit"], "rock"]
@@ -164,11 +169,6 @@
               "header": "Palouse WAU",
               "type": "numeric",
               "filter": ["==", ["get-val", "analysis_unit"], "palouse"]
-            },
-            {
-              "header": "Snake WAU",
-              "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit"], "snake"]
             },
             {
               "header": "Countywide",
