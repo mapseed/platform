@@ -25,27 +25,22 @@ class Any implements Expression {
     }
 
     const branches: any = [];
-    for (let i = 1; i < args.length - 1; i++) {
-      const test = parsingContext.parse(args[i], parsingContext);
-      if (!test) {
+    for (let i = 1; i < args.length; i++) {
+      const condition = parsingContext.parse(args[i], parsingContext);
+      if (!condition) {
         return null;
       }
 
-      const result = parsingContext.parse(args[i + 1], parsingContext);
-      if (!result) {
-        return null;
-      }
-
-      branches.push([test, result]);
+      branches.push(condition);
     }
 
     return new Any(branches);
   }
 
   evaluate(evaluationContext: EvaluationContext): any {
-    for (const [test, expression] of this.branches) {
-      if (test.evaluate(evaluationContext)) {
-        return expression.evaluate(evaluationContext);
+    for (const branch of this.branches) {
+      if (branch.evaluate(evaluationContext)) {
+        return true;
       }
     }
 

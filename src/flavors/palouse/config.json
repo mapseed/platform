@@ -223,6 +223,10 @@
                   "label": "reports"
                 },
                 {
+                  "value": ["get-count"],
+                  "label": "reports"
+                },
+                {
                   "value": 0
                 },
                 {
