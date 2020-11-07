@@ -66,6 +66,11 @@
   },
   "map": {
     "geolocationEnabled": true,
+    "geocodingBarEnabled": true,
+    "geocodingEngine": "Mapbox",
+    "geocodeFieldLabel": "Enter an address...",
+    "geocodeHint": [-122.303210, 47.611203],
+    "geocodeBoundingBox": [-123.843578, 45.992317, -120.724546, 48.698614],
     "mapViewport": {
       "latitude": 47.66909,
       "longitude": -122.39593,
