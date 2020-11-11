@@ -9,6 +9,13 @@
   border-right: $rich-textarea-border;
 }
 
+.ql-container.ql-snow {
+  background-color: #ffffff;
+  border-bottom: $rich-textarea-border;
+  border-left: $rich-textarea-border;
+  border-right: $rich-textarea-border;
+}
+
 // the .ql-container class is exposed by react-quill
 .ql-container {
   background-color: #ffffff;
