@@ -1086,8 +1086,8 @@
           {
             "name": "cover-image",
             "type": "file",
-            "prompt": "Cover image",
-            "label": "Insert a compelling cover image and/or project site map",
+            "prompt": "Insert a compelling cover image and/or project site map",
+            "label": "Cover image",
             "optional": true
           },
           {
@@ -1362,86 +1362,5 @@
     }
   ],
   "pages": [
-    {
-      "slug": "guide",
-      "content": [
-        "<div class='getinvolved'>",
-        "<i class='fa fa-info-circle'></i>",
-        "<h1 id='getinvolved'>Admin User Guide</h1>",
-        "</div>",
-        "<h5>To get started:</h5>",
-        "<ol>",
-        "<li>Sign in (use the button on the top right)</li>",
-        "<li><a href='http://eepurl.com/6IfA5'>Request access</a> to be an administrator.</li>",
-        "</ol>",
-        "<em>If you're having trouble signing in send a message to feedback@mapseed.org and we'll fix it right away!</em>",
-        "<hr>",
-        "<h4>Once you've been approved as an admin, you'll have the ability to edit certain sites on the map</h4>",
-        "<hr>",
-        "<h5>Make sure you're signed in</h5>",
-        "<img src='/static/css/images/test-signin.gif'>",
-        "<h5>Open a site, hit \"Edit this post\"</h5>",
-        "<p>If you don't see an \"Edit this post\" button, you are either not signed in or you don't have permission to edit that particular site.</p>",
-        "<img src='/static/css/images/edit-post.gif'>",
-        "<br>",
-        "<h5>Hit the <strong>Save</strong> button</h5>",
-        "<ul>",
-        "<li>You can use the <strong>Edit this post</strong> button to cancel your changes and go back.</li>",
-        "<li>Hit the <strong>Remove</strong> button to remove the site from the map.</li>",
-        "<li>Save a post in draft mode by setting it from <strong>Published</strong> to <strong>Not published</strong>. When a post is in draft mode, it will <em>not</em> show up on the map. Only admins who are signed in can see it. </li>",
-        "</ul>",
-        "<hr>",
-        "<h4>You can also add new featured sites, directly to the map!</h4>",
-        "<ol>",
-        "<li>Make sure you're signed in.</li>",
-        "<img src='/static/css/images/add-report.gif'>",
-        "<li>Hit <strong>\"Add a report\"</strong> as if you were adding a community report.</li>",
-        "<li><img src='/static/css/images/featured-site-button.gif'>Select the option to <strong>\"Add a featured site\"</strong></li>",
-        "</ol>",
-        "<h4>Draw your site on the map</h4>",
-        "<img src='/static/css/images/polygon-button.gif'>",
-        "<p>You can <strong>add a marker</strong> and select a marker symbol, <strong>draw a line</strong>, or <strong>draw a polygon</strong>.</p>",
-        "<img src='/static/css/images/poly-draw.gif'>",
-        "<h4>Compose your content</h4>",
-        "<p>The content editor offers you a variety of formatting options such as:</p>",
-        "<ul>",
-        "<li>Header selection for large or mid-sized page headers</li>",
-        "<li>Images and video embeds (Youtube or Vimeo)</li>",
-        "<li>Rich text bold, italics, underline, and color selection</li>",
-        "<li>Hyperlinks to other web pages</li>",
-        "</ul>",
-        "<p>Hit the <strong>Save</strong> button if you're ready to publish. Otherwise, you can store it as a draft by setting the state to <strong>unpublished</strong> at the top of the editor.</p>",
-        "<h5>Have fun creating your community map!</h5>",
-        "<i class='fa fa-hand-o-right'></i><a href='http://eepurl.com/6IfA5'>Please reach out</a> if you need any help."
-      ]
-    },
-    {
-      "slug": "sponsors",
-      "content": [
-        "<h1>Sponsors</h1>",
-        "<p>Seed funding provided by the Puget Sound Stewardship and Mitigation Fund, a community grantmaking fund created by Puget Soundkeeper Alliance and administered by the Rose Foundation for Communities and the Environment.</p>",
-        "<p>Additional funding provided by Cascade Water Alliance in partnership with Sustainability Ambassadors.</p>",
-        "<img src='/static/css/images/rose_logo.jpg' alt='Rose Foundation for Communities and the Environment - logo'>",
-        "<img src='/static/css/images/cascade_logo.jpg' alt='Cascade Water Alliance - logo'>",
-        "<img src='/static/css/images/sa-logo.jpg' alt='Sustainability Ambassadors - logo'>",
-        "<p class='btn btn-block btn-large close-btn'>Back to the map</p>"
-      ]
-    },
-    {
-      "slug": "classroom",
-      "content": [
-        "<iframe src='https://docs.google.com/forms/d/e/1FAIpQLSeMZsMyb-7kRKiHc6lMeRnl96C1Tun8U2YWr7YjJz09K-S3lA/viewform?embedded=true' width='640' height='721' frameborder='0' marginheight='0' marginwidth='0'>Loading...</iframe>"
-      ]
-    },
-    {
-      "slug": "about",
-      "content": [
-        "<h3 style='font-family:Palanquin, sans-serif'>Classroom Impact Reporting Protocol</h3>",
-        "<img style='margin-top:16px;margin-bottom:16px;width:100%;' id='about-img' src='/static/css/images/students.jpg' alt='Students'>",
-        "<p>Add your classroom reports to the map! Let your students and stakeholders track and visualize the positive impact of their classroom and community projects. Need admin support to get started? <a href='mailto:hello@mapseed.org' target='_blank'>Just ask.</a></p>",
-        "<p>Click the button below, then choose the <strong>Featured Project</strong> cateory to add your report.</p>",
-        "<a id='about-submit-btn' href='/new' rel='internal' class='btn btn-block btn-large'>REPORT IT!</a>"
-      ]
-    }
   ]
 }
