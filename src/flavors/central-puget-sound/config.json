@@ -11,7 +11,7 @@
       "clientSlug": "report",
       "anonymous_permissions": [
         {
-          "abilities": ["create"],
+          "abilities": ["create", "retrieve"],
           "submission_set": "*"
         }
       ]
