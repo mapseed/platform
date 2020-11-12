@@ -696,6 +696,8 @@
       },
       {
         "id": "landuse",
+        "interactive": true,
+        "popupContent": "<h3>{{descript}}</h3>",
         "mapboxLayers": [
           {
             "id": "king-county-land-use",
@@ -1360,6 +1362,5 @@
       "type": "left_sidebar_toggle"
     }
   ],
-  "pages": [
-  ]
+  "pages": []
 }
