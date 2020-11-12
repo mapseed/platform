@@ -1,0 +1,554 @@
+{
+  "flavor": {
+    "defaultLanguage": {
+      "code": "es",
+      "label": "Español"
+    }
+  },
+  "datasets": [
+    {
+      "slug": "quepasa-input",
+      "clientSlug": "site",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "*"
+        }
+      ]
+    }
+  ],
+  "app": {
+    "title": "Qué Pasa, Riachuelo?",
+    "name": "Qué Pasa, Riachuelo?",
+    "show_name_in_header": true,
+    "logo": "/static/css/images/m7red-login-logo.png",
+    "meta_description": "Track projects on the Riachuelo River",
+    "meta_author": "mapseed.org",
+    "api_root": "https://dev-api.mapseed.org/api/v2/",
+    "theme": {
+      "brand": {
+        "primary": "#75beb1",
+        "secondary": "#5b5349",
+        "accent": "#ea8a51"
+      },
+      "bg": {
+        "default": "#fcfeff",
+        "light": "#217b87"
+      },
+      "text": {
+        "titleColor": "#75beb1",
+        "titleFontFamily": "PTSansBold, sans-serif",
+        "bodyFontFamily": "PTSans, sans-serif",
+        "navBarFontFamily": "PTSans, sans-serif"
+      },
+      "map": {
+        "addPlaceButtonBackgroundColor": "#ea8a51",
+        "addPlaceButtonHoverBackgroundColor": "#efb491"
+      }
+    },
+    "sharingProviders": []
+  },
+  "dashboard": [
+    {
+      "header": "Qué Pasa, Riachuelo? Dashboard",
+      "isExportable": true,
+      "backgroundColor": "#f5f3f0",
+      "datasetSlug": "quepasa-input",
+      "widgets": [
+        {
+          "header": "Overview",
+          "type": "statSummary",
+          "rows": [
+            {
+              "type": "placeCount",
+              "label": "Total Reports"
+            }
+          ],
+          "layout": {
+            "start": 1,
+            "end": 4
+          }
+        },
+        {
+          "header": "Reporting Activity",
+          "type": "lineChart",
+          "xAxisLabel": "Date",
+          "yAxisLabel": "No. reports",
+          "layout": {
+            "start": 4,
+            "end": 13,
+            "height": 300
+          }
+        }
+      ]
+    }
+  ],
+  "map": {
+    "geolocationEnabled": true,
+    "geocodingBarEnabled": true,
+    "geocodeHint": [-34.700521, -59.254934],
+    "geocodeFieldLabel": "Search for an address...",
+    "geolocationOnload": false,
+    "mapViewport": {
+      "latitude": -34.700521,
+      "longitude": -59.254934,
+      "zoom": 9.29,
+      "pitch": 30,
+      "minZoom": 1,
+      "maxZoom": 18
+    }
+  },
+  "mapStyle": {
+    "mapboxSources": {
+      "f4": {
+        "type": "raster",
+        "tiles": ["https://tile3.f4map.com/tiles/f4_2d/{z}/{x}/{y}.png"],
+        "tileSize": 256,
+        "attribution": "<a href=\"/page/terms\">Terms and conditions</a> &copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"//mapbox.com/about/maps\" target=\"_blank\">Mapbox</a>. Geocoding Courtesy of <a href=\"//www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"//developer.mapquest.com/content/osm/mq_logo.png\">.'"
+      },
+      "satellite": {
+        "type": "raster",
+        "tiles": [
+          "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmFpbHBhc3NlbmdlcnMiLCJhIjoiY2piNDI0bDhnMXl1OTJxbzZ3eWMxOGw1eiJ9.72C2t17NQeku5kLVptVNPQ"
+        ],
+        "tileSize": 256
+      }
+    },
+    "layerGroups": [
+      {
+        "id": "f4",
+        "basemap": true,
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "f4-basemap",
+            "type": "raster",
+            "source": "f4",
+            "paint": {
+              "raster-opacity": 0.6
+            }
+          }
+        ]
+      },
+      {
+        "id": "satellite",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satellite-basemap",
+            "type": "raster",
+            "source": "satellite"
+          }
+        ]
+      },
+      {
+        "id": "quepasa-input",
+        "datasetSlug": "quepasa-input",
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "quespasa-input-focused",
+            "source": "demo",
+            "type": "symbol",
+            "layout": {
+              "icon-size": 1.2,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "complaint",
+                "marker-complaint.png",
+                "question",
+                "marker-question.png",
+                "observation",
+                "marker-observation.png",
+                "idea",
+                "marker-idea.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "quepasa-input",
+            "source": "quepasa-input",
+            "type": "symbol",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.5, 11, 0.75, 14, 0.9],
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "complaint",
+                "marker-complaint.png",
+                "observation",
+                "marker-observation.png",
+                "idea",
+                "marker-idea.png",
+                "question",
+                "marker-question.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "right_sidebar": {
+    "is_enabled": false
+  },
+  "leftSidebar": {
+    "icon": "fa fa-bars",
+    "title": "Map Layers:",
+    "sections": [
+      {
+        "title": "Basemaps",
+        "options": [
+          {
+            "layerGroupId": "satellite",
+            "title": "Satellite"
+          },
+          {
+            "layerGroupId": "f4",
+            "title": "Streets"
+          }
+        ]
+      },
+      {
+        "title": "Community Reports",
+        "options": [
+          {
+            "layerGroupId": "quepasa-input",
+            "title": "Community Reports"
+          }
+        ]
+      }
+    ]
+  },
+  "activity": {
+    "enabled": false
+  },
+  "place": {
+    "adding_supported": true,
+    "add_button_label": "Drop a Pin",
+    "title": "Tell us more...",
+    "action_text": "created",
+    "anonymous_name": "Someone",
+    "submit_button_label": "Submit",
+    "location_item_name": "location",
+    "place_detail": [
+      {
+        "category": "question",
+        "formId": "question",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "quepasa-input",
+        "icon_url": "/static/css/images/markers/marker-question.png",
+        "value": "question",
+        "label": "Question",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your question:",
+            "display_prompt": "Title:",
+            "placeholder": "Enter title...",
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "What's your question?",
+            "display_prompt": " ",
+            "placeholder": "Enter question..."
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "idea",
+        "formId": "idea",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "quepasa-input",
+        "icon_url": "/static/css/images/markers/marker-idea.png",
+        "value": "idea",
+        "label": "Idea",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your idea:",
+            "display_prompt": "Title:",
+            "placeholder": "Enter title...",
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "What's your idea?",
+            "display_prompt": " ",
+            "placeholder": "Enter idea..."
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "observation",
+        "formId": "observation",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "quepasa-input",
+        "icon_url": "/static/css/images/markers/marker-observation.png",
+        "value": "observation",
+        "label": "Observation",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your observation:",
+            "display_prompt": "Title:",
+            "placeholder": "Enter title...",
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "What's your observation?",
+            "display_prompt": " ",
+            "placeholder": "Enter observation..."
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "complaint",
+        "formId": "complaint",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "quepasa-input",
+        "icon_url": "/static/css/images/markers/marker-complaint.png",
+        "value": "complaint",
+        "label": "Complaint",
+        "fields": [
+          {
+            "name": "title",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Title of your complaint:",
+            "display_prompt": "Title:",
+            "placeholder": "Enter title...",
+            "optional": true
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "What's your complaint?",
+            "display_prompt": " ",
+            "placeholder": "Enter complaint..."
+          },
+          {
+            "name": "submitter_name",
+            "type": "common_form_element"
+          },
+          {
+            "name": "private-submitter_email",
+            "type": "common_form_element"
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      }
+    ],
+    "common_form_elements": {
+      "submitter_name": {
+        "type": "text",
+        "prompt": "Nombre",
+        "placeholder": "Nombre",
+        "optional": true
+      },
+      "private-submitter_email": {
+        "type": "text",
+        "prompt": "Correo electrónico",
+        "placeholder": "Recibir noticias sobre este comentario",
+        "optional": true,
+        "sticky": true
+      },
+      "my_image": {
+        "type": "file",
+        "prompt": "Please share an image",
+        "label": "📷 Add an Image",
+        "optional": true
+      },
+      "submit": {
+        "type": "submit",
+        "label": "¡Añadir al mapa!"
+      }
+    }
+  },
+  "forms": {
+    "comments": {
+      "submission_type": "comments",
+      "adding_enabled": false,
+      "show_responses": true,
+      "response_name": "comment",
+      "response_plural_name": "comments",
+      "action_text": "commented on",
+      "anonymous_name": "Someone",
+      "title": "Leave a Comment",
+      "form_link_text": "Leave a Comment",
+      "submit_btn_text": "Comment",
+      "items": [
+        {
+          "prompt": "Comment",
+          "label": "Comment",
+          "type": "textarea",
+          "name": "comment"
+        },
+        {
+          "prompt": "Your Name",
+          "type": "text",
+          "name": "submitter_name",
+          "optional": true
+        },
+        {
+          "type": "submit",
+          "name": "submit",
+          "label": "Comment"
+        }
+      ]
+    },
+    "places": [
+      {
+        "id": "community-report",
+        "datasetSlug": "quepasa-input",
+        "label": "Community Reports",
+        "icon": "/static/css/images/markers/marker-star.png"
+      }
+    ]
+  },
+  "survey": {
+    "submission_type": "comments",
+    "show_responses": true,
+    "single_submission": false,
+    "response_name": "comment",
+    "response_plural_name": "comments",
+    "action_text": "commented on",
+    "anonymous_name": "Someone",
+    "title": "Leave a Comment",
+    "form_link_text": "Leave a Comment",
+    "submit_btn_text": "Comment",
+    "items": [
+      {
+        "prompt": "Comment",
+        "label": "Comment",
+        "type": "textarea",
+        "name": "comment"
+      },
+      {
+        "prompt": "Your Name",
+        "type": "text",
+        "name": "submitter_name",
+        "optional": true
+      },
+      {
+        "type": "submit",
+        "name": "submit",
+        "label": "Comment"
+      }
+    ]
+  },
+  "support": {
+    "submission_type": "support",
+    "submit_btn_text": "Support",
+    "response_name": "support",
+    "response_plural_name": "supports",
+    "action_text": "supported",
+    "anonymous_name": "Someone"
+  },
+  "nav_bar": [
+    {
+      "title": "About",
+      "type": "internal_link",
+      "url": "/page/about",
+      "name": "overview",
+      "start_page": true
+    }
+  ],
+  "pages": [
+    {
+      "slug": "about",
+      "content": [
+        "<h1 style='margin-bottom:4px;color:#75beb1;'>Qué Pasa, Riachuelo?</h1>",
+        "<p>More info to come...</p>"
+      ]
+    }
+  ]
+}
