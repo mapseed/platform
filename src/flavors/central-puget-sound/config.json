@@ -141,7 +141,8 @@
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/poverty-200-percent-king-county/{z}/{x}/{y}.pbf"
-        ]
+        ],
+        "maxzoom": 16
       },
       "commfood": {
         "type": "geojson",
