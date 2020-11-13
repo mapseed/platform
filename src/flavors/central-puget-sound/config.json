@@ -79,11 +79,11 @@
         "tileSize": 256
       },
       "sub-basins": {
-        "type": "raster",
+        "type": "vector",
         "tiles": [
-          "https://api.mapbox.com/styles/v1/heyduwamishcore/cj539xhft04y82sqzh7hsehkg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGV5ZHV3YW1pc2hjb3JlIiwiYSI6ImNpaTEyNDNtdjAwMG10OW0wYzFtYmlsZXgifQ.yfrIdudUO9j_lKNtTZQU-g"
+          "https://vector-tiles.mapseed.org/western-wash-waus-clipped/{z}/{x}/{y}.pbf"
         ],
-        "tileSize": 256
+        "maxzoom": 16
       },
       "topo": {
         "type": "raster",
@@ -148,14 +148,12 @@
         ]
       },
       "school-sites": {
-        "type": "vector",
-        "tiles": [
-          "https://vector-tiles.mapseed.org/king-county-schools/{z}/{x}/{y}.pbf"
-        ]
+        "type": "geojson",
+        "data": "https://opendata.arcgis.com/datasets/365b0f50792c4bf6b06fc134d0494231_107.geojson"
       },
-      "wria-7-8-9": {
+      "wria-boundaries": {
         "type": "vector",
-        "tiles": ["https://vector-tiles.mapseed.org/wria-7-8-9/{z}/{x}/{y}.pbf"]
+        "tiles": ["https://vector-tiles.mapseed.org/wria-boundaries/{z}/{x}/{y}.pbf"]
       },
       "wria-7": {
         "type": "vector",
@@ -189,7 +187,8 @@
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/landuse-king-county-2010-truncated/{z}/{x}/{y}.pbf"
-        ]
+        ],
+        "maxzoom": 16
       },
       "duwamish-original": {
         "type": "vector",
@@ -280,11 +279,58 @@
       },
       {
         "id": "sub-basins",
+        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "sub-basins",
-            "type": "raster",
-            "source": "sub-basins"
+            "type": "fill",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "paint": {
+              "fill-color": [
+                "case",
+                ["==", ["get", "wria_nm"], "Cedar-Sammamish"],
+                "#e41a1c",
+                ["==", ["get", "wria_nm"], "Skagit"],
+                "#377eb8",
+                ["==", ["get", "wria_nm"], "Snohomish"],
+                "#4daf4a",
+                ["==", ["get", "wria_nm"], "Stillaguamish"],
+                "#984ea3",
+                ["==", ["get", "wria_nm"], "Island"],
+                "#ff7f00",
+                ["==", ["get", "wria_nm"], "Lower Skagit / Samish"],
+                "#ffff33",
+                ["==", ["get", "wria_nm"], "Upper Skagit"],
+                "#a65628",
+                "#000000"
+              ],
+              "fill-opacity": 0.3
+            }
+          },
+          {
+            "id": "sub-basins-outline",
+            "type": "line",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
+            }
+          },
+          {
+            "id": "sub-basins-labels",
+            "type": "symbol",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "layout": {
+              "text-field": ["get", "WAU_LABEL_"]
+            },
+            "paint": {
+              "text-color": "#000000",
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 0.5
+            }
           }
         ]
       },
@@ -332,8 +378,9 @@
             "source": "cities",
             "source-layer": "king-county-city-boundaries",
             "paint": {
-              "line-color": "#0066ff",
-              "line-width": 1
+              "line-color": "#fec44f",
+              "line-width": 2,
+              "line-dasharray": [2, 1]
             }
           }
         ]
@@ -378,7 +425,6 @@
             "id": "king-county-school-sites",
             "type": "circle",
             "source": "school-sites",
-            "source-layer": "king-county-schools",
             "paint": {
               "circle-color": "#ff6600",
               "circle-radius": 5,
@@ -391,57 +437,64 @@
             "id": "king-county-school-sites-labels",
             "type": "symbol",
             "source": "school-sites",
-            "source-layer": "king-county-schools",
             "filter": [">=", ["zoom"], 12],
             "paint": {
               "text-halo-color": "#fff",
               "text-halo-width": 1
             },
             "layout": {
-              "text-field": ["get", "name"],
+              "text-field": ["get", "NAME"],
               "text-size": 14,
               "text-allow-overlap": false,
-              "text-offset": [0, 1]
+              "text-offset": [0, 2]
             }
           }
         ]
       },
       {
-        "id": "wria-7-8-9",
+        "id": "wria-boundaries",
+        "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "wria-7-8-9-polygons",
+            "id": "wria-boundaries",
             "type": "fill",
-            "source": "wria-7-8-9",
-            "source-layer": "wria-7-8-9",
+            "source": "wria-boundaries",
+            "source-layer": "wria-boundaries",
             "paint": {
-              "fill-color": "#ffa350",
-              "fill-opacity": 0.4
+              "fill-color": [
+                "match",
+                ["get", "wria_nm"],
+                "Island",
+                "#0f3b82",
+                "Stillaguamish",
+                "#b2df8a",
+                "Snohomish",
+                "#fb9a99",
+                "Lower Skagit / Samish",
+                "#33a02c",
+                "Upper Skagit",
+                "#e31a1c",
+                "Cedar-Sammamish",
+                "#1f78b4",
+                "Duwamish-Green",
+                "#1f78b4",
+                "#000000"
+              ],
+              "fill-opacity": 0.7
             }
           },
           {
-            "id": "wria-7-8-9-outlines",
-            "type": "line",
-            "source": "wria-7-8-9",
-            "source-layer": "wria-7-8-9",
-            "paint": {
-              "line-color": "#081b47",
-              "line-width": 0.5
-            }
-          },
-          {
-            "id": "wria-7-8-9-labels",
+            "id": "wria-boundaries-labels",
             "type": "symbol",
-            "source": "wria-7-8-9",
-            "source-layer": "wria-7-8-9",
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
+            "source": "wria-boundaries",
+            "source-layer": "wria-boundaries",
             "layout": {
-              "text-field": ["get", "wria_nm"],
-              "text-size": 12,
-              "text-allow-overlap": false
+              "text-field": ["get", "wria_nm"]
+            },
+            "paint": {
+              "text-color": "#000000",
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 1
             }
           }
         ]
@@ -697,7 +750,7 @@
       {
         "id": "landuse",
         "interactive": true,
-        "popupContent": "<h3>{{descript}}</h3>",
+        "popupContent": "<p style='color: #aaa; display: block; font-family: Roboto; margin: 0 0 8px 0; padding-bottom: 6px; border-bottom: 1px solid #eee;'>Land use type:</p><em style='font-family: Roboto; font-weight: 500;'>{{descript}}</em>",
         "mapboxLayers": [
           {
             "id": "king-county-land-use",
@@ -962,7 +1015,7 @@
             }
           },
           {
-            "layerGroupId": "wria-7-8-9",
+            "layerGroupId": "wria-boundaries",
             "title": "WRIA Boundaries ALL",
             "info": {
               "title": "WRIA Boundaries ALL",
