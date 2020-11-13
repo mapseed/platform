@@ -137,6 +137,12 @@
           "https://vector-tiles.mapseed.org/king-county-city-boundaries/{z}/{x}/{y}.pbf"
         ]
       },
+      "poverty": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/poverty-200-percent-king-county/{z}/{x}/{y}.pbf"
+        ]
+      },
       "commfood": {
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson"
@@ -151,9 +157,10 @@
         "type": "geojson",
         "data": "https://opendata.arcgis.com/datasets/365b0f50792c4bf6b06fc134d0494231_107.geojson"
       },
-      "wria-boundaries": {
+      "wria-boundaries-wa-all": {
         "type": "vector",
-        "tiles": ["https://vector-tiles.mapseed.org/wria-boundaries/{z}/{x}/{y}.pbf"]
+        "tiles": ["https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"],
+        "maxzoom": 16
       },
       "wria-7": {
         "type": "vector",
@@ -278,6 +285,71 @@
         ]
       },
       {
+        "id": "poverty",
+        "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "#edf8e9",
+            "label": "< 10%"
+          },
+          {
+            "swatch": "#c7e9c0",
+            "label": "10% - 19.9%"
+          },
+          {
+            "swatch": "#a1d99b",
+            "label": "20% - 29.9%"
+          },
+          {
+            "swatch": "#74c476",
+            "label": "30% - 39.9%"
+          },
+          {
+            "swatch": "#31a354",
+            "label": "40% - 49.9%"
+          },
+          {
+            "swatch": "#006d2c",
+            "label": "50%+"
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "poverty",
+            "type": "fill",
+            "source": "poverty",
+            "source-layer": "poverty-200-percent-king-county",
+            "paint": {
+              "fill-color": [
+                "case",
+                ["<", ["get", "PP2005"], 10],
+                "#edf8e9",
+                ["<", ["get", "PP2005"], 20],
+                "#c7e9c0",
+                ["<", ["get", "PP2005"], 30],
+                "#a1d99b",
+                ["<", ["get", "PP2005"], 40],
+                "#74c476",
+                ["<", ["get", "PP2005"], 50],
+                "#31a354",
+                "#006d2c"
+              ],
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "poverty-outlines",
+            "type": "line",
+            "source": "poverty",
+            "source-layer": "poverty-200-percent-king-county",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
+            }
+          }
+        ]
+      },
+      {
         "id": "sub-basins",
         "visibleDefault": false,
         "mapboxLayers": [
@@ -379,8 +451,24 @@
             "source-layer": "king-county-city-boundaries",
             "paint": {
               "line-color": "#fec44f",
-              "line-width": 2,
-              "line-dasharray": [2, 1]
+              "line-width": 3,
+              "line-dasharray": [2, 1],
+              "line-opacity": 1
+            }
+          },
+          {
+            "id": "cities-labels",
+            "type": "symbol",
+            "source": "cities",
+            "source-layer": "king-county-city-boundaries",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "CITYNAME"],
+              "text-size": 14,
+              "text-allow-overlap": false
             }
           }
         ]
@@ -413,7 +501,9 @@
             "source-layer": "king-county-school-districts",
             "paint": {
               "line-color": "#7b00b4",
-              "line-width": 2
+              "line-width": 3,
+              "line-dasharray": [2, 1],
+              "line-opacity": 0.9
             }
           }
         ]
@@ -458,26 +548,27 @@
           {
             "id": "wria-boundaries",
             "type": "fill",
-            "source": "wria-boundaries",
-            "source-layer": "wria-boundaries",
+            "source": "wria-boundaries-wa-all",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "any",
+              ["==", ["get", "wria_nm"], "Snohomish"],
+              ["==", ["get", "wria_nm"], "Cedar - Sammamish"],
+              ["==", ["get", "wria_nm"], "Duwamish - Green"],
+              ["==", ["get", "wria_nm"], "Puyallup - White"]
+            ],
             "paint": {
               "fill-color": [
                 "match",
                 ["get", "wria_nm"],
-                "Island",
-                "#0f3b82",
-                "Stillaguamish",
-                "#b2df8a",
                 "Snohomish",
-                "#fb9a99",
-                "Lower Skagit / Samish",
-                "#33a02c",
-                "Upper Skagit",
-                "#e31a1c",
-                "Cedar-Sammamish",
-                "#1f78b4",
-                "Duwamish-Green",
-                "#1f78b4",
+                "#c6dbef",
+                "Cedar - Sammamish",
+                "#4292c6",
+                "Duwamish - Green",
+                "#c6dbef",
+                "Puyallup - White",
+                "#4292c6",
                 "#000000"
               ],
               "fill-opacity": 0.7
@@ -486,8 +577,15 @@
           {
             "id": "wria-boundaries-labels",
             "type": "symbol",
-            "source": "wria-boundaries",
-            "source-layer": "wria-boundaries",
+            "source": "wria-boundaries-wa-all",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "any",
+              ["==", ["get", "wria_nm"], "Snohomish"],
+              ["==", ["get", "wria_nm"], "Cedar - Sammamish"],
+              ["==", ["get", "wria_nm"], "Duwamish - Green"],
+              ["==", ["get", "wria_nm"], "Puyallup - White"]
+            ],
             "layout": {
               "text-field": ["get", "wria_nm"]
             },
@@ -1085,6 +1183,10 @@
               "title": "Schools and Colleges",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
+          },
+          {
+            "layerGroupId": "poverty",
+            "title": "Percent Below 200% Poverty Level"
           },
           {
             "layerGroupId": "commfood",
