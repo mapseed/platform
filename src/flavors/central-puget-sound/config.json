@@ -144,6 +144,20 @@
         ],
         "maxzoom": 16
       },
+      "people-of-color": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/percent-people-of-color-king-county/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "percent-foreign-born": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/demographic-base-king-county/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
       "commfood": {
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson"
@@ -343,6 +357,136 @@
             "type": "line",
             "source": "poverty",
             "source-layer": "poverty-200-percent-king-county",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
+            }
+          }
+        ]
+      },
+      {
+        "id": "people-of-color",
+        "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "#fef0d9",
+            "label": "< 1.0%"
+          },
+          {
+            "swatch": "#fdd49e",
+            "label": "1.0% - 2.4%"
+          },
+          {
+            "swatch": "#fdbb84",
+            "label": "2.5% - 4.9%"
+          },
+          {
+            "swatch": "#fc8d59",
+            "label": "5.0% - 9.9%"
+          },
+          {
+            "swatch": "#ef6548",
+            "label": "10% - 24.9%"
+          },
+          {
+            "swatch": "#d7301f",
+            "label": "25% - 49.9%"
+          },
+          {
+            "swatch": "#990000",
+            "label": "50%+"
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "people-of-color",
+            "type": "fill",
+            "source": "people-of-color",
+            "source-layer": "percent-people-of-color-king-county",
+            "paint": {
+              "fill-color": [
+                "case",
+                ["<", ["get", "PNW"], 1],
+                "#fef0d9",
+                ["<", ["get", "PNW"], 2.5],
+                "#fdd49e",
+                ["<", ["get", "PNW"], 5],
+                "#fdbb84",
+                ["<", ["get", "PNW"], 10],
+                "#fc8d59",
+                ["<", ["get", "PNW"], 25],
+                "#ef6548",
+                ["<", ["get", "PNW"], 50],
+                "#d7301f",
+                "#990000"
+              ],
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "people-of-color-outlines",
+            "type": "line",
+            "source": "people-of-color",
+            "source-layer": "percent-people-of-color-king-county",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
+            }
+          }
+        ]
+      },
+      {
+        "id": "percent-foreign-born",
+        "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "#f2f0f7",
+            "label": "< 10%"
+          },
+          {
+            "swatch": "#cbc9e2",
+            "label": "10% - 19.9%"
+          },
+          {
+            "swatch": "#9e9ac8",
+            "label": "20% - 29.9%"
+          },
+          {
+            "swatch": "#756bb1",
+            "label": "30% - 39.9%"
+          },
+          {
+            "swatch": "#54278f",
+            "label": "40%+"
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "percent-foreign-born",
+            "type": "fill",
+            "source": "percent-foreign-born",
+            "source-layer": "demographic-base-king-county",
+            "paint": {
+              "fill-color": [
+                "case",
+                ["<", ["get", "PFB5"], 10],
+                "#f2f0f7",
+                ["<", ["get", "PFB5"], 20],
+                "#cbc9e2",
+                ["<", ["get", "PFB5"], 30],
+                "#9e9ac8",
+                ["<", ["get", "PFB5"], 40],
+                "#756bb1",
+                "#54278f"
+              ],
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "percent-foreign-born-outlines",
+            "type": "line",
+            "source": "percent-foreign-born",
+            "source-layer": "demographic-base-king-county",
             "paint": {
               "line-color": "#fff",
               "line-width": 1.5
@@ -563,13 +707,13 @@
                 "match",
                 ["get", "wria_nm"],
                 "Snohomish",
-                "#c6dbef",
+                "#0088cc",
                 "Cedar - Sammamish",
-                "#4292c6",
+                "#11b6b2",
                 "Duwamish - Green",
-                "#c6dbef",
+                "#916cfa",
                 "Puyallup - White",
-                "#4292c6",
+                "#339966",
                 "#000000"
               ],
               "fill-opacity": 0.7
@@ -1188,6 +1332,14 @@
           {
             "layerGroupId": "poverty",
             "title": "Percent Below 200% Poverty Level"
+          },
+          {
+            "layerGroupId": "people-of-color",
+            "title": "Percent People of Color"
+          },
+          {
+            "layerGroupId": "percent-foreign-born",
+            "title": "Percent Foreign Born"
           },
           {
             "layerGroupId": "commfood",
