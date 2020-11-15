@@ -39,7 +39,7 @@ const ResponseField = props => {
   return (
     <div
       css={css`
-        margin-bottom: 10px;
+        margin-bottom: 32px;
       `}
     >
       <TinyTitle
