@@ -16,7 +16,6 @@ const TextareaFieldResponse = props => {
           <RegularText
             css={css`
               display: block;
-              margin-top: ${idx === 0 ? "16px" : 0};
               margin-bottom: ${idx === value.length - 1 ? "16px" : "8px"};
             `}
             key={idx}

@@ -10,14 +10,24 @@ const RichTextareaFieldResponseWrapper = styled("div")(props => ({
     maxWidth: "100%",
     margin: "16px 0",
   },
+  "& ul": {
+    marginTop: 0,
+    marginBottom: "16px",
+    fontWeight: "normal",
+  },
   "& p": {
     fontFamily: props.theme.text.bodyFontFamily,
+    marginTop: 0,
+    marginBottom: "16px",
+    fontWeight: "normal",
   },
   "& li": {
     fontFamily: props.theme.text.bodyFontFamily,
+    fontWeight: "normal",
   },
   "& a": {
     textDectoration: "none",
+    fontWeight: "normal",
   },
   "& h1,h2,h3,h4,h5,h6": {
     fontFamily: props.theme.text.titleFontFamily,

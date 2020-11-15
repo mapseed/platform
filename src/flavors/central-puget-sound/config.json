@@ -1219,12 +1219,17 @@
         ]
       },
       {
-        "title": "Map Layers",
+        "title": "Projects",
         "options": [
           {
             "layerGroupId": "mywater-new-projects",
             "title": "Projects"
-          },
+          }
+        ]
+      },
+      {
+        "title": "Water Systems",
+        "options": [
           {
             "layerGroupId": "wria-7",
             "title": "WRIA 7 Streams",
@@ -1274,13 +1279,18 @@
             }
           },
           {
-            "layerGroupId": "contour",
-            "title": "Contour Lines",
+            "layerGroupId": "duwamish-original",
+            "title": "Historical Duwamish River",
             "info": {
-              "title": "Contour Lines",
+              "title": "Historical Duwamish River",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
-          },
+          }
+        ]
+      },
+      {
+        "title": "Political Data & Infrastructure",
+        "options": [
           {
             "layerGroupId": "cities",
             "title": "City Boundaries",
@@ -1328,7 +1338,12 @@
               "title": "Schools and Colleges",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
-          },
+          }
+        ]
+      },
+      {
+        "title": "Demographic Data",
+        "options": [
           {
             "layerGroupId": "poverty",
             "title": "Percent Below 200% Poverty Level"
@@ -1340,6 +1355,19 @@
           {
             "layerGroupId": "percent-foreign-born",
             "title": "Percent Foreign Born"
+          }
+        ]
+      },
+      {
+        "title": "Other",
+        "options": [
+          {
+            "layerGroupId": "contour",
+            "title": "Contour Lines",
+            "info": {
+              "title": "Contour Lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
           },
           {
             "layerGroupId": "commfood",
@@ -1347,14 +1375,6 @@
             "info": {
               "title": "Farmers Markets",
               "body": "This is some information and a legend"
-            }
-          },
-          {
-            "layerGroupId": "duwamish-original",
-            "title": "Historical Duwamish River",
-            "info": {
-              "title": "Historical Duwamish River",
-              "body": "This is an example of an info window. Layer info will be added soon."
             }
           }
         ]
