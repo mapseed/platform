@@ -46,6 +46,13 @@
   display: none;
 }
 
+/* =Post detail views
+-------------------------------------------------------------- */
+.mapseed-response-field-title {
+  font-size: 1.2rem !important;
+}
+
+
 /* =Custom pledge type icons
 -------------------------------------------------------------- */
 .big-btn + label:before {
