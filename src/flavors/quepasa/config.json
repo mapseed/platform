@@ -112,6 +112,21 @@
           "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmFpbHBhc3NlbmdlcnMiLCJhIjoiY2piNDI0bDhnMXl1OTJxbzZ3eWMxOGw1eiJ9.72C2t17NQeku5kLVptVNPQ"
         ],
         "tileSize": 256
+      },
+      "renabap": {
+        "type": "vector",
+        "tiles": ["https://vector-tiles.mapseed.org/renabap/{z}/{x}/{y}.pbf"],
+        "maxzoom": 16
+      },
+      "riachuelo-subbasins": {
+        "type": "vector",
+        "tiles": ["https://vector-tiles.mapseed.org/riachuelo-subbasins/{z}/{x}/{y}.pbf"],
+        "maxzoom": 16
+      },
+      "riachuelo-watercourses": {
+        "type": "vector",
+        "tiles": ["https://vector-tiles.mapseed.org/riachuelo-watercourses/{z}/{x}/{y}.pbf"],
+        "maxzoom": 16
       }
     },
     "layerGroups": [
@@ -196,6 +211,92 @@
             }
           }
         ]
+      },
+      {
+        "id": "riachuelo-subbasins",
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-subbasins",
+            "type": "fill",
+            "source": "riachuelo-subbasins",
+            "source-layer": "riachuelo-subbasins",
+            "paint": {
+              "fill-color": "#3182bd",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "riachuelo-subbasins-outline",
+            "type": "line",
+            "source": "riachuelo-subbasins",
+            "source-layer": "riachuelo-subbasins",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
+            }
+          },
+          {
+            "id": "riachuelo-subbasins-labels",
+            "type": "symbol",
+            "source": "riachuelo-subbasins",
+            "source-layer": "riachuelo-subbasins",
+            "layout": {
+              "text-field": ["get", "NOMBRE"]
+            },
+            "paint": {
+              "text-color": "#000000",
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-watercourses",
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-watercourses",
+            "source": "riachuelo-watercourses",
+            "source-layer": "riachuelo-watercourses",
+            "type": "line",
+            "paint": {
+              "line-color": "#9ecae1",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
+        "id": "renabap",
+        "interactive": true,
+        "popupContent": "<p style='color: #aaa; display: block; font-family: Roboto; margin: 0 0 8px 0; padding-bottom: 6px;'>ID: {{id_renabap}}</p><h3 style='font-family: Roboto; font-weight: 500; margin: 0;'>{{nombre_bar}}</h3>",
+        "mapboxLayers": [
+          {
+            "id": "renabap",
+            "type": "circle",
+            "source": "renabap",
+            "source-layer": "renabap",
+            "paint": {
+              "circle-stroke-color": "#fff",
+              "circle-stroke-width": {
+                "base": 1,
+                "stops": [
+                  [12, 0.5],
+                  [22, 1]
+                ]
+              },
+              "circle-radius": {
+                "base": 1.75,
+                "stops": [
+                  [12, 2],
+                  [22, 180]
+                ]
+              },
+              "circle-color": "#f16913"
+            }
+          }
+        ]
       }
     ]
   },
@@ -225,6 +326,28 @@
           {
             "layerGroupId": "quepasa-input",
             "title": "Community Reports"
+          }
+        ]
+      },
+      {
+        "title": "Hydrologic Data",
+        "options": [
+          {
+            "layerGroupId": "riachuelo-subbasins",
+            "title": "Subbasins"
+          },
+          {
+            "layerGroupId": "riachuelo-watercourses",
+            "title": "Watercourses"
+          }
+        ]
+      },
+      {
+        "title": "Other Data",
+        "options": [
+          {
+            "layerGroupId": "renabap",
+            "title": "RENABAP"
           }
         ]
       }
