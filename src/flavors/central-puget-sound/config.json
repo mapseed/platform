@@ -144,6 +144,10 @@
         ],
         "maxzoom": 16
       },
+      "longhouses": {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/mapseed/data/master/longhouse-locations-seattle.geojson"
+      },
       "people-of-color": {
         "type": "vector",
         "tiles": [
@@ -627,6 +631,24 @@
             "source": "commfood",
             "layout": {
               "icon-image": "marker-dot-conserve-water.png",
+              "icon-size": 0.5,
+              "icon-anchor": "center"
+            },
+            "paint": {
+              "icon-opacity": 0.9
+            }
+          }
+        ]
+      },
+      {
+        "id": "longhouses",
+        "mapboxLayers": [
+          {
+            "id": "longhouses",
+            "type": "symbol",
+            "source": "longhouses",
+            "layout": {
+              "icon-image": "marker-dot-conserve-energy.png",
               "icon-size": 0.5,
               "icon-anchor": "center"
             },
@@ -1285,27 +1307,6 @@
               "title": "Historical Duwamish River",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
-          }
-        ]
-      },
-      {
-        "title": "Political Data & Infrastructure",
-        "options": [
-          {
-            "layerGroupId": "cities",
-            "title": "City Boundaries",
-            "info": {
-              "title": "City Boundaries",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
-          },
-          {
-            "layerGroupId": "landuse",
-            "title": "Land Use",
-            "info": {
-              "title": "Land Use",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
           },
           {
             "layerGroupId": "impervious",
@@ -1320,6 +1321,27 @@
             "title": "Sewer lines",
             "info": {
               "title": "Sewer lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "contour",
+            "title": "Contour Lines",
+            "info": {
+              "title": "Contour Lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Jurisdictions",
+        "options": [
+          {
+            "layerGroupId": "cities",
+            "title": "City Boundaries",
+            "info": {
+              "title": "City Boundaries",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
           },
@@ -1362,10 +1384,10 @@
         "title": "Other",
         "options": [
           {
-            "layerGroupId": "contour",
-            "title": "Contour Lines",
+            "layerGroupId": "landuse",
+            "title": "Land Use",
             "info": {
-              "title": "Contour Lines",
+              "title": "Land Use",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
           },
@@ -1376,6 +1398,10 @@
               "title": "Farmers Markets",
               "body": "This is some information and a legend"
             }
+          },
+          {
+            "layerGroupId": "longhouses",
+            "title": "Historical Longhouse Locations"
           }
         ]
       }

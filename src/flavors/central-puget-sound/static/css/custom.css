@@ -54,6 +54,12 @@
   content: "✔";
 }
 
+/* =Left sidebar
+-------------------------------------------------------------- */
+.mapseed-left-sidebar {
+  width: 325px !important;
+}
+
 /* =Dynamic form big button overrides
 -------------------------------------------------------------- */
 .big-btn + label {
