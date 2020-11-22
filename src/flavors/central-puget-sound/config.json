@@ -49,9 +49,9 @@
     "geocodeHint": [-122.30321, 47.611203],
     "geocodeBoundingBox": [-123.843578, 45.992317, -120.724546, 48.698614],
     "mapViewport": {
-      "latitude": 47.66909,
-      "longitude": -122.39593,
-      "zoom": 8,
+      "latitude": 47.6108,
+      "longitude": -122.34673,
+      "zoom": 9.91,
       "minZoom": 1,
       "maxZoom": 18,
       "pitch": 30
@@ -501,65 +501,6 @@
         ]
       },
       {
-        "id": "sub-basins",
-        "visibleDefault": false,
-        "mapboxLayers": [
-          {
-            "id": "sub-basins",
-            "type": "fill",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
-            "paint": {
-              "fill-opacity": 0
-            }
-          },
-          {
-            "id": "sub-basins-outline",
-            "type": "line",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
-            "layout": {
-              "line-join": "round"
-            },
-            "paint": {
-              "line-color": "#3182bd",
-              "line-width": 2
-            }
-          },
-          {
-            "id": "sub-basins-outline-blur",
-            "type": "line",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
-            "layout": {
-              "line-join": "round"
-            },
-            "paint": {
-              "line-color": "#9ecae1",
-              "line-blur": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18],
-              "line-offset": 2,
-              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18]
-            }
-          },
-          {
-            "id": "sub-basins-labels",
-            "type": "symbol",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
-            "filter": ["==", ["geometry-type"], "Polygon"],
-            "layout": {
-              "text-field": ["get", "WAU_LABEL_"],
-              "text-size": ["interpolate", ["linear"], ["zoom"], 10, 6, 12, 14]
-            },
-            "paint": {
-              "text-color": "#000000",
-              "text-halo-color": "#e8eb34",
-              "text-halo-width": 0.5
-            }
-          }
-        ]
-      },
-      {
         "id": "contour",
         "mapboxLayers": [
           {
@@ -726,7 +667,10 @@
               ["==", ["get", "wria_nm"], "Snohomish"],
               ["==", ["get", "wria_nm"], "Cedar - Sammamish"],
               ["==", ["get", "wria_nm"], "Duwamish - Green"],
-              ["==", ["get", "wria_nm"], "Puyallup - White"]
+              ["==", ["get", "wria_nm"], "Puyallup - White"],
+              ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
             "paint": {
               "fill-color": [
@@ -740,9 +684,35 @@
                 "#916cfa",
                 "Puyallup - White",
                 "#339966",
+                "Upper Skagit",
+                "#339966",
+                "Lower Skagit - Samish",
+                "#916cfa",
+                "Stillaguamish",
+                "#11b6b2",
                 "#000000"
               ],
-              "fill-opacity": 0.7
+              "fill-opacity": 0.3
+            }
+          },
+          {
+            "id": "wria-boundaries-outlines",
+            "type": "line",
+            "source": "wria-boundaries-wa-all",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "any",
+              ["==", ["get", "wria_nm"], "Snohomish"],
+              ["==", ["get", "wria_nm"], "Cedar - Sammamish"],
+              ["==", ["get", "wria_nm"], "Duwamish - Green"],
+              ["==", ["get", "wria_nm"], "Puyallup - White"],
+              ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
+            ],
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
             }
           },
           {
@@ -755,10 +725,14 @@
               ["==", ["get", "wria_nm"], "Snohomish"],
               ["==", ["get", "wria_nm"], "Cedar - Sammamish"],
               ["==", ["get", "wria_nm"], "Duwamish - Green"],
-              ["==", ["get", "wria_nm"], "Puyallup - White"]
+              ["==", ["get", "wria_nm"], "Puyallup - White"],
+              ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
             "layout": {
-              "text-field": ["get", "wria_nm"]
+              "text-field": ["get", "wria_nm"],
+              "text-size": 11
             },
             "paint": {
               "text-color": "#000000",
@@ -1012,6 +986,65 @@
               "text-field": ["get", "feature_na"],
               "text-size": 10,
               "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "sub-basins",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "sub-basins",
+            "type": "fill",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "paint": {
+              "fill-opacity": 0
+            }
+          },
+          {
+            "id": "sub-basins-outline",
+            "type": "line",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#3182bd",
+              "line-width": 2
+            }
+          },
+          {
+            "id": "sub-basins-outline-blur",
+            "type": "line",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#9ecae1",
+              "line-blur": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18],
+              "line-offset": 2,
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18]
+            }
+          },
+          {
+            "id": "sub-basins-labels",
+            "type": "symbol",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "filter": ["==", ["geometry-type"], "Polygon"],
+            "layout": {
+              "text-field": ["get", "WAU_LABEL_"],
+              "text-size": ["interpolate", ["linear"], ["zoom"], 10, 6, 12, 14]
+            },
+            "paint": {
+              "text-color": "#000000",
+              "text-halo-color": "#e8eb34",
+              "text-halo-width": 0.5
             }
           }
         ]
@@ -1416,7 +1449,7 @@
     "interval": 30000
   },
   "place": {
-    "adding_supported": true,
+    "adding_supported": false,
     "add_button_label": "Post Your Project",
     "show_list_button_label": "Myself",
     "show_map_button_label": "Show Map",
@@ -1716,9 +1749,60 @@
   },
   "nav_bar": [
     {
-      "title": "Map Layers",
+      "title": "Layers",
       "type": "left_sidebar_toggle"
+    },
+    {
+      "title": "Post",
+      "type": "internal_link",
+      "url": "/new"
+    },
+    {
+      "title": "Featured",
+      "type": "internal_link",
+      "url": "/page/featured"
+    },
+    {
+      "title": "Stories",
+      "type": "internal_link",
+      "url": "/page/stories"
+    },
+    {
+      "title": "Lessons",
+      "type": "internal_link",
+      "url": "/page/lessons"
+    },
+    {
+      "title": "Love",
+      "type": "internal_link",
+      "url": "/page/love"
+    },
+    {
+      "title": "About",
+      "type": "internal_link",
+      "url": "/page/about"
     }
   ],
-  "pages": []
+  "pages": [
+    {
+      "slug": "featured",
+      "content": ["<h2>Featured Posts</h2>", "<p>Stay tuned...</p>"]
+    },
+    {
+      "slug": "stories",
+      "content": ["<h2>Map Stories</h2>", "<p>Stay tuned...</p>"]
+    },
+    {
+      "slug": "lessons",
+      "content": ["<h2>Lessons</h2>", "<p>Stay tuned...</p>"]
+    },
+    {
+      "slug": "love",
+      "content": ["<h2>Maps we Love</h2>", "<p>Stay tuned...</p>"]
+    },
+    {
+      "slug": "about",
+      "content": ["<h2>About this Map</h2>", "<p>Stay tuned....</p>"]
+    }
+  ]
 }

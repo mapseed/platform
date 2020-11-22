@@ -67,6 +67,11 @@
   width: 325px !important;
 }
 
+.mapseed-map-layer-selector-container {
+  margin-bottom: 4px !important;
+}
+
+
 /* =Dynamic form big button overrides
 -------------------------------------------------------------- */
 .big-btn + label {
