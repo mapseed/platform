@@ -202,6 +202,7 @@ const navItemMappings = {
     },
   })),
   filter: PlaceFilterMenu,
+  // eslint-disable-next-line react/display-name
   featuredPlacesMenu: linkProps => (
     <FeaturedPlacesMenu title={linkProps.navBarItem.title} />
   ),

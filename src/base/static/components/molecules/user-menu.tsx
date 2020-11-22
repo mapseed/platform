@@ -80,8 +80,8 @@ const menuStyles = ({
 });
 
 type MenuItemProps = {
-  onClick?: () => void
-}
+  onClick?: () => void;
+};
 
 const MenuItem = styled("li")<MenuItemProps>(({ theme }) => ({
   float: "left",
