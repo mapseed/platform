@@ -46,7 +46,7 @@
     "geocodingBarEnabled": true,
     "geocodingEngine": "Mapbox",
     "geocodeFieldLabel": "Enter an address...",
-    "geocodeHint": [-122.303210, 47.611203],
+    "geocodeHint": [-122.30321, 47.611203],
     "geocodeBoundingBox": [-123.843578, 45.992317, -120.724546, 48.698614],
     "mapViewport": {
       "latitude": 47.66909,
@@ -178,7 +178,9 @@
       },
       "wria-boundaries-wa-all": {
         "type": "vector",
-        "tiles": ["https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"],
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"
+        ],
         "maxzoom": 16
       },
       "wria-7": {
@@ -508,25 +510,7 @@
             "source": "sub-basins",
             "source-layer": "western-wash-waus-clipped",
             "paint": {
-              "fill-color": [
-                "case",
-                ["==", ["get", "wria_nm"], "Cedar-Sammamish"],
-                "#e41a1c",
-                ["==", ["get", "wria_nm"], "Skagit"],
-                "#377eb8",
-                ["==", ["get", "wria_nm"], "Snohomish"],
-                "#4daf4a",
-                ["==", ["get", "wria_nm"], "Stillaguamish"],
-                "#984ea3",
-                ["==", ["get", "wria_nm"], "Island"],
-                "#ff7f00",
-                ["==", ["get", "wria_nm"], "Lower Skagit / Samish"],
-                "#ffff33",
-                ["==", ["get", "wria_nm"], "Upper Skagit"],
-                "#a65628",
-                "#000000"
-              ],
-              "fill-opacity": 0.3
+              "fill-opacity": 0
             }
           },
           {
@@ -534,9 +518,27 @@
             "type": "line",
             "source": "sub-basins",
             "source-layer": "western-wash-waus-clipped",
+            "layout": {
+              "line-join": "round"
+            },
             "paint": {
-              "line-color": "#fff",
-              "line-width": 1.5
+              "line-color": "#3182bd",
+              "line-width": 2
+            }
+          },
+          {
+            "id": "sub-basins-outline-blur",
+            "type": "line",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#9ecae1",
+              "line-blur": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18],
+              "line-offset": 2,
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18]
             }
           },
           {
@@ -544,12 +546,14 @@
             "type": "symbol",
             "source": "sub-basins",
             "source-layer": "western-wash-waus-clipped",
+            "filter": ["==", ["geometry-type"], "Polygon"],
             "layout": {
-              "text-field": ["get", "WAU_LABEL_"]
+              "text-field": ["get", "WAU_LABEL_"],
+              "text-size": ["interpolate", ["linear"], ["zoom"], 10, 6, 12, 14]
             },
             "paint": {
               "text-color": "#000000",
-              "text-halo-color": "#ffffff",
+              "text-halo-color": "#e8eb34",
               "text-halo-width": 0.5
             }
           }
