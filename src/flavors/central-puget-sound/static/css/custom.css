@@ -40,6 +40,11 @@
   left: 640px;
 }
 
+.mapseed-add-place-button-container {
+  display: none !important;
+}
+
+
 /* =Language picker
 -------------------------------------------------------------- */
 #language-picker {

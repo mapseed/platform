@@ -1584,8 +1584,7 @@
     "interval": 30000
   },
   "place": {
-    "adding_supported": false,
-    "add_button_label": "Post Your Project",
+    "adding_supported": true,
     "show_list_button_label": "Myself",
     "show_map_button_label": "Show Map",
     "title": "New project",

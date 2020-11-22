@@ -49,7 +49,7 @@ class AddPlaceButton extends React.Component {
   render() {
     return (
       <AddPlaceButtonContainer
-        className={this.props.className}
+        className={`mapseed-add-place-button-container ${this.props.className}`}
         layout={this.props.layout}
         onClick={this.props.onClick}
         isGeocodeAddressBarEnabled={this.props.isGeocodeAddressBarEnabled}
