@@ -1,5 +1,4 @@
 import constants from "../constants";
-import { Mixpanel } from "./mixpanel";
 
 const getMainContentAreaWidth = ({
   isContentPanelVisible,
@@ -24,7 +23,6 @@ const getMainContentAreaWidth = ({
           "Error: could not find appropriate width declaration for main content area.";
         // eslint-disable-next-line no-console
         console.error(msg);
-        Mixpanel.track("Error", { message: msg });
       }
       break;
     case "mobile":
@@ -94,7 +92,6 @@ const getMainContentAreaHeight = ({
           "Error: could not find appropriate height declaration for main content area.";
         // eslint-disable-next-line no-console
         console.error(msg);
-        Mixpanel.track("Error", { message: msg });
       }
   }
 };

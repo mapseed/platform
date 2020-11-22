@@ -192,7 +192,6 @@ module.exports = {
       API_ROOT: JSON.stringify(config.app.api_root),
       FLAVOR: JSON.stringify(flavor),
       GIT_SHA: JSON.stringify(gitSha),
-      MIXPANEL_TOKEN: JSON.stringify(process.env.MIXPANEL_TOKEN),
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     extractSCSS,

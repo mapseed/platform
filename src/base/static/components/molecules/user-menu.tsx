@@ -8,7 +8,6 @@ import { InternalLink, ExternalLink, SmallText } from "../atoms/typography";
 import OfflineDownloadMenu from "../organisms/offline-download-menu";
 import styled from "../../utils/styled";
 
-import { Mixpanel } from "../../utils/mixpanel";
 import {
   DashboardsConfig,
   dashboardConfigSelector,
@@ -171,7 +170,6 @@ const UserMenu: React.FunctionComponent<Props> = props => {
               width: "100%",
             }}
             href={`${props.appConfig.api_root}users/logout/`}
-            onClick={() => Mixpanel.track("Clicked logout button")}
           >
             {t("logOut", "Log out")}
           </ExternalLink>
