@@ -6,9 +6,10 @@ import { insertEmbeddedImages } from "../../../utils/embedded-images";
 
 const RichTextareaFieldResponseWrapper = styled("div")(props => ({
   // TODO: fluid video
+  "lineHeight": "1.3rem",
   "& img": {
     maxWidth: "100%",
-    margin: "16px 0",
+    margin: "16px 0 0 0",
   },
   "& ul": {
     marginTop: 0,

@@ -20,6 +20,7 @@
   "app": {
     "title": "My Watershed - Central Puget Sound",
     "name": "My Watershed",
+    "logo": "/static/css/images/sa-logo-only.png",
     "show_name_in_header": true,
     "meta_description": "Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.",
     "meta_author": "SmarterCleanup.org",
@@ -46,12 +47,12 @@
     "geocodingBarEnabled": true,
     "geocodingEngine": "Mapbox",
     "geocodeFieldLabel": "Enter an address...",
-    "geocodeHint": [-122.303210, 47.611203],
+    "geocodeHint": [-122.30321, 47.611203],
     "geocodeBoundingBox": [-123.843578, 45.992317, -120.724546, 48.698614],
     "mapViewport": {
-      "latitude": 47.66909,
-      "longitude": -122.39593,
-      "zoom": 8,
+      "latitude": 47.6108,
+      "longitude": -122.34673,
+      "zoom": 9.91,
       "minZoom": 1,
       "maxZoom": 18,
       "pitch": 30
@@ -99,6 +100,12 @@
           "https://de2f5qjeube4u.cloudfront.net?service=wmts&request=gettile&layers=BaseMaps_KingCo_Aerial_1936&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
         ]
       },
+      "1998aerial": {
+        "type": "raster",
+        "tiles": [
+          "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_1998/MapServer/WMTS/?service=wmts&request=gettile&layers=BaseMaps_KingCo_Aerial_1998&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+        ]
+      },
       "bath": {
         "type": "raster",
         "tiles": [
@@ -144,6 +151,10 @@
         ],
         "maxzoom": 16
       },
+      "longhouses": {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/mapseed/data/master/longhouse-locations-seattle.geojson"
+      },
       "people-of-color": {
         "type": "vector",
         "tiles": [
@@ -155,6 +166,13 @@
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/demographic-base-king-county/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "king-county-life-expectancy": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/king-county-life-expectancy/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -174,7 +192,9 @@
       },
       "wria-boundaries-wa-all": {
         "type": "vector",
-        "tiles": ["https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"],
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"
+        ],
         "maxzoom": 16
       },
       "wria-7": {
@@ -278,6 +298,17 @@
         ]
       },
       {
+        "id": "1998aerial",
+        "basemap": true,
+        "mapboxLayers": [
+          {
+            "id": "1998aerial-basemap",
+            "type": "raster",
+            "source": "1998aerial"
+          }
+        ]
+      },
+      {
         "id": "bath",
         "basemap": true,
         "mapboxLayers": [
@@ -304,27 +335,27 @@
         "visibleDefault": false,
         "legend": [
           {
-            "swatch": "#edf8e9",
+            "swatch": "#c7e9c0",
             "label": "< 10%"
           },
           {
-            "swatch": "#c7e9c0",
+            "swatch": "#a1d99b",
             "label": "10% - 19.9%"
           },
           {
-            "swatch": "#a1d99b",
+            "swatch": "#74c476",
             "label": "20% - 29.9%"
           },
           {
-            "swatch": "#74c476",
+            "swatch": "#41ab5d",
             "label": "30% - 39.9%"
           },
           {
-            "swatch": "#31a354",
+            "swatch": "#238b45",
             "label": "40% - 49.9%"
           },
           {
-            "swatch": "#006d2c",
+            "swatch": "#005a32",
             "label": "50%+"
           }
         ],
@@ -338,16 +369,16 @@
               "fill-color": [
                 "case",
                 ["<", ["get", "PP2005"], 10],
-                "#edf8e9",
-                ["<", ["get", "PP2005"], 20],
                 "#c7e9c0",
-                ["<", ["get", "PP2005"], 30],
+                ["<", ["get", "PP2005"], 20],
                 "#a1d99b",
-                ["<", ["get", "PP2005"], 40],
+                ["<", ["get", "PP2005"], 30],
                 "#74c476",
+                ["<", ["get", "PP2005"], 40],
+                "#41ab5d",
                 ["<", ["get", "PP2005"], 50],
-                "#31a354",
-                "#006d2c"
+                "#238b45",
+                "#005a32"
               ],
               "fill-opacity": 0.9
             }
@@ -440,23 +471,23 @@
         "visibleDefault": false,
         "legend": [
           {
-            "swatch": "#f2f0f7",
+            "swatch": "#bcbddc",
             "label": "< 10%"
           },
           {
-            "swatch": "#cbc9e2",
+            "swatch": "#9e9ac8",
             "label": "10% - 19.9%"
           },
           {
-            "swatch": "#9e9ac8",
+            "swatch": "#807dba",
             "label": "20% - 29.9%"
           },
           {
-            "swatch": "#756bb1",
+            "swatch": "#6a51a3",
             "label": "30% - 39.9%"
           },
           {
-            "swatch": "#54278f",
+            "swatch": "#4a1486",
             "label": "40%+"
           }
         ],
@@ -470,14 +501,14 @@
               "fill-color": [
                 "case",
                 ["<", ["get", "PFB5"], 10],
-                "#f2f0f7",
+                "#bcbddc",
                 ["<", ["get", "PFB5"], 20],
-                "#cbc9e2",
-                ["<", ["get", "PFB5"], 30],
                 "#9e9ac8",
+                ["<", ["get", "PFB5"], 30],
+                "#807dba",
                 ["<", ["get", "PFB5"], 40],
-                "#756bb1",
-                "#54278f"
+                "#6a51a3",
+                "#4a1486"
               ],
               "fill-opacity": 0.9
             }
@@ -495,58 +526,103 @@
         ]
       },
       {
-        "id": "sub-basins",
+        "id": "king-county-life-expectancy",
         "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "#d4b9da",
+            "label": "< 70 years"
+          },
+          {
+            "swatch": "#c994c7",
+            "label": "70 - 74.9 years"
+          },
+          {
+            "swatch": "#df65b0",
+            "label": "75 - 79.9 years"
+          },
+          {
+            "swatch": "#e7298a",
+            "label": "80 - 84.9 years"
+          },
+          {
+            "swatch": "#ce1256",
+            "label": "85 - 89.9 years"
+          },
+          {
+            "swatch": "#91003f",
+            "label": "90+ years"
+          }
+        ],
         "mapboxLayers": [
           {
-            "id": "sub-basins",
+            "id": "life-expectancy",
             "type": "fill",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
+            "source": "king-county-life-expectancy",
+            "source-layer": "king-county-life-expectancy",
+            "filter": ["!=", ["get", "LEVEL_3"], "53033990100"],
             "paint": {
               "fill-color": [
                 "case",
-                ["==", ["get", "wria_nm"], "Cedar-Sammamish"],
-                "#e41a1c",
-                ["==", ["get", "wria_nm"], "Skagit"],
-                "#377eb8",
-                ["==", ["get", "wria_nm"], "Snohomish"],
-                "#4daf4a",
-                ["==", ["get", "wria_nm"], "Stillaguamish"],
-                "#984ea3",
-                ["==", ["get", "wria_nm"], "Island"],
-                "#ff7f00",
-                ["==", ["get", "wria_nm"], "Lower Skagit / Samish"],
-                "#ffff33",
-                ["==", ["get", "wria_nm"], "Upper Skagit"],
-                "#a65628",
-                "#000000"
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  70
+                ],
+                "#d4b9da",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  75
+                ],
+                "#c994c7",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  80
+                ],
+                "#df65b0",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  85
+                ],
+                "#e7298a",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  90
+                ],
+                "#ce1256",
+                "#91003f"
               ],
-              "fill-opacity": 0.3
+              "fill-opacity": 0.9
             }
           },
           {
-            "id": "sub-basins-outline",
+            "id": "life-expectancy-outlines",
             "type": "line",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
+            "source": "king-county-life-expectancy",
+            "source-layer": "king-county-life-expectancy",
+            "filter": ["!=", ["get", "LEVEL_3"], "53033990100"],
             "paint": {
               "line-color": "#fff",
               "line-width": 1.5
-            }
-          },
-          {
-            "id": "sub-basins-labels",
-            "type": "symbol",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
-            "layout": {
-              "text-field": ["get", "WAU_LABEL_"]
-            },
-            "paint": {
-              "text-color": "#000000",
-              "text-halo-color": "#ffffff",
-              "text-halo-width": 0.5
             }
           }
         ]
@@ -637,6 +713,24 @@
         ]
       },
       {
+        "id": "longhouses",
+        "mapboxLayers": [
+          {
+            "id": "longhouses",
+            "type": "symbol",
+            "source": "longhouses",
+            "layout": {
+              "icon-image": "marker-dot-conserve-energy.png",
+              "icon-size": 0.5,
+              "icon-anchor": "center"
+            },
+            "paint": {
+              "icon-opacity": 0.9
+            }
+          }
+        ]
+      },
+      {
         "id": "school-boundaries",
         "mapboxLayers": [
           {
@@ -700,7 +794,10 @@
               ["==", ["get", "wria_nm"], "Snohomish"],
               ["==", ["get", "wria_nm"], "Cedar - Sammamish"],
               ["==", ["get", "wria_nm"], "Duwamish - Green"],
-              ["==", ["get", "wria_nm"], "Puyallup - White"]
+              ["==", ["get", "wria_nm"], "Puyallup - White"],
+              ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
             "paint": {
               "fill-color": [
@@ -714,9 +811,35 @@
                 "#916cfa",
                 "Puyallup - White",
                 "#339966",
+                "Upper Skagit",
+                "#339966",
+                "Lower Skagit - Samish",
+                "#916cfa",
+                "Stillaguamish",
+                "#11b6b2",
                 "#000000"
               ],
-              "fill-opacity": 0.7
+              "fill-opacity": 0.3
+            }
+          },
+          {
+            "id": "wria-boundaries-outlines",
+            "type": "line",
+            "source": "wria-boundaries-wa-all",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "any",
+              ["==", ["get", "wria_nm"], "Snohomish"],
+              ["==", ["get", "wria_nm"], "Cedar - Sammamish"],
+              ["==", ["get", "wria_nm"], "Duwamish - Green"],
+              ["==", ["get", "wria_nm"], "Puyallup - White"],
+              ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
+            ],
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
             }
           },
           {
@@ -729,10 +852,14 @@
               ["==", ["get", "wria_nm"], "Snohomish"],
               ["==", ["get", "wria_nm"], "Cedar - Sammamish"],
               ["==", ["get", "wria_nm"], "Duwamish - Green"],
-              ["==", ["get", "wria_nm"], "Puyallup - White"]
+              ["==", ["get", "wria_nm"], "Puyallup - White"],
+              ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
             "layout": {
-              "text-field": ["get", "wria_nm"]
+              "text-field": ["get", "wria_nm"],
+              "text-size": 11
             },
             "paint": {
               "text-color": "#000000",
@@ -991,6 +1118,65 @@
         ]
       },
       {
+        "id": "sub-basins",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "sub-basins",
+            "type": "fill",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "paint": {
+              "fill-opacity": 0
+            }
+          },
+          {
+            "id": "sub-basins-outline",
+            "type": "line",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#3182bd",
+              "line-width": 2
+            }
+          },
+          {
+            "id": "sub-basins-outline-blur",
+            "type": "line",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#9ecae1",
+              "line-blur": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18],
+              "line-offset": 2,
+              "line-width": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18]
+            }
+          },
+          {
+            "id": "sub-basins-labels",
+            "type": "symbol",
+            "source": "sub-basins",
+            "source-layer": "western-wash-waus-clipped",
+            "filter": ["==", ["geometry-type"], "Polygon"],
+            "layout": {
+              "text-field": ["get", "WAU_LABEL_"],
+              "text-size": ["interpolate", ["linear"], ["zoom"], 10, 6, 12, 14]
+            },
+            "paint": {
+              "text-color": "#000000",
+              "text-halo-color": "#e8eb34",
+              "text-halo-width": 0.5
+            }
+          }
+        ]
+      },
+      {
         "id": "landuse",
         "interactive": true,
         "popupContent": "<p style='color: #aaa; display: block; font-family: Roboto; margin: 0 0 8px 0; padding-bottom: 6px; border-bottom: 1px solid #eee;'>Land use type:</p><em style='font-family: Roboto; font-weight: 500;'>{{descript}}</em>",
@@ -1209,6 +1395,10 @@
             }
           },
           {
+            "layerGroupId": "1998aerial",
+            "title": "1998 Aerial View"
+          },
+          {
             "layerGroupId": "light-nolabels",
             "title": "Simple Canvas",
             "info": {
@@ -1285,27 +1475,6 @@
               "title": "Historical Duwamish River",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
-          }
-        ]
-      },
-      {
-        "title": "Political Data & Infrastructure",
-        "options": [
-          {
-            "layerGroupId": "cities",
-            "title": "City Boundaries",
-            "info": {
-              "title": "City Boundaries",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
-          },
-          {
-            "layerGroupId": "landuse",
-            "title": "Land Use",
-            "info": {
-              "title": "Land Use",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
           },
           {
             "layerGroupId": "impervious",
@@ -1320,6 +1489,27 @@
             "title": "Sewer lines",
             "info": {
               "title": "Sewer lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "contour",
+            "title": "Contour Lines",
+            "info": {
+              "title": "Contour Lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Jurisdictions",
+        "options": [
+          {
+            "layerGroupId": "cities",
+            "title": "City Boundaries",
+            "info": {
+              "title": "City Boundaries",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
           },
@@ -1346,15 +1536,19 @@
         "options": [
           {
             "layerGroupId": "poverty",
-            "title": "Percent Below 200% Poverty Level"
+            "title": "% Below Double Poverty Level"
           },
           {
             "layerGroupId": "people-of-color",
-            "title": "Percent People of Color"
+            "title": "% People of Color"
           },
           {
             "layerGroupId": "percent-foreign-born",
-            "title": "Percent Foreign Born"
+            "title": "% Foreign Born"
+          },
+          {
+            "layerGroupId": "king-county-life-expectancy",
+            "title": "Life Expectancy"
           }
         ]
       },
@@ -1362,10 +1556,10 @@
         "title": "Other",
         "options": [
           {
-            "layerGroupId": "contour",
-            "title": "Contour Lines",
+            "layerGroupId": "landuse",
+            "title": "Land Use",
             "info": {
-              "title": "Contour Lines",
+              "title": "Land Use",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
           },
@@ -1376,6 +1570,10 @@
               "title": "Farmers Markets",
               "body": "This is some information and a legend"
             }
+          },
+          {
+            "layerGroupId": "longhouses",
+            "title": "Historical Longhouse Locations"
           }
         ]
       }
@@ -1387,7 +1585,6 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "Post Your Project",
     "show_list_button_label": "Myself",
     "show_map_button_label": "Show Map",
     "title": "New project",
@@ -1686,9 +1883,60 @@
   },
   "nav_bar": [
     {
-      "title": "Map Layers",
+      "title": "Layers",
       "type": "left_sidebar_toggle"
+    },
+    {
+      "title": "Post",
+      "type": "internal_link",
+      "url": "/new"
+    },
+    {
+      "title": "Featured",
+      "type": "internal_link",
+      "url": "/page/featured"
+    },
+    {
+      "title": "Stories",
+      "type": "internal_link",
+      "url": "/page/stories"
+    },
+    {
+      "title": "Lessons",
+      "type": "internal_link",
+      "url": "/page/lessons"
+    },
+    {
+      "title": "Love",
+      "type": "internal_link",
+      "url": "/page/love"
+    },
+    {
+      "title": "About",
+      "type": "internal_link",
+      "url": "/page/about"
     }
   ],
-  "pages": []
+  "pages": [
+    {
+      "slug": "featured",
+      "content": ["<h2>Featured Posts</h2>", "<p>Stay tuned...</p>"]
+    },
+    {
+      "slug": "stories",
+      "content": ["<h2>Map Stories</h2>", "<p>Stay tuned...</p>"]
+    },
+    {
+      "slug": "lessons",
+      "content": ["<h2>Lessons</h2>", "<p>Stay tuned...</p>"]
+    },
+    {
+      "slug": "love",
+      "content": ["<h2>Maps we Love</h2>", "<p>Stay tuned...</p>"]
+    },
+    {
+      "slug": "about",
+      "content": ["<h2>About this Map</h2>", "<p>Stay tuned....</p>"]
+    }
+  ]
 }

@@ -43,6 +43,7 @@ const ResponseField = props => {
       `}
     >
       <TinyTitle
+        className="mapseed-response-field-title"
         css={css`
           margin-bottom: 4px;
         `}

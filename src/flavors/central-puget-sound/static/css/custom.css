@@ -40,11 +40,23 @@
   left: 640px;
 }
 
+.mapseed-add-place-button-container {
+  display: none !important;
+}
+
+
 /* =Language picker
 -------------------------------------------------------------- */
 #language-picker {
   display: none;
 }
+
+/* =Post detail views
+-------------------------------------------------------------- */
+.mapseed-response-field-title {
+  font-size: 1.2rem !important;
+}
+
 
 /* =Custom pledge type icons
 -------------------------------------------------------------- */
@@ -53,6 +65,17 @@
   text-indent: 0.8em;
   content: "✔";
 }
+
+/* =Left sidebar
+-------------------------------------------------------------- */
+.mapseed-left-sidebar {
+  width: 325px !important;
+}
+
+.mapseed-map-layer-selector-container {
+  margin-bottom: 4px !important;
+}
+
 
 /* =Dynamic form big button overrides
 -------------------------------------------------------------- */

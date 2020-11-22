@@ -78,7 +78,7 @@ type MapLayerSelectorProps = {
 
 const OptionSelector: React.FunctionComponent<MapLayerSelectorProps> = props => {
   return (
-    <MapLayerSelectorContainer>
+    <MapLayerSelectorContainer className="mapseed-map-layer-selector-container">
       <span
         css={{
           display: "flex",
