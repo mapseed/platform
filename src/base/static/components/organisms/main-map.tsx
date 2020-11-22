@@ -74,7 +74,6 @@ import MapRadioMenu from "../molecules/map-radio-menu";
 import MapLegendWidget from "../molecules/map-legend-widget";
 import PlaceFilterWidget from "../molecules/place-filter-widget";
 
-import { Mixpanel } from "../../utils/mixpanel";
 import { FlyToInterpolator } from "react-map-gl";
 import produce from "immer";
 
@@ -480,8 +479,6 @@ class MainMap extends React.Component<Props, State> {
       // Place's detail view.
       const placeId = feature.properties.id;
       const clientSlug = feature.properties.clientSlug;
-
-      Mixpanel.track("Clicked place on map", { placeId });
 
       this.props.history.push(`/${clientSlug}/${placeId}`);
     }

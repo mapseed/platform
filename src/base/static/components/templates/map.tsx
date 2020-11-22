@@ -69,7 +69,6 @@ import {
   getMainContentAreaWidth,
   getMainContentAreaHeight,
 } from "../../utils/layout-utils";
-import { Mixpanel } from "../../utils/mixpanel";
 import LoginModal from "../molecules/login-modal";
 
 const SpotlightMask = styled("div")({
@@ -427,7 +426,6 @@ class MapTemplate extends React.Component<Props, State> {
                   ref={this.addPlaceButtonRef}
                   layout={this.props.layout}
                   onClick={() => {
-                    Mixpanel.track("Click Add Place Button");
                     // If we aren't logged in, and one or more datasets are
                     // auth_only, then render the login modal:
                     if (

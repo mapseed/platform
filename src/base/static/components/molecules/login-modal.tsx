@@ -22,7 +22,6 @@ import { makeStyles, createStyles } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 
 import IconButton from "@material-ui/core/IconButton";
-import { Mixpanel } from "../../utils/mixpanel";
 import { useTranslation } from "react-i18next";
 import Typography from "@material-ui/core/Typography";
 
@@ -81,11 +80,6 @@ const SocialLoginButton = ({
         button: classes.button,
       }}
       href={`${apiRoot}users/login/${loginProvider.provider}/`}
-      onClick={() =>
-        Mixpanel.track("Clicked login button", {
-          service: loginProvider.provider,
-        })
-      }
     >
       <ListItemIcon css={{ minWidth: "32px" }}>
         <SocialIcon fill={"#fff"} />

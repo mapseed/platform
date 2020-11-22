@@ -10,7 +10,6 @@ import {
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import browserUpdate from "browser-update";
-import { Mixpanel } from "../utils/mixpanel";
 import i18next, { ThirdPartyModule, ReactOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 import resourceBundle from "../../../locales";
@@ -196,15 +195,6 @@ class App extends React.Component<Props, State> {
           isAuthenticated: false,
           isLoaded: true,
         };
-    if (user.isAuthenticated) {
-      Mixpanel.identify(user.id);
-      Mixpanel.track("Successful login");
-      Mixpanel.people.set({
-        name: user.name,
-        username: user.username,
-        id: user.id,
-      });
-    }
     this.props.loadUser(user);
 
     // Fetch and load datasets.
