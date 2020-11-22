@@ -169,6 +169,13 @@
         ],
         "maxzoom": 16
       },
+      "king-county-life-expectancy": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/king-county-life-expectancy/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
       "commfood": {
         "type": "geojson",
         "data": "https://raw.githubusercontent.com/mapseed/data/master/Farmers_Markets_in_Washington.geojson"
@@ -511,6 +518,108 @@
             "type": "line",
             "source": "percent-foreign-born",
             "source-layer": "demographic-base-king-county",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
+            }
+          }
+        ]
+      },
+      {
+        "id": "king-county-life-expectancy",
+        "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "#d4b9da",
+            "label": "< 70 years"
+          },
+          {
+            "swatch": "#c994c7",
+            "label": "70 - 74.9 years"
+          },
+          {
+            "swatch": "#df65b0",
+            "label": "75 - 79.9 years"
+          },
+          {
+            "swatch": "#e7298a",
+            "label": "80 - 84.9 years"
+          },
+          {
+            "swatch": "#ce1256",
+            "label": "85 - 89.9 years"
+          },
+          {
+            "swatch": "#91003f",
+            "label": "90+ years"
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "life-expectancy",
+            "type": "fill",
+            "source": "king-county-life-expectancy",
+            "source-layer": "king-county-life-expectancy",
+            "filter": ["!=", ["get", "LEVEL_3"], "53033990100"],
+            "paint": {
+              "fill-color": [
+                "case",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  70
+                ],
+                "#d4b9da",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  75
+                ],
+                "#c994c7",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  80
+                ],
+                "#df65b0",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  85
+                ],
+                "#e7298a",
+                [
+                  "<",
+                  [
+                    "to-number",
+                    ["get", "king-county-life-expectancy-by-census-tracts_e(0)"]
+                  ],
+                  90
+                ],
+                "#ce1256",
+                "#91003f"
+              ],
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "life-expectancy-outlines",
+            "type": "line",
+            "source": "king-county-life-expectancy",
+            "source-layer": "king-county-life-expectancy",
+            "filter": ["!=", ["get", "LEVEL_3"], "53033990100"],
             "paint": {
               "line-color": "#fff",
               "line-width": 1.5
@@ -1436,6 +1545,10 @@
           {
             "layerGroupId": "percent-foreign-born",
             "title": "% Foreign Born"
+          },
+          {
+            "layerGroupId": "king-county-life-expectancy",
+            "title": "Life Expectancy"
           }
         ]
       },
