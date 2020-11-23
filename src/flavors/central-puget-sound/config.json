@@ -172,7 +172,7 @@
       "king-county-life-expectancy": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/king-county-life-expectancy/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/king-county-life-expectancy-v2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -796,6 +796,7 @@
               ["==", ["get", "wria_nm"], "Duwamish - Green"],
               ["==", ["get", "wria_nm"], "Puyallup - White"],
               ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Nisqually"],
               ["==", ["get", "wria_nm"], "Stillaguamish"],
               ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
@@ -813,6 +814,8 @@
                 "#339966",
                 "Upper Skagit",
                 "#339966",
+                "Nisqually",
+                "#0088cc",
                 "Lower Skagit - Samish",
                 "#916cfa",
                 "Stillaguamish",
@@ -834,6 +837,7 @@
               ["==", ["get", "wria_nm"], "Duwamish - Green"],
               ["==", ["get", "wria_nm"], "Puyallup - White"],
               ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Nisqually"],
               ["==", ["get", "wria_nm"], "Stillaguamish"],
               ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
@@ -854,6 +858,7 @@
               ["==", ["get", "wria_nm"], "Duwamish - Green"],
               ["==", ["get", "wria_nm"], "Puyallup - White"],
               ["==", ["get", "wria_nm"], "Upper Skagit"],
+              ["==", ["get", "wria_nm"], "Nisqually"],
               ["==", ["get", "wria_nm"], "Stillaguamish"],
               ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
