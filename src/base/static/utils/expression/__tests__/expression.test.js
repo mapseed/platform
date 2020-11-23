@@ -352,7 +352,7 @@ describe("Expressions", () => {
     const result = dataset.filter(place => {
       return parsedExp.evaluate({
         dataset,
-        place
+        place,
       });
     });
 

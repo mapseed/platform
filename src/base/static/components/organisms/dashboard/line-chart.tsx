@@ -68,6 +68,8 @@ const getLineChartData = ({
           maxDate = date;
         }
 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
         return date.tz(timeZone).format(DATETIME_FORMAT);
       })
     : {};

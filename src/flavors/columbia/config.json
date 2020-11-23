@@ -195,7 +195,11 @@
                     [
                       "get-sum",
                       "conservation_cover_amount",
-                      ["==", ["get-val", "conservation_cover_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "conservation_cover_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -205,7 +209,11 @@
                     [
                       "get-sum",
                       "conservation_cover_amount",
-                      ["==", ["get-val", "conservation_cover_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "conservation_cover_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "conservation_cover_amount"]
                   ],
@@ -222,7 +230,11 @@
                     [
                       "get-sum",
                       "conservation_cover_amount",
-                      ["==", ["get-val", "conservation_cover_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "conservation_cover_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -232,7 +244,11 @@
                     [
                       "get-sum",
                       "conservation_cover_amount",
-                      ["==", ["get-val", "conservation_cover_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "conservation_cover_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "conservation_cover_amount"]
                   ],
@@ -249,7 +265,11 @@
                     [
                       "get-sum",
                       "conservation_cover_amount",
-                      ["==", ["get-val", "conservation_cover_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "conservation_cover_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -259,7 +279,11 @@
                     [
                       "get-sum",
                       "conservation_cover_amount",
-                      ["==", ["get-val", "conservation_cover_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "conservation_cover_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "conservation_cover_amount"]
                   ],
@@ -276,7 +300,11 @@
                     [
                       "get-sum",
                       "conservation_cover_amount",
-                      ["==", ["get-val", "conservation_cover_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "conservation_cover_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -286,7 +314,11 @@
                     [
                       "get-sum",
                       "conservation_cover_amount",
-                      ["==", ["get-val", "conservation_cover_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "conservation_cover_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "conservation_cover_amount"]
                   ],
@@ -331,7 +363,11 @@
                     [
                       "get-sum",
                       "cropland_pest_management_amount",
-                      ["==", ["get-val", "cropland_pest_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "cropland_pest_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -341,7 +377,11 @@
                     [
                       "get-sum",
                       "cropland_pest_management_amount",
-                      ["==", ["get-val", "cropland_pest_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "cropland_pest_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "cropland_pest_management_amount"]
                   ],
@@ -358,7 +398,11 @@
                     [
                       "get-sum",
                       "cropland_pest_management_amount",
-                      ["==", ["get-val", "cropland_pest_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "cropland_pest_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -368,7 +412,11 @@
                     [
                       "get-sum",
                       "cropland_pest_management_amount",
-                      ["==", ["get-val", "cropland_pest_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "cropland_pest_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "cropland_pest_management_amount"]
                   ],
@@ -385,7 +433,11 @@
                     [
                       "get-sum",
                       "cropland_pest_management_amount",
-                      ["==", ["get-val", "cropland_pest_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "cropland_pest_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -395,7 +447,11 @@
                     [
                       "get-sum",
                       "cropland_pest_management_amount",
-                      ["==", ["get-val", "cropland_pest_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "cropland_pest_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "cropland_pest_management_amount"]
                   ],
@@ -412,7 +468,11 @@
                     [
                       "get-sum",
                       "cropland_pest_management_amount",
-                      ["==", ["get-val", "cropland_pest_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "cropland_pest_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -422,7 +482,11 @@
                     [
                       "get-sum",
                       "cropland_pest_management_amount",
-                      ["==", ["get-val", "cropland_pest_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "cropland_pest_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "cropland_pest_management_amount"]
                   ],
@@ -601,7 +665,11 @@
                     [
                       "get-sum",
                       "crop_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "crop_riparian_forest_buffer_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "crop_riparian_forest_buffer_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -611,7 +679,11 @@
                     [
                       "get-sum",
                       "crop_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "crop_riparian_forest_buffer_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "crop_riparian_forest_buffer_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "crop_riparian_forest_buffer_amount"]
                   ],
@@ -628,7 +700,11 @@
                     [
                       "get-sum",
                       "crop_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "crop_riparian_forest_buffer_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "crop_riparian_forest_buffer_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -638,7 +714,11 @@
                     [
                       "get-sum",
                       "crop_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "crop_riparian_forest_buffer_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "crop_riparian_forest_buffer_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "crop_riparian_forest_buffer_amount"]
                   ],
@@ -655,7 +735,11 @@
                     [
                       "get-sum",
                       "crop_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "crop_riparian_forest_buffer_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "crop_riparian_forest_buffer_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -665,7 +749,11 @@
                     [
                       "get-sum",
                       "crop_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "crop_riparian_forest_buffer_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "crop_riparian_forest_buffer_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "crop_riparian_forest_buffer_amount"]
                   ],
@@ -682,7 +770,11 @@
                     [
                       "get-sum",
                       "crop_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "crop_riparian_forest_buffer_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "crop_riparian_forest_buffer_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -692,7 +784,11 @@
                     [
                       "get-sum",
                       "crop_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "crop_riparian_forest_buffer_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "crop_riparian_forest_buffer_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "crop_riparian_forest_buffer_amount"]
                   ],
@@ -736,7 +832,11 @@
                     [
                       "get-sum",
                       "residue_tillage_management_amount",
-                      ["==", ["get-val", "residue_tillage_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "residue_tillage_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -746,7 +846,11 @@
                     [
                       "get-sum",
                       "residue_tillage_management_amount",
-                      ["==", ["get-val", "residue_tillage_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "residue_tillage_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "residue_tillage_management_amount"]
                   ],
@@ -763,7 +867,11 @@
                     [
                       "get-sum",
                       "residue_tillage_management_amount",
-                      ["==", ["get-val", "residue_tillage_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "residue_tillage_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -773,7 +881,11 @@
                     [
                       "get-sum",
                       "residue_tillage_management_amount",
-                      ["==", ["get-val", "residue_tillage_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "residue_tillage_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "residue_tillage_management_amount"]
                   ],
@@ -790,7 +902,11 @@
                     [
                       "get-sum",
                       "residue_tillage_management_amount",
-                      ["==", ["get-val", "residue_tillage_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "residue_tillage_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -800,7 +916,11 @@
                     [
                       "get-sum",
                       "residue_tillage_management_amount",
-                      ["==", ["get-val", "residue_tillage_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "residue_tillage_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "residue_tillage_management_amount"]
                   ],
@@ -817,7 +937,11 @@
                     [
                       "get-sum",
                       "residue_tillage_management_amount",
-                      ["==", ["get-val", "residue_tillage_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "residue_tillage_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -827,7 +951,11 @@
                     [
                       "get-sum",
                       "residue_tillage_management_amount",
-                      ["==", ["get-val", "residue_tillage_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "residue_tillage_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "residue_tillage_management_amount"]
                   ],
@@ -871,7 +999,11 @@
                     [
                       "get-sum",
                       "nutrient_management_amount",
-                      ["==", ["get-val", "nutrient_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "nutrient_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -881,7 +1013,11 @@
                     [
                       "get-sum",
                       "nutrient_management_amount",
-                      ["==", ["get-val", "nutrient_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "nutrient_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "nutrient_management_amount"]
                   ],
@@ -898,7 +1034,11 @@
                     [
                       "get-sum",
                       "nutrient_management_amount",
-                      ["==", ["get-val", "nutrient_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "nutrient_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -908,7 +1048,11 @@
                     [
                       "get-sum",
                       "nutrient_management_amount",
-                      ["==", ["get-val", "nutrient_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "nutrient_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "nutrient_management_amount"]
                   ],
@@ -925,7 +1069,11 @@
                     [
                       "get-sum",
                       "nutrient_management_amount",
-                      ["==", ["get-val", "nutrient_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "nutrient_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -935,7 +1083,11 @@
                     [
                       "get-sum",
                       "nutrient_management_amount",
-                      ["==", ["get-val", "nutrient_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "nutrient_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "nutrient_management_amount"]
                   ],
@@ -952,7 +1104,11 @@
                     [
                       "get-sum",
                       "nutrient_management_amount",
-                      ["==", ["get-val", "nutrient_management_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "nutrient_management_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -962,7 +1118,11 @@
                     [
                       "get-sum",
                       "nutrient_management_amount",
-                      ["==", ["get-val", "nutrient_management_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "nutrient_management_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "nutrient_management_amount"]
                   ],
@@ -1141,7 +1301,11 @@
                     [
                       "get-sum",
                       "ranch_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "ranch_riparian_forest_buffer_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_riparian_forest_buffer_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1151,7 +1315,11 @@
                     [
                       "get-sum",
                       "ranch_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "ranch_riparian_forest_buffer_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_riparian_forest_buffer_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "ranch_riparian_forest_buffer_amount"]
                   ],
@@ -1168,7 +1336,11 @@
                     [
                       "get-sum",
                       "ranch_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "ranch_riparian_forest_buffer_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_riparian_forest_buffer_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1178,7 +1350,11 @@
                     [
                       "get-sum",
                       "ranch_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "ranch_riparian_forest_buffer_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_riparian_forest_buffer_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "ranch_riparian_forest_buffer_amount"]
                   ],
@@ -1195,7 +1371,11 @@
                     [
                       "get-sum",
                       "ranch_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "ranch_riparian_forest_buffer_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_riparian_forest_buffer_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1205,7 +1385,11 @@
                     [
                       "get-sum",
                       "ranch_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "ranch_riparian_forest_buffer_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_riparian_forest_buffer_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "ranch_riparian_forest_buffer_amount"]
                   ],
@@ -1222,7 +1406,11 @@
                     [
                       "get-sum",
                       "ranch_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "ranch_riparian_forest_buffer_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_riparian_forest_buffer_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1232,7 +1420,11 @@
                     [
                       "get-sum",
                       "ranch_riparian_forest_buffer_amount",
-                      ["==", ["get-val", "ranch_riparian_forest_buffer_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_riparian_forest_buffer_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "ranch_riparian_forest_buffer_amount"]
                   ],
@@ -1286,7 +1478,11 @@
                     [
                       "get-sum",
                       "ranch_fencing_amount",
-                      ["==", ["get-val", "ranch_fencing_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_fencing_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "ranch_fencing_amount"]
                   ],
@@ -1313,7 +1509,11 @@
                     [
                       "get-sum",
                       "ranch_fencing_amount",
-                      ["==", ["get-val", "ranch_fencing_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_fencing_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "ranch_fencing_amount"]
                   ],
@@ -1340,7 +1540,11 @@
                     [
                       "get-sum",
                       "ranch_fencing_amount",
-                      ["==", ["get-val", "ranch_fencing_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_fencing_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "ranch_fencing_amount"]
                   ],
@@ -1367,7 +1571,11 @@
                     [
                       "get-sum",
                       "ranch_fencing_amount",
-                      ["==", ["get-val", "ranch_fencing_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "ranch_fencing_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "ranch_fencing_amount"]
                   ],
@@ -1411,7 +1619,11 @@
                     [
                       "get-sum",
                       "stream_habitat_improvement_amount",
-                      ["==", ["get-val", "stream_habitat_improvement_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "stream_habitat_improvement_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1421,7 +1633,11 @@
                     [
                       "get-sum",
                       "stream_habitat_improvement_amount",
-                      ["==", ["get-val", "stream_habitat_improvement_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "stream_habitat_improvement_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "stream_habitat_improvement_amount"]
                   ],
@@ -1438,7 +1654,11 @@
                     [
                       "get-sum",
                       "stream_habitat_improvement_amount",
-                      ["==", ["get-val", "stream_habitat_improvement_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "stream_habitat_improvement_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1448,7 +1668,11 @@
                     [
                       "get-sum",
                       "stream_habitat_improvement_amount",
-                      ["==", ["get-val", "stream_habitat_improvement_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "stream_habitat_improvement_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "stream_habitat_improvement_amount"]
                   ],
@@ -1465,7 +1689,11 @@
                     [
                       "get-sum",
                       "stream_habitat_improvement_amount",
-                      ["==", ["get-val", "stream_habitat_improvement_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "stream_habitat_improvement_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1475,7 +1703,11 @@
                     [
                       "get-sum",
                       "stream_habitat_improvement_amount",
-                      ["==", ["get-val", "stream_habitat_improvement_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "stream_habitat_improvement_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "stream_habitat_improvement_amount"]
                   ],
@@ -1492,7 +1724,11 @@
                     [
                       "get-sum",
                       "stream_habitat_improvement_amount",
-                      ["==", ["get-val", "stream_habitat_improvement_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "stream_habitat_improvement_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1502,7 +1738,11 @@
                     [
                       "get-sum",
                       "stream_habitat_improvement_amount",
-                      ["==", ["get-val", "stream_habitat_improvement_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "stream_habitat_improvement_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "stream_habitat_improvement_amount"]
                   ],
@@ -1546,7 +1786,11 @@
                     [
                       "get-sum",
                       "livestock_grazing_amount",
-                      ["==", ["get-val", "livestock_grazing_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "livestock_grazing_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1556,7 +1800,11 @@
                     [
                       "get-sum",
                       "livestock_grazing_amount",
-                      ["==", ["get-val", "livestock_grazing_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "livestock_grazing_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "livestock_grazing_amount"]
                   ],
@@ -1573,7 +1821,11 @@
                     [
                       "get-sum",
                       "livestock_grazing_amount",
-                      ["==", ["get-val", "livestock_grazing_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "livestock_grazing_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1583,7 +1835,11 @@
                     [
                       "get-sum",
                       "livestock_grazing_amount",
-                      ["==", ["get-val", "livestock_grazing_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "livestock_grazing_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "livestock_grazing_amount"]
                   ],
@@ -1600,7 +1856,11 @@
                     [
                       "get-sum",
                       "livestock_grazing_amount",
-                      ["==", ["get-val", "livestock_grazing_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "livestock_grazing_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1610,7 +1870,11 @@
                     [
                       "get-sum",
                       "livestock_grazing_amount",
-                      ["==", ["get-val", "livestock_grazing_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "livestock_grazing_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "livestock_grazing_amount"]
                   ],
@@ -1627,7 +1891,11 @@
                     [
                       "get-sum",
                       "livestock_grazing_amount",
-                      ["==", ["get-val", "livestock_grazing_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "livestock_grazing_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1637,7 +1905,11 @@
                     [
                       "get-sum",
                       "livestock_grazing_amount",
-                      ["==", ["get-val", "livestock_grazing_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "livestock_grazing_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "livestock_grazing_amount"]
                   ],
@@ -1681,7 +1953,11 @@
                     [
                       "get-sum",
                       "watering_facility_amount",
-                      ["==", ["get-val", "watering_facility_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "watering_facility_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1691,7 +1967,11 @@
                     [
                       "get-sum",
                       "watering_facility_amount",
-                      ["==", ["get-val", "watering_facility_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "watering_facility_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "watering_facility_amount"]
                   ],
@@ -1708,7 +1988,11 @@
                     [
                       "get-sum",
                       "watering_facility_amount",
-                      ["==", ["get-val", "watering_facility_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "watering_facility_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1718,7 +2002,11 @@
                     [
                       "get-sum",
                       "watering_facility_amount",
-                      ["==", ["get-val", "watering_facility_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "watering_facility_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "watering_facility_amount"]
                   ],
@@ -1735,7 +2023,11 @@
                     [
                       "get-sum",
                       "watering_facility_amount",
-                      ["==", ["get-val", "watering_facility_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "watering_facility_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1745,7 +2037,11 @@
                     [
                       "get-sum",
                       "watering_facility_amount",
-                      ["==", ["get-val", "watering_facility_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "watering_facility_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "watering_facility_amount"]
                   ],
@@ -1762,7 +2058,11 @@
                     [
                       "get-sum",
                       "watering_facility_amount",
-                      ["==", ["get-val", "watering_facility_date"], "pre-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "watering_facility_date"],
+                        "pre-july-2011"
+                      ]
                     ],
                     [
                       "==",
@@ -1772,7 +2072,11 @@
                     [
                       "get-sum",
                       "watering_facility_amount",
-                      ["==", ["get-val", "watering_facility_date"], "post-july-2011"]
+                      [
+                        "==",
+                        ["get-val", "watering_facility_date"],
+                        "post-july-2011"
+                      ]
                     ],
                     ["get-sum", "watering_facility_amount"]
                   ],
