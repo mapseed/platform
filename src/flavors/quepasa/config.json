@@ -120,12 +120,16 @@
       },
       "riachuelo-subbasins": {
         "type": "vector",
-        "tiles": ["https://vector-tiles.mapseed.org/riachuelo-subbasins/{z}/{x}/{y}.pbf"],
+        "tiles": [
+          "https://vector-tiles.mapseed.org/riachuelo-subbasins/{z}/{x}/{y}.pbf"
+        ],
         "maxzoom": 16
       },
       "riachuelo-watercourses": {
         "type": "vector",
-        "tiles": ["https://vector-tiles.mapseed.org/riachuelo-watercourses/{z}/{x}/{y}.pbf"],
+        "tiles": [
+          "https://vector-tiles.mapseed.org/riachuelo-watercourses/{z}/{x}/{y}.pbf"
+        ],
         "maxzoom": 16
       }
     },

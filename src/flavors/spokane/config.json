@@ -4314,7 +4314,10 @@
             "triggers": [
               {
                 "value": "yes",
-                "targets": ["pollinator_habitat_quantity", "pollinator_habitat_duration"]
+                "targets": [
+                  "pollinator_habitat_quantity",
+                  "pollinator_habitat_duration"
+                ]
               }
             ],
             "content": [
@@ -4408,7 +4411,10 @@
             "triggers": [
               {
                 "value": "yes",
-                "targets": ["wildlife_habitat_enhancements_quantity", "wildlife_habitat_enhancements_duration"]
+                "targets": [
+                  "wildlife_habitat_enhancements_quantity",
+                  "wildlife_habitat_enhancements_duration"
+                ]
               }
             ],
             "content": [
@@ -4502,7 +4508,10 @@
             "triggers": [
               {
                 "value": "yes",
-                "targets": ["conservation_crop_rotation_quantity", "conservation_crop_rotation_duration"]
+                "targets": [
+                  "conservation_crop_rotation_quantity",
+                  "conservation_crop_rotation_duration"
+                ]
               }
             ],
             "content": [

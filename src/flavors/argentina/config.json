@@ -279,45 +279,45 @@
           }
         ]
       },
-        {
-          "id": "cuenca-satelital",
-          "basemap": true,
-          "visibleDefault": true,
-          "mapboxLayers": [
-            {
-              "id": "satelital",
-              "type": "raster",
-              "source": "satelital",
-              "paint": {
-                "raster-opacity": [
-                  "interpolate",
-                  ["linear"],
-                  ["zoom"],
-                  10,
-                  0,
-                  11,
-                  1
-                ]
-              }
-            },
-            {
-              "id": "cuenca",
-              "type": "raster",
-              "source": "cuenca",
-              "paint": {
-                "raster-opacity": [
-                  "interpolate",
-                  ["linear"],
-                  ["zoom"],
-                  11,
-                  1,
-                  12.5,
-                  0
-                ]
-              }
+      {
+        "id": "cuenca-satelital",
+        "basemap": true,
+        "visibleDefault": true,
+        "mapboxLayers": [
+          {
+            "id": "satelital",
+            "type": "raster",
+            "source": "satelital",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                0,
+                11,
+                1
+              ]
             }
-          ]
-        },
+          },
+          {
+            "id": "cuenca",
+            "type": "raster",
+            "source": "cuenca",
+            "paint": {
+              "raster-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                11,
+                1,
+                12.5,
+                0
+              ]
+            }
+          }
+        ]
+      },
       {
         "id": "satellite",
         "basemap": true,
@@ -371,7 +371,7 @@
             "paint": {
               "fill-outline-color": "#2b5c81",
               "fill-color": "#2b5c81",
-              "fill-opacity":  [
+              "fill-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
@@ -483,7 +483,19 @@
             "source": "LogisticaFluvial",
             "layout": {
               "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0.0, 4.5, 0.1, 5, 0.3, 8, 0.8, 10, 1],
+              "icon-size": [
+                "step",
+                ["zoom"],
+                0.0,
+                4.5,
+                0.1,
+                5,
+                0.3,
+                8,
+                0.8,
+                10,
+                1
+              ],
               "icon-anchor": "center",
               "icon-image": "puertos.png"
             }
@@ -500,7 +512,7 @@
             "paint": {
               "fill-outline-color": "black",
               "fill-color": "red",
-              "fill-opacity":  [
+              "fill-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
@@ -522,7 +534,7 @@
             "source": "CuencaAltoParaguay",
             "paint": {
               "line-color": "lightgray",
-              "line-width":  3
+              "line-width": 3
             }
           }
         ]
@@ -561,7 +573,7 @@
             "paint": {
               "fill-outline-color": "#ffffff",
               "fill-color": "#aa57b7",
-              "fill-opacity":  [
+              "fill-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
@@ -590,7 +602,7 @@
             "paint": {
               "fill-outline-color": "#ffffff",
               "fill-color": "#ec8248",
-              "fill-opacity":  [
+              "fill-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
@@ -619,7 +631,7 @@
             "paint": {
               "fill-outline-color": "#ffffff",
               "fill-color": "#ec8248",
-              "fill-opacity":  [
+              "fill-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
@@ -1432,25 +1444,42 @@
         "zoom": 4.63,
         "pan_to": [-56.95, -26.34],
         "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
-        "visibleLayerGroupIds": ["mapacuenca-satelital", "presencia-agua", "argentina-input"],
+        "visibleLayerGroupIds": [
+          "mapacuenca-satelital",
+          "presencia-agua",
+          "argentina-input"
+        ],
         "spotlight": false
       },
       {
         "renderIn": "FeaturedPlacesMenu",
         "placeId": 8692,
         "zoom": 5.96,
-        "pan_to": [ -57.2, -18.5 ],
+        "pan_to": [-57.2, -18.5],
         "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
-        "visibleLayerGroupIds": ["mapacuenca-satelital", "CuencaAltoParaguay", "CuencaAltoParaguay-contorno", "CuencaAltoParaguay-represas", "argentina-input"],
+        "visibleLayerGroupIds": [
+          "mapacuenca-satelital",
+          "CuencaAltoParaguay",
+          "CuencaAltoParaguay-contorno",
+          "CuencaAltoParaguay-represas",
+          "argentina-input"
+        ],
         "spotlight": false
       },
       {
         "renderIn": "FeaturedPlacesMenu",
         "placeId": 8701,
         "zoom": 6.26,
-        "pan_to": [ -58.95, -32.34 ],
+        "pan_to": [-58.95, -32.34],
         "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
-        "visibleLayerGroupIds": ["cuenca-satelital", "HydroMeander", "Hidrovia1", "Hidrovia2", "Hidrovia3", "LogisticaFluvial"],
+        "visibleLayerGroupIds": [
+          "cuenca-satelital",
+          "HydroMeander",
+          "Hidrovia1",
+          "Hidrovia2",
+          "Hidrovia3",
+          "LogisticaFluvial"
+        ],
         "spotlight": false
       },
       {
@@ -1459,7 +1488,14 @@
         "zoom": 7.76,
         "pan_to": [-60.45, -32.55],
         "iconUrl": "/static/css/images/markers/marker-star-red-black.png",
-        "visibleLayerGroupIds": ["cuenca-satelital", "Area1", "Area2", "Area3", "PuntosValiosos1", "PuntosValiosos2"],
+        "visibleLayerGroupIds": [
+          "cuenca-satelital",
+          "Area1",
+          "Area2",
+          "Area3",
+          "PuntosValiosos1",
+          "PuntosValiosos2"
+        ],
         "spotlight": false
       }
     ]
