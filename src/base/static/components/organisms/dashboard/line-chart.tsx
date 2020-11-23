@@ -69,7 +69,7 @@ const getLineChartData = ({
         }
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignor@e
+        // @ts-ignore
         return date.tz(timeZone).format(DATETIME_FORMAT);
       })
     : {};
