@@ -157,7 +157,7 @@
             },
             {
               "header": "Middle Snake WRIA",
-              "type": "numeric",
+              "type": "string",
               "filter": ["==", ["get-val", "wria"], "middle_snake"]
             },
             {
@@ -4423,9 +4423,27 @@
                       "pre-2011"
                     ],
                     [
-                      "get-sum",
-                      "streambank_protection_quantity",
-                      ["<", ["get-val", "streambank_protection_datetime"], 2011]
+                      "cat-join",
+                      "",
+                      [
+                        "get-sum",
+                        "streambank_protection_quantity",
+                        [
+                          "<",
+                          ["get-val", "streambank_protection_datetime"],
+                          2011
+                        ]
+                      ],
+                      ["literal", " ("],
+                      [
+                        "get-count",
+                        [
+                          "<",
+                          ["get-val", "streambank_protection_datetime"],
+                          2011
+                        ]
+                      ],
+                      ["literal", " posts)"]
                     ],
                     [
                       "==",
