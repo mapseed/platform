@@ -5877,6 +5877,13 @@
           "https://vector-tiles.mapseed.org/palouse-analysis-units/{z}/{x}/{y}.pbf"
         ]
       },
+      "wria-boundaries-wa-all": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16 
+      },
       "palouse-basin-streams": {
         "type": "geojson",
         "data": "https://assets.mapseed.org/geo/palouse/palouse-basin-streams.geojson"
@@ -6046,8 +6053,67 @@
         ]
       },
       {
+        "id": "wrias",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "wrias",
+            "type": "fill",
+            "source": "wria-boundaries-wa-all",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "any",
+              ["==", ["get", "wria_nm"], "Hangman"],
+              ["==", ["get", "wria_nm"], "Palouse"],
+              ["==", ["get", "wria_nm"], "Middle Snake"]
+            ],
+            "paint": {
+              "fill-color": "#3182bd",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "wrias-outlines",
+            "type": "line",
+            "source": "wria-boundaries-wa-all",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "any",
+              ["==", ["get", "wria_nm"], "Hangman"],
+              ["==", ["get", "wria_nm"], "Palouse"],
+              ["==", ["get", "wria_nm"], "Middle Snake"]
+            ],
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1.5
+            }
+          },
+          {
+            "id": "wrias-labels",
+            "type": "symbol",
+            "source": "wria-boundaries-wa-all",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "any",
+              ["==", ["get", "wria_nm"], "Hangman"],
+              ["==", ["get", "wria_nm"], "Palouse"],
+              ["==", ["get", "wria_nm"], "Middle Snake"]
+            ],
+            "layout": {
+              "text-field": ["get", "wria_nm"],
+              "text-size": 16
+            },
+            "paint": {
+              "text-color": "#000000",
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 1
+            }
+          }
+        ]
+      },
+      {
         "id": "palouse-analysis-units",
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "palouse-analysis-units",
@@ -6356,6 +6422,10 @@
             "title": "Watershed Analysis Units"
           },
           {
+            "layerGroupId": "wrias",
+            "title": "WRIAs"
+          },
+          {
             "layerGroupId": "palouse-wetlands",
             "title": "Wetlands"
           },
@@ -6405,7 +6475,6 @@
             "end_field_index": 5,
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-analysis-units",
               "palouse-input",
               "whitman-county-outline"
             ]
@@ -6415,8 +6484,7 @@
             "end_field_index": 7,
             "visibleLayerGroupIds": [
               "satellite",
-              "palouse-analysis-units",
-              "palouse-basin-streams",
+              "wrias",
               "whitman-county-outline"
             ]
           },
@@ -6558,27 +6626,27 @@
             "optional": true
           },
           {
-            "name": "analysis_units_header",
+            "name": "wria_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watershed analysis unit</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. WRIA</h2>"
           },
           {
-            "name": "analysis_unit",
+            "name": "wria",
             "type": "big_radio",
-            "prompt": "Of the three VSP watershed analysis units on map (Rock, Palouse, or Snake), which unit primarily represents your farm or ranch?  All reporting for VSP will be at the watershed analysis unit scale level. Complete multiple surveys for areas that are distinctly different.",
+            "prompt": "Of the three WRIA regions on the map (Middle Snake, Hangman, or Palouse), which WRIA primarily represents your farm or ranch?",
             "optional": false,
             "content": [
               {
-                "label": "Rock Analysis Unit",
-                "value": "rock"
+                "label": "Middle Snake",
+                "value": "middle_snake"
               },
               {
-                "label": "Palouse Analysis Unit",
+                "label": "Hangman",
+                "value": "hangman"
+              },
+              {
+                "label": "Palouse",
                 "value": "palouse"
-              },
-              {
-                "label": "Snake Analysis Unit",
-                "value": "snake"
               }
             ]
           },
