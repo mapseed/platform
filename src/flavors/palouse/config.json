@@ -5220,7 +5220,7 @@
         "tiles": [
           "https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 16 
+        "maxzoom": 16
       },
       "palouse-basin-streams": {
         "type": "geojson",
