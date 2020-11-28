@@ -84,7 +84,7 @@
         "tiles": [
           "https://vector-tiles.mapseed.org/washington-waus/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 16
+        "maxzoom": 15
       },
       "washington-watercourses": {
         "type": "vector",
@@ -892,254 +892,6 @@
         ]
       },
       {
-        "id": "wria-7",
-        "mapboxLayers": [
-          {
-            "id": "wria-7",
-            "source": "wria-7",
-            "source-layer": "wria-7",
-            "type": "line",
-            "paint": {
-              "line-color": "#0f3b82",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          }
-        ]
-      },
-      {
-        "id": "watershed-cedar-sammamish",
-        "mapboxLayers": [
-          {
-            "id": "cedar-watershed_streams",
-            "source": "watershed-cedar-sammamish",
-            "source-layer": "watershed-cedar-sammamish",
-            "type": "line",
-            "paint": {
-              "line-color": "#0f3b82",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          },
-          {
-            "id": "cedar-watershed_cedar-river",
-            "source": "watershed-cedar-sammamish",
-            "source-layer": "watershed-cedar-sammamish",
-            "type": "line",
-            "filter": ["==", "wtr_name", "Cedar River"],
-            "paint": {
-              "line-color": "#058dad",
-              "line-width": 3
-            }
-          },
-          {
-            "id": "sammamish-watershed_labels-a",
-            "source": "watershed-cedar-sammamish",
-            "source-layer": "watershed-cedar-sammamish",
-            "type": "symbol",
-            "filter": [">=", ["zoom"], 12],
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
-            "layout": {
-              "text-field": ["get", "wtr_name"],
-              "text-size": 10,
-              "text-allow-overlap": false
-            }
-          },
-          {
-            "id": "sammamish-watershed_streams-a",
-            "source": "watershed-cedar-sammamish",
-            "source-layer": "watershed-cedar-sammamish",
-            "type": "line",
-            "paint": {
-              "line-color": "#0f3b82",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          },
-          {
-            "id": "sammamish-watershed_white-river-a",
-            "source": "watershed-cedar-sammamish",
-            "source-layer": "watershed-cedar-sammamish",
-            "type": "line",
-            "filter": ["==", "wtr_name", "Sammamish River"],
-            "paint": {
-              "line-color": "#058dad",
-              "line-width": 3
-            }
-          },
-          {
-            "id": "sammamish-watershed_labels-b",
-            "source": "watershed-cedar-sammamish",
-            "source-layer": "watershed-cedar-sammamish",
-            "type": "symbol",
-            "filter": [">=", ["zoom"], 12],
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
-            "layout": {
-              "text-field": ["get", "wtr_name"],
-              "text-size": 10,
-              "text-allow-overlap": false
-            }
-          }
-        ]
-      },
-      {
-        "id": "watershed-green",
-        "mapboxLayers": [
-          {
-            "id": "green-duwamish-watershed_streams",
-            "source": "watershed-green",
-            "source-layer": "watershed-green",
-            "type": "line",
-            "paint": {
-              "line-color": "#0f3b82",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          },
-          {
-            "id": "green-duwamish-watershed_green-river",
-            "source": "watershed-green",
-            "source-layer": "watershed-green",
-            "type": "line",
-            "filter": ["==", "wtr_name", "Green River"],
-            "paint": {
-              "line-color": "#058dad",
-              "line-width": 3
-            }
-          },
-          {
-            "id": "green-duwamish-watershed_duwamish-river",
-            "source": "watershed-green",
-            "source-layer": "watershed-green",
-            "type": "line",
-            "filter": ["==", "wtr_name", "Duwamish River"],
-            "paint": {
-              "line-color": "#058dad",
-              "line-width": 3
-            }
-          },
-          {
-            "id": "green-duwamish-watershed_labels",
-            "source": "watershed-green",
-            "source-layer": "watershed-green",
-            "type": "symbol",
-            "filter": [">=", ["zoom"], 12],
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
-            "layout": {
-              "text-field": ["get", "wtr_name"],
-              "text-size": 10,
-              "text-allow-overlap": false
-            }
-          }
-        ]
-      },
-      {
-        "id": "watershed-sammamish",
-        "mapboxLayers": [
-          {
-            "id": "sammamish-watershed_streams-b",
-            "source": "watershed-sammamish",
-            "source-layer": "watershed-sammamish",
-            "type": "line",
-            "paint": {
-              "line-color": "#0f3b82",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          },
-          {
-            "id": "sammamish-watershed_white-river-b",
-            "source": "watershed-sammamish",
-            "source-layer": "watershed-sammamish",
-            "type": "line",
-            "filter": ["==", "wtr_name", "Sammamish River"],
-            "paint": {
-              "line-color": "#058dad",
-              "line-width": 3
-            }
-          },
-          {
-            "id": "sammamish-watershed_labels",
-            "source": "watershed-sammamish",
-            "source-layer": "watershed-sammamish",
-            "type": "symbol",
-            "filter": [">=", ["zoom"], 12],
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
-            "layout": {
-              "text-field": ["get", "wtr_name"],
-              "text-size": 10,
-              "text-allow-overlap": false
-            }
-          }
-        ]
-      },
-      {
-        "id": "watershed-puyallup",
-        "mapboxLayers": [
-          {
-            "id": "puyallup-watershed_streams",
-            "source": "watershed-puyallup",
-            "source-layer": "watershed-puyallup",
-            "type": "line",
-            "paint": {
-              "line-color": "#0f3b82",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          },
-          {
-            "id": "puyallup-watershed_white-river",
-            "source": "watershed-puyallup",
-            "source-layer": "watershed-puyallup",
-            "type": "line",
-            "filter": ["==", "feature_na", "White River"],
-            "paint": {
-              "line-color": "#058dad",
-              "line-width": 3
-            }
-          },
-          {
-            "id": "puyallup-watershed_puyallup-river",
-            "source": "watershed-puyallup",
-            "source-layer": "watershed-puyallup",
-            "type": "line",
-            "filter": ["==", "feature_na", "Puyallup River"],
-            "paint": {
-              "line-color": "#058dad",
-              "line-width": 3
-            }
-          },
-          {
-            "id": "puyallup-watershed_labels",
-            "source": "watershed-puyallup",
-            "source-layer": "watershed-puyallup",
-            "type": "symbol",
-            "filter": [">=", ["zoom"], 12],
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
-            "layout": {
-              "text-field": ["get", "feature_na"],
-              "text-size": 10,
-              "text-allow-overlap": false
-            }
-          }
-        ]
-      },
-      {
         "id": "washington-waus",
         "visibleDefault": false,
         "mapboxLayers": [
@@ -1237,6 +989,237 @@
               "text-color": "#000000",
               "text-halo-color": "#e8eb34",
               "text-halo-width": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-snohomish",
+        "mapboxLayers": [
+          {
+            "id": "watershed-snohomish",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Snohomish"],
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "watershed-snohomish-labels",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Snohomish"],
+            "type": "symbol",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "WC_GNIS_NM"],
+              "text-size": ["step", ["zoom"], 0, 10, 15],
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-cedar-sammamish",
+        "mapboxLayers": [
+          {
+            "id": "cedar-watershed_streams",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "sammamish-watershed-labels",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+            "type": "symbol",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "WC_GNIS_NM"],
+              "text-size": ["step", ["zoom"], 0, 10, 15],
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-green",
+        "mapboxLayers": [
+          {
+            "id": "watershed-green-streams",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Duwamish - Green"],
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "watershed-green-labels",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Duwamish - Green"],
+            "type": "symbol",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "WC_GNIS_NM"],
+              "text-size": ["step", ["zoom"], 0, 10, 15],
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-sammamish",
+        "mapboxLayers": [
+          {
+            "id": "watershed-sammamish-streams",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "watershed-sammsmish-labels",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+            "type": "symbol",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "WC_GNIS_NM"],
+              "text-size": ["step", ["zoom"], 0, 10, 15],
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-puyallup",
+        "mapboxLayers": [
+          {
+            "id": "watershed-puyallup-streams",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Puyallup - White"],
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "watershed-puyallup-labels",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Puyallup - White"],
+            "type": "symbol",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "WC_GNIS_NM"],
+              "text-size": ["step", ["zoom"], 0, 10, 15],
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-nisqually",
+        "mapboxLayers": [
+          {
+            "id": "watershed-nisqually",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Nisqually"],
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "watershed-nisqually-labels",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Nisqually"],
+            "type": "symbol",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "WC_GNIS_NM"],
+              "text-size": ["step", ["zoom"], 0, 10, 15],
+              "text-allow-overlap": false
+            }
+          }
+        ]
+      },
+      {
+        "id": "watershed-deschutes",
+        "mapboxLayers": [
+          {
+            "id": "watershed-deschutes",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Deschutes"],
+            "type": "line",
+            "paint": {
+              "line-color": "#0f3b82",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            "id": "watershed-deschutes-labels",
+            "source": "washington-watercourses",
+            "source-layer": "washington-watercourses",
+            "filter": ["==", ["get", "WRIA_NM"], "Deschutes"],
+            "type": "symbol",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 1
+            },
+            "layout": {
+              "text-field": ["get", "WC_GNIS_NM"],
+              "text-size": ["step", ["zoom"], 0, 10, 15],
+              "text-allow-overlap": false
             }
           }
         ]
@@ -1486,7 +1469,7 @@
         "title": "Water Systems",
         "options": [
           {
-            "layerGroupId": "wria-7",
+            "layerGroupId": "watershed-snohomish",
             "title": "WRIA 7 Streams",
             "info": {
               "title": "WRIA 7 Streams",
@@ -1516,6 +1499,14 @@
               "title": "WRIA 10 Streams",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
+          },
+          {
+            "layerGroupId": "watershed-nisqually",
+            "title": "WRIA 11 Streams"
+          },
+          {
+            "layerGroupId": "watershed-deschutes",
+            "title": "WRIA 12 Streams"
           },
           {
             "layerGroupId": "wria-boundaries",
