@@ -50,9 +50,9 @@
     "geocodeHint": [-122.30321, 47.611203],
     "geocodeBoundingBox": [-123.843578, 45.992317, -120.724546, 48.698614],
     "mapViewport": {
-      "latitude": 47.6108,
-      "longitude": -122.34673,
-      "zoom": 9.91,
+      "latitude": 47.55412,
+      "longitude": -122.30174,
+      "zoom": 11.52,
       "minZoom": 1,
       "maxZoom": 18,
       "pitch": 30
@@ -1578,7 +1578,7 @@
           },
           {
             "layerGroupId": "longhouses",
-            "title": "Historical Longhouse Locations"
+            "title": "Historical Longhouse Sites"
           }
         ]
       }
