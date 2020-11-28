@@ -79,12 +79,19 @@
         ],
         "tileSize": 256
       },
-      "sub-basins": {
+      "washington-waus": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/western-wash-waus-clipped/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/washington-waus/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
+      },
+      "washington-watercourses": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/washington-watercourses/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 14
       },
       "topo": {
         "type": "raster",
@@ -1123,23 +1130,45 @@
         ]
       },
       {
-        "id": "sub-basins",
+        "id": "washington-waus",
         "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "sub-basins",
+            "id": "washington-waus",
             "type": "fill",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
+            "source": "washington-waus",
+            "source-layer": "washington-waus",
+            "filter": [
+              "any",
+              ["==", ["get", "WRIA_NM"], "Snohomish"],
+              ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+              ["==", ["get", "WRIA_NM"], "Duwamish - Green"],
+              ["==", ["get", "WRIA_NM"], "Puyallup - White"],
+              ["==", ["get", "WRIA_NM"], "Upper Skagit"],
+              ["==", ["get", "WRIA_NM"], "Nisqually"],
+              ["==", ["get", "WRIA_NM"], "Stillaguamish"],
+              ["==", ["get", "WRIA_NM"], "Lower Skagit - Samish"]
+            ],
             "paint": {
               "fill-opacity": 0
             }
           },
           {
-            "id": "sub-basins-outline",
+            "id": "washington-waus-outline",
             "type": "line",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
+            "source": "washington-waus",
+            "source-layer": "washington-waus",
+            "filter": [
+              "any",
+              ["==", ["get", "WRIA_NM"], "Snohomish"],
+              ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+              ["==", ["get", "WRIA_NM"], "Duwamish - Green"],
+              ["==", ["get", "WRIA_NM"], "Puyallup - White"],
+              ["==", ["get", "WRIA_NM"], "Upper Skagit"],
+              ["==", ["get", "WRIA_NM"], "Nisqually"],
+              ["==", ["get", "WRIA_NM"], "Stillaguamish"],
+              ["==", ["get", "WRIA_NM"], "Lower Skagit - Samish"]
+            ],
             "layout": {
               "line-join": "round"
             },
@@ -1149,10 +1178,21 @@
             }
           },
           {
-            "id": "sub-basins-outline-blur",
+            "id": "washington-waus-outline-blur",
             "type": "line",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
+            "source": "washington-waus",
+            "source-layer": "washington-waus",
+            "filter": [
+              "any",
+              ["==", ["get", "WRIA_NM"], "Snohomish"],
+              ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+              ["==", ["get", "WRIA_NM"], "Duwamish - Green"],
+              ["==", ["get", "WRIA_NM"], "Puyallup - White"],
+              ["==", ["get", "WRIA_NM"], "Upper Skagit"],
+              ["==", ["get", "WRIA_NM"], "Nisqually"],
+              ["==", ["get", "WRIA_NM"], "Stillaguamish"],
+              ["==", ["get", "WRIA_NM"], "Lower Skagit - Samish"]
+            ],
             "layout": {
               "line-join": "round"
             },
@@ -1164,11 +1204,21 @@
             }
           },
           {
-            "id": "sub-basins-labels",
+            "id": "washington-waus-labels",
             "type": "symbol",
-            "source": "sub-basins",
-            "source-layer": "western-wash-waus-clipped",
-            "filter": ["==", ["geometry-type"], "Polygon"],
+            "source": "washington-waus",
+            "source-layer": "washington-waus",
+            "filter": [
+              "any",
+              ["==", ["get", "WRIA_NM"], "Snohomish"],
+              ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+              ["==", ["get", "WRIA_NM"], "Duwamish - Green"],
+              ["==", ["get", "WRIA_NM"], "Puyallup - White"],
+              ["==", ["get", "WRIA_NM"], "Upper Skagit"],
+              ["==", ["get", "WRIA_NM"], "Nisqually"],
+              ["==", ["get", "WRIA_NM"], "Stillaguamish"],
+              ["==", ["get", "WRIA_NM"], "Lower Skagit - Samish"]
+            ],
             "layout": {
               "text-field": ["get", "WAU_LABEL_"],
               "text-size": ["interpolate", ["linear"], ["zoom"], 10, 6, 12, 14]
@@ -1466,7 +1516,7 @@
             }
           },
           {
-            "layerGroupId": "sub-basins",
+            "layerGroupId": "washington-waus",
             "title": "Sub-Basin Boundaries",
             "info": {
               "title": "Sub-Basin Boundaries",
