@@ -200,9 +200,7 @@ module.exports = {
       swDest: path.join(outputPath, "service-worker.js"),
     }),
     new HtmlWebpackPlugin({
-      template:
-        "!!handlebars-loader!" +
-        path.join(__dirname, "src/base/templates/base.hbs"),
+      template: path.join(__dirname, "src/base/templates/base.html"),
       templateParameters: {
         flavor: process.env.FLAVOR,
         googleAnalyticsId:
