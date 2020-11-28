@@ -805,6 +805,8 @@
               ["==", ["get", "wria_nm"], "Upper Skagit"],
               ["==", ["get", "wria_nm"], "Nisqually"],
               ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Chambers - Clover"],
+              ["==", ["get", "wria_nm"], "Deschutes"],
               ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
             "paint": {
@@ -827,6 +829,10 @@
                 "#916cfa",
                 "Stillaguamish",
                 "#11b6b2",
+                "Chambers - Clover",
+                "#916cfa",
+                "Deschutes",
+                "#11b6b2",
                 "#000000"
               ],
               "fill-opacity": 0.3
@@ -846,6 +852,8 @@
               ["==", ["get", "wria_nm"], "Upper Skagit"],
               ["==", ["get", "wria_nm"], "Nisqually"],
               ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Chambers - Clover"],
+              ["==", ["get", "wria_nm"], "Deschutes"],
               ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
             "paint": {
@@ -867,6 +875,8 @@
               ["==", ["get", "wria_nm"], "Upper Skagit"],
               ["==", ["get", "wria_nm"], "Nisqually"],
               ["==", ["get", "wria_nm"], "Stillaguamish"],
+              ["==", ["get", "wria_nm"], "Chambers - Clover"],
+              ["==", ["get", "wria_nm"], "Deschutes"],
               ["==", ["get", "wria_nm"], "Lower Skagit - Samish"]
             ],
             "layout": {
