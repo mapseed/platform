@@ -207,3 +207,16 @@ workbox.routing.registerRoute(
   }),
   "GET",
 );
+
+workbox.routing.registerRoute(
+  /^https:\/\/geo.mapseed.org\//,
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: TILE_CACHE_NAME,
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxAgeSeconds: TILE_CACHE_EXPIRATION,
+      }),
+    ],
+  }),
+  "GET",
+);
