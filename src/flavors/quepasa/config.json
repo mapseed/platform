@@ -3,7 +3,13 @@
     "defaultLanguage": {
       "code": "es",
       "label": "Español"
-    }
+    },
+    "availableLanguages": [
+      {
+        "code": "en",
+        "label": "English"
+      }
+    ]
   },
   "datasets": [
     {
@@ -18,10 +24,9 @@
     }
   ],
   "app": {
-    "title": "Qué Pasa, Riachuelo?",
-    "name": "Qué Pasa, Riachuelo?",
+    "title": "Qué Pasa, Riachuelo? 3",
+    "name": "Qué Pasa, Riachuelo? 3",
     "show_name_in_header": true,
-    "logo": "/static/css/images/m7red-login-logo.png",
     "meta_description": "Track projects on the Riachuelo River",
     "meta_author": "mapseed.org",
     "api_root": "https://dev-api.mapseed.org/api/v2/",
@@ -50,18 +55,18 @@
   },
   "dashboard": [
     {
-      "header": "Qué Pasa, Riachuelo? Dashboard",
+      "header": "Qué Pasa, Riachuelo? 3 -- Tablero",
       "isExportable": true,
       "backgroundColor": "#f5f3f0",
       "datasetSlug": "quepasa-input",
       "widgets": [
         {
-          "header": "Overview",
+          "header": "Visión general",
           "type": "statSummary",
           "rows": [
             {
               "type": "placeCount",
-              "label": "Total Reports"
+              "label": "Total de informes"
             }
           ],
           "layout": {
@@ -70,10 +75,10 @@
           }
         },
         {
-          "header": "Reporting Activity",
+          "header": "Actividades de informes",
           "type": "lineChart",
-          "xAxisLabel": "Date",
-          "yAxisLabel": "No. reports",
+          "xAxisLabel": "Fecha",
+          "yAxisLabel": "Numero de reportes",
           "layout": {
             "start": 4,
             "end": 13,
@@ -87,7 +92,7 @@
     "geolocationEnabled": true,
     "geocodingBarEnabled": true,
     "geocodeHint": [-34.700521, -59.254934],
-    "geocodeFieldLabel": "Search for an address...",
+    "geocodeFieldLabel": "Buscar una dirección ...",
     "geolocationOnload": false,
     "mapViewport": {
       "latitude": -34.700521,
@@ -115,7 +120,7 @@
       },
       "renabap": {
         "type": "vector",
-        "tiles": ["https://vector-tiles.mapseed.org/renabap/{z}/{x}/{y}.pbf"],
+        "tiles": ["https://vector-tiles.mapseed.org/renabap-polygons/{z}/{x}/{y}.pbf"],
         "maxzoom": 16
       },
       "riachuelo-subbasins": {
@@ -278,26 +283,23 @@
         "mapboxLayers": [
           {
             "id": "renabap",
-            "type": "circle",
+            "type": "fill",
             "source": "renabap",
-            "source-layer": "renabap",
+            "source-layer": "renabap-polygons",
             "paint": {
-              "circle-stroke-color": "#fff",
-              "circle-stroke-width": {
-                "base": 1,
-                "stops": [
-                  [12, 0.5],
-                  [22, 1]
-                ]
-              },
-              "circle-radius": {
-                "base": 1.75,
-                "stops": [
-                  [12, 2],
-                  [22, 180]
-                ]
-              },
-              "circle-color": "#f16913"
+              "fill-color": "#fdae6b",
+              "fill-opacity": 0.4
+            }
+          },
+          {
+            "id": "renabap-outlines",
+            "type": "line",
+            "source": "renabap",
+            "source-layer": "renabap-polygons",
+            "paint": {
+              "line-color": "#e6550d",
+              "line-opacity": 0.7,
+              "line-width": 2
             }
           }
         ]
@@ -309,45 +311,45 @@
   },
   "leftSidebar": {
     "icon": "fa fa-bars",
-    "title": "Map Layers:",
+    "title": "Capas de mapa:",
     "sections": [
       {
-        "title": "Basemaps",
+        "title": "Mapas base:",
         "options": [
           {
             "layerGroupId": "satellite",
-            "title": "Satellite"
+            "title": "Satélite"
           },
           {
             "layerGroupId": "f4",
-            "title": "Streets"
+            "title": "Calles"
           }
         ]
       },
       {
-        "title": "Community Reports",
+        "title": "Informes de la comunidad",
         "options": [
           {
             "layerGroupId": "quepasa-input",
-            "title": "Community Reports"
+            "title": "Informes de la comunidad"
           }
         ]
       },
       {
-        "title": "Hydrologic Data",
+        "title": "Datos hidrológicos",
         "options": [
           {
             "layerGroupId": "riachuelo-subbasins",
-            "title": "Subbasins"
+            "title": "Subcuencas"
           },
           {
             "layerGroupId": "riachuelo-watercourses",
-            "title": "Watercourses"
+            "title": "Cursos de agua"
           }
         ]
       },
       {
-        "title": "Other Data",
+        "title": "Otros datos",
         "options": [
           {
             "layerGroupId": "renabap",
@@ -362,12 +364,12 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "Drop a Pin",
+    "add_button_label": "Suelta un alfiler",
     "title": "Tell us more...",
-    "action_text": "created",
-    "anonymous_name": "Someone",
-    "submit_button_label": "Submit",
-    "location_item_name": "location",
+    "action_text": "creada",
+    "anonymous_name": "Alguien",
+    "submit_button_label": "Enviar",
+    "location_item_name": "alfiler",
     "place_detail": [
       {
         "category": "question",
@@ -378,24 +380,24 @@
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
-        "label": "Question",
+        "label": "Pregunta",
         "fields": [
           {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "Title of your question:",
-            "display_prompt": "Title:",
-            "placeholder": "Enter title...",
+            "prompt": "Título de su pregunta:",
+            "display_prompt": "Título:",
+            "placeholder": "Ingrese el título...",
             "optional": true
           },
           {
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "What's your question?",
+            "prompt": "¿Cuál es tu pregunta?",
             "display_prompt": " ",
-            "placeholder": "Enter question..."
+            "placeholder": "Ingresar pregunta..."
           },
           {
             "name": "submitter_name",
@@ -430,18 +432,18 @@
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "Title of your idea:",
-            "display_prompt": "Title:",
-            "placeholder": "Enter title...",
+            "display_prompt": "Título:",
+            "placeholder": "Ingrese el título...",
+            "prompt": "Título de tu idea:",
             "optional": true
           },
           {
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "What's your idea?",
+            "prompt": "¿Cuál es tu idea?",
             "display_prompt": " ",
-            "placeholder": "Enter idea..."
+            "placeholder": "Introduzca idea..."
           },
           {
             "name": "submitter_name",
@@ -470,24 +472,24 @@
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
-        "label": "Observation",
+        "label": "Observación",
         "fields": [
           {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "Title of your observation:",
-            "display_prompt": "Title:",
-            "placeholder": "Enter title...",
+            "prompt": "Título de su observación:",
+            "display_prompt": "Título:",
+            "placeholder": "Ingrese el título...",
             "optional": true
           },
           {
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "What's your observation?",
+            "prompt": "¿Cuál es tu observación?",
             "display_prompt": " ",
-            "placeholder": "Enter observation..."
+            "placeholder": "Entrar en observación..."
           },
           {
             "name": "submitter_name",
@@ -516,24 +518,24 @@
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
-        "label": "Complaint",
+        "label": "Queja",
         "fields": [
           {
             "name": "title",
             "type": "text",
             "includeOnListItem": true,
-            "prompt": "Title of your complaint:",
-            "display_prompt": "Title:",
-            "placeholder": "Enter title...",
+            "prompt": "Título de su denuncia:",
+            "display_prompt": "Título:",
+            "placeholder": "Ingrese el título...",
             "optional": true
           },
           {
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
-            "prompt": "What's your complaint?",
+            "prompt": "¿Cuál es tu queja?",
             "display_prompt": " ",
-            "placeholder": "Enter complaint..."
+            "placeholder": "Ingresar queja..."
           },
           {
             "name": "submitter_name",
@@ -570,8 +572,8 @@
       },
       "my_image": {
         "type": "file",
-        "prompt": "Please share an image",
-        "label": "📷 Add an Image",
+        "prompt": "Comparte una imagen",
+        "label": "📷 Agregar una imagen",
         "optional": true
       },
       "submit": {
@@ -585,22 +587,22 @@
       "submission_type": "comments",
       "adding_enabled": false,
       "show_responses": true,
-      "response_name": "comment",
-      "response_plural_name": "comments",
+      "response_name": "comentario",
+      "response_plural_name": "comentarios",
       "action_text": "commented on",
-      "anonymous_name": "Someone",
-      "title": "Leave a Comment",
+      "anonymous_name": "Alguien",
+      "title": "Deja un comentario",
       "form_link_text": "Leave a Comment",
-      "submit_btn_text": "Comment",
+      "submit_btn_text": "Deje un comentario",
       "items": [
         {
-          "prompt": "Comment",
-          "label": "Comment",
+          "prompt": "Comentario",
+          "label": "Comentario",
           "type": "textarea",
           "name": "comment"
         },
         {
-          "prompt": "Your Name",
+          "prompt": "Su nombre",
           "type": "text",
           "name": "submitter_name",
           "optional": true
@@ -608,7 +610,7 @@
         {
           "type": "submit",
           "name": "submit",
-          "label": "Comment"
+          "label": "Deje un comentario"
         }
       ]
     },
@@ -621,48 +623,17 @@
       }
     ]
   },
-  "survey": {
-    "submission_type": "comments",
-    "show_responses": true,
-    "single_submission": false,
-    "response_name": "comment",
-    "response_plural_name": "comments",
-    "action_text": "commented on",
-    "anonymous_name": "Someone",
-    "title": "Leave a Comment",
-    "form_link_text": "Leave a Comment",
-    "submit_btn_text": "Comment",
-    "items": [
-      {
-        "prompt": "Comment",
-        "label": "Comment",
-        "type": "textarea",
-        "name": "comment"
-      },
-      {
-        "prompt": "Your Name",
-        "type": "text",
-        "name": "submitter_name",
-        "optional": true
-      },
-      {
-        "type": "submit",
-        "name": "submit",
-        "label": "Comment"
-      }
-    ]
-  },
   "support": {
     "submission_type": "support",
-    "submit_btn_text": "Support",
-    "response_name": "support",
-    "response_plural_name": "supports",
-    "action_text": "supported",
-    "anonymous_name": "Someone"
+    "submit_btn_text": "Apoyo",
+    "response_name": "apoyo",
+    "response_plural_name": "apoyos",
+    "action_text": "soportada",
+    "anonymous_name": "Alguien"
   },
   "nav_bar": [
     {
-      "title": "About",
+      "title": "Acerca de",
       "type": "internal_link",
       "url": "/page/about",
       "name": "overview",
@@ -674,7 +645,7 @@
       "slug": "about",
       "content": [
         "<h1 style='margin-bottom:4px;color:#75beb1;'>Qué Pasa, Riachuelo?</h1>",
-        "<p>More info to come...</p>"
+        "<p>Más información por venir...</p>"
       ]
     }
   ]
