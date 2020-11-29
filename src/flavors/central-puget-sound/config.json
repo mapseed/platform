@@ -91,42 +91,48 @@
         "tiles": [
           "https://vector-tiles.mapseed.org/washington-watercourses-wria-7/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 14
+        "maxzoom": 14,
+        "bounds": [-122.351302,47.349483,-121.067167,48.169620]
       },
       "washington-watercourses-wria-8": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/washington-watercourses-wria-8/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 14
+        "maxzoom": 14,
+        "bounds": [-122.420422,47.268644,-121.434602,47.929170]
       },
       "washington-watercourses-wria-9": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/washington-watercourses-wria-9/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 14
+        "maxzoom": 14,
+        "bounds": [-122.407973,47.119658,-121.299348,47.591674]
       },
       "washington-watercourses-wria-10": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/washington-watercourses-wria-10/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 14
+        "maxzoom": 14,
+        "bounds": [-122.433169,46.782722,-121.383486,47.335746]
       },
       "washington-watercourses-wria-11": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/washington-watercourses-wria-11/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 14
+        "maxzoom": 14,
+        "bounds": [-122.762956,46.593896,-121.714952,47.100820]
       },
       "washington-watercourses-wria-12": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/washington-watercourses-wria-12/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 14
+        "maxzoom": 14,
+        "bounds": [-122.677030,47.035047,-122.274869,47.318359]
       },
       "topo": {
         "type": "raster",
