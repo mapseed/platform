@@ -86,10 +86,45 @@
         ],
         "maxzoom": 15
       },
-      "washington-watercourses": {
+      "washington-watercourses-wria-7": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/washington-watercourses-v2/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/washington-watercourses-wria-7/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 14
+      },
+      "washington-watercourses-wria-8": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/washington-watercourses-wria-8/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 14
+      },
+      "washington-watercourses-wria-9": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/washington-watercourses-wria-9/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 14
+      },
+      "washington-watercourses-wria-10": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/washington-watercourses-wria-10/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 14
+      },
+      "washington-watercourses-wria-11": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/washington-watercourses-wria-11/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 14
+      },
+      "washington-watercourses-wria-12": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/washington-watercourses-wria-12/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 14
       },
@@ -998,9 +1033,8 @@
         "mapboxLayers": [
           {
             "id": "watershed-snohomish",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Snohomish"],
+            "source": "washington-watercourses-wria-7",
+            "source-layer": "washington-watercourses-wria-7",
             "type": "line",
             "paint": {
               "line-color": "#16adff",
@@ -1010,9 +1044,8 @@
           },
           {
             "id": "watershed-snohomish-labels",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Snohomish"],
+            "source": "washington-watercourses-wria-7",
+            "source-layer": "washington-watercourses-wria-7",
             "type": "symbol",
             "paint": {
               "text-halo-color": "#fff",
@@ -1030,10 +1063,9 @@
         "id": "watershed-cedar-sammamish",
         "mapboxLayers": [
           {
-            "id": "cedar-watershed_streams",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+            "id": "cedar-watershed-streams",
+            "source": "washington-watercourses-wria-8",
+            "source-layer": "washington-watercourses-wria-8",
             "type": "line",
             "paint": {
               "line-color": "#16adff",
@@ -1043,9 +1075,8 @@
           },
           {
             "id": "sammamish-watershed-labels",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+            "source": "washington-watercourses-wria-8",
+            "source-layer": "washington-watercourses-wria-8",
             "type": "symbol",
             "paint": {
               "text-halo-color": "#fff",
@@ -1064,9 +1095,8 @@
         "mapboxLayers": [
           {
             "id": "watershed-green-streams",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Duwamish - Green"],
+            "source": "washington-watercourses-wria-9",
+            "source-layer": "washington-watercourses-wria-9",
             "type": "line",
             "paint": {
               "line-color": "#16adff",
@@ -1076,42 +1106,8 @@
           },
           {
             "id": "watershed-green-labels",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Duwamish - Green"],
-            "type": "symbol",
-            "paint": {
-              "text-halo-color": "#fff",
-              "text-halo-width": 1
-            },
-            "layout": {
-              "text-field": ["get", "WC_GNIS_NM"],
-              "text-size": ["step", ["zoom"], 0, 13, 15],
-              "text-allow-overlap": false
-            }
-          }
-        ]
-      },
-      {
-        "id": "watershed-sammamish",
-        "mapboxLayers": [
-          {
-            "id": "watershed-sammamish-streams",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
-            "type": "line",
-            "paint": {
-              "line-color": "#16adff",
-              "line-width": 2,
-              "line-opacity": 0.7
-            }
-          },
-          {
-            "id": "watershed-sammsmish-labels",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Cedar - Sammamish"],
+            "source": "washington-watercourses-wria-9",
+            "source-layer": "washington-watercourses-wria-9",
             "type": "symbol",
             "paint": {
               "text-halo-color": "#fff",
@@ -1130,9 +1126,8 @@
         "mapboxLayers": [
           {
             "id": "watershed-puyallup-streams",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Puyallup - White"],
+            "source": "washington-watercourses-wria-10",
+            "source-layer": "washington-watercourses-wria-10",
             "type": "line",
             "paint": {
               "line-color": "#16adff",
@@ -1142,9 +1137,8 @@
           },
           {
             "id": "watershed-puyallup-labels",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Puyallup - White"],
+            "source": "washington-watercourses-wria-10",
+            "source-layer": "washington-watercourses-wria-10",
             "type": "symbol",
             "paint": {
               "text-halo-color": "#fff",
@@ -1163,9 +1157,8 @@
         "mapboxLayers": [
           {
             "id": "watershed-nisqually",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Nisqually"],
+            "source": "washington-watercourses-wria-11",
+            "source-layer": "washington-watercourses-wria-11",
             "type": "line",
             "paint": {
               "line-color": "#16adff",
@@ -1175,9 +1168,8 @@
           },
           {
             "id": "watershed-nisqually-labels",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Nisqually"],
+            "source": "washington-watercourses-wria-11",
+            "source-layer": "washington-watercourses-wria-11",
             "type": "symbol",
             "paint": {
               "text-halo-color": "#fff",
@@ -1196,9 +1188,8 @@
         "mapboxLayers": [
           {
             "id": "watershed-deschutes",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Deschutes"],
+            "source": "washington-watercourses-wria-12",
+            "source-layer": "washington-watercourses-wria-12",
             "type": "line",
             "paint": {
               "line-color": "#16adff",
@@ -1208,9 +1199,8 @@
           },
           {
             "id": "watershed-deschutes-labels",
-            "source": "washington-watercourses",
-            "source-layer": "washington-watercourses",
-            "filter": ["==", ["get", "WRIA_NM"], "Deschutes"],
+            "source": "washington-watercourses-wria-12",
+            "source-layer": "washington-watercourses-wria-12",
             "type": "symbol",
             "paint": {
               "text-halo-color": "#fff",
