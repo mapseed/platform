@@ -89,7 +89,7 @@
       "washington-watercourses": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/washington-watercourses/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/washington-watercourses-v2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 14
       },
