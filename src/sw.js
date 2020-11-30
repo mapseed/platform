@@ -212,8 +212,8 @@ workbox.routing.registerRoute(
 // The bbox param tends to have very high decimal precision, so it resuts in
 // numerous cache misses.
 // Since the bbox param is being stripped, it's important that urls supply an
-// alternative query param(s) to distringuish request. One option is to supply
-// the `z`, `x`, and `y` params.
+// alternative query param(s) to distinguish the request.
+// One option is to supply the `z`, `x`, and `y` params.
 // For example:
 // https://geo.mapseed.org/hydrography/?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default&z={z}&x={x}&y={y}
 const cacheKeyWillBeUsed = ({ request, mode }) => {
