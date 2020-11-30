@@ -75,7 +75,7 @@
       "hydrography": {
         "type": "raster",
         "tiles": [
-          "https://geo.mapseed.org/hydrography/?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default"
+          "https://geo.mapseed.org/hydrography/?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default&z={z}&x={x}&y={y}"
         ],
         "tileSize": 256
       },

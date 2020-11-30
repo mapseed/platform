@@ -208,11 +208,32 @@ workbox.routing.registerRoute(
   "GET",
 );
 
+const cacheKeyWillBeUsed = ({ request, mode }) => {
+  const splitUrl = request.url.split("?");
+
+  if (splitUrl[1]) {
+    const parsed = splitUrl[1].split("&").reduce((memo, param) => {
+      const qsItem = param.split("=");
+
+      return {
+        ...memo,
+        [qsItem[0]]: qsItem[1],
+      };
+    }, {});
+    const { bbox, ...keep } = parsed;
+
+    return `${splitUrl[0]}?${JSON.stringify(keep)}`;
+  }
+
+  return request;
+};
+
 workbox.routing.registerRoute(
   /^https:\/\/geo.mapseed.org\//,
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: TILE_CACHE_NAME,
     plugins: [
+      { cacheKeyWillBeUsed },
       new workbox.expiration.Plugin({
         maxAgeSeconds: TILE_CACHE_EXPIRATION,
       }),
