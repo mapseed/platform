@@ -230,14 +230,10 @@ const cacheKeyWillBeUsed = ({ request, mode }) => {
     }, {});
     const { bbox, ...keep } = parsed;
 
-    const foo = `${splitUrl[0]}?${Object.entries(keep).reduce(
+    return `${splitUrl[0]}?${Object.entries(keep).reduce(
       (memo, [key, val]) => `${memo}&${key}=${val}`,
       "",
     )}`;
-
-    console.log({ foo });
-
-    return foo;
   }
 
   return request;
