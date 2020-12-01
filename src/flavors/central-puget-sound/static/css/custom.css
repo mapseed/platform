@@ -4,15 +4,9 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-@font-face {
-  font-family: 'Palanquin';
-  src: url('/static/css/palanquindark-regular.ttf');
-}
-
 #filter-menu-bar .filter-img:before {
   font-family: Roboto, sans-serif !important;
 }
-
 
 /* =Header bar add report button
 -------------------------------------------------------------- */
@@ -44,7 +38,6 @@
   display: none !important;
 }
 
-
 /* =Language picker
 -------------------------------------------------------------- */
 #language-picker {
@@ -56,7 +49,6 @@
 .mapseed-response-field-title {
   font-size: 1.2rem !important;
 }
-
 
 /* =Custom pledge type icons
 -------------------------------------------------------------- */
@@ -76,7 +68,6 @@
   margin-bottom: 4px !important;
 }
 
-
 /* =Dynamic form big button overrides
 -------------------------------------------------------------- */
 .big-btn + label {
@@ -85,7 +76,7 @@
 
 .big-btn:checked + label:before {
   font-weight: normal !important;
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .form-field label {
@@ -97,87 +88,21 @@
   font-size: 0.9em;
 }
 
-
 /* =Map
 -------------------------------------------------------------- */
 #map {
   background: #777;
 }
 
-
 /* =Media Queries
 -------------------------------------------------------------- */
-/* iphone 4 (320 x 480)*/
-
 @media only screen and (min-width: 60em) {
 }
 
 @media only screen and (max-width: 60em) {
-  #site-header {
-    background: none;
-    background-color: #FFF;
-  }
-
-  #site-title a:link,
-  #site-title a:visited {
-    background-size: 180px auto;
-    width: 200px;
-  }
-  #place-form-type-choice {
-    padding-bottom: 1em;
-  }
-  #place-form-type-choice a.button {
-      display: block;
-      float: left;
-      width: 40%;
-      padding: .5em .5em;
-      margin: 0;
-      border: 2px solid white;
-  }
-
-  .snip1579 {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    width: 70%;
-    margin-bottom: 8px;
-  }
-}
-
-@media only screen and (max-width: 60em) {
-  #site-title a:link,
-  #site-title a:visited {
-    background-size: 180px auto;
-    margin-top: 5px;
-  }
-
-  #pages-nav-container {
-    width: 100%;
-  }
-
-  #pages-nav-right-container {
-    width: 100%;
-  }
-
-  .menu-item {
-    padding-bottom: 0 !important;
-  }
-
-  .add-place-nav {
-    display: none;
-  }
-
-  #main-btns-container {
-    display: table;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  #place-form-type-choice a.button {
-    width: 40%;
-    font-size: 100%;
-    padding: 1em 1em;
-    margin: 0 2% 2% 0;
+  #mapseed-site-logo {
+    width: 40px !important;
+    max-width: 40px !important;
   }
 }
 

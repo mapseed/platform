@@ -249,7 +249,12 @@ const ExternalLink = styled("a")({
 
 const InternalLink = styled(({ children, className, href, ...rest }) => {
   return (
-    <Link to={href} className={`mapseed-internal-link ${className}`} {...rest}>
+    <Link
+      to={href}
+      href={href}
+      className={`mapseed-internal-link ${className}`}
+      {...rest}
+    >
       {children}
     </Link>
   );
