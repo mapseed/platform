@@ -5,8 +5,6 @@ import classNames from "classnames";
 import "./navigation.scss";
 
 const Link = ({ children, ...props }) => {
-  console.log("==>", props.href)
-
   return (
     <a
       className={classNames("mapseed__link", props.classes, {
