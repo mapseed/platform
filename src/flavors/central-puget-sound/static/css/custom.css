@@ -8,7 +8,6 @@
   font-family: Roboto, sans-serif !important;
 }
 
-
 /* =Header bar add report button
 -------------------------------------------------------------- */
 #pages-nav-container {
@@ -39,7 +38,6 @@
   display: none !important;
 }
 
-
 /* =Language picker
 -------------------------------------------------------------- */
 #language-picker {
@@ -51,7 +49,6 @@
 .mapseed-response-field-title {
   font-size: 1.2rem !important;
 }
-
 
 /* =Custom pledge type icons
 -------------------------------------------------------------- */
@@ -71,7 +68,6 @@
   margin-bottom: 4px !important;
 }
 
-
 /* =Dynamic form big button overrides
 -------------------------------------------------------------- */
 .big-btn + label {
@@ -80,7 +76,7 @@
 
 .big-btn:checked + label:before {
   font-weight: normal !important;
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .form-field label {
@@ -92,13 +88,11 @@
   font-size: 0.9em;
 }
 
-
 /* =Map
 -------------------------------------------------------------- */
 #map {
   background: #777;
 }
-
 
 /* =Media Queries
 -------------------------------------------------------------- */
