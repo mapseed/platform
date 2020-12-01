@@ -41,10 +41,10 @@ const InfoModal = props => {
 };
 
 InfoModal.propTypes = {
-  body: PropTypes.oneOfType(
+  body: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
-  ).isRequired,
+  ]).isRequired,
   header: PropTypes.string.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,

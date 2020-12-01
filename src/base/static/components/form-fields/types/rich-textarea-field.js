@@ -254,7 +254,6 @@ class RichTextareaField extends Component {
 RichTextareaField.propTypes = {
   bounds: PropTypes.string.isRequired,
   formId: PropTypes.string.isRequired,
-  hasAutofill: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
