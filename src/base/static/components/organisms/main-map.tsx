@@ -508,7 +508,7 @@ class MainMap extends React.Component<Props, State> {
     }
   };
 
-  updateMapViewport = throttle(500, this.props.updateMapViewport);
+  updateMapViewport = throttle(1000, this.props.updateMapViewport);
 
   setMapViewport = (viewport: MapViewportDiff): void => {
     const newMapViewport = mapViewportReducer(this.state.mapViewport, {
