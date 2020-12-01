@@ -89,10 +89,11 @@
       "washington-watercourses-wrias-7-12": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/washington-watercourses-wrias-7-12-v2/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/washington-watercourses-wrias-7-12-v3/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 14,
-        "bounds": [-122.762956, 46.593896, -121.067167, 48.16962]
+        "minzoom": 0,
+        "maxzoom": 11,
+        "bounds": [-122.762956,46.593896,-121.067167,48.169620]
       },
       "topo": {
         "type": "raster",
