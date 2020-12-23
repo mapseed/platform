@@ -266,7 +266,7 @@ input#mwl-tag-transportationsystems:checked {
     position: relative;
     height: 300px;
     max-height: 300px; /* for animated transition */
-    transition: max-height 0.75s ease-out;
+    transition: max-height 1.0s ease-in-out;
     margin: 0 0 16px 0;
     break-inside: avoid-column;
     page-break-inside: avoid;
