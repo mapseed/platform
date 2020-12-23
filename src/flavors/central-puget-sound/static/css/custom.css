@@ -162,6 +162,28 @@ input#salmon:checked {
     display: flex;
   }
 }
+
+input#demographics:checked {
+  &~ #mwl__tag-container > #demographics-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="demographics"] {
+    display: flex;
+  }
+}
+
+input#equity:checked {
+  &~ #mwl__tag-container > #equity-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="equity"] {
+    display: flex;
+  }
+}
 /* end tag label and item visibility control */
 
 #mwl__gallery-container {
@@ -203,6 +225,7 @@ input#salmon:checked {
       position: absolute;
       bottom: 8px;
       left: 0;
+      pointer-events: none;
       display: flex;
       flex-direction: column-reverse;
       content: "(read more)";
