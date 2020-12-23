@@ -507,7 +507,7 @@ input#mwl-tag-transportationsystems:checked {
     }
   }
 
-  input#gallery-tem-green-walk-score:checked + .mwl__gallery-item {
+  input#gallery-item-green-walk-score:checked + .mwl__gallery-item {
     height: auto;
     max-height: 1500px; /* larger than any content we'd expect */
 
