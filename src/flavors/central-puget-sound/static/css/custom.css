@@ -248,19 +248,18 @@ input#mwl-tag-transportationsystems:checked {
   margin: 16px 8px;
 
   .mwl__gallery-item {
-    display: none; /* display is controlled by checkbox slectors below */
+    display: none; /* display is controlled by checkbox slectors above */
     position: relative;
     height: 300px;
+    margin: 0 0 16px 0;
     break-inside: avoid-column;
     page-break-inside: avoid;
     flex-direction: column;
-    margin: 0;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50), -2px 0 5px 0 rgba(0,0,0,0.16);
 
     img {
-      flex: 0 0 150px;
       width: 100%;
       max-width: 100%;
       margin: 0;
@@ -301,14 +300,17 @@ input#mwl-tag-transportationsystems:checked {
 
   .mwl__gallery-item-eyebrow-text {
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 8px;
     font-family: Raleway, sans-serif;
-    font-weight: 800;
+    font-weight: 600;
     color: #555;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
-    &:after {
+    &:not(:last-of-type):after {
       content: "•";
-      padding: 0 4px;
+      padding: 0 2px;
     }
   }
   
