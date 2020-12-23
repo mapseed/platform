@@ -130,8 +130,8 @@
 }
 
 /* tag label and item visibility control */
-input#indigenous:checked {
-  &~ #mwl__tag-container > #indigenous-label {
+input#mwl-tag-indigenous:checked {
+  &~ #mwl__tag-container > #mwl-tag-indigenous-label {
     background-color: #f56476;
     color: #fff;
   }
@@ -141,8 +141,8 @@ input#indigenous:checked {
   }
 }
 
-input#history:checked {
-  &~ #mwl__tag-container > #history-label {
+input#mwl-tag-history:checked {
+  &~ #mwl__tag-container > #mwl-tag-history-label {
     background-color: #f56476;
     color: #fff;
   }
@@ -152,8 +152,8 @@ input#history:checked {
   }
 }
 
-input#salmon:checked {
-  &~ #mwl__tag-container > #salmon-label {
+input#mwl-tag-salmon:checked {
+  &~ #mwl__tag-container > #mwl-tag-salmon-label {
     background-color: #f56476;
     color: #fff;
   }
@@ -163,8 +163,8 @@ input#salmon:checked {
   }
 }
 
-input#demographics:checked {
-  &~ #mwl__tag-container > #demographics-label {
+input#mwl-tag-demographics:checked {
+  &~ #mwl__tag-container > #mwl-tag-demographics-label {
     background-color: #f56476;
     color: #fff;
   }
@@ -174,13 +174,68 @@ input#demographics:checked {
   }
 }
 
-input#equity:checked {
-  &~ #mwl__tag-container > #equity-label {
+input#mwl-tag-equity:checked {
+  &~ #mwl__tag-container > #mwl-tag-equity-label {
     background-color: #f56476;
     color: #fff;
   }
 
   &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="equity"] {
+    display: flex;
+  }
+}
+
+input#mwl-tag-watersystems:checked {
+  &~ #mwl__tag-container > #mwl-tag-watersystems-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="watersystems"] {
+    display: flex;
+  }
+}
+
+input#mwl-tag-pollution:checked {
+  &~ #mwl__tag-container > #mwl-tag-pollution-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="pollution"] {
+    display: flex;
+  }
+}
+
+input#mwl-tag-foodsystems:checked {
+  &~ #mwl__tag-container > #mwl-tag-foodsystems-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="foodsystems"] {
+    display: flex;
+  }
+}
+
+input#mwl-tag-greenbuilding:checked {
+  &~ #mwl__tag-container > #mwl-tag-greenbuilding-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="greenbuilding"] {
+    display: flex;
+  }
+}
+
+input#mwl-tag-transportationsystems:checked {
+  &~ #mwl__tag-container > #mwl-tag-transportationsystems-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="transportationsystems"] {
     display: flex;
   }
 }
