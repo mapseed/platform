@@ -104,7 +104,7 @@
   border-bottom: 1px solid #ededed;
 }
 
-#mwl__tag-container .mwl__tag-input {
+.mwl__tag-input {
   display: none;
 }
 
@@ -120,22 +120,49 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  background-color: #fff;
+  color: #f56476;
+  border: 1px solid #f56476;
 
   &:hover {
     cursor: pointer;
   }
 }
 
-.mwl__tag-input + .mwl__tag-label {
-  background-color: #fff;
-  color: #f56476;
-  border: 1px solid #f56476;
+/* tag label and item visibility control */
+input#indigenous:checked {
+  &~ #mwl__tag-container > #indigenous-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="indigenous"] {
+    display: flex;
+  }
 }
 
-.mwl__tag-input:checked + .mwl__tag-label {
-  background-color: #f56476;
-  color: #fff;
+input#history:checked {
+  &~ #mwl__tag-container > #history-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="history"] {
+    display: flex;
+  }
 }
+
+input#salmon:checked {
+  &~ #mwl__tag-container > #salmon-label {
+    background-color: #f56476;
+    color: #fff;
+  }
+
+  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="salmon"] {
+    display: flex;
+  }
+}
+/* end tag label and item visibility control */
 
 #mwl__gallery-container {
   column-count: 2;
@@ -144,9 +171,9 @@
   margin: 16px 8px;
 
   .mwl__gallery-item {
+    display: none; /* display is controlled by checkbox slectors below */
     position: relative;
     height: 300px;
-    display: flex;
     break-inside: avoid-column;
     page-break-inside: avoid;
     flex-direction: column;
