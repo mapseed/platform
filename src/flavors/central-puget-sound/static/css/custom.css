@@ -96,6 +96,10 @@
 
 /* =Maps We Love page
 -------------------------------------------------------------- */
+#mwl__main-title {
+  font-family: Raleway, sans-serif !important;
+}
+
 #mwl__tag-container {
   display: flex;
   flex-wrap: wrap;
@@ -131,111 +135,113 @@
 
 /* tag label and item visibility control */
 input#mwl-tag-indigenous:checked {
-  &~ #mwl__tag-container > #mwl-tag-indigenous-label {
+  & ~ #mwl__tag-container > #mwl-tag-indigenous-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="indigenous"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="indigenous"] {
     display: flex;
   }
 }
 
 input#mwl-tag-history:checked {
-  &~ #mwl__tag-container > #mwl-tag-history-label {
+  & ~ #mwl__tag-container > #mwl-tag-history-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="history"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="history"] {
     display: flex;
   }
 }
 
 input#mwl-tag-salmon:checked {
-  &~ #mwl__tag-container > #mwl-tag-salmon-label {
+  & ~ #mwl__tag-container > #mwl-tag-salmon-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="salmon"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="salmon"] {
     display: flex;
   }
 }
 
 input#mwl-tag-demographics:checked {
-  &~ #mwl__tag-container > #mwl-tag-demographics-label {
+  & ~ #mwl__tag-container > #mwl-tag-demographics-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="demographics"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="demographics"] {
     display: flex;
   }
 }
 
 input#mwl-tag-equity:checked {
-  &~ #mwl__tag-container > #mwl-tag-equity-label {
+  & ~ #mwl__tag-container > #mwl-tag-equity-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="equity"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="equity"] {
     display: flex;
   }
 }
 
 input#mwl-tag-watersystems:checked {
-  &~ #mwl__tag-container > #mwl-tag-watersystems-label {
+  & ~ #mwl__tag-container > #mwl-tag-watersystems-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="watersystems"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="watersystems"] {
     display: flex;
   }
 }
 
 input#mwl-tag-pollution:checked {
-  &~ #mwl__tag-container > #mwl-tag-pollution-label {
+  & ~ #mwl__tag-container > #mwl-tag-pollution-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="pollution"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="pollution"] {
     display: flex;
   }
 }
 
 input#mwl-tag-foodsystems:checked {
-  &~ #mwl__tag-container > #mwl-tag-foodsystems-label {
+  & ~ #mwl__tag-container > #mwl-tag-foodsystems-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="foodsystems"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="foodsystems"] {
     display: flex;
   }
 }
 
 input#mwl-tag-greenbuilding:checked {
-  &~ #mwl__tag-container > #mwl-tag-greenbuilding-label {
+  & ~ #mwl__tag-container > #mwl-tag-greenbuilding-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="greenbuilding"] {
+  & ~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="greenbuilding"] {
     display: flex;
   }
 }
 
 input#mwl-tag-transportationsystems:checked {
-  &~ #mwl__tag-container > #mwl-tag-transportationsystems-label {
+  & ~ #mwl__tag-container > #mwl-tag-transportationsystems-label {
     background-color: #f56476;
     color: #fff;
   }
 
-  &~ #mwl__gallery-container > .mwl__gallery-item[data-tags*="transportationsystems"] {
+  &
+    ~ #mwl__gallery-container
+    > .mwl__gallery-item[data-tags*="transportationsystems"] {
     display: flex;
   }
 }
@@ -247,17 +253,27 @@ input#mwl-tag-transportationsystems:checked {
   column-fill: balance;
   margin: 16px 8px;
 
+  label {
+    height: 100%;
+  }
+
+  input {
+    display: none;
+  }
+
   .mwl__gallery-item {
-    display: none; /* display is controlled by checkbox slectors above */
+    display: none; /* display is controlled by checkbox selectors above */
     position: relative;
     height: 300px;
+    max-height: 300px; /* for animated transition */
+    transition: max-height 0.75s ease-out;
     margin: 0 0 16px 0;
     break-inside: avoid-column;
     page-break-inside: avoid;
     flex-direction: column;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50), -2px 0 5px 0 rgba(0,0,0,0.16);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5), -2px 0 5px 0 rgba(0, 0, 0, 0.16);
 
     img {
       width: 100%;
@@ -277,8 +293,9 @@ input#mwl-tag-transportationsystems:checked {
       width: 100%;
       height: 150px;
       position: absolute;
-      bottom: 8px;
+      bottom: 0;
       left: 0;
+      padding-bottom: 8px;
       pointer-events: none;
       display: flex;
       flex-direction: column-reverse;
@@ -288,13 +305,225 @@ input#mwl-tag-transportationsystems:checked {
       font-size: 9px;
       font-family: Raleway, sans-serif;
       text-align: center;
-      background: -moz-linear-gradient(top, rgba(255,255,255,0) 50%, rgba(255,255,255,1) 100%); 
-      background: -webkit-linear-gradient(top, rgba(255,255,255,0) 50%,rgba(255,255,255,1) 100%);
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 50%,rgba(255,255,255,1) 100%); 
+      background: -moz-linear-gradient(
+        top,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 1) 90%
+      );
+      background: -webkit-linear-gradient(
+        top,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 1) 90%
+      );
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 1) 90%
+      );
     }
 
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  input#gallery-item-native-land:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-segregation:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-treaty-ceded:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-recognized-tribes:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-toxins:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-salmon-spawn-sites:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-kc-demographics:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-census-bureau:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-redlining:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-food-access:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-built-green:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-salmonscape:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-waterlines:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-fit-for-a-king:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-kc-trails:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-bikes:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-green-infrastructure:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-green-sewer-outfalls:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-tem-green-walk-score:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
+    }
+  }
+
+  input#gallery-item-kent-surface-drainage:checked + .mwl__gallery-item {
+    height: auto;
+    max-height: 1500px; /* larger than any content we'd expect */
+
+    &:after {
+      content: "";
+      background: none;
     }
   }
 
@@ -313,7 +542,7 @@ input#mwl-tag-transportationsystems:checked {
       padding: 0 2px;
     }
   }
-  
+
   .mwl__title {
     margin: 4px 0 8px 0;
     font-family: Raleway, sans-serif;
@@ -331,7 +560,6 @@ input#mwl-tag-transportationsystems:checked {
     text-overflow: ellipsis;
   }
 }
-
 
 /* =Media Queries
 -------------------------------------------------------------- */
