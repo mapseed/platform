@@ -497,7 +497,7 @@ input#mwl-tag-transportationsystems:checked {
     }
   }
 
-  input#gallery-item-green-sewer-outfalls:checked + .mwl__gallery-item {
+  input#gallery-item-sewer-outfalls:checked + .mwl__gallery-item {
     height: auto;
     max-height: 1500px; /* larger than any content we'd expect */
 
@@ -507,7 +507,7 @@ input#mwl-tag-transportationsystems:checked {
     }
   }
 
-  input#gallery-item-green-walk-score:checked + .mwl__gallery-item {
+  input#gallery-item-walk-score:checked + .mwl__gallery-item {
     height: auto;
     max-height: 1500px; /* larger than any content we'd expect */
 
