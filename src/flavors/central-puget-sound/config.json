@@ -2316,7 +2316,7 @@
         "</figure>",
         "<input type='radio' name='gallery-items' id='gallery-item-kent-surface-drainage' />",
         "<figure class='mwl__gallery-item' data-tags='watersystems pollution'>",
-        "<label for='gallery-item-surface-drainage'>",
+        "<label for='gallery-item-kent-surface-drainage'>",
         "<img src='/static/css/images/gallery-header__kent-surface-drainage.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
