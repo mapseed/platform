@@ -86,6 +86,13 @@
         ],
         "maxzoom": 15
       },
+      "king-county-riparian-sun-map": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/king-county-riparian-sun-map/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
       "washington-watercourses-wrias-7-12": {
         "type": "vector",
         "tiles": [
@@ -1218,6 +1225,34 @@
         ]
       },
       {
+        "id": "king-county-riparian-sun-map",
+        "mapboxLayers": [
+          {
+            "id": "king-county-riparian-sun-map",
+            "source": "king-county-riparian-sun-map",
+            "source-layer": "king-county-riparian-sun-map",
+            "type": "line",
+            "paint": {
+              "line-color": [
+                "match",
+                ["get", "Riparian_v"],
+                "Low",
+                "#f9dc2e",
+                "Medium",
+                "#2da641",
+                "High",
+                "#f9dc2e",
+                "Critical",
+                "#f57f22",
+                "#ffffff"
+              ],
+              "line-width": 5,
+              "line-opacity": 0.8
+            }
+          }
+        ]
+      },
+      {
         "id": "landuse",
         "interactive": true,
         "popupContent": "<p style='color: #aaa; display: block; font-family: Roboto; margin: 0 0 8px 0; padding-bottom: 6px; border-bottom: 1px solid #eee;'>Land use type:</p><em style='font-family: Roboto; font-weight: 500;'>{{descript}}</em>",
@@ -1508,6 +1543,10 @@
               "title": "WRIA Boundaries ALL",
               "body": "WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its rlayerGroupIdgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 \"Water Resource Inventory Areas\" across the state."
             }
+          },
+          {
+            "layerGroupId": "king-county-riparian-sun-map",
+            "title": "Riparian Sun Map"
           },
           {
             "layerGroupId": "washington-waus",
