@@ -1226,6 +1226,24 @@
       },
       {
         "id": "king-county-riparian-sun-map",
+        "legend": [
+          {
+            "swatch": "#66bd63",
+            "label": "Low"
+          },
+          {
+            "swatch": "#d9ef8b",
+            "label": "Medium"
+          },
+          {
+            "swatch": "#fdae61",
+            "label": "High"
+          },
+          {
+            "swatch": "#f46d43",
+            "label": "Critical"
+          }
+        ],
         "mapboxLayers": [
           {
             "id": "king-county-riparian-sun-map",
@@ -1237,17 +1255,20 @@
                 "match",
                 ["get", "Riparian_v"],
                 "Low",
-                "#f9dc2e",
+                "#66bd63",
                 "Medium",
-                "#2da641",
+                "#d9ef8b",
                 "High",
-                "#f9dc2e",
+                "#fdae61",
                 "Critical",
-                "#f57f22",
+                "#f46d43",
                 "#ffffff"
               ],
-              "line-width": 5,
-              "line-opacity": 0.8
+              "line-width": 6,
+              "line-opacity": 0.9
+            },
+            "layout": {
+              "line-join": "round"
             }
           }
         ]
