@@ -89,7 +89,7 @@
       "king-county-riparian-sun-map": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/king-county-riparian-sun-map/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/king-county-riparian-sun-map-v2/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
