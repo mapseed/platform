@@ -50,9 +50,9 @@
     "geocodeHint": [-122.30321, 47.611203],
     "geocodeBoundingBox": [-123.843578, 45.992317, -120.724546, 48.698614],
     "mapViewport": {
-      "latitude": 47.55412,
-      "longitude": -122.30174,
-      "zoom": 11.52,
+      "latitude": 47.54457,
+      "longitude": -121.96942,
+      "zoom": 9.45,
       "minZoom": 1,
       "maxZoom": 18,
       "pitch": 30
@@ -969,6 +969,7 @@
       },
       {
         "id": "watershed-snohomish",
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "watershed-snohomish",
@@ -1010,6 +1011,7 @@
       },
       {
         "id": "watershed-cedar-sammamish",
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "cedar-watershed-streams",
@@ -1051,6 +1053,7 @@
       },
       {
         "id": "watershed-green",
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "watershed-green-streams",
@@ -1092,6 +1095,7 @@
       },
       {
         "id": "watershed-puyallup",
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "watershed-puyallup-streams",
@@ -1979,16 +1983,16 @@
       "slug": "love",
       "content": [
         "<h2 id='mwl__main-title'>Maps We Love</h2>",
-        "<input checked class='mwl__tag-input' id='mwl-tag-indigenous' type='checkbox' />",
-        "<input checked class='mwl__tag-input' id='mwl-tag-history' type='checkbox' />",
-        "<input checked class='mwl__tag-input' id='mwl-tag-salmon' type='checkbox' />",
-        "<input checked class='mwl__tag-input' id='mwl-tag-demographics' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-indigenous' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-history' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-salmon' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-demographics' type='checkbox' />",
         "<input checked class='mwl__tag-input' id='mwl-tag-equity' type='checkbox' />",
-        "<input checked class='mwl__tag-input' id='mwl-tag-watersystems' type='checkbox' />",
-        "<input checked class='mwl__tag-input' id='mwl-tag-pollution' type='checkbox' />",
-        "<input checked class='mwl__tag-input' id='mwl-tag-foodsystems' type='checkbox' />",
-        "<input checked class='mwl__tag-input' id='mwl-tag-greenbuilding' type='checkbox' />",
-        "<input checked class='mwl__tag-input' id='mwl-tag-transportationsystems' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-watersystems' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-pollution' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-foodsystems' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-greenbuilding' type='checkbox' />",
+        "<input class='mwl__tag-input' id='mwl-tag-transportationsystems' type='checkbox' />",
         "<div id='mwl__tag-container'>",
         "<label id='mwl-tag-indigenous-label' class='mwl__tag-label' for='mwl-tag-indigenous'>Indigenous</label>",
         "<label id='mwl-tag-history-label' class='mwl__tag-label' for='mwl-tag-history'>History</label>",

@@ -125,8 +125,8 @@
   -ms-user-select: none;
   user-select: none;
   background-color: #fff;
-  color: #f56476;
-  border: 1px solid #f56476;
+  color: #009999;
+  border: 1px solid #009999;
 
   &:hover {
     cursor: pointer;
@@ -136,7 +136,7 @@
 /* tag label and item visibility control */
 input#mwl-tag-indigenous:checked {
   & ~ #mwl__tag-container > #mwl-tag-indigenous-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -147,7 +147,7 @@ input#mwl-tag-indigenous:checked {
 
 input#mwl-tag-history:checked {
   & ~ #mwl__tag-container > #mwl-tag-history-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -158,7 +158,7 @@ input#mwl-tag-history:checked {
 
 input#mwl-tag-salmon:checked {
   & ~ #mwl__tag-container > #mwl-tag-salmon-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -169,7 +169,7 @@ input#mwl-tag-salmon:checked {
 
 input#mwl-tag-demographics:checked {
   & ~ #mwl__tag-container > #mwl-tag-demographics-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -180,7 +180,7 @@ input#mwl-tag-demographics:checked {
 
 input#mwl-tag-equity:checked {
   & ~ #mwl__tag-container > #mwl-tag-equity-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -191,7 +191,7 @@ input#mwl-tag-equity:checked {
 
 input#mwl-tag-watersystems:checked {
   & ~ #mwl__tag-container > #mwl-tag-watersystems-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -202,7 +202,7 @@ input#mwl-tag-watersystems:checked {
 
 input#mwl-tag-pollution:checked {
   & ~ #mwl__tag-container > #mwl-tag-pollution-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -213,7 +213,7 @@ input#mwl-tag-pollution:checked {
 
 input#mwl-tag-foodsystems:checked {
   & ~ #mwl__tag-container > #mwl-tag-foodsystems-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -224,7 +224,7 @@ input#mwl-tag-foodsystems:checked {
 
 input#mwl-tag-greenbuilding:checked {
   & ~ #mwl__tag-container > #mwl-tag-greenbuilding-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -235,7 +235,7 @@ input#mwl-tag-greenbuilding:checked {
 
 input#mwl-tag-transportationsystems:checked {
   & ~ #mwl__tag-container > #mwl-tag-transportationsystems-label {
-    background-color: #f56476;
+    background-color: #009999;
     color: #fff;
   }
 
@@ -266,7 +266,7 @@ input#mwl-tag-transportationsystems:checked {
     position: relative;
     height: 300px;
     max-height: 300px; /* for animated transition */
-    transition: max-height 1.0s ease-in-out;
+    transition: max-height 1s ease-in-out;
     margin: 0 0 16px 0;
     break-inside: avoid-column;
     page-break-inside: avoid;
@@ -301,9 +301,9 @@ input#mwl-tag-transportationsystems:checked {
       flex-direction: column-reverse;
       content: "(read more)";
       font-weight: 800;
-      color: #f56476;
-      font-size: 9px;
+      color: #009999;
       font-family: Raleway, sans-serif;
+      font-size: 9px;
       text-align: center;
       background: -moz-linear-gradient(
         top,
@@ -321,203 +321,9 @@ input#mwl-tag-transportationsystems:checked {
         rgba(255, 255, 255, 1) 90%
       );
     }
-
-    &:hover {
-      cursor: pointer;
-    }
   }
 
-  input#gallery-item-native-land:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-segregation:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-treaty-ceded:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-recognized-tribes:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-toxins:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-salmon-spawn-sites:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-kc-demographics:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-census-bureau:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-redlining:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-food-access:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-built-green:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-salmonscape:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-waterlines:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-fit-for-a-king:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-kc-trails:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-bikes:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-green-infrastructure:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-sewer-outfalls:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-walk-score:checked + .mwl__gallery-item {
-    height: auto;
-    max-height: 1500px; /* larger than any content we'd expect */
-
-    &:after {
-      content: "";
-      background: none;
-    }
-  }
-
-  input#gallery-item-kent-surface-drainage:checked + .mwl__gallery-item {
+  input[name="gallery-items"]:checked + .mwl__gallery-item {
     height: auto;
     max-height: 1500px; /* larger than any content we'd expect */
 
@@ -549,6 +355,12 @@ input#mwl-tag-transportationsystems:checked {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    &:hover {
+      overflow: visible; 
+      white-space: normal;
+      height: auto;
+    }
   }
 
   .mwl__description {
