@@ -1228,19 +1228,19 @@
         "id": "king-county-riparian-sun-map",
         "legend": [
           {
-            "swatch": "#66bd63",
+            "swatch": "#88b95f",
             "label": "Low"
           },
           {
-            "swatch": "#d9ef8b",
+            "swatch": "#e5ca34",
             "label": "Medium"
           },
           {
-            "swatch": "#fdae61",
+            "swatch": "#fda05e",
             "label": "High"
           },
           {
-            "swatch": "#f46d43",
+            "swatch": "#f26e70",
             "label": "Critical"
           }
         ],
@@ -1255,13 +1255,13 @@
                 "match",
                 ["get", "Riparian_v"],
                 "Low",
-                "#66bd63",
+                "#88b95f",
                 "Medium",
-                "#d9ef8b",
+                "#e5ca34",
                 "High",
-                "#fdae61",
+                "#fda05e",
                 "Critical",
-                "#f46d43",
+                "#f26e70",
                 "#ffffff"
               ],
               "line-width": 6,
