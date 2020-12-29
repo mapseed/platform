@@ -154,6 +154,22 @@
           "https://vector-tiles.mapseed.org/king-county-sewer-lines/{z}/{x}/{y}.pbf"
         ]
       },
+      "wa-fish-distribution-wria-3-13": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wa-fish-distribution-wria-3-13/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 14
+      },
+      "wa-catchments-wria-3-13-combined": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wa-catchments-wria-3-13-combined/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 12,
+        "minzoom": 9,
+        "bounds": [-123.065291, 46.593136, -120.654658, 49.000724]
+      },
       "cities": {
         "type": "vector",
         "tiles": [
@@ -843,6 +859,17 @@
             }
           },
           {
+            "id": "catchments-boundaries",
+            "type": "line",
+            "source": "wa-catchments-wria-3-13-combined",
+            "source-layer": "wa-catchments-wria-3-13-combined",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 0.5,
+              "line-opacity": 0.8
+            }
+          },
+          {
             "id": "wria-boundaries-labels",
             "type": "symbol",
             "source": "wria-boundaries-wa-all",
@@ -970,6 +997,34 @@
               "text-color": "#000000",
               "text-halo-color": "#e8eb34",
               "text-halo-width": 0.5
+            }
+          }
+        ]
+      },
+      {
+        "id": "wa-fish-distribution-wria-3-13",
+        "mapboxLayers": [
+          {
+            "id": "wa-fish-distribution-wria-3-13",
+            "source": "wa-fish-distribution-wria-3-13",
+            "source-layer": "wa-fish-distribution-wria-3-13",
+            "type": "line",
+            "filter": [
+              "any",
+              ["==", ["get", "SPECIES"], "Chinook Salmon"],
+              ["==", ["get", "SPECIES"], "Chum Salmon"],
+              ["==", ["get", "SPECIES"], "Coho Salmon"],
+              ["==", ["get", "SPECIES"], "Kokanee Salmon"],
+              ["==", ["get", "SPECIES"], "Pink Salmon"],
+              ["==", ["get", "SPECIES"], "Sockeye Salmon"]
+            ],
+            "paint": {
+              "line-color": "#0593eb",
+              "line-width": 2,
+              "line-opacity": 0.5
+            },
+            "layout": {
+              "line-join": "round"
             }
           }
         ]
@@ -1566,16 +1621,20 @@
             }
           },
           {
-            "layerGroupId": "king-county-riparian-sun-map",
-            "title": "Riparian Sun Map"
-          },
-          {
             "layerGroupId": "washington-waus",
             "title": "Sub-Basin Boundaries",
             "info": {
               "title": "Sub-Basin Boundaries",
               "body": "This is an example of an info window. Layer info will be added soon."
             }
+          },
+          {
+            "layerGroupId": "king-county-riparian-sun-map",
+            "title": "Riparian Sun Map"
+          },
+          {
+            "layerGroupId": "wa-fish-distribution-wria-3-13",
+            "title": "Salmon Spawning Sites"
           },
           {
             "layerGroupId": "duwamish-original",
