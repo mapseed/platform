@@ -247,6 +247,27 @@ input#mwl-tag-transportationsystems:checked {
 }
 /* end tag label and item visibility control */
 
+.mwl__related-resources-header {
+  color: #555;
+  margin: 0 0 8px 0 !important;
+  font-size: 0.9rem;
+  font-family: Raleway-Regular, sans-serif;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 4px;
+}
+
+.mwl__related-resources-list {
+  margin: 0;
+  padding-left: 24px;
+
+  li {
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.1rem;
+    margin-bottom: 4px;
+  }
+}
+
 #mwl__gallery-container {
   column-count: 2;
   column-gap: 16px;
