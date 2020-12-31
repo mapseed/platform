@@ -249,7 +249,7 @@ input#mwl-tag-transportationsystems:checked {
 
 .mwl__related-resources-header {
   color: #555;
-  margin: 0 0 8px 0 !important;
+  margin: 8px 0 !important;
   font-size: 0.9rem;
   font-family: Raleway-Regular, sans-serif;
   border-bottom: 1px dashed #ddd;
@@ -265,6 +265,7 @@ input#mwl-tag-transportationsystems:checked {
     font-style: italic;
     line-height: 1.1rem;
     margin-bottom: 4px;
+    font-family: Roboto, sans-serif;
   }
 }
 
