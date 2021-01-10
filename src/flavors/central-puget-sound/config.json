@@ -860,17 +860,6 @@
             }
           },
           {
-            "id": "catchments-boundaries",
-            "type": "line",
-            "source": "wa-catchments-wria-3-13-combined",
-            "source-layer": "wa-catchments-wria-3-13-combined",
-            "paint": {
-              "line-color": "#fff",
-              "line-width": 0.5,
-              "line-opacity": 0.8
-            }
-          },
-          {
             "id": "wria-boundaries-labels",
             "type": "symbol",
             "source": "wria-boundaries-wa-all",
@@ -972,6 +961,19 @@
               "line-blur": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18],
               "line-offset": 2,
               "line-width": ["interpolate", ["linear"], ["zoom"], 10, 3, 12, 18]
+            }
+          },
+          {
+            "id": "catchments-boundaries",
+            "type": "line",
+            "source": "wa-catchments-wria-3-13-combined",
+            "source-layer": "wa-catchments-wria-3-13-combined",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#3182bd",
+              "line-width": 0.5
             }
           },
           {
@@ -1591,8 +1593,81 @@
         ]
       },
       {
-        "title": "Water Systems",
+        "title": "Watershed Boundaries",
         "options": [
+          {
+            "layerGroupId": "wria-boundaries",
+            "title": "WRIA Boundaries ALL",
+            "info": {
+              "title": "WRIA Boundaries ALL",
+              "body": "WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its rlayerGroupIdgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 \"Water Resource Inventory Areas\" across the state."
+            }
+          },
+          {
+            "layerGroupId": "washington-waus",
+            "title": "Sub-Basin Boundaries",
+            "info": {
+              "title": "Sub-Basin Boundaries",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Watershed Stories",
+        "options": [
+          {
+            "layerGroupId": "longhouses",
+            "title": "Historical Longhouse Sites"
+          },
+          {
+            "layerGroupId": "duwamish-original",
+            "title": "Historical Duwamish River",
+            "info": {
+              "title": "Historical Duwamish River",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "contour",
+            "title": "Contour Lines",
+            "info": {
+              "title": "Contour Lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "impervious",
+            "title": "Impervious Surface Area",
+            "info": {
+              "title": "Impervious Surface Area",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "king-county-riparian-sun-map",
+            "title": "Riparian Solar Analysis"
+          },
+          {
+            "layerGroupId": "sewer",
+            "title": "Sewer lines",
+            "info": {
+              "title": "Sewer lines",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
+          {
+            "layerGroupId": "commfood",
+            "title": "Farmers Markets",
+            "info": {
+              "title": "Farmers Markets",
+              "body": "This is some information and a legend"
+            }
+          },
+          {
+            "layerGroupId": "wa-fish-distribution-wria-3-13",
+            "title": "Salmon Spawning Sites"
+          },
           {
             "layerGroupId": "watershed-snohomish",
             "title": "WRIA 7 Streams",
@@ -1632,68 +1707,20 @@
           {
             "layerGroupId": "watershed-deschutes",
             "title": "WRIA 12 Streams"
-          },
-          {
-            "layerGroupId": "wria-boundaries",
-            "title": "WRIA Boundaries ALL",
-            "info": {
-              "title": "WRIA Boundaries ALL",
-              "body": "WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its rlayerGroupIdgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 \"Water Resource Inventory Areas\" across the state."
-            }
-          },
-          {
-            "layerGroupId": "washington-waus",
-            "title": "Sub-Basin Boundaries",
-            "info": {
-              "title": "Sub-Basin Boundaries",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
-          },
-          {
-            "layerGroupId": "king-county-riparian-sun-map",
-            "title": "Riparian Sun Map"
-          },
-          {
-            "layerGroupId": "wa-fish-distribution-wria-3-13",
-            "title": "Salmon Spawning Sites"
-          },
-          {
-            "layerGroupId": "duwamish-original",
-            "title": "Historical Duwamish River",
-            "info": {
-              "title": "Historical Duwamish River",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
-          },
-          {
-            "layerGroupId": "impervious",
-            "title": "Impervious Surface Area",
-            "info": {
-              "title": "Impervious Surface Area",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
-          },
-          {
-            "layerGroupId": "sewer",
-            "title": "Sewer lines",
-            "info": {
-              "title": "Sewer lines",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
-          },
-          {
-            "layerGroupId": "contour",
-            "title": "Contour Lines",
-            "info": {
-              "title": "Contour Lines",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
           }
         ]
       },
       {
         "title": "Jurisdictions",
         "options": [
+          {
+            "layerGroupId": "landuse",
+            "title": "Land Use",
+            "info": {
+              "title": "Land Use",
+              "body": "This is an example of an info window. Layer info will be added soon."
+            }
+          },
           {
             "layerGroupId": "cities",
             "title": "City Boundaries",
@@ -1738,31 +1765,6 @@
           {
             "layerGroupId": "king-county-life-expectancy",
             "title": "Life Expectancy"
-          }
-        ]
-      },
-      {
-        "title": "Other",
-        "options": [
-          {
-            "layerGroupId": "landuse",
-            "title": "Land Use",
-            "info": {
-              "title": "Land Use",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
-          },
-          {
-            "layerGroupId": "commfood",
-            "title": "Farmers Markets",
-            "info": {
-              "title": "Farmers Markets",
-              "body": "This is some information and a legend"
-            }
-          },
-          {
-            "layerGroupId": "longhouses",
-            "title": "Historical Longhouse Sites"
           }
         ]
       }
