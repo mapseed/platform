@@ -385,6 +385,18 @@
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
         "label": "Pregunta",
+        "geospatialAnalysis": [
+          {
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
+          }
+        ],
         "fields": [
           {
             "name": "title",
@@ -431,6 +443,18 @@
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
         "label": "Idea",
+        "geospatialAnalysis": [
+          {
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
+          }
+        ],
         "fields": [
           {
             "name": "title",
@@ -477,6 +501,18 @@
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
         "label": "Observación",
+        "geospatialAnalysis": [
+          {
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
+          }
+        ],
         "fields": [
           {
             "name": "title",
@@ -523,6 +559,18 @@
         "icon_url": "/static/css/images/markers/marker-complaint.png",
         "value": "complaint",
         "label": "Queja",
+        "geospatialAnalysis": [
+          {
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
+          }
+        ],
         "fields": [
           {
             "name": "title",
