@@ -84,6 +84,20 @@
             "end": 13,
             "height": 300
           }
+        },
+        {
+          "header": "Reprorts por subcuenca",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "subbasin_name_NOMBRE",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Subceunca",
+          "yAxisLabel": "Numero de reportes",
+          "layout": {
+            "start": 1,
+            "end": 13
+          }
         }
       ]
     }
