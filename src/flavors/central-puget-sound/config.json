@@ -157,7 +157,7 @@
       "tree-equity": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/tree-equity-v2/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/tree-equity-v3/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 14
       },
