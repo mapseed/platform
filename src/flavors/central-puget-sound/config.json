@@ -376,15 +376,15 @@
             "paint": {
               "fill-color": [
                 "case",
-                ["<", ["get", "TESCity"], 60],
+                ["<", ["get", "tes"], 60],
                 "rgb(249, 157, 62)",
-                ["<", ["get", "TESCity"], 70],
+                ["<", ["get", "tes"], 70],
                 "rgb(213, 166, 84)",
-                ["<", ["get", "TESCity"], 80],
+                ["<", ["get", "tes"], 80],
                 "rgb(178, 176, 106)",
-                ["<", ["get", "TESCity"], 90],
+                ["<", ["get", "tes"], 90],
                 "rgb(143, 185, 128)",
-                ["<=", ["get", "TESCity"], 100],
+                ["<=", ["get", "tes"], 100],
                 "rgb(108, 195, 150)",
                 "#990000"
               ],
@@ -398,7 +398,7 @@
             "source-layer": "tree-equity",
             "paint": {
               "line-color": "#fff",
-              "line-width": 1.5
+              "line-width": 1
             }
           }
         ]
