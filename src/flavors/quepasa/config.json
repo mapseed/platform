@@ -144,7 +144,7 @@
       "areas-naturales-protegidas": {
         "type": "raster",
         "tiles": [
-          "http://sata.opds.gba.gov.ar/geoserver/wms?service=wms&request=getmap&format=image/png&version=1.3.0&srs=EPSG:3857&transparent=true&layers=OPDS%3AAreas%20Naturales%20Protegidas&bbox={bbox-epsg-3857}&width=256&height=256&z={z}&x={x}&y={y}"
+          "https://assets.mapseed.org/geo/areas-naturales-protegidas-v2/{z}/{x}/{y}.png"
         ],
         "tileSize": 256
       },
