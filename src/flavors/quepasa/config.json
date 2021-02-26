@@ -109,7 +109,7 @@
     "geocodeFieldLabel": "Buscar una dirección ...",
     "geolocationOnload": false,
     "mapViewport": {
-      "latitude": -34.92110,
+      "latitude": -34.9211,
       "longitude": -58.81504,
       "zoom": 8.7,
       "pitch": 30,
