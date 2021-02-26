@@ -109,9 +109,9 @@
     "geocodeFieldLabel": "Buscar una dirección ...",
     "geolocationOnload": false,
     "mapViewport": {
-      "latitude": -34.700521,
-      "longitude": -59.254934,
-      "zoom": 9.29,
+      "latitude": -34.92110,
+      "longitude": -58.81504,
+      "zoom": 8.7,
       "pitch": 30,
       "minZoom": 1,
       "maxZoom": 18
@@ -144,9 +144,25 @@
       "areas-naturales-protegidas": {
         "type": "raster",
         "tiles": [
-          "https://assets.mapseed.org/geo/areas-naturales-protegidas-v2/{z}/{x}/{y}.png"
+          "https://assets.mapseed.org/geo/areas-naturales-protegidas-v4/{z}/{x}/{y}.png"
         ],
-        "tileSize": 256
+        "tileSize": 256,
+        "maxzoom": 14
+      },
+      "riachuelo-areas-protegidas": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/riachuelo-areas-protegidas/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "riachuelo-lineas-de-ribera": {
+        "type": "raster",
+        "tiles": [
+          "https://assets.mapseed.org/geo/riachuelo-lineas-de-ribera/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256,
+        "maxzoom": 14
       },
       "riachuelo-subbasins": {
         "type": "vector",
@@ -203,62 +219,47 @@
         ]
       },
       {
-        "id": "quepasa-input",
-        "datasetSlug": "quepasa-input",
-        "interactive": true,
-        "visibleDefault": true,
-        "mapboxFocusedLayers": [
-          {
-            "id": "quespasa-input-focused",
-            "source": "demo",
-            "type": "symbol",
-            "layout": {
-              "icon-size": 1.2,
-              "icon-anchor": "bottom",
-              "icon-image": [
-                "match",
-                ["get", "location_type"],
-                "complaint",
-                "marker-complaint.png",
-                "question",
-                "marker-question.png",
-                "observation",
-                "marker-observation.png",
-                "idea",
-                "marker-idea.png",
-                "__no-icon-image__"
-              ]
-            }
-          }
-        ],
+        "id": "riachuelo-lineas-de-ribera",
+        "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "quepasa-input",
-            "source": "quepasa-input",
-            "type": "symbol",
-            "layout": {
-              "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0.5, 11, 0.75, 14, 0.9],
-              "icon-anchor": "bottom",
-              "icon-image": [
-                "match",
-                ["get", "location_type"],
-                "complaint",
-                "marker-complaint.png",
-                "observation",
-                "marker-observation.png",
-                "idea",
-                "marker-idea.png",
-                "question",
-                "marker-question.png",
-                "__no-icon-image__"
-              ]
+            "id": "riachuelo-lineas-de-ribera",
+            "type": "raster",
+            "source": "riachuelo-lineas-de-ribera"
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-areas-protegidas",
+        "interactive": true,
+        "popupContent": "<h5 style='font-family: Roboto; font-weight: 300; margin: 6px 0 0 0;'>{{NAME}}</h5>",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-areas-protegidas",
+            "source": "riachuelo-areas-protegidas",
+            "source-layer": "riachuelo-areas-protegidas",
+            "type": "fill",
+            "paint": {
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "riachuelo-areas-protegidas-outline",
+            "source": "riachuelo-areas-protegidas",
+            "source-layer": "riachuelo-areas-protegidas",
+            "type": "line",
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 2,
+              "line-opacity": 0.7
             }
           }
         ]
       },
       {
         "id": "riachuelo-subbasins",
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "riachuelo-subbasins",
@@ -339,6 +340,61 @@
             }
           }
         ]
+      },
+      {
+        "id": "quepasa-input",
+        "datasetSlug": "quepasa-input",
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "quespasa-input-focused",
+            "source": "demo",
+            "type": "symbol",
+            "layout": {
+              "icon-size": 1.2,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "complaint",
+                "marker-complaint.png",
+                "question",
+                "marker-question.png",
+                "observation",
+                "marker-observation.png",
+                "idea",
+                "marker-idea.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "quepasa-input",
+            "source": "quepasa-input",
+            "type": "symbol",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.5, 11, 0.75, 14, 0.9],
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "complaint",
+                "marker-complaint.png",
+                "observation",
+                "marker-observation.png",
+                "idea",
+                "marker-idea.png",
+                "question",
+                "marker-question.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
       }
     ]
   },
@@ -383,8 +439,16 @@
             "title": "Cursos de agua"
           },
           {
+            "layerGroupId": "riachuelo-lineas-de-ribera",
+            "title": "Riachuelo Líneas de Ribera"
+          },
+          {
+            "layerGroupId": "riachuelo-areas-protegidas",
+            "title": "Áreas Protegidas Cuenca del Riachuelo"
+          },
+          {
             "layerGroupId": "areas-naturales-protegidas",
-            "title": "Areas Naturales Protegidas"
+            "title": "Áreas Naturales Protegidas"
           }
         ]
       },
@@ -404,7 +468,7 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "Suelta un alfiler",
+    "add_button_label": "Enviar un reporte",
     "title": "Tell us more...",
     "action_text": "creada",
     "anonymous_name": "Alguien",
