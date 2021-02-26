@@ -154,6 +154,13 @@
           "https://vector-tiles.mapseed.org/king-county-sewer-lines/{z}/{x}/{y}.pbf"
         ]
       },
+      "tree-equity": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/tree-equity-v3/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 14
+      },
       "wa-fish-distribution-wria-3-13": {
         "type": "vector",
         "tiles": [
@@ -332,6 +339,67 @@
             "id": "hillshade-basemap",
             "type": "raster",
             "source": "hillshade"
+          }
+        ]
+      },
+      {
+        "id": "tree-equity",
+        "visibleDefault": false,
+        "legend": [
+          {
+            "swatch": "rgb(108, 195, 150)",
+            "label": "90 - 100"
+          },
+          {
+            "swatch": "rgb(143, 185, 128)",
+            "label": "80 - 89"
+          },
+          {
+            "swatch": "rgb(178, 176, 106)",
+            "label": "70 - 79"
+          },
+          {
+            "swatch": "rgb(213, 166, 84)",
+            "label": "60 - 69"
+          },
+          {
+            "swatch": "rgb(249, 157, 62)",
+            "label": "0 - 59"
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "tree-equity",
+            "type": "fill",
+            "source": "tree-equity",
+            "source-layer": "tree-equity",
+            "paint": {
+              "fill-color": [
+                "case",
+                ["<", ["get", "tes"], 60],
+                "rgb(249, 157, 62)",
+                ["<", ["get", "tes"], 70],
+                "rgb(213, 166, 84)",
+                ["<", ["get", "tes"], 80],
+                "rgb(178, 176, 106)",
+                ["<", ["get", "tes"], 90],
+                "rgb(143, 185, 128)",
+                ["<=", ["get", "tes"], 100],
+                "rgb(108, 195, 150)",
+                "#990000"
+              ],
+              "fill-opacity": 0.9
+            }
+          },
+          {
+            "id": "tree-equity-outlines",
+            "type": "line",
+            "source": "tree-equity",
+            "source-layer": "tree-equity",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1
+            }
           }
         ]
       },
@@ -1750,6 +1818,10 @@
       {
         "title": "Demographic Data",
         "options": [
+          {
+            "layerGroupId": "tree-equity",
+            "title": "Tree Equity Score"
+          },
           {
             "layerGroupId": "poverty",
             "title": "% Below Double Poverty Level"
