@@ -171,6 +171,13 @@
         ],
         "maxzoom": 16
       },
+      "riachuelo-villas-obras": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/riachuelo-villas-obras/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
       "riachuelo-watercourses": {
         "type": "vector",
         "tiles": [
@@ -241,7 +248,8 @@
             "source-layer": "riachuelo-areas-protegidas",
             "type": "fill",
             "paint": {
-              "fill-pattern": "hazard-fill.png"
+              "fill-color": "#31a354",
+              "fill-opacity": 0.7
             }
           },
           {
@@ -250,9 +258,8 @@
             "source-layer": "riachuelo-areas-protegidas",
             "type": "line",
             "paint": {
-              "line-color": "#e80f0f",
-              "line-width": 2,
-              "line-opacity": 0.7
+              "line-color": "#fff",
+              "line-width": 1
             }
           }
         ]
@@ -337,6 +344,71 @@
               "line-color": "#e6550d",
               "line-opacity": 0.7,
               "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-villas-y-asentamientos-precarios",
+        "interactive": true,
+        "popupContent": "<div style='color: #aaa; display: block; font-family: Roboto; margin: 6px 0 0 0;'><p style='margin: 0;'>Nombre: {{NOMBRE}}</p><p style='margin: 0;'>Municipio: {{MUNICIPIO}}</p><p style='margin: 0;'>Intervención: {{INTERVENCI}}</p></div>",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-villas-y-asentamientos-precarios",
+            "type": "fill",
+            "source": "riachuelo-villas-obras",
+            "source-layer": "villas-y-asentamientos-precarios",
+            "paint": {
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "riachuelo-villas-y-asentamientos-precarios-outline",
+            "type": "line",
+            "source": "riachuelo-villas-obras",
+            "source-layer": "villas-y-asentamientos-precarios",
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-obras-convenio",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-obras-convenio-outline",
+            "type": "line",
+            "source": "riachuelo-villas-obras",
+            "source-layer": "obras-convenio",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-width": 2,
+              "line-dasharray": [1, 1]
+            }
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-mesas-trabajo",
+        "interactive": true,
+        "popupContent": "<div style='color: #aaa; display: block; font-family: Roboto; margin: 6px 0 0 0;'><p style='margin: 0;'>Nombre: {{NOMBRE}}</p><p style='margin: 0;'>Jurisdicción: {{JURISDICCI}}</p></div>",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-mesas-trabajo",
+            "type": "circle",
+            "source": "riachuelo-villas-obras",
+            "source-layer": "mesas-trabajo",
+            "paint": {
+              "circle-color": "#ff6600",
+              "circle-radius": 5,
+              "circle-stroke-color": "#fff",
+              "circle-stroke-width": 1,
+              "circle-opacity": 0.9
             }
           }
         ]
@@ -458,6 +530,18 @@
           {
             "layerGroupId": "renabap",
             "title": "RENABAP"
+          },
+          {
+            "layerGroupId": "riachuelo-villas-y-asentamientos-precarios",
+            "title": "Villas y Asentamientos Precarios"
+          },
+          {
+            "layerGroupId": "riachuelo-obras-convenio",
+            "title": "Obras Convenio"
+          },
+          {
+            "layerGroupId": "riachuelo-mesas-trabajo",
+            "title": "Mesas Trabajo"
           }
         ]
       }
