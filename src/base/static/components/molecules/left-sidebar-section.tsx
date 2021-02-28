@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import * as React from "react";
 import { connect } from "react-redux";
 import styled from "../../utils/styled";
@@ -24,13 +23,15 @@ import {
 } from "../../state/ducks/left-sidebar";
 import { MapSourcesLoadStatus } from "../../state/ducks/map";
 
-const MapLayerSelectorContainer = styled("div")(props => ({
-  display: "flex",
-  alignItems: "center",
-  paddingLeft: "16px",
-  paddingRight: props.isWithModal ? "16px" : "40px",
-  marginBottom: "16px",
-}));
+const MapLayerSelectorContainer = styled("div")(
+  (props: { isWithModal: boolean }) => ({
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: "16px",
+    paddingRight: props.isWithModal ? "16px" : "40px",
+    marginBottom: "16px",
+  }),
+);
 
 const LayerGroupsStatusContainer = styled("span")({
   display: "flex",
@@ -76,7 +77,7 @@ type MapLayerSelectorProps = {
   isSelected: boolean;
   t: Function;
   option: LeftSidebarOption;
-  onClickInfoIcon: (header: string, body: string[]) => void;
+  onClickInfoIcon: (modal: { header: string; body: string[] }) => void;
 };
 
 const OptionSelector: React.FunctionComponent<MapLayerSelectorProps> = props => {
@@ -133,7 +134,7 @@ const OptionSelector: React.FunctionComponent<MapLayerSelectorProps> = props => 
             padding: 0 0 0 8px;
             background: transparent;
           `}
-          onClick={() => props.onClickInfoIcon(props.option.modal)}
+          onClick={() => props.onClickInfoIcon(props.option.modal!)}
         >
           <FontAwesomeIcon color="#aaa" faClassname="fas fa-info-circle" />
         </Button>
@@ -159,7 +160,13 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps & WithTranslation;
 
-class LeftSidebarSectionSelector extends React.Component<Props> {
+type State = {
+  isInfoModalOpen: boolean;
+  infoModalHeader: string;
+  infoModalBody: string[];
+};
+
+class LeftSidebarSectionSelector extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -222,7 +229,10 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
                 loadStatus={loadStatus}
                 isLayerGroupVisible={layerGroup.isVisible}
                 isSelected={true}
-                onClickInfoIcon={modalContent => {
+                onClickInfoIcon={(modalContent: {
+                  header: string;
+                  body: string[];
+                }) => {
                   this.setState({
                     isInfoModalOpen: true,
                     infoModalHeader: modalContent.header,
