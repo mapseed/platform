@@ -1,3 +1,4 @@
+/** @jsx jsx */
 import * as React from "react";
 import { connect } from "react-redux";
 import styled from "../../utils/styled";
@@ -187,7 +188,7 @@ class LeftSidebarSectionSelector extends React.Component<Props, State> {
 
   render() {
     return (
-      <>
+      <span>
         <div>
           <HorizontalRule spacing="tiny" />
           <TinyTitle
@@ -253,7 +254,7 @@ class LeftSidebarSectionSelector extends React.Component<Props, State> {
             this.setState({ isInfoModalOpen: false });
           }}
         />
-      </>
+      </span>
     );
   }
 }
