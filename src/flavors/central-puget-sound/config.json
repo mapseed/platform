@@ -1592,50 +1592,34 @@
           {
             "layerGroupId": "topo",
             "title": "Topography",
-            "info": {
+            "modal": {
               "header": "Topography",
-              "body": "Beautiful colors and shaded elevation, produced by Stamen Designs"
+              "body": ["The topography basemap layer shows the terrain and features of the land through hill shading and natural vegetation colors. The word topography comes from the greek word tópos meaning ‘place’ and latin root graphy meaning ‘study of’, so it literally means the study of place. This map layer also shows roads and labels for various features. Try zooming in and out with just this layer to see how the labeling changes! Find a hill, a forest, or a river near where you live!"]
             }
           },
           {
             "layerGroupId": "hillshade",
             "title": "Hillshade",
-            "info": {
-              "title": "Hillshade",
-              "body": "Shaded terrain that pops with clarity. A bold grey color, great for layering"
+            "modal": {
+              "header": "Hillshade",
+              "body": ["The hillshade basemap layer portrays the shape of the land using a grayscale 3D representation of the surface, with the sun's relative position taken into account for shading the image. Hillshading is a technique for creating relief maps, showing the topographical shape of hills and mountains using shading (levels of gray) on a map, just to indicate relative slopes, mountain ridges, not absolute height. Try comparing this to contour lines!"]
             }
           },
           {
             "layerGroupId": "hydrography",
-            "title": "Hydrography",
-            "info": {
-              "title": "Hydrography",
-              "body": "Explore our connection through waterways and watch the magic as political boundaries disappear"
-            }
+            "title": "Hydrography"
           },
           {
             "layerGroupId": "bath",
-            "title": "Bathymetry",
-            "info": {
-              "title": "Bathymetry",
-              "body": "The shape and depth of the ocean floor. What does it tell us about the history of this place?"
-            }
+            "title": "Bathymetry"
           },
           {
             "layerGroupId": "satellite",
-            "title": "Satellite View",
-            "info": {
-              "title": "Satellite View",
-              "body": "A bird's eye view of the world"
-            }
+            "title": "Satellite View"
           },
           {
             "layerGroupId": "1936aerial",
-            "title": "1936 Aerial View",
-            "info": {
-              "title": "1936 Aerial View",
-              "body": "Take a journey back to a simpler time. This map was photographed from an airplane excursion commissioned by King County in 1936."
-            }
+            "title": "1936 Aerial View"
           },
           {
             "layerGroupId": "1998aerial",
@@ -1643,11 +1627,7 @@
           },
           {
             "layerGroupId": "light-nolabels",
-            "title": "Simple Canvas",
-            "info": {
-              "title": "Simple Canvas",
-              "body": "Beautiful colors and shaded elevation, produced by Stamen Designs"
-            }
+            "title": "Simple Canvas"
           }
         ]
       },
@@ -1666,18 +1646,14 @@
           {
             "layerGroupId": "wria-boundaries",
             "title": "WRIA Boundaries ALL",
-            "info": {
-              "title": "WRIA Boundaries ALL",
-              "body": "WRIA 9 is comprised of the Green River and Duwamish River Watersheds. It aso includes the nearshore habitat and small drainages along Elliott Bay (downtown Seattle), plus the Puget Sound shoreline along West Seattle, Burien, Normandy Park, Des Moines and Federal Way, as well as all of Vashon Island.<br><br>A natural watershed is the total land area draining into a river, lake, or Puget Sound defined by its rlayerGroupIdgelines. Water Resource Inventory Areas (WRIAs) are administrative units authorized under the Water Resources Act of 1971. These boundaries, which can include more than one watershed and many sub-basins, help resource managers, planners, and policy makers improve collaborative decision making around salmon recovery, farms, flooding, forestry, and stormwater management.<br><br>The Washington State Department of Ecology was given the responsibility for the development and management of these administrative and planning boundaries. There are 62 \"Water Resource Inventory Areas\" across the state."
+            "modal": {
+              "header": "WRIA Boundaries ALL",
+              "body": "WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
             }
           },
           {
             "layerGroupId": "washington-waus",
-            "title": "Sub-Basin Boundaries",
-            "info": {
-              "title": "Sub-Basin Boundaries",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
+            "title": "Sub-Basin Boundaries"
           }
         ]
       },
@@ -1690,27 +1666,19 @@
           },
           {
             "layerGroupId": "duwamish-original",
-            "title": "Historical Duwamish River",
-            "info": {
-              "title": "Historical Duwamish River",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
+            "title": "Historical Duwamish River"
           },
           {
             "layerGroupId": "contour",
             "title": "Contour Lines",
-            "info": {
-              "title": "Contour Lines",
-              "body": "This is an example of an info window. Layer info will be added soon."
+            "modal": {
+              "header": "Contour Lines",
+              "body": "Contour Lines are lines of constant elevation (aka isolines), which means every point in one of the lines is the same height above sea level. These lines help show the topography or shape of the land, notice an area where the lines get really close together, this means an area of rapid height change i.e. a steep slope. Zoom in to see elevation labels and notice how the scale changes at different zoom levels!"
             }
           },
           {
             "layerGroupId": "impervious",
-            "title": "Impervious Surface Area",
-            "info": {
-              "title": "Impervious Surface Area",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
+            "title": "Impervious Surface Area"
           },
           {
             "layerGroupId": "king-county-riparian-sun-map",
@@ -1718,19 +1686,11 @@
           },
           {
             "layerGroupId": "sewer",
-            "title": "Sewer lines",
-            "info": {
-              "title": "Sewer lines",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
+            "title": "Sewer lines"
           },
           {
             "layerGroupId": "commfood",
-            "title": "Farmers Markets",
-            "info": {
-              "title": "Farmers Markets",
-              "body": "This is some information and a legend"
-            }
+            "title": "Farmers Markets"
           },
           {
             "layerGroupId": "wa-fish-distribution-wria-3-13",
@@ -1739,42 +1699,50 @@
           {
             "layerGroupId": "watershed-snohomish",
             "title": "WRIA 7 Streams",
-            "info": {
-              "title": "WRIA 7 Streams",
-              "body": "This is an example of an info window. Layer info will be added soon."
+            "modal": {
+              "header": "WRIA 7 Streams",
+              "body": "WRIA 7 is the Snohomish Watershed and includes three major rivers. It provides municipal water for Everett, Bellevue, Seattle, and more. WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
             }
           },
           {
             "layerGroupId": "watershed-cedar-sammamish",
             "title": "WRIA 8 Streams",
-            "info": {
-              "title": "WRIA 8 Streams",
-              "body": "This is an example of an info window. Layer info will be added soon."
+            "modal": {
+              "header": "WRIA 8 Streams",
+              "body": "WRIA 8 is the Cedar and Sammamish Basin and contains two major rivers and three major lakes which include Lake Union and Lake Washington. WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
             }
           },
           {
             "layerGroupId": "watershed-green",
             "title": "WRIA 9 Streams",
-            "info": {
-              "title": "WRIA 9 Streams",
-              "body": "This is an example of an info window. Layer info will be added soon."
+            "modal": {
+              "header": "WRIA 9 Streams",
+              "body": "WRIA 9 is the Green/ Duwamish River Watershed. WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
             }
           },
           {
             "layerGroupId": "watershed-puyallup",
             "title": "WRIA 10 Streams",
-            "info": {
-              "title": "WRIA 10 Streams",
-              "body": "This is an example of an info window. Layer info will be added soon."
+            "modal": {
+              "header": "WRIA 10 Streams",
+              "body": "WRIA 10 is the White-Puyallap river basin. WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
             }
           },
           {
             "layerGroupId": "watershed-nisqually",
-            "title": "WRIA 11 Streams"
+            "title": "WRIA 11 Streams",
+            "modal": {
+              "header": "WRIA 11 Streams",
+              "body": "WRIA 11 is the Nisqually Watershed. WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
+            }
           },
           {
             "layerGroupId": "watershed-deschutes",
-            "title": "WRIA 12 Streams"
+            "title": "WRIA 12 Streams",
+            "modal": {
+              "header": "WRIA 12 Streams",
+              "body": "WRIA 12 is the Chambers-Clover watershed. WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
+            }
           }
         ]
       },
@@ -1783,35 +1751,19 @@
         "options": [
           {
             "layerGroupId": "landuse",
-            "title": "Land Use",
-            "info": {
-              "title": "Land Use",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
+            "title": "Land Use"
           },
           {
             "layerGroupId": "cities",
-            "title": "City Boundaries",
-            "info": {
-              "title": "City Boundaries",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
+            "title": "City Boundaries"
           },
           {
             "layerGroupId": "school-boundaries",
-            "title": "School Districts",
-            "info": {
-              "title": "School Districts",
-              "body": "This is some information about the school boundaries layer."
-            }
+            "title": "School Districts"
           },
           {
             "layerGroupId": "school-sites",
-            "title": "Schools and Colleges",
-            "info": {
-              "title": "Schools and Colleges",
-              "body": "This is an example of an info window. Layer info will be added soon."
-            }
+            "title": "Schools and Colleges"
           }
         ]
       },
@@ -2881,6 +2833,22 @@
         "<h4 class='mwl__title'>San Francisco Map of Tap Water Stations</h4>",
         "</a>",
         "<p class='mwl__description'>San Francisco Public Utilities Commision has installed lead-free outdoor water bottle refilling stations (\"tap stations\") around the City to provide everyone with free access to high-quality tap water while on the go. This encourages conservation of natural resources and reduces waste from single-use plastic water bottles. Why can’t we have a map like this in our own community?</p>",
+        "</figcaption>",
+        "</label>",
+        "</figure>",
+        "<input type='radio' name='gallery-items' id='gallery-item-tree-equity-score' />",
+        "<figure class='mwl__gallery-item' data-tags='demographics pollution'>",
+        "<label for='gallery-item-tree-equity-score'>",
+        "<img src='/static/css/images/gallery-header__tree-equity-score-v2.png' />",
+        "<figcaption>",
+        "<div class='mwl__gallery-item-eyebrow-container'>",
+        "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
+        "<span class='mwl__gallery-item-eyebrow-text'>Pollution</span>",
+        "</div>",
+        "<a target='__blank' href='https://americanforests.maps.arcgis.com/apps/webappviewer/index.html?id=0c11e0633d354d45bcafb72bc077040e&extent=-13918545.6227%2C2656930.9351%2C-7338846.228%2C6526479.055%2C102100'>",
+        "<h4 class='mwl__title'>Tree Equity Score Map</h4>",
+        "</a>",
+        "<p class='mwl__description'>This map highlights Tree Equity Scores for a select number of cities in each Tree Equity Score Pilot location. Once you have clicked on the map you can explore the data that goes into calculating each Tree Equity Score. We have also posted this as an interactive map layer on the main map.</p>",
         "</figcaption>",
         "</label>",
         "</figure>",

@@ -8,6 +8,8 @@ import { jsx, css } from "@emotion/core";
 import { FontAwesomeIcon, LoadingSpinner } from "../atoms/imagery";
 import { HorizontalRule } from "../atoms/layout";
 import { TinyTitle } from "../atoms/typography";
+import { Button } from "../atoms/buttons";
+import InfoModal from "../organisms/info-modal";
 
 import {
   sourcesMetadataSelector,
@@ -22,13 +24,13 @@ import {
 } from "../../state/ducks/left-sidebar";
 import { MapSourcesLoadStatus } from "../../state/ducks/map";
 
-const MapLayerSelectorContainer = styled("div")({
+const MapLayerSelectorContainer = styled("div")(props => ({
   display: "flex",
   alignItems: "center",
   paddingLeft: "16px",
-  paddingRight: "16px",
+  paddingRight: props.isWithModal ? "16px" : "40px",
   marginBottom: "16px",
-});
+}));
 
 const LayerGroupsStatusContainer = styled("span")({
   display: "flex",
@@ -74,11 +76,15 @@ type MapLayerSelectorProps = {
   isSelected: boolean;
   t: Function;
   option: LeftSidebarOption;
+  onClickInfoIcon: (header: string, body: string[]) => void;
 };
 
 const OptionSelector: React.FunctionComponent<MapLayerSelectorProps> = props => {
   return (
-    <MapLayerSelectorContainer className="mapseed-map-layer-selector-container">
+    <MapLayerSelectorContainer
+      isWithModal={Boolean(props.option.modal)}
+      className="mapseed-map-layer-selector-container"
+    >
       <span
         css={{
           display: "flex",
@@ -121,6 +127,17 @@ const OptionSelector: React.FunctionComponent<MapLayerSelectorProps> = props => 
             )}
         </LayerGroupsStatusContainer>
       </span>
+      {props.option.modal && (
+        <Button
+          css={css`
+            padding: 0 0 0 8px;
+            background: transparent;
+          `}
+          onClick={() => props.onClickInfoIcon(props.option.modal)}
+        >
+          <FontAwesomeIcon color="#aaa" faClassname="fas fa-info-circle" />
+        </Button>
+      )}
     </MapLayerSelectorContainer>
   );
 };
@@ -143,6 +160,15 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps & WithTranslation;
 
 class LeftSidebarSectionSelector extends React.Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isInfoModalOpen: false,
+      infoModalHeader: "",
+      infoModalBody: [],
+    };
+  }
+
   onToggleLayerGroup = layerGroup => {
     if (layerGroup.isBasemap && layerGroup.isVisible) {
       // Prevent toggling the current visible basemap.
@@ -154,53 +180,70 @@ class LeftSidebarSectionSelector extends React.Component<Props> {
 
   render() {
     return (
-      <div>
-        <HorizontalRule spacing="tiny" />
-        <TinyTitle
-          css={css`
-            margin-bottom: 16px;
-          `}
-        >
-          {this.props.t(
-            `layerPanelSectionTitle${this.props.layerPanelSectionIndex}`,
-            this.props.section.title,
-          )}
-        </TinyTitle>
-        {this.props.section.options.map(option => {
-          // Assume at first that all sources consumed by layers in this
-          // layerGroup have loaded.
-          let loadStatus = "loaded";
-          const layerGroup = this.props.layerGroups.byId[option.layerGroupId];
-          const sourcesStatus = layerGroup.sourceIds.map(sourceId =>
-            this.props.mapSourcesLoadStatus[sourceId]
-              ? this.props.mapSourcesLoadStatus[sourceId]
-              : "unloaded",
-          );
+      <>
+        <div>
+          <HorizontalRule spacing="tiny" />
+          <TinyTitle
+            css={css`
+              margin-bottom: 16px;
+            `}
+          >
+            {this.props.t(
+              `layerPanelSectionTitle${this.props.layerPanelSectionIndex}`,
+              this.props.section.title,
+            )}
+          </TinyTitle>
+          {this.props.section.options.map(option => {
+            // Assume at first that all sources consumed by layers in this
+            // layerGroup have loaded.
+            let loadStatus = "loaded";
+            const layerGroup = this.props.layerGroups.byId[option.layerGroupId];
+            const sourcesStatus = layerGroup.sourceIds.map(sourceId =>
+              this.props.mapSourcesLoadStatus[sourceId]
+                ? this.props.mapSourcesLoadStatus[sourceId]
+                : "unloaded",
+            );
 
-          if (sourcesStatus.includes("error")) {
-            // If any source has an error, set the entire layerGroupPanel's
-            // status to "error".
-            loadStatus = "error";
-          } else if (sourcesStatus.includes("loading")) {
-            // Otherwise, if any source is still loading, set the entire
-            // layerGroupPanel's status to "loading".
-            loadStatus = "loading";
-          }
+            if (sourcesStatus.includes("error")) {
+              // If any source has an error, set the entire layerGroupPanel's
+              // status to "error".
+              loadStatus = "error";
+            } else if (sourcesStatus.includes("loading")) {
+              // Otherwise, if any source is still loading, set the entire
+              // layerGroupPanel's status to "loading".
+              loadStatus = "loading";
+            }
 
-          return (
-            <OptionSelector
-              key={option.layerGroupId}
-              id={option.layerGroupId}
-              option={option}
-              loadStatus={loadStatus}
-              isLayerGroupVisible={layerGroup.isVisible}
-              isSelected={true}
-              onToggleLayerGroup={() => this.onToggleLayerGroup(layerGroup)}
-              t={this.props.t}
-            />
-          );
-        })}
-      </div>
+            return (
+              <OptionSelector
+                key={option.layerGroupId}
+                id={option.layerGroupId}
+                option={option}
+                loadStatus={loadStatus}
+                isLayerGroupVisible={layerGroup.isVisible}
+                isSelected={true}
+                onClickInfoIcon={modalContent => {
+                  this.setState({
+                    isInfoModalOpen: true,
+                    infoModalHeader: modalContent.header,
+                    infoModalBody: modalContent.body,
+                  });
+                }}
+                onToggleLayerGroup={() => this.onToggleLayerGroup(layerGroup)}
+                t={this.props.t}
+              />
+            );
+          })}
+        </div>
+        <InfoModal
+          isModalOpen={this.state.isInfoModalOpen}
+          header={this.state.infoModalHeader}
+          body={this.state.infoModalBody}
+          onClose={() => {
+            this.setState({ isInfoModalOpen: false });
+          }}
+        />
+      </>
     );
   }
 }

@@ -2,7 +2,7 @@
 export type LeftSidebarOption = {
   layerGroupId: string;
   title: string;
-  info?: {
+  modal?: {
     header: string;
     body: string;
   };
