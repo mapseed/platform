@@ -275,7 +275,7 @@
             "source-layer": "riachuelo-subbasins",
             "paint": {
               "fill-color": "#3182bd",
-              "fill-opacity": 0.7
+              "fill-opacity": 0.3
             }
           },
           {
@@ -475,7 +475,7 @@
   },
   "leftSidebar": {
     "icon": "fa fa-bars",
-    "title": "Navegador de Procesos de Recomposición",
+    "title": "Capas",
     "sections": [
       {
         "title": "Mapas base:",
@@ -491,16 +491,16 @@
         ]
       },
       {
-        "title": "Informes de la comunidad",
+        "title": "Reportes",
         "options": [
           {
             "layerGroupId": "quepasa-input",
-            "title": "Informes de la comunidad"
+            "title": "Reportes Territoriales"
           }
         ]
       },
       {
-        "title": "Datos hidrológicos",
+        "title": "Áreas Naturales",
         "options": [
           {
             "layerGroupId": "riachuelo-subbasins",
@@ -525,7 +525,7 @@
         ]
       },
       {
-        "title": "Otros datos",
+        "title": "Relocalización",
         "options": [
           {
             "layerGroupId": "renabap",
@@ -568,7 +568,7 @@
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
         "value": "question",
-        "label": "Pregunta",
+        "label": "PROCESO-nodo",
         "geospatialAnalysis": [
           {
             "name": "subbasin_name",
@@ -630,7 +630,7 @@
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "idea",
-        "label": "Idea",
+        "label": "Taller Comunitario",
         "geospatialAnalysis": [
           {
             "name": "subbasin_name",
@@ -692,7 +692,7 @@
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "observation",
-        "label": "Observación",
+        "label": "Reporte Territorial",
         "geospatialAnalysis": [
           {
             "name": "subbasin_name",
@@ -726,68 +726,6 @@
             "prompt": "¿Cuál es tu observación?",
             "display_prompt": " ",
             "placeholder": "Entrar en observación..."
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
-          }
-        ]
-      },
-      {
-        "category": "complaint",
-        "formId": "complaint",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "name": "location_type",
-        "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/marker-complaint.png",
-        "value": "complaint",
-        "label": "Queja",
-        "geospatialAnalysis": [
-          {
-            "name": "subbasin_name",
-            "type": "pointInPolygon",
-            "analysisTarget": "riachuelo-subbasins.geojson",
-            "propertiesToPluck": [
-              {
-                "name": "NOMBRE"
-              }
-            ]
-          }
-        ],
-        "fields": [
-          {
-            "name": "lng-lat",
-            "type": "lng_lat"
-          },
-          {
-            "name": "title",
-            "type": "text",
-            "includeOnListItem": true,
-            "prompt": "Título de su denuncia:",
-            "display_prompt": "Título:",
-            "placeholder": "Ingrese el título...",
-            "optional": true
-          },
-          {
-            "name": "description",
-            "type": "textarea",
-            "includeOnListItem": true,
-            "prompt": "¿Cuál es tu queja?",
-            "display_prompt": " ",
-            "placeholder": "Ingresar queja..."
           },
           {
             "name": "submitter_name",
