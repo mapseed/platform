@@ -1594,7 +1594,9 @@
             "title": "Topography",
             "modal": {
               "header": "Topography",
-              "body": ["The topography basemap layer shows the terrain and features of the land through hill shading and natural vegetation colors. The word topography comes from the greek word tópos meaning ‘place’ and latin root graphy meaning ‘study of’, so it literally means the study of place. This map layer also shows roads and labels for various features. Try zooming in and out with just this layer to see how the labeling changes! Find a hill, a forest, or a river near where you live!"]
+              "body": [
+                "The topography basemap layer shows the terrain and features of the land through hill shading and natural vegetation colors. The word topography comes from the greek word tópos meaning ‘place’ and latin root graphy meaning ‘study of’, so it literally means the study of place. This map layer also shows roads and labels for various features. Try zooming in and out with just this layer to see how the labeling changes! Find a hill, a forest, or a river near where you live!"
+              ]
             }
           },
           {
@@ -1602,7 +1604,9 @@
             "title": "Hillshade",
             "modal": {
               "header": "Hillshade",
-              "body": ["The hillshade basemap layer portrays the shape of the land using a grayscale 3D representation of the surface, with the sun's relative position taken into account for shading the image. Hillshading is a technique for creating relief maps, showing the topographical shape of hills and mountains using shading (levels of gray) on a map, just to indicate relative slopes, mountain ridges, not absolute height. Try comparing this to contour lines!"]
+              "body": [
+                "The hillshade basemap layer portrays the shape of the land using a grayscale 3D representation of the surface, with the sun's relative position taken into account for shading the image. Hillshading is a technique for creating relief maps, showing the topographical shape of hills and mountains using shading (levels of gray) on a map, just to indicate relative slopes, mountain ridges, not absolute height. Try comparing this to contour lines!"
+              ]
             }
           },
           {
