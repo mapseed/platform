@@ -5215,12 +5215,12 @@
           "https://vector-tiles.mapseed.org/palouse-analysis-units/{z}/{x}/{y}.pbf"
         ]
       },
-      "wria-boundaries-wa-all": {
+      "wria-boundaries-whitman-county": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/wria-boundaries-whitman-county/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 16
+        "maxzoom": 14
       },
       "palouse-basin-streams": {
         "type": "geojson",
@@ -5263,7 +5263,6 @@
         ]
       }
     },
-
     "layerGroups": [
       {
         "id": "osm",
@@ -5397,30 +5396,28 @@
           {
             "id": "wrias",
             "type": "fill",
-            "source": "wria-boundaries-wa-all",
-            "source-layer": "wria-boundaries-wa-all",
-            "filter": [
-              "any",
-              ["==", ["get", "wria_nm"], "Hangman"],
-              ["==", ["get", "wria_nm"], "Palouse"],
-              ["==", ["get", "wria_nm"], "Middle Snake"]
-            ],
+            "source": "wria-boundaries-whitman-county",
+            "source-layer": "wria-boundaries-whitman-county",
             "paint": {
-              "fill-color": "#3182bd",
+              "fill-color": [
+                "match",
+                ["get", "WRIA_NM"],
+                "Hangman",
+                "#fcb4ae",
+                "Palouse",
+                "#b3cde3",
+                "Middle Snake",
+                "#ccecc5",
+                "#fff"
+              ],
               "fill-opacity": 0.7
             }
           },
           {
             "id": "wrias-outlines",
             "type": "line",
-            "source": "wria-boundaries-wa-all",
-            "source-layer": "wria-boundaries-wa-all",
-            "filter": [
-              "any",
-              ["==", ["get", "wria_nm"], "Hangman"],
-              ["==", ["get", "wria_nm"], "Palouse"],
-              ["==", ["get", "wria_nm"], "Middle Snake"]
-            ],
+            "source": "wria-boundaries-whitman-county",
+            "source-layer": "wria-boundaries-whitman-county",
             "paint": {
               "line-color": "#fff",
               "line-width": 1.5
@@ -5429,16 +5426,10 @@
           {
             "id": "wrias-labels",
             "type": "symbol",
-            "source": "wria-boundaries-wa-all",
-            "source-layer": "wria-boundaries-wa-all",
-            "filter": [
-              "any",
-              ["==", ["get", "wria_nm"], "Hangman"],
-              ["==", ["get", "wria_nm"], "Palouse"],
-              ["==", ["get", "wria_nm"], "Middle Snake"]
-            ],
+            "source": "wria-boundaries-whitman-county",
+            "source-layer": "wria-boundaries-whitman-county",
             "layout": {
-              "text-field": ["get", "wria_nm"],
+              "text-field": ["get", "WRIA_NM"],
               "text-size": 16
             },
             "paint": {
