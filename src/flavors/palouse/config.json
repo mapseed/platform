@@ -2883,7 +2883,7 @@
                       ]
                     ]
                   ],
-                  "label": "Herbaceous Weed Control"
+                  "label": "Herbaceous Weed Control - Rangeland"
                 },
                 {
                   "value": [
@@ -4610,12 +4610,6 @@
               "value": ["get-val", "created_datetime"]
             },
             {
-              "header": "OK to use photos?",
-              "type": "boolean",
-              "fractionalWidth": 1,
-              "value": ["get-val", "private-use_photos"]
-            },
-            {
               "header": "Requesting information",
               "type": "unstyled-string",
               "fractionalWidth": 2,
@@ -5033,6 +5027,44 @@
           ]
         },
         {
+          "header": "Map Promotion: Whitman County",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "learned_about_vsp_map",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Promotion type",
+          "yAxisLabel": "Count",
+          "annotation": "* totals may exceed total VSP report count due to multiple choices",
+          "labels": {
+            "radio": "Radio ad",
+            "newspaper": "Newspaper ad",
+            "word_of_mouth": "Word of mouth",
+            "fellow_producer": "Fellow producer",
+            "cd_staff": "Conservation District staff",
+            "grower_meeting": "Grower meeting",
+            "other": "Other"
+          },
+          "layout": {
+            "start": 1,
+            "end": 7
+          }
+        },
+        {
+          "header": "Reports by WRIA: Whitman County",
+          "type": "freeDonutChart",
+          "groupBy": "wria",
+          "labels": {
+            "hangman": "Hangman",
+            "palouse": "Palouse",
+            "middle_snake": "Middle Snake"
+          },
+          "layout": {
+            "start": 7,
+            "end": 13
+          }
+        },
+        {
           "header": "Critical Area Summary: Whitman County",
           "type": "fixedTable",
           "isExportable": true,
@@ -5123,30 +5155,6 @@
               ]
             }
           ]
-        },
-        {
-          "header": "Map Promotion: Whitman County",
-          "isExportable": true,
-          "type": "freeBarChart",
-          "groupBy": "learned_about_vsp_map",
-          "groupValue": ["get-count"],
-          "tooltipFormat": "count",
-          "xAxisLabel": "Promotion type",
-          "yAxisLabel": "Count",
-          "annotation": "* totals may exceed total VSP report count due to multiple choices",
-          "labels": {
-            "radio": "Radio ad",
-            "newspaper": "Newspaper ad",
-            "word_of_mouth": "Word of mouth",
-            "fellow_producer": "Fellow producer",
-            "cd_staff": "Conservation District staff",
-            "grower_meeting": "Grower meeting",
-            "other": "Other"
-          },
-          "layout": {
-            "start": 7,
-            "end": 13
-          }
         }
       ]
     }
