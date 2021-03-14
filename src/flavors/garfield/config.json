@@ -7829,7 +7829,7 @@
         {
           "header": "Reports by WAU: Garfield County",
           "type": "freeDonutChart",
-          "groupBy": "wria",
+          "groupBy": "analysis_unit",
           "labels": {
             "alpowa": "Alpowa Watershed",
             "pataha": "Pataha Watershed",
