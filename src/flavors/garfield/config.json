@@ -7846,13 +7846,35 @@
           }
         },
         {
+          "header": "Map Promotion: Garfield County",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "learned_about_vsp_map",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Promotion type",
+          "yAxisLabel": "Count",
+          "annotation": "* totals may exceed total VSP report count due to multiple choices",
+          "labels": {
+            "word_of_mouth": "Word of mouth",
+            "fellow_producer": "Fellow producer",
+            "cd_staff": "Conservation District staff",
+            "grower_meeting": "Grower meeting",
+            "other": "Other"
+          },
+          "layout": {
+            "start": 7,
+            "end": 13
+          }
+        },
+        {
           "header": "Critical Area Summary: Garfield County",
           "isExportable": true,
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
           "layout": {
-            "start": 7,
-            "end": 13,
+            "start": 1,
+            "end": 7,
             "height": 206
           },
           "columns": [
@@ -7949,28 +7971,6 @@
               ]
             }
           ]
-        },
-        {
-          "header": "Map Promotion: Garfield County",
-          "isExportable": true,
-          "type": "freeBarChart",
-          "groupBy": "learned_about_vsp_map",
-          "groupValue": ["get-count"],
-          "tooltipFormat": "count",
-          "xAxisLabel": "Promotion type",
-          "yAxisLabel": "Count",
-          "annotation": "* totals may exceed total VSP report count due to multiple choices",
-          "labels": {
-            "word_of_mouth": "Word of mouth",
-            "fellow_producer": "Fellow producer",
-            "cd_staff": "Conservation District staff",
-            "grower_meeting": "Grower meeting",
-            "other": "Other"
-          },
-          "layout": {
-            "start": 1,
-            "end": 7
-          }
         }
       ]
     }
