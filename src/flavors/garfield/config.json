@@ -7832,12 +7832,12 @@
           "groupBy": "analysis_unit",
           "labels": {
             "alpowa": "Alpowa Watershed",
+            "new-york-gulch": "New York Gulch Watershed",
             "pataha": "Pataha Watershed",
             "deadman": "Deadman Watershed",
+            "tumalum": "Tumalum Watershed",
             "meadow": "Meadow Watershed",
             "snake-river": "Snake River Watershed",
-            "tumalum": "Tumalum Watershed",
-            "new-york-gulch": "New York Gulch Watershed",
             "dry-gulch": "Dry Gulch Watershed"
           },
           "layout": {
