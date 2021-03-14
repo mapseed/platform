@@ -4923,7 +4923,7 @@
                       ]
                     ]
                   ],
-                  "label": "Herbaceous Weed Control"
+                  "label": "Herbaceous Weed Control - Rangeland"
                 },
                 {
                   "value": [
@@ -7444,12 +7444,6 @@
               "value": ["get-val", "created_datetime"]
             },
             {
-              "header": "OK to use photos?",
-              "type": "boolean",
-              "fractionalWidth": 1,
-              "value": ["get-val", "private-use_photos"]
-            },
-            {
               "header": "Requesting information",
               "type": "unstyled-string",
               "fractionalWidth": 2,
@@ -7833,13 +7827,32 @@
           ]
         },
         {
+          "header": "Reports by WAU: Garfield County",
+          "type": "freeDonutChart",
+          "groupBy": "wria",
+          "labels": {
+            "alpowa": "Alpowa Watershed",
+            "pataha": "Pataha Watershed",
+            "deadman": "Deadman Watershed",
+            "meadow": "Meadow Watershed",
+            "snake-river": "Snake River Watershed",
+            "tumalum": "Tumalum Watershed",
+            "new-york-gulch": "New York Gulch Watershed",
+            "dry-gulch": "Dry Gulch Watershed"
+          },
+          "layout": {
+            "start": 1,
+            "end": 7
+          }
+        },
+        {
           "header": "Critical Area Summary: Garfield County",
           "isExportable": true,
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
           "layout": {
-            "start": 1,
-            "end": 7,
+            "start": 7,
+            "end": 13,
             "height": 206
           },
           "columns": [
@@ -7955,8 +7968,8 @@
             "other": "Other"
           },
           "layout": {
-            "start": 7,
-            "end": 13
+            "start": 1,
+            "end": 7
           }
         }
       ]
