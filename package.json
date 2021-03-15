@@ -122,7 +122,7 @@
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.7.4",
-    "@babel/preset-typescript": "^7.12.1",
+    "@babel/preset-typescript": "^7.13.0",
     "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
