@@ -8,6 +8,21 @@
   font-family: Roboto, sans-serif !important;
 }
 
+.videowrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  margin-bottom: 8px;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 /* =Header bar add report button
 -------------------------------------------------------------- */
 #pages-nav-container {
@@ -94,7 +109,33 @@
   background: #777;
 }
 
-/* =Maps We Love page
+/* =Stories page
+-------------------------------------------------------------- */
+#stories__main-title {
+  font-family: Raleway, sans-serif !important;
+  border-bottom: 2px solid #ededed;
+  padding-bottom: 16px;
+}
+
+.stories__title {
+  margin: 4px 0 8px 0 !important;
+  font-family: Raleway, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #444;
+}
+
+.stories__description {
+  font-size: 1rem !important;
+  color: #7b7b7b;
+  font-style: italic;
+  line-height: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =Maps we Love page
 -------------------------------------------------------------- */
 #mwl__main-title {
   font-family: Raleway, sans-serif !important;

@@ -17,7 +17,7 @@ const COLORS = {
 };
 
 const useStyles = makeStyles({
-  root: props => ({
+  root: (props: { color: string }) => ({
     backgroundColor: COLORS[props.color],
     color: getReadableColor(COLORS[props.color]),
     padding: "8px",
