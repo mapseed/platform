@@ -106,7 +106,7 @@ self.addEventListener("fetch", event => {
   }
 });
 
-self.addEventListener("install", function(event) {
+self.addEventListener("install", function (event) {
   event.waitUntil(async () => {
     // Create our tiles-cache:
     caches.open(TILE_CACHE_NAME);

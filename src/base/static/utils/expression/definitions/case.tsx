@@ -19,8 +19,9 @@ class Case implements Expression {
     if (args.length < 4) {
       // eslint-disable-next-line no-console
       console.error(
-        `Error: expected at least 3 arguments for "${op}", but found only ${args.length -
-          1}`,
+        `Error: expected at least 3 arguments for "${op}", but found only ${
+          args.length - 1
+        }`,
       );
 
       return null;

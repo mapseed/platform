@@ -6,14 +6,8 @@ export const CHARCOAL = "#36454f";
 export const getReadableColor = color => {
   const tc = tinycolor(color);
   return tc.isLight()
-    ? tc
-        .darken(70)
-        .setAlpha(1)
-        .toString()
-    : tc
-        .brighten(70)
-        .setAlpha(1)
-        .toString();
+    ? tc.darken(70).setAlpha(1).toString()
+    : tc.brighten(70).setAlpha(1).toString();
 };
 
 export const lighten = (color, lightness) => {

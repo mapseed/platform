@@ -50,7 +50,7 @@ module.exports = AppView.extend({
     "click .show-legend-panel": "showLegendPanel",
     // END FLAVOR-SPECIFIC CODE
   },
-  initialize: function() {
+  initialize: function () {
     // store promises returned from collection fetches
     Shareabouts.deferredCollections = [];
     // TODO(luke): move this into "componentDidMount" when App becomes a
@@ -95,27 +95,27 @@ module.exports = AppView.extend({
     this.isProgrammaticZoom = false;
     this.isStoryActive = false;
 
-    $("body").ajaxError(function(evt, request, settings) {
+    $("body").ajaxError(function (evt, request, settings) {
       $("#ajax-error-msg").show();
     });
 
-    $("body").ajaxSuccess(function(evt, request, settings) {
+    $("body").ajaxSuccess(function (evt, request, settings) {
       $("#ajax-error-msg").hide();
     });
 
-    $(document).on("click", ".activity-item a", function(evt) {
+    $(document).on("click", ".activity-item a", function (evt) {
       window.app.clearLocationTypeFilter();
     });
 
     // Globally capture clicks. If they are internal and not in the pass
     // through list, route them through Backbone's navigate method.
-    $(document).on("click", 'a[href^="/"]', function(evt) {
+    $(document).on("click", 'a[href^="/"]', function (evt) {
       var $link = $(evt.currentTarget),
         href = $link.attr("href"),
         url,
         isLinkToPlace = false;
 
-      _.each(self.options.datasetConfigs.places, function(dataset) {
+      _.each(self.options.datasetConfigs.places, function (dataset) {
         if (href.indexOf("/" + dataset.slug) === 0) isLinkToPlace = true;
       });
 
@@ -147,7 +147,7 @@ module.exports = AppView.extend({
     // On any route (/place or /page), hide the list view
     this.options.router.bind(
       "route",
-      function(route) {
+      function (route) {
         if (
           !_.contains(this.getListRoutes(), route) &&
           // BEGIN FLAVOR-SPECIFIC CODE
@@ -300,7 +300,7 @@ module.exports = AppView.extend({
     // reverse geocode the center of the map, if geocoding is enabled. If
     // the user is doing anything else, we just want to clear out any text
     // that's currently set in the address search bar.
-    $(Shareabouts).on("mapdragend", function(evt) {
+    $(Shareabouts).on("mapdragend", function (evt) {
       if (self.isAddingPlace()) {
         self.conditionallyReverseGeocode();
       } else if (self.geocodeAddressView) {
@@ -378,7 +378,7 @@ module.exports = AppView.extend({
     // END REACT PORT SECTION /////////////////////////////////////////////////
   },
 
-  onMapDragEnd: function(evt) {
+  onMapDragEnd: function (evt) {
     if (this.hasBodyClass("content-visible") === true) {
       this.hideSpotlightMask();
       // BEGIN FLAVOR-SPECIFIC CODE
@@ -388,7 +388,7 @@ module.exports = AppView.extend({
   },
 
   // BEGIN FLAVOR-SPECIFIC CODE
-  showListView: function() {
+  showListView: function () {
     $(".show-the-list").addClass("is-visuallyhidden");
     $(".show-the-map").removeClass("is-visuallyhidden");
     $("#list-container").addClass("is-exposed");
@@ -417,7 +417,7 @@ module.exports = AppView.extend({
   // END FLAVOR-SPECIFIC CODE
 
   // BEGIN FLAVOR-SPECIFIC CODE
-  showSidebarPanel: function() {
+  showSidebarPanel: function () {
     $("#sidebar-container").removeClass("sidebar-container--hidden");
     $("#sidebar-container").addClass("sidebar-container--visible");
     if ($("#main-btns-container").hasClass("pos-top-left")) {
@@ -425,23 +425,23 @@ module.exports = AppView.extend({
     }
   },
 
-  showLayerPanel: function() {
+  showLayerPanel: function () {
     this.sidebarView.render("layers");
     this.showSidebarPanel();
   },
 
-  showLegendPanel: function() {
+  showLegendPanel: function () {
     this.sidebarView.render("legend");
     this.showSidebarPanel();
   },
 
-  hideListView: function() {
+  hideListView: function () {
     $("#list-container").removeClass("is-exposed");
     $(".show-the-list").removeClass("is-visuallyhidden");
     $(".show-the-map").addClass("is-visuallyhidden");
   },
 
-  toggleListView: function() {
+  toggleListView: function () {
     if ($("#list-container").is(":visible")) {
       this.options.router.navigate("/", { trigger: true });
     } else {
