@@ -52,7 +52,12 @@ const SnohomishFieldSummary = props => {
   return (
     <div>
       <RegularTitle>{numActions} Stewardship Actions</RegularTitle>
-      {watershedLabel && <Subheader>For {watershedLabel} Watershed</Subheader>}
+      {watershedLabel && (
+        <Subheader>
+          For {watershedLabel}{" "}
+          {!watershedLabel.endsWith("Watershed") && "Watershed"}
+        </Subheader>
+      )}
       <HorizontalRule spacing="small" />
       {props.place.attachments
         .filter(attachment => attachment.type === "CO")
