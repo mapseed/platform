@@ -24,6 +24,12 @@ const ActionSummaryItem = styled("li")(props => ({
   padding: "8px 4px 8px 4px",
 }));
 
+const Subheader = styled(RegularText)`
+  font-weight: 800;
+  font-style: italic;
+  margin-top: 0;
+`;
+
 const excludedFields = [""];
 
 const SnohomishFieldSummary = props => {
@@ -37,10 +43,16 @@ const SnohomishFieldSummary = props => {
   const challenges =
     props.place.stewardship_difficulties &&
     props.place.stewardship_difficulties.split("\n");
+  // WRIA for Whitman, WAU for Garfield
+  const watershedName = props.place.wria || props.place.analysis_unit;
+  const watershedValue = props.fields
+    .find(({ name }) => name === "wria" || name === "analysis_unit")
+    ?.content?.find(({ name }) => name === watershedName)?.value;
 
   return (
     <div>
       <RegularTitle>{numActions} Stewardship Actions</RegularTitle>
+      {watershedValue && <Subheader>For {watershedValue} Watershed</Subheader>}
       <HorizontalRule spacing="small" />
       {props.place.attachments
         .filter(attachment => attachment.type === "CO")
