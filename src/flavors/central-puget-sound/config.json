@@ -794,8 +794,9 @@
             "source": "longhouses",
             "layout": {
               "icon-image": "marker-dot-conserve-energy.png",
-              "icon-size": 0.5,
-              "icon-anchor": "center"
+              "icon-size": 0.3,
+              "icon-anchor": "center",
+              "icon-allow-overlap": true
             },
             "paint": {
               "icon-opacity": 0.9
