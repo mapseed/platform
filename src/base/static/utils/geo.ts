@@ -135,9 +135,7 @@ export const redraw = ({ project, ctx, featureCollection, width, height }) => {
   }
 
   const transform = geoTransform({ point: projectPoint });
-  const path = geoPath()
-    .projection(transform)
-    .context(ctx);
+  const path = geoPath().projection(transform).context(ctx);
 
   ctx.clearRect(0, 0, width, height);
 

@@ -60,8 +60,9 @@ const ColoredMeterChart = props => {
               strokeWidth={2 * radius}
             />
             <text
-              transform={`translate(${labelX}, ${labelY}) rotate(${-90 +
-                (i * segmentAngleDegrees + segmentAngleDegrees / 2)})`}
+              transform={`translate(${labelX}, ${labelY}) rotate(${
+                -90 + (i * segmentAngleDegrees + segmentAngleDegrees / 2)
+              })`}
               style={{
                 fontFamily: "sans-serif",
                 fontSize: "6px",

@@ -96,7 +96,7 @@ const prepareCustomUrl = url => {
 // ====================================================
 // Event and State Logging
 
-const log = function() {
+const log = function () {
   // eslint-disable-next-line prefer-rest-params
   const args = Array.prototype.slice.call(arguments, 0);
 
@@ -178,14 +178,14 @@ const _fixImageOrientation = (canvas, orientation) => {
 const fileToCanvas = (file, callback, options) => {
   const fr = new FileReader();
 
-  fr.onloadend = function() {
+  fr.onloadend = function () {
     // get EXIF data
     const exif = EXIF.readFromBinaryFile(new BinaryFile(this.result));
     const orientation = exif.Orientation;
 
     loadImage(
       file,
-      function(canvas) {
+      function (canvas) {
         // rotate the image, if needed
         const rotated = _fixImageOrientation(canvas, orientation);
         callback(rotated);
@@ -200,7 +200,7 @@ const fileToCanvas = (file, callback, options) => {
 // Cookies! Om nom nom
 // Thanks ppk! http://www.quirksmode.org/js/cookies.html
 const cookies = {
-  save: function(name, value, days, prefix) {
+  save: function (name, value, days, prefix) {
     let expires;
     prefix = prefix || "";
     name = prefix + name;
@@ -213,7 +213,7 @@ const cookies = {
     }
     document.cookie = name + "=" + value + expires + "; path=/";
   },
-  get: function(name, prefix) {
+  get: function (name, prefix) {
     prefix = prefix || "";
     const nameEQ = prefix + name + "=";
     const ca = document.cookie.split(";");
@@ -228,14 +228,14 @@ const cookies = {
     }
     return null;
   },
-  destroy: function(name) {
+  destroy: function (name) {
     this.save(name, "", -1);
   },
 };
 
 const LOCALSTORAGE_PREFIX = "mapseed-";
 const localstorage = {
-  save: function(name, value, days) {
+  save: function (name, value, days) {
     const expDate = new Date();
     expDate.setTime(expDate.getTime() + days * 24 * 60 * 60 * 1000);
     try {
@@ -250,7 +250,7 @@ const localstorage = {
       // ignore exceptions
     }
   },
-  get: function(name) {
+  get: function (name) {
     name = LOCALSTORAGE_PREFIX + name;
     const now = new Date().getTime();
     let item = {};
@@ -271,7 +271,7 @@ const localstorage = {
 
     return item.value;
   },
-  destroy: function(name) {
+  destroy: function (name) {
     name = LOCALSTORAGE_PREFIX + name;
     try {
       localStorage.removeItem(name);

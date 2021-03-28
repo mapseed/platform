@@ -105,7 +105,7 @@ class Dashboard extends React.Component<Props, State> {
           width: 100%;
           height: calc(100% - ${constants.HEADER_HEIGHT}px);
           background-color: ${this.state.dashboard.backgroundColor ||
-            "#ece6e6"};
+          "#ece6e6"};
 
           &::-webkit-scrollbar {
             width: 0;
