@@ -66,8 +66,6 @@ const getFreeTableData = ({
     fractionalWidth: column.fractionalWidth || 1,
   }));
 
-  console.log({ freeTableRows })
-
   return {
     columns: freeTableColumns,
     rows: freeTableRows,
