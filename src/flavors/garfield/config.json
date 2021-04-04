@@ -7438,6 +7438,18 @@
               ]
             },
             {
+              "header": "Link to Report",
+              "type": "place-link",
+              "fractionalWidth": 1,
+              "value": [
+                "cat-join",
+                "",
+                ["get-val", "clientSlug"],
+                ["literal", "/"],
+                ["get-val", "id"]
+              ]
+            },
+            {
               "header": "Submitted report on",
               "type": "date",
               "fractionalWidth": 2,
