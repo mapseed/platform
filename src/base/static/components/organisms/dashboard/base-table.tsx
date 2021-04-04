@@ -121,36 +121,47 @@ class BaseTable extends React.Component<BaseTableProps> {
                 ? "regular"
                 : clamp(CELL_FORMAT_WEIGHTS, i);
 
-            return type === "badge" ? (
-              <div
-                key={i}
-                css={css`
-                  display: flex;
-                  justify-content: center;
-                `}
-              >
-                <Badge color={valuePart.color}>
-                  <DashboardText weight="bold" fontSize="0.9rem">
-                    {valuePart.label}
-                  </DashboardText>
-                </Badge>
-              </div>
-            ) : (
-              <DashboardText
-                key={i}
-                textAlign={this.getCellAlignment(type)}
-                weight={cellWeight}
-                color={isEmail ? "#005999" : cellColor}
-              >
-                {isEmail ? (
-                  <ExternalLink href={`mailto:${valuePart}`}>
-                    {valuePart}
+            switch (type) {
+              case "badge":
+                return (
+                  <div
+                    key={i}
+                    css={css`
+                      display: flex;
+                      justify-content: center;
+                    `}
+                  >
+                    <Badge color={valuePart.color}>
+                      <DashboardText weight="bold" fontSize="0.9rem">
+                        {valuePart.label}
+                      </DashboardText>
+                    </Badge>
+                  </div>
+                );
+              case "place-link":
+                return (
+                  <ExternalLink target="_blank" href={`/${valuePart}`}>
+                    View report
                   </ExternalLink>
-                ) : (
-                  getFormatter(type)(valuePart)
-                )}
-              </DashboardText>
-            );
+                );
+              default:
+                return (
+                  <DashboardText
+                    key={i}
+                    textAlign={this.getCellAlignment(type)}
+                    weight={cellWeight}
+                    color={isEmail ? "#005999" : cellColor}
+                  >
+                    {isEmail ? (
+                      <ExternalLink href={`mailto:${valuePart}`}>
+                        {valuePart}
+                      </ExternalLink>
+                    ) : (
+                      getFormatter(type)(valuePart)
+                    )}
+                  </DashboardText>
+                );
+            }
           })}
           {cellData.label && (
             <DashboardText
