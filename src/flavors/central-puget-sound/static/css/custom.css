@@ -23,6 +23,10 @@
   }
 }
 
+.mapseed-info-modal {
+  width: 30%;
+}
+
 /* =Header bar add report button
 -------------------------------------------------------------- */
 #pages-nav-container {
