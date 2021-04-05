@@ -4622,6 +4622,60 @@
               "value": ["get-val", "created_datetime"]
             },
             {
+              "header": "Critical Areas Affected",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "private-property_on_wetlands"], "yes"],
+                  ["literal", "Wetlands"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "private-property_on_frequently_flooded"],
+                    "yes"
+                  ],
+                  ["literal", "Frequently Flooded Area"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "private-property_on_geologic_hazard"],
+                    "yes"
+                  ],
+                  ["literal", "Geologic Hazard Area"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "private-property_on_critical_aquifer"],
+                    "yes"
+                  ],
+                  ["literal", "Critical Aquifer"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "private-property_on_wildlife_conservation"],
+                    "yes"
+                  ],
+                  ["literal", "Wildlife Conservation Area"],
+                  ["literal", ""]
+                ]
+              ]
+            },
+            {
               "header": "Requesting information",
               "type": "unstyled-string",
               "fractionalWidth": 2,
