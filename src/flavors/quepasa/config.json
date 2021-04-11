@@ -275,7 +275,15 @@
             "source-layer": "riachuelo-subbasins",
             "paint": {
               "fill-color": "#3182bd",
-              "fill-opacity": 0.3
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                0.3,
+                12,
+                0
+              ]
             }
           },
           {
@@ -298,7 +306,7 @@
             },
             "paint": {
               "text-color": "#000000",
-              "text-halo-color": "#ffffff",
+              "text-halo-color": "#ffff00",
               "text-halo-width": 0.5
             }
           }
