@@ -558,8 +558,8 @@
         "name": "location_type",
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
-        "value": "reporte-territorial",
-        "label": "Reporte Territorial",
+        "value": "areas-protegidas",
+        "label": "Areas Protegidas",
         "geospatialAnalysis": [
           {
             "name": "subbasin_name",
@@ -1288,7 +1288,7 @@
             "prompt": "Otro (especificar municipio)",
             "placeholder": "Escribí el nombre de tu municipio...",
             "display_prompt": "Municipio",
-            "visible_default": false,
+            "hidden_default": true,
             "optional": false
           },
           {
@@ -1297,7 +1297,7 @@
             "prompt": "Otro (especificar barrio)",
             "placeholder": "Escribí el nombre de tu barrio...",
             "display_prompt": "Barrio",
-            "visible_default": false,
+            "hidden_default": true,
             "optional": false
           },
           {
