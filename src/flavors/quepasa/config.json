@@ -429,13 +429,7 @@
               "icon-image": [
                 "match",
                 ["get", "location_type"],
-                "complaint",
-                "marker-complaint.png",
-                "question",
-                "marker-question.png",
-                "observation",
-                "marker-observation.png",
-                "idea",
+                "reporte-territorial",
                 "marker-idea.png",
                 "__no-icon-image__"
               ]
@@ -454,14 +448,8 @@
               "icon-image": [
                 "match",
                 ["get", "location_type"],
-                "complaint",
-                "marker-complaint.png",
-                "observation",
-                "marker-observation.png",
-                "idea",
+                "reporte-territorial",
                 "marker-idea.png",
-                "question",
-                "marker-question.png",
                 "__no-icon-image__"
               ]
             }
@@ -591,7 +579,7 @@
             "type": "dropdown_autocomplete",
             "includeOnListItem": true,
             "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
-            "display_prompt": "Barrio:",
+            "display_prompt": "Barrio",
             "placeholder": "Escribí el nombre de tu barrio...",
             "optional": false,
             "content": [
