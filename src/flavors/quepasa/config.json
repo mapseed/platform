@@ -605,12 +605,17 @@
   "place": {
     "adding_supported": true,
     "add_button_label": "Enviar un reporte",
+<<<<<<< HEAD
+=======
+    "title": "Reporte Territorial",
+>>>>>>> refactor(quepasa): content
     "action_text": "creada",
     "anonymous_name": "Alguien",
     "submit_button_label": "Enviar",
     "location_item_name": "reporte",
     "place_detail": [
       {
+<<<<<<< HEAD
         "formId": "featured_place",
         "category": "featured_place",
         "admin_only": true,
@@ -1108,13 +1113,22 @@
       {
         "category": "areas-protegidas-2",
         "formId": "areas-protegidas-2",
+=======
+        "category": "reporte-territorial",
+        "formId": "reporte-territorial",
+>>>>>>> refactor(quepasa): content
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
+<<<<<<< HEAD
         "value": "areas-protegidas-2",
         "label": "Areas Protegidas",
+=======
+        "value": "reporte-territorial",
+        "label": "Reporte Territorial",
+>>>>>>> refactor(quepasa): content
         "geospatialAnalysis": [
           {
             "name": "subbasin_name",
@@ -1133,6 +1147,7 @@
             "type": "lng_lat"
           },
           {
+<<<<<<< HEAD
             "name": "intro",
             "type": "informational_html",
             "content": "<h4>¿Querés reportar algo sobre este área natural o contribuir aportando información? Podés hacerlo acá. Vas a poder seleccionar y subir fotos, imágenes, archivos, texto, links.</h4>"
@@ -1300,10 +1315,317 @@
             "type": "pointInPolygon",
             "analysisTarget": "riachuelo-subbasins.geojson",
             "propertiesToPluck": [
+=======
+            "name": "barrio",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio:",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "optional": false,
+            "options": [
+>>>>>>> refactor(quepasa): content
               {
-                "name": "NOMBRE"
+                "label": "Las Antenas",
+                "value": "las-antenas"
+              },
+              {
+                "label": "Santos Vega",
+                "value": "santos-vega"
+              },
+              {
+                "label": "Los Ceibos",
+                "value": "los-ceibos"
+              },
+              {
+                "label": "Los Ceibos",
+                "value": "los-ceibos"
+              },
+              {
+                "label": "La Bastilla II",
+                "value": "la-bastilla-ii"
+              },
+              {
+                "label": "La Bastilla II",
+                "value": "la-bastilla-ii"
+              },
+              {
+                "label": "La Bastilla I",
+                "value": "la-bastilla-i"
+              },
+              {
+                "label": "Barrio Scasso",
+                "value": "barrio-scasso"
+              },
+              {
+                "label": "Talleres",
+                "value": "talleres"
+              },
+              {
+                "label": "Villa Jardin (Ex FFMM)",
+                "value": "villa-jardin-ex-ffmm"
+              },
+              {
+                "label": "N. Kirchner (Ex Vialidad)",
+                "value": "n-kirchner-ex-vialidad"
+              },
+              {
+                "label": "La Maquinita",
+                "value": "la-maquinita"
+              },
+              {
+                "label": "Acuba",
+                "value": "acuba"
+              },
+              {
+                "label": "Barrio Unamuno",
+                "value": "barrio-unamuno"
+              },
+              {
+                "label": "Predio Pombo I",
+                "value": "predio-pombo-i"
+              },
+              {
+                "label": "Predio La Herradura",
+                "value": "predio-la-herradura"
+              },
+              {
+                "label": "Predio Pombo II",
+                "value": "predio-pombo-ii"
+              },
+              {
+                "label": "Las Torres",
+                "value": "las-torres"
+              },
+              {
+                "label": "Juancito",
+                "value": "juancito"
+              },
+              {
+                "label": "Barrio Lindo",
+                "value": "barrio-lindo"
+              },
+              {
+                "label": "Viviendas En Glew",
+                "value": "viviendas-en-glew"
+              },
+              {
+                "label": "Santa Ana",
+                "value": "santa-ana"
+              },
+              {
+                "label": "Barrio Bicentenario",
+                "value": "barrio-bicentenario"
+              },
+              {
+                "label": "Montecarlo",
+                "value": "montecarlo"
+              },
+              {
+                "label": "Juan Pablo II",
+                "value": "juan-pablo-ii"
+              },
+              {
+                "label": "Papa Francisco",
+                "value": "papa-francisco"
+              },
+              {
+                "label": "Lacarra 2049",
+                "value": "lacarra-2049"
+              },
+              {
+                "label": "Mundo Grua (Ribera Iguazu)",
+                "value": "mundo-grua-ribera-iguazu"
+              },
+              {
+                "label": "Predio IVC Viviendas",
+                "value": "predio-ivc-viviendas"
+              },
+              {
+                "label": "San Antonio 721",
+                "value": "san-antonio-721"
+              },
+              {
+                "label": "Luzuriaga 837",
+                "value": "luzuriaga-837"
+              },
+              {
+                "label": "Los Piletones",
+                "value": "los-piletones"
+              },
+              {
+                "label": "Valparaiso 3459",
+                "value": "valparaiso-3459"
+              },
+              {
+                "label": "Australia",
+                "value": "australia"
+              },
+              {
+                "label": "Osvaldo Cruz Y Luna",
+                "value": "osvaldo-cruz-y-luna"
+              },
+              {
+                "label": "Pepiri Y Taborda",
+                "value": "pepiri-y-taborda"
+              },
+              {
+                "label": "San Francisco",
+                "value": "san-francisco"
+              },
+              {
+                "label": "Orma Y Magaldi",
+                "value": "orma-y-magaldi"
+              },
+              {
+                "label": "Padre Mugica",
+                "value": "padre-mugica"
+              },
+              {
+                "label": "Lujan",
+                "value": "lujan"
+              },
+              {
+                "label": "Magaldi",
+                "value": "magaldi"
+              },
+              {
+                "label": "Rodrigo Bueno",
+                "value": "rodrigo-bueno"
+              },
+              {
+                "label": "El Pueblito",
+                "value": "el-pueblito"
+              },
+              {
+                "label": "Irala Y Liberti",
+                "value": "irala-y-liberti"
+              },
+              {
+                "label": "Olavarria 71",
+                "value": "olavarria-71"
+              },
+              {
+                "label": "Irala 750",
+                "value": "irala-750"
+              },
+              {
+                "label": "Zabaleta 896",
+                "value": "zabaleta-896"
+              },
+              {
+                "label": "P. Suipacha",
+                "value": "p-suipacha"
+              },
+              {
+                "label": "Deheza Y Cosquin",
+                "value": "deheza-y-cosquin"
+              },
+              {
+                "label": "Estanislao Del Campo",
+                "value": "estanislao-del-campo"
+              },
+              {
+                "label": "Predio Pinzon",
+                "value": "predio-pinzon"
+              },
+              {
+                "label": "Lujan",
+                "value": "lujan"
+              },
+              {
+                "label": "Los Cardales",
+                "value": "los-cardales"
+              },
+              {
+                "label": "Pte. Agucero",
+                "value": "pte-agucero"
+              },
+              {
+                "label": "Nueva Ana",
+                "value": "nueva-ana"
+              },
+              {
+                "label": "Alianza",
+                "value": "alianza" },
+              {
+                "label": "7 De Septiembre",
+                "value": "7-de-septiembre"
+              },
+              {
+                "label": "Azul",
+                "value": "azul"
+              },
+              {
+                "label": "7 De Enero",
+                "value": "7-de-enero"
+              },
+              {
+                "label": "Isla Maciel",
+                "value": "isla-maciel"
+              },
+              {
+                "label": "French Y Autopista",
+                "value": "french-y-autopista"
+              },
+              {
+                "label": "Medialuna",
+                "value": "medialuna"
+              },
+              {
+                "label": "Ex Acindar",
+                "value": "ex-acindar"
+              },
+              {
+                "label": "Tellier",
+                "value": "tellier"
+              },
+              {
+                "label": "Relampago",
+                "value": "relampago"
+              },
+              {
+                "label": "Isla Maciel",
+                "value": "isla-maciel"
+              },
+              {
+                "label": "Predio Madariaga",
+                "value": "predio-madariaga"
+              },
+              {
+                "label": "Pasaje Aldaz",
+                "value": "pasaje-aldaz"
+              },
+              {
+                "label": "Caem",
+                "value": "caem"
+              },
+              {
+                "label": "Entre Vias",
+                "value": "entre-vias"
+              },
+              {
+                "label": "Predio Llaneza",
+                "value": "predio-llaneza"
+              },
+              {
+                "label": "Predio Pitagoras",
+                "value": "predio-pitagoras"
+              },
+              {
+                "label": "Deheza Y Helguera",
+                "value": "deheza-y-helguera"
+              },
+              {
+                "label": "Barrio La Saladita",
+                "value": "barrio-la-saladita"
+              },
+              {
+                "label": "Barrio Saladita Norte",
+                "value": "barrio-saladita-norte"
               }
             ]
+<<<<<<< HEAD
           }
         ],
         "fields": [
@@ -1394,6 +1716,16 @@
                 "value": "otros"
               }
             ]
+=======
+          },
+          {
+            "name": "description",
+            "type": "textarea",
+            "includeOnListItem": true,
+            "prompt": "¿Cuál es tu pregunta?",
+            "display_prompt": " ",
+            "placeholder": "Ingresar pregunta..."
+>>>>>>> refactor(quepasa): content
           },
           {
             "name": "comentario",
