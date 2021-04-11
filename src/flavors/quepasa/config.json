@@ -689,6 +689,7 @@
           },
           {
             "name": "barrio",
+<<<<<<< HEAD
             "type": "common_form_element"
           },
           {
@@ -696,6 +697,14 @@
             "type": "dropdown",
             "prompt": "Tipo de cuerpo de agua",
             "optional": true,
+=======
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio:",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "optional": false,
+>>>>>>> refactor(quepasa): content
             "content": [
               {
                 "label": "Río",
@@ -718,6 +727,7 @@
             "optional": true,
             "content": [
               {
+<<<<<<< HEAD
                 "label": "Rural",
                 "value": "rural"
               },
@@ -756,6 +766,10 @@
               {
                 "label": "Alto",
                 "value": "alto"
+=======
+                "label": "La Bastilla II",
+                "value": "la-bastilla-ii"
+>>>>>>> refactor(quepasa): content
               },
               {
                 "label": "Medio",
@@ -1530,10 +1544,6 @@
                 "value": "predio-pinzon"
               },
               {
-                "label": "Lujan",
-                "value": "lujan"
-              },
-              {
                 "label": "Los Cardales",
                 "value": "los-cardales"
               },
@@ -1719,6 +1729,7 @@
 =======
           },
           {
+<<<<<<< HEAD
             "name": "description",
             "type": "textarea",
             "includeOnListItem": true,
@@ -1741,6 +1752,94 @@
             "prompt": "Información Adicional",
             "display_prompt": "Información Adicional",
             "placeholder": "Adjunte archivos PDF, videos y otra información"
+=======
+            "name": "situacion_de_relocalizacion",
+            "type": "big_checkbox",
+            "prompt": "Situación de Relocalización",
+            "optional": false,
+            "content": [
+              {
+                "label": "Me relocalizaron en otro barrio o complejo habitacional",
+                "value": "otro-barrio"
+              },
+              {
+                "label": "Me informaron que me van a relocalizar pero aún no sucedió.",
+                "value": "no-sucedio"
+              },
+              {
+                "label": "Soy habitante de un barrio donde hubo o habrá personas relocalizadas pero no es mi caso.",
+                "value": "barrio-pero-no-mi-caso"
+              },
+              {
+                "label": "Soy habitante de un barrio o complejo habitacional al que llegaron personas relocalizadas de otros barrios de la Cuenca del Río Matanza Riachuelo.",
+                "value": "barrio-que-llegaron-personas"
+              }
+            ]
+          },
+          {
+            "name": "barrio-antes",
+            "type": "text",
+            "prompt": "¿En qué barrio vivía antes?",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "display_prompt": "Barrio antes",
+            "optional": false
+          },
+          {
+            "name": "tema_interese",
+            "type": "big_checkbox",
+            "prompt": "Elegí un tema que te interese y comentalo",
+            "optional": false,
+            "content": [
+              {
+                "label": "Participación en el proceso relocalización/mesas de trabajo",
+                "value": "participacion"
+              },
+              {
+                "label": "Información sobre el proceso de relocalización",
+                "value": "informacion"
+              },
+              {
+                "label": "Salud",
+                "value": "salud"
+              },
+              {
+                "label": "Vivienda",
+                "value": "vivienda"
+              },
+              {
+                "label": "Hábitat: servicios públicos, infraestructura barrial y ambiente",
+                "value": "habitat"
+              },
+              {
+                "label": "Acceso y conexión con la ciudad y movilidad urbana",
+                "value": "conexion"
+              },
+              {
+                "label": "Situación económica y laboral",
+                "value": "economica-y-laboral"
+              },
+              {
+                "label": "Educación",
+                "value": "educacion"
+              },
+              {
+                "label": "Relaciones comunitarias y acciones",
+                "value": "relaciones-comunitarias"
+              },
+              {
+                "label": "Otros",
+                "value": "otros"
+              }
+            ]
+          },
+          {
+            "name": "comentario",
+            "type": "textarea",
+            "prompt": "Comentario",
+            "placeholder": "Comentario...",
+            "display_prompt": "Comentario",
+            "optional": true
+>>>>>>> refactor(quepasa): content
           },
           {
             "name": "my_image",
