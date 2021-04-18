@@ -290,6 +290,19 @@ input#mwl-tag-transportationsystems:checked {
     display: flex;
   }
 }
+
+input#mwl-tag-climatechange:checked {
+  & ~ #mwl__tag-container > #mwl-tag-climatechange-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  &
+    ~ #mwl__gallery-container
+    > .mwl__gallery-item[data-tags*="climatechange"] {
+    display: flex;
+  }
+}
 /* end tag label and item visibility control */
 
 .mwl__related-resources-header {
