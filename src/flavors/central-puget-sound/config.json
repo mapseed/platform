@@ -2897,7 +2897,7 @@
         "</figure>",
         "<input type='radio' name='gallery-items' id='gallery-item-snowpack-historical' />",
         "<figure class='mwl__gallery-item' data-tags='climatechange watersystems salmon'>",
-        "<label for='gallery-item-washington-snowpack'>",
+        "<label for='gallery-item-snowpack-historical'>",
         "<img src='/static/css/images/gallery-header__snowpack-historical-v2.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
