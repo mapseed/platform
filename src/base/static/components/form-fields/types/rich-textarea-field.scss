@@ -40,3 +40,7 @@
 .rich-textarea-field__quill-file-input--hidden {
   display: none;
 }
+
+.ql-pdf:after {
+  content: "PDF"
+}
