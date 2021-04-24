@@ -1820,6 +1820,13 @@
             "optional": true
           },
           {
+            "name": "additional_info",
+            "type": "rich_textarea",
+            "prompt": "Información Adicional",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información"
+          },
+          {
             "name": "my_image",
             "type": "common_form_element"
           },

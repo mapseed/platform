@@ -65,7 +65,6 @@ class PdfEmbed extends BlockEmbed {
     iframe.setAttribute("src", url);
     iframe.setAttribute("frameborder", 0);
     iframe.setAttribute("allowfullscreen", true);
-    iframe.style = "position: absolute; top: 0; left: 0; width: 100%;";
     node.appendChild(iframe);
 
     return node;
