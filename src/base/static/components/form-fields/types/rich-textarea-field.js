@@ -13,6 +13,10 @@ import constants from "../../../constants";
 import "./rich-textarea-field.scss";
 import Util from "../../../js/utils.js";
 
+const getRandomName = () => {
+  return Math.random().toString(36).substring(7);
+};
+
 let onAddAttachment;
 class ImageWithName extends Embed {
   static create(value) {
@@ -61,8 +65,7 @@ class PdfEmbed extends BlockEmbed {
     iframe.setAttribute("src", url);
     iframe.setAttribute("frameborder", 0);
     iframe.setAttribute("allowfullscreen", true);
-    iframe.style =
-      "position: absolute; top: 0; left: 0; width: 100%; height: 100%;";
+    iframe.style = "position: absolute; top: 0; left: 0; width: 100%;";
     node.appendChild(iframe);
 
     return node;
