@@ -123,11 +123,9 @@ export default {
   [constants.RICH_TEXTAREA_FIELD_TYPENAME]: {
     getValidator: getDefaultValidator,
     getComponent: (fieldConfig, context) => (
-      // TODO: make bounds prop configurable.
       <RichTextareaField
         {...getSharedFieldProps(fieldConfig, context)}
         onAddAttachment={context.props.onAddAttachment.bind(context)}
-        bounds="#content"
       />
     ),
     getInitialValue: ({ value, attachments }) =>

@@ -13,62 +13,9 @@ import constants from "../../../constants";
 import "./rich-textarea-field.scss";
 import Util from "../../../js/utils.js";
 
-// NOTE: this routine is taken from Quill's themes/base module, which is not
-// importable via react-quill.
-const extractVideoUrl = url => {
-  let match =
-    url.match(
-      /^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtube\.com\/watch.*v=([a-zA-Z0-9_-]+)/,
-    ) ||
-    url.match(/^(?:(https?):\/\/)?(?:(?:www|m)\.)?youtu\.be\/([a-zA-Z0-9_-]+)/);
-  if (match) {
-    return (
-      (match[1] || "https") +
-      "://www.youtube.com/embed/" +
-      match[2] +
-      "?showinfo=0"
-    );
-  }
-  if ((match = url.match(/^(?:(https?):\/\/)?(?:www\.)?vimeo\.com\/(\d+)/))) {
-    return (
-      (match[1] || "https") + "://player.vimeo.com/video/" + match[2] + "/"
-    );
-  }
-  return url;
-};
-
 const getRandomName = () => {
   return Math.random().toString(36).substring(7);
 };
-
-class WrappedVideo extends BlockEmbed {
-  static create(url) {
-    const node = super.create();
-    node.style =
-      "position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0; overflow: hidden;";
-
-    const iframe = document.createElement("iframe");
-
-    url = Link.sanitize(extractVideoUrl(url));
-    iframe.setAttribute("src", url);
-    iframe.setAttribute("frameborder", 0);
-    iframe.setAttribute("allowfullscreen", true);
-    iframe.style =
-      "position: absolute; top: 0; left: 0; width: 100%; height: 100%;";
-    node.appendChild(iframe);
-
-    return node;
-  }
-
-  static value(domNode) {
-    const iframe = domNode.querySelector("iframe");
-    return iframe.getAttribute("src");
-  }
-}
-WrappedVideo.blotName = "wrappedVideo";
-WrappedVideo.tagName = "DIV";
-WrappedVideo.className = "ql-wrapped-video";
-Quill.register(WrappedVideo);
 
 let onAddAttachment;
 class ImageWithName extends Embed {
@@ -110,6 +57,29 @@ ImageWithName.blotName = "imageWithName";
 ImageWithName.tagName = "IMG";
 Quill.register(ImageWithName);
 
+class PdfEmbed extends BlockEmbed {
+  static create(url) {
+    const node = super.create();
+    const iframe = document.createElement("iframe");
+
+    iframe.setAttribute("src", url);
+    iframe.setAttribute("frameborder", 0);
+    iframe.setAttribute("allowfullscreen", true);
+    node.appendChild(iframe);
+
+    return node;
+  }
+
+  static value(domNode) {
+    const iframe = domNode.querySelector("iframe");
+    return iframe.getAttribute("src");
+  }
+}
+PdfEmbed.blotName = "pdfEmbed";
+PdfEmbed.tagName = "DIV";
+PdfEmbed.className = "ql-pdf-embed";
+Quill.register(PdfEmbed);
+
 class RichTextareaField extends Component {
   constructor(props) {
     super(props);
@@ -122,55 +92,43 @@ class RichTextareaField extends Component {
           [{ list: "ordered" }, { list: "bullet" }],
           [{ header: [1, 2, 3, 4, 5, 6, false] }],
           [{ color: [] }, { background: [] }],
-          ["link", "image", "video"],
+          ["link", "image", "video", "pdf"],
         ],
         handlers: {
           image: this.onClickEmbedImage.bind(this),
-          video: this.onClickEmbedVideo.bind(this),
+          pdf: this.onClickEmbedPdf.bind(this),
         },
       },
     };
     this.onAddImage = this.onAddImage.bind(this);
   }
 
-  componentDidMount() {
-    const editor = this.quillEditor.getEditor();
-
-    // NOTE: we create a whole new SnowTheme here so we can make use of a
-    // tooltip box with custom click handler.
-    // TODO: is there a lighter-weight way to accomplish this?
-    this.snowTheme = new SnowTheme(editor, editor.options);
-    this.snowTheme.extendToolbar(editor.theme.modules.toolbar);
-
-    // We replace the ql-action element so we can attach our own click listener
-    // below.
-    const oldElt = this.snowTheme.tooltip.root.querySelector("a.ql-action");
-    const newElt = oldElt.cloneNode(true);
-    oldElt.parentNode.replaceChild(newElt, oldElt);
-
-    this.snowTheme.tooltip.root
-      .querySelector("a.ql-action")
-      .addEventListener("click", evt => {
-        evt.preventDefault();
-        editor.focus();
-        const url = this.snowTheme.tooltip.root.querySelector("input").value;
-        editor.insertEmbed(
-          editor.getSelection().index,
-          "wrappedVideo",
-          url,
-          "user",
-        );
-        this.snowTheme.tooltip.root.className += " ql-hidden";
-      });
-  }
-
   onClickEmbedImage() {
-    // TODO: is there a way around using refs here?
     this.quillFileInput.click();
   }
 
-  onClickEmbedVideo() {
-    this.snowTheme.tooltip.edit("video");
+  onClickEmbedPdf() {
+    // This is hacky, but Quill just doesn't have another way of handling this,
+    // AFAICT. We need to temporarily swap out the save handler for the tooltip box.
+    const editor = this.quillEditor.getEditor();
+    const oldSave = editor.theme.tooltip.save;
+
+    editor.theme.tooltip.save = () => {
+      editor.focus();
+      const tooltipValue = editor.theme.tooltip.textbox.value;
+
+      editor.insertEmbed(
+        editor.getSelection().index,
+        "pdfEmbed",
+        tooltipValue,
+        "user",
+      );
+
+      // Restore old save method.
+      editor.theme.tooltip.save = oldSave;
+    };
+
+    this.quillEditor.getEditor().theme.tooltip.edit("pdf");
   }
 
   onChange(value) {
@@ -233,7 +191,7 @@ class RichTextareaField extends Component {
             `richTextareaFieldPlaceholder${this.props.formId}${this.props.name}`,
             this.props.placeholder || " ",
           )}
-          bounds={this.props.bounds}
+          bounds={`.${cn.base}`}
           value={this.props.value}
           onChange={this.onChange.bind(this)}
         />
@@ -250,7 +208,6 @@ class RichTextareaField extends Component {
 }
 
 RichTextareaField.propTypes = {
-  bounds: PropTypes.string.isRequired,
   formId: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func.isRequired,
