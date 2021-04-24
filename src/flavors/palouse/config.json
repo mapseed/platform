@@ -7706,6 +7706,11 @@
       "title": "VSP Assistance",
       "type": "internal_link",
       "url": "/page/assistance"
+    },
+    {
+      "title": "Dashboard",
+      "type": "internal_link",
+      "url": "/page/dashboard"
     }
   ],
   "pages": [
@@ -7763,6 +7768,57 @@
         "<p style='margin-bottom:16px'><strong>Whitman County VSP appreciates your time sharing stewardship practices!</strong></p>",
         "<p>Click Get Started to begin!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
+      ]
+    },
+    {
+      "slug": "dashboard",
+      "content": [
+        "<h3 id='about-page-header'>Public Dashboard</h3>",
+        "<p>Summary of Whitman County VSP Actions.</p>",
+        "<div class='static-dashboard-group'>",
+        "<div class='static-dashboard-header-row'><span class='static-dashboard-cell'>Summary Type</span><span class='static-dashboard-cell'>Number</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Total VSP Reports</span><span class='static-dashboard-cell'>80</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Total Stewardship Actions</span><span class='static-dashboard-cell'>608</span></div>",
+        "</div>",
+        "<div class='static-dashboard-group'>",
+        "<div class='static-dashboard-header-row'><span class='static-dashboard-cell'>Stewardship Practice</span><span class='static-dashboard-cell'>Total Impact</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Conventional Farming</span><span class='static-dashboard-cell'>17,366 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Residue & Tillage Management</span><span class='static-dashboard-cell'>82,159 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Pest Management</span><span class='static-dashboard-cell'>83,962 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Nutrient Management</span><span class='static-dashboard-cell'>86,499 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Range Management (Grazing)</span><span class='static-dashboard-cell'>11,722 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Range Management (Plantings)</span><span class='static-dashboard-cell'>1,312 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Range Management (Watering Facilities)</span><span class='static-dashboard-cell'>110 Facilities</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Range Management (Water Wells)</span><span class='static-dashboard-cell'>13 Wells</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Soil Management (Conservation Crop Rotation)</span><span class='static-dashboard-cell'>24,794 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Soil Management (Cover Crops)</span><span class='static-dashboard-cell'>1,449 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Soil Management (Mulching)</span><span class='static-dashboard-cell'>9,679 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Conservation Cover)</span><span class='static-dashboard-cell'>6,583 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Critical Area Planting)</span><span class='static-dashboard-cell'>3,977 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Grassed Waterways)</span><span class='static-dashboard-cell'>188,740 Feet</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Herbaceous Weed Control - Rangeland)</span><span class='static-dashboard-cell'>13,369 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Tree/Shrub Planting)</span><span class='static-dashboard-cell'>888 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Wetland Wildlife Management)</span><span class='static-dashboard-cell'>37 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Upland Habitat)</span><span class='static-dashboard-cell'>1,180 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Hedgerow Planting)</span><span class='static-dashboard-cell'>5,325 Feet</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Open Channel)</span><span class='static-dashboard-cell'>68,481 Feet</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Fencing)</span><span class='static-dashboard-cell'>139,899 Feet</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Instream Habitat Improvement)</span><span class='static-dashboard-cell'>64 Structures</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Streambank Protection)</span><span class='static-dashboard-cell'>25,650 Feet</span></div>",
+        "</div>",
+        "<div class='static-dashboard-group'>",
+        "<div class='static-dashboard-header-row'><span class='static-dashboard-cell'>WRIA</span><span class='static-dashboard-cell'>Number of VSP Reports</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Palouse</span><span class='static-dashboard-cell'>58</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Middle Snake</span><span class='static-dashboard-cell'>22</span></div>",
+        "</div>",
+        "<div class='static-dashboard-group'>",
+        "<div class='static-dashboard-header-row'><span class='static-dashboard-cell'>Critical Area Type</span><span class='static-dashboard-cell'>Number of VSP Reports</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Wetlands</span><span class='static-dashboard-cell'>23</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Fish & Wildlife Conservation Areas</span><span class='static-dashboard-cell'>44</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Critical Acquifers</span><span class='static-dashboard-cell'>6</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Hazardous Areas</span><span class='static-dashboard-cell'>55</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Frequently Flooded Areas</span><span class='static-dashboard-cell'>45</span></div>",
+        "</div>"
       ]
     }
   ],

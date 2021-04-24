@@ -261,3 +261,35 @@ input[type="number"],
     background-color: #ff6201 !important;
   }
 }
+
+.static-dashboard-group {
+  margin-top: 24px;
+
+  .static-dashboard-row:nth-child(even) {
+    background-color: #fcf7ed;
+  }
+}
+
+.static-dashboard-header-row {
+  display: flex;
+  padding: 8px;
+  margin-bottom: 8px;
+  font-style: italic;
+  border-bottom: 1px solid #bbb;
+  color: #888;
+}
+
+.static-dashboard-row {
+  display: flex;
+  padding: 8px;
+  margin-bottom: 8px;
+
+  .static-dashboard-cell:nth-child(2) {
+    font-family: Raleway-ExtraBold, sans-serif;
+  }
+}
+
+.static-dashboard-cell {
+  flex: 1;
+  margin-right: 8px;
+}
