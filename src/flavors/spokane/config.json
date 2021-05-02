@@ -58,17 +58,15 @@
         "nonPrivate": {
           "header": "Thanks for reporting your voluntary stewardship!",
           "body": [
-            "If you need to make any changes to your submission, contact Doug Phelps:",
-            "Phone: 509-535-7274 x240",
-            "Email: doug-phelps@sccd.org"
+            "If you need to make any changes to your submission, contact Walt Edelen:",
+            "Email: walt-edelen@sccd.org"
           ]
         },
         "privateNonAdmin": {
           "header": "Thanks for reporting your voluntary stewardship!",
           "body": [
-            "Your information was submitted successfully but will remain private and will not appear on the map. If you need to make any changes to your submission, contact Doug Phelps:",
-            "Phone: 509-535-7274 x240",
-            "Email: doug-phelps@sccd.org"
+            "Your information was submitted successfully but will remain private and will not appear on the map. If you need to make any changes to your submission, contact Walt Edelen:",
+            "Email: walt-edelen@sccd.org"
           ]
         }
       }
@@ -2247,7 +2245,7 @@
           {
             "name": "practice_types_questions",
             "type": "informational_html",
-            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Email Walt Edelen at walt-edelen@sccd.org</p>"
           },
           {
             "//": "---------------SECTION: AGRICULTURE-------------------",
@@ -3417,7 +3415,7 @@
             "name": "agriculture_questions",
             "type": "informational_html",
             "hidden_default": true,
-            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Email Walt Edelen at walt-edelen@sccd.org</p>"
           },
           {
             "//": "---------------SECTION: LIVESTOCK-------------------",
@@ -3851,7 +3849,7 @@
           {
             "name": "livestock_questions",
             "type": "informational_html",
-            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Email Walt Edelen at walt-edelen@sccd.org</p>"
           },
           {
             "//": "---------------SECTION: FORESTRY-------------------",
@@ -4008,7 +4006,7 @@
             "name": "forest_questions",
             "type": "informational_html",
             "hidden_default": true,
-            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Call Doug Phelps at 509-535-7274 x240</p>"
+            "content": "<p style='font-size: 0.9rem; color: #444;'>Questions? Email Walt Edelen at walt-edelen@sccd.org</p>"
           },
           {
             "//": "---------------SECTION: GROWN LOCAL-------------------",
@@ -5167,11 +5165,7 @@
         "<div style='margin-bottom:4px;margin-top:24px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
         "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
         "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
-        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
-        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
-        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>"
       ]
     },
     {
@@ -5200,15 +5194,11 @@
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Livestock</span><span style='flex:1;margin-right:8px;'>Off Creek Watering</span><span style='flex:1;margin-right:8px;'>516/533/614/561/642</span><span style='flex:1;'>Varies</span></div>",
         "<div style='display:flex;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Forest Stand Improvement (thinning, pruning and slash treatment)</span><span style='flex:1;margin-right:8px;'>660/666</span><span style='flex:1;'>Typically about $1,000/acre</span></div>",
         "<div style='display:flex;background-color:#fff8ea;padding:8px;color:#555;'><span style='flex:1;margin-right:8px;'>Forest</span><span style='flex:1;margin-right:8px;'>Tree and Shrub Establishment</span><span style='flex:1;margin-right:8px;'>612</span><span style='flex:1;'>Typically about $400/acre</span></div>",
-        "<p style='margin-top:32px;'>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<p style='margin-top:32px;'>Contact Walt Edelen questions:</p>",
         "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
         "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
         "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
-        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
-        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
-        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>"
       ]
     },
     {
@@ -5225,15 +5215,11 @@
         "<li>Septic assistance</li>",
         "<li>Soil Health</li>",
         "</ul>",
-        "<p style='margin-top:32px;'>Contact Walt Edelen or Doug Phelps with questions:</p>",
+        "<p style='margin-top:32px;'>Contact Walt Edelen with questions:</p>",
         "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Walt Edelen</span></div>",
         "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Water Resources Manager</span></div>",
         "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>walt-edelen@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>",
-        "<div style='margin-bottom:4px;'><span style='margin-left:16px;font-family:Raleway-ExtraBold,sans-serif;'>Doug Phelps</span></div>",
-        "<div style='margin-bottom:8px;'><span style='margin-left:16px;color:#666;font-style:italic;'>Agricultural Liaison</span></div>",
-        "<div style='margin-left:16px;margin-bottom:8px;'><i style='color:#888;' class='fa fa-globe'></i><span style='margin-left:16px'>doug-phelps@sccd.org</span></div>",
-        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x240</span></div>"
+        "<div style='margin-left:16px;margin-bottom:32px;'><i style='color:#888;' class='fa fa-phone'></i><span style='margin-left:16px'>509-535-7274 x224</span></div>"
       ]
     },
     {
