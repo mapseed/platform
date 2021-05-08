@@ -107,7 +107,7 @@
     "throttle-debounce": "^2.1.0",
     "tinycolor2": "^1.4.1",
     "turf-extent": "^1.0.4",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
