@@ -190,9 +190,6 @@
 /* =Print maps page
 -------------------------------------------------------------- */
 #print__gallery-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   padding: 16px 8px;
 }
 
@@ -203,7 +200,7 @@ input#print__tag-auburn:checked {
     color: #fff;
   }
 
-  & ~ #print__gallery-container > .print__gallery-item[data-tags*="auburn"] {
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="auburn"] {
     display: flex;
   }
 }
@@ -220,8 +217,13 @@ input#print__tag-bellevue:checked {
 }
 /* end tag label and item visibility control */
 
-.print__gallery-item {
+.print__gallery-category-container {
   display: none; /* display is controlled by checkbox selectors above */
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.print__gallery-item {
   flex-basis: 48%;
   position: relative;
   background-color: #fff;
