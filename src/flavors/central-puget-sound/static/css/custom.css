@@ -139,6 +139,16 @@
   font-family: Raleway, sans-serif !important;
 }
 
+.page__subheader {
+  font-family: Raleway, sans-serif !important;
+  color: #444;
+  font-weight: 500;
+  flex: 100%;
+  font-style: italic;
+  font-size: 1.2rem !important;
+  margin: 12px 0 12px 0 !important;
+}
+
 .page__tag-container {
   display: flex;
   flex-wrap: wrap;
@@ -180,9 +190,9 @@
 /* =Print maps page
 -------------------------------------------------------------- */
 #print__gallery-container {
-  column-count: 2;
-  column-gap: 16px;
-  column-fill: balance;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding: 16px 8px;
 }
 
@@ -212,6 +222,7 @@ input#print__tag-bellevue:checked {
 
 .print__gallery-item {
   display: none; /* display is controlled by checkbox selectors above */
+  flex-basis: 48%;
   position: relative;
   background-color: #fff;
   margin: 0 0 16px 0;
