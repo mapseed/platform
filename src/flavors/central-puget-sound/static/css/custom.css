@@ -211,7 +211,95 @@ input#print__tag-bellevue:checked {
     color: #fff;
   }
 
-  & ~ #print__gallery-container > .print__gallery-item[data-tags*="bellevue"] {
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="bellevue"] {
+    display: flex;
+  }
+}
+
+input#print__tag-enumclaw:checked {
+  & ~ .page__tag-container > #print__tag-enumclaw-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="enumclaw"] {
+    display: flex;
+  }
+}
+
+input#print__tag-highline:checked {
+  & ~ .page__tag-container > #print__tag-highline-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="highline"] {
+    display: flex;
+  }
+}
+
+input#print__tag-issaquah:checked {
+  & ~ .page__tag-container > #print__tag-issaquah-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="issaquah"] {
+    display: flex;
+  }
+}
+
+input#print__tag-kent:checked {
+  & ~ .page__tag-container > #print__tag-kent-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="kent"] {
+    display: flex;
+  }
+}
+
+input#print__tag-lake-washington:checked {
+  & ~ .page__tag-container > #print__tag-lake-washington-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="lake-washington"] {
+    display: flex;
+  }
+}
+
+input#print__tag-seattle-public:checked {
+  & ~ .page__tag-container > #print__tag-seattle-public-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="seattle-public"] {
+    display: flex;
+  }
+}
+
+input#print__tag-tahoma:checked {
+  & ~ .page__tag-container > #print__tag-tahoma-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="tahoma"] {
+    display: flex;
+  }
+}
+
+input#print__tag-tukwila:checked {
+  & ~ .page__tag-container > #print__tag-tukwila-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="tukwila"] {
     display: flex;
   }
 }
