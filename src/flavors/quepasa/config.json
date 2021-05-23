@@ -21,6 +21,16 @@
           "submission_set": "*"
         }
       ]
+    },
+    {
+      "slug": "quepasa-featured",
+      "clientSlug": "featured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
     }
   ],
   "app": {
@@ -467,6 +477,36 @@
             }
           }
         ]
+      },
+      {
+        "id": "quepasa-featured",
+        "datasetSlug": "quepasa-featured",
+        "interactive": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "quepasa-featured-focused",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "source": "quepasa-featured",
+            "layout": {
+              "icon-image": "marker-amenaza.png",
+              "icon-size": 1.1,
+              "icon-anchor": "center"
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "quepasa-featured",
+            "type": "symbol",
+            "source": "quepasa-featured",
+            "layout": {
+              "icon-image": "marker-amenaza.png",
+              "icon-size": 0.9,
+              "icon-anchor": "center"
+            }
+          }
+        ]
       }
     ]
   },
@@ -496,6 +536,10 @@
           {
             "layerGroupId": "quepasa-input",
             "title": "Reportes Territoriales"
+          },
+          {
+            "layerGroupId": "quepasa-featured",
+            "title": "Racimos"
           }
         ]
       },
@@ -558,6 +602,45 @@
     "submit_button_label": "Enviar",
     "location_item_name": "reporte",
     "place_detail": [
+      {
+        "formId": "featured_place",
+        "category": "featured_place",
+        "admin_only": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "datasetSlug": "quepasa-featured",
+        "icon_url": "/static/css/images/markers/marker-amenaza.png",
+        "value": "featured_place",
+        "label": "Racimos",
+        "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "Título:",
+            "display_prompt": " ",
+            "placeholder": "Introducir título",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "Contenido:",
+            "display_prompt": " ",
+            "placeholder": "Escribir texto. Se puede añadir enlaces, fotos o videos."
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
       {
         "category": "areas-protegidas",
         "formId": "areas-protegidas",
@@ -1906,6 +1989,10 @@
       "url": "/page/about",
       "name": "overview",
       "start_page": true
+    },
+    {
+      "title": "Racimos",
+      "type": "featuredPlacesMenu"
     }
   ],
   "pages": [
@@ -1916,5 +2003,32 @@
         "<p>Más información por venir...</p>"
       ]
     }
-  ]
+  ],
+  "featuredPlaces": {
+    "name": "clusters",
+    "header": "Racimos",
+    "visibleLayerGroupIds": [
+      "mapacuenca-satelital",
+      "argentina-campanas",
+      "argentina-input",
+      "argentina-featured"
+    ],
+    "order": [
+      {
+        "renderIn": "FeaturedPlacesMenu",
+        "placeId": 7844,
+        "zoom": 10.27,
+        "pan_to": [-58.71080, -34.67141],
+        "iconUrl": "/static/css/images/markers/marker-amenaza.png",
+        "visibleLayerGroupIds": [
+          "satellite",
+          "renabap",
+          "riachuelo-villas-y-asentamientos-precarios",
+          "riachuelo-obras-convenio",
+          "riachuelo-mesas-trabajo"
+        ],
+        "spotlight": false
+      }
+    ]
+  }
 }
