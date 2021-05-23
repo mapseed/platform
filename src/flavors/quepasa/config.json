@@ -2008,10 +2008,12 @@
     "name": "clusters",
     "header": "Racimos",
     "visibleLayerGroupIds": [
-      "mapacuenca-satelital",
-      "argentina-campanas",
-      "argentina-input",
-      "argentina-featured"
+      "satellite",
+      "renabap",
+      "riachuelo-villas-y-asentamientos-precarios",
+      "riachuelo-obras-convenio",
+      "riachuelo-mesas-trabajo",
+      "quepasa-input"
     ],
     "order": [
       {
@@ -2020,14 +2022,6 @@
         "zoom": 12.18,
         "pan_to": [-58.40005, -34.66138],
         "iconUrl": "/static/css/images/markers/marker-amenaza.png",
-        "visibleLayerGroupIds": [
-          "satellite",
-          "renabap",
-          "riachuelo-villas-y-asentamientos-precarios",
-          "riachuelo-obras-convenio",
-          "riachuelo-mesas-trabajo",
-          "quepasa-input"
-        ],
         "spotlight": false
       }
     ]
