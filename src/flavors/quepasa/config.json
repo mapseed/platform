@@ -2016,16 +2016,17 @@
     "order": [
       {
         "renderIn": "FeaturedPlacesMenu",
-        "placeId": 7844,
-        "zoom": 10.27,
-        "pan_to": [-58.71080, -34.67141],
+        "placeId": 9041,
+        "zoom": 12.18,
+        "pan_to": [-58.40005, -34.66138],
         "iconUrl": "/static/css/images/markers/marker-amenaza.png",
         "visibleLayerGroupIds": [
           "satellite",
           "renabap",
           "riachuelo-villas-y-asentamientos-precarios",
           "riachuelo-obras-convenio",
-          "riachuelo-mesas-trabajo"
+          "riachuelo-mesas-trabajo",
+          "quepasa-input"
         ],
         "spotlight": false
       }
