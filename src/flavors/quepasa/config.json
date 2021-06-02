@@ -738,8 +738,34 @@
             "type": "datetime",
             "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
             "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
             "display_prompt": " ",
+            "optional": true
+          },
+          {
+            "name": "biodiversidad-image",
+            "type": "file",
+            "prompt": "¿Querés compartir una foto de una especie que viste en este espacio?",
+            "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
+            "name": "biodiversidad-image-datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo tomaste la foto? Elegí la fecha en el calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "optional": true
+          },
+          {
+            "name": "biodiversidad-comentario",
+            "type": "textarea",
+            "prompt": "¿Querés comentar algo de esta observación?",
+            "placeholder": "",
+            "display_prompt": "Comentarios",
             "optional": true
           },
           {
@@ -751,6 +777,23 @@
             "optional": true
           },
           {
+            "name": "reporte-sobre-estado-datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "optional": true
+          },
+          {
+            "name": "estado-image",
+            "type": "file",
+            "prompt": "Podes subir una foto",
+            "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
             "name": "usos-y-actividades",
             "type": "textarea",
             "prompt": "¿Querés compartir tu experiencia en este área? Ponele un título a tu experiencia. Podés hacer un breve comentario.",
@@ -759,8 +802,21 @@
             "optional": true
           },
           {
-            "name": "my_image",
-            "type": "common_form_element"
+            "name": "usos-y-actividades-datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "optional": true
+          },
+          {
+            "name": "usos-y-actividades-image",
+            "type": "file",
+            "prompt": "Podes subir una foto",
+            "label": "📷 Agregar una imagen",
+            "optional": true
           },
           {
             "name": "submit",
