@@ -449,6 +449,8 @@
                 ["get", "location_type"],
                 "areas-protegidas",
                 "marker-idea.png",
+                "areas-protegidas-2",
+                "marker-idea.png",
                 "reporte-territorial",
                 "marker-observation.png",
                 "__no-icon-image__"
@@ -469,6 +471,8 @@
                 "match",
                 ["get", "location_type"],
                 "areas-protegidas",
+                "marker-idea.png",
+                "areas-protegidas-2",
                 "marker-idea.png",
                 "reporte-territorial",
                 "marker-observation.png",
@@ -634,6 +638,120 @@
             "prompt": "Contenido:",
             "display_prompt": " ",
             "placeholder": "Escribir texto. Se puede añadir enlaces, fotos o videos."
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "areas-protegidas-2",
+        "formId": "areas-protegidas-2",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "quepasa-input",
+        "icon_url": "/static/css/images/markers/marker-idea.png",
+        "value": "areas-protegidas-2",
+        "label": "Areas Protegidas 2",
+        "geospatialAnalysis": [
+          {
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "intro",
+            "type": "informational_html",
+            "content": "<h4>¿Querés reportar algo sobre este área natural o contribuir aportando información? Podés hacerlo acá. Vas a poder seleccionar y subir fotos, imágenes, archivos, texto, links.</h4>"
+          },
+          {
+            "name": "organizacion",
+            "type": "text",
+            "prompt": "¿Miembro de una organización? ¿Cuál?",
+            "placeholder": "Escribí el nombre...",
+            "display_prompt": "Organización",
+            "optional": false
+          },
+          {
+            "name": "barrio",
+            "type": "text",
+            "prompt": "¿Vecinx del barrio o del partido? ¿Cuál?",
+            "placeholder": "Escribí el nombre...",
+            "display_prompt": "Barrio",
+            "optional": false
+          },
+          {
+            "name": "contribucion",
+            "type": "big_checkbox",
+            "prompt": "Podés contribuir al conocimiento y a la protección de este área natural aportando información sobre los siguientes aspectos:",
+            "optional": false,
+            "content": [
+              {
+                "label": "SITUACIÓN DE PROTECCIÓN DEL ESPACIO",
+                "value": "proteccion-del-espacio"
+              },
+              {
+                "label": "BIODIVERSIDAD",
+                "value": "biodiversidad"
+              },
+              {
+                "label": "REPORTES DE ESTADO DEL ÁREA",
+                "value": "reportes"
+              },
+              {
+                "label": "USOS Y ACTIVIDADES ORGANIZADAS EN EL ÁREA",
+                "value": "usos-y-actividades"
+              },
+              {
+                "label": "MEMORIAS DEL ÁREA",
+                "value": "memorias"
+              },
+              {
+                "label": "PATRIMONIO ARQUEOLÓGICO",
+                "value": "patrimonio"
+              }
+            ]
+          },
+          {
+            "name": "compartir-una-novedad",
+            "type": "textarea",
+            "prompt": "¿Querés compartir una novedad relacionada con la protección de este espacio? Describí brevemente de qué se trata.",
+            "placeholder": "",
+            "display_prompt": "Novedad relacionada",
+            "optional": true
+          },
+          {
+            "name": "reporte-sobre-estado",
+            "type": "textarea",
+            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte. Describí brevemente de qué se trata.",
+            "placeholder": "",
+            "display_prompt": "Reporte sobre el estado del área",
+            "optional": true
+          },
+          {
+            "name": "usos-y-actividades",
+            "type": "textarea",
+            "prompt": "¿Querés compartir tu experiencia en este área? Ponele un título a tu experiencia. Podés hacer un breve comentario.",
+            "placeholder": "",
+            "display_prompt": "Experiencia",
+            "optional": true
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
           },
           {
             "name": "submit",
