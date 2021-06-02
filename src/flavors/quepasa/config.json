@@ -734,6 +734,15 @@
             "optional": true
           },
           {
+            "name": "compartir-una-novedad-datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "optional": true
+          },
+          {
             "name": "reporte-sobre-estado",
             "type": "textarea",
             "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte. Describí brevemente de qué se trata.",
