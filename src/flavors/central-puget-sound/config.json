@@ -2122,6 +2122,11 @@
       "url": "/page/stories"
     },
     {
+      "title": "Swipe",
+      "type": "external_link",
+      "url": "https://mywater-layer-swiper.mapseed.org/"
+    },
+    {
       "title": "Lessons",
       "type": "internal_link",
       "url": "/page/lessons"
