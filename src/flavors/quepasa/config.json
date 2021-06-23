@@ -1293,7 +1293,7 @@
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
         "value": "reporte-territorial",
-        "label": "Reporte Territorial",
+        "label": "Relocalizacion",
         "geospatialAnalysis": [
           {
             "name": "subbasin_name",
