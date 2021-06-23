@@ -453,6 +453,8 @@
                 "marker-idea.png",
                 "reporte-territorial",
                 "marker-observation.png",
+                "agua-calidad",
+                "marker-question.png",
                 "__no-icon-image__"
               ]
             }
@@ -476,6 +478,8 @@
                 "marker-idea.png",
                 "reporte-territorial",
                 "marker-observation.png",
+                "agua-calidad",
+                "marker-question.png",
                 "__no-icon-image__"
               ]
             }
@@ -638,6 +642,462 @@
             "prompt": "Contenido:",
             "display_prompt": " ",
             "placeholder": "Escribir texto. Se puede añadir enlaces, fotos o videos."
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "agua-calidad",
+        "formId": "agua-calidad",
+        "includeOnForm": true,
+        "includeOnList": true,
+        "name": "location_type",
+        "datasetSlug": "quepasa-input",
+        "icon_url": "/static/css/images/markers/marker-question.png",
+        "value": "agua-calidad",
+        "label": "Calidad Del Agua",
+        "geospatialAnalysis": [
+          {
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
+          }
+        ],
+        "visibleLayerGroupIds": ["riachuelo-subbasins"],
+        "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "intro",
+            "type": "informational_html",
+            "content": "<h4>¿Querés reportar sobre calidad de agua? Podés hacerlo acá. Vas a poder informarte sobre parámetros de calidad de agua, evaluar situaciones de tu entorno próximo y contribuir subiendo fotos, imágenes, archivos, texto, links.</h4>"
+          },
+          {
+            "name": "barrio",
+            "type": "common_form_element"
+          },
+          {
+            "name": "tipio-de-agua",
+            "type": "dropdown",
+            "prompt": "Tipo de cuerpo de agua",
+            "optional": true,
+            "content": [
+              {
+                "label": "Río",
+                "value": "rio"
+              },
+              {
+                "label": "Arroyo",
+                "value": "arroyo"
+              },
+              {
+                "label": "Canal",
+                "value": "canal"
+              }
+            ]
+          },
+          {
+            "name": "entorno",
+            "type": "dropdown",
+            "prompt": "Entorno",
+            "optional": true,
+            "content": [
+              {
+                "label": "Rural",
+                "value": "rural"
+              },
+              {
+                "label": "Urbano",
+                "value": "urbano"
+              }
+            ]
+          },
+          {
+            "name": "reporte-datetime",
+            "type": "datetime",
+            "prompt": "Fecha y hora del reporte (no el de la de la subida a la plataforma)",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "optional": true
+          },
+          {
+            "name": "intro-2",
+            "type": "informational_html",
+            "content": "<h4>2. Podés contribuir al monitoreo de la calidad de este cuerpo de agua aportando información sobre los siguientes aspectos:</h4>"
+          },
+          {
+            "name": "intro-situacion-hidrometeorologica",
+            "type": "informational_html",
+            "content": "<p>SITUACIÓN HIDROMETEOROLÓGICA</p>"
+          },
+          {
+            "name": "nivel-del-agua",
+            "type": "dropdown",
+            "prompt": "Nivel del agua:",
+            "optional": true,
+            "content": [
+              {
+                "label": "Alto",
+                "value": "alto"
+              },
+              {
+                "label": "Medio",
+                "value": "medio"
+              },
+              {
+                "label": "Bajo",
+                "value": "bajo"
+              }
+            ]
+          },
+          {
+            "name": "referencia-fija",
+            "type": "dropdown",
+            "prompt": "Referencia fija",
+            "optional": true,
+            "content": [
+              {
+                "label": "Puente",
+                "value": "puente"
+              },
+              {
+                "label": "Pasarela",
+                "value": "pasarela"
+              },
+              {
+                "label": "Baranda",
+                "value": "baranda"
+              },
+              {
+                "label": "Escala",
+                "value": "escala"
+              }
+            ]
+          },
+          {
+            "name": "my_image",
+            "type": "common_form_element"
+          },
+          {
+            "name": "sudestada",
+            "type": "dropdown",
+            "prompt": "Sudestada",
+            "optional": true,
+            "content": [
+              {
+                "label": "Si",
+                "value": "si"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "ultimo-dia-de-lluvia",
+            "type": "dropdown",
+            "prompt": "Último día de lluvia",
+            "optional": true,
+            "content": [
+              {
+                "label": "Hoy",
+                "value": "hoy"
+              },
+              {
+                "label": "Ayer",
+                "value": "ayer"
+              },
+              {
+                "label": "Anteayer",
+                "value": "anteayer"
+              },
+              {
+                "label": "La semana pasada",
+                "value": "la-semana-pasada"
+              }
+            ]
+          },
+          {
+            "name": "tipo-de-lluvia",
+            "type": "dropdown",
+            "prompt": "Tipo de lluvia:",
+            "optional": true,
+            "content": [
+              {
+                "label": "Llovizna",
+                "value": "llovizna"
+              },
+              {
+                "label": "Lluvia intensa breve",
+                "value": "lluvia-intensa-breve"
+              },
+              {
+                "label": "Lluvia intensa extendida",
+                "value": "lluvia-intensa-extendida"
+              }
+            ]
+          },
+          {
+            "name": "intro-calidad-de-agua",
+            "type": "informational_html",
+            "content": "<p>CALIDAD DE AGUA</p>"
+          },
+          {
+            "name": "vegetacion-margenes",
+            "type": "dropdown",
+            "prompt": "Vegetación (márgenes)",
+            "optional": true,
+            "content": [
+              {
+                "label": "Sin Vegetación",
+                "value": "sin-vegetacion"
+              },
+              {
+                "label": "Césped Mantenido",
+                "value": "cesped-mantenido"
+              },
+              {
+                "label": "Arbustos",
+                "value": "arbustos"
+              },
+              {
+                "label": "Árboles",
+                "value": "arboles"
+              }
+            ]
+          },
+          {
+            "name": "vegetacion-lecho",
+            "type": "dropdown",
+            "prompt": "Vegetación (lecho)",
+            "optional": true,
+            "content": [
+              {
+                "label": "Algas",
+                "value": "algas"
+              },
+              {
+                "label": "Macrófitas",
+                "value": "macrofitas"
+              }
+            ]
+          },
+          {
+            "name": "referencia-fija",
+            "type": "dropdown",
+            "prompt": "Referencia fija",
+            "optional": true,
+            "content": [
+              {
+                "label": "Puente",
+                "value": "puente"
+              },
+              {
+                "label": "Pasarela",
+                "value": "pasarela"
+              },
+              {
+                "label": "Baranda",
+                "value": "baranda"
+              },
+              {
+                "label": "Escala",
+                "value": "escala"
+              }
+            ]
+          },
+          {
+            "name": "turbiedad",
+            "type": "dropdown",
+            "prompt": "Turbiedad",
+            "optional": true,
+            "content": [
+              {
+                "label": "Agua Clara",
+                "value": "agua-clara"
+              },
+              {
+                "label": "Poco Clara",
+                "value": "poco-clara"
+              },
+              {
+                "label": "Turbia",
+                "value": "turbia"
+              },
+              {
+                "label": "Muy Turbia",
+                "value": "muy-turbia"
+              }
+            ]
+          },
+          {
+            "name": "color",
+            "type": "dropdown",
+            "prompt": "Color",
+            "optional": true,
+            "content": [
+              {
+                "label": "Transparente",
+                "value": "transparente"
+              },
+              {
+                "label": "Verde",
+                "value": "verde"
+              },
+              {
+                "label": "Marrón",
+                "value": "marron"
+              },
+              {
+                "label": "Gris",
+                "value": "gris"
+              },
+              {
+                "label": "Negro",
+                "value": "negro"
+              },
+              {
+                "label": "Rojo",
+                "value": "rojo"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ]
+          },
+          {
+            "name": "olor",
+            "type": "dropdown",
+            "prompt": "Olor",
+            "optional": true,
+            "content": [
+              {
+                "label": "Si",
+                "value": "si"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "fuente-de-contaminacion-cercana",
+            "type": "dropdown",
+            "prompt": "Fuente de contaminación cercana",
+            "optional": true,
+            "content": [
+              {
+                "label": "Industrial",
+                "value": "industrial"
+              },
+              {
+                "label": "Cloacal",
+                "value": "cloacal"
+              },
+              {
+                "label": "Pluvial",
+                "value": "pluvial"
+              },
+              {
+                "label": "Doméstica",
+                "value": "domestica"
+              }
+            ]
+          },
+          {
+            "name": "fauna",
+            "type": "dropdown",
+            "prompt": "Fauna",
+            "optional": true,
+            "content": [
+              {
+                "label": "Si",
+                "value": "si"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "flotantes-en-la-superficie",
+            "type": "dropdown",
+            "prompt": "Flotantes en la superficie",
+            "optional": true,
+            "content": [
+              {
+                "label": "Plásticos",
+                "value": "plasticos"
+              },
+              {
+                "label": "Restos de Vegetación",
+                "value": "restos-de-vegetacion"
+              },
+              {
+                "label": "Pañales",
+                "value": "panales"
+              },
+              {
+                "label": "Madera",
+                "value": "madera"
+              },
+              {
+                "label": "Calzado y Textiles",
+                "value": "calzado-y-textiles"
+              },
+              {
+                "label": "Voluminosos",
+                "value": "voluminosos"
+              }
+            ]
+          },
+          {
+            "name": "conocimiento-local",
+            "type": "textarea",
+            "prompt": "Conocimiento local en el punto de reporte:",
+            "placeholder": "...",
+            "display_prompt": "Conocimiento local en el punto de reporte:",
+            "optional": true
+          },
+          {
+            "name": "historia",
+            "type": "textarea",
+            "prompt": "Historia del punto de reporte:",
+            "placeholder": "...",
+            "display_prompt": "Historia del punto de reporte:",
+            "optional": true
+          },
+          {
+            "name": "comentarios-generales",
+            "type": "textarea",
+            "prompt": "Comentarios generales:",
+            "placeholder": "...",
+            "display_prompt": "Comentarios generales:",
+            "optional": true
+          },
+          {
+            "name": "deseos",
+            "type": "textarea",
+            "prompt": "Deseos de cómo debería ser el punto de reporte:",
+            "placeholder": "...",
+            "display_prompt": "Deseos de cómo debería ser el punto de reporte:",
+            "optional": true
           },
           {
             "name": "submit",
@@ -853,302 +1313,7 @@
           },
           {
             "name": "barrio",
-            "type": "dropdown_autocomplete",
-            "includeOnListItem": true,
-            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
-            "display_prompt": "Barrio",
-            "placeholder": "Escribí el nombre de tu barrio...",
-            "optional": false,
-            "content": [
-              {
-                "label": "Las Antenas",
-                "value": "las-antenas"
-              },
-              {
-                "label": "Santos Vega",
-                "value": "santos-vega"
-              },
-              {
-                "label": "Los Ceibos",
-                "value": "los-ceibos"
-              },
-              {
-                "label": "La Bastilla II",
-                "value": "la-bastilla-ii"
-              },
-              {
-                "label": "La Bastilla I",
-                "value": "la-bastilla-i"
-              },
-              {
-                "label": "Barrio Scasso",
-                "value": "barrio-scasso"
-              },
-              {
-                "label": "Talleres",
-                "value": "talleres"
-              },
-              {
-                "label": "Villa Jardin (Ex FFMM)",
-                "value": "villa-jardin-ex-ffmm"
-              },
-              {
-                "label": "N. Kirchner (Ex Vialidad)",
-                "value": "n-kirchner-ex-vialidad"
-              },
-              {
-                "label": "La Maquinita",
-                "value": "la-maquinita"
-              },
-              {
-                "label": "Acuba",
-                "value": "acuba"
-              },
-              {
-                "label": "Barrio Unamuno",
-                "value": "barrio-unamuno"
-              },
-              {
-                "label": "Predio Pombo I",
-                "value": "predio-pombo-i"
-              },
-              {
-                "label": "Predio La Herradura",
-                "value": "predio-la-herradura"
-              },
-              {
-                "label": "Predio Pombo II",
-                "value": "predio-pombo-ii"
-              },
-              {
-                "label": "Las Torres",
-                "value": "las-torres"
-              },
-              {
-                "label": "Juancito",
-                "value": "juancito"
-              },
-              {
-                "label": "Barrio Lindo",
-                "value": "barrio-lindo"
-              },
-              {
-                "label": "Viviendas En Glew",
-                "value": "viviendas-en-glew"
-              },
-              {
-                "label": "Santa Ana",
-                "value": "santa-ana"
-              },
-              {
-                "label": "Barrio Bicentenario",
-                "value": "barrio-bicentenario"
-              },
-              {
-                "label": "Montecarlo",
-                "value": "montecarlo"
-              },
-              {
-                "label": "Juan Pablo II",
-                "value": "juan-pablo-ii"
-              },
-              {
-                "label": "Papa Francisco",
-                "value": "papa-francisco"
-              },
-              {
-                "label": "Lacarra 2049",
-                "value": "lacarra-2049"
-              },
-              {
-                "label": "Mundo Grua (Ribera Iguazu)",
-                "value": "mundo-grua-ribera-iguazu"
-              },
-              {
-                "label": "Predio IVC Viviendas",
-                "value": "predio-ivc-viviendas"
-              },
-              {
-                "label": "San Antonio 721",
-                "value": "san-antonio-721"
-              },
-              {
-                "label": "Luzuriaga 837",
-                "value": "luzuriaga-837"
-              },
-              {
-                "label": "Los Piletones",
-                "value": "los-piletones"
-              },
-              {
-                "label": "Valparaiso 3459",
-                "value": "valparaiso-3459"
-              },
-              {
-                "label": "Australia",
-                "value": "australia"
-              },
-              {
-                "label": "Osvaldo Cruz Y Luna",
-                "value": "osvaldo-cruz-y-luna"
-              },
-              {
-                "label": "Pepiri Y Taborda",
-                "value": "pepiri-y-taborda"
-              },
-              {
-                "label": "San Francisco",
-                "value": "san-francisco"
-              },
-              {
-                "label": "Orma Y Magaldi",
-                "value": "orma-y-magaldi"
-              },
-              {
-                "label": "Padre Mugica",
-                "value": "padre-mugica"
-              },
-              {
-                "label": "Lujan",
-                "value": "lujan"
-              },
-              {
-                "label": "Magaldi",
-                "value": "magaldi"
-              },
-              {
-                "label": "Rodrigo Bueno",
-                "value": "rodrigo-bueno"
-              },
-              {
-                "label": "El Pueblito",
-                "value": "el-pueblito"
-              },
-              {
-                "label": "Irala Y Liberti",
-                "value": "irala-y-liberti"
-              },
-              {
-                "label": "Olavarria 71",
-                "value": "olavarria-71"
-              },
-              {
-                "label": "Irala 750",
-                "value": "irala-750"
-              },
-              {
-                "label": "Zabaleta 896",
-                "value": "zabaleta-896"
-              },
-              {
-                "label": "P. Suipacha",
-                "value": "p-suipacha"
-              },
-              {
-                "label": "Deheza Y Cosquin",
-                "value": "deheza-y-cosquin"
-              },
-              {
-                "label": "Estanislao Del Campo",
-                "value": "estanislao-del-campo"
-              },
-              {
-                "label": "Predio Pinzon",
-                "value": "predio-pinzon"
-              },
-              {
-                "label": "Los Cardales",
-                "value": "los-cardales"
-              },
-              {
-                "label": "Pte. Agucero",
-                "value": "pte-agucero"
-              },
-              {
-                "label": "Nueva Ana",
-                "value": "nueva-ana"
-              },
-              {
-                "label": "Alianza",
-                "value": "alianza"
-              },
-              {
-                "label": "7 De Septiembre",
-                "value": "7-de-septiembre"
-              },
-              {
-                "label": "Azul",
-                "value": "azul"
-              },
-              {
-                "label": "7 De Enero",
-                "value": "7-de-enero"
-              },
-              {
-                "label": "Isla Maciel",
-                "value": "isla-maciel"
-              },
-              {
-                "label": "French Y Autopista",
-                "value": "french-y-autopista"
-              },
-              {
-                "label": "Medialuna",
-                "value": "medialuna"
-              },
-              {
-                "label": "Ex Acindar",
-                "value": "ex-acindar"
-              },
-              {
-                "label": "Tellier",
-                "value": "tellier"
-              },
-              {
-                "label": "Relampago",
-                "value": "relampago"
-              },
-              {
-                "label": "Isla Maciel",
-                "value": "isla-maciel"
-              },
-              {
-                "label": "Predio Madariaga",
-                "value": "predio-madariaga"
-              },
-              {
-                "label": "Pasaje Aldaz",
-                "value": "pasaje-aldaz"
-              },
-              {
-                "label": "Caem",
-                "value": "caem"
-              },
-              {
-                "label": "Entre Vias",
-                "value": "entre-vias"
-              },
-              {
-                "label": "Predio Llaneza",
-                "value": "predio-llaneza"
-              },
-              {
-                "label": "Predio Pitagoras",
-                "value": "predio-pitagoras"
-              },
-              {
-                "label": "Deheza Y Helguera",
-                "value": "deheza-y-helguera"
-              },
-              {
-                "label": "Barrio La Saladita",
-                "value": "barrio-la-saladita"
-              },
-              {
-                "label": "Barrio Saladita Norte",
-                "value": "barrio-saladita-norte"
-              }
-            ]
+            "type": "common_form_element"
           },
           {
             "name": "situacion_de_relocalizacion",
@@ -1266,6 +1431,304 @@
       "submit": {
         "type": "submit",
         "label": "¡Añadir al mapa!"
+      },
+      "barrio": {
+        "type": "dropdown_autocomplete",
+        "includeOnListItem": true,
+        "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+        "display_prompt": "Barrio",
+        "placeholder": "Escribí el nombre de tu barrio...",
+        "optional": false,
+        "content": [
+          {
+            "label": "Las Antenas",
+            "value": "las-antenas"
+          },
+          {
+            "label": "Santos Vega",
+            "value": "santos-vega"
+          },
+          {
+            "label": "Los Ceibos",
+            "value": "los-ceibos"
+          },
+          {
+            "label": "La Bastilla II",
+            "value": "la-bastilla-ii"
+          },
+          {
+            "label": "La Bastilla I",
+            "value": "la-bastilla-i"
+          },
+          {
+            "label": "Barrio Scasso",
+            "value": "barrio-scasso"
+          },
+          {
+            "label": "Talleres",
+            "value": "talleres"
+          },
+          {
+            "label": "Villa Jardin (Ex FFMM)",
+            "value": "villa-jardin-ex-ffmm"
+          },
+          {
+            "label": "N. Kirchner (Ex Vialidad)",
+            "value": "n-kirchner-ex-vialidad"
+          },
+          {
+            "label": "La Maquinita",
+            "value": "la-maquinita"
+          },
+          {
+            "label": "Acuba",
+            "value": "acuba"
+          },
+          {
+            "label": "Barrio Unamuno",
+            "value": "barrio-unamuno"
+          },
+          {
+            "label": "Predio Pombo I",
+            "value": "predio-pombo-i"
+          },
+          {
+            "label": "Predio La Herradura",
+            "value": "predio-la-herradura"
+          },
+          {
+            "label": "Predio Pombo II",
+            "value": "predio-pombo-ii"
+          },
+          {
+            "label": "Las Torres",
+            "value": "las-torres"
+          },
+          {
+            "label": "Juancito",
+            "value": "juancito"
+          },
+          {
+            "label": "Barrio Lindo",
+            "value": "barrio-lindo"
+          },
+          {
+            "label": "Viviendas En Glew",
+            "value": "viviendas-en-glew"
+          },
+          {
+            "label": "Santa Ana",
+            "value": "santa-ana"
+          },
+          {
+            "label": "Barrio Bicentenario",
+            "value": "barrio-bicentenario"
+          },
+          {
+            "label": "Montecarlo",
+            "value": "montecarlo"
+          },
+          {
+            "label": "Juan Pablo II",
+            "value": "juan-pablo-ii"
+          },
+          {
+            "label": "Papa Francisco",
+            "value": "papa-francisco"
+          },
+          {
+            "label": "Lacarra 2049",
+            "value": "lacarra-2049"
+          },
+          {
+            "label": "Mundo Grua (Ribera Iguazu)",
+            "value": "mundo-grua-ribera-iguazu"
+          },
+          {
+            "label": "Predio IVC Viviendas",
+            "value": "predio-ivc-viviendas"
+          },
+          {
+            "label": "San Antonio 721",
+            "value": "san-antonio-721"
+          },
+          {
+            "label": "Luzuriaga 837",
+            "value": "luzuriaga-837"
+          },
+          {
+            "label": "Los Piletones",
+            "value": "los-piletones"
+          },
+          {
+            "label": "Valparaiso 3459",
+            "value": "valparaiso-3459"
+          },
+          {
+            "label": "Australia",
+            "value": "australia"
+          },
+          {
+            "label": "Osvaldo Cruz Y Luna",
+            "value": "osvaldo-cruz-y-luna"
+          },
+          {
+            "label": "Pepiri Y Taborda",
+            "value": "pepiri-y-taborda"
+          },
+          {
+            "label": "San Francisco",
+            "value": "san-francisco"
+          },
+          {
+            "label": "Orma Y Magaldi",
+            "value": "orma-y-magaldi"
+          },
+          {
+            "label": "Padre Mugica",
+            "value": "padre-mugica"
+          },
+          {
+            "label": "Lujan",
+            "value": "lujan"
+          },
+          {
+            "label": "Magaldi",
+            "value": "magaldi"
+          },
+          {
+            "label": "Rodrigo Bueno",
+            "value": "rodrigo-bueno"
+          },
+          {
+            "label": "El Pueblito",
+            "value": "el-pueblito"
+          },
+          {
+            "label": "Irala Y Liberti",
+            "value": "irala-y-liberti"
+          },
+          {
+            "label": "Olavarria 71",
+            "value": "olavarria-71"
+          },
+          {
+            "label": "Irala 750",
+            "value": "irala-750"
+          },
+          {
+            "label": "Zabaleta 896",
+            "value": "zabaleta-896"
+          },
+          {
+            "label": "P. Suipacha",
+            "value": "p-suipacha"
+          },
+          {
+            "label": "Deheza Y Cosquin",
+            "value": "deheza-y-cosquin"
+          },
+          {
+            "label": "Estanislao Del Campo",
+            "value": "estanislao-del-campo"
+          },
+          {
+            "label": "Predio Pinzon",
+            "value": "predio-pinzon"
+          },
+          {
+            "label": "Los Cardales",
+            "value": "los-cardales"
+          },
+          {
+            "label": "Pte. Agucero",
+            "value": "pte-agucero"
+          },
+          {
+            "label": "Nueva Ana",
+            "value": "nueva-ana"
+          },
+          {
+            "label": "Alianza",
+            "value": "alianza"
+          },
+          {
+            "label": "7 De Septiembre",
+            "value": "7-de-septiembre"
+          },
+          {
+            "label": "Azul",
+            "value": "azul"
+          },
+          {
+            "label": "7 De Enero",
+            "value": "7-de-enero"
+          },
+          {
+            "label": "Isla Maciel",
+            "value": "isla-maciel"
+          },
+          {
+            "label": "French Y Autopista",
+            "value": "french-y-autopista"
+          },
+          {
+            "label": "Medialuna",
+            "value": "medialuna"
+          },
+          {
+            "label": "Ex Acindar",
+            "value": "ex-acindar"
+          },
+          {
+            "label": "Tellier",
+            "value": "tellier"
+          },
+          {
+            "label": "Relampago",
+            "value": "relampago"
+          },
+          {
+            "label": "Isla Maciel",
+            "value": "isla-maciel"
+          },
+          {
+            "label": "Predio Madariaga",
+            "value": "predio-madariaga"
+          },
+          {
+            "label": "Pasaje Aldaz",
+            "value": "pasaje-aldaz"
+          },
+          {
+            "label": "Caem",
+            "value": "caem"
+          },
+          {
+            "label": "Entre Vias",
+            "value": "entre-vias"
+          },
+          {
+            "label": "Predio Llaneza",
+            "value": "predio-llaneza"
+          },
+          {
+            "label": "Predio Pitagoras",
+            "value": "predio-pitagoras"
+          },
+          {
+            "label": "Deheza Y Helguera",
+            "value": "deheza-y-helguera"
+          },
+          {
+            "label": "Barrio La Saladita",
+            "value": "barrio-la-saladita"
+          },
+          {
+            "label": "Barrio Saladita Norte",
+            "value": "barrio-saladita-norte"
+          }
+        ]
       }
     }
   },
