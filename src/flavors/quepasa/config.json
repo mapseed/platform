@@ -2079,13 +2079,17 @@
           },
           {
             "name": "tema_interese",
-            "type": "big_checkbox",
+            "type": "big_radio",
             "prompt": "¿Sobre cuál de los siguientes temas vas a comentar? Elegí la temática que se adecua mejor a lo que vas a compartir.",
             "optional": false,
             "content": [
               {
                 "label": "Participación en el proceso relocalización/mesas de trabajo",
                 "value": "participacion"
+              },
+              {
+                "label": "Información sobre el proceso de relocalización",
+                "value": "informacion"
               },
               {
                 "label": "Salud",
