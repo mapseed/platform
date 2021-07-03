@@ -8,6 +8,8 @@ import CoverImage from "../molecules/cover-image";
 import { placePropType } from "../../state/ducks/places";
 
 const FieldSummary = props => {
+  console.log('!!!!', props.place)
+
   return (
     <div className="field-summary">
       {props.place.attachments
