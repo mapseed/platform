@@ -1516,6 +1516,13 @@
             ]
           },
           {
+            "name": "additional_info",
+            "type": "rich_textarea",
+            "prompt": "Información Adicional",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, imágenes u otros documentos"
+          },
+          {
             "name": "my_image",
             "type": "common_form_element"
           },

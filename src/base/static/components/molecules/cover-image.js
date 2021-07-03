@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTranslation } from "react-i18next";
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 import { EditorButton } from "../atoms/buttons";
 
@@ -33,6 +34,10 @@ const CoverImage = props => {
           }}
         />
       )}
+      <Document file={props.imageUrl}>
+      {/* TODO: Multi-page PDFs */}
+        <Page pageNumber={1} />
+      </Document>
       <img
         css={css`
           width: 100%;

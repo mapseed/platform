@@ -9,10 +9,13 @@ const createAttachment = async ({
 }) => {
   placeParams = setPrivateParams(placeParams, includePrivate);
 
+  console.log({ attachment })
+
   const formData = new FormData();
-  if (attachment.blob) {
-    formData.append("file", attachment.blob);
-  }
+  //if (attachment.blob) {
+  //  formData.append("file", attachment.blob);
+  //}
+  formData.append("file", attachment.file);
   formData.append("name", attachment.name);
   formData.append("type", attachment.type);
   formData.append("visible", true);

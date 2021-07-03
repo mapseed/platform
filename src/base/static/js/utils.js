@@ -107,91 +107,11 @@ const log = function () {
 // ====================================================
 // File and Image Handling
 
-const _fixImageOrientation = (canvas, orientation) => {
-  const rotated = document.createElement("canvas");
-  const ctx = rotated.getContext("2d");
-  const width = canvas.width;
-  const height = canvas.height;
-
-  switch (orientation) {
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-      rotated.width = canvas.height;
-      rotated.height = canvas.width;
-      break;
-    default:
-      rotated.width = canvas.width;
-      rotated.height = canvas.height;
-  }
-
-  switch (orientation) {
-    case 1:
-      // nothing
-      break;
-    case 2:
-      // horizontal flip
-      ctx.translate(width, 0);
-      ctx.scale(-1, 1);
-      break;
-    case 3:
-      // 180 rotate left
-      ctx.translate(width, height);
-      ctx.rotate(Math.PI);
-      break;
-    case 4:
-      // vertical flip
-      ctx.translate(0, height);
-      ctx.scale(1, -1);
-      break;
-    case 5:
-      // vertical flip + 90 rotate right
-      ctx.rotate(0.5 * Math.PI);
-      ctx.scale(1, -1);
-      break;
-    case 6:
-      // 90 rotate right
-      ctx.rotate(0.5 * Math.PI);
-      ctx.translate(0, -height);
-      break;
-    case 7:
-      // horizontal flip + 90 rotate right
-      ctx.rotate(0.5 * Math.PI);
-      ctx.translate(width, -height);
-      ctx.scale(-1, 1);
-      break;
-    case 8:
-      // 90 rotate left
-      ctx.rotate(-0.5 * Math.PI);
-      ctx.translate(-width, 0);
-      break;
-    default:
-      break;
-  }
-
-  ctx.drawImage(canvas, 0, 0);
-
-  return rotated;
-};
-
-const fileToCanvas = (file, callback, options) => {
+const loadFile = (file, callback, options) => {
   const fr = new FileReader();
 
   fr.onloadend = function () {
-    // get EXIF data
-    const exif = EXIF.readFromBinaryFile(new BinaryFile(this.result));
-    const orientation = exif.Orientation;
-
-    loadImage(
-      file,
-      function (canvas) {
-        // rotate the image, if needed
-        const rotated = _fixImageOrientation(canvas, orientation);
-        callback(rotated);
-      },
-      options,
-    );
+    callback(new Blob([this.result]))
   };
 
   fr.readAsArrayBuffer(file); // read the file
@@ -288,7 +208,7 @@ export default {
   removeAutocompleteValue,
   prepareCustomUrl,
   log,
-  fileToCanvas,
+  loadFile,
   cookies,
   localstorage,
 };

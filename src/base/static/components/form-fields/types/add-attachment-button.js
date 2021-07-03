@@ -24,29 +24,16 @@ class AddAttachmentButton extends Component {
       const file = evt.target.files[0];
       this.setState({ displayFilename: file.name });
 
-      Util.fileToCanvas(
+      Util.loadFile(
         file,
-        canvas => {
-          canvas.toBlob(blob => {
-            const fileObj = {
-              name: this.props.name,
-              blob: blob,
-              file: canvas.toDataURL("image/jpeg"),
-              type: "CO", // cover image
-            };
-
-            // Keep track of whether or not a cover image has been added for the
-            // purposes of validating an attachment button that is required.
-            this.props.onChange(evt.target.name, "");
-            this.props.onAddAttachment(fileObj);
-          }, "image/jpeg");
-        },
-        {
-          // TODO: make configurable
-          maxWidth: 800,
-          maxHeight: 800,
-          canvas: true,
-        },
+        result => {
+          this.props.onChange(evt.target.name, "");
+          this.props.onAddAttachment({
+            name: this.props.name,
+            file: result,
+            type: "CO"
+          })
+        }
       );
     }
   }
@@ -64,7 +51,7 @@ class AddAttachmentButton extends Component {
           onChange={this.onChange}
           name={this.props.name}
           label={this.props.label}
-          accept="image/*"
+          accept="image/* application/pdf"
         />
         <span className={cn}>{this.state.displayFilename}</span>
       </div>
