@@ -2040,7 +2040,7 @@
           },
           {
             "name": "situacion_de_relocalizacion",
-            "type": "big_checkbox",
+            "type": "big_radio",
             "prompt": "Situación de Relocalización: marca la opción que describa mejor tu situación con respecto al programa de relocalización de villas y asentamientos de la Cuenca Matanza Riachuelo.",
             "optional": false,
             "triggers": [
