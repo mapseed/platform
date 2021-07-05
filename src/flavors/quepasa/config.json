@@ -764,31 +764,11 @@
           },
           {
             "name": "referencia-fija",
-            "type": "dropdown",
+            "type": "file",
             "prompt": "Referencia fija",
-            "optional": true,
-            "content": [
-              {
-                "label": "Puente",
-                "value": "puente"
-              },
-              {
-                "label": "Pasarela",
-                "value": "pasarela"
-              },
-              {
-                "label": "Baranda",
-                "value": "baranda"
-              },
-              {
-                "label": "Escala",
-                "value": "escala"
-              }
-            ]
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
+            "label": "📷 Agregar una imagen",
+            "hidden_default": true,
+            "optional": true
           },
           {
             "name": "sudestada",
