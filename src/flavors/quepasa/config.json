@@ -1154,128 +1154,374 @@
             "optional": false
           },
           {
-            "name": "contribucion",
-            "type": "big_checkbox",
+            "name": "proteccion_del_espacio",
+            "type": "big_toggle",
             "prompt": "Podés contribuir al conocimiento y a la protección de este área natural aportando información sobre los siguientes aspectos:",
             "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "proteccion_del_espacio_novedad",
+                  "proteccion_del_espacio_novedad_datetime",
+                  "proteccion_del_espacio_image",
+                  "proteccion_del_espacio_image_datetime"
+                ]
+              }
+            ],
             "content": [
               {
-                "label": "SITUACIÓN DE PROTECCIÓN DEL ESPACIO",
-                "value": "proteccion-del-espacio"
+                "label": "Situación de protección del espacio",
+                "value": "si"  
               },
               {
-                "label": "BIODIVERSIDAD",
-                "value": "biodiversidad"
-              },
-              {
-                "label": "REPORTES DE ESTADO DEL ÁREA",
-                "value": "reportes"
-              },
-              {
-                "label": "USOS Y ACTIVIDADES ORGANIZADAS EN EL ÁREA",
-                "value": "usos-y-actividades"
-              },
-              {
-                "label": "MEMORIAS DEL ÁREA",
-                "value": "memorias"
-              },
-              {
-                "label": "PATRIMONIO ARQUEOLÓGICO",
-                "value": "patrimonio"
+                "label": "Situación de protección del espacio",
+                "value": "no"  
               }
             ]
           },
           {
-            "name": "compartir-una-novedad",
+            "name": "proteccion_del_espacio_novedad",
             "type": "textarea",
             "prompt": "¿Querés compartir una novedad relacionada con la protección de este espacio? Describí brevemente de qué se trata.",
             "placeholder": "",
             "display_prompt": "Novedad relacionada",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "compartir-una-novedad-datetime",
+            "name": "proteccion_del_espacio_novedad_datetime",
             "type": "datetime",
             "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
             "date_format": "YYYY-MM-DD",
             "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
             "display_prompt": " ",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "biodiversidad-image",
+            "name": "proteccion_del_espacio_image",
             "type": "file",
             "prompt": "¿Querés compartir una foto de una especie que viste en este espacio?",
             "label": "📷 Agregar una imagen",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "biodiversidad-image-datetime",
+            "name": "proteccion_del_espacio_image_datetime",
             "type": "datetime",
             "prompt": "¿Cuándo tomaste la foto? Elegí la fecha en el calendario.",
             "date_format": "YYYY-MM-DD",
             "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
             "display_prompt": " ",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "biodiversidad-comentario",
+            "name": "biodiversidad",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "biodiversidad_image",
+                  "biodiversidad_image_datetime",
+                  "biodiversidad_comentario"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Biodiversidad",
+                "value": "si"  
+              },
+              {
+                "label": "Biodiversidad",
+                "value": "no"  
+              }
+            ]
+          },
+          {
+            "name": "biodiversidad_image",
+            "type": "file",
+            "prompt": "¿Querés compartir una foto de una especie que viste en este espacio?",
+            "label": "📷 Agregar una imagen",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "biodiversidad_image_datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo tomaste la foto? Elegí la fecha en el calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "biodiversidad_comentario",
             "type": "textarea",
             "prompt": "¿Querés comentar algo de esta observación?",
-            "placeholder": "",
-            "display_prompt": "Comentarios",
+            "display_prompt": "Comentario:",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "reporte-sobre-estado",
-            "type": "textarea",
-            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte. Describí brevemente de qué se trata.",
-            "placeholder": "",
-            "display_prompt": "Reporte sobre el estado del área",
+            "name": "reprortes_del_estado_del_area",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "reportes_del_estado_del_area_titulo",
+                  "reportes_del_estado_del_area_datetime",
+                  "reportes_del_estado_del_area_description",
+                  "reportes_del_estado_del_area_image"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Reportes de estado del área",
+                "value": "si"  
+              },
+              {
+                "label": "Reportes de estado del área",
+                "value": "no"  
+              }
+            ]
+          },
+          {
+            "name": "reportes_del_estado_del_area_titulo",
+            "type": "text",
+            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "placeholder": "...",
+            "display_prompt": "Título",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "reporte-sobre-estado-datetime",
+            "name": "reportes_del_estado_del_area_datetime",
             "type": "datetime",
             "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
             "date_format": "YYYY-MM-DD",
             "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
             "display_prompt": " ",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "estado-image",
+            "name": "reportes_del_estado_del_area_description",
+            "type": "textarea",
+            "prompt": "Describí brevemente de qué se trata",
+            "placeholder": "...",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "reportes_del_estado_del_area_image",
             "type": "file",
             "prompt": "Podes subir una foto",
             "label": "📷 Agregar una imagen",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "usos-y-actividades",
-            "type": "textarea",
-            "prompt": "¿Querés compartir tu experiencia en este área? Ponele un título a tu experiencia. Podés hacer un breve comentario.",
-            "placeholder": "",
-            "display_prompt": "Experiencia",
+            "name": "usos_y_actividades",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "usos_y_actividades_titulo",
+                  "usos_y_actividades_datetime",
+                  "usos_y_actividades_description",
+                  "usos_y_actividades_image"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Usos y actividades organizadas en el área",
+                "value": "si"  
+              },
+              {
+                "label": "Usos y actividades organizadas en el área",
+                "value": "no"  
+              }
+            ]
+          },
+          {
+            "name": "usos_y_actividades_titulo",
+            "type": "text",
+            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "placeholder": "...",
+            "display_prompt": "Título",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "usos-y-actividades-datetime",
+            "name": "usos_y_actividades_datetime",
             "type": "datetime",
             "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
             "date_format": "YYYY-MM-DD",
             "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
             "display_prompt": " ",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "usos-y-actividades-image",
+            "name": "usos_y_actividades_description",
+            "type": "textarea",
+            "prompt": "Podés hacer un breve comentario",
+            "placeholder": "...",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "usos_y_actividades_image",
             "type": "file",
             "prompt": "Podes subir una foto",
             "label": "📷 Agregar una imagen",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "memorias_del_area",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "memorias_del_area_titulo",
+                  "memorias_del_area_datetime",
+                  "memorias_del_area_description",
+                  "memorias_del_area_image"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Memorias del área",
+                "value": "si"  
+              },
+              {
+                "label": "Memorias del área",
+                "value": "no"  
+              }
+            ]
+          },
+          {
+            "name": "memorias_del_area_titulo",
+            "type": "text",
+            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "placeholder": "...",
+            "display_prompt": "Título",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "memorias_del_area_datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "memorias_del_area_description",
+            "type": "textarea",
+            "prompt": "Podés hacer un breve comentario",
+            "placeholder": "...",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "memorias_del_area_image",
+            "type": "file",
+            "prompt": "Podes subir una foto",
+            "label": "📷 Agregar una imagen",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "patrimonio_arqueologico",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "patrimonio_arqueologico_titulo",
+                  "patrimonio_arqueologico_datetime",
+                  "patrimonio_arqueologico_description",
+                  "patrimonio_arqueologico_image"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Patrimonio arqueológico",
+                "value": "si"  
+              },
+              {
+                "label": "Patrimonio arqueológico",
+                "value": "no"  
+              }
+            ]
+          },
+          {
+            "name": "patrimonio_arqueologico_titulo",
+            "type": "text",
+            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "placeholder": "...",
+            "display_prompt": "Título",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "patrimonio_arqueologico_datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "patrimonio_arqueologico_description",
+            "type": "textarea",
+            "prompt": "Podés hacer un breve comentario",
+            "placeholder": "...",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "patrimonio_arqueologico_image",
+            "type": "file",
+            "prompt": "Podes subir una foto",
+            "label": "📷 Agregar una imagen",
+            "hidden_default": true,
             "optional": true
           },
           {
