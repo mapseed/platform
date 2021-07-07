@@ -1048,11 +1048,17 @@
             ]
           },
           {
-            "name": "conocimiento-local",
+            "name": "conocimiento_local",
             "type": "textarea",
             "prompt": "Conocimiento local en el punto de reporte:",
             "placeholder": "...",
             "display_prompt": "Conocimiento local en el punto de reporte:",
+            "optional": true
+          },
+          {
+            "name": "conocimiento_local_image",
+            "type": "file",
+            "label": "📷 Agregar una imagen",
             "optional": true
           },
           {
@@ -1064,11 +1070,23 @@
             "optional": true
           },
           {
-            "name": "comentarios-generales",
+            "name": "historia_image",
+            "type": "file",
+            "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
+            "name": "comentarios_generales",
             "type": "textarea",
             "prompt": "Comentarios generales:",
             "placeholder": "...",
             "display_prompt": "Comentarios generales:",
+            "optional": true
+          },
+          {
+            "name": "comentarios_generales_image",
+            "type": "file",
+            "label": "📷 Agregar una imagen",
             "optional": true
           },
           {
@@ -1077,6 +1095,12 @@
             "prompt": "Deseos de cómo debería ser el punto de reporte:",
             "placeholder": "...",
             "display_prompt": "Deseos de cómo debería ser el punto de reporte:",
+            "optional": true
+          },
+          {
+            "name": "deseos_image",
+            "type": "file",
+            "label": "📷 Agregar una imagen",
             "optional": true
           },
           {
@@ -1126,11 +1150,321 @@
             "optional": false
           },
           {
-            "name": "barrio",
+            "name": "barrio_o_partido",
             "type": "text",
-            "prompt": "¿Vecinx del barrio o del partido? ¿Cuál?",
+            "prompt": "Vecinx del barrio o del partido.",
+            "placeholder": "...",
+            "optional": true
+          },
+          {
+            "name": "otro_lugar",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "Vecinx de otro lugar. ¿Cuál?",
+            "display_prompt": "Lugar",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "optional": true,
+            "content": [
+              {
+                "label": "Las Antenas",
+                "value": "las-antenas"
+              },
+              {
+                "label": "Santos Vega",
+                "value": "santos-vega"
+              },
+              {
+                "label": "Los Ceibos",
+                "value": "los-ceibos"
+              },
+              {
+                "label": "La Bastilla II",
+                "value": "la-bastilla-ii"
+              },
+              {
+                "label": "La Bastilla I",
+                "value": "la-bastilla-i"
+              },
+              {
+                "label": "Barrio Scasso",
+                "value": "barrio-scasso"
+              },
+              {
+                "label": "Talleres",
+                "value": "talleres"
+              },
+              {
+                "label": "Villa Jardin (Ex FFMM)",
+                "value": "villa-jardin-ex-ffmm"
+              },
+              {
+                "label": "N. Kirchner (Ex Vialidad)",
+                "value": "n-kirchner-ex-vialidad"
+              },
+              {
+                "label": "La Maquinita",
+                "value": "la-maquinita"
+              },
+              {
+                "label": "Acuba",
+                "value": "acuba"
+              },
+              {
+                "label": "Barrio Unamuno",
+                "value": "barrio-unamuno"
+              },
+              {
+                "label": "Predio Pombo I",
+                "value": "predio-pombo-i"
+              },
+              {
+                "label": "Predio La Herradura",
+                "value": "predio-la-herradura"
+              },
+              {
+                "label": "Predio Pombo II",
+                "value": "predio-pombo-ii"
+              },
+              {
+                "label": "Las Torres",
+                "value": "las-torres"
+              },
+              {
+                "label": "Juancito",
+                "value": "juancito"
+              },
+              {
+                "label": "Barrio Lindo",
+                "value": "barrio-lindo"
+              },
+              {
+                "label": "Viviendas En Glew",
+                "value": "viviendas-en-glew"
+              },
+              {
+                "label": "Santa Ana",
+                "value": "santa-ana"
+              },
+              {
+                "label": "Barrio Bicentenario",
+                "value": "barrio-bicentenario"
+              },
+              {
+                "label": "Montecarlo",
+                "value": "montecarlo"
+              },
+              {
+                "label": "Juan Pablo II",
+                "value": "juan-pablo-ii"
+              },
+              {
+                "label": "Papa Francisco",
+                "value": "papa-francisco"
+              },
+              {
+                "label": "Lacarra 2049",
+                "value": "lacarra-2049"
+              },
+              {
+                "label": "Mundo Grua (Ribera Iguazu)",
+                "value": "mundo-grua-ribera-iguazu"
+              },
+              {
+                "label": "Predio IVC Viviendas",
+                "value": "predio-ivc-viviendas"
+              },
+              {
+                "label": "San Antonio 721",
+                "value": "san-antonio-721"
+              },
+              {
+                "label": "Luzuriaga 837",
+                "value": "luzuriaga-837"
+              },
+              {
+                "label": "Los Piletones",
+                "value": "los-piletones"
+              },
+              {
+                "label": "Valparaiso 3459",
+                "value": "valparaiso-3459"
+              },
+              {
+                "label": "Australia",
+                "value": "australia"
+              },
+              {
+                "label": "Osvaldo Cruz Y Luna",
+                "value": "osvaldo-cruz-y-luna"
+              },
+              {
+                "label": "Pepiri Y Taborda",
+                "value": "pepiri-y-taborda"
+              },
+              {
+                "label": "San Francisco",
+                "value": "san-francisco"
+              },
+              {
+                "label": "Orma Y Magaldi",
+                "value": "orma-y-magaldi"
+              },
+              {
+                "label": "Padre Mugica",
+                "value": "padre-mugica"
+              },
+              {
+                "label": "Lujan",
+                "value": "lujan"
+              },
+              {
+                "label": "Magaldi",
+                "value": "magaldi"
+              },
+              {
+                "label": "Rodrigo Bueno",
+                "value": "rodrigo-bueno"
+              },
+              {
+                "label": "El Pueblito",
+                "value": "el-pueblito"
+              },
+              {
+                "label": "Irala Y Liberti",
+                "value": "irala-y-liberti"
+              },
+              {
+                "label": "Olavarria 71",
+                "value": "olavarria-71"
+              },
+              {
+                "label": "Irala 750",
+                "value": "irala-750"
+              },
+              {
+                "label": "Zabaleta 896",
+                "value": "zabaleta-896"
+              },
+              {
+                "label": "P. Suipacha",
+                "value": "p-suipacha"
+              },
+              {
+                "label": "Deheza Y Cosquin",
+                "value": "deheza-y-cosquin"
+              },
+              {
+                "label": "Estanislao Del Campo",
+                "value": "estanislao-del-campo"
+              },
+              {
+                "label": "Predio Pinzon",
+                "value": "predio-pinzon"
+              },
+              {
+                "label": "Los Cardales",
+                "value": "los-cardales"
+              },
+              {
+                "label": "Pte. Agucero",
+                "value": "pte-agucero"
+              },
+              {
+                "label": "Nueva Ana",
+                "value": "nueva-ana"
+              },
+              {
+                "label": "Alianza",
+                "value": "alianza"
+              },
+              {
+                "label": "7 De Septiembre",
+                "value": "7-de-septiembre"
+              },
+              {
+                "label": "Azul",
+                "value": "azul"
+              },
+              {
+                "label": "7 De Enero",
+                "value": "7-de-enero"
+              },
+              {
+                "label": "Isla Maciel",
+                "value": "isla-maciel"
+              },
+              {
+                "label": "French Y Autopista",
+                "value": "french-y-autopista"
+              },
+              {
+                "label": "Medialuna",
+                "value": "medialuna"
+              },
+              {
+                "label": "Ex Acindar",
+                "value": "ex-acindar"
+              },
+              {
+                "label": "Tellier",
+                "value": "tellier"
+              },
+              {
+                "label": "Relampago",
+                "value": "relampago"
+              },
+              {
+                "label": "Isla Maciel",
+                "value": "isla-maciel"
+              },
+              {
+                "label": "Predio Madariaga",
+                "value": "predio-madariaga"
+              },
+              {
+                "label": "Pasaje Aldaz",
+                "value": "pasaje-aldaz"
+              },
+              {
+                "label": "Caem",
+                "value": "caem"
+              },
+              {
+                "label": "Entre Vias",
+                "value": "entre-vias"
+              },
+              {
+                "label": "Predio Llaneza",
+                "value": "predio-llaneza"
+              },
+              {
+                "label": "Predio Pitagoras",
+                "value": "predio-pitagoras"
+              },
+              {
+                "label": "Deheza Y Helguera",
+                "value": "deheza-y-helguera"
+              },
+              {
+                "label": "Barrio La Saladita",
+                "value": "barrio-la-saladita"
+              },
+              {
+                "label": "Barrio Saladita Norte",
+                "value": "barrio-saladita-norte"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ]
+          },
+          {
+            "name": "otro_lugar",
+            "type": "text",
+            "prompt": "Vecinx de otro lugar. ¿Cuál?",
             "placeholder": "Escribí el nombre...",
-            "display_prompt": "Barrio",
+            "display_prompt": "Organización",
             "optional": false
           },
           {
@@ -1152,11 +1486,11 @@
             "content": [
               {
                 "label": "Situación de protección del espacio",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Situación de protección del espacio",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
@@ -1217,11 +1551,11 @@
             "content": [
               {
                 "label": "Biodiversidad",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Biodiversidad",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
@@ -1271,11 +1605,11 @@
             "content": [
               {
                 "label": "Reportes de estado del área",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Reportes de estado del área",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
@@ -1334,18 +1668,18 @@
             "content": [
               {
                 "label": "Usos y actividades organizadas en el área",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Usos y actividades organizadas en el área",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
           {
             "name": "usos_y_actividades_titulo",
             "type": "text",
-            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "prompt": "¿Querés compartir tu experiencia en estea área? Ponele un título a tu experiencia",
             "placeholder": "...",
             "display_prompt": "Título",
             "hidden_default": true,
@@ -1373,7 +1707,7 @@
           {
             "name": "usos_y_actividades_image",
             "type": "file",
-            "prompt": "Podes subir una foto",
+            "prompt": "Podes subir una foto o imagen",
             "label": "📷 Agregar una imagen",
             "hidden_default": true,
             "optional": true
@@ -1397,18 +1731,18 @@
             "content": [
               {
                 "label": "Memorias del área",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Memorias del área",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
           {
             "name": "memorias_del_area_titulo",
             "type": "text",
-            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "prompt": "¿Querés aportar histórica histórica o un recuerdo sobre este espacio? Ponele un título a tu memoria",
             "placeholder": "...",
             "display_prompt": "Título",
             "hidden_default": true,
@@ -1417,7 +1751,7 @@
           {
             "name": "memorias_del_area_datetime",
             "type": "datetime",
-            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "prompt": "¿Sabes cuándo pasó? Seleccioná la fecha del calendario.",
             "date_format": "YYYY-MM-DD",
             "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
@@ -1428,7 +1762,7 @@
           {
             "name": "memorias_del_area_description",
             "type": "textarea",
-            "prompt": "Podés hacer un breve comentario",
+            "prompt": "Describí brevemente de qué se trata",
             "placeholder": "...",
             "hidden_default": true,
             "optional": true
@@ -1436,7 +1770,7 @@
           {
             "name": "memorias_del_area_image",
             "type": "file",
-            "prompt": "Podes subir una foto",
+            "prompt": "Podes subir una foto o imagen",
             "label": "📷 Agregar una imagen",
             "hidden_default": true,
             "optional": true
@@ -1460,18 +1794,18 @@
             "content": [
               {
                 "label": "Patrimonio arqueológico",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Patrimonio arqueológico",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
           {
             "name": "patrimonio_arqueologico_titulo",
             "type": "text",
-            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "prompt": "¿Querés aportar información sobre un sitio o un resto arqueológico en este espacio? Ponele un título a tu reporte arqueológico",
             "placeholder": "...",
             "display_prompt": "Título",
             "hidden_default": true,
@@ -1480,7 +1814,7 @@
           {
             "name": "patrimonio_arqueologico_datetime",
             "type": "datetime",
-            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "prompt": "¿Sabés cuando fue identificado? Seleccioná la fecha del calendario.",
             "date_format": "YYYY-MM-DD",
             "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
@@ -1491,9 +1825,9 @@
           {
             "name": "patrimonio_arqueologico_description",
             "type": "textarea",
-            "prompt": "Podés hacer un breve comentario",
-            "placeholder": "...",
+            "prompt": "Describí brevemente de qué se trata",
             "hidden_default": true,
+            "placeholder": "...",
             "optional": true
           },
           {
