@@ -1048,38 +1048,6 @@
             ]
           },
           {
-            "name": "conocimiento-local",
-            "type": "textarea",
-            "prompt": "Conocimiento local en el punto de reporte:",
-            "placeholder": "...",
-            "display_prompt": "Conocimiento local en el punto de reporte:",
-            "optional": true
-          },
-          {
-            "name": "historia",
-            "type": "textarea",
-            "prompt": "Historia del punto de reporte:",
-            "placeholder": "...",
-            "display_prompt": "Historia del punto de reporte:",
-            "optional": true
-          },
-          {
-            "name": "comentarios-generales",
-            "type": "textarea",
-            "prompt": "Comentarios generales:",
-            "placeholder": "...",
-            "display_prompt": "Comentarios generales:",
-            "optional": true
-          },
-          {
-            "name": "deseos",
-            "type": "textarea",
-            "prompt": "Deseos de cómo debería ser el punto de reporte:",
-            "placeholder": "...",
-            "display_prompt": "Deseos de cómo debería ser el punto de reporte:",
-            "optional": true
-          },
-          {
             "name": "submit",
             "type": "common_form_element"
           }
@@ -1094,7 +1062,7 @@
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
         "value": "areas-protegidas-2",
-        "label": "Areas Protegidas",
+        "label": "Areas Naturales",
         "geospatialAnalysis": [
           {
             "name": "subbasin_name",
@@ -1118,6 +1086,71 @@
             "content": "<h4>¿Querés reportar algo sobre este área natural o contribuir aportando información? Podés hacerlo acá. Vas a poder seleccionar y subir fotos, imágenes, archivos, texto, links.</h4>"
           },
           {
+            "name": "subcuenca-seleccion",
+            "type": "dropdown",
+            "includeOnListItem": true,
+            "prompt": "¿En qué subcuenca vive?",
+            "display_prompt": "Subcuenca",
+            "content": [
+              {
+                "label": "Riachuelo",
+                "value": "riachuelo"
+              },
+              {
+                "label": "Matanza",
+                "value": "matanza"
+              },
+              {
+                "label": "Santa Catalina",
+                "value": "santa-catalina"
+              },
+              {
+                "label": "Don Mario",
+                "value": "don-mario"
+              },
+              {
+                "label": "Ortega",
+                "value": "ortega"
+              },
+              {
+                "label": "Aguirre",
+                "value": "augirre"
+              },
+              {
+                "label": "Barreiro",
+                "value": "barreiro"
+              },
+              {
+                "label": "de la Canada Pantanosa",
+                "value": "de-la-canada-pantanosa"
+              },
+              {
+                "label": "Morales",
+                "value": "morales"
+              },
+              {
+                "label": "Chacon",
+                "value": "chacon"
+              },
+              {
+                "label": "Navarrete y Canuelas",
+                "value": "navarrete-y-canuelas"
+              },
+              {
+                "label": "Cebey",
+                "value": "cebey"
+              },
+              {
+                "label": "Rodriguez",
+                "value": "rodriguez"
+              },
+              {
+                "label": "Del Rey",
+                "value": "del-rey"
+              }
+            ]
+          },
+          {
             "name": "organizacion",
             "type": "text",
             "prompt": "¿Miembro de una organización? ¿Cuál?",
@@ -1126,11 +1159,27 @@
             "optional": false
           },
           {
-            "name": "barrio",
+            "name": "barrio_o_partido",
             "type": "text",
-            "prompt": "¿Vecinx del barrio o del partido? ¿Cuál?",
+            "prompt": "Vecinx del barrio o del partido.",
+            "placeholder": "...",
+            "optional": true
+          },
+          {
+            "name": "otro_lugar",
+            "type": "text",
+            "includeOnListItem": true,
+            "prompt": "Vecinx de otro lugar. ¿Cuál?",
+            "display_prompt": "Lugar",
             "placeholder": "Escribí el nombre...",
-            "display_prompt": "Barrio",
+            "optional": true
+          },
+          {
+            "name": "otro_lugar",
+            "type": "text",
+            "prompt": "Vecinx de otro lugar. ¿Cuál?",
+            "placeholder": "Escribí el nombre...",
+            "display_prompt": "Organización",
             "optional": false
           },
           {
@@ -1152,11 +1201,11 @@
             "content": [
               {
                 "label": "Situación de protección del espacio",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Situación de protección del espacio",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
@@ -1217,11 +1266,11 @@
             "content": [
               {
                 "label": "Biodiversidad",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Biodiversidad",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
@@ -1271,11 +1320,11 @@
             "content": [
               {
                 "label": "Reportes de estado del área",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Reportes de estado del área",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
@@ -1327,25 +1376,26 @@
                   "usos_y_actividades_titulo",
                   "usos_y_actividades_datetime",
                   "usos_y_actividades_description",
-                  "usos_y_actividades_image"
+                  "usos_y_actividades_image",
+                  "usos_y_actividades_calendario"
                 ]
               }
             ],
             "content": [
               {
                 "label": "Usos y actividades organizadas en el área",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Usos y actividades organizadas en el área",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
           {
             "name": "usos_y_actividades_titulo",
             "type": "text",
-            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "prompt": "¿Querés compartir tu experiencia en estea área? Ponele un título a tu experiencia",
             "placeholder": "...",
             "display_prompt": "Título",
             "hidden_default": true,
@@ -1371,9 +1421,15 @@
             "optional": true
           },
           {
+            "name": "usos_y_actividades_calendario",
+            "type": "informational_html",
+            "content": "<p>¿Querés convocar a una actividad en el área? Agregala al calendario. [ENLACE DE CALENDARIO PARA LLEGAR]</p>",
+            "hidden_default": true
+          },
+          {
             "name": "usos_y_actividades_image",
             "type": "file",
-            "prompt": "Podes subir una foto",
+            "prompt": "Podes subir una foto o imagen",
             "label": "📷 Agregar una imagen",
             "hidden_default": true,
             "optional": true
@@ -1397,18 +1453,18 @@
             "content": [
               {
                 "label": "Memorias del área",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Memorias del área",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
           {
             "name": "memorias_del_area_titulo",
             "type": "text",
-            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "prompt": "¿Querés aportar histórica histórica o un recuerdo sobre este espacio? Ponele un título a tu memoria",
             "placeholder": "...",
             "display_prompt": "Título",
             "hidden_default": true,
@@ -1417,7 +1473,7 @@
           {
             "name": "memorias_del_area_datetime",
             "type": "datetime",
-            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "prompt": "¿Sabes cuándo pasó? Seleccioná la fecha del calendario.",
             "date_format": "YYYY-MM-DD",
             "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
@@ -1428,7 +1484,7 @@
           {
             "name": "memorias_del_area_description",
             "type": "textarea",
-            "prompt": "Podés hacer un breve comentario",
+            "prompt": "Describí brevemente de qué se trata",
             "placeholder": "...",
             "hidden_default": true,
             "optional": true
@@ -1436,7 +1492,7 @@
           {
             "name": "memorias_del_area_image",
             "type": "file",
-            "prompt": "Podes subir una foto",
+            "prompt": "Podes subir una foto o imagen",
             "label": "📷 Agregar una imagen",
             "hidden_default": true,
             "optional": true
@@ -1460,18 +1516,18 @@
             "content": [
               {
                 "label": "Patrimonio arqueológico",
-                "value": "si"  
+                "value": "si"
               },
               {
                 "label": "Patrimonio arqueológico",
-                "value": "no"  
+                "value": "no"
               }
             ]
           },
           {
             "name": "patrimonio_arqueologico_titulo",
             "type": "text",
-            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "prompt": "¿Querés aportar información sobre un sitio o un resto arqueológico en este espacio? Ponele un título a tu reporte arqueológico",
             "placeholder": "...",
             "display_prompt": "Título",
             "hidden_default": true,
@@ -1480,7 +1536,7 @@
           {
             "name": "patrimonio_arqueologico_datetime",
             "type": "datetime",
-            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "prompt": "¿Sabés cuando fue identificado? Seleccioná la fecha del calendario.",
             "date_format": "YYYY-MM-DD",
             "placeholder": "Seleccioná la fecha",
             "display_format": "DD MMMM YYYY",
@@ -1491,9 +1547,9 @@
           {
             "name": "patrimonio_arqueologico_description",
             "type": "textarea",
-            "prompt": "Podés hacer un breve comentario",
-            "placeholder": "...",
+            "prompt": "Describí brevemente de qué se trata",
             "hidden_default": true,
+            "placeholder": "...",
             "optional": true
           },
           {
@@ -1536,6 +1592,11 @@
           {
             "name": "lng-lat",
             "type": "lng_lat"
+          },
+          {
+            "name": "intro",
+            "type": "informational_html",
+            "content": "<h4>¿Querés reportar o comentar sobre alguna situación vinculada al proceso de relocalización de algún barrio? Podés hacerlo completando el siguiente formulario. Vas a poder subir fotos, imágenes, archivos, texto.</h4>"
           },
           {
             "name": "municipio",
