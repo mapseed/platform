@@ -764,10 +764,37 @@
           },
           {
             "name": "referencia-fija",
+            "type": "dropdown",
+            "prompt": "Indique si existe una o más referencias fijas en el lugar cercano al evento. Puede cargar una fotografía.",
+            "content": [
+              {
+                "label": "Puente",
+                "value": "puente"
+              },
+              {
+                "label": "Pasarela",
+                "value": "pasarela"
+              },
+              {
+                "label": "Baranda",
+                "value": "baranda"
+              },
+              {
+                "label": "Escala",
+                "value": "escala"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "referencia-fija-image",
             "type": "file",
             "prompt": "Referencia fija",
             "label": "📷 Agregar una imagen",
-            "hidden_default": true,
             "optional": true
           },
           {
@@ -920,8 +947,19 @@
               {
                 "label": "Muy Turbia",
                 "value": "muy-turbia"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
               }
             ]
+          },
+          {
+            "name": "turbiedad-image",
+            "type": "file",
+            "prompt": "Referencia fija",
+            "label": "📷 Agregar una imagen",
+            "optional": true
           },
           {
             "name": "color",
