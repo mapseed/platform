@@ -683,6 +683,72 @@
             "content": "<h4>¿Querés reportar sobre calidad de agua? Podés hacerlo acá. Vas a poder informarte sobre parámetros de calidad de agua, evaluar situaciones de tu entorno próximo y contribuir subiendo fotos, imágenes, archivos, texto, links.</h4>"
           },
           {
+            "name": "subcuenca-seleccion",
+            "type": "dropdown",
+            "includeOnListItem": true,
+            "prompt": "¿En qué subcuenca vive?",
+            "optional": true,
+            "display_prompt": "Subcuenca",
+            "content": [
+              {
+                "label": "Riachuelo",
+                "value": "riachuelo"
+              },
+              {
+                "label": "Matanza",
+                "value": "matanza"
+              },
+              {
+                "label": "Santa Catalina",
+                "value": "santa-catalina"
+              },
+              {
+                "label": "Don Mario",
+                "value": "don-mario"
+              },
+              {
+                "label": "Ortega",
+                "value": "ortega"
+              },
+              {
+                "label": "Aguirre",
+                "value": "augirre"
+              },
+              {
+                "label": "Barreiro",
+                "value": "barreiro"
+              },
+              {
+                "label": "de la Canada Pantanosa",
+                "value": "de-la-canada-pantanosa"
+              },
+              {
+                "label": "Morales",
+                "value": "morales"
+              },
+              {
+                "label": "Chacon",
+                "value": "chacon"
+              },
+              {
+                "label": "Navarrete y Canuelas",
+                "value": "navarrete-y-canuelas"
+              },
+              {
+                "label": "Cebey",
+                "value": "cebey"
+              },
+              {
+                "label": "Rodriguez",
+                "value": "rodriguez"
+              },
+              {
+                "label": "Del Rey",
+                "value": "del-rey"
+              }
+            ]
+          },
+          {
             "name": "barrio",
             "type": "common_form_element"
           },
@@ -1122,71 +1188,6 @@
             "name": "intro",
             "type": "informational_html",
             "content": "<h4>¿Querés reportar algo sobre este área natural o contribuir aportando información? Podés hacerlo acá. Vas a poder seleccionar y subir fotos, imágenes, archivos, texto, links.</h4>"
-          },
-          {
-            "name": "subcuenca-seleccion",
-            "type": "dropdown",
-            "includeOnListItem": true,
-            "prompt": "¿En qué subcuenca vive?",
-            "display_prompt": "Subcuenca",
-            "content": [
-              {
-                "label": "Riachuelo",
-                "value": "riachuelo"
-              },
-              {
-                "label": "Matanza",
-                "value": "matanza"
-              },
-              {
-                "label": "Santa Catalina",
-                "value": "santa-catalina"
-              },
-              {
-                "label": "Don Mario",
-                "value": "don-mario"
-              },
-              {
-                "label": "Ortega",
-                "value": "ortega"
-              },
-              {
-                "label": "Aguirre",
-                "value": "augirre"
-              },
-              {
-                "label": "Barreiro",
-                "value": "barreiro"
-              },
-              {
-                "label": "de la Canada Pantanosa",
-                "value": "de-la-canada-pantanosa"
-              },
-              {
-                "label": "Morales",
-                "value": "morales"
-              },
-              {
-                "label": "Chacon",
-                "value": "chacon"
-              },
-              {
-                "label": "Navarrete y Canuelas",
-                "value": "navarrete-y-canuelas"
-              },
-              {
-                "label": "Cebey",
-                "value": "cebey"
-              },
-              {
-                "label": "Rodriguez",
-                "value": "rodriguez"
-              },
-              {
-                "label": "Del Rey",
-                "value": "del-rey"
-              }
-            ]
           },
           {
             "name": "organizacion",
