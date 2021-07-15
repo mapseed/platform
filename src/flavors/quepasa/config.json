@@ -1988,35 +1988,374 @@
             "content": "<h4>¿Querés reportar algo sobre este área natural o contribuir aportando información? Podés hacerlo acá. Vas a poder seleccionar y subir fotos, imágenes, archivos, texto, links.</h4>"
           },
           {
+            "name": "contribucion",
+            "type": "dropdown",
+            "prompt": "Tu contribución la hacés como:",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "miembro-organizacion",
+                "targets": ["organizacion"]
+              },
+              {
+                "value": "vecino-otro-lugar",
+                "targets": ["otro_lugar"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Miembro de una organización",
+                "value": "miembro-organizacion"
+              },
+              {
+                "label": "Vecinx del barrio o del partido",
+                "value": "vecino-barrio-partido"
+              },
+              {
+                "label": "Vecinx de otro lugar",
+                "value": "vecino-otro-lugar"
+              }
+            ]
+          },
+          {
             "name": "organizacion",
             "type": "text",
             "prompt": "¿Miembro de una organización? ¿Cuál?",
             "placeholder": "Escribí el nombre...",
             "display_prompt": "Organización",
+            "hidden_default": true,
             "optional": false
           },
           {
-            "name": "barrio_o_partido",
-            "type": "text",
-            "prompt": "Vecinx del barrio o del partido.",
-            "placeholder": "...",
-            "optional": true
+            "name": "otro_lugar",
+            "type": "dropdown",
+            "prompt": "Vecinx de otro lugar. ¿Cuál?",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": false,
+            "triggers": [
+              {
+                "value": "caba",
+                "targets": ["comunas"]
+              },
+              {
+                "value": "amba",
+                "targets": ["partidos"]
+              },
+              {
+                "value": "resto-pcia-ba",
+                "targets": ["resto_pcia_ba"]
+              },
+              {
+                "value": "otra-pcia",
+                "targets": ["otra_pcia"]
+              },
+              {
+                "value": "otros-pais",
+                "targets": ["otros_pais"]
+              }
+            ],
+            "content": [
+              {
+                "label": "CABA",
+                "value": "caba"
+              },
+              {
+                "label": "AMBA",
+                "value": "amba"
+              },
+              {
+                "label": "Resto de la provincia de Buenos Aires",
+                "value": "resto-pcia-ba"
+              },
+              {
+                "label": "Otra provincia",
+                "value": "otra-pcia"
+              },
+              {
+                "label": "Otros - De otro país",
+                "value": "otros-pais"
+              }
+            ]
           },
           {
-            "name": "otro_lugar",
-            "type": "text",
+            "name": "comunas",
+            "type": "dropdown",
+            "prompt": "¿De qué comuna?",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Comuna 1",
+                "value": "comuna-1"
+              },
+              {
+                "label": "Comuna 2",
+                "value": "comuna-2"
+              },
+              {
+                "label": "Comuna 3",
+                "value": "comuna-3"
+              },
+              {
+                "label": "Comuna 4",
+                "value": "comuna-4"
+              },
+              {
+                "label": "Comuna 5",
+                "value": "comuna-5"
+              },
+              {
+                "label": "Comuna 6",
+                "value": "comuna-6"
+              },
+              {
+                "label": "Comuna 7",
+                "value": "comuna-7"
+              },
+              {
+                "label": "Comuna 8",
+                "value": "comuna-8"
+              },
+              {
+                "label": "Comuna 9",
+                "value": "comuna-9"
+              },
+              {
+                "label": "Comuna 10",
+                "value": "comuna-10"
+              },
+              {
+                "label": "Comuna 11",
+                "value": "comuna-11"
+              },
+              {
+                "label": "Comuna 12",
+                "value": "comuna-12"
+              },
+              {
+                "label": "Comuna 13",
+                "value": "comuna-13"
+              },
+              {
+                "label": "Comuna 14",
+                "value": "comuna-14"
+              },
+              {
+                "label": "Comuna 15",
+                "value": "comuna-15"
+              }
+            ]
+          },
+          {
+            "name": "partidos",
+            "type": "dropdown_autocomplete",
             "includeOnListItem": true,
-            "prompt": "Vecinx de otro lugar. ¿Cuál?",
-            "display_prompt": "Lugar",
-            "placeholder": "Escribí el nombre...",
-            "optional": true
+            "prompt": "¿De cuál de los siguientes partidos?",
+            "display_prompt": "Partido",
+            "placeholder": "Escribí el nombre de tu partido...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Almirante Brown",
+                "value": "almirante-brown"
+              },
+              {
+                "label": "Avellaneda",
+                "value": "avellaneda"
+              },
+              {
+                "label": "Berazategui",
+                "value": "berazategui"
+              },
+              {
+                "label": "Berisso",
+                "value": "berisso"
+              },
+              {
+                "label": "Berazategui",
+                "value": "berazategui"
+              },
+              {
+                "label": "Brandsen",
+                "value": "brandsen"
+              },
+              {
+                "label": "Campana",
+                "value": "campana"
+              },
+              {
+                "label": "Cañuelas",
+                "value": "cañuelas"
+              },
+              {
+                "label": "Ensenada",
+                "value": "ensenada"
+              },
+              {
+                "label": "Escobar",
+                "value": "escobar"
+              },
+              {
+                "label": "Esteban Echeverría",
+                "value": "esteban-echeverria"
+              },
+              {
+                "label": "Exaltación de la Cruz",
+                "value": "exaltacion-de-la-cruz"
+              },
+              {
+                "label": "Ezeiza",
+                "value": "ezeiza"
+              },
+              {
+                "label": "Florencio Varela",
+                "value": "florencio-varela"
+              },
+              {
+                "label": "General Las Heras",
+                "value": "general-las-heras"
+              },
+              {
+                "label": "General Rodríguez",
+                "value": "general-rodriguez"
+              },
+              {
+                "label": "General San Martín",
+                "value": "general-san-martin"
+              },
+              {
+                "label": "Hurlingham",
+                "value": "hurlingham"
+              },
+              {
+                "label": "Ituzaingó",
+                "value": "ituzaingo"
+              },
+              {
+                "label": "José C. Paz",
+                "value": "jose-c-paz"
+              }
+            ]
           },
           {
-            "name": "otro_lugar",
+            "name": "resto_pcia_ba",
             "type": "text",
-            "prompt": "Vecinx de otro lugar. ¿Cuál?",
+            "prompt": "Escribe el nombre de tu partido",
+            "display_prompt": " ",
             "placeholder": "Escribí el nombre...",
-            "display_prompt": "Organización",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "otra_pcia",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿De qué provincia?",
+            "display_prompt": "Provincia",
+            "placeholder": "Escribí el nombre de tu provincia...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Catamarca",
+                "value": "catamarca"
+              },
+              {
+                "label": "Chaco",
+                "value": "chaco"
+              },
+              {
+                "label": "Chubut",
+                "value": "chubut"
+              },
+              {
+                "label": "Córdoba",
+                "value": "cordoba"
+              },
+              {
+                "label": "Corrientes",
+                "value": "corrientes"
+              },
+              {
+                "label": "Entre Ríos",
+                "value": "entre-rios"
+              },
+              {
+                "label": "Formosa",
+                "value": "formosa"
+              },
+              {
+                "label": "Jujuy",
+                "value": "jujuy"
+              },
+              {
+                "label": "La Pampa",
+                "value": "la-pampa"
+              },
+              {
+                "label": "La Rioja",
+                "value": "la-rioja"
+              },
+              {
+                "label": "Mendoza",
+                "value": "mendoza"
+              },
+              {
+                "label": "Misiones",
+                "value": "misiones"
+              },
+              {
+                "label": "Neuquén",
+                "value": "neuquen"
+              },
+              {
+                "label": "Río Negro",
+                "value": "rio-negro"
+              },
+              {
+                "label": "Salta",
+                "value": "salta"
+              },
+              {
+                "label": "San Juan",
+                "value": "san-juan"
+              },
+              {
+                "label": "San Luis",
+                "value": "san-luis"
+              },
+              {
+                "label": "Santa Cruz",
+                "value": "santa-cruz"
+              },
+              {
+                "label": "Santa Fe",
+                "value": "santa-fe"
+              },
+              {
+                "label": "Santiago del Estero",
+                "value": "santiago-del-estero"
+              },
+              {
+                "label": "Tierra del Fuego, Antártida e Isla del Atlántico Sur",
+                "value": "tierra-del-fuego-antartida-e-isla-del-atlantico-sur"
+              },
+              {
+                "label": "Tucumán",
+                "value": "tucuman"
+              }
+            ]
+          },
+          {
+            "name": "otros_pais",
+            "type": "text",
+            "prompt": "¿De qué país?",
+            "display_prompt": " ",
+            "placeholder": "Escribí el nombre...",
+            "hidden_default": true,
             "optional": false
           },
           {
@@ -2030,8 +2369,8 @@
                 "targets": [
                   "proteccion_del_espacio_novedad",
                   "proteccion_del_espacio_novedad_datetime",
-                  "proteccion_del_espacio_image",
-                  "proteccion_del_espacio_image_datetime"
+                  "proteccion_del_espacio_novedad_description",
+                  "proteccion_del_espacio_novedad_info"
                 ]
               }
             ],
@@ -2048,8 +2387,8 @@
           },
           {
             "name": "proteccion_del_espacio_novedad",
-            "type": "textarea",
-            "prompt": "¿Querés compartir una novedad relacionada con la protección de este espacio? Describí brevemente de qué se trata.",
+            "type": "text",
+            "prompt": "¿Querés compartir una novedad relacionada con la protección de este espacio? ¿Cuál? Ponele un título.",
             "placeholder": "",
             "display_prompt": "Novedad relacionada",
             "hidden_default": true,
@@ -2067,21 +2406,20 @@
             "optional": true
           },
           {
-            "name": "proteccion_del_espacio_image",
-            "type": "file",
-            "prompt": "¿Querés compartir una foto de una especie que viste en este espacio?",
-            "label": "📷 Agregar una imagen",
+            "name": "proteccion_del_espacio_novedad_description",
+            "type": "textarea",
+            "prompt": "Describí brevemente de qué se trata",
+            "placeholder": "",
+            "display_prompt": "Descripción de la novedad",
             "hidden_default": true,
             "optional": true
           },
           {
-            "name": "proteccion_del_espacio_image_datetime",
-            "type": "datetime",
-            "prompt": "¿Cuándo tomaste la foto? Elegí la fecha en el calendario.",
-            "date_format": "YYYY-MM-DD",
-            "placeholder": "Seleccioná la fecha",
-            "display_format": "DD MMMM YYYY",
-            "display_prompt": " ",
+            "name": "proteccion_del_espacio_novedad_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
             "hidden_default": true,
             "optional": true
           },
@@ -2096,7 +2434,8 @@
                 "targets": [
                   "biodiversidad_image",
                   "biodiversidad_image_datetime",
-                  "biodiversidad_comentario"
+                  "biodiversidad_comentario",
+                  "biodiversidad_especies"
                 ]
               }
             ],
@@ -2114,7 +2453,7 @@
           {
             "name": "biodiversidad_image",
             "type": "file",
-            "prompt": "¿Querés compartir una foto de una especie que viste en este espacio?",
+            "prompt": "¿Querés compartir una foto de una especie que viste en este espacio? Hacelo acá.",
             "label": "📷 Agregar una imagen",
             "hidden_default": true,
             "optional": true
@@ -2139,6 +2478,39 @@
             "optional": true
           },
           {
+            "name": "biodiversidad_especies",
+            "type": "big_checkbox",
+            "prompt": "Además de la foto que tomaste ¿Viste alguna de estas especies en tu visita? Marcá las fotos de las especies que hayas visto.",
+            "hidden_default": true,
+            "optional": true,
+            "content": [
+              {
+                "label": "Especie 1",
+                "value": "especie-1"
+              },
+              {
+                "label": "Especie 2",
+                "value": "especie-2"
+              },
+              {
+                "label": "Especie 3",
+                "value": "especie-3"
+              },
+              {
+                "label": "Especie 4",
+                "value": "especie-4"
+              },
+              {
+                "label": "Especie 5",
+                "value": "especie-5"
+              },
+              {
+                "label": "Especie 6",
+                "value": "especie-6"
+              }
+            ]
+          },
+          {
             "name": "reprortes_del_estado_del_area",
             "type": "big_toggle",
             "prompt": " ",
@@ -2150,7 +2522,7 @@
                   "reportes_del_estado_del_area_titulo",
                   "reportes_del_estado_del_area_datetime",
                   "reportes_del_estado_del_area_description",
-                  "reportes_del_estado_del_area_image"
+                  "reportes_del_estado_del_area_info"                
                 ]
               }
             ],
@@ -2194,10 +2566,11 @@
             "optional": true
           },
           {
-            "name": "reportes_del_estado_del_area_image",
-            "type": "file",
-            "prompt": "Podes subir una foto",
-            "label": "📷 Agregar una imagen",
+            "name": "reportes_del_estado_del_area_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
             "hidden_default": true,
             "optional": true
           },
@@ -2213,8 +2586,7 @@
                   "usos_y_actividades_titulo",
                   "usos_y_actividades_datetime",
                   "usos_y_actividades_description",
-                  "usos_y_actividades_image",
-                  "usos_y_actividades_calendario"
+                  "usos_y_actividades_info"
                 ]
               }
             ],
@@ -2232,7 +2604,7 @@
           {
             "name": "usos_y_actividades_titulo",
             "type": "text",
-            "prompt": "¿Querés compartir tu experiencia en estea área? Ponele un título a tu experiencia",
+            "prompt": "¿Querés compartir tu experiencia en esta área? Ponele un título.",
             "placeholder": "...",
             "display_prompt": "Título",
             "hidden_default": true,
@@ -2258,18 +2630,44 @@
             "optional": true
           },
           {
-            "name": "usos_y_actividades_calendario",
-            "type": "informational_html",
-            "content": "<p>¿Querés convocar a una actividad en el área? Agregala al calendario. [ENLACE DE CALENDARIO PARA LLEGAR]</p>",
-            "hidden_default": true
-          },
-          {
-            "name": "usos_y_actividades_image",
-            "type": "file",
-            "prompt": "Podes subir una foto o imagen",
-            "label": "📷 Agregar una imagen",
+            "name": "usos_y_actividades_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
             "hidden_default": true,
             "optional": true
+          },
+          {
+            "name": "calendario_de_actividades",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "calendario_de_actividades_titulo"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Calendario de actividades",
+                "value": "si"
+              },
+              {
+                "label": "Calendario de actividades",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "calendario_de_actividades_titulo",
+            "type": "informational_html",
+            "hidden_default": true,
+            "optional": true,
+            "content": "<p>¿Querés convocar a una actividad en el área? Agregala al calendario.</p><p style='color:#999;font-style:italic;'>Conexión al Google Calendar del equipo editor</p>"          
           },
           {
             "name": "memorias_del_area",
@@ -2283,7 +2681,7 @@
                   "memorias_del_area_titulo",
                   "memorias_del_area_datetime",
                   "memorias_del_area_description",
-                  "memorias_del_area_image"
+                  "memorias_del_area_info"
                 ]
               }
             ],
@@ -2327,10 +2725,11 @@
             "optional": true
           },
           {
-            "name": "memorias_del_area_image",
-            "type": "file",
-            "prompt": "Podes subir una foto o imagen",
-            "label": "📷 Agregar una imagen",
+            "name": "memorias_del_area_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
             "hidden_default": true,
             "optional": true
           },
@@ -2346,7 +2745,7 @@
                   "patrimonio_arqueologico_titulo",
                   "patrimonio_arqueologico_datetime",
                   "patrimonio_arqueologico_description",
-                  "patrimonio_arqueologico_image"
+                  "patrimonio_arqueologico_info"
                 ]
               }
             ],
@@ -2390,10 +2789,11 @@
             "optional": true
           },
           {
-            "name": "patrimonio_arqueologico_image",
-            "type": "file",
-            "prompt": "Podes subir una foto",
-            "label": "📷 Agregar una imagen",
+            "name": "patrimonio_arqueologico_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
             "hidden_default": true,
             "optional": true
           },
@@ -3171,6 +3571,10 @@
               {
                 "value": "otro-barrio",
                 "targets": ["barrio-antes"]
+              },
+              {
+                "value": "otros",
+                "targets": ["otra-situacion"]
               }
             ],
             "content": [
@@ -3189,6 +3593,10 @@
               {
                 "label": "Soy habitante de un barrio o complejo habitacional al que llegaron personas relocalizadas de otros barrios de la Cuenca del Río Matanza Riachuelo.",
                 "value": "barrio-que-llegaron-personas"
+              },
+              {
+                "label": "Otros",
+                "value": "otros"
               }
             ]
           },
@@ -3198,6 +3606,15 @@
             "prompt": "¿En qué barrio vivía antes?",
             "placeholder": "Escribí el nombre de tu barrio...",
             "display_prompt": "Barrio antes",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "otra-situacion",
+            "type": "text",
+            "prompt": "Describí tu situación con respecto al programa",
+            "placeholder": "Escribí aquí...",
+            "display_prompt": "Otra situación",
             "hidden_default": true,
             "optional": false
           },
