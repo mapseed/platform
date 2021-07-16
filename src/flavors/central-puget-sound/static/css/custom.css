@@ -131,6 +131,9 @@
   line-height: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed #ddd;
+  margin-bottom: 32px;
 }
 
 /* =Shared page styles

@@ -2158,7 +2158,13 @@
         "<h2 id='stories__main-title'>Map Stories</h2>",
         "<h4 class='stories__title'>The WRIA 9 Watershed</h4>",
         "<div class='videowrapper'><iframe src='https://drive.google.com/file/d/1V4ggunl9vxnUoUxswmmqjlmvm61fy6Jr/preview' width='640' height='480'></iframe></div>",
-        "<p class='stories__description'>Find out more about the various connections in the WRIA 9 Watershed in this informative video journey told through the eyes of a high school senior.</p>"
+        "<p class='stories__description'>Find out more about the various connections in the WRIA 9 Watershed in this informative video journey told through the eyes of a high school senior.</p>",
+        "<h4 class='stories__title'>Life Expectancy Exploration</h4>",
+        "<div class='videowrapper'><iframe src='https://drive.google.com/file/d/1Sm_XarWlbDRX1lYZCmPZRQrHlE_iuN7P/preview' width='640' height='480'></iframe></div>",
+        "<p class='stories__description'>Consider the factors that influence life expectancy, from poverty to environmental health, through this exploration on disparities across King County.</p>",
+        "<h4 class='stories__title'>Equitable Development</h4>",
+        "<div class='videowrapper'><iframe src='https://drive.google.com/file/d/1IueNkT7nwuxoIRJIn01B3i8aAmNTISl-/preview' width='640' height='480'></iframe></div>",
+        "<p class='stories__description'>Find out how demographic factors such as life expectancy influence equitable development in Bellevue and Kent in this educational video!</p>"
       ]
     },
     {
