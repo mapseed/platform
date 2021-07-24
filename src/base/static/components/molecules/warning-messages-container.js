@@ -62,10 +62,7 @@ const WarningMessagesContainer = props => {
                 margin-left: 12px;
               `}
             >
-              {props.t(
-                `invalidFormFieldMsg${errorMsgIndex}`,
-                errorMsgs[errorMsg],
-              )}
+              {props.t(errorMsg, errorMsgs[errorMsg])}
             </RegularText>
           </li>
         ))}
