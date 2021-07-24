@@ -770,7 +770,7 @@
                 "targets": ["avellaneda-barrios"]
               },
               {
-                "value": "esteban-echeverría",
+                "value": "esteban-echeverria",
                 "targets": ["esteban-echeverria-barrios"]
               },
               {
@@ -2175,10 +2175,6 @@
                 "value": "berisso"
               },
               {
-                "label": "Berazategui",
-                "value": "berazategui"
-              },
-              {
                 "label": "Brandsen",
                 "value": "brandsen"
               },
@@ -2237,6 +2233,90 @@
               {
                 "label": "José C. Paz",
                 "value": "jose-c-paz"
+              },
+              {
+                "label": "La Matanza",
+                "value": "la-matanza"
+              },
+              {
+                "label": "Lanús",
+                "value": "lanus"
+              },
+              {
+                "label": "La Plata",
+                "value": "la-plata"
+              },
+              {
+                "label": "Lomas de Zamora",
+                "value": "lomas-de-zamora"
+              },
+              {
+                "label": "Luján",
+                "value": "lujan"
+              },
+              {
+                "label": "Marcos Paz",
+                "value": "marcos-paz"
+              },
+              {
+                "label": "Malvinas Argentinas",
+                "value": "malvinas-argentinas"
+              },
+              {
+                "label": "Moreno",
+                "value": "moreno"
+              },
+              {
+                "label": "Merlo",
+                "value": "merlo"
+              },
+              {
+                "label": "Morón",
+                "value": "moron"
+              },
+              {
+                "label": "Pilar",
+                "value": "pilar"
+              },
+              {
+                "label": "Presidente Perón",
+                "value": "presidente-peron"
+              },
+              {
+                "label": "Quilmes",
+                "value": "quilmes"
+              },
+              {
+                "label": "San Fernando",
+                "value": "san-fernando"
+              },
+              {
+                "label": "San Isidro",
+                "value": "san-isidro"
+              },
+              {
+                "label": "San Miguel",
+                "value": "san-miguel"
+              },
+              {
+                "label": "San Vicente",
+                "value": "san-vicente"
+              },
+              {
+                "label": "Tigre",
+                "value": "tigre"
+              },
+              {
+                "label": "Tres de Febrero",
+                "value": "tres-de-febrero"
+              },
+              {
+                "label": "Vicente López",
+                "value": "vicente-lopez"
+              },
+              {
+                "label": "Zárate",
+                "value": "zarate"
               }
             ]
           },
@@ -2361,7 +2441,7 @@
           {
             "name": "proteccion_del_espacio",
             "type": "big_toggle",
-            "prompt": "Podés contribuir al conocimiento y a la protección de este área natural aportando información sobre los siguientes aspectos:",
+            "prompt": "Podés contribuir al conocimiento y a la protección de esta área natural aportando información sobre los siguientes aspectos:",
             "optional": false,
             "triggers": [
               {
@@ -2435,7 +2515,8 @@
                   "biodiversidad_image",
                   "biodiversidad_image_datetime",
                   "biodiversidad_comentario",
-                  "biodiversidad_especies"
+                  "biodiversidad_especies",
+                  "biodiversidad_info"
                 ]
               }
             ],
@@ -2509,6 +2590,15 @@
                 "value": "especie-6"
               }
             ]
+          },
+          {
+            "name": "biodiversidad_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
+            "hidden_default": true,
+            "optional": true
           },
           {
             "name": "reprortes_del_estado_del_area",
@@ -2667,7 +2757,7 @@
             "type": "informational_html",
             "hidden_default": true,
             "optional": true,
-            "content": "<p>¿Querés convocar a una actividad en el área? Agregala al calendario.</p><p style='color:#999;font-style:italic;'>Conexión al Google Calendar del equipo editor</p>"          
+            "content": "<p>¿Querés convocar a una actividad en el área? Agregala al calendario.</p>"          
           },
           {
             "name": "memorias_del_area",
@@ -2857,7 +2947,7 @@
                 "targets": ["avellaneda-barrios"]
               },
               {
-                "value": "esteban-echeverría",
+                "value": "esteban-echeverria",
                 "targets": ["esteban-echeverria-barrios"]
               },
               {
@@ -3557,10 +3647,6 @@
             "display_prompt": "Barrio",
             "hidden_default": true,
             "optional": false
-          },
-          {
-            "name": "barrio",
-            "type": "common_form_element"
           },
           {
             "name": "situacion_de_relocalizacion",
