@@ -22,7 +22,7 @@ import { makeStyles, createStyles } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 
 import IconButton from "@material-ui/core/IconButton";
-import { useTranslation } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import Typography from "@material-ui/core/Typography";
 
 const useSocialButtonStyles = makeStyles({
@@ -107,14 +107,14 @@ type Props = {
   appConfig: AppConfig;
   disableRestoreFocus?: boolean;
   render: (openModal: () => void) => React.ReactNode;
-};
+} & WithTranslation;
 
 const LoginModal = ({
   appConfig,
   disableRestoreFocus = false,
   render,
+  t
 }: Props) => {
-  const [t] = useTranslation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const openModal = () => setIsOpen(true);
   const classes = useStyles();
@@ -138,7 +138,7 @@ const LoginModal = ({
           disableTypography
         >
           <Typography css={{ textAlign: "center", width: "100%" }} variant="h5">
-            {t("signIn", "Sign In")}
+            {t("signInMsg", "Sign In")}
           </Typography>
           <IconButton
             css={{
@@ -192,4 +192,4 @@ const LoginModal = ({
   );
 };
 
-export default LoginModal;
+export default withTranslation("LoginModal")(LoginModal);
