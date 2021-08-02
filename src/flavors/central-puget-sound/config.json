@@ -2157,14 +2157,20 @@
       "content": [
         "<h2 id='stories__main-title'>Map Stories</h2>",
         "<h4 class='stories__title'>The WRIA 9 Watershed</h4>",
-        "<div class='videowrapper'><iframe src='https://drive.google.com/file/d/1V4ggunl9vxnUoUxswmmqjlmvm61fy6Jr/preview' width='640' height='480'></iframe></div>",
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/nauBHQaLDa0' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
         "<p class='stories__description'>Find out more about the various connections in the WRIA 9 Watershed in this informative video journey told through the eyes of a high school senior.</p>",
         "<h4 class='stories__title'>Life Expectancy Exploration</h4>",
-        "<div class='videowrapper'><iframe src='https://drive.google.com/file/d/1Sm_XarWlbDRX1lYZCmPZRQrHlE_iuN7P/preview' width='640' height='480'></iframe></div>",
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/S70dTM4WdoA' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
         "<p class='stories__description'>Consider the factors that influence life expectancy, from poverty to environmental health, through this exploration on disparities across King County.</p>",
         "<h4 class='stories__title'>Equitable Development</h4>",
-        "<div class='videowrapper'><iframe src='https://drive.google.com/file/d/1IueNkT7nwuxoIRJIn01B3i8aAmNTISl-/preview' width='640' height='480'></iframe></div>",
-        "<p class='stories__description'>Find out how demographic factors such as life expectancy influence equitable development in Bellevue and Kent in this educational video!</p>"
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/KTRBAg-RdVA' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='stories__description'>Find out how demographic factors such as life expectancy influence equitable development in Bellevue and Kent in this educational video!</p>",
+        "<h4 class='stories__title'>Redlining</h4>",
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/C5iHx1dlACc' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='stories__description'>Learn about the modern day effects of Redlining in King County in this informative video journey using maps.</p>",
+        "<h4 class='stories__title'>Greenlining</h4>",
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/Gz-UwGBCzaU' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='stories__description'>Learn about the phenomenon of Greenlining which is slowly reversing the effects of Redlining in King County in this informative video journey using maps.</p>"
       ]
     },
     {
@@ -4526,7 +4532,38 @@
     },
     {
       "slug": "about",
-      "content": ["<h2>About this Map</h2>", "<p>Stay tuned....</p>"]
+      "content": [
+        "<h2>Welcome to MyWater.World!</h2>",
+        "<p>Zoom down to your neighborhood.</p>",
+        "<p>Play around with your watershed address.</p>",
+        "<p>What is your stream subbasin? Do storm drains on your street carry pollution to Puget Sound? What’s the equity tree score in your neighborhood? Why is there a geographic correlation between poverty, people of color, and life expectancy?</p>",
+        "<p>Switch <strong>Base Maps </strong>and mix and match <strong>Map Layers</strong> to discover the story of your place.</p>",
+        "<p>Click <strong>SWIPE</strong> to slide back and forth between any two layers to see change over time.</p>",
+        "<p>What is your stream subbasin? Do storm drains on your street carry pollution to Puget Sound? What’s the equity tree score in your neighborhood? Why is there a geographic correlation between poverty, people of color, and life expectancy?</p>",
+        "<p>Love maps? Click on <strong>LOVE</strong> to find a whole other world of maps we love. Be curious. Expand your geographic literacy, because what human story is not anchored in place?</p>",
+        "<p>Teachers will find <strong>LESSONS</strong> that help design map reading into lots of different academic subjects</p>",
+        "<h3 style='padding-top: 32px;'>Take action!</h3>",
+        "<p>Click on any of the “little green dots” to be inspired by youth-led <strong>Impact Projects</strong>, curriculum-driven <strong>Classroom Projects</strong>, and Community <strong>Case Studies</strong> led by noble nonprofits and local governments like your city and county.</p>",
+        "<p>Click on the <strong>STORIES</strong tab to see inspired student examples of getting lost and found in a map journey through a series of self-imposed questions. Curiosity is a sign of intelligence! Write your own map story.</p>",
+        "<p><strong>Since time immemorial</strong> the native people of this land have known every stream,  meadow and floodplain. (Click on the native village sites). They took good care of the land and water and the natural resources they depended on. The rivers were the freeways for commercial and cultural exchange. They formed the fundamental map stories of the community. They still do. We just take them for granted.</p>",
+        "<p>Meanwhile, Salmon are coming home to spawn each year expecting home to be there when they arrive.</p>",
+        "<h3 style='padding-top: 32px;'>Open Source Coding Philosophy</h3>",
+        "<p>Mywater.world is powered by Mapseed, an open source map-based data collection tool. Mapseed powers community engagement through beautiful visuals and powerful data aggregation tools. Read more about Mapseed <a target='_blank' href='https://mapseed.org'>here!</a></p>",
+        "<h3 style='padding-top: 32px;'>Thank you to our Funders and Sponsors</h3>",
+        "<p>Thank you <a tagret='_blank' href='https://cascadewater.org/'>Cascade Water Alliance</a> for supporting student and teacher research on SNOTEL data analysis as a foundational understanding for water resource management decision making. And for supporting the original design of the PBL Curriculum Design Lab and Teacher Fellows Program.</p>",
+        "<img style='width: 50%;' src='https://cascadewater.org/wp-content/themes/cascadewater/images/cascade-water-main-logo.png' />",
+        "<p style='padding-top: 32px;'>Thank you King County WaterWorks Grant Program for supporting partnership building, curriculum design, and student impact projects related to water quality.</p>",
+        "<img style='width: 50%;' src='/static/css/images/king-county-wastewater-logo.png' />",
+        "<p style='padding-top: 32px;'>A big thank you to <a target='_blank' href='https://trff.org/'>The Russell Family Foundation</a> for your support of our growth and stability as a learning organization. You are a creative and insightful partner in philanthropy.</p>",
+        "<img style='width: 50%;' src='/static/css/images/russell-family-foundation-logo.png' />",
+        "<h3 style='padding-top: 32px;'>About Sustainability Ambassadors</h3>",
+        "<p>The Community impact mapping website is a product of Sustainability Ambassadors. We are a professional development program for student leaders, teacher leaders, and community leaders committed to <strong><em>rapidly advance a sustainable future</em></strong> by aligning classroom rigor with community relevance for real world impact.</p>",
+        "<p>We support a year-round training program for highly motivated youth, a paid Equity Advocacy Internship, a Green Jobs Youth Pathways Portal, and a Teacher Fellows Program, working with hundreds of educators to design new models of problem-based, place-based learning around a shared vision of <strong><em>educating for sustainability.</em></strong></p>",
+        "<p>We focus on middle school and high school youth, the teachers and school districts that guide their learning, and the community stakeholders, local government and business leaders who are relying on the next generation to be engaged voters, informed taxpayers, conscious consumers, and employees who can create and lead sustainability initiatives.</p>",
+        "<p>Get the latest resources and impact stories: <a target='_blank' href='https://www.sustainabilityambassadors.org/connect'>SIGN UP</a></p>",
+        "<p><a target='_blank' href='https://www.flipcause.com/secure/cause_pdetails/MTk4MDM='>DONATE</a> today to help us build this map tool and reach more students and teachers.</p>",
+        "<p style='padding-bottom: 32px;'>Visit: <a target='_blank' href='https://www.sustainabilityambassadors.org/'>https://www.sustainabilityambassadors.org</a></p>"
+      ]
     }
   ]
 }
