@@ -4295,7 +4295,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-seattle-historical-aerial' />",
         "<figure class='mwl__gallery-item' data-tags='demographics history transportationsystems'>",
         "<label for='gallery-item-seattle-historical-aerial'>",
-        "<img src='/static/css/images/maps-we-love-thumbs/seattle-historical-aerial-v3.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/seattle-historical-aerial.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
