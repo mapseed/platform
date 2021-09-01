@@ -200,7 +200,7 @@
       {
         "id": "f4",
         "basemap": true,
-        "visibleDefault": false,
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "f4-basemap",
@@ -215,7 +215,7 @@
       {
         "id": "satellite",
         "basemap": true,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "satellite-basemap",
