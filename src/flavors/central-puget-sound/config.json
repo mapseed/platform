@@ -1612,27 +1612,63 @@
           },
           {
             "layerGroupId": "hydrography",
-            "title": "Hydrography"
+            "title": "Hydrography",
+            "modal": {
+              "header": "Hydrography",
+              "body": [
+                "The hydrography base map layer shows the shapes of shorelines of rivers, lakes, and oceans. \"Hydro\" is a Greek root meaning \"water,\" which explains why hydrography is the science and study of surveying and charting bodies of water. Compare this to the Bathymetry layer!"
+              ]
+            }
           },
           {
             "layerGroupId": "bath",
-            "title": "Bathymetry"
+            "title": "Bathymetry",
+            "modal": {
+              "header": "Bathymetry",
+              "body": [
+                "Bathymetry studies the land shapes, depths, and slopes of bodies of water. It is like an underwater hillshade layer! Land features include administrative boundaries, cities, inland waters, roads overlaid on land cover, and shaded relief imagery. This layer might catch the eye of anyone interested in ocean data, including marine GIS professionals."
+              ]
+            }
           },
           {
             "layerGroupId": "satellite",
-            "title": "Satellite View"
+            "title": "Satellite View",
+            "modal": {
+              "header": "Satellite View",
+              "body": [
+                "The satellite view shows overhead imagery of an area. Satellites are artificial bodies placed in orbit around the earth to collect information, in this case, images of the land. Airplanes and drones may take closer photos. See how the quality changes at different zoom levels!"
+              ]
+            }
           },
           {
             "layerGroupId": "1936aerial",
-            "title": "1936 Aerial View"
+            "title": "1936 Aerial View",
+            "modal": {
+              "header": "1936 Aerial View",
+              "body": [
+                "This map layer was built from individual photos taken from a slow-moving airplane in 1936. They used a big camera and generated a 3-foot by 3-foot footprint. They only took pictures of the more populated areas of King County that were of interest at the time. The prints were mounted on a hardboard and stored away. Then, each hardboard print was scanned and blended to make the digital layer. The original 0.5-foot pixel resolution was resampled to a 1-foot pixel. The purpose of the imagery is to provide historical comparison and accurately identify and archive related historical documents. 1936 was likely the time of your great-grandparents. Focus on a neighborhood, crossroads, or commercial crossroads. Ask yourself: if you were a kid in 1936, what would you know? What would your day be like? How much did a loaf of bread cost or a dinner out with your family? Did your family have a car? A phone? A radio? Did most houses have a vegetable garden?"
+              ]
+            }
           },
           {
             "layerGroupId": "1998aerial",
-            "title": "1998 Aerial View"
+            "title": "1998 Aerial View",
+            "modal": {
+              "header": "1998 Aerial View",
+              "body": [
+                "This map layer details 1998 panchromatic black-and-white aerial imagery from airplanes featuring King County and southwestern Snohomish County. The Washington State Department of Natural Resources acquired the imagery at a resolution of 3 feet per pixel under leaf-on conditions."
+              ]
+            }
           },
           {
             "layerGroupId": "light-nolabels",
-            "title": "Simple Canvas"
+            "title": "Simple Canvas",
+            "modal": {
+              "header": "Simple Canvas",
+              "body": [
+                "The simple canvas base layer shows roads, parks, and bodies of water but all in greyscale. It helps provide context as you explore other layers without being distracting."
+              ]
+            }
           }
         ]
       },
@@ -1641,7 +1677,13 @@
         "options": [
           {
             "layerGroupId": "mywater-new-projects",
-            "title": "Projects"
+            "title": "Projects",
+            "modal": {
+              "header": "Projects",
+              "body": [
+                "The projects layer highlights projects in the King County area advancing the community towards a more just and sustainable world."
+              ]
+            }
           }
         ]
       },
@@ -1658,7 +1700,13 @@
           },
           {
             "layerGroupId": "washington-waus",
-            "title": "Sub-Basin Boundaries"
+            "title": "Sub-Basin Boundaries",
+            "modal": {
+              "header": "Sub-Basin Boundaries",
+              "body": [
+                "Sub-basins are smaller regions within watersheds. All water within a sub-basin flows to a mutual outlet, like a river or lake. Within sub-basins, we find even smaller areas called catchments. See if you can find the sub-basin and catchment that your home or school is near. Can you picture the boundaries of the catchment? Do they correspond to geographic features like ridges or hills? Try switching on the topography base map too! Do you see any relationship between topography and catchments?"
+              ]
+            }
           }
         ]
       },
@@ -1667,39 +1715,83 @@
         "options": [
           {
             "layerGroupId": "longhouses",
-            "title": "Historical Longhouse Sites"
+            "title": "Historical Longhouse Sites",
+            "modal": {
+              "header": "Historical Longhouse Sites",
+              "body": [
+                "This layer reveals the approximate sites where traditional Salish villages of the Puget Sound region were. It is fascinating to analyze the many clusters along rivers and lakes. If we assume one village may be inhabited by several hundred people, how could there be this many villages so close together? Were salmon so incredibly abundant that all of these people could thrive? The information for this map layer was geolocated by students, site by site, from an original digital map created by Tom Dailey sometime before 2010. A record of the original map is in a blog called Northwest Coast Archaeology. Although there hasn't been much activity over the last decade, the map lives on."
+              ]
+            }
           },
           {
             "layerGroupId": "duwamish-original",
-            "title": "Historical Duwamish River"
+            "title": "Historical Duwamish River",
+            "modal": {
+              "header": "Historical Duwamish River",
+              "body": [
+                "In the early 1900s, the area near the river's mouth was dredged and straightened out to benefit industrial development. Click on this layer to see the original path of the river and how much it has changed."
+              ]
+            }
           },
           {
             "layerGroupId": "contour",
             "title": "Contour Lines",
             "modal": {
               "header": "Contour Lines",
-              "body": "Contour Lines are lines of constant elevation (aka isolines), which means every point in one of the lines is the same height above sea level. These lines help show the topography or shape of the land, notice an area where the lines get really close together, this means an area of rapid height change i.e. a steep slope. Zoom in to see elevation labels and notice how the scale changes at different zoom levels!"
+              "body": [
+                "Contour Lines are lines of constant elevation (aka isolines), which means every point in one of the lines is the same height above sea level. These lines help show the topography or shape of the land, notice an area where the lines get really close together, this means an area of rapid height change i.e. a steep slope. Zoom in to see elevation labels and notice how the scale changes at different zoom levels!"
+              ]
             }
           },
           {
             "layerGroupId": "impervious",
-            "title": "Impervious Surface Area"
+            "title": "Impervious Surface Area",
+            "modal": {
+              "header": "Impervious Surface Area",
+              "body": [
+                "Impervious surfaces are areas that don’t allow water to pass through. For example, buildings and concrete pavement (exceptions apply) are impervious surfaces and change how water moves, flows, and picks up pollutants. Which areas are the darkest, meaning they have the most impervious surfaces? Data for this map layer is sourced from King County and covers most of Central Puget Sound."
+              ]
+            }
           },
           {
             "layerGroupId": "king-county-riparian-sun-map",
-            "title": "Riparian Solar Analysis"
+            "title": "Riparian Solar Analysis",
+            "modal": {
+              "header": "Riparian Solar Analysis",
+              "body": [
+                "This layer categorizes sections along the riverbanks as low, medium, high, or critical. The amount of solar radiation hitting an area will determine stream temperature. \"Riparian\" refers to the banks and adjacent wetlands of rivers, while \"solar\" refers to how much sunlight is reaching an area."
+              ]
+            }
           },
           {
             "layerGroupId": "sewer",
-            "title": "Sewer lines"
+            "title": "Wastewater System",
+            "modal": {
+              "header": "Wastewater System",
+              "body": [
+                "The wastewater system layer shows sewer lines that transport wastewater from your home, school, or business that the city maintains through larger pipes to the treatment centers that King County maintains."
+              ]
+            }
           },
           {
             "layerGroupId": "commfood",
-            "title": "Farmers Markets"
+            "title": "Farmers Markets",
+            "modal": {
+              "header": "Farmers Markets",
+              "body": [
+                "A farmers market is a place for local farmers to sell fresh produce and dairy, meat, and bakery products directly to buyers, usually in an outdoor booth setting. Who has the most access to fresh, organic, local, and sustainable food? Is there a farmers market near you?"
+              ]
+            }
           },
           {
             "layerGroupId": "wa-fish-distribution-wria-3-13",
-            "title": "Salmon Spawning Sites"
+            "title": "Salmon Spawning Sites",
+            "modal": {
+              "header": "Salmon Spawning Sites",
+              "body": [
+                "Salmon complete their life cycle by spawning in the same freshwater streams in which they were born. It is crucial to protect these areas to keep salmon, a keystone species, healthy."
+              ]
+            }
           },
           {
             "layerGroupId": "watershed-snohomish",
@@ -1756,19 +1848,43 @@
         "options": [
           {
             "layerGroupId": "landuse",
-            "title": "Land Use"
+            "title": "Land Use",
+            "modal": {
+              "header": "Land Use",
+              "body": [
+                "Land use revolves around the construction of settlements and semi-natural habitats through the modification of the natural environment. The land is often divided into sections corresponding with its use; some categories include rural area, forest, industrial/manufacturing, single/multi-residential, park/golf course/trail/open space, central business district, and agriculture-related."
+              ]
+            }
           },
           {
             "layerGroupId": "cities",
-            "title": "City Boundaries"
+            "title": "City Boundaries",
+            "modal": {
+              "header": "City Boundaries",
+              "body": [
+                "A boundary is a real or imaginary line that separates two things. In geography, boundaries separate different regions of Earth. City boundaries are imaginary lines used to indicate the boundary of cities."
+              ]
+            }
           },
           {
             "layerGroupId": "school-boundaries",
-            "title": "School Districts"
+            "title": "School Districts",
+            "modal": {
+              "header": "School Districts",
+              "body": [
+                "School Districts are separated by imaginary lines to indicate single-purpose governmental units that operate local public primary and secondary schools. Notice the size of some districts compared to others, are there significant differences to report?"
+              ]
+            }
           },
           {
             "layerGroupId": "school-sites",
-            "title": "Schools and Colleges"
+            "title": "Schools and Colleges",
+            "modal": {
+              "header": "Schools and Colleges",
+              "body": [
+                "The Schools and Colleges map layer informs you of the location of many educational institutions in an area. Do you see schooling focused in a central location? Compare this layer with the School Districts map layer. What do you observe?"
+              ]
+            }
           }
         ]
       },
@@ -1777,23 +1893,53 @@
         "options": [
           {
             "layerGroupId": "tree-equity",
-            "title": "Tree Equity Score"
+            "title": "Tree Equity Score",
+            "modal": {
+              "header": "Tree Equity Score",
+              "body": [
+                "A Tree Equity Score indicates whether a neighborhood has enough trees to address environmental inequities like air pollution. A color correspondent indicates multiple scores, 100 represents tree equity has been reached, and 0 means tree equity has not been reached. Compare this layer to the City Boundaries map layer. Do you see tree equity differentiating between locations?"
+              ]
+            }
           },
           {
             "layerGroupId": "poverty",
-            "title": "% Below Double Poverty Level"
+            "title": "% Below Double Poverty Level",
+            "modal": {
+              "header": "% Below Double Povery Level",
+              "body": [
+                "This map layer portrays the percentage of neighborhoods below the Double Poverty Level in King County. The poverty line is the minimum amount of income thought to live off of in a country. A color correspondent indicates the percentage of the population below the line, a percentage of 50%+ means that more than half of the population is in poverty. Compare this layer to the Life Expectancy map layer. What conclusions can you draw between poverty and life expectancy?"
+              ]
+            }
           },
           {
             "layerGroupId": "people-of-color",
-            "title": "% People of Color"
+            "title": "% People of Color",
+            "modal": {
+              "header": "% People of Color",
+              "body": [
+                "This map layer portrays the percentage of people of color residing within neighborhoods in King County. A color correspondent indicates the percentage of POC residents, 50%+ means that more than half of the neighborhood residents are people of color."
+              ]
+            }
           },
           {
             "layerGroupId": "percent-foreign-born",
-            "title": "% Foreign Born"
+            "title": "% Foreign Born",
+            "modal": {
+              "header": "% Foreign Born",
+              "body": [
+                "This map layer portrays the percentage of foreign-born residents within neighborhoods in King County. A color correspondent indicates the percentage of foreign-born residents, 40%+ means that more than forty percent of the residents were born in a foreign nation."
+              ]
+            }
           },
           {
             "layerGroupId": "king-county-life-expectancy",
-            "title": "Life Expectancy"
+            "title": "Life Expectancy",
+            "modal": {
+              "header": "Life Expectancy",
+              "body": [
+                "This map layer portrays the life expectancy of residents within neighborhoods in King County. A color correspondent indicates the average lifetime in years of residents, and the lightest shade predicts less than 70 years, while the darkest predicts residents living more than 90 years. Compare this layer to the Tree Equity map layer. How important is a tree equity score to a neighborhood’s life expectancy?"
+              ]
+            }
           }
         ]
       }
@@ -2157,8 +2303,20 @@
       "content": [
         "<h2 id='stories__main-title'>Map Stories</h2>",
         "<h4 class='stories__title'>The WRIA 9 Watershed</h4>",
-        "<div class='videowrapper'><iframe src='https://drive.google.com/file/d/1V4ggunl9vxnUoUxswmmqjlmvm61fy6Jr/preview' width='640' height='480'></iframe></div>",
-        "<p class='stories__description'>Find out more about the various connections in the WRIA 9 Watershed in this informative video journey told through the eyes of a high school senior.</p>"
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/nauBHQaLDa0' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='stories__description'>Find out more about the various connections in the WRIA 9 Watershed in this informative video journey told through the eyes of a high school senior.</p>",
+        "<h4 class='stories__title'>Life Expectancy Exploration</h4>",
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/S70dTM4WdoA' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='stories__description'>Consider the factors that influence life expectancy, from poverty to environmental health, through this exploration on disparities across King County.</p>",
+        "<h4 class='stories__title'>Equitable Development</h4>",
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/KTRBAg-RdVA' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='stories__description'>Find out how demographic factors such as life expectancy influence equitable development in Bellevue and Kent in this educational video!</p>",
+        "<h4 class='stories__title'>Redlining</h4>",
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/C5iHx1dlACc' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='stories__description'>Learn about the modern day effects of Redlining in King County in this informative video journey using maps.</p>",
+        "<h4 class='stories__title'>Greenlining</h4>",
+        "<div class='videowrapper'><iframe width='560' height='315' src='https://www.youtube.com/embed/Gz-UwGBCzaU' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe></div>",
+        "<p class='stories__description'>Learn about the phenomenon of Greenlining which is slowly reversing the effects of Redlining in King County in this informative video journey using maps.</p>"
       ]
     },
     {
@@ -3790,7 +3948,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-health-disparities' />",
         "<figure class='mwl__gallery-item' data-tags='equity demographics'>",
         "<label for='gallery-item-health-disparities'>",
-        "<img src='/static/css/images/gallery-header__health-disparities-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/health-disparities.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Equity</span>",
@@ -3806,7 +3964,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-native-land' />",
         "<figure class='mwl__gallery-item' data-tags='indigenous history salmon'>",
         "<label for='gallery-item-native-land'>",
-        "<img src='/static/css/images/gallery-header__native-land-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/native-land.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Indigenous</span>",
@@ -3827,7 +3985,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-segregation' />",
         "<figure class='mwl__gallery-item' data-tags='demographics equity history'>",
         "<label for='gallery-item-segregation'>",
-        "<img src='/static/css/images/gallery-header__segregation-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/segregation.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -3844,7 +4002,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-treaty-ceded' />",
         "<figure class='mwl__gallery-item' data-tags='indigenous history salmon'>",
         "<label for='gallery-item-treaty-ceded'>",
-        "<img src='/static/css/images/gallery-header__treaty-ceded-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/treaty-ceded.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Indigenous</span>",
@@ -3861,7 +4019,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-recognized-tribes' />",
         "<figure class='mwl__gallery-item' data-tags='indigenous equity'>",
         "<label for='gallery-item-recognized-tribes'>",
-        "<img src='/static/css/images/gallery-header__recognized-tribes-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/recognized-tribes.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Indigenous</span>",
@@ -3877,7 +4035,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-toxins' />",
         "<figure class='mwl__gallery-item' data-tags='watersystems pollution salmon'>",
         "<label for='gallery-item-toxins'>",
-        "<img src='/static/css/images/gallery-header__toxins-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/toxins.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Water Systems</span>",
@@ -3896,10 +4054,28 @@
         "</figcaption>",
         "</label>",
         "</figure>",
+        "<input type='radio' name='gallery-items' id='gallery-item-wria-finder' />",
+        "<figure class='mwl__gallery-item' data-tags='watersystems pollution salmon climatechange'>",
+        "<label for='gallery-item-wria-finder'>",
+        "<img src='/static/css/images/maps-we-love-thumbs/wria-finder.png' />",
+        "<figcaption>",
+        "<div class='mwl__gallery-item-eyebrow-container'>",
+        "<span class='mwl__gallery-item-eyebrow-text'>Water Systems</span>",
+        "<span class='mwl__gallery-item-eyebrow-text'>Pollution</span>",
+        "<span class='mwl__gallery-item-eyebrow-text'>Salmon</span>",
+        "<span class='mwl__gallery-item-eyebrow-text'>Climate Change</span>",
+        "</div>",
+        "<a target='__blank' href='https://ecology.wa.gov/Water-Shorelines/Water-supply/Water-availability/Watershed-look-up'>",
+        "<h4 class='mwl__title'>Washington Statewide WRIA Finder Map</h4>",
+        "</a>",
+        "<p class='mwl__description'>This map displays the 62 WRIAs (Water Resource Inventory Area) in Washington State. Type in your address or town name to find yours! Knowing your WRIA can help you find information about water availability, regulations, and more.</p>",
+        "</figcaption>",
+        "</label>",
+        "</figure>",
         "<input type='radio' name='gallery-items' id='gallery-item-salmon-spawn-sites' />",
         "<figure class='mwl__gallery-item' data-tags='salmon watersystems'>",
         "<label for='gallery-item-salmon-spawn-sites'>",
-        "<img src='/static/css/images/gallery-header__salmon-spawn-sites-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/salmon-spawn-sites.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Salmon</span>",
@@ -3915,7 +4091,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-kc-demographics' />",
         "<figure class='mwl__gallery-item' data-tags='demographics equity'>",
         "<label for='gallery-item-kc-demographics'>",
-        "<img src='/static/css/images/gallery-header__kc-demographics-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/kc-demographics.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -3931,7 +4107,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-census-bureau' />",
         "<figure class='mwl__gallery-item' data-tags='demographics equity'>",
         "<label for='gallery-item-census-bureau'>",
-        "<img src='/static/css/images/gallery-header__census-bureau-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/census-bureau.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -3947,7 +4123,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-redlining' />",
         "<figure class='mwl__gallery-item' data-tags='equity history demographics'>",
         "<label for='gallery-item-redlining'>",
-        "<img src='/static/css/images/gallery-header__redlining-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/redlining.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Equity</span>",
@@ -3964,7 +4140,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-food-access' />",
         "<figure class='mwl__gallery-item' data-tags='foodsystems equity demographics'>",
         "<label for='gallery-item-food-access'>",
-        "<img src='/static/css/images/gallery-header__food-access-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/food-access.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Food Systems</span>",
@@ -3986,7 +4162,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-built-green' />",
         "<figure class='mwl__gallery-item' data-tags='greenbuilding'>",
         "<label for='gallery-item-built-green'>",
-        "<img src='/static/css/images/gallery-header__built-green-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/built-green.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Green Building</span>",
@@ -4001,7 +4177,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-salmonscape' />",
         "<figure class='mwl__gallery-item' data-tags='salmon watersystems pollution'>",
         "<label for='gallery-item-salmonscape'>",
-        "<img src='/static/css/images/gallery-header__salmonscape-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/salmonscape.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Salmon</span>",
@@ -4018,7 +4194,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-waterlines' />",
         "<figure class='mwl__gallery-item' data-tags='indigenous watersystems history salmon'>",
         "<label for='gallery-item-waterlines'>",
-        "<img src='/static/css/images/gallery-header__waterlines-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/waterlines.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Indigenous</span>",
@@ -4036,7 +4212,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-fit-for-a-king' />",
         "<figure class='mwl__gallery-item' data-tags='watersystems history salmon pollution'>",
         "<label for='gallery-item-fit-for-a-king'>",
-        "<img src='/static/css/images/gallery-header__fit-for-a-king-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/fit-for-a-king.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Water Systems</span>",
@@ -4059,7 +4235,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-kc-trails' />",
         "<figure class='mwl__gallery-item' data-tags='transportationsystems'>",
         "<label for='gallery-item-kc-trails'>",
-        "<img src='/static/css/images/gallery-header__kc-trails-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/kc-trails.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Transportation Systems</span>",
@@ -4074,7 +4250,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-bikes' />",
         "<figure class='mwl__gallery-item' data-tags='transportationsystems'>",
         "<label for='gallery-item-bikes'>",
-        "<img src='/static/css/images/gallery-header__bikes-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/bikes.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Transportation Systems</span>",
@@ -4094,7 +4270,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-green-infrastructure' />",
         "<figure class='mwl__gallery-item' data-tags='greenbuilding watersystems'>",
         "<label for='gallery-item-green-infrastructure'>",
-        "<img src='/static/css/images/gallery-header__green-infrastructure-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/green-infrastructure.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Green Building</span>",
@@ -4123,7 +4299,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-sewer-outfalls' />",
         "<figure class='mwl__gallery-item' data-tags='watersystems pollution'>",
         "<label for='gallery-item-sewer-outfalls'>",
-        "<img src='/static/css/images/gallery-header__sewer-outfalls-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/sewer-outfalls.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Water Systems</span>",
@@ -4139,7 +4315,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-walk-score' />",
         "<figure class='mwl__gallery-item' data-tags='transportationsystems greenbuilding'>",
         "<label for='gallery-item-walk-score'>",
-        "<img src='/static/css/images/gallery-header__walk-score-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/walk-score.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Transportation Systems</span>",
@@ -4155,7 +4331,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-kent-surface-drainage' />",
         "<figure class='mwl__gallery-item' data-tags='watersystems pollution'>",
         "<label for='gallery-item-kent-surface-drainage'>",
-        "<img src='/static/css/images/gallery-header__kent-surface-drainage-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/kent-surface-drainage.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Water Systems</span>",
@@ -4171,7 +4347,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-priority-tree-planting' />",
         "<figure class='mwl__gallery-item' data-tags='salmon watersystems pollution'>",
         "<label for='gallery-item-priority-tree-planting'>",
-        "<img src='/static/css/images/gallery-header__priority-tree-planting-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/priority-tree-planting.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Salmon</span>",
@@ -4192,7 +4368,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-freshwater-chinook-salmon' />",
         "<figure class='mwl__gallery-item' data-tags='salmon watersystems'>",
         "<label for='gallery-item-freshwater-chinook-salmon'>",
-        "<img src='/static/css/images/gallery-header__chinook-distribution-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/chinook-distribution.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Salmon</span>",
@@ -4212,7 +4388,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-seattle-maps' />",
         "<figure class='mwl__gallery-item' data-tags='transportationsystems'>",
         "<label for='gallery-item-seattle-maps'>",
-        "<img src='/static/css/images/gallery-header__seattle-maps-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/seattle-maps.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Transportation Systems</span>",
@@ -4227,7 +4403,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-bellevue-maps' />",
         "<figure class='mwl__gallery-item' data-tags='demographics salmon watersystems pollution foodsystems greenbuilding transportationsystems'>",
         "<label for='gallery-item-bellevue-maps'>",
-        "<img src='/static/css/images/gallery-header__bellevue-maps-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/bellevue-maps.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4248,7 +4424,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-seattle-historical-maps' />",
         "<figure class='mwl__gallery-item' data-tags='demographics history transportationsystems'>",
         "<label for='gallery-item-seattle-historical-maps'>",
-        "<img src='/static/css/images/gallery-header__seattle-maps-historical-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/seattle-maps-historical.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4265,7 +4441,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-seattle-historical-aerial' />",
         "<figure class='mwl__gallery-item' data-tags='demographics history transportationsystems'>",
         "<label for='gallery-item-seattle-historical-aerial'>",
-        "<img src='/static/css/images/gallery-header__seattle-historical-aerial-v3.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/seattle-historical-aerial.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4282,7 +4458,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-seattle-historical-1909' />",
         "<figure class='mwl__gallery-item' data-tags='demographics indigenous history salmon watersystems pollution transportationsystems'>",
         "<label for='gallery-item-seattle-historical-1909'>",
-        "<img src='/static/css/images/gallery-header__seattle-historical-1909-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/seattle-historical-1909.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4303,7 +4479,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-lake-washington-1897' />",
         "<figure class='mwl__gallery-item' data-tags='demographics indigenous history salmon watersystems pollution transportationsystems'>",
         "<label for='gallery-item-lake-washington-1897'>",
-        "<img src='/static/css/images/gallery-header__seattle-lake-washington-1897-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/seattle-lake-washington-1897.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4324,7 +4500,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-commuting-biking' />",
         "<figure class='mwl__gallery-item' data-tags='demographics equity transportationsystems'>",
         "<label for='gallery-item-commuting-biking'>",
-        "<img src='/static/css/images/gallery-header__commuting-biking-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/commuting-biking.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4341,7 +4517,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-commuting-walking' />",
         "<figure class='mwl__gallery-item' data-tags='demographics equity transportationsystems'>",
         "<label for='gallery-item-commuting-walking'>",
-        "<img src='/static/css/images/gallery-header__commuting-walking-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/commuting-walking.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4358,7 +4534,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-seattle-waterfront-1856' />",
         "<figure class='mwl__gallery-item' data-tags='demographics indigenous history'>",
         "<label for='gallery-item-seattle-waterfront-1856'>",
-        "<img src='/static/css/images/gallery-header__seattle-waterfront-1856-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/seattle-waterfront-1856.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4375,7 +4551,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-then-what-happened' />",
         "<figure class='mwl__gallery-item' data-tags='demographics indigenous history salmon watersystems pollution foodsystems greenbuilding transportationsystems'>",
         "<label for='gallery-item-then-what-happened'>",
-        "<img src='/static/css/images/gallery-header__then-what-happened-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/then-what-happened.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4398,7 +4574,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-natural-resource-maps' />",
         "<figure class='mwl__gallery-item' data-tags='salmon watersystems'>",
         "<label for='gallery-item-natural-resource-maps'>",
-        "<img src='/static/css/images/gallery-header__natural-resource-maps-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/natural-resource-maps.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Salmon</span>",
@@ -4414,7 +4590,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-historical-aerial-photos' />",
         "<figure class='mwl__gallery-item' data-tags='demographics history salmon watersystems pollution foodsystems greenbuilding transportationsystems'>",
         "<label for='gallery-item-historical-aerial-photos'>",
-        "<img src='/static/css/images/gallery-header__historical-aerial-photos-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/historical-aerial-photos.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4436,7 +4612,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-georgetown-unhealthy' />",
         "<figure class='mwl__gallery-item' data-tags='demographics equity pollution foodsystems transportationsystems'>",
         "<label for='gallery-item-georgetown-unhealthy'>",
-        "<img src='/static/css/images/gallery-header__georgetown-unhealthy-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/georgetown-unhealthy.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4455,7 +4631,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-sf-tap-water-stations' />",
         "<figure class='mwl__gallery-item' data-tags='watersystems'>",
         "<label for='gallery-item-sf-tap-water-stations'>",
-        "<img src='/static/css/images/gallery-header__sf-tap-water-stations-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/sf-tap-water-stations.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Water Systems</span>",
@@ -4470,7 +4646,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-tree-equity-score' />",
         "<figure class='mwl__gallery-item' data-tags='demographics pollution'>",
         "<label for='gallery-item-tree-equity-score'>",
-        "<img src='/static/css/images/gallery-header__tree-equity-score-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/tree-equity-score.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
@@ -4486,7 +4662,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-washington-snowpack' />",
         "<figure class='mwl__gallery-item' data-tags='watersystems'>",
         "<label for='gallery-item-washington-snowpack'>",
-        "<img src='/static/css/images/gallery-header__washington-snowpack-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/washington-snowpack.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Water Systems</span>",
@@ -4501,7 +4677,7 @@
         "<input type='radio' name='gallery-items' id='gallery-item-snowpack-historical' />",
         "<figure class='mwl__gallery-item' data-tags='climatechange watersystems salmon'>",
         "<label for='gallery-item-snowpack-historical'>",
-        "<img src='/static/css/images/gallery-header__snowpack-historical-v2.png' />",
+        "<img src='/static/css/images/maps-we-love-thumbs/snowpack-historical.png' />",
         "<figcaption>",
         "<div class='mwl__gallery-item-eyebrow-container'>",
         "<span class='mwl__gallery-item-eyebrow-text'>Climate Change</span>",
@@ -4520,7 +4696,37 @@
     },
     {
       "slug": "about",
-      "content": ["<h2>About this Map</h2>", "<p>Stay tuned....</p>"]
+      "content": [
+        "<h2>Welcome to Mywater.world!</h2>",
+        "<p>Zoom down to your neighborhood.</p>",
+        "<p>Play around with your watershed address.</p>",
+        "<p>What is your stream subbasin? Do storm drains on your street carry pollution to Puget Sound? What’s the equity tree score in your neighborhood? Why is there a geographic correlation between poverty, people of color, and life expectancy?</p>",
+        "<p>Switch <strong>Base Maps </strong>and mix and match <strong>Map Layers</strong> to discover the story of your place.</p>",
+        "<p>Click <strong>SWIPE</strong> to slide back and forth between any two layers to see what new stories are revealed to you.</p>",
+        "<p>Love maps? Click on <strong>LOVE</strong> to find a whole other world of maps we love. Be curious. Expand your geographic literacy. When you think about it, what human story is not anchored to the landscape in some way?</p>",
+        "<p>Teachers will find <strong>LESSONS</strong> that help design map reading into lots of different academic subjects</p>",
+        "<h3 style='padding-top: 32px;'>Take action!</h3>",
+        "<p>Click on any of the “little green dots” to be inspired by youth-led <strong>Impact Projects</strong>, curriculum-driven <strong>Classroom Projects</strong>, and Community <strong>Case Studies</strong> led by our nonprofit partners or by local governments like your city and county.</p>",
+        "<p>Click on the <strong>STORIES</strong> tab to see inspired student examples of getting lost and found in a map journey through a series of self-imposed questions. Curiosity is a sign of intelligence! Write your own map story.</p>",
+        "<p><strong>Since time immemorial</strong> the native people of this land have known every stream,  meadow and floodplain. (Click on the native village sites). They took good care of the land and water and the natural resources they depended on. The rivers were the freeways for commercial and cultural exchange. They formed the fundamental map stories of the community. They still do. We just take all of this for granted.</p>",
+        "<p>Meanwhile, Salmon are coming home to spawn each year expecting home to be there when they arrive.</p>",
+        "<h3 style='padding-top: 32px;'>Open Source Coding Philosophy</h3>",
+        "<p>Mywater.world is powered by Mapseed, an open source map-based data collection tool. Mapseed powers community engagement through beautiful visuals and powerful data aggregation tools. Since all of these maps are sourced openly from other places, not all of them have the same geographic reach. Some Base Maps cover the whole continent while some map layers cover only King County. Read more about Mapseed <a target='_blank' href='https://mapseed.org'>here!</a></p>",
+        "<h3 style='padding-top: 32px;'>Thank you to our Funders and Sponsors</h3>",
+        "<p>Thank you <strong>Cascade Water Alliance</strong> for supporting student and teacher research on SNOTEL data analysis as a foundational understanding for water resource management decision making. And for supporting the original design of the PBL Curriculum Design Lab and Teacher Fellows Program.</p>",
+        "<img style='width: 25%;' src='https://cascadewater.org/wp-content/themes/cascadewater/images/cascade-water-main-logo.png' />",
+        "<p style='padding-top: 32px;'>Thank you <strong>King County WaterWorks Grant Program</strong> for supporting partnership building, curriculum design, and student impact projects related to water quality.</p>",
+        "<img style='width: 25%;' src='/static/css/images/king-county-wastewater-logo.png' />",
+        "<p style='padding-top: 32px;'>A big thank you to <strong>The Russell Family Foundation</strong> for your support of our growth and stability as a learning organization. You are a creative and insightful partner in philanthropy.</p>",
+        "<img style='width: 25%;' src='/static/css/images/russell-family-foundation-logo.png' />",
+        "<h3 style='padding-top: 32px;'>About Sustainability Ambassadors</h3>",
+        "<p>The Community impact mapping website is a product of Sustainability Ambassadors. We are a professional development program for student leaders, teacher leaders, and community leaders committed to <strong><em>rapidly advance a sustainable future</em></strong> by aligning classroom rigor with community relevance for real world impact.</p>",
+        "<p>We support a year-round training program for highly motivated youth, a paid Equity Advocacy Internship, a Green Jobs Youth Pathways Portal, and a Teacher Fellows Program, working with hundreds of educators to design new models of problem-based, place-based learning around a shared vision of <strong><em>educating for sustainability.</em></strong></p>",
+        "<p>We focus on middle school and high school youth, the teachers and school districts that guide their learning, and the community stakeholders, local government and business leaders who are relying on the next generation to be engaged voters, informed taxpayers, conscious consumers, and employees who can create and lead sustainability initiatives.</p>",
+        "<p>Get the latest resources and impact stories: <a target='_blank' href='https://www.sustainabilityambassadors.org/connect'>SIGN UP</a></p>",
+        "<p><a target='_blank' href='https://www.flipcause.com/secure/cause_pdetails/MTk4MDM='>DONATE</a> today to help us build this map tool and reach more students and teachers.</p>",
+        "<p style='padding-bottom: 32px;'>Visit: <a target='_blank' href='https://www.sustainabilityambassadors.org/'>https://www.sustainabilityambassadors.org</a></p>"
+      ]
     }
   ]
 }
