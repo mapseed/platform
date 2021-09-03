@@ -1750,6 +1750,13 @@
             "optional": true
           },
           {
+            "name": "referencia-fija-pdf",
+            "type": "pdf",
+            "prompt": "Referencias PDF",
+            "label": "Agregar un PDF",
+            "optional": true
+          },
+          {
             "name": "turbiedad",
             "type": "dropdown",
             "prompt": "Indique el estado del agua en el lugar y momento del reporte. Puede cargar una fotografía.",

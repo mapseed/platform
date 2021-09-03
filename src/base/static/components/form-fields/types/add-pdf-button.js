@@ -4,11 +4,11 @@ import classNames from "classnames";
 
 import FileField from "./file-field";
 
-import "./add-attachment-button.scss";
+//import "./add-pdf-button.scss";
 
 import Util from "../../../js/utils.js";
 
-class AddAttachmentButton extends Component {
+class AddPDFButton extends Component {
   constructor() {
     super();
     this.state = {
@@ -31,7 +31,7 @@ class AddAttachmentButton extends Component {
           this.props.onAddAttachment({
             name: this.props.name,
             file: result,
-            type: "CO"
+            type: "CO_PDF"
           })
         }
       );
@@ -51,7 +51,7 @@ class AddAttachmentButton extends Component {
           onChange={this.onChange}
           name={this.props.name}
           label={this.props.label}
-          accept="image/*"
+          accept="application/pdf"
         />
         <span className={cn}>{this.state.displayFilename}</span>
       </div>
@@ -59,7 +59,7 @@ class AddAttachmentButton extends Component {
   }
 }
 
-AddAttachmentButton.propTypes = {
+AddPDFButton.propTypes = {
   formId: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -67,4 +67,4 @@ AddAttachmentButton.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default AddAttachmentButton;
+export default AddPDFButton;

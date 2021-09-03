@@ -4,18 +4,22 @@ import PropTypes from "prop-types";
 import ResponseField from "../form-fields/response-field";
 import fieldResponseFilter from "../../utils/field-response-filter";
 import CoverImage from "../molecules/cover-image";
+import CoverPDF from "../molecules/cover-pdf";
 
 import { placePropType } from "../../state/ducks/places";
 
 const FieldSummary = props => {
-  console.log('!!!!', props.place)
-
   return (
     <div className="field-summary">
       {props.place.attachments
         .filter(attachment => attachment.type === "CO")
         .map((attachment, i) => (
           <CoverImage key={i} imageUrl={attachment.file} />
+        ))}
+      {props.place.attachments
+        .filter(attachment => attachment.type === "CO_PDF")
+        .map((attachment, i) => (
+          <CoverPDF key={i} pdfUrl={attachment.file} />
         ))}
       {fieldResponseFilter(props.fields, props.place).map(fieldConfig => (
         <ResponseField

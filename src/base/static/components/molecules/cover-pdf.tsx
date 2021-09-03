@@ -3,12 +3,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTranslation } from "react-i18next";
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 import { EditorButton } from "../atoms/buttons";
 
-import "./cover-image.scss";
-
-const CoverImage = props => {
+const CoverPDF = props => {
   return (
     <div
       css={css`
@@ -33,14 +32,10 @@ const CoverImage = props => {
           }}
         />
       )}
-      <img
-        css={css`
-          width: 100%;
-          max-width: 100%;
-        `}
-        src={props.imageUrl}
-        alt={props.t("coverImageAltText")}
-      />
+      <Document file={props.pdfUrl}>
+      {/* TODO: Multi-page PDFs */}
+        <Page pageNumber={1} />
+      </Document>
     </div>
   );
 };
@@ -51,10 +46,10 @@ CoverImage.defaultProps = {
 
 CoverImage.propTypes = {
   attachmentId: PropTypes.number,
-  imageUrl: PropTypes.string.isRequired,
+  pdfUrl: PropTypes.string.isRequired,
   isEditable: PropTypes.bool.isRequired,
   onClickRemove: PropTypes.func,
   t: PropTypes.func.isRequired,
 };
 
-export default withTranslation("CoverImage")(CoverImage);
+export default withTranslation("CoverPDF")(CoverPDF);
