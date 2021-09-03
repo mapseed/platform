@@ -17,7 +17,7 @@ const FieldSummary = props => {
           <CoverImage key={i} imageUrl={attachment.file} />
         ))}
       {props.place.attachments
-        .filter(attachment => attachment.type === "CO_PDF")
+        .filter(attachment => attachment.type === "PD")
         .map((attachment, i) => (
           <CoverPDF key={i} pdfUrl={attachment.file} />
         ))}
