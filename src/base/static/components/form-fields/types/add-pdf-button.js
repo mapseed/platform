@@ -31,7 +31,7 @@ class AddPDFButton extends Component {
           this.props.onAddAttachment({
             name: this.props.name,
             file: result,
-            type: "CO_PDF"
+            type: "PD"
           })
         }
       );
