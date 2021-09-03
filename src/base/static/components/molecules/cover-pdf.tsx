@@ -40,11 +40,11 @@ const CoverPDF = props => {
   );
 };
 
-CoverImage.defaultProps = {
+CoverPDF.defaultProps = {
   isEditable: false,
 };
 
-CoverImage.propTypes = {
+CoverPDF.propTypes = {
   attachmentId: PropTypes.number,
   pdfUrl: PropTypes.string.isRequired,
   isEditable: PropTypes.bool.isRequired,
