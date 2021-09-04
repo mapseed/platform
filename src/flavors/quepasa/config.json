@@ -2561,13 +2561,6 @@
             "optional": true
           },
           {
-            "name": "biodiversidad-pdf",
-            "type": "pdf",
-            "prompt": "¿Querés compartir un PDF? Hacelo acá.",
-            "label": "Agregar un PDF",
-            "optional": true
-          },
-          {
             "name": "biodiversidad_image_datetime",
             "type": "datetime",
             "prompt": "¿Cuándo tomaste la foto? Elegí la fecha en el calendario.",
@@ -3798,6 +3791,13 @@
           {
             "name": "my_image",
             "type": "common_form_element"
+          },
+          {
+            "name": "relocalizaciones-pdf",
+            "type": "pdf",
+            "prompt": "Comparte un PDF",
+            "label": "Agregar un PDF",
+            "optional": true
           },
           {
             "name": "submit",

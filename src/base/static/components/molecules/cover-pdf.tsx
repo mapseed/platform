@@ -3,17 +3,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTranslation } from "react-i18next";
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
 
 import { EditorButton } from "../atoms/buttons";
 
 const CoverPDF = props => {
-  const pdfContainerRef = React.useRef()
-  const [pdfContainerWidth, setPdfContainerWidth] = React.useState(200)
-  
+  const pdfContainerRef = React.useRef();
+  const [pdfContainerWidth, setPdfContainerWidth] = React.useState(200);
+  const [numPages, setNumPages] = React.useState(null);
+  const [pageNumber, setPageNumber] = React.useState(1);
+
   React.useEffect(() => {
-    setPdfContainerWidth(pdfContainerRef.current.getBoundingClientRect().width)
-  }, [setPdfContainerWidth, pdfContainerRef])
+    setPdfContainerWidth(pdfContainerRef.current.getBoundingClientRect().width);
+  }, [setPdfContainerWidth, pdfContainerRef]);
 
   return (
     <div
@@ -40,9 +42,12 @@ const CoverPDF = props => {
           }}
         />
       )}
-      <Document file={props.pdfUrl} renderMode="svg">
-      {/* TODO: Multi-page PDFs */}
-        <Page width={pdfContainerWidth} pageNumber={1} />
+      <Document
+        file={props.pdfUrl}
+        renderMode="svg"
+        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+      >
+        <Page width={pdfContainerWidth} pageNumber={pageNumber} />
       </Document>
     </div>
   );
