@@ -2101,9 +2101,9 @@
           {
             "name": "city-goal-alignment",
             "type": "rich_textarea",
-            "prompt": "Alignment with city goals",
+            "prompt": "Alignment with city, county, and community goals",
             "placeholder": "Provide annotated links to policies, plans or performance measures of your city or county government. Research your city’s “Climate Action Plan” or “Master Sustainability Plan” or “Environmental Stewardship Plan.” How does your project advance specific actions called out in one of these plans?",
-            "display_prompt": "Alignment with city goals"
+            "display_prompt": "Alignment with city, county, and community goals"
           },
           {
             "name": "stakeholders",
