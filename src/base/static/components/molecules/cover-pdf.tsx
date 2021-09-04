@@ -4,8 +4,11 @@ import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTranslation } from "react-i18next";
 import { Document, Page } from "react-pdf/dist/esm/entry.webpack";
+import Button from "@material-ui/core/Button";
+import { ChevronRight, ChevronLeft } from "@material-ui/icons";
 
 import { EditorButton } from "../atoms/buttons";
+import { SmallText } from "../atoms/typography";
 
 const CoverPDF = props => {
   const pdfContainerRef = React.useRef();
@@ -49,6 +52,19 @@ const CoverPDF = props => {
       >
         <Page width={pdfContainerWidth} pageNumber={pageNumber} />
       </Document>
+      {numPages && (
+        <>
+          <Button disabled={pageNumber === 1}>
+            <ChevronLeft onClick={() => setPageNumber(pageNumber - 1)} />
+          </Button>
+          <SmallText>
+            Page {pageNumber} of {numPages}
+          </SmallText>
+          <Button disabled={pageNumber === numPages}>
+            <ChevronRight onClick={() => setPageNumber(pageNumber + 1)} />
+          </Button>
+        </>
+      )}
     </div>
   );
 };
