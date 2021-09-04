@@ -11,7 +11,6 @@ import {
   DatetimeField,
   GeocodingField,
   AddAttachmentButton,
-  AddPDFButton,
   BigRadioField,
   BigCheckboxField,
   InputFormSubmitButton,
@@ -267,6 +266,7 @@ export default {
         onChange={context.onChange.bind(context)}
         label={fieldConfig.label}
         formId={context.props.formId}
+        mode="image"
       />
     ),
     getInitialValue: () => null,
@@ -275,12 +275,13 @@ export default {
   [constants.PDF_ATTACHMENT_FIELD_TYPENAME]: {
     getValidator: getPermissiveValidator,
     getComponent: (fieldConfig, context) => (
-      <AddPDFButton
+      <AddAttachmentButton
         name={fieldConfig.name}
         onAddAttachment={context.props.onAddAttachment.bind(context)}
         onChange={context.onChange.bind(context)}
         label={fieldConfig.label}
         formId={context.props.formId}
+        mode="pdf"
       />
     ),
     getInitialValue: () => null,

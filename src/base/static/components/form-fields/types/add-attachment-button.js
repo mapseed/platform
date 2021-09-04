@@ -8,6 +8,17 @@ import "./add-attachment-button.scss";
 
 import Util from "../../../js/utils.js";
 
+const MODES = {
+  image: {
+    accept: "image/*",
+    type: "CO"
+  },
+  pdf: {
+    accept: "application/pdf",
+    type: "PD"
+  }
+}
+
 class AddAttachmentButton extends Component {
   constructor() {
     super();
@@ -31,7 +42,7 @@ class AddAttachmentButton extends Component {
           this.props.onAddAttachment({
             name: this.props.name,
             file: result,
-            type: "CO"
+            type: MODES[this.props.mode].type
           })
         }
       );
@@ -51,12 +62,16 @@ class AddAttachmentButton extends Component {
           onChange={this.onChange}
           name={this.props.name}
           label={this.props.label}
-          accept="image/*"
+          accept={MODES[this.props.mode].accept}
         />
         <span className={cn}>{this.state.displayFilename}</span>
       </div>
     );
   }
+}
+
+AddAttachmentButton.defaultProps = {
+  mode: "image"
 }
 
 AddAttachmentButton.propTypes = {
@@ -65,6 +80,7 @@ AddAttachmentButton.propTypes = {
   label: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf(["image", "pdf"]),
 };
 
 export default AddAttachmentButton;

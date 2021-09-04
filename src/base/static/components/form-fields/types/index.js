@@ -17,7 +17,6 @@ export { default as TextField } from "./text-field";
 export { default as TextareaField } from "./textarea-field";
 export { default as ToggleField } from "./toggle-field";
 export { default as AddAttachmentButton } from "./add-attachment-button";
-export { default as AddPDFButton } from "./add-pdf-button";
 export { default as AutocompleteComboboxField } from "./autocomplete-combobox-field";
 export { default as BigCheckboxField } from "./big-checkbox-field";
 export { default as BigRadioField } from "./big-radio-field";
