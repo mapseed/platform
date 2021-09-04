@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { css, jsx } from "@emotion/core";
 import { withTranslation } from "react-i18next";
@@ -11,13 +11,17 @@ import { EditorButton } from "../atoms/buttons";
 import { SmallText } from "../atoms/typography";
 
 const CoverPDF = props => {
-  const pdfContainerRef = React.useRef();
-  const [pdfContainerWidth, setPdfContainerWidth] = React.useState(200);
+  const pdfContainerRef = React.useRef<HTMLDivElement>(null);
+  const [pdfContainerWidth, setPdfContainerWidth] = React.useState<number>(200);
   const [numPages, setNumPages] = React.useState(null);
   const [pageNumber, setPageNumber] = React.useState(1);
 
   React.useEffect(() => {
-    setPdfContainerWidth(pdfContainerRef.current.getBoundingClientRect().width);
+    if (pdfContainerRef?.current?.getBoundingClientRect().width) {
+      setPdfContainerWidth(
+        pdfContainerRef?.current?.getBoundingClientRect().width,
+      );
+    }
   }, [setPdfContainerWidth, pdfContainerRef]);
 
   return (
@@ -53,7 +57,7 @@ const CoverPDF = props => {
         <Page width={pdfContainerWidth} pageNumber={pageNumber} />
       </Document>
       {numPages && (
-        <>
+        <Fragment>
           <Button disabled={pageNumber === 1}>
             <ChevronLeft onClick={() => setPageNumber(pageNumber - 1)} />
           </Button>
@@ -63,7 +67,7 @@ const CoverPDF = props => {
           <Button disabled={pageNumber === numPages}>
             <ChevronRight onClick={() => setPageNumber(pageNumber + 1)} />
           </Button>
-        </>
+        </Fragment>
       )}
     </div>
   );
