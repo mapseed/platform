@@ -1792,6 +1792,13 @@
             "optional": true
           },
           {
+            "name": "turbiedad-pdf",
+            "type": "pdf",
+            "prompt": "Referencias PDF",
+            "label": "Agregar un PDF",
+            "optional": true
+          },
+          {
             "name": "color",
             "type": "dropdown",
             "prompt": "Color del agua. Indica el color del agua en el lugar y momento del reporte.",
@@ -1954,6 +1961,13 @@
             "type": "file",
             "prompt": "Foto",
             "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
+            "name": "flotantes-pdf",
+            "type": "pdf",
+            "prompt": "PDF",
+            "label": "Agregar un PDF",
             "optional": true
           },
           {
@@ -2544,6 +2558,13 @@
             "prompt": "¿Querés compartir una foto de una especie que viste en este espacio? Hacelo acá.",
             "label": "📷 Agregar una imagen",
             "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "biodiversidad-pdf",
+            "type": "pdf",
+            "prompt": "¿Querés compartir un PDF? Hacelo acá.",
+            "label": "Agregar un PDF",
             "optional": true
           },
           {
