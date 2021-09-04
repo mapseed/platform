@@ -95,6 +95,7 @@
     "react-i18next": "~11.2.6",
     "react-map-gl": "^5.2.7",
     "react-modal": "~3.11.1",
+    "react-pdf": "^5.2.0",
     "react-quill": "~1.3.3",
     "react-redux": "~7.2.2",
     "react-router-dom": "^5.2.0",

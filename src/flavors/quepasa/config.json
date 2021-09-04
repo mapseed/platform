@@ -1750,6 +1750,13 @@
             "optional": true
           },
           {
+            "name": "referencia-fija-pdf",
+            "type": "pdf",
+            "prompt": "Referencias PDF",
+            "label": "Agregar un PDF",
+            "optional": true
+          },
+          {
             "name": "turbiedad",
             "type": "dropdown",
             "prompt": "Indique el estado del agua en el lugar y momento del reporte. Puede cargar una fotografía.",
@@ -1782,6 +1789,13 @@
             "type": "file",
             "prompt": "Referencias",
             "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
+            "name": "turbiedad-pdf",
+            "type": "pdf",
+            "prompt": "Referencias PDF",
+            "label": "Agregar un PDF",
             "optional": true
           },
           {
@@ -1947,6 +1961,13 @@
             "type": "file",
             "prompt": "Foto",
             "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
+            "name": "flotantes-pdf",
+            "type": "pdf",
+            "prompt": "PDF",
+            "label": "Agregar un PDF",
             "optional": true
           },
           {
@@ -3770,6 +3791,13 @@
           {
             "name": "my_image",
             "type": "common_form_element"
+          },
+          {
+            "name": "relocalizaciones-pdf",
+            "type": "pdf",
+            "prompt": "Comparte un PDF",
+            "label": "Agregar un PDF",
+            "optional": true
           },
           {
             "name": "submit",
