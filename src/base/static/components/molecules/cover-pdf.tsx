@@ -8,8 +8,16 @@ import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import { EditorButton } from "../atoms/buttons";
 
 const CoverPDF = props => {
+  const pdfContainerRef = React.useRef()
+  const [pdfContainerWidth, setPdfContainerWidth] = React.useState(200)
+  
+  React.useEffect(() => {
+    setPdfContainerWidth(pdfContainerRef.current.getBoundingClientRect().width)
+  }, [setPdfContainerWidth, pdfContainerRef])
+
   return (
     <div
+      ref={pdfContainerRef}
       css={css`
         position: relative;
         margin-top: 20px;
@@ -32,9 +40,9 @@ const CoverPDF = props => {
           }}
         />
       )}
-      <Document file={props.pdfUrl}>
+      <Document file={props.pdfUrl} renderMode="svg">
       {/* TODO: Multi-page PDFs */}
-        <Page pageNumber={1} />
+        <Page width={pdfContainerWidth} pageNumber={1} />
       </Document>
     </div>
   );
