@@ -76,19 +76,25 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
     <div
       className="mapseed-map-controls"
       css={{
-        position: "absolute",
-        top: "8px",
-        left: "8px",
+        "position": "absolute",
+        "bottom": "8px",
+        "right": "8px",
+        "display": "flex",
+        "align-items": "baseline",
       }}
     >
-      <NavigationControl onViewportChange={setViewport} />
       <GeolocateControl
         trackUserLocation={true}
         positionOptions={{ enableHighAccuracy: true, timeout: 6000 }}
-        style={{
-          marginTop: "8px",
-        }}
       />
+      <NavigationControl 
+        css={{
+          "display": "flex",
+        }}
+        showCompass={false}
+        onViewportChange={setViewport} 
+      />
+      {/*
       <CustomControl
         icon={props.leftSidebarConfig.icon}
         onClick={() => props.setLeftSidebarExpanded(true)}
@@ -102,7 +108,7 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
             )
           }
         />
-      )}
+      )}*/}
     </div>
   );
 };
