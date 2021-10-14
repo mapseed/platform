@@ -5,6 +5,7 @@ import placesReducer from "./ducks/places";
 import uiReducer from "./ducks/ui";
 import placeFiltersReducer from "./ducks/place-filters";
 import leftSidebarReducer from "./ducks/left-sidebar";
+import filtersReducer from "./ducks/filters";
 
 import appConfigReducer from "./ducks/app-config";
 import placeConfigReducer from "./ducks/place-config";
@@ -44,6 +45,7 @@ const reducers = combineReducers({
   activity: activityReducer,
   customComponentsConfig: customComponentsConfigReducer,
   flavorConfig: flavorConfigReducer,
+  filters: filtersReducer,
 });
 
 export default reducers;
