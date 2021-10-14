@@ -4,9 +4,7 @@ export default (fieldConfigs, place) => {
   if (!fieldConfigs) {
     return [];
   }
-
-  return fieldConfigs
-    .filter(
+  return fieldConfigs.filter(
       fieldConfig =>
         ![
           constants.SUBMIT_FIELD_TYPENAME,
@@ -22,5 +20,13 @@ export default (fieldConfigs, place) => {
         ].includes(fieldConfig.name),
     )
     .filter(fieldConfig => fieldConfig.name.indexOf("private-") !== 0)
-    .filter(fieldConfig => !!place[fieldConfig.name]);
+    .filter(fieldConfig => {
+      if(
+        place[fieldConfig.name] && 
+        !place[fieldConfig.name].includes('undefined') &&
+        place[fieldConfig.name] != 'no' // Maybe take some other value for check
+      )
+        return true
+      return false
+    });
 };
