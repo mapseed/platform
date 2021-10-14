@@ -496,7 +496,7 @@ class MapTemplate extends React.Component<Props, State> {
           {this.props.filtersConfig.components.length > 0 &&
             this.props.filtersConfig.components.map(
               (component, compIndex) => {
-                let options = this.props.filtersComponentOption;
+                let options = new Array();
                 component.options.forEach(option => {
                   let lg = this.props.layerGroups.byId[option.layerGroupId];  
                   if(lg.isVisible){

@@ -40,6 +40,11 @@ export const themePropType = PropTypes.shape({
   boxShadow: PropTypes.string,
 });
 
+export const privacyPolicyPropType = PropTypes.shape({
+  title: PropTypes.string,
+  content: PropTypes.string,
+});
+
 export const appConfigPropType = PropTypes.shape({
   title: PropTypes.string.isRequired,
   meta_description: PropTypes.string.isRequired,
@@ -58,6 +63,7 @@ export const appConfigPropType = PropTypes.shape({
   ),
   logo: PropTypes.string,
   show_name_in_header: PropTypes.bool,
+  privacyPolicy: PropTypes.privacyPolicyPropType
 });
 
 // Actions:
