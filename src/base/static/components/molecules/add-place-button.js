@@ -40,7 +40,7 @@ const AddPlaceButtonContainer = styled(props => (
       top: props.isGeocodeAddressBarEnabled
         ? `${constants.HEADER_HEIGHT + 62}px`
         : `${constants.HEADER_HEIGHT + 20}px`,
-      left: "60px",
+      left: "20px",
     },
   };
 });
