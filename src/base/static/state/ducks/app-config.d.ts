@@ -27,6 +27,11 @@ export type Theme = {
   boxShadow: string;
 };
 
+export type PrivacyPolicy = {
+  title: string;
+  content: string;
+}
+
 export type LoginProvider = {
   name: "google" | "twitter" | "discourse" | "facebook";
   provider: string; // eg: "discourse-hdk", "google-oauth2",
@@ -58,6 +63,7 @@ export type AppConfig = {
   show_name_in_header?: boolean;
   sharingProviders?: SharingProvidersConfig;
   show_timestamps?: boolean;
+  privacyPolicy?: PrivacyPolicy;
 };
 
 export const appConfigSelector: (state: any) => AppConfig;
