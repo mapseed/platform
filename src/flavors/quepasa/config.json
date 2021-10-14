@@ -52,9 +52,10 @@
       },
       "text": {
         "titleColor": "#75beb1",
-        "titleFontFamily": "PTSansBold, sans-serif",
-        "bodyFontFamily": "PTSans, sans-serif",
-        "navBarFontFamily": "PTSans, sans-serif"
+        "titleFontFamily": "Rubik-Regular, sans-serif",
+        "bodyFontFamily": "Rubik-Regular, sans-serif",
+        "navBarFontFamily": "Rubik-Regular, sans-serif",
+        "headerFontFamily": "Rubik-Regular, sans-serif"
       },
       "map": {
         "addPlaceButtonBackgroundColor": "#ea8a51",
