@@ -61,7 +61,11 @@
         "addPlaceButtonHoverBackgroundColor": "#efb491"
       }
     },
-    "sharingProviders": []
+    "sharingProviders": [],
+    "privacyPolicy" : {
+      "title": "Políticas de protección de datos",
+      "content": "Lorem ipsum at inereht lorem ipsum lala ira bervan loaf un llo"
+    }
   },
   "dashboard": [
     {
@@ -118,6 +122,7 @@
     "geocodeHint": [-34.700521, -59.254934],
     "geocodeFieldLabel": "Buscar una dirección ...",
     "geolocationOnload": false,
+    "geocodingEngine": "Mapbox",
     "mapViewport": {
       "latitude": -34.9211,
       "longitude": -58.81504,
@@ -547,7 +552,7 @@
           },
           {
             "layerGroupId": "quepasa-featured",
-            "title": "Racimos"
+            "title": "Recorrido del mapa"
           }
         ]
       },
@@ -602,6 +607,83 @@
   "activity": {
     "enabled": false
   },
+  "filters": {
+    "enabled": true,
+    "components": [
+      {
+        "title": "Mapas base:",
+        "options": [
+          {
+            "layerGroupId": "satellite",
+            "title": "Satélite"
+          },
+          {
+            "layerGroupId": "f4",
+            "title": "Calles"
+          }
+        ]
+      },
+      {
+        "title": "Reportes",
+        "options": [
+          {
+            "layerGroupId": "quepasa-input",
+            "title": "Reportes Territoriales"
+          },
+          {
+            "layerGroupId": "quepasa-featured",
+            "title": "Recorrido del mapa"
+          }
+        ]
+      },
+      {
+        "title": "Áreas Naturales",
+        "options": [
+          {
+            "layerGroupId": "riachuelo-subbasins",
+            "title": "Subcuencas"
+          },
+          {
+            "layerGroupId": "riachuelo-watercourses",
+            "title": "Cursos de agua"
+          },
+          {
+            "layerGroupId": "riachuelo-lineas-de-ribera",
+            "title": "Riachuelo Líneas de Ribera"
+          },
+          {
+            "layerGroupId": "riachuelo-areas-protegidas",
+            "title": "Áreas Protegidas Cuenca del Riachuelo"
+          },
+          {
+            "layerGroupId": "areas-naturales-protegidas",
+            "title": "Áreas Naturales Protegidas"
+          }
+        ]
+      },
+      {
+        "title": "Relocalización",
+        "options": [
+          {
+            "layerGroupId": "renabap",
+            "title": "RENABAP"
+          },
+          {
+            "layerGroupId": "riachuelo-villas-y-asentamientos-precarios",
+            "title": "Villas y Asentamientos Precarios"
+          },
+          {
+            "layerGroupId": "riachuelo-obras-convenio",
+            "title": "Obras Convenio"
+          },
+          {
+            "layerGroupId": "riachuelo-mesas-trabajo",
+            "title": "Mesas Trabajo"
+          }
+        ]
+      }
+    ]
+  },
   "place": {
     "adding_supported": true,
     "add_button_label": "Enviar un reporte",
@@ -622,7 +704,7 @@
         "datasetSlug": "quepasa-featured",
         "icon_url": "/static/css/images/markers/marker-amenaza.png",
         "value": "featured_place",
-        "label": "Racimos",
+        "label": "Recorrido del mapa",
         "fields": [
           {
             "name": "lng-lat",
@@ -681,6 +763,14 @@
             "name": "intro",
             "type": "informational_html",
             "content": "<h4>¿Querés reportar sobre calidad de agua? Podés hacerlo acá. Vas a poder informarte sobre parámetros de calidad de agua, evaluar situaciones de tu entorno próximo y contribuir subiendo fotos, imágenes, archivos, texto, links.</h4>"
+          },
+          {
+            "name": "private-address",
+            "type": "geocoding",
+            "prompt": " ",
+            "display_prompt": "Address",
+            "placeholder": "Enter your address",
+            "optional": false
           },
           {
             "name": "subcuenca-seleccion",
@@ -2009,6 +2099,14 @@
             "content": "<h4>¿Querés reportar algo sobre este área natural o contribuir aportando información? Podés hacerlo acá. Vas a poder seleccionar y subir fotos, imágenes, archivos, texto, links.</h4>"
           },
           {
+            "name": "private-address",
+            "type": "geocoding",
+            "prompt": " ",
+            "display_prompt": "Address",
+            "placeholder": "Enter your address",
+            "optional": false
+          },
+          {
             "name": "contribucion",
             "type": "dropdown",
             "prompt": "Tu contribución la hacés como:",
@@ -2945,6 +3043,14 @@
             "name": "intro",
             "type": "informational_html",
             "content": "<h4>¿Querés reportar o comentar sobre alguna situación vinculada al proceso de relocalización de algún barrio? Podés hacerlo completando el siguiente formulario. Vas a poder subir fotos, imágenes, archivos, texto.</h4>"
+          },
+          {
+            "name": "private-address",
+            "type": "geocoding",
+            "prompt": " ",
+            "display_prompt": "Address",
+            "placeholder": "Enter your address",
+            "optional": false
           },
           {
             "name": "municipio",
@@ -4179,7 +4285,7 @@
       "start_page": true
     },
     {
-      "title": "Racimos",
+      "title": "Recorrido del mapa",
       "type": "featuredPlacesMenu"
     }
   ],
@@ -4194,7 +4300,7 @@
   ],
   "featuredPlaces": {
     "name": "clusters",
-    "header": "Racimos",
+    "header": "Recorrido del mapa",
     "visibleLayerGroupIds": [
       "satellite",
       "renabap",
