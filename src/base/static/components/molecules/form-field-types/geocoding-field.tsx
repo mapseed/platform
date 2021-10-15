@@ -69,7 +69,7 @@ const GeocodingField: React.FunctionComponent<Props> = ({
       geocodeHint ? "&proximity=" + geocodeHint.join(",") : ""
     }${geocodeBoundingBox ? "&bbox=" + geocodeBoundingBox.join(",") : ""
     }${geocodeCountry ? "&country=" + geocodeCountry : ""}`;
-    
+
     fetch(url)
       .then(response => response.json())
       .then(data => {
