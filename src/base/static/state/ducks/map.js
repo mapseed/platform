@@ -19,6 +19,7 @@ export const mapConfigPropType = PropTypes.shape({
   geolocationEnabled: PropTypes.bool,
   geocodingBarEnabled: PropTypes.bool,
   geocodingEngine: PropTypes.string,
+  geocodingCountry: PropTypes.string,
   geocodeFieldLabel: PropTypes.string,
   geocodeHint: PropTypes.arrayOf(PropTypes.number),
   geocodeBoundingBox: PropTypes.arrayOf(PropTypes.number),

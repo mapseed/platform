@@ -121,6 +121,7 @@
     "geolocationEnabled": true,
     "geocodingBarEnabled": true,
     "geocodeHint": [-34.700521, -59.254934],
+    "geocodeCountry": "ar",
     "geocodeFieldLabel": "Buscar una dirección ...",
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",

@@ -39,7 +39,7 @@ type StateProps = {
 type Props = OwnProps & StateProps & WithTranslation;
 
 const GeocodingField: React.FunctionComponent<Props> = ({
-  mapConfig: { geocodeBoundingBox, geocodeHint },
+  mapConfig: { geocodeBoundingBox, geocodeHint, geocodeCountry },
   mapViewport,
   isTriggeringGeocode,
   value,
@@ -67,8 +67,9 @@ const GeocodingField: React.FunctionComponent<Props> = ({
       value,
     )}.json?access_token=${MAP_PROVIDER_TOKEN}${
       geocodeHint ? "&proximity=" + geocodeHint.join(",") : ""
-    }${geocodeBoundingBox ? "&bbox=" + geocodeBoundingBox.join(",") : ""}`;
-
+    }${geocodeBoundingBox ? "&bbox=" + geocodeBoundingBox.join(",") : ""
+    }${geocodeCountry ? "&country=" + geocodeCountry : ""}`;
+    
     fetch(url)
       .then(response => response.json())
       .then(data => {

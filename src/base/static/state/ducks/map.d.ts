@@ -84,6 +84,7 @@ export type MapConfig = {
   geocodingEngine: string;
   geocodeFieldLabel: string;
   geocodeHint: number[];
+  geocodeCountry: string;
   geocodeBoundingBox: number[];
   offlineBoundingBox?: OfflineConfig;
   scrollZoomAroundCenter: boolean;
