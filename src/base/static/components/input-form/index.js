@@ -431,120 +431,113 @@ class InputForm extends Component {
       return;
     }
 
-    this.setState({
-      messageSuccess: true,
-    });
-    
-    setTimeout(async () => {
+    Util.log("USER", "new-place", "successfully-add-place");
 
-      Util.log("USER", "new-place", "successfully-add-place");
+    // Save attachments.
+    if (this.attachments.length) {
+      await Promise.all(
+        this.attachments.map(async attachment => {
+          const attachmentResponse = await mapseedApiClient.attachments.create({
+            placeUrl: placeResponse.url,
+            attachment,
+            includePrivate: this.props.hasGroupAbilitiesInDatasets({
+              abilities: ["can_access_protected"],
+              datasetSlugs: [this.props.datasetSlug],
+              submissionSet: "places",
+            }),
+          });
+          if (attachmentResponse) {
+            placeResponse.attachments.push(attachmentResponse);
+            Util.log("USER", "dataset", "successfully-add-attachment");
+          } else {
+            alert("Oh dear. It looks like an attachment didn't save.");
+            Util.log("USER", "place", "fail-to-add-attachment");
+          }
+        }),
+      );
+    }
 
-      // Save attachments.
-      if (this.attachments.length) {
-        await Promise.all(
-          this.attachments.map(async attachment => {
-            const attachmentResponse = await mapseedApiClient.attachments.create({
-              placeUrl: placeResponse.url,
-              attachment,
-              includePrivate: this.props.hasGroupAbilitiesInDatasets({
-                abilities: ["can_access_protected"],
-                datasetSlugs: [this.props.datasetSlug],
-                submissionSet: "places",
-              }),
-            });
-            if (attachmentResponse) {
-              placeResponse.attachments.push(attachmentResponse);
-              Util.log("USER", "dataset", "successfully-add-attachment");
-            } else {
-              alert("Oh dear. It looks like an attachment didn't save.");
-              Util.log("USER", "place", "fail-to-add-attachment");
-            }
-          }),
-        );
-      }
+    // Generate a PDF for the user if configured to do so.
+    if (this.props.datasetReportSelector(this.props.datasetSlug)) {
+      mapseedPDFServiceClient.getPDF({
+        url: `${window.location.protocol}//${
+          window.location.host
+        }/print-report/${this.props.datasetClientSlugSelector(
+          this.props.datasetSlug,
+        )}/${placeResponse.id}`,
+        filename: this.props.datasetReportSelector(this.props.datasetSlug)
+          .filename,
+        jwtPublic: placeResponse.jwt_public,
+      });
+    }
 
-      // Generate a PDF for the user if configured to do so.
-      if (this.props.datasetReportSelector(this.props.datasetSlug)) {
-        mapseedPDFServiceClient.getPDF({
-          url: `${window.location.protocol}//${
-            window.location.host
-          }/print-report/${this.props.datasetClientSlugSelector(
+    const {
+      privateNonAdmin,
+      privateAdmin,
+      nonPrivate,
+    } = this.props.placeConfirmationModal(this.props.datasetSlug);
+    if (
+      placeResponse.private &&
+      this.props.hasGroupAbilitiesInDatasets({
+        abilities: ["can_access_protected"],
+        submissionSet: "places",
+        datasetSlugs: [this.props.datasetSlug],
+      })
+    ) {
+      // Private submission made by an admin.
+      if (privateAdmin) {
+        this.setState({
+          isInfoModalOpen: true,
+          infoModalHeader: privateAdmin.header,
+          infoModalBody: privateAdmin.body,
+          routeOnClose: `${this.props.datasetClientSlugSelector(
             this.props.datasetSlug,
           )}/${placeResponse.id}`,
-          filename: this.props.datasetReportSelector(this.props.datasetSlug)
-            .filename,
-          jwtPublic: placeResponse.jwt_public,
         });
-      }
-
-      const {
-        privateNonAdmin,
-        privateAdmin,
-        nonPrivate,
-      } = this.props.placeConfirmationModal(this.props.datasetSlug);
-      if (
-        placeResponse.private &&
-        this.props.hasGroupAbilitiesInDatasets({
-          abilities: ["can_access_protected"],
-          submissionSet: "places",
-          datasetSlugs: [this.props.datasetSlug],
-        })
-      ) {
-        // Private submission made by an admin.
-        if (privateAdmin) {
-          this.setState({
-            isInfoModalOpen: true,
-            infoModalHeader: privateAdmin.header,
-            infoModalBody: privateAdmin.body,
-            routeOnClose: `${this.props.datasetClientSlugSelector(
-              this.props.datasetSlug,
-            )}/${placeResponse.id}`,
-          });
-        } else {
-          this.props.history.push(
-            `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
-              placeResponse.id
-            }`,
-          );
-        }
-        this.defaultPostSave(placeResponse);
-      } else if (placeResponse.private) {
-        // Private submission made by a non-admin.
-        if (privateNonAdmin) {
-          this.setState({
-            isFormSubmitting: false,
-            showValidityStatus: false,
-            isInfoModalOpen: true,
-            infoModalHeader: privateNonAdmin.header,
-            infoModalBody: privateNonAdmin.body,
-            routeOnClose: "/",
-          });
-        } else {
-          this.props.history.push("/");
-        }
       } else {
-        // Public ("non-private") submission.
-        if (nonPrivate) {
-          this.setState({
-            isFormSubmitting: false,
-            showValidityStatus: false,
-            isInfoModalOpen: true,
-            infoModalHeader: nonPrivate.header,
-            infoModalBody: nonPrivate.body,
-            routeOnClose: `${this.props.datasetClientSlugSelector(
-              this.props.datasetSlug,
-            )}/${placeResponse.id}`,
-          });
-        } else {
-          this.props.history.push(
-            `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
-              placeResponse.id
-            }`,
-          );
-        }
-        this.defaultPostSave(placeResponse);
+        this.props.history.push(
+          `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
+            placeResponse.id
+          }`,
+        );
       }
-    }, 4000)
+      this.defaultPostSave(placeResponse);
+    } else if (placeResponse.private) {
+      // Private submission made by a non-admin.
+      if (privateNonAdmin) {
+        this.setState({
+          isFormSubmitting: false,
+          showValidityStatus: false,
+          isInfoModalOpen: true,
+          infoModalHeader: privateNonAdmin.header,
+          infoModalBody: privateNonAdmin.body,
+          routeOnClose: "/",
+        });
+      } else {
+        this.props.history.push("/");
+      }
+    } else {
+      // Public ("non-private") submission.
+      if (nonPrivate) {
+        this.setState({
+          isFormSubmitting: false,
+          showValidityStatus: false,
+          isInfoModalOpen: true,
+          infoModalHeader: nonPrivate.header,
+          infoModalBody: nonPrivate.body,
+          routeOnClose: `${this.props.datasetClientSlugSelector(
+            this.props.datasetSlug,
+          )}/${placeResponse.id}`,
+        });
+      } else {
+        this.props.history.push(
+          `${this.props.datasetClientSlugSelector(this.props.datasetSlug)}/${
+            placeResponse.id
+          }`,
+        );
+      }
+      this.defaultPostSave(placeResponse);
+    }
   };
 
   defaultPostSave(placeResponse) {
