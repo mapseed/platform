@@ -42,23 +42,24 @@
     "api_root": "https://dev-api.mapseed.org/api/v2/",
     "theme": {
       "brand": {
-        "primary": "#75beb1",
-        "secondary": "#5b5349",
-        "accent": "#ea8a51"
+        "primary": "#455a64",
+        "secondary": "#1c313a",
+        "accent": "#ffab00",
+        "light": "#ffffff"
       },
       "bg": {
-        "default": "#fcfeff",
-        "light": "#217b87"
+        "default": "#455a64",
+        "light": "#718792"
       },
       "text": {
-        "titleColor": "#75beb1",
-        "titleFontFamily": "PTSansBold, sans-serif",
-        "bodyFontFamily": "PTSans, sans-serif",
-        "navBarFontFamily": "PTSans, sans-serif"
+        "titleColor": "#ffffff",
+        "titleFontFamily": "Rubik, sans-serif",
+        "bodyFontFamily": "Rubik, sans-serif",
+        "navBarFontFamily": "Rubik, sans-serif"
       },
       "map": {
-        "addPlaceButtonBackgroundColor": "#ea8a51",
-        "addPlaceButtonHoverBackgroundColor": "#efb491"
+        "addPlaceButtonBackgroundColor": "#ffab00",
+        "addPlaceButtonHoverBackgroundColor": "#c67c00"
       }
     },
     "sharingProviders": []
@@ -200,7 +201,7 @@
       {
         "id": "f4",
         "basemap": true,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "f4-basemap",
@@ -215,7 +216,7 @@
       {
         "id": "satellite",
         "basemap": true,
-        "visibleDefault": false,
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "satellite-basemap",
@@ -249,7 +250,7 @@
       {
         "id": "riachuelo-areas-protegidas",
         "interactive": true,
-        "popupContent": "<h5 style='font-family: Roboto; font-weight: 300; margin: 6px 0 0 0;'>{{NAME}}</h5>",
+        "popupContent": "<h5 style='font-family: Rubik, sans-serif; font-weight: 400; margin: 0; padding:0 1rem;'>{{NAME}}</h5>",
         "visibleDefault": false,
         "mapboxLayers": [
           {
@@ -258,7 +259,7 @@
             "source-layer": "riachuelo-areas-protegidas",
             "type": "fill",
             "paint": {
-              "fill-color": "#31a354",
+              "fill-color": "#008e76",
               "fill-opacity": 0.7
             }
           },
@@ -268,7 +269,7 @@
             "source-layer": "riachuelo-areas-protegidas",
             "type": "line",
             "paint": {
-              "line-color": "#fff",
+              "line-color": "#008e76",
               "line-width": 1
             }
           }
@@ -284,7 +285,7 @@
             "source": "riachuelo-subbasins",
             "source-layer": "riachuelo-subbasins",
             "paint": {
-              "fill-color": "#3182bd",
+              "fill-color": "#70cce4",
               "fill-opacity": [
                 "interpolate",
                 ["linear"],
@@ -317,7 +318,7 @@
             "paint": {
               "text-color": "#000000",
               "text-halo-color": "#ffff00",
-              "text-halo-width": 0.5
+              "text-halo-width": 1
             }
           }
         ]
@@ -331,9 +332,9 @@
             "source-layer": "riachuelo-watercourses",
             "type": "line",
             "paint": {
-              "line-color": "#9ecae1",
+              "line-color": "#389bb2",
               "line-width": 2,
-              "line-opacity": 0.7
+              "line-opacity": 1
             }
           }
         ]
@@ -341,7 +342,7 @@
       {
         "id": "renabap",
         "interactive": true,
-        "popupContent": "<p style='color: #aaa; display: block; font-family: Roboto; margin: 0 0 8px 0; padding-bottom: 6px;'>ID: {{id_renabap}}</p><h3 style='font-family: Roboto; font-weight: 500; margin: 0;'>{{nombre_bar}}</h3>",
+        "popupContent": "<p style='color: #aaa; display: block; font-family: Rubik, sans-serif; margin: 0; padding: 0 1rem 0 0;font-size:.875rem;'>ID: {{id_renabap}}</p><h3 style='font-family: Rubik, sans-serif; font-weight: 400; margin: 0;font-size:1rem;'>{{nombre_bar}}</h3>",
         "mapboxLayers": [
           {
             "id": "renabap",
@@ -349,7 +350,7 @@
             "source": "renabap",
             "source-layer": "renabap-polygons",
             "paint": {
-              "fill-color": "#fdae6b",
+              "fill-color": "#ff7043",
               "fill-opacity": 0.4
             }
           },
@@ -359,7 +360,7 @@
             "source": "renabap",
             "source-layer": "renabap-polygons",
             "paint": {
-              "line-color": "#e6550d",
+              "line-color": "#ff7043",
               "line-opacity": 0.7,
               "line-width": 2
             }
@@ -369,7 +370,7 @@
       {
         "id": "riachuelo-villas-y-asentamientos-precarios",
         "interactive": true,
-        "popupContent": "<div style='color: #aaa; display: block; font-family: Roboto; margin: 6px 0 0 0;'><p style='margin: 0;'>Nombre: {{NOMBRE}}</p><p style='margin: 0;'>Municipio: {{MUNICIPIO}}</p><p style='margin: 0;'>Intervención: {{INTERVENCI}}</p></div>",
+        "popupContent": "<div style='color: #aaa; display: block; font-family: Rubik, sans-serif; padding: 0 1rem 0 0;'><p style='margin: 0;'>Nombre: {{NOMBRE}}</p><p style='margin: 0;'>Municipio: {{MUNICIPIO}}</p><p style='margin: 0;'>Intervención: {{INTERVENCI}}</p></div>",
         "visibleDefault": false,
         "mapboxLayers": [
           {
@@ -378,7 +379,8 @@
             "source": "riachuelo-villas-obras",
             "source-layer": "villas-y-asentamientos-precarios",
             "paint": {
-              "fill-pattern": "hazard-fill.png"
+              "fill-color": "#ae52d4",
+              "fill-opacity": 0.4
             }
           },
           {
@@ -387,8 +389,8 @@
             "source": "riachuelo-villas-obras",
             "source-layer": "villas-y-asentamientos-precarios",
             "paint": {
-              "line-color": "#e80f0f",
-              "line-width": 1
+              "line-color": "#ae52d4",
+              "line-width": 2
             }
           }
         ]
@@ -403,7 +405,7 @@
             "source": "riachuelo-villas-obras",
             "source-layer": "obras-convenio",
             "paint": {
-              "line-color": "#10e53d",
+              "line-color": "#ffab00",
               "line-width": 2,
               "line-dasharray": [1, 1]
             }
@@ -413,7 +415,7 @@
       {
         "id": "riachuelo-mesas-trabajo",
         "interactive": true,
-        "popupContent": "<div style='color: #aaa; display: block; font-family: Roboto; margin: 6px 0 0 0;'><p style='margin: 0;'>Nombre: {{NOMBRE}}</p><p style='margin: 0;'>Jurisdicción: {{JURISDICCI}}</p></div>",
+        "popupContent": "<div style='color: #aaa; display: block; font-family: Rubik, sans-serif; padding: 0 1rem 0 0;'><p style='margin: 0;'>Nombre: {{NOMBRE}}</p><p style='margin: 0;'>Jurisdicción: {{JURISDICCI}}</p></div>",
         "visibleDefault": false,
         "mapboxLayers": [
           {
@@ -422,10 +424,10 @@
             "source": "riachuelo-villas-obras",
             "source-layer": "mesas-trabajo",
             "paint": {
-              "circle-color": "#ff6600",
+              "circle-color": "#ae52d4",
               "circle-radius": 5,
-              "circle-stroke-color": "#fff",
-              "circle-stroke-width": 1,
+              "circle-stroke-color": "#7b1fa2",
+              "circle-stroke-width": 2,
               "circle-opacity": 0.9
             }
           }
@@ -448,13 +450,13 @@
                 "match",
                 ["get", "location_type"],
                 "areas-protegidas",
-                "marker-idea.png",
+                "marker-areas.svg",
                 "areas-protegidas-2",
-                "marker-idea.png",
+                "marker-areas.svg",
                 "reporte-territorial",
-                "marker-observation.png",
+                "marker-relocalizaciones.svg",
                 "agua-calidad",
-                "marker-question.png",
+                "marker-agua.svg",
                 "__no-icon-image__"
               ]
             }
@@ -473,13 +475,13 @@
                 "match",
                 ["get", "location_type"],
                 "areas-protegidas",
-                "marker-idea.png",
+                "marker-areas.svg",
                 "areas-protegidas-2",
-                "marker-idea.png",
+                "marker-areas.svg",
                 "reporte-territorial",
-                "marker-observation.png",
+                "marker-relocalizaciones.svg",
                 "agua-calidad",
-                "marker-question.png",
+                "marker-agua.svg",
                 "__no-icon-image__"
               ]
             }
@@ -497,7 +499,7 @@
             "filter": ["==", ["get", "location_type"], "featured_place"],
             "source": "quepasa-featured",
             "layout": {
-              "icon-image": "marker-amenaza.png",
+              "icon-image": "marker-recorrido.svg",
               "icon-size": 1.1,
               "icon-anchor": "center"
             }
@@ -509,7 +511,7 @@
             "type": "symbol",
             "source": "quepasa-featured",
             "layout": {
-              "icon-image": "marker-amenaza.png",
+              "icon-image": "marker-recorrido.svg",
               "icon-size": 0.9,
               "icon-anchor": "center"
             }
@@ -547,7 +549,7 @@
           },
           {
             "layerGroupId": "quepasa-featured",
-            "title": "Racimos"
+            "title": "Recorrido del mapa"
           }
         ]
       },
@@ -620,9 +622,9 @@
         "horizontal_rule": true,
         "name": "location_type",
         "datasetSlug": "quepasa-featured",
-        "icon_url": "/static/css/images/markers/marker-amenaza.png",
+        "icon_url": "/static/css/images/markers/marker-recorrido.svg",
         "value": "featured_place",
-        "label": "Racimos",
+        "label": "Recorrido del mapa",
         "fields": [
           {
             "name": "lng-lat",
@@ -656,7 +658,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/marker-question.png",
+        "icon_url": "/static/css/images/markers/marker-agua.svg",
         "value": "agua-calidad",
         "label": "Calidad Del Agua",
         "geospatialAnalysis": [
@@ -1750,13 +1752,6 @@
             "optional": true
           },
           {
-            "name": "referencia-fija-pdf",
-            "type": "pdf",
-            "prompt": "Referencias PDF",
-            "label": "Agregar un PDF",
-            "optional": true
-          },
-          {
             "name": "turbiedad",
             "type": "dropdown",
             "prompt": "Indique el estado del agua en el lugar y momento del reporte. Puede cargar una fotografía.",
@@ -1789,13 +1784,6 @@
             "type": "file",
             "prompt": "Referencias",
             "label": "📷 Agregar una imagen",
-            "optional": true
-          },
-          {
-            "name": "turbiedad-pdf",
-            "type": "pdf",
-            "prompt": "Referencias PDF",
-            "label": "Agregar un PDF",
             "optional": true
           },
           {
@@ -1964,13 +1952,6 @@
             "optional": true
           },
           {
-            "name": "flotantes-pdf",
-            "type": "pdf",
-            "prompt": "PDF",
-            "label": "Agregar un PDF",
-            "optional": true
-          },
-          {
             "name": "submit",
             "type": "common_form_element"
           }
@@ -1983,7 +1964,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/marker-idea.png",
+        "icon_url": "/static/css/images/markers/marker-areas.svg",
         "value": "areas-protegidas-2",
         "label": "Areas Naturales",
         "geospatialAnalysis": [
@@ -2921,7 +2902,7 @@
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/marker-observation.png",
+        "icon_url": "/static/css/images/markers/marker-relocalizaciones.svg",
         "value": "reporte-territorial",
         "label": "Relocalizaciones",
         "geospatialAnalysis": [
@@ -3793,13 +3774,6 @@
             "type": "common_form_element"
           },
           {
-            "name": "relocalizaciones-pdf",
-            "type": "pdf",
-            "prompt": "Comparte un PDF",
-            "label": "Agregar un PDF",
-            "optional": true
-          },
-          {
             "name": "submit",
             "type": "common_form_element"
           }
@@ -4179,7 +4153,7 @@
       "start_page": true
     },
     {
-      "title": "Racimos",
+      "title": "Recorrido del mapa",
       "type": "featuredPlacesMenu"
     }
   ],
@@ -4187,14 +4161,15 @@
     {
       "slug": "about",
       "content": [
-        "<h1 style='margin-bottom:4px;color:#75beb1;'>Qué Pasa, Riachuelo?</h1>",
-        "<p>Más información por venir...</p>"
+        "<h1 class='about-title'>¿Qué Pasa, Riachuelo?</h1>",
+        "<p class='about-lead'>Más información por venir...</p>",
+        "<p class='about-text'>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>"
       ]
     }
   ],
   "featuredPlaces": {
     "name": "clusters",
-    "header": "Racimos",
+    "header": "Recorrido del mapa",
     "visibleLayerGroupIds": [
       "satellite",
       "renabap",
@@ -4209,7 +4184,7 @@
         "placeId": 9041,
         "zoom": 12.18,
         "pan_to": [-58.40005, -34.66138],
-        "iconUrl": "/static/css/images/markers/marker-amenaza.png",
+        "iconUrl": "/static/css/images/markers/marker-recorrido.svg",
         "spotlight": false
       }
     ]
