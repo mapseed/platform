@@ -294,7 +294,7 @@
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
                         "pre-2021"
-                      ]
+                      ],
                       [
                         "get-count",
                         ["<", ["get-val", "conventional_till_datetime"], 2021]
