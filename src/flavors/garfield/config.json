@@ -205,22 +205,22 @@
               "fractionalWidth": 1
             },
             {
-              "header": "2021 BENCHMARK OBJECTIVE",
+              "header": "2025 BENCHMARK OBJECTIVE",
               "type": "numeric",
               "fractionalWidth": 1
             },
             {
-              "header": "2021 BENCHMARK STATUS",
+              "header": "2025 BENCHMARK STATUS",
               "type": "badge",
               "fractionalWidth": 1
             },
             {
-              "header": "2021 ENHANCED OBJECTIVE",
+              "header": "2025 ENHANCED OBJECTIVE",
               "type": "numeric",
               "fractionalWidth": 1
             },
             {
-              "header": "2021 ENHANCED STATUS",
+              "header": "2025 ENHANCED STATUS",
               "type": "badge",
               "fractionalWidth": 1
             }
@@ -856,7 +856,7 @@
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 3400]],
+                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 4200]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     ["<", ["get-sum", "no_till_quantity"], 4200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
@@ -866,7 +866,7 @@
                   ]
                 },
                 {
-                  "value": ["literal", 9700],
+                  "value": ["literal", 19400],
                   "label": "Acres"
                 },
                 {
@@ -879,7 +879,7 @@
                         ["get-sum", "conventional_till_quantity"],
                         ["get-sum", "no_till_quantity"]
                       ],
-                      ["*", 0.7, 9700]
+                      ["*", 0.7, 19400]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
@@ -889,7 +889,7 @@
                         ["get-sum", "conventional_till_quantity"],
                         ["get-sum", "no_till_quantity"]
                       ],
-                      9700
+                      19400
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
@@ -899,7 +899,7 @@
                         ["get-sum", "conventional_till_quantity"],
                         ["get-sum", "no_till_quantity"]
                       ],
-                      9700
+                      19400
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
@@ -1185,7 +1185,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 3400],
+                  "value": ["literal", 5200],
                   "label": "Acres"
                 },
                 {
@@ -1197,15 +1197,15 @@
                       ["*", 0.7, 3400]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "pest_management_quantity"], 3400],
+                    ["<", ["get-sum", "pest_management_quantity"], 5200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "pest_management_quantity"], 3400],
+                    [">=", ["get-sum", "pest_management_quantity"], 5200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 8200],
+                  "value": ["literal", 16600],
                   "label": "Acres"
                 },
                 {
@@ -1214,12 +1214,12 @@
                     [
                       "<=",
                       ["get-sum", "pest_management_quantity"],
-                      ["*", 0.7, 8200]
+                      ["*", 0.7, 16600]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "pest_management_quantity"], 8200],
+                    ["<", ["get-sum", "pest_management_quantity"], 16600],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "pest_management_quantity"], 8200],
+                    [">=", ["get-sum", "pest_management_quantity"], 16600],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -1508,7 +1508,7 @@
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 3400],
+                  "value": ["literal", 5200],
                   "label": "Acres"
                 },
                 {
@@ -1517,18 +1517,18 @@
                     [
                       "<=",
                       ["get-sum", "nutrient_management_quantity"],
-                      ["*", 0.7, 3400]
+                      ["*", 0.7, 5200]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "nutrient_management_quantity"], 3400],
+                    ["<", ["get-sum", "nutrient_management_quantity"], 5200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "nutrient_management_quantity"], 3400],
+                    [">=", ["get-sum", "nutrient_management_quantity"], 5200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 8200],
+                  "value": ["literal", 16600],
                   "label": "Acres"
                 },
                 {
@@ -1537,12 +1537,12 @@
                     [
                       "<=",
                       ["get-sum", "nutrient_management_quantity"],
-                      ["*", 0.7, 8200]
+                      ["*", 0.7, 16600]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "nutrient_management_quantity"], 8200],
+                    ["<", ["get-sum", "nutrient_management_quantity"], 16600],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "nutrient_management_quantity"], 8200],
+                    [">=", ["get-sum", "nutrient_management_quantity"], 16600],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -1844,17 +1844,17 @@
                   ]
                 },
                 {
-                  "value": ["literal", 4],
+                  "value": ["literal", 6],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "irrigation_quantity"], ["*", 0.7, 4]],
+                    ["<=", ["get-sum", "irrigation_quantity"], ["*", 0.7, 6]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "irrigation_quantity"], 4],
+                    ["<", ["get-sum", "irrigation_quantity"], 6],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "irrigation_quantity"], 4],
+                    [">=", ["get-sum", "irrigation_quantity"], 6],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2140,7 +2140,7 @@
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 750],
+                  "value": ["literal", 1000],
                   "label": "Acres"
                 },
                 {
@@ -2149,18 +2149,18 @@
                     [
                       "<=",
                       ["get-sum", "prescribed_grazing_quantity"],
-                      ["*", 0.7, 750]
+                      ["*", 0.7, 1000]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "prescribed_grazing_quantity"], 750],
+                    ["<", ["get-sum", "prescribed_grazing_quantity"], 1000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "prescribed_grazing_quantity"], 750],
+                    [">=", ["get-sum", "prescribed_grazing_quantity"], 1000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 3150],
+                  "value": ["literal", 5150],
                   "label": "Acres"
                 },
                 {
@@ -2169,12 +2169,12 @@
                     [
                       "<=",
                       ["get-sum", "prescribed_grazing_quantity"],
-                      ["*", 0.7, 3150]
+                      ["*", 0.7, 5150]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "prescribed_grazing_quantity"], 3150],
+                    ["<", ["get-sum", "prescribed_grazing_quantity"], 5150],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "prescribed_grazing_quantity"], 3150],
+                    [">=", ["get-sum", "prescribed_grazing_quantity"], 5150],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2460,7 +2460,7 @@
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 100],
+                  "value": ["literal", 200],
                   "label": "Acres"
                 },
                 {
@@ -2469,18 +2469,18 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 100]
+                      ["*", 0.7, 200]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 100],
+                    ["<", ["get-sum", "range_plantings_quantity"], 200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 100],
+                    [">=", ["get-sum", "range_plantings_quantity"], 200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 2000],
+                  "value": ["literal", 2500],
                   "label": "Acres"
                 },
                 {
@@ -2489,12 +2489,12 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 2000]
+                      ["*", 0.7, 2500]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 2000],
+                    ["<", ["get-sum", "range_plantings_quantity"], 2500],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 2000],
+                    [">=", ["get-sum", "range_plantings_quantity"], 2500],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2780,7 +2780,7 @@
                   "label": "Facils."
                 },
                 {
-                  "value": ["literal", 1],
+                  "value": ["literal", 5],
                   "label": "Facils."
                 },
                 {
@@ -2789,18 +2789,18 @@
                     [
                       "<=",
                       ["get-sum", "watering_facility_quantity"],
-                      ["*", 0.7, 1]
+                      ["*", 0.7, 5]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "watering_facility_quantity"], 1],
+                    ["<", ["get-sum", "watering_facility_quantity"], 5],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "watering_facility_quantity"], 1],
+                    [">=", ["get-sum", "watering_facility_quantity"], 5],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 9],
+                  "value": ["literal", 20],
                   "label": "Facils."
                 },
                 {
@@ -2809,12 +2809,12 @@
                     [
                       "<=",
                       ["get-sum", "watering_facility_quantity"],
-                      ["*", 0.7, 9]
+                      ["*", 0.7, 20]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "watering_facility_quantity"], 9],
+                    ["<", ["get-sum", "watering_facility_quantity"], 20],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "watering_facility_quantity"], 9],
+                    [">=", ["get-sum", "watering_facility_quantity"], 20],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -3100,33 +3100,33 @@
                   "label": "Wells"
                 },
                 {
-                  "value": ["literal", 1],
+                  "value": ["literal", 3],
                   "label": "Wells"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "water_wells_quantity"], ["*", 0.7, 1]],
+                    ["<=", ["get-sum", "water_wells_quantity"], ["*", 0.7, 3]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "water_wells_quantity"], 1],
+                    ["<", ["get-sum", "water_wells_quantity"], 3],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "water_wells_quantity"], 1],
+                    [">=", ["get-sum", "water_wells_quantity"], 3],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 9],
+                  "value": ["literal", 20],
                   "label": "Wells"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "water_wells_quantity"], ["*", 0.7, 9]],
+                    ["<=", ["get-sum", "water_wells_quantity"], ["*", 0.7, 20]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "water_wells_quantity"], 9],
+                    ["<", ["get-sum", "water_wells_quantity"], 20],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "water_wells_quantity"], 9],
+                    [">=", ["get-sum", "water_wells_quantity"], 20],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -3409,33 +3409,33 @@
                   "label": "feet"
                 },
                 {
-                  "value": ["literal", 10000],
+                  "value": ["literal", 15000],
                   "label": "Feet"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "fencing_quantity"], ["*", 0.7, 10000]],
+                    ["<=", ["get-sum", "fencing_quantity"], ["*", 0.7, 15000]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "fencing_quantity"], 10000],
+                    ["<", ["get-sum", "fencing_quantity"], 15000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "fencing_quantity"], 10000],
+                    [">=", ["get-sum", "fencing_quantity"], 15000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 25000],
+                  "value": ["literal", 30000],
                   "label": "Feet"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "fencing_quantity"], ["*", 0.7, 25000]],
+                    ["<=", ["get-sum", "fencing_quantity"], ["*", 0.7, 30000]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "fencing_quantity"], 25000],
+                    ["<", ["get-sum", "fencing_quantity"], 30000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "fencing_quantity"], 25000],
+                    [">=", ["get-sum", "fencing_quantity"], 30000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4137,33 +4137,33 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 45],
+                  "value": ["literal", 80],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "cover_crop_quantity"], ["*", 0.7, 45]],
+                    ["<=", ["get-sum", "cover_crop_quantity"], ["*", 0.7, 80]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "cover_crop_quantity"], 45],
+                    ["<", ["get-sum", "cover_crop_quantity"], 80],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "cover_crop_quantity"], 45],
+                    [">=", ["get-sum", "cover_crop_quantity"], 80],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 200],
+                  "value": ["literal", 600],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "cover_crop_quantity"], ["*", 0.7, 200]],
+                    ["<=", ["get-sum", "cover_crop_quantity"], ["*", 0.7, 600]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "cover_crop_quantity"], 200],
+                    ["<", ["get-sum", "cover_crop_quantity"], 600],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "cover_crop_quantity"], 200],
+                    [">=", ["get-sum", "cover_crop_quantity"], 600],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4449,7 +4449,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 25],
+                  "value": ["literal", 50],
                   "label": "Acres"
                 },
                 {
@@ -4458,18 +4458,18 @@
                     [
                       "<=",
                       ["get-sum", "conservation_cover_quantity"],
-                      ["*", 0.7, 25]
+                      ["*", 0.7, 50]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "conservation_cover_quantity"], 25],
+                    ["<", ["get-sum", "conservation_cover_quantity"], 50],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "conservation_cover_quantity"], 25],
+                    [">=", ["get-sum", "conservation_cover_quantity"], 50],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 300],
+                  "value": ["literal", 800],
                   "label": "Acres"
                 },
                 {
@@ -4478,12 +4478,12 @@
                     [
                       "<=",
                       ["get-sum", "conservation_cover_quantity"],
-                      ["*", 0.7, 300]
+                      ["*", 0.7, 800]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "conservation_cover_quantity"], 300],
+                    ["<", ["get-sum", "conservation_cover_quantity"], 800],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "conservation_cover_quantity"], 300],
+                    [">=", ["get-sum", "conservation_cover_quantity"], 800],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4849,7 +4849,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 4],
+                  "value": ["literal", 20],
                   "label": "Acres"
                 },
                 {
@@ -4858,18 +4858,18 @@
                     [
                       "<=",
                       ["get-sum", "critical_area_planting_quantity"],
-                      ["*", 0.7, 4]
+                      ["*", 0.7, 20]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "critical_area_planting_quantity"], 4],
+                    ["<", ["get-sum", "critical_area_planting_quantity"], 20],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "critical_area_planting_quantity"], 4],
+                    [">=", ["get-sum", "critical_area_planting_quantity"], 20],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 11],
+                  "value": ["literal", 401],
                   "label": "Acres"
                 },
                 {
@@ -4878,12 +4878,12 @@
                     [
                       "<=",
                       ["get-sum", "critical_area_planting_quantity"],
-                      ["*", 0.7, 11]
+                      ["*", 0.7, 401]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "critical_area_planting_quantity"], 11],
+                    ["<", ["get-sum", "critical_area_planting_quantity"], 401],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "critical_area_planting_quantity"], 11],
+                    [">=", ["get-sum", "critical_area_planting_quantity"], 401],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -5169,7 +5169,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 20],
+                  "value": ["literal", 100],
                   "label": "Acres"
                 },
                 {
@@ -5178,18 +5178,18 @@
                     [
                       "<=",
                       ["get-sum", "weed_control_quantity"],
-                      ["*", 0.7, 20]
+                      ["*", 0.7, 100]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "weed_control_quantity"], 20],
+                    ["<", ["get-sum", "weed_control_quantity"], 100],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "weed_control_quantity"], 20],
+                    [">=", ["get-sum", "weed_control_quantity"], 100],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 150],
+                  "value": ["literal", 500],
                   "label": "Acres"
                 },
                 {
@@ -5198,12 +5198,12 @@
                     [
                       "<=",
                       ["get-sum", "weed_control_quantity"],
-                      ["*", 0.7, 150]
+                      ["*", 0.7, 500]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "weed_control_quantity"], 150],
+                    ["<", ["get-sum", "weed_control_quantity"], 500],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "weed_control_quantity"], 150],
+                    [">=", ["get-sum", "weed_control_quantity"], 500],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -5489,33 +5489,33 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 4],
+                  "value": ["literal", 400],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "tree_shrub_quantity"], ["*", 0.7, 4]],
+                    ["<=", ["get-sum", "tree_shrub_quantity"], ["*", 0.7, 400]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "tree_shrub_quantity"], 4],
+                    ["<", ["get-sum", "tree_shrub_quantity"], 400],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "tree_shrub_quantity"], 4],
+                    [">=", ["get-sum", "tree_shrub_quantity"], 400],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 11],
+                  "value": ["literal", 1500],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "tree_shrub_quantity"], ["*", 0.7, 11]],
+                    ["<=", ["get-sum", "tree_shrub_quantity"], ["*", 0.7, 1500]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "tree_shrub_quantity"], 11],
+                    ["<", ["get-sum", "tree_shrub_quantity"], 1500],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "tree_shrub_quantity"], 11],
+                    [">=", ["get-sum", "tree_shrub_quantity"], 1500],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -5885,7 +5885,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 1],
+                  "value": ["literal", 3],
                   "label": "Acres"
                 },
                 {
@@ -5894,26 +5894,26 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 1]
+                      ["*", 0.7, 3]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      1
+                      3
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      1
+                      3
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 2],
+                  "value": ["literal", 6],
                   "label": "Acres"
                 },
                 {
@@ -5922,19 +5922,19 @@
                     [
                       "<=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 2]
+                      ["*", 0.7, 6]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      2
+                      6
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "wetland_wildlife_management_quantity"],
-                      2
+                      6
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
@@ -6221,7 +6221,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 30],
+                  "value": ["literal", 200],
                   "label": "Acres"
                 },
                 {
@@ -6230,18 +6230,18 @@
                     [
                       "<=",
                       ["get-sum", "upland_habitat_quantity"],
-                      ["*", 0.7, 30]
+                      ["*", 0.7, 200]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "upland_habitat_quantity"], 30],
+                    ["<", ["get-sum", "upland_habitat_quantity"], 200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "upland_habitat_quantity"], 30],
+                    [">=", ["get-sum", "upland_habitat_quantity"], 200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 300],
+                  "value": ["literal", 600],
                   "label": "Acres"
                 },
                 {
@@ -6250,12 +6250,12 @@
                     [
                       "<=",
                       ["get-sum", "upland_habitat_quantity"],
-                      ["*", 0.7, 300]
+                      ["*", 0.7, 600]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "upland_habitat_quantity"], 300],
+                    ["<", ["get-sum", "upland_habitat_quantity"], 600],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "upland_habitat_quantity"], 300],
+                    [">=", ["get-sum", "upland_habitat_quantity"], 600],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -6541,7 +6541,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 1],
+                  "value": ["literal", 6],
                   "label": "Acres"
                 },
                 {
@@ -6550,18 +6550,18 @@
                     [
                       "<=",
                       ["get-sum", "access_control_quantity"],
-                      ["*", 0.7, 1]
+                      ["*", 0.7, 6]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "access_control_quantity"], 1],
+                    ["<", ["get-sum", "access_control_quantity"], 6],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "access_control_quantity"], 1],
+                    [">=", ["get-sum", "access_control_quantity"], 6],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 4],
+                  "value": ["literal", 20],
                   "label": "Acres"
                 },
                 {
@@ -6570,12 +6570,12 @@
                     [
                       "<=",
                       ["get-sum", "access_control_quantity"],
-                      ["*", 0.7, 4]
+                      ["*", 0.7, 20]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "access_control_quantity"], 4],
+                    ["<", ["get-sum", "access_control_quantity"], 20],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "access_control_quantity"], 4],
+                    [">=", ["get-sum", "access_control_quantity"], 20],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -6945,7 +6945,7 @@
                   "label": "structs."
                 },
                 {
-                  "value": ["literal", 100],
+                  "value": ["literal", 300],
                   "label": "Structs."
                 },
                 {
@@ -6954,26 +6954,26 @@
                     [
                       "<=",
                       ["get-sum", "stream_habitat_improvements_quantity"],
-                      ["*", 0.7, 100]
+                      ["*", 0.7, 300]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "stream_habitat_improvements_quantity"],
-                      100
+                      300
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "stream_habitat_improvements_quantity"],
-                      100
+                      300
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 600],
+                  "value": ["literal", 800],
                   "label": "Structs."
                 },
                 {
@@ -6982,19 +6982,19 @@
                     [
                       "<=",
                       ["get-sum", "stream_habitat_improvements_quantity"],
-                      ["*", 0.7, 600]
+                      ["*", 0.7, 800]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "stream_habitat_improvements_quantity"],
-                      600
+                      800
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "stream_habitat_improvements_quantity"],
-                      600
+                      800
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
@@ -7361,7 +7361,7 @@
                   "label": "feet"
                 },
                 {
-                  "value": ["literal", 2640],
+                  "value": ["literal", 4640],
                   "label": "Feet"
                 },
                 {
@@ -7370,22 +7370,22 @@
                     [
                       "<=",
                       ["get-sum", "streambank_protections_quantity"],
-                      ["*", 0.7, 2640]
+                      ["*", 0.7, 4640]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "streambank_protections_quantity"], 2640],
+                    ["<", ["get-sum", "streambank_protections_quantity"], 4640],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "streambank_protections_quantity"],
-                      2640
+                      4640
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 14840],
+                  "value": ["literal", 18840],
                   "label": "Feet"
                 },
                 {
@@ -7394,19 +7394,19 @@
                     [
                       "<=",
                       ["get-sum", "streambank_protections_quantity"],
-                      ["*", 0.7, 14840]
+                      ["*", 0.7, 18840]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "streambank_protections_quantity"],
-                      14840
+                      18840
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "streambank_protections_quantity"],
-                      14840
+                      18840
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
