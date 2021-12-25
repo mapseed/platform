@@ -197,6 +197,39 @@
 }
 
 /* tag label and item visibility control */
+input#print__tag-bioregion-green-duwamish:checked {
+  & ~ .page__tag-container > #print__tag-bioregion-green-duwamish-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="bioregion-green-duwamish"] {
+    display: flex;
+  }
+}
+
+input#print__tag-bioregion-king-county:checked {
+  & ~ .page__tag-container > #print__tag-bioregion-king-county-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="bioregion-king-county"] {
+    display: flex;
+  }
+}
+
+input#print__tag-bioregion-puget-sound:checked {
+  & ~ .page__tag-container > #print__tag-bioregion-puget-sound-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="bioregion-puget-sound"] {
+    display: flex;
+  }
+}
+
 input#print__tag-auburn:checked {
   & ~ .page__tag-container > #print__tag-auburn-label {
     background-color: #007fbf;
