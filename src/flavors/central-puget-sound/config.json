@@ -18,8 +18,8 @@
     }
   ],
   "app": {
-    "title": "My Watershed - Central Puget Sound",
-    "name": "My Watershed",
+    "title": "My Watershed Address",
+    "name": "My Watershed Address",
     "logo": "/static/css/images/sa-logo-only.png",
     "show_name_in_header": true,
     "meta_description": "Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.",
@@ -1091,9 +1091,10 @@
               ["==", ["get", "SPECIES"], "Sockeye Salmon"]
             ],
             "paint": {
-              "line-color": "#0593eb",
+              "line-color": "#ff5229",
               "line-width": 2,
-              "line-opacity": 0.5
+              "line-opacity": 0.5,
+              "line-dasharray": [3, 2]
             },
             "layout": {
               "line-join": "round"
@@ -1116,7 +1117,7 @@
                 "match",
                 ["get", "WC_FLOW_PA"],
                 3,
-                1,
+                0,
                 2,
                 2,
                 1,
@@ -1715,9 +1716,9 @@
         "options": [
           {
             "layerGroupId": "longhouses",
-            "title": "Historical Longhouse Sites",
+            "title": "Longhouse Village Sites",
             "modal": {
-              "header": "Historical Longhouse Sites",
+              "header": "Longhouse Village Sites",
               "body": [
                 "This layer reveals the approximate sites where traditional Salish villages of the Puget Sound region were. It is fascinating to analyze the many clusters along rivers and lakes. If we assume one village may be inhabited by several hundred people, how could there be this many villages so close together? Were salmon so incredibly abundant that all of these people could thrive? The information for this map layer was geolocated by students, site by site, from an original digital map created by Tom Dailey sometime before 2010. A record of the original map is in a blog called Northwest Coast Archaeology. Although there hasn't been much activity over the last decade, the map lives on."
               ]
@@ -1764,30 +1765,10 @@
             }
           },
           {
-            "layerGroupId": "sewer",
-            "title": "Wastewater System",
-            "modal": {
-              "header": "Wastewater System",
-              "body": [
-                "The wastewater system layer shows sewer lines that transport wastewater from your home, school, or business that the city maintains through larger pipes to the treatment centers that King County maintains."
-              ]
-            }
-          },
-          {
-            "layerGroupId": "commfood",
-            "title": "Farmers Markets",
-            "modal": {
-              "header": "Farmers Markets",
-              "body": [
-                "A farmers market is a place for local farmers to sell fresh produce and dairy, meat, and bakery products directly to buyers, usually in an outdoor booth setting. Who has the most access to fresh, organic, local, and sustainable food? Is there a farmers market near you?"
-              ]
-            }
-          },
-          {
             "layerGroupId": "wa-fish-distribution-wria-3-13",
-            "title": "Salmon Spawning Sites",
+            "title": "Salmon Spawning Habitat",
             "modal": {
-              "header": "Salmon Spawning Sites",
+              "header": "Salmon Spawning Habitat",
               "body": [
                 "Salmon complete their life cycle by spawning in the same freshwater streams in which they were born. It is crucial to protect these areas to keep salmon, a keystone species, healthy."
               ]
@@ -1839,6 +1820,26 @@
             "modal": {
               "header": "WRIA 12 Streams",
               "body": "WRIA 12 is the Chambers-Clover watershed. WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
+            }
+          },
+          {
+            "layerGroupId": "sewer",
+            "title": "Wastewater System",
+            "modal": {
+              "header": "Wastewater System",
+              "body": [
+                "The wastewater system layer shows sewer lines that transport wastewater from your home, school, or business that the city maintains through larger pipes to the treatment centers that King County maintains."
+              ]
+            }
+          },
+          {
+            "layerGroupId": "commfood",
+            "title": "Farmers Markets",
+            "modal": {
+              "header": "Farmers Markets",
+              "body": [
+                "A farmers market is a place for local farmers to sell fresh produce and dairy, meat, and bakery products directly to buyers, usually in an outdoor booth setting. Who has the most access to fresh, organic, local, and sustainable food? Is there a farmers market near you?"
+              ]
             }
           }
         ]
