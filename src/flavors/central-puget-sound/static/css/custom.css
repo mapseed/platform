@@ -222,6 +222,50 @@ input#print__tag-bioregion-cedar-lake-washington:checked {
   }
 }
 
+input#print__tag-wria-7:checked {
+  & ~ .page__tag-container > #print__tag-wria-7-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="wria-7"] {
+    display: flex;
+  }
+}
+
+input#print__tag-wria-10:checked {
+  & ~ .page__tag-container > #print__tag-wria-10-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="wria-10"] {
+    display: flex;
+  }
+}
+
+input#print__tag-wria-11:checked {
+  & ~ .page__tag-container > #print__tag-wria-11-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="wria-11"] {
+    display: flex;
+  }
+}
+
+input#print__tag-wria-12:checked {
+  & ~ .page__tag-container > #print__tag-wria-12-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="wria-12"] {
+    display: flex;
+  }
+}
+
 input#print__tag-bioregion-king-county:checked {
   & ~ .page__tag-container > #print__tag-bioregion-king-county-label {
     background-color: #007fbf;
