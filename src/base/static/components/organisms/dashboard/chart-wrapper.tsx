@@ -57,11 +57,18 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
   state = {
     widgetState: {},
     isExporting: false,
+    isCollapsible: false,
+    isCollapsed: false,
   };
   chartRef = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
-    const { widgetStateControls } = this.props.widget;
+    const { widgetStateControls, type } = this.props.widget;
+    this.setState({
+      isCollapsible: ["fixedTable", "freeTable"].includes(type),
+      isCollapsed: ["fixedTable", "freeTable"].includes(type),
+    });
+
     if (widgetStateControls) {
       this.setState({
         widgetState: {
@@ -101,6 +108,12 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
       default:
         return "fas fa-table";
     }
+  };
+
+  handleCollapseChange = () => {
+    this.setState({
+      isCollapsed: !this.state.isCollapsed,
+    });
   };
 
   handleChartExport = () => {
@@ -153,7 +166,9 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
         ref={this.chartRef}
         css={css`
           grid-column: ${widget.layout.start} / ${widget.layout.end};
-          height: ${widget.layout.height + "px" || "auto"};
+          height: ${this.state.isCollapsed
+            ? "131px"
+            : widget.layout.height + "px"};
           background-color: #fff;
           margin: 8px;
           border-radius: 4px;
@@ -180,6 +195,29 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
             hoverColor="#777"
             faClassname={this.getIconClassname(widget.type)}
           />
+          {this.state.isCollapsible && (
+            <Button
+              css={css`
+                background: none;
+                padding: 0 0 0 8px;
+
+                &:hover {
+                  background: none;
+                }
+              `}
+              onClick={() => this.handleCollapseChange()}
+            >
+              <FontAwesomeIcon
+                color="#e57c04"
+                hoverColor="#d8a56a"
+                faClassname={
+                  this.state.isCollapsed
+                    ? "fas fa-angle-right"
+                    : "fas fa-angle-down"
+                }
+              />
+            </Button>
+          )}
           <TinyTitle
             css={css`
               margin: 0 0 0 12px;

@@ -135,8 +135,8 @@
                   "label": "All dates"
                 },
                 {
-                  "value": "pre-2021",
-                  "label": "Pre-2021"
+                  "value": "pre-2011",
+                  "label": "Pre-2011"
                 },
                 {
                   "value": "2021-and-later",
@@ -293,11 +293,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "conventional_till_datetime"], 2021]
+                        ["<", ["get-val", "conventional_till_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -306,7 +306,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "conventional_till_datetime"], 2021]
+                        [">=", ["get-val", "conventional_till_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -321,12 +321,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -336,7 +336,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -348,12 +348,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -363,7 +363,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -375,12 +375,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -390,7 +390,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -402,12 +402,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -417,7 +417,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -429,12 +429,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -444,7 +444,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -456,12 +456,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -471,7 +471,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -483,12 +483,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -498,7 +498,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -510,12 +510,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -525,7 +525,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -537,12 +537,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2021]
+                      ["<", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -552,7 +552,7 @@
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2021]
+                      [">=", ["get-val", "conventional_till_datetime"], 2011]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -586,11 +586,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "no_till_datetime"], 2021]
+                        ["<", ["get-val", "no_till_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -599,7 +599,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "no_till_datetime"], 2021]
+                        [">=", ["get-val", "no_till_datetime"], 2011]
                       ],
                       ["get-count", [">", ["get-val", "no_till_datetime"], 0]]
                     ]
@@ -612,12 +612,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -627,7 +627,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -639,12 +639,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -654,7 +654,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -666,12 +666,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -681,7 +681,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -693,12 +693,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -708,7 +708,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -720,12 +720,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -735,7 +735,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -747,12 +747,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -762,7 +762,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -774,12 +774,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -789,7 +789,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -801,12 +801,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -816,7 +816,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -828,12 +828,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2021]
+                      ["<", ["get-val", "no_till_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -843,7 +843,7 @@
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2021]
+                      [">=", ["get-val", "no_till_datetime"], 2011]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -919,11 +919,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "pest_management_datetime"], 2021]
+                        ["<", ["get-val", "pest_management_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -932,7 +932,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "pest_management_datetime"], 2021]
+                        [">=", ["get-val", "pest_management_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -947,12 +947,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -962,7 +962,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -974,12 +974,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -989,7 +989,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -1001,12 +1001,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1016,7 +1016,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -1028,12 +1028,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1043,7 +1043,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -1055,12 +1055,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1070,7 +1070,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -1082,12 +1082,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1097,7 +1097,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -1109,12 +1109,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1124,7 +1124,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -1136,12 +1136,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1151,7 +1151,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -1163,12 +1163,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2021]
+                      ["<", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1178,7 +1178,7 @@
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2021]
+                      [">=", ["get-val", "pest_management_datetime"], 2011]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -1238,11 +1238,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                        ["<", ["get-val", "nutrient_management_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -1254,7 +1254,7 @@
                         [
                           ">=",
                           ["get-val", "nutrient_management_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -1270,12 +1270,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1285,7 +1285,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1297,12 +1297,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1312,7 +1312,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1324,12 +1324,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1339,7 +1339,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1351,12 +1351,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1366,7 +1366,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1378,12 +1378,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1393,7 +1393,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1405,12 +1405,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1420,7 +1420,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1432,12 +1432,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1447,7 +1447,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1459,12 +1459,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1474,7 +1474,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1486,12 +1486,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1501,7 +1501,7 @@
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -1561,11 +1561,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "irrigation_datetime"], 2021]
+                        ["<", ["get-val", "irrigation_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -1574,7 +1574,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "irrigation_datetime"], 2021]
+                        [">=", ["get-val", "irrigation_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -1590,12 +1590,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1605,7 +1605,7 @@
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      [">=", ["get-val", "irrigation_datetime"], 2021]
+                      [">=", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1617,22 +1617,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1644,22 +1644,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1671,22 +1671,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1698,22 +1698,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1725,22 +1725,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1752,22 +1752,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1779,22 +1779,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1806,22 +1806,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "irrigation_quantity",
-                      ["<", ["get-val", "irrigation_datetime"], 2021]
+                      ["<", ["get-val", "irrigation_datetime"], 2011]
                     ],
                     ["get-sum", "irrigation_quantity"]
                   ],
@@ -1873,11 +1873,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                        ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -1886,7 +1886,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                        [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -1902,12 +1902,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1917,7 +1917,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -1929,12 +1929,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1944,7 +1944,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -1956,12 +1956,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1971,7 +1971,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -1983,12 +1983,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -1998,7 +1998,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -2010,12 +2010,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2025,7 +2025,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -2037,12 +2037,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2052,7 +2052,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -2064,12 +2064,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2079,7 +2079,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -2091,12 +2091,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2106,7 +2106,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -2118,12 +2118,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      ["<", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      ["<", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2133,7 +2133,7 @@
                     [
                       "get-sum",
                       "prescribed_grazing_quantity",
-                      [">=", ["get-val", "prescribed_grazing_datetime"], 2021]
+                      [">=", ["get-val", "prescribed_grazing_datetime"], 2011]
                     ],
                     ["get-sum", "prescribed_grazing_quantity"]
                   ],
@@ -2193,11 +2193,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "range_plantings_datetime"], 2021]
+                        ["<", ["get-val", "range_plantings_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -2206,7 +2206,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "range_plantings_datetime"], 2021]
+                        [">=", ["get-val", "range_plantings_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -2222,12 +2222,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2237,7 +2237,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2249,12 +2249,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2264,7 +2264,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2276,12 +2276,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2291,7 +2291,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2303,12 +2303,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2318,7 +2318,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2330,12 +2330,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2345,7 +2345,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2357,12 +2357,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2372,7 +2372,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2384,12 +2384,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2399,7 +2399,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2411,12 +2411,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2426,7 +2426,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2438,12 +2438,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2021]
+                      ["<", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2453,7 +2453,7 @@
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2021]
+                      [">=", ["get-val", "range_plantings_datetime"], 2011]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -2513,11 +2513,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "watering_facility_datetime"], 2021]
+                        ["<", ["get-val", "watering_facility_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -2526,7 +2526,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "watering_facility_datetime"], 2021]
+                        [">=", ["get-val", "watering_facility_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -2542,12 +2542,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2557,7 +2557,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2569,12 +2569,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2584,7 +2584,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2596,12 +2596,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2611,7 +2611,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2623,12 +2623,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2638,7 +2638,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2650,12 +2650,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2665,7 +2665,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2677,12 +2677,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2692,7 +2692,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2704,12 +2704,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2719,7 +2719,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2731,12 +2731,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2746,7 +2746,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2758,12 +2758,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2021]
+                      ["<", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2773,7 +2773,7 @@
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2021]
+                      [">=", ["get-val", "watering_facility_datetime"], 2011]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -2833,11 +2833,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "water_wells_datetime"], 2021]
+                        ["<", ["get-val", "water_wells_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -2846,7 +2846,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "water_wells_datetime"], 2021]
+                        [">=", ["get-val", "water_wells_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -2862,12 +2862,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2877,7 +2877,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -2889,12 +2889,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2904,7 +2904,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -2916,12 +2916,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2931,7 +2931,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -2943,12 +2943,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2958,7 +2958,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -2970,12 +2970,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -2985,7 +2985,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -2997,12 +2997,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3012,7 +3012,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -3024,12 +3024,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3039,7 +3039,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -3051,12 +3051,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3066,7 +3066,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -3078,12 +3078,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2021]
+                      ["<", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3093,7 +3093,7 @@
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2021]
+                      [">=", ["get-val", "water_wells_datetime"], 2011]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -3145,11 +3145,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "fencing_datetime"], 2021]
+                        ["<", ["get-val", "fencing_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -3158,7 +3158,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "fencing_datetime"], 2021]
+                        [">=", ["get-val", "fencing_datetime"], 2011]
                       ],
                       ["get-count", [">", ["get-val", "fencing_datetime"], 0]]
                     ]
@@ -3171,12 +3171,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3186,7 +3186,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3198,12 +3198,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3213,7 +3213,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3225,12 +3225,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3240,7 +3240,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3252,12 +3252,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3267,7 +3267,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3279,12 +3279,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3294,7 +3294,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3306,12 +3306,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3321,7 +3321,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3333,12 +3333,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3348,7 +3348,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3360,12 +3360,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3375,7 +3375,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3387,12 +3387,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2021]
+                      ["<", ["get-val", "fencing_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3402,7 +3402,7 @@
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2021]
+                      [">=", ["get-val", "fencing_datetime"], 2011]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -3454,14 +3454,14 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "pasture_hayland_planting_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -3474,7 +3474,7 @@
                         [
                           ">=",
                           ["get-val", "pasture_hayland_planting_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -3495,7 +3495,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3503,7 +3503,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3517,7 +3517,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3530,7 +3530,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3538,7 +3538,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3552,7 +3552,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3565,7 +3565,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3573,7 +3573,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3587,7 +3587,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3600,7 +3600,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3608,7 +3608,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3622,7 +3622,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3635,7 +3635,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3643,7 +3643,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3657,7 +3657,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3670,7 +3670,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3678,7 +3678,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3692,7 +3692,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3705,7 +3705,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3713,7 +3713,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3727,7 +3727,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3740,7 +3740,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3748,7 +3748,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3762,7 +3762,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3775,7 +3775,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -3783,7 +3783,7 @@
                       [
                         "<",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -3797,7 +3797,7 @@
                       [
                         ">=",
                         ["get-val", "pasture_hayland_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "pasture_hayland_planting_quantity"]
@@ -3870,11 +3870,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "cover_crop_datetime"], 2021]
+                        ["<", ["get-val", "cover_crop_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -3883,7 +3883,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "cover_crop_datetime"], 2021]
+                        [">=", ["get-val", "cover_crop_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -3899,12 +3899,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3914,7 +3914,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -3926,12 +3926,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3941,7 +3941,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -3953,12 +3953,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3968,7 +3968,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -3980,12 +3980,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -3995,7 +3995,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -4007,12 +4007,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4022,7 +4022,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -4034,12 +4034,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4049,7 +4049,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -4061,12 +4061,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4076,7 +4076,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -4088,12 +4088,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4103,7 +4103,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -4115,12 +4115,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2021]
+                      ["<", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4130,7 +4130,7 @@
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2021]
+                      [">=", ["get-val", "cover_crop_datetime"], 2011]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -4182,11 +4182,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                        ["<", ["get-val", "conservation_cover_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -4195,7 +4195,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                        [">=", ["get-val", "conservation_cover_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -4211,12 +4211,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4226,7 +4226,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4238,12 +4238,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4253,7 +4253,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4265,12 +4265,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4280,7 +4280,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4292,12 +4292,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4307,7 +4307,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4319,12 +4319,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4334,7 +4334,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4346,12 +4346,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4361,7 +4361,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4373,12 +4373,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4388,7 +4388,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4400,12 +4400,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4415,7 +4415,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4427,12 +4427,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4442,7 +4442,7 @@
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -4502,14 +4502,14 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "critical_area_planting_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -4522,7 +4522,7 @@
                         [
                           ">=",
                           ["get-val", "critical_area_planting_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -4539,7 +4539,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4547,7 +4547,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4561,7 +4561,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4574,7 +4574,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4582,7 +4582,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4596,7 +4596,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4609,7 +4609,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4617,7 +4617,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4631,7 +4631,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4644,7 +4644,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4652,7 +4652,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4666,7 +4666,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4679,7 +4679,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4687,7 +4687,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4701,7 +4701,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4714,7 +4714,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4722,7 +4722,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4736,7 +4736,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4749,7 +4749,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4757,7 +4757,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4771,7 +4771,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4784,7 +4784,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4792,7 +4792,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4806,7 +4806,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4819,7 +4819,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -4827,7 +4827,7 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -4841,7 +4841,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -4902,11 +4902,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "weed_control_datetime"], 2021]
+                        ["<", ["get-val", "weed_control_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -4915,7 +4915,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "weed_control_datetime"], 2021]
+                        [">=", ["get-val", "weed_control_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -4931,12 +4931,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4946,7 +4946,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -4958,12 +4958,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -4973,7 +4973,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -4985,12 +4985,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5000,7 +5000,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -5012,12 +5012,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5027,7 +5027,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -5039,12 +5039,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5054,7 +5054,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -5066,12 +5066,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5081,7 +5081,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -5093,12 +5093,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5108,7 +5108,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -5120,12 +5120,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5135,7 +5135,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -5147,12 +5147,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2021]
+                      ["<", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5162,7 +5162,7 @@
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2021]
+                      [">=", ["get-val", "weed_control_datetime"], 2011]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -5222,11 +5222,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                        ["<", ["get-val", "tree_shrub_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -5235,7 +5235,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                        [">=", ["get-val", "tree_shrub_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -5251,12 +5251,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5266,7 +5266,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5278,12 +5278,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5293,7 +5293,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5305,12 +5305,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5320,7 +5320,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5332,12 +5332,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5347,7 +5347,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5359,12 +5359,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5374,7 +5374,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5386,12 +5386,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5401,7 +5401,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5413,12 +5413,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5428,7 +5428,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5440,12 +5440,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5455,7 +5455,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5467,12 +5467,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5482,7 +5482,7 @@
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -5534,14 +5534,14 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "wetland_wildlife_management_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -5554,7 +5554,7 @@
                         [
                           ">=",
                           ["get-val", "wetland_wildlife_management_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -5575,7 +5575,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5583,7 +5583,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5597,7 +5597,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5610,7 +5610,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5618,7 +5618,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5632,7 +5632,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5645,7 +5645,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5653,7 +5653,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5667,7 +5667,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5680,7 +5680,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5688,7 +5688,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5702,7 +5702,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5715,7 +5715,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5723,7 +5723,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5737,7 +5737,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5750,7 +5750,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5758,7 +5758,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5772,7 +5772,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5785,7 +5785,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5793,7 +5793,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5807,7 +5807,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5820,7 +5820,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5828,7 +5828,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5842,7 +5842,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5855,7 +5855,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -5863,7 +5863,7 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -5877,7 +5877,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -5954,11 +5954,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                        ["<", ["get-val", "upland_habitat_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -5967,7 +5967,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                        [">=", ["get-val", "upland_habitat_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -5983,12 +5983,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -5998,7 +5998,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6010,12 +6010,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6025,7 +6025,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6037,12 +6037,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6052,7 +6052,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6064,12 +6064,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6079,7 +6079,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6091,12 +6091,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6106,7 +6106,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6118,12 +6118,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6133,7 +6133,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6145,12 +6145,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6160,7 +6160,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6172,12 +6172,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6187,7 +6187,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6199,12 +6199,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6214,7 +6214,7 @@
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -6274,11 +6274,11 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "access_control_datetime"], 2021]
+                        ["<", ["get-val", "access_control_datetime"], 2011]
                       ],
                       [
                         "==",
@@ -6287,7 +6287,7 @@
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "access_control_datetime"], 2021]
+                        [">=", ["get-val", "access_control_datetime"], 2011]
                       ],
                       [
                         "get-count",
@@ -6303,12 +6303,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6318,7 +6318,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6330,12 +6330,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6345,7 +6345,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6357,12 +6357,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6372,7 +6372,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6384,12 +6384,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6399,7 +6399,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6411,12 +6411,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6426,7 +6426,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6438,12 +6438,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6453,7 +6453,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6465,12 +6465,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6480,7 +6480,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6492,12 +6492,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6507,7 +6507,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6519,12 +6519,12 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
                       "access_control_quantity",
-                      ["<", ["get-val", "access_control_datetime"], 2021]
+                      ["<", ["get-val", "access_control_datetime"], 2011]
                     ],
                     [
                       "==",
@@ -6534,7 +6534,7 @@
                     [
                       "get-sum",
                       "access_control_quantity",
-                      [">=", ["get-val", "access_control_datetime"], 2021]
+                      [">=", ["get-val", "access_control_datetime"], 2011]
                     ],
                     ["get-sum", "access_control_quantity"]
                   ],
@@ -6594,14 +6594,14 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "stream_habitat_improvements_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -6614,7 +6614,7 @@
                         [
                           ">=",
                           ["get-val", "stream_habitat_improvements_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -6635,7 +6635,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6643,7 +6643,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6657,7 +6657,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -6670,7 +6670,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6678,7 +6678,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6692,7 +6692,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -6705,7 +6705,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6713,7 +6713,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6727,7 +6727,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -6740,7 +6740,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6748,7 +6748,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6762,7 +6762,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -6775,7 +6775,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6783,7 +6783,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6797,7 +6797,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -6810,7 +6810,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6818,7 +6818,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6832,7 +6832,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -6845,7 +6845,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6853,7 +6853,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6867,7 +6867,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -6880,7 +6880,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6888,7 +6888,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6902,7 +6902,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -6915,7 +6915,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -6923,7 +6923,7 @@
                       [
                         "<",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -6937,7 +6937,7 @@
                       [
                         ">=",
                         ["get-val", "stream_habitat_improvements_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "stream_habitat_improvements_quantity"]
@@ -7014,14 +7014,14 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2021"
+                        "pre-2011"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "streambank_protections_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -7034,7 +7034,7 @@
                         [
                           ">=",
                           ["get-val", "streambank_protections_datetime"],
-                          2021
+                          2011
                         ]
                       ],
                       [
@@ -7051,7 +7051,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7059,7 +7059,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7073,7 +7073,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7086,7 +7086,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7094,7 +7094,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7108,7 +7108,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7121,7 +7121,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7129,7 +7129,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7143,7 +7143,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7156,7 +7156,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7164,7 +7164,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7178,7 +7178,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7191,7 +7191,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7199,7 +7199,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7213,7 +7213,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7226,7 +7226,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7234,7 +7234,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7248,7 +7248,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7261,7 +7261,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7269,7 +7269,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7283,7 +7283,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7296,7 +7296,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7304,7 +7304,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7318,7 +7318,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7331,7 +7331,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2021"
+                      "pre-2011"
                     ],
                     [
                       "get-sum",
@@ -7339,7 +7339,7 @@
                       [
                         "<",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     [
@@ -7353,7 +7353,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protections_datetime"],
-                        2021
+                        2011
                       ]
                     ],
                     ["get-sum", "streambank_protections_quantity"]
@@ -7520,7 +7520,7 @@
               ]
             },
             {
-              "header": "Requesting information",
+              "header": "Not Implemented, but Interested",
               "type": "unstyled-string",
               "fractionalWidth": 2,
               "value": [
@@ -8086,7 +8086,7 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGh1cnN0b25jb3VudHkiLCJhIjoiY2p4N3VmNjhxMDRmcTNvcHVrZGtpNjk4bCJ9.zplnWUOkstHU4Ts6Ths53A"
+          "https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         ],
         "tileSize": 256,
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"https://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"https://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"https://developer.mapquest.com/content/osm/mq_logo.png\">."
