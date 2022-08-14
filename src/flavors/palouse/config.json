@@ -4627,7 +4627,7 @@
             {
               "header": "Fish & Wildlife Conservation Areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_wildife_conservation"], "yes"]
+              "filter": ["==", ["get-val", "private-property_on_wildlife_conservation"], "yes"]
             },
             {
               "header": "Critical Aquifers",
