@@ -161,8 +161,6 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
     const { widget } = this.props;
     const WidgetComponent = widgetRegistry[widget.type].component;
 
-    console.log(this.state.isCollapsed)
-
     return (
       <div
         ref={this.chartRef}
@@ -212,7 +210,11 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
               <FontAwesomeIcon
                 color="#e57c04"
                 hoverColor="#d8a56a"
-                faClassname={this.state.isCollapsed ? "fas fa-angle-right" : "fas fa-angle-down"}
+                faClassname={
+                  this.state.isCollapsed
+                    ? "fas fa-angle-right"
+                    : "fas fa-angle-down"
+                }
               />
             </Button>
           )}
