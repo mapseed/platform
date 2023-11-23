@@ -1109,6 +1109,12 @@
         "tiles": [
           "https://vector-tiles.mapseed.org/pacific-grays-harbor-frequently-flooded/{z}/{x}/{y}.pbf"
         ]
+      },
+      "pacific-grays-harbor-wrias": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/pacific-grays-harbor-wrias/{z}/{x}/{y}.pbf"
+        ]
       }
     },
     "layerGroups": [
@@ -1171,11 +1177,7 @@
         "legend": [
           {
             "icon": "/static/css/images/hash-fill-88b9ff-legend.png",
-            "label": "FLD_ZONE A"
-          },
-          {
-            "icon": "/static/css/images/frequently-flooded-legend.png",
-            "label": "FLD_ZONE X"
+            "label": "High-risk flood zones"
           }
         ],
         "mapboxLayers": [
@@ -1188,11 +1190,9 @@
               "fill-pattern": [
                 "match",
                 ["get", "FLD_ZONE"],
-                "X",
-                "hash-fill-88b9ff.png",
                 "A",
                 "frequently-flooded-fill.png",
-                "frequently-flooded-fill.png"
+                "none"
               ]
             }
           },
@@ -1205,14 +1205,80 @@
               "line-color": [
                 "match",
                 ["get", "FLD_ZONE"],
-                "X",
-                "#88b9ff",
                 "A",
                 "#3366ff",
                 "#3366ff"
               ],
-              "line-opacity": 0.7,
+              "line-opacity": [
+                "match",
+                ["get", "FLD_ZONE"],
+                "A",
+                0.7,
+                0.0
+              ],
               "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "pacific-grays-harbor-wrias",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "pacific-grays-harbor-wrias",
+            "type": "fill",
+            "source": "pacific-grays-harbor-wrias",
+            "source-layer": "pacific-grays-harbor-wrias",
+            "paint": {
+              "fill-opacity": 0.5,
+              "fill-color": [
+                "match",
+                ["get", "WRIA"],
+                "23",
+                "#8dd3c7",
+                "24",
+                "#ffffb3",
+                "22",
+                "#bebada",
+                "21",
+                "#8dd3c7",
+                "#fff"
+              ]
+            }
+          },
+          {
+            "id": "pacific-grays-harbor-wrias-outline",
+            "type": "line",
+            "source": "pacific-grays-harbor-wrias",
+            "source-layer": "pacific-grays-harbor-wrias",
+            "layout": {
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 2
+            }
+          },
+          {
+            "id": "pacific-grays-harbor-wrias-labels-unplaced",
+            "type": "symbol",
+            "source": "pacific-grays-harbor-wrias",
+            "source-layer": "pacific-grays-harbor-wrias",
+            "paint": {
+              "text-halo-color": "#fff",
+              "text-halo-width": 20,
+              "text-color": "#666"
+            },
+            "layout": {
+              "text-field": ["concat", "WRIA ", ["to-string", ["get", "WRIA"]]],
+              "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
+              "text-size": 12,
+              "text-allow-overlap": false,
+              "text-max-width": 8,
+              "text-padding": 15,
+              "text-transform": "uppercase",
+              "text-line-height": 1
             }
           }
         ]
@@ -1497,6 +1563,15 @@
           {
             "layerGroupId": "satellite",
             "title": "Light/Satellite View"
+          }
+        ]
+      },
+      {
+        "title": "Water Features",
+        "options": [
+          {
+            "layerGroupId": "pacific-grays-harbor-wrias",
+            "title": "WRIAs"
           }
         ]
       },
