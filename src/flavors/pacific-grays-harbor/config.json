@@ -4,7 +4,7 @@
       "code": "en",
       "label": "English"
     },
-    "usePlaceFilterWidget": true,
+    "usePlaceFilterWidget": false,
     "placeFilters": [
       {
         "placeProperty": "practice_types",
@@ -1076,8 +1076,8 @@
     "geocodeHint": [-123.730959, 47.141837],
     "scrollZoomAroundCenter": true,
     "mapViewport": {
-      "latitude": 46.72443,
-      "longitude": -123.48642,
+      "latitude": 47.1726,
+      "longitude": -123.76793,
       "zoom": 7.95,
       "pitch": 3,
       "minzoom": 1,
@@ -1106,14 +1106,30 @@
       },
       "pacific-grays-harbor-frequently-flooded": {
         "type": "vector",
+        "maxzoom": 14,
         "tiles": [
           "https://vector-tiles.mapseed.org/pacific-grays-harbor-frequently-flooded/{z}/{x}/{y}.pbf"
         ]
       },
       "pacific-grays-harbor-wrias": {
         "type": "vector",
+        "maxzoom": 14,
         "tiles": [
           "https://vector-tiles.mapseed.org/pacific-grays-harbor-wrias/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "pacific-grays-harbor-wetlands": {
+        "type": "vector",
+        "maxzoom": 14,
+        "tiles": [
+          "https://vector-tiles.mapseed.org/pacific-grays-harbor-wetlands/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "grays-harbor-county-boundary": {
+        "type": "vector",
+        "maxzoom": 14,
+        "tiles": [
+          "https://vector-tiles.mapseed.org/grays-harbor-county-boundary/{z}/{x}/{y}.pbf"
         ]
       }
     },
@@ -1172,51 +1188,18 @@
         ]
       },
       {
-        "id": "pacific-grays-harbor-frequently-flooded",
-        "visibleDefault": false,
-        "legend": [
-          {
-            "icon": "/static/css/images/hash-fill-88b9ff-legend.png",
-            "label": "High-risk flood zones"
-          }
-        ],
+        "id": "grays-harbor-county-boundary",
+        "visibleDefault": true,
         "mapboxLayers": [
           {
-            "id": "pacific-grays-harbor-frequently-flooded-fill",
-            "type": "fill",
-            "source": "pacific-grays-harbor-frequently-flooded",
-            "source-layer": "pacific-grays-harbor-frequently-flooded",
-            "paint": {
-              "fill-pattern": [
-                "match",
-                ["get", "FLD_ZONE"],
-                "A",
-                "frequently-flooded-fill.png",
-                "none"
-              ]
-            }
-          },
-          {
-            "id": "pacific-grays-harbor-frequently-flooded-line",
+            "id": "grays-harbor-county-boundary",
             "type": "line",
-            "source": "pacific-grays-harbor-frequently-flooded",
-            "source-layer": "pacific-grays-harbor-frequently-flooded",
+            "source": "grays-harbor-county-boundary",
+            "source-layer": "grays-harbor-county-boundary",
             "paint": {
-              "line-color": [
-                "match",
-                ["get", "FLD_ZONE"],
-                "A",
-                "#3366ff",
-                "#3366ff"
-              ],
-              "line-opacity": [
-                "match",
-                ["get", "FLD_ZONE"],
-                "A",
-                0.7,
-                0.0
-              ],
-              "line-width": 2
+              "line-color": "#61974b",
+              "line-width": 3,
+              "line-dasharray": [2, 2]
             }
           }
         ]
@@ -1271,7 +1254,19 @@
               "text-color": "#666"
             },
             "layout": {
-              "text-field": ["concat", "WRIA ", ["to-string", ["get", "WRIA"]]],
+              "text-field": [
+                "match",
+                ["to-string", ["get", "WRIA"]],
+                "21",
+                "Queets-Quinault Watershed",
+                "22",
+                "Lower Chehalis Watershed",
+                "23",
+                "Upper Chehalis Watershed",
+                "24",
+                "Willapa Watershed",
+                ""
+              ],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
               "text-size": 12,
               "text-allow-overlap": false,
@@ -1279,6 +1274,76 @@
               "text-padding": 15,
               "text-transform": "uppercase",
               "text-line-height": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "pacific-grays-harbor-wetlands",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "pacific-grays-harbor-wetlands-fill",
+            "type": "fill",
+            "source": "pacific-grays-harbor-wetlands",
+            "source-layer": "pacific-grays-harbor-wetlands",
+            "paint": {
+              "fill-pattern": "wetlands-fill.png"
+            }
+          },
+          {
+            "id": "pacific-grays-harbor-wetlands-outline",
+            "type": "line",
+            "source": "pacific-grays-harbor-wetlands",
+            "source-layer": "pacific-grays-harbor-wetlands",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-opacity": 0.7,
+              "line-width": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "pacific-grays-harbor-frequently-flooded",
+        "visibleDefault": false,
+        "legend": [
+          {
+            "icon": "/static/css/images/hash-fill-88b9ff-legend.png",
+            "label": "High-risk flood zones"
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "pacific-grays-harbor-frequently-flooded-fill",
+            "type": "fill",
+            "source": "pacific-grays-harbor-frequently-flooded",
+            "source-layer": "pacific-grays-harbor-frequently-flooded",
+            "paint": {
+              "fill-pattern": [
+                "match",
+                ["get", "FLD_ZONE"],
+                "A",
+                "frequently-flooded-fill.png",
+                "none"
+              ]
+            }
+          },
+          {
+            "id": "pacific-grays-harbor-frequently-flooded-line",
+            "type": "line",
+            "source": "pacific-grays-harbor-frequently-flooded",
+            "source-layer": "pacific-grays-harbor-frequently-flooded",
+            "paint": {
+              "line-color": [
+                "match",
+                ["get", "FLD_ZONE"],
+                "A",
+                "#3366ff",
+                "#3366ff"
+              ],
+              "line-opacity": ["match", ["get", "FLD_ZONE"], "A", 0.7, 0.0],
+              "line-width": 2
             }
           }
         ]
@@ -1295,123 +1360,9 @@
             "source": "pacific-grays-harbor-input",
             "layout": {
               "icon-size": 0.3,
+              "icon-allow-overlap": true,
               "icon-anchor": "bottom",
-              "icon-image": [
-                "case",
-                [
-                  "all",
-                  ["==", ["length", ["get", "practice_types"]], 1],
-                  ["==", ["at", 0, ["get", "practice_types"]], "agriculture"]
-                ],
-                "marker-agriculture.png",
-                [
-                  "all",
-                  ["==", ["length", ["get", "practice_types"]], 1],
-                  ["==", ["at", 0, ["get", "practice_types"]], "livestock"]
-                ],
-                "marker-livestock.png",
-                [
-                  "all",
-                  ["==", ["length", ["get", "practice_types"]], 1],
-                  ["==", ["at", 0, ["get", "practice_types"]], "forestry"]
-                ],
-                "marker-forestry.png",
-                [
-                  "any",
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
-                  ]
-                ],
-                "marker-agriculture-livestock.png",
-                [
-                  "any",
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
-                  ]
-                ],
-                "marker-agriculture-forestry.png",
-                [
-                  "any",
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
-                  ]
-                ],
-                "marker-livestock-forestry.png",
-                [
-                  "any",
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
-                  ]
-                ],
-                "marker-agriculture-livestock-forestry.png",
-                "marker-grown-local.png"
-              ]
+              "icon-image": "marker-agriculture.png"
             }
           }
         ],
@@ -1422,122 +1373,7 @@
             "source": "pacific-grays-harbor-input",
             "layout": {
               "icon-anchor": "bottom",
-              "icon-image": [
-                "case",
-                [
-                  "all",
-                  ["==", ["length", ["get", "practice_types"]], 1],
-                  ["==", ["at", 0, ["get", "practice_types"]], "agriculture"]
-                ],
-                "marker-agriculture.png",
-                [
-                  "all",
-                  ["==", ["length", ["get", "practice_types"]], 1],
-                  ["==", ["at", 0, ["get", "practice_types"]], "livestock"]
-                ],
-                "marker-livestock.png",
-                [
-                  "all",
-                  ["==", ["length", ["get", "practice_types"]], 1],
-                  ["==", ["at", 0, ["get", "practice_types"]], "forestry"]
-                ],
-                "marker-forestry.png",
-                [
-                  "any",
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
-                  ]
-                ],
-                "marker-agriculture-livestock.png",
-                [
-                  "any",
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"]
-                  ]
-                ],
-                "marker-agriculture-forestry.png",
-                [
-                  "any",
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 2],
-                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"]
-                  ]
-                ],
-                "marker-livestock-forestry.png",
-                [
-                  "any",
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "livestock"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "agriculture"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "forestry"]
-                  ],
-                  [
-                    "all",
-                    ["==", ["length", ["get", "practice_types"]], 3],
-                    ["==", ["at", 0, ["get", "practice_types"]], "livestock"],
-                    ["==", ["at", 1, ["get", "practice_types"]], "forestry"],
-                    ["==", ["at", 2, ["get", "practice_types"]], "agriculture"]
-                  ]
-                ],
-                "marker-agriculture-livestock-forestry.png",
-                "marker-grown-local.png"
-              ],
+              "icon-image": "marker-agriculture.png",
               "icon-size": ["step", ["zoom"], 0.1, 11, 0.2, 16, 0.3],
               "icon-allow-overlap": true
             }
@@ -1581,12 +1417,20 @@
           {
             "layerGroupId": "pacific-grays-harbor-frequently-flooded",
             "title": "Frequently Flooded Areas"
+          },
+          {
+            "layerGroupId": "pacific-grays-harbor-wetlands",
+            "title": "Wetlands"
           }
         ]
       },
       {
         "title": "Community Data",
         "options": [
+          {
+            "layerGroupId": "grays-harbor-county-boundary",
+            "title": "Grays Harbor County border"
+          },
           {
             "layerGroupId": "pacific-grays-harbor-input",
             "title": "Voluntary Stewardship Program Reports"
@@ -1612,29 +1456,122 @@
         "name": "location_type",
         "datasetSlug": "pacific-grays-harbor-input",
         "icon_url": "/static/css/images/markers/marker-field.png",
-        "geospatialAnalysis": [
-          {
-            "name": "analysis_unit",
-            "type": "pointInPolygon",
-            "analysisTarget": "spokane-watersheds.geojson",
-            "propertiesToPluck": [
-              {
-                "name": "NAME"
-              }
-            ]
-          },
-          {
-            "name": "on_frequently_flooded",
-            "type": "pointInPolygon",
-            "analysisTarget": "pacific-grays-harbor-frequently-flooded.geojson"
-          }
-        ],
         "value": "VSP Report",
         "multi_stage": [
           {
             "start_field_index": 1,
             "end_field_index": 5,
-            "visibleLayerGroupIds": ["satellite", "pacific-grays-harbor-input"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 6,
+            "end_field_index": 7,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-wrias"
+            ]
+          },
+          {
+            "start_field_index": 8,
+            "end_field_index": 10,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-wetlands"
+            ]
+          },
+          {
+            "start_field_index": 11,
+            "end_field_index": 13,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-frequently-flooded"
+            ]
+          },
+          {
+            "start_field_index": 14,
+            "end_field_index": 16,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 17,
+            "end_field_index": 19,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 20,
+            "end_field_index": 22,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 23,
+            "end_field_index": 24,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 25,
+            "end_field_index": 45,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 46,
+            "end_field_index": 61,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 62,
+            "end_field_index": 75,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 76,
+            "end_field_index": 84,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 85,
+            "end_field_index": 101,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
+          },
+          {
+            "start_field_index": 102,
+            "end_field_index": 111,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "grays-harbor-county-boundary"
+            ]
           }
         ],
         "label": "Actions",
@@ -1646,7 +1583,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h2>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h3><p></p>"
           },
           {
             "name": "location_why",
@@ -1665,6 +1602,1747 @@
             "prompt": "Or, search by address:",
             "placeholder": "Your address will never be shared",
             "optional": true
+          },
+          {
+            "name": "which_watershed_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>2. Watershed Resource Inventory Area (WRIA)</h3><p></p>"
+          },
+          {
+            "name": "which_watershed",
+            "type": "big_radio",
+            "prompt": "Of the four WRIA regions on the map (Queets-Quinault, Lower Chehalis, Upper Chehalis and Willapa ), where is your project area primarily located?",
+            "content": [
+              {
+                "label": "Queets-Quinault Watershed - WRIA 21",
+                "value": "wria_21"
+              },
+              {
+                "label": "Lower Chehalis Watershed - WRIA 22",
+                "value": "wria_22"
+              },
+              {
+                "label": "Upper Chehalis Watershed - WRIA 23",
+                "value": "wria_23"
+              },
+              {
+                "label": "Willapa Watershed - WRIA 24",
+                "value": "wria_24"
+              }
+            ]
+          },
+          {
+            "name": "wetlands_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>3. Wetland areas</h2>"
+          },
+          {
+            "name": "wetlands_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px;font-size:0.9em'><p style='margin:0'><strong>Wetland areas</strong> are inundated or saturated by surface water or groundwater.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wetlands-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_wetlands",
+            "type": "big_radio",
+            "prompt": "Are there any wetlands? Please note locations are approximate.",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "frequently_flooded_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>4. Frequently flooded areas</h2>"
+          },
+          {
+            "name": "frequently_flooded_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Frequently flooded areas</strong> are subject to a 1% or greater chance of flooding every year.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/frequently-flooded-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_frequently_flooded",
+            "type": "big_radio",
+            "prompt": "Are there any frequently flooded areas? Please note locations are approximate.",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "geologic_hazard_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>5. Severe geologic hazard areas</h2>"
+          },
+          {
+            "name": "geologic_hazard_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Severe geologic hazard areas</strong> are susceptible to erosion, sliding, earthquakes, and other events.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/geologic-hazard-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_geologic_hazard",
+            "type": "big_radio",
+            "prompt": "Are there any severe geologic hazard areas? Please note locations are approximate.",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "critical_aquifer_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>6. Critical aquifer recharge areas</h2>"
+          },
+          {
+            "name": "critical_aquifer_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Critical aquifer recharge areas</strong> have a critical effect on aquifers used for potable water.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/critical-aquifer-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_critical_aquifer",
+            "type": "big_radio",
+            "prompt": "Are there any critical aquifer recharge areas? Please note locations are approximate.",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "wildlife_conservation_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>7. Fish & wildlife conservation areas</h2>"
+          },
+          {
+            "name": "wildlife_conservation_information",
+            "type": "informational_html",
+            "content": "<div style='display:flex;justify-content:center'></div><div style='padding:0 16px 0 16px;font-size:1.15em;margin-top:15px'><div style='display:flex;margin-bottom:16px'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Description</em></div><div style='flex:6;margin-left:24px'><p style='margin:0;font-size:0.9em'><strong>Fish & wildlife conservation areas</strong> are managed to maintain populations of fish and wildlife.</p></div></div><div style='display:flex'><div style='flex:1;flex-basis:15%;display:flex;align-items:center'><em style='font-size:0.9em'>Appearance on map</em></div><div style='flex:6;margin-left:24px'><img style='width:48px' src='/static/css/images/wildlife-conservation-legend.png' /></div></div></div>"
+          },
+          {
+            "name": "private-property_on_wildlife_conservation",
+            "type": "big_radio",
+            "prompt": "Are there any fish & wildlife conservation areas? Please note locations are approximate.",
+            "optional": false,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "project_type_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Project Type</h3><p></p>"
+          },
+          {
+            "name": "which_project_type",
+            "type": "big_checkbox",
+            "prompt": "What type(s) of project(s) have you completed on your own or in partnership with Grays Harbor Conservation District? (Choose all that apply)",
+            "content": [
+              {
+                "label": "Agriculture",
+                "value": "agriculture"
+              },
+              {
+                "label": "Watershed Restoration",
+                "value": "watershed_restoration"
+              },
+              {
+                "label": "Forest Health",
+                "value": "forest_health"
+              },
+              {
+                "label": "Marine & Estuarine Resiliency",
+                "value": "marine_resiliency"
+              },
+              {
+                "label": "Education & Outreach",
+                "value": "education_outreach"
+              }
+            ],
+            "triggers": [
+              {
+                "value": "agriculture",
+                "targets": [
+                  "agriculture_header",
+                  "vsp_status",
+                  "mud_manure_management",
+                  "fencing",
+                  "off_creek_stock_watering",
+                  "flood_fencing",
+                  "agriculture_invasive_species",
+                  "agriculture_project_funding"
+                ]
+              },
+              {
+                "value": "watershed_restoration",
+                "targets": [
+                  "watershed_restoration_header",
+                  "instream_habitat",
+                  "streambank_planting",
+                  "watershed_invasive_species",
+                  "watershed_project_funding"
+                ]
+              },
+              {
+                "value": "forest_health",
+                "targets": [
+                  "forest_health_header",
+                  "forest_management",
+                  "stand_improvement",
+                  "slash_treatment",
+                  "forestry_invasive_species",
+                  "forestry_proect_funding"
+                ]
+              },
+              {
+                "value": "marine_resiliency",
+                "targets": [
+                  "marine_resiliency_header",
+                  "flood_protection",
+                  "dynamic_revetment",
+                  "marine_project_funding"
+                ]
+              },
+              {
+                "value": "education_outreach",
+                "targets": [
+                  "education_outreach_header",
+                  "salmon_schools",
+                  "envirothon",
+                  "community_gardens",
+                  "stormwater_education",
+                  "pollinator_garden",
+                  "education_outreach_funding"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "agriculture_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Agriculture Projects</h3><p></p>"
+          },
+          {
+            "name": "vsp_status",
+            "type": "big_radio",
+            "hidden_default": false,
+            "prompt": "Are you currently participating in the Voluntary Stewardship Program?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "//": "=============== MUD AND MANURE MANAGEMENT =================================",
+            "name": "mud_manure_management",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Mud and manure management",
+            "label": "Mud and manure management",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "mud_manure_management_quantity",
+                  "mud_manure_management_type",
+                  "mud_manure_management_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "mud_manure_management_quantity",
+            "type": "number",
+            "prompt": "On how many acres do you practice mud and manure management?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "mud_manure_management_type",
+            "type": "big_checkbox",
+            "prompt": "Which types of mud and manure management do you practice? (Check all that apply)",
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Gutters and downspouts",
+                "value": "gutters_downspouts"
+              },
+
+              {
+                "label": "Heavy use area",
+                "value": "heavy_use_area"
+              },
+              {
+                "label": "Hardened stream crossings",
+                "value": "hardened_stream_crossings"
+              },
+              {
+                "label": "Waste storage",
+                "value": "waste_storage"
+              }
+            ]
+          },
+          {
+            "name": "mud_manure_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== LIVESTOCK EXCLUSION FENCING =================================",
+            "name": "fencing",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Livestock Exclusion Fencing",
+            "label": "Fencing",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "fencing_riparian",
+                  "fencing_quantity",
+                  "fencing_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "fencing_quantity",
+            "type": "number",
+            "prompt": "How many linear feet of livestock exclusion fencing did you build?",
+            "min": 0,
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "fencing_riparian",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Was this fence project completed in conjunction with riparian (Streambank) planting?",
+            "label": "Fencing Riparian",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "fencing_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== OFF CREEK STOCK WATERING =================================",
+            "name": "off_creek_stock_watering",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Off stream watering facilities",
+            "label": "Off stream watering facilities",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "off_creek_stock_watering_datetime",
+                  "off_creek_num_facilities"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "off_creek_num_facilities",
+            "type": "number",
+            "prompt": "How many off stream watering facilities did you install?",
+            "min": 0,
+            "placeholder": "Number of facilities",
+            "hidden_default": true,
+            "metadata": {
+              "units": "facilities"
+            }
+          },
+          {
+            "name": "off_creek_stock_watering_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FLOOD FENCING =================================",
+            "name": "flood_fencing",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Flood Fencing",
+            "label": "Flood Fencing",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["flood_fencing_quantity", "flood_fencing_datetime"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "flood_fencing_quantity",
+            "type": "number",
+            "prompt": "How many linear feet of flood fence installation?",
+            "min": 0,
+            "placeholder": "Feet of fencing",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "flood_fencing_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== AGRICULTURE INVASIVE SPECIES MANAGEMENT =================================",
+            "name": "agriculture_invasive_species",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Invasive Species Management",
+            "label": "Invasive Species Management",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "agriculture_invasive_species_type",
+                  "agriculture_invasive_species_treatment_method",
+                  "agriculture_invasive_species_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "agriculture_invasive_species_type",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "What invasive species did you treat? (Check all that apply)",
+            "content": [
+              {
+                "label": "Knotweed",
+                "value": "knotweed"
+              },
+              {
+                "label": "Gorse",
+                "value": "gorse"
+              },
+              {
+                "label": "Loosestrife",
+                "value": "loosestrife"
+              },
+              {
+                "label": "Poison Hemlock",
+                "value": "poison_hemlock"
+              },
+              {
+                "label": "Tansy Ragwort",
+                "value": "tansy_ragwort"
+              },
+              {
+                "label": "Himlayan Blackberry",
+                "value": "himlayan_blackberry"
+              },
+              {
+                "label": "Evergreen Blackberry",
+                "value": "evergreen_blackberry"
+              },
+              {
+                "label": "Other",
+                "value": "other"
+              }
+            ]
+          },
+          {
+            "name": "agriculture_invasive_species_treatment_method",
+            "type": "big_radio",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "Primary Treatment Method used:",
+            "content": [
+              {
+                "label": "Chemical",
+                "value": "chemical"
+              },
+              {
+                "label": "Mechanical",
+                "value": "mechanical"
+              },
+              {
+                "label": "Biological",
+                "value": "biological"
+              }
+            ]
+          },
+          {
+            "name": "agriculture_invasive_species_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "agriculture_project_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Community Streambank Project (CSP)",
+                "value": "funding_csp"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
+          },
+          {
+            "name": "watershed_restoration_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Water Projects</h3><p></p>"
+          },
+          {
+            "//": "=============== INSTREAM HABITAT ================================",
+            "name": "instream_habitat",
+            "type": "big_radio",
+            "prompt": "Instream Structures",
+            "label": "Instream structures",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "instream_habitat_quantity",
+                  "instream_habitat_bank_shaping",
+                  "instream_habitat_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but I'm interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "instream_habitat_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many structures?",
+            "placeholder": "Approximate number of structures",
+            "hidden_default": true,
+            "metadata": {
+              "units": "structures"
+            }
+          },
+          {
+            "name": "instream_habitat_bank_shaping",
+            "type": "big_radio",
+            "prompt": "Did your project include bank shaping?",
+            "label": "Bank shaping",
+            "optional": true,
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "instream_habitat_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STREAMBANK PLANTING ================================",
+            "name": "streambank_planting",
+            "type": "big_radio",
+            "prompt": "Riparian (Streambank) Planting",
+            "label": "Streambank planting",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "streambank_planting_quantity_linear_feet",
+                  "streambank_planting_average_width",
+                  "streambank_planting_quantity_acres",
+                  "streambank_planting_quantity_stem_count",
+                  "streambank_planting_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but I'm interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "streambank_planting_linear_feet",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many linear feet of stream bank did you plant?",
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "streambank_planting_average_width",
+            "type": "number",
+            "min": 0,
+            "prompt": "What was the average planting buffer width in feet?",
+            "placeholder": "Approximate width",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "streambank_planting_quantity_acres",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many acres was the total planting area?",
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "streambank_planting_quantity_stem_count",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many stems were planted?",
+            "placeholder": "Approximate stem count",
+            "hidden_default": true,
+            "metadata": {
+              "units": "stems"
+            }
+          },
+          {
+            "name": "streambank_protection_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "Approximately when did you start streambank protection?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== WATERSHED INVASIVE SPECIES MANAGEMENT =================================",
+            "name": "watershed_invasive_species",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Invasive Species Management",
+            "label": "Invasive Species Management",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "watershed_invasive_species_type",
+                  "watershed_invasive_species_treatment_method",
+                  "watershed_invasive_species_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "watershed_invasive_species_type",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "What invasive species did you treat? (Check all that apply)",
+            "content": [
+              {
+                "label": "Knotweed",
+                "value": "knotweed"
+              },
+              {
+                "label": "Gorse",
+                "value": "gorse"
+              },
+              {
+                "label": "Loosestrife",
+                "value": "loosestrife"
+              },
+              {
+                "label": "Poison Hemlock",
+                "value": "poison_hemlock"
+              },
+              {
+                "label": "Tansy Ragwort",
+                "value": "tansy_ragwort"
+              },
+              {
+                "label": "Himlayan Blackberry",
+                "value": "himlayan_blackberry"
+              },
+              {
+                "label": "Evergreen Blackberry",
+                "value": "evergreen_blackberry"
+              },
+              {
+                "label": "Other",
+                "value": "other"
+              }
+            ]
+          },
+          {
+            "name": "watershed_invasive_species_treatment_method",
+            "type": "big_radio",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "Primary Treatment Method used:",
+            "content": [
+              {
+                "label": "Chemical",
+                "value": "chemical"
+              },
+              {
+                "label": "Mechanical",
+                "value": "mechanical"
+              },
+              {
+                "label": "Biological",
+                "value": "biological"
+              }
+            ]
+          },
+          {
+            "name": "watershed_invasive_species_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "watershed_project_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Community Streambank Project (CSP)",
+                "value": "funding_csp"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
+          },
+          {
+            "name": "forest_health_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Forestry Projects</h3><p></p>"
+          },
+          {
+            "//": "=============== FOREST MANAGEMENT PLANNING =================================",
+            "name": "forest_management",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Forest Management Planning",
+            "label": "Forest Management Planning",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "forest_management_plan_type",
+                  "forest_management_quantity",
+                  "forest_management_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "forest_management_plan_type",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "What type of plan do you have?",
+            "label": "Plan type",
+            "optional": true,
+            "content": [
+              {
+                "label": "CAP 106 Plan",
+                "value": "cap_106"
+              },
+              {
+                "label": "Timber Management Plan (County)",
+                "value": "timber_management"
+              },
+              {
+                "label": "Washington Integrated Plan",
+                "value": "wa_integrated"
+              },
+              {
+                "label": "I'm not sure",
+                "value": "unsure"
+              }
+            ]
+          },
+          {
+            "name": "forest_management_quantity",
+            "type": "number",
+            "prompt": "How many acres are represented in your plan?",
+            "min": 0,
+            "placeholder": "Acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "forest_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the management plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FORESTRY STAND IMPROVEMENT =================================",
+            "name": "stand_improvement",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Forestry Stand Improvement",
+            "label": "Forestry Stand Improvement",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["stand_improvement_datetime"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "stand_improvement_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the management plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== SLASH TREATMENT =================================",
+            "name": "slash_treatment",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Slash Treatment",
+            "label": "Slash Treatment",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "slash_treatment_quantity",
+                  "slash_treatment_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "slash_treatment_quantity",
+            "type": "number",
+            "prompt": "Number of slash piles treated?",
+            "min": 0,
+            "placeholder": "Piles",
+            "hidden_default": true,
+            "metadata": {
+              "units": "piles"
+            }
+          },
+          {
+            "name": "slash_treatment_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the management plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FORESTRY INVASIVE SPECIES MANAGEMENT =================================",
+            "name": "forestry_invasive_species",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Invasive Species Management",
+            "label": "Invasive Species Management",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "forestry_invasive_species_type",
+                  "forestry_invasive_species_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "forestry_invasive_species_type",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "What invasive species did you treat? (Check all that apply)",
+            "content": [
+              {
+                "label": "Knotweed",
+                "value": "knotweed"
+              },
+              {
+                "label": "Gorse",
+                "value": "gorse"
+              },
+              {
+                "label": "Loosestrife",
+                "value": "loosestrife"
+              },
+              {
+                "label": "Poison Hemlock",
+                "value": "poison_hemlock"
+              },
+              {
+                "label": "Tansy Ragwort",
+                "value": "tansy_ragwort"
+              },
+              {
+                "label": "Himlayan Blackberry",
+                "value": "himlayan_blackberry"
+              },
+              {
+                "label": "Evergreen Blackberry",
+                "value": "evergreen_blackberry"
+              },
+              {
+                "label": "Other",
+                "value": "other"
+              }
+            ]
+          },
+          {
+            "name": "forestry_invasive_species_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the management plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "forestry_project_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Community Streambank Project (CSP)",
+                "value": "funding_csp"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
+          },
+          {
+            "name": "marine_resiliency_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Marine Projects</h3><p></p>"
+          },
+          {
+            "//": "=============== FLOOD PROTECTION PLANNING =================================",
+            "name": "flood_protection",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Flood Protection Planning",
+            "label": "Flood Protection Planning",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "flood_protection_plan_description",
+                  "flood_protection_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "flood_protection_plan_description",
+            "type": "textarea",
+            "prompt": "Description of plan developed, include key stakeholders:",
+            "display_prompt": "Description:",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "flood_protection_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== DYNAMIC REVETMENT =================================",
+            "name": "dynamic_revetment",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Dynamic Revetment",
+            "label": "Dynamic Revetment",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "dynamic_revetment_quantity_length",
+                  "dynamic_revetment_quantity_material",
+                  "dynamic_revetment_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "dynamic_revetment_quantity_length",
+            "type": "number",
+            "prompt": "Length of dynamic revetment",
+            "min": 0,
+            "placeholder": "Yards",
+            "hidden_default": true,
+            "metadata": {
+              "units": "yards"
+            }
+          },
+          {
+            "name": "dynamic_revetment_quantity_material",
+            "type": "number",
+            "prompt": "Total yards of material used in the revetment",
+            "min": 0,
+            "placeholder": "Yards",
+            "hidden_default": true,
+            "metadata": {
+              "units": "yards"
+            }
+          },
+          {
+            "name": "dynamic_revetment_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "marine_project_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Community Streambank Project (CSP)",
+                "value": "funding_csp"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
+          },
+          {
+            "name": "education_outreach_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Education Projects</h3><p></p>"
+          },
+          {
+            "//": "=============== SALMON IN THE SCHOOLS =================================",
+            "name": "salmon_schools",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Salmon in the Schools",
+            "label": "Salmon in the Schools",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "salmon_schools_quantity_eggs",
+                  "salmon_schools_quantity_released",
+                  "salmon_schools_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "salmon_schools_quantity_length",
+            "type": "number",
+            "prompt": "Number of salmon eggs provided",
+            "min": 0,
+            "placeholder": "Eggs",
+            "hidden_default": true,
+            "metadata": {
+              "units": "eggs"
+            }
+          },
+          {
+            "name": "salmon_schools_quantity_released",
+            "type": "number",
+            "prompt": "Number of salmon released",
+            "min": 0,
+            "placeholder": "Salmon",
+            "hidden_default": true,
+            "metadata": {
+              "units": "salmon"
+            }
+          },
+          {
+            "name": "salmon_schools_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== ENVIROTHON COMPETITION =================================",
+            "name": "envirothon",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Envirothon Competition",
+            "label": "Envirothon Competition",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["envirothon_school_name"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "envirothon_school_name",
+            "type": "text",
+            "prompt": "Participating school name",
+            "hidden_default": true
+          },
+          {
+            "//": "=============== COMMUNITY GARDENS =================================",
+            "name": "community_gardens",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Salmon in the Schools",
+            "label": "Salmon in the Schools",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "community_gardens_quantity",
+                  "community_gardens_contact"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "community_gardens_quantity",
+            "type": "number",
+            "prompt": "Number of beds available",
+            "min": 0,
+            "placeholder": "Garden beda",
+            "hidden_default": true,
+            "metadata": {
+              "units": "beda"
+            }
+          },
+          {
+            "name": "community_gardens_contact",
+            "type": "text",
+            "prompt": "Garden point of contact",
+            "placeholder": "Contact",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STORMWATER EDUCATION =================================",
+            "name": "stormwater_education",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Stormwater Education",
+            "label": "Stormwater Education",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "stormwater_education_description",
+                  "stormwater_education_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "stormwater_education_description",
+            "type": "textarea",
+            "prompt": "Describe your project in detail. (E.g. storm drain marking, rain garden construction)",
+            "placeholder": "Description",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "stormwater_education_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the project implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== POLLINATOR GARDEN =================================",
+            "name": "pollinator_garden",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Pollinator Garden",
+            "label": "Pollinator Garden",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "pollinator_garden_description",
+                  "pollinator_garden_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "pollinator_garden_description",
+            "type": "textarea",
+            "prompt": "Describe your project in detail. (E.g. storm drain marking, rain garden construction)",
+            "placeholder": "Description",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "pollinator_garden_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the project implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "education_outreach_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Community Streambank Project (CSP)",
+                "value": "funding_csp"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
+          },
+          {
+            "//": "=============== ALMOST DONE =================================",
+            "name": "almost_done",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost Completed!</h3><p>This page will determine how your information is shared. We will report all practices at the watershed analysis unit scale, but if you are interested in having your project showcased you can give us permission below. Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
+          },
+          {
+            "name": "share_photos",
+            "type": "big_radio",
+            "prompt": "Can The Grays Harbor Conservervation District highlight your photos in our current media platforms?",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "private",
+            "type": "big_radio",
+            "prompt": "Would you be willing to share your stewardship story with the public? Y, N, N I need more information. (Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.)",
+            "default_value": "no",
+            "content": [
+              {
+                "label": "Yes",
+                "value": "no"
+              },
+              {
+                "label": "No",
+                "value": "yes"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "private-landowner_name",
+            "type": "text",
+            "optional": false,
+            "placeholder": "Your name will never be shared",
+            "prompt": "Name (This information will never be shared.)"
+          },
+          {
+            "name": "private-landowner_email",
+            "type": "text",
+            "optional": false,
+            "placeholder": "Your email address will never be shared",
+            "prompt": "What is your email address?"
+          },
+          {
+            "name": "contact_interest",
+            "prompt": "Would you like to be contacted about potential project ideas you have?",
+            "type": "big_radio",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "submit",
+            "type": "submit",
+            "label": "Submit"
           }
         ]
       }
