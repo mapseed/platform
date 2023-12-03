@@ -1522,7 +1522,8 @@
             "end_field_index": 24,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-input"
             ]
           },
           {
@@ -1530,7 +1531,8 @@
             "end_field_index": 45,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-input"
             ]
           },
           {
@@ -1538,7 +1540,8 @@
             "end_field_index": 61,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-input"
             ]
           },
           {
@@ -1546,7 +1549,8 @@
             "end_field_index": 75,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-input"
             ]
           },
           {
@@ -1554,7 +1558,8 @@
             "end_field_index": 84,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-input"
             ]
           },
           {
@@ -1562,7 +1567,8 @@
             "end_field_index": 101,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-input"
             ]
           },
           {
@@ -1570,7 +1576,8 @@
             "end_field_index": 111,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-input"
             ]
           }
         ],
