@@ -1775,8 +1775,8 @@
           },
           {
             "name": "which_project_type",
-            "type": "big_checkbox",
-            "prompt": "What type(s) of project(s) have you completed on your own or in partnership with Grays Harbor Conservation District? (Choose all that apply)",
+            "type": "big_radio",
+            "prompt": "What type of project have you completed on your own or in partnership with Grays Harbor Conservation District?",
             "content": [
               {
                 "label": "Agriculture",
@@ -1831,7 +1831,7 @@
                   "stand_improvement",
                   "slash_treatment",
                   "forestry_invasive_species",
-                  "forestry_proect_funding"
+                  "forestry_project_funding"
                 ]
               },
               {
