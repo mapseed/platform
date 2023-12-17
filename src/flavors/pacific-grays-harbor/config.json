@@ -4,20 +4,29 @@
       "code": "en",
       "label": "English"
     },
-    "usePlaceFilterWidget": false,
+    "usePlaceFilterWidget": true,
     "placeFilters": [
       {
-        "placeProperty": "practice_types",
-        "operator": "includes",
+        "placeProperty": "which_project_type",
+        "operator": "equals",
         "datasetSlug": "pacific-grays-harbor-input",
         "value": "agriculture",
         "label": "Agricultural stewardship",
         "setDefault": true,
-        "icon": "/static/css/images/markers/marker-agriculture.png"
+        "icon": "/static/css/images/markers/marker-field.png"
       },
       {
-        "placeProperty": "practice_types",
-        "operator": "includes",
+        "placeProperty": "which_project_type",
+        "operator": "equals",
+        "datasetSlug": "pacific-grays-harbor-input",
+        "value": "watershed_restoration",
+        "label": "Watershed restoration",
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-watershed-restoration.png"
+      },
+      {
+        "placeProperty": "which_project_type",
+        "operator": "equals",
         "datasetSlug": "pacific-grays-harbor-input",
         "value": "forestry",
         "label": "Forestry stewardship",
@@ -25,13 +34,22 @@
         "icon": "/static/css/images/markers/marker-forestry.png"
       },
       {
-        "placeProperty": "practice_types",
-        "operator": "includes",
+        "placeProperty": "which_project_type",
+        "operator": "equals",
         "datasetSlug": "pacific-grays-harbor-input",
-        "value": "livestock",
-        "label": "Livestock stewardship",
+        "value": "marine_resiliency",
+        "label": "Marine resiliency",
         "setDefault": true,
-        "icon": "/static/css/images/markers/marker-livestock.png"
+        "icon": "/static/css/images/markers/marker-marine-resiliency.png"
+      },
+      {
+        "placeProperty": "which_project_type",
+        "operator": "equals",
+        "datasetSlug": "pacific-grays-harbor-input",
+        "value": "education_outreach",
+        "label": "Education & outreach",
+        "setDefault": true,
+        "icon": "/static/css/images/markers/marker-idea.png"
       }
     ]
   },
@@ -1362,7 +1380,20 @@
               "icon-size": 0.3,
               "icon-allow-overlap": true,
               "icon-anchor": "bottom",
-              "icon-image": "marker-agriculture.png"
+              "icon-image": [
+                "case",
+                ["==", ["get", "which_project_type"], "agriculture"],
+                "marker-field.png",
+                ["==", ["get", "which_project_type"], "watershed_restoration"],
+                "marker-watershed-restoration.png",
+                ["==", ["get", "which_project_type"], "forest_health"],
+                "marker-forestry.png",
+                ["==", ["get", "which_project_type"], "marine_resiliency"],
+                "marker-marine-resiliency.png",
+                ["==", ["get", "which_project_type"], "education_outreach"],
+                "marker-idea.png",
+                "marker-idea.png"
+              ]
             }
           }
         ],
@@ -1373,7 +1404,20 @@
             "source": "pacific-grays-harbor-input",
             "layout": {
               "icon-anchor": "bottom",
-              "icon-image": "marker-agriculture.png",
+              "icon-image": [
+                "case",
+                ["==", ["get", "which_project_type"], "agriculture"],
+                "marker-field.png",
+                ["==", ["get", "which_project_type"], "watershed_restoration"],
+                "marker-watershed-restoration.png",
+                ["==", ["get", "which_project_type"], "forest_health"],
+                "marker-forestry.png",
+                ["==", ["get", "which_project_type"], "marine_resiliency"],
+                "marker-marine-resiliency.png",
+                ["==", ["get", "which_project_type"], "education_outreach"],
+                "marker-idea.png",
+                "marker-idea.png"
+              ],
               "icon-size": ["step", ["zoom"], 0.1, 11, 0.2, 16, 0.3],
               "icon-allow-overlap": true
             }
@@ -1463,7 +1507,8 @@
             "end_field_index": 5,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "pacific-grays-harbor-wrias"
             ]
           },
           {
@@ -2048,7 +2093,7 @@
                 "value": "yes",
                 "targets": [
                   "off_creek_stock_watering_datetime",
-                  "off_creek_num_facilities"
+                  "off_creek_stock_watering_quantity"
                 ]
               }
             ],
@@ -2068,7 +2113,7 @@
             ]
           },
           {
-            "name": "off_creek_num_facilities",
+            "name": "off_creek_stock_watering_quantity",
             "type": "number",
             "prompt": "How many off stream watering facilities did you install?",
             "min": 0,
@@ -2199,8 +2244,8 @@
                 "value": "tansy_ragwort"
               },
               {
-                "label": "Himlayan Blackberry",
-                "value": "himlayan_blackberry"
+                "label": "Himalayan Blackberry",
+                "value": "himalayan_blackberry"
               },
               {
                 "label": "Evergreen Blackberry",
@@ -2356,10 +2401,10 @@
               {
                 "value": "yes",
                 "targets": [
-                  "streambank_planting_quantity_linear_feet",
+                  "streambank_planting_quantity",
                   "streambank_planting_average_width",
-                  "streambank_planting_quantity_acres",
-                  "streambank_planting_quantity_stem_count",
+                  "streambank_planting_acres_quantity",
+                  "streambank_planting_stem_count_quantity",
                   "streambank_planting_datetime"
                 ]
               }
@@ -2380,7 +2425,7 @@
             ]
           },
           {
-            "name": "streambank_planting_linear_feet",
+            "name": "streambank_planting_quantity",
             "type": "number",
             "min": 0,
             "prompt": "How many linear feet of stream bank did you plant?",
@@ -2402,7 +2447,7 @@
             }
           },
           {
-            "name": "streambank_planting_quantity_acres",
+            "name": "streambank_planting_acres_quantity",
             "type": "number",
             "min": 0,
             "prompt": "How many acres was the total planting area?",
@@ -2413,7 +2458,7 @@
             }
           },
           {
-            "name": "streambank_planting_quantity_stem_count",
+            "name": "streambank_planting_stem_count_quantity",
             "type": "number",
             "min": 0,
             "prompt": "How many stems were planted?",
@@ -2494,8 +2539,8 @@
                 "value": "tansy_ragwort"
               },
               {
-                "label": "Himlayan Blackberry",
-                "value": "himlayan_blackberry"
+                "label": "Himalayan Blackberry",
+                "value": "himalayan_blackberry"
               },
               {
                 "label": "Evergreen Blackberry",
@@ -2801,8 +2846,8 @@
                 "value": "tansy_ragwort"
               },
               {
-                "label": "Himlayan Blackberry",
-                "value": "himlayan_blackberry"
+                "label": "Himalayan Blackberry",
+                "value": "himalayan_blackberry"
               },
               {
                 "label": "Evergreen Blackberry",
@@ -2917,8 +2962,8 @@
               {
                 "value": "yes",
                 "targets": [
-                  "dynamic_revetment_quantity_length",
-                  "dynamic_revetment_quantity_material",
+                  "dynamic_revetment_quantity",
+                  "dynamic_revetment_material_quantity",
                   "dynamic_revetment_datetime"
                 ]
               }
@@ -2939,7 +2984,7 @@
             ]
           },
           {
-            "name": "dynamic_revetment_quantity_length",
+            "name": "dynamic_revetment_quantity",
             "type": "number",
             "prompt": "Length of dynamic revetment",
             "min": 0,
@@ -2950,7 +2995,7 @@
             }
           },
           {
-            "name": "dynamic_revetment_quantity_material",
+            "name": "dynamic_revetment_material_quantity",
             "type": "number",
             "prompt": "Total yards of material used in the revetment",
             "min": 0,
@@ -3013,8 +3058,8 @@
               {
                 "value": "yes",
                 "targets": [
-                  "salmon_schools_quantity_eggs",
-                  "salmon_schools_quantity_released",
+                  "salmon_schools_quantity",
+                  "salmon_schools_released_quantity",
                   "salmon_schools_datetime"
                 ]
               }
@@ -3035,7 +3080,7 @@
             ]
           },
           {
-            "name": "salmon_schools_quantity_length",
+            "name": "salmon_schools_quantity",
             "type": "number",
             "prompt": "Number of salmon eggs provided",
             "min": 0,
@@ -3046,7 +3091,7 @@
             }
           },
           {
-            "name": "salmon_schools_quantity_released",
+            "name": "salmon_schools_released_quantity",
             "type": "number",
             "prompt": "Number of salmon released",
             "min": 0,
@@ -3302,7 +3347,7 @@
           {
             "name": "private",
             "type": "big_radio",
-            "prompt": "Would you be willing to share your stewardship story with the public? Y, N, N I need more information. (Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.)",
+            "prompt": "Would you be willing to share your stewardship story with the public? (Checking \"yes\" below will place a pin on the map upon submission and your stewardship actions will be visible to the public.)",
             "default_value": "no",
             "content": [
               {
@@ -3312,6 +3357,10 @@
               {
                 "label": "No",
                 "value": "yes"
+              },
+              {
+                "label": "No, but need more information",
+                "value": "more_info"
               }
             ],
             "optional": true
@@ -3332,7 +3381,7 @@
           },
           {
             "name": "contact_interest",
-            "prompt": "Would you like to be contacted about potential project ideas you have?",
+            "prompt": "Would you like to be contacted about potential project ideas?",
             "type": "big_radio",
             "optional": true,
             "content": [
