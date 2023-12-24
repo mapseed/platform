@@ -8086,7 +8086,7 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGh1cnN0b25jb3VudHkiLCJhIjoiY2p4N3VmNjhxMDRmcTNvcHVrZGtpNjk4bCJ9.zplnWUOkstHU4Ts6Ths53A"
+          "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic21hcnRlcmNsZWFudXAiLCJhIjoiTnFhUWc2cyJ9.CqPJH-9yspIMudowQJx2Uw"
         ],
         "tileSize": 256,
         "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"https://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href=\"https://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"https://developer.mapquest.com/content/osm/mq_logo.png\">."
@@ -10470,11 +10470,11 @@
         "</li>",
         "<li style='margin-top:16px'>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Duane Bartels</strong>",
-        "<p style='margin:0'><em>District Manager</em></p>",
+        "<strong style='margin-bottom:0'>Bri Kimble</strong>",
+        "<p style='margin:0'><em>Office Manager</em></p>",
         "</div>",
         "<div style='margin-left:16px'><i class='fa fa-phone'></i><span style='margin-left:16px'>509-843-5008</span></div>",
-        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>pcdistrict@qwestoffice.net</span></div>",
+        "<div style='margin-left:16px'><i class='fa fa-globe'></i><span style='margin-left:16px'>brianapcdistrict@gmail.com</span></div>",
         "</li>",
         "<li style='margin-top:16px'>",
         "<div style='margin-bottom: 8px'>",
