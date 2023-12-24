@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Plant a map, grow a community",
   "engines": {
-    "node": ">=10.0 <11.0",
-    "npm": ">=6.0 <7.0"
+    "node": ">=16.0 <17.0",
+    "npm": ">=8.0 <9.0"
   },
   "main": "index.js",
   "repository": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/mapseed/platform",
   "scripts": {
-    "start": "rm -rf www/* && node scripts/static-build.js && webpack-dev-server --progress",
+    "start": "rm -rf www/* && node scripts/static-build.js && webpack serve --progress",
     "deploy": "node scripts/deploy.js",
     "build-deploy": "npm run build && npm run deploy",
     "type-check": "tsc --noEmit",
