@@ -11,6 +11,11 @@ body {
 header {
   border-top: 3px solid #29b1cb;
 }
+
+#mapseed-site-logo {
+  height: 42px;
+}
+
 /* =Input Form
 -------------------------------------------------------------- */
 /* 

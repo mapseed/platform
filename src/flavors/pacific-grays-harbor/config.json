@@ -224,23 +224,23 @@
                 },
                 {
                   "value": ["get-sum", "fencing_quantity"],
-                  "label": "acres"
+                  "label": "feet"
                 },
                 {
                   "value": ["get-sum", "fencing_quantity"],
-                  "label": "acres"
+                  "label": "feet"
                 },
                 {
                   "value": ["get-sum", "fencing_quantity"],
-                  "label": "acres"
+                  "label": "feet"
                 },
                 {
                   "value": ["get-sum", "fencing_quantity"],
-                  "label": "acres"
+                  "label": "feet"
                 },
                 {
                   "value": ["get-sum", "fencing_quantity"],
-                  "label": "acres"
+                  "label": "feet"
                 }
               ]
             },
