@@ -80,18 +80,11 @@ const INITIAL_STATE = {
       provider: "google-oauth2",
     },
     {
-      name: "twitter",
-      provider: "twitter",
-    },
-    {
       name: "facebook",
       provider: "facebook",
     },
   ],
   sharingProviders: [
-    {
-      type: "twitter",
-    },
     {
       type: "facebook",
     },

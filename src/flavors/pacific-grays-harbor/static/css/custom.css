@@ -11,6 +11,11 @@ body {
 header {
   border-top: 3px solid #29b1cb;
 }
+
+#mapseed-site-logo {
+  height: 42px;
+}
+
 /* =Input Form
 -------------------------------------------------------------- */
 /* 
@@ -23,6 +28,8 @@ header {
 [data-field-type="big_toggle"],
 [data-field-type="dropdown"],
 [data-field-type="big_checkbox"],
+[data-field-type="textarea"],
+[data-field-type="text"],
 [data-field-type="big_radio"] {
   background-color: #efefef !important;
   box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
@@ -41,22 +48,11 @@ header {
 [data-field-type="dropdown"],
 [data-field-name="drag_map_info"],
 [data-field-type="geolocate"],
-[data-field-name="synthetic_fertilization_types"],
-[data-field-name="grown_local_synthetic_fertilization_types"],
-[data-field-name="synthetic_fertilization_yield_map"],
-[data-field-name="grown_local_synthetic_fertilization_yield_map"],
-[data-field-name="synthetic_fertilization_zone_map"],
-[data-field-name="grown_local_synthetic_fertilization_zone_map"],
-[data-field-name="organic_fertilization_yield_map"],
-[data-field-name="grown_local_organic_fertilization_yield_map"],
-[data-field-name="organic_fertilization_zone_map"],
-[data-field-name="grown_local_organic_fertilization_zone_map"],
 [data-field-name="stream_crossing_type"],
 [data-field-name="buffer_program"],
 [data-field-name="grown_local_buffer_program"],
 [data-field-name="buffer_program_types"],
 [data-field-name="grown_local_buffer_program_types"],
-[data-field-name="private-landowner_email"],
 [data-field-name="mud_manure_management_type"],
 [data-field-name="buffer_types"],
 [data-field-name="grown_local_buffer_types"],
@@ -81,6 +77,17 @@ header {
 [data-field-name="title"],
 [data-field-name="private"],
 [data-field-name="grown_local_organic_fertilization_types"],
+[data-field-name="invasive_species_type"],
+[data-field-name="invasive_species_treatment_method"],
+[data-field-name="fencing_riparian"],
+[data-field-name="agriculture_invasive_species_type"],
+[data-field-name="agriculture_invasive_species_treatment_method"],
+[data-field-name="instream_habitat_bank_shaping"],
+[data-field-name="watershed_invasive_species_type"],
+[data-field-name="forest_management_plan_type"],
+[data-field-name="forestry_invasive_species_type"],
+[data-field-name="flood_protection_plan_description"],
+[data-field-name="envirothon_school_name"],
 [data-field-name="organic_fertilization_types"] {
   background-color: #efefef !important;
   margin-top: 0 !important;
