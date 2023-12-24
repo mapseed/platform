@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Plant a map, grow a community",
   "engines": {
-    "node": ">=16.0 <17.0",
-    "npm": ">=8.0 <9.0"
+    "node": ">=14.0.0 <17.0",
+    "npm": ">=6.0 <7.0"
   },
   "main": "index.js",
   "repository": {
