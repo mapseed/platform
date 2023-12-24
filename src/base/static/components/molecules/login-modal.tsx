@@ -47,10 +47,11 @@ const SocialLoginButton = ({
   let backgroundColor: string;
   let SocialIcon: React.ReactType;
   switch (loginProvider.name) {
-    case "twitter":
-      backgroundColor = "#4099ff";
-      SocialIcon = MuiTwitterIcon;
-      break;
+    // TODO: fix twitter (X) logins
+    //case "twitter":
+    //  backgroundColor = "#4099ff";
+    //  SocialIcon = MuiTwitterIcon;
+    //  break;
     case "facebook":
       backgroundColor = "#3b5998";
       SocialIcon = MuiFacebookFIcon;
@@ -67,7 +68,7 @@ const SocialLoginButton = ({
       // eslint-disable-next-line no-console
       console.error("unknown loginProvider.name:", loginProvider.name);
       backgroundColor = "#4099ff";
-      SocialIcon = MuiTwitterIcon;
+      SocialIcon = MuiGoogleIcon;
   }
 
   const classes = useSocialButtonStyles({ backgroundColor });
@@ -113,7 +114,7 @@ const LoginModal = ({
   appConfig,
   disableRestoreFocus = false,
   render,
-  t
+  t,
 }: Props) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const openModal = () => setIsOpen(true);
@@ -164,13 +165,15 @@ const LoginModal = ({
           }}
         >
           <List>
-            {appConfig.loginProviders.map(loginProvider => (
-              <SocialLoginButton
-                key={loginProvider.provider}
-                loginProvider={loginProvider}
-                apiRoot={appConfig.api_root}
-              />
-            ))}
+            {appConfig.loginProviders
+              .filter(loginProvider => loginProvider.name !== "twitter")
+              .map(loginProvider => (
+                <SocialLoginButton
+                  key={loginProvider.provider}
+                  loginProvider={loginProvider}
+                  apiRoot={appConfig.api_root}
+                />
+              ))}
           </List>
           <DialogContentText
             css={{ fontSize: ".8em" }}
