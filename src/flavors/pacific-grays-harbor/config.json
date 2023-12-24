@@ -123,6 +123,7 @@
       "widgets": [
         {
           "header": "Overview",
+          "isExportable": true,
           "type": "statSummary",
           "rows": [
             {
@@ -137,6 +138,7 @@
         },
         {
           "header": "Reporting Activity",
+          "isExportable": true,
           "type": "lineChart",
           "xAxisLabel": "Date",
           "yAxisLabel": "No. VSP reports",
@@ -148,6 +150,7 @@
         },
         {
           "header": "Stewardship Practices Detail",
+          "isExportable": true,
           "type": "fixedTable",
           "stripeColor": "#fbf6ed",
           "layout": {
@@ -162,638 +165,727 @@
               "fractionalWidth": 2
             },
             {
-              "header": "Lower Spokane WAU",
+              "header": "Queets-Quinault",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "analysis_unit_NAME"],
-                "Lower Spokane"
-              ]
+              "filter": ["==", ["get-val", "which_watershed"], "wria_21"]
             },
             {
-              "header": "Upper Spokane WAU",
+              "header": "Lower Chehalis",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "analysis_unit_NAME"],
-                "Upper Spokane"
-              ]
+              "filter": ["==", ["get-val", "which_watershed"], "wria_22"]
             },
             {
-              "header": "Little Spokane WAU",
+              "header": "Upper Chehalis",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "analysis_unit_NAME"],
-                "Little Spokane"
-              ]
+              "filter": ["==", ["get-val", "which_watershed"], "wria_23"]
             },
             {
-              "header": "Pend Oreille Lake WAU",
+              "header": "Willapa",
               "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "analysis_unit_NAME"],
-                "Pend Oreille Lake"
-              ]
-            },
-            {
-              "header": "Hangman WAU",
-              "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Hangman"]
-            },
-            {
-              "header": "Coeur d'Alene Lake WAU",
-              "type": "numeric",
-              "filter": [
-                "==",
-                ["get-val", "analysis_unit_NAME"],
-                "Coeur d'Alene Lake"
-              ]
-            },
-            {
-              "header": "Upper Crab WAU",
-              "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Upper Crab"]
-            },
-            {
-              "header": "Palouse WAU",
-              "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Palouse"]
-            },
-            {
-              "header": "Rock WAU",
-              "type": "numeric",
-              "filter": ["==", ["get-val", "analysis_unit_NAME"], "Rock"]
+              "filter": ["==", ["get-val", "which_watershed"], "wria_24"]
             },
             {
               "header": "Countywide",
               "type": "numeric"
-            },
-            {
-              "header": "Benchmark Objective",
-              "type": "numeric"
-            },
-            {
-              "header": "Benchmark Status",
-              "type": "badge"
-            },
-            {
-              "header": "Enhanced Objective",
-              "type": "numeric"
-            },
-            {
-              "header": "Enhanced Status",
-              "type": "badge"
             }
           ],
           "rows": [
             {
               "cells": [
                 {
-                  "value": "No till"
+                  "value": "Mud & Manure Management"
                 },
                 {
-                  "value": ["get-sum", "no_till_quantity"],
+                  "value": ["get-sum", "mud_manure_management_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "no_till_quantity"],
+                  "value": ["get-sum", "mud_manure_management_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "no_till_quantity"],
+                  "value": ["get-sum", "mud_manure_management_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "no_till_quantity"],
+                  "value": ["get-sum", "mud_manure_management_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "no_till_quantity"],
+                  "value": ["get-sum", "mud_manure_management_quantity"],
                   "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "no_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "no_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "no_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "no_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "no_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
                 }
               ]
             },
             {
               "cells": [
                 {
-                  "value": "Reduced till"
+                  "value": "Livestock Exclusion Fencing"
                 },
                 {
-                  "value": ["get-sum", "reduced_till_quantity"],
+                  "value": ["get-sum", "fencing_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "reduced_till_quantity"],
+                  "value": ["get-sum", "fencing_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "reduced_till_quantity"],
+                  "value": ["get-sum", "fencing_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "reduced_till_quantity"],
+                  "value": ["get-sum", "fencing_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "reduced_till_quantity"],
+                  "value": ["get-sum", "fencing_quantity"],
                   "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "reduced_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "reduced_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "reduced_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "reduced_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "reduced_till_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
                 }
               ]
             },
             {
               "cells": [
                 {
-                  "value": "Soil Tests"
+                  "value": "Off-Creek Stock Watering"
                 },
                 {
-                  "value": ["get-sum", "soil_tests_quantity"],
+                  "value": ["get-sum", "off_creek_stock_watering_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "soil_tests_quantity"],
+                  "value": ["get-sum", "off_creek_stock_watering_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "soil_tests_quantity"],
+                  "value": ["get-sum", "off_creek_stock_watering_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "soil_tests_quantity"],
+                  "value": ["get-sum", "off_creek_stock_watering_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "soil_tests_quantity"],
+                  "value": ["get-sum", "off_creek_stock_watering_quantity"],
                   "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "soil_tests_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
                 }
               ]
             },
             {
               "cells": [
                 {
-                  "value": "Grassed Waterways"
+                  "value": "Flood Fencing"
                 },
                 {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "value": ["get-sum", "flood_fencing_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "value": ["get-sum", "flood_fencing_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "value": ["get-sum", "flood_fencing_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "value": ["get-sum", "flood_fencing_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
+                  "value": ["get-sum", "flood_fencing_quantity"],
                   "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "grassed_waterways_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
                 }
               ]
             },
             {
               "cells": [
                 {
-                  "value": "Riparian Forest"
+                  "value": "Agriculture Invasive Species Management"
                 },
                 {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "agriculture_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 },
                 {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "agriculture_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 },
                 {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "agriculture_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 },
                 {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "agriculture_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 },
                 {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "riparian_forest_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "agriculture_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 }
               ]
             },
             {
               "cells": [
                 {
-                  "value": "Stream Crossing"
+                  "value": "Instream Habitat"
                 },
                 {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
+                  "value": ["get-sum", "instream_habitat_quantity"],
+                  "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
+                  "value": ["get-sum", "instream_habitat_quantity"],
+                  "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
+                  "value": ["get-sum", "instream_habitat_quantity"],
+                  "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
+                  "value": ["get-sum", "instream_habitat_quantity"],
+                  "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
-                },
-                {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
-                },
-                {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
-                },
-                {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
-                },
-                {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
-                },
-                {
-                  "value": ["get-sum", "stream_crossing_quantity"],
-                  "label": "cross."
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Cross."
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Cross."
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                  "value": ["get-sum", "instream_habitat_quantity"],
+                  "label": "acres"
                 }
               ]
             },
             {
               "cells": [
                 {
-                  "value": "Fencing"
+                  "value": "Streambank Planting Linear Feet"
                 },
                 {
-                  "value": ["get-sum", "fencing_quantity"],
+                  "value": ["get-sum", "streambank_planting_quantity"],
                   "label": "feet"
                 },
                 {
-                  "value": ["get-sum", "fencing_quantity"],
+                  "value": ["get-sum", "streambank_planting_quantity"],
                   "label": "feet"
                 },
                 {
-                  "value": ["get-sum", "fencing_quantity"],
+                  "value": ["get-sum", "streambank_planting_quantity"],
                   "label": "feet"
                 },
                 {
-                  "value": ["get-sum", "fencing_quantity"],
+                  "value": ["get-sum", "streambank_planting_quantity"],
                   "label": "feet"
                 },
                 {
-                  "value": ["get-sum", "fencing_quantity"],
+                  "value": ["get-sum", "streambank_planting_quantity"],
                   "label": "feet"
-                },
-                {
-                  "value": ["get-sum", "fencing_quantity"],
-                  "label": "feet"
-                },
-                {
-                  "value": ["get-sum", "fencing_quantity"],
-                  "label": "feet"
-                },
-                {
-                  "value": ["get-sum", "fencing_quantity"],
-                  "label": "feet"
-                },
-                {
-                  "value": ["get-sum", "fencing_quantity"],
-                  "label": "feet"
-                },
-                {
-                  "value": ["get-sum", "fencing_quantity"],
-                  "label": "feet"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Feet"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Feet"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
                 }
               ]
             },
             {
               "cells": [
                 {
-                  "value": "Nutrient Management"
+                  "value": "Streambank Planting Acreage"
                 },
                 {
-                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "value": ["get-sum", "streambank_planting_acres_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "value": ["get-sum", "streambank_planting_acres_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "value": ["get-sum", "streambank_planting_acres_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "value": ["get-sum", "streambank_planting_acres_quantity"],
                   "label": "acres"
                 },
                 {
-                  "value": ["get-sum", "nutrient_management_quantity"],
+                  "value": ["get-sum", "streambank_planting_acres_quantity"],
                   "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "nutrient_management_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "nutrient_management_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "nutrient_management_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "nutrient_management_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["get-sum", "nutrient_management_quantity"],
-                  "label": "acres"
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
-                },
-                {
-                  "value": ["literal", 0],
-                  "label": "Acres"
-                },
-                {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
                 }
               ]
             },
             {
               "cells": [
                 {
-                  "value": "Pipeline"
+                  "value": "Streambank Planting Stem Count"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "label": "stems"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Watershed Invasive Species Management"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "watershed_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "watershed_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "watershed_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "watershed_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
                 },
                 {
-                  "value": ["get-sum", "pipeline_quantity"],
-                  "label": "feet"
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "watershed_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Forest Management Planning"
                 },
                 {
-                  "value": ["literal", 0],
-                  "label": "Feet"
+                  "value": ["get-sum", "forest_management_quantity"],
+                  "label": "acres"
                 },
                 {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                  "value": ["get-sum", "forest_management_quantity"],
+                  "label": "acres"
                 },
                 {
-                  "value": ["literal", 0],
-                  "label": "Feet"
+                  "value": ["get-sum", "forest_management_quantity"],
+                  "label": "acres"
                 },
                 {
-                  "value": ["literal", { "label": "N/A", "color": "#ccc" }]
+                  "value": ["get-sum", "forest_management_quantity"],
+                  "label": "acres"
+                },
+                {
+                  "value": ["get-sum", "forest_management_quantity"],
+                  "label": "acres"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Slash Treatment"
+                },
+                {
+                  "value": ["get-sum", "slash_treatment_quantity"],
+                  "label": "slash piles"
+                },
+                {
+                  "value": ["get-sum", "slash_treatment_quantity"],
+                  "label": "slash piles"
+                },
+                {
+                  "value": ["get-sum", "slash_treatment_quantity"],
+                  "label": "slash piles"
+                },
+                {
+                  "value": ["get-sum", "slash_treatment_quantity"],
+                  "label": "slash piles"
+                },
+                {
+                  "value": ["get-sum", "slash_treatment_quantity"],
+                  "label": "slash piles"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Forestry Invasive Species Management"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "forestry_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "forestry_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "forestry_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "forestry_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "forestry_invasive_species"], "yes"]
+                  ],
+                  "label": "reports"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Flood Protection Planning"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "flood_protection"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "flood_protection"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "flood_protection"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "flood_protection"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "flood_protection"], "yes"]
+                  ],
+                  "label": "reports"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Dynamic Revetment Length"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_quantity"],
+                  "label": "yards"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_quantity"],
+                  "label": "yards"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_quantity"],
+                  "label": "yards"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_quantity"],
+                  "label": "yards"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_quantity"],
+                  "label": "yards"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Dynamic Revetment Material Length"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_material_quantity"],
+                  "label": "yards"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_material_quantity"],
+                  "label": "yards"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_material_quantity"],
+                  "label": "yards"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_material_quantity"],
+                  "label": "yards"
+                },
+                {
+                  "value": ["get-sum", "dynamic_revetment_material_quantity"],
+                  "label": "yards"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Salmon in the Schools Egg Quantity"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_quantity"],
+                  "label": "eggs"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_quantity"],
+                  "label": "eggs"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_quantity"],
+                  "label": "eggs"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_quantity"],
+                  "label": "eggs"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_quantity"],
+                  "label": "eggs"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Salmon in the Schools Released Quantity"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_released_quantity"],
+                  "label": "salmon"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_released_quantity"],
+                  "label": "salmon"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_released_quantity"],
+                  "label": "salmon"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_released_quantity"],
+                  "label": "salmon"
+                },
+                {
+                  "value": ["get-sum", "salmon_schools_released_quantity"],
+                  "label": "salmon"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Envirothon Competition"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "envirothon"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "envirothon"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "envirothon"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "envirothon"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "envirothon"], "yes"]
+                  ],
+                  "label": "reports"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Community Gardens"
+                },
+                {
+                  "value": ["get-sum", "community_gardens_quantity"],
+                  "label": "garden beds"
+                },
+                {
+                  "value": ["get-sum", "community_gardens_quantity"],
+                  "label": "garden beds"
+                },
+                {
+                  "value": ["get-sum", "community_gardens_quantity"],
+                  "label": "garden beds"
+                },
+                {
+                  "value": ["get-sum", "community_gardens_quantity"],
+                  "label": "garden beds"
+                },
+                {
+                  "value": ["get-sum", "community_gardens_quantity"],
+                  "label": "garden beds"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Stormwater Education"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "stormwater_education"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "stormwater_education"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "stormwater_education"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "stormwater_education"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "stormwater_education"], "yes"]
+                  ],
+                  "label": "reports"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "value": "Pollinator Garden"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "pollinator_garden"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "pollinator_garden"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "pollinator_garden"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "pollinator_garden"], "yes"]
+                  ],
+                  "label": "reports"
+                },
+                {
+                  "value": [
+                    "get-count",
+                    ["==", ["get-val", "pollinator_garden"], "yes"]
+                  ],
+                  "label": "reports"
                 }
               ]
             }
@@ -801,6 +893,7 @@
         },
         {
           "header": "Landowner summary",
+          "isExportable": true,
           "type": "freeTable",
           "stripeColor": "#f8f5f5",
           "layout": {
@@ -834,74 +927,14 @@
                 "cat",
                 [
                   "case",
-                  ["==", ["get-val", "no_till"], "yes"],
-                  ["literal", "No Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "conventional_till"], "yes"],
-                  ["literal", "Conventional Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "reduced_till"], "yes"],
-                  ["literal", "Reduced Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "soil_tests"], "yes"],
-                  ["literal", "Soil Tests"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "fertilization"], "yes"],
-                  ["literal", "Fertilization"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "buffers"], "yes"],
-                  ["literal", "Buffers"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "grassed_waterways"], "yes"],
-                  ["literal", "Grassed Waterways"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "commodity_buffer"], "yes"],
-                  ["literal", "Commodity Buffer Program"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "riparian_forest"], "yes"],
-                  ["literal", "Wildlife Habitat Enhancements"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "stream_crossing"], "yes"],
-                  ["literal", "Stream Crossing"],
+                  ["==", ["get-val", "mud_manure_management"], "yes"],
+                  ["literal", "Mud & Manure Management"],
                   ["literal", ""]
                 ],
                 [
                   "case",
                   ["==", ["get-val", "fencing"], "yes"],
-                  ["literal", "Fencing"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "mud_manure_management"], "yes"],
-                  ["literal", "Mud and Manure Management"],
+                  ["literal", "Livestock Exclusion Fencing"],
                   ["literal", ""]
                 ],
                 [
@@ -912,8 +945,98 @@
                 ],
                 [
                   "case",
+                  ["==", ["get-val", "flood_fencing"], "yes"],
+                  ["literal", "Flood Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "agriculture_invasive_species"], "yes"],
+                  ["literal", "Agriculture Invasive Species Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "instream_habitat"], "yes"],
+                  ["literal", "Instream Habitat"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "streambank_planting"], "yes"],
+                  ["literal", "Streambank Planting"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "watershed_invasive_species"], "yes"],
+                  ["literal", "Watershed Invasive Species Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
                   ["==", ["get-val", "forest_management"], "yes"],
-                  ["literal", "Forest Management"],
+                  ["literal", "Forest Management Planning"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stand_improvement"], "yes"],
+                  ["literal", "Forestry Stand Improvement"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "slash_treatment"], "yes"],
+                  ["literal", "Slash Treatment"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "forestry_invasive_species"], "yes"],
+                  ["literal", "Forestry Invasive Species Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "flood_protection"], "yes"],
+                  ["literal", "Flood Protection Planning"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "dynamic_revetment"], "yes"],
+                  ["literal", "Dynamic Revetment"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "salmon_schools"], "yes"],
+                  ["literal", "Salmon in the Schools"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "envirothon"], "yes"],
+                  ["literal", "Envirothon Competition"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "community_gardens"], "yes"],
+                  ["literal", "Community Gardens"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stormwater_education"], "yes"],
+                  ["literal", "Stormwater Education"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pollinator_garden"], "yes"],
+                  ["literal", "Pollinator Garden"],
                   ["literal", ""]
                 ]
               ]
@@ -926,74 +1049,14 @@
                 "cat",
                 [
                   "case",
-                  ["==", ["get-val", "no_till"], "interested"],
-                  ["literal", "No Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "conventional_till"], "interested"],
-                  ["literal", "Conventional Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "reduced_till"], "interested"],
-                  ["literal", "Reduced Till"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "soil_tests"], "interested"],
-                  ["literal", "Soil Tests"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "fertilization"], "interested"],
-                  ["literal", "Fertilization"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "buffers"], "interested"],
-                  ["literal", "Buffers"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "grassed_waterways"], "interested"],
-                  ["literal", "Grassed Waterways"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "commodity_buffer"], "interested"],
-                  ["literal", "Commodity Buffer Program"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "riparian_forest"], "interested"],
-                  ["literal", "Wildlife Habitat Enhancements"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "stream_crossing"], "interested"],
-                  ["literal", "Stream Crossing"],
+                  ["==", ["get-val", "mud_manure_management"], "interested"],
+                  ["literal", "Mud & Manure Management"],
                   ["literal", ""]
                 ],
                 [
                   "case",
                   ["==", ["get-val", "fencing"], "interested"],
-                  ["literal", "Fencing"],
-                  ["literal", ""]
-                ],
-                [
-                  "case",
-                  ["==", ["get-val", "mud_manure_management"], "interested"],
-                  ["literal", "Mud and Manure Management"],
+                  ["literal", "Livestock Exclusion Fencing"],
                   ["literal", ""]
                 ],
                 [
@@ -1004,8 +1067,98 @@
                 ],
                 [
                   "case",
+                  ["==", ["get-val", "flood_fencing"], "interested"],
+                  ["literal", "Flood Fencing"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "agriculture_invasive_species"], "interested"],
+                  ["literal", "Agriculture Invasive Species Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "instream_habitat"], "interested"],
+                  ["literal", "Instream Habitat"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "streambank_planting"], "interested"],
+                  ["literal", "Streambank Planting"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "watershed_invasive_species"], "interested"],
+                  ["literal", "Watershed Invasive Species Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
                   ["==", ["get-val", "forest_management"], "interested"],
-                  ["literal", "Forest Management"],
+                  ["literal", "Forest Management Planning"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stand_improvement"], "interested"],
+                  ["literal", "Forestry Stand Improvement"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "slash_treatment"], "interested"],
+                  ["literal", "Slash Treatment"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "forestry_invasive_species"], "interested"],
+                  ["literal", "Forestry Invasive Species Management"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "flood_protection"], "interested"],
+                  ["literal", "Flood Protection Planning"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "dynamic_revetment"], "interested"],
+                  ["literal", "Dynamic Revetment"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "salmon_schools"], "interested"],
+                  ["literal", "Salmon in the Schools"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "envirothon"], "interested"],
+                  ["literal", "Envirothon Competition"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "community_gardens"], "interested"],
+                  ["literal", "Community Gardens"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "stormwater_education"], "interested"],
+                  ["literal", "Stormwater Education"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  ["==", ["get-val", "pollinator_garden"], "interested"],
+                  ["literal", "Pollinator Garden"],
                   ["literal", ""]
                 ]
               ]
@@ -1014,6 +1167,7 @@
         },
         {
           "header": "Critical Area Summary",
+          "isExportable": true,
           "type": "fixedTable",
           "stripeColor": "#f8f5f5",
           "layout": {
@@ -1030,27 +1184,27 @@
             {
               "header": "Wetlands",
               "type": "numeric",
-              "filter": ["==", ["get-val", "on_wetlands"], true]
+              "filter": ["==", ["get-val", "private-property_on_wetlands"], "yes"]
             },
             {
               "header": "Frequently flooded areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "on_frequently_flooded"], true]
+              "filter": ["==", ["get-val", "private-property_on_frequently_flooded"], "yes"]
             },
             {
               "header": "Hazardous areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "on_geologic_hazard"], true]
+              "filter": ["==", ["get-val", "private-property_on_geologic_hazard"], "yes"]
             },
             {
               "header": "Critical aquifers",
               "type": "numeric",
-              "filter": ["==", ["get-val", "on_critical_aquifer"], true]
+              "filter": ["==", ["get-val", "private-property_on_critical_aquifer"], "yes"]
             },
             {
               "header": "Critical conservation areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "on_critical_conservation"], true]
+              "filter": ["==", ["get-val", "private-property_on_wildlife_conservation"], "yes"]
             }
           ],
           "rows": [
@@ -3257,8 +3411,8 @@
             "name": "community_gardens",
             "type": "big_radio",
             "hidden_default": true,
-            "prompt": "Salmon in the Schools",
-            "label": "Salmon in the Schools",
+            "prompt": "Community Gardens",
+            "label": "Community Gardens",
             "optional": true,
             "triggers": [
               {
