@@ -25,7 +25,7 @@ import makeParsedExpression, {
 } from "../../../utils/expression/parse";
 import { Place } from "../../../state/ducks/places";
 
-type Bar = {
+type MapseedBar = {
   category: string;
   count: number;
   sum: number;
@@ -35,7 +35,7 @@ type Bar = {
 
 type FreeBarChartProps = {
   annotation?: string;
-  data: Bar[];
+  data: MapseedBar[];
   format?: string;
   groupValue: Expression;
   tooltipFormat?: string;
