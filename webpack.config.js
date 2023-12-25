@@ -57,7 +57,7 @@ module.exports = {
     path: outputPath,
     // use this for our dynamic imports, like "1.bundle.js"
     chunkFilename: "[chunkhash].bundle.js",
-    filename: isProd ? "[chunkhash].main.bundle.js" : "main.bundle.js",
+    filename: isProd ? "[chunkhash].main.bundle.js" : "[name].bundle.js",
     // Support dynamic imports from nested routes.
     // See: https://github.com/webpack/webpack/issues/7417
     publicPath: "/",
@@ -117,18 +117,17 @@ module.exports = {
       {
         test: /locales/,
         loader: "i18next-resource-store-loader",
-        query: {
-          include: /\.json$/,
-        },
+        include: /\.json$/,
       },
       {
         test: /\.s?css$/,
         use: [
           isProd ? MiniCssExtractPlugin.loader : "style-loader",
-          "css-loader?url=false",
+          "css-loader",
           {
             loader: "sass-loader",
             options: {
+              url: false,
               includePaths: [
                 path.resolve(__dirname, "./src/base/static/stylesheets/util"),
                 path.resolve(
@@ -180,9 +179,6 @@ module.exports = {
       },
     ],
   },
-  node: {
-    fs: "empty",
-  },
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new webpack.DefinePlugin({
@@ -193,7 +189,10 @@ module.exports = {
       FLAVOR: JSON.stringify(flavor),
       GIT_SHA: JSON.stringify(gitSha),
     }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/,
+    }),
     extractSCSS,
     new WorkboxPlugin.InjectManifest({
       swSrc: path.join("src", "sw.js"),
@@ -211,9 +210,11 @@ module.exports = {
       },
     }),
   ],
-  devtool: isProd ? false : "cheap-eval-souce-map",
+  devtool: isProd ? false : "eval-cheap-source-map",
   devServer: {
-    contentBase: outputPath,
+    static: {
+      directory: outputPath,
+    },
     historyApiFallback: {
       disableDotRule: true,
     },
