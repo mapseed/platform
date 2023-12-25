@@ -170,6 +170,8 @@ export const calculateMeasurement = (measurementFeature: Feature) => {
 
   if (geometry && geometry.type == "LineString") {
     return (
+      // TODO: ??
+      // @ts-ignore
       geometry.coordinates.reduce((total, nextCoords, i) => {
         return (
           i > 0 &&
