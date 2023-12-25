@@ -52,11 +52,11 @@ const ReportTemplate = (props: Props) => {
 
   async function fetchPlace() {
     let includePrivate = false;
-    let jwtToken = null;
+    let jwtToken: null | string = null;
     const params = qs.parse(window.location.search.slice(1));
     if ("token" in params) {
       includePrivate = true;
-      jwtToken = params["token"];
+      jwtToken = params["token"] as string;
     }
 
     const response = await mapseedApiClient.place.getPlace({

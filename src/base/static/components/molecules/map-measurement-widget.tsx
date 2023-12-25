@@ -23,10 +23,6 @@ type MapMeasurementWidgetProps = {
   measurement: number | null;
 };
 
-interface ExposedCanvasOverlay extends CanvasOverlay {
-  _canvas: HTMLCanvasElement;
-}
-
 type MeasurementToolIconProps = {
   isEnabled: boolean;
   isSelected?: boolean;
