@@ -82,7 +82,7 @@
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.41",
     "node-env-file": "^0.1.7",
-    "node-sass": "^7.0.0",
+    "node-sass": "^9.0.0",
     "normalize.css": "^8.0.1",
     "qs": "^6.11.1",
     "react": "^16.14.0",
