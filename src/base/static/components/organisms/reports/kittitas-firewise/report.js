@@ -331,7 +331,7 @@ const KittitasFireReadyReport = props => {
                   color="#444"
                   faClassname="fas fa-phone"
                 >
-                  <LargeText>509-925-3352 x204 (KCCD)</LargeText>
+                  <LargeText>509-925-3352 x4 (KCCD)</LargeText>
                 </ContentWithFontAwesomeIcon>
                 <ContentWithFontAwesomeIcon
                   color="#444"
@@ -827,7 +827,7 @@ const KittitasFireReadyReport = props => {
                 defensible space and the programs available to you. You can get
                 your free consultation by calling KCCD at{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
-                  509-925-3352 x204{" "}
+                  509-925-3352 x4{" "}
                 </LargeText>
                 or DNR at{" "}
                 <LargeText fontFamily="Raleway-ExtraBold,sans-serif">
@@ -855,7 +855,7 @@ const KittitasFireReadyReport = props => {
               >
                 Want to be part of the solution? Join the Kittitas Fire Adapted
                 Communities Coalition (KFACC) and help us spread the word to our
-                communities! Call 925-3352 ext. 204 to be added to the mailing
+                communities! Call 925-3352 ext. 4 to be added to the mailing
                 list.
               </span>
             </div>

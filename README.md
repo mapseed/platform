@@ -33,6 +33,18 @@ The Mapseed platform is a fork of [Shareabouts](https://github.com/openplans/sha
 
 Mapseed requires [Node LTS](https://nodejs.org/en/download/package-manager/). We recommend managing node/npm versions using [nvm](https://github.com/creationix/nvm) or [asdf](https://github.com/asdf-vm/asdf).
 
+Currently we run
+```
+nvm use 10.16
+```
+
+---
+_NOTE: we're maintaining this project as volunteers, and could use some help updating the dependancies._
+
+**Please [reply to this Issue](https://github.com/mapseed/platform/issues/2312) if you can lend a hand**
+
+---
+
 To install npm dependencies:
 
 ```

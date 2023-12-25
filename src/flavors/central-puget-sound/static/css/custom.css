@@ -144,12 +144,15 @@
 
 .page__subheader {
   font-family: Raleway, sans-serif !important;
-  color: #444;
-  font-weight: 500;
+  color: #222;
+  font-weight: 800;
   flex: 100%;
   font-style: italic;
-  font-size: 1.2rem !important;
-  margin: 12px 0 12px 0 !important;
+  font-size: 1.4rem !important;
+  margin: 24px 0 16px 0 !important;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  border-bottom: 1px solid #bbb;
 }
 
 .page__tag-container {
@@ -208,6 +211,61 @@ input#print__tag-bioregion-green-duwamish:checked {
   }
 }
 
+input#print__tag-bioregion-cedar-lake-washington:checked {
+  & ~ .page__tag-container > #print__tag-bioregion-cedar-lake-washington-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="bioregion-cedar-lake-washington"] {
+    display: flex;
+  }
+}
+
+input#print__tag-wria-7:checked {
+  & ~ .page__tag-container > #print__tag-wria-7-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="wria-7"] {
+    display: flex;
+  }
+}
+
+input#print__tag-wria-10:checked {
+  & ~ .page__tag-container > #print__tag-wria-10-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="wria-10"] {
+    display: flex;
+  }
+}
+
+input#print__tag-wria-11:checked {
+  & ~ .page__tag-container > #print__tag-wria-11-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="wria-11"] {
+    display: flex;
+  }
+}
+
+input#print__tag-wria-12:checked {
+  & ~ .page__tag-container > #print__tag-wria-12-label {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="wria-12"] {
+    display: flex;
+  }
+}
+
 input#print__tag-bioregion-king-county:checked {
   & ~ .page__tag-container > #print__tag-bioregion-king-county-label {
     background-color: #007fbf;
@@ -215,6 +273,17 @@ input#print__tag-bioregion-king-county:checked {
   }
 
   & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="bioregion-king-county"] {
+    display: flex;
+  }
+}
+
+input#print__tag-seattle-history-maps:checked {
+  & ~ .page__tag-container > #print__tag-seattle-history-maps {
+    background-color: #007fbf;
+    color: #fff;
+  }
+
+  & ~ #print__gallery-container > .print__gallery-category-container[data-tags*="seattle-history-maps"] {
     display: flex;
   }
 }

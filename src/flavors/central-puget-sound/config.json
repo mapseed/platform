@@ -18,8 +18,8 @@
     }
   ],
   "app": {
-    "title": "My Watershed - Central Puget Sound",
-    "name": "My Watershed",
+    "title": "My Watershed Address",
+    "name": "My Watershed Address",
     "logo": "/static/css/images/sa-logo-only.png",
     "show_name_in_header": true,
     "meta_description": "Welcome! We are here to educate and inspire action for our Central Puget Sound watersheds.",
@@ -1091,9 +1091,10 @@
               ["==", ["get", "SPECIES"], "Sockeye Salmon"]
             ],
             "paint": {
-              "line-color": "#0593eb",
+              "line-color": "#ff5229",
               "line-width": 2,
-              "line-opacity": 0.5
+              "line-opacity": 0.5,
+              "line-dasharray": [3, 2]
             },
             "layout": {
               "line-join": "round"
@@ -1715,9 +1716,9 @@
         "options": [
           {
             "layerGroupId": "longhouses",
-            "title": "Historical Longhouse Sites",
+            "title": "Longhouse Village Sites",
             "modal": {
-              "header": "Historical Longhouse Sites",
+              "header": "Longhouse Village Sites",
               "body": [
                 "This layer reveals the approximate sites where traditional Salish villages of the Puget Sound region were. It is fascinating to analyze the many clusters along rivers and lakes. If we assume one village may be inhabited by several hundred people, how could there be this many villages so close together? Were salmon so incredibly abundant that all of these people could thrive? The information for this map layer was geolocated by students, site by site, from an original digital map created by Tom Dailey sometime before 2010. A record of the original map is in a blog called Northwest Coast Archaeology. Although there hasn't been much activity over the last decade, the map lives on."
               ]
@@ -1764,30 +1765,10 @@
             }
           },
           {
-            "layerGroupId": "sewer",
-            "title": "Wastewater System",
-            "modal": {
-              "header": "Wastewater System",
-              "body": [
-                "The wastewater system layer shows sewer lines that transport wastewater from your home, school, or business that the city maintains through larger pipes to the treatment centers that King County maintains."
-              ]
-            }
-          },
-          {
-            "layerGroupId": "commfood",
-            "title": "Farmers Markets",
-            "modal": {
-              "header": "Farmers Markets",
-              "body": [
-                "A farmers market is a place for local farmers to sell fresh produce and dairy, meat, and bakery products directly to buyers, usually in an outdoor booth setting. Who has the most access to fresh, organic, local, and sustainable food? Is there a farmers market near you?"
-              ]
-            }
-          },
-          {
             "layerGroupId": "wa-fish-distribution-wria-3-13",
-            "title": "Salmon Spawning Sites",
+            "title": "Salmon Spawning Habitat",
             "modal": {
-              "header": "Salmon Spawning Sites",
+              "header": "Salmon Spawning Habitat",
               "body": [
                 "Salmon complete their life cycle by spawning in the same freshwater streams in which they were born. It is crucial to protect these areas to keep salmon, a keystone species, healthy."
               ]
@@ -1839,6 +1820,26 @@
             "modal": {
               "header": "WRIA 12 Streams",
               "body": "WRIA 12 is the Chambers-Clover watershed. WRIA stands for Water Resource Inventory Area. Each WRIA is a geographic area used by the Department of Ecology to manage, regulate, and protect the watersheds of our state. Each WRIA is very similar to a watershed which is defined by higher elevations that capture precipitation and funnel rain and snowmelt through smaller sub basins into streams, tributaries, and rivers. One of the big advantages of WRIAs is to engage multiple jurisdictions in shared decision making around salmon recovery, forests, floodplains, and farms."
+            }
+          },
+          {
+            "layerGroupId": "sewer",
+            "title": "Wastewater System",
+            "modal": {
+              "header": "Wastewater System",
+              "body": [
+                "The wastewater system layer shows sewer lines that transport wastewater from your home, school, or business that the city maintains through larger pipes to the treatment centers that King County maintains."
+              ]
+            }
+          },
+          {
+            "layerGroupId": "commfood",
+            "title": "Farmers Markets",
+            "modal": {
+              "header": "Farmers Markets",
+              "body": [
+                "A farmers market is a place for local farmers to sell fresh produce and dairy, meat, and bakery products directly to buyers, usually in an outdoor booth setting. Who has the most access to fresh, organic, local, and sustainable food? Is there a farmers market near you?"
+              ]
             }
           }
         ]
@@ -2328,7 +2329,13 @@
       "content": [
         "<h2 class='page__main-title'>Print Maps</h2>",
         "<input class='page__tag-input' id='print__tag-bioregion-green-duwamish' type='radio' name='print__school-districts' />",
+        "<input class='page__tag-input' id='print__tag-bioregion-cedar-lake-washington' type='radio' name='print__school-districts' />",
+        "<input class='page__tag-input' id='print__tag-wria-7' type='radio' name='print__school-districts' />",
+        "<input class='page__tag-input' id='print__tag-wria-10' type='radio' name='print__school-districts' />",
+        "<input class='page__tag-input' id='print__tag-wria-11' type='radio' name='print__school-districts' />",
+        "<input class='page__tag-input' id='print__tag-wria-12' type='radio' name='print__school-districts' />",
         "<input class='page__tag-input' id='print__tag-bioregion-king-county' type='radio' name='print__school-districts' />",
+        "<input class='page__tag-input' id='print__tag-seattle-history-maps' type='radio' name='print__school-districts' />",
         "<input class='page__tag-input' id='print__tag-bioregion-puget-sound' type='radio' name='print__school-districts' />",
         "<input checked class='page__tag-input' id='print__tag-auburn' type='radio' name='print__school-districts' />",
         "<input class='page__tag-input' id='print__tag-bellevue' type='radio' name='print__school-districts' />",
@@ -2341,8 +2348,14 @@
         "<input class='page__tag-input' id='print__tag-tahoma' type='radio' name='print__school-districts' />",
         "<input class='page__tag-input' id='print__tag-tukwila' type='radio' name='print__school-districts' />",
         "<div class='page__tag-container'>",
-        "<label id='print__tag-bioregion-green-duwamish-label' class='page__tag-label' for='print__tag-bioregion-green-duwamish'>Green-Duwamish Bioregion</label>",
-        "<label id='print__tag-bioregion-king-county-label' class='page__tag-label' for='print__tag-bioregion-king-county'>King County Bioregion</label>",
+        "<label id='print__tag-wria-7-label' class='page__tag-label' for='print__tag-wria-7'>WRIA 7: Snoqualmie-Snohomish Watershed</label>",
+        "<label id='print__tag-bioregion-cedar-lake-washington-label' class='page__tag-label' for='print__tag-bioregion-cedar-lake-washington'>WRIA 8: Cedar River-Lake Washington Watershed</label>",
+        "<label id='print__tag-bioregion-green-duwamish-label' class='page__tag-label' for='print__tag-bioregion-green-duwamish'>WRIA 9: Green-Duwamish Watershed</label>",
+        "<label id='print__tag-wria-10-label' class='page__tag-label' for='print__tag-wria-10'>WRIA 10: Puyallup Watershed</label>",
+        "<label id='print__tag-wria-11-label' class='page__tag-label' for='print__tag-wria-11'>WRIA 11: Nisqually Watershed</label>",
+        "<label id='print__tag-wria-12-label' class='page__tag-label' for='print__tag-wria-12'>WRIA 12: Chambers-Clover Watershed</label>",
+        "<label id='print__tag-bioregion-king-county-label' class='page__tag-label' for='print__tag-bioregion-king-county'>King County Demographics</label>",
+        "<label id='print__tag-seattle-history-maps' class='page__tag-label' for='print__tag-seattle-history-maps'>Seattle History Maps</label>",
         "<label id='print__tag-bioregion-puget-sound-label' class='page__tag-label' for='print__tag-bioregion-puget-sound'>Puget Sound Bioregion</label>",
         "<label id='print__tag-auburn-label' class='page__tag-label' for='print__tag-auburn'>Auburn</label>",
         "<label id='print__tag-bellevue-label' class='page__tag-label' for='print__tag-bellevue'>Bellevue</label>",
@@ -3925,7 +3938,7 @@
         "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/watershed/streams-rivers-lakes.png' />",
         "<figcaption>",
         "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_85ff296ddc0d429a92ba9fecef3f31b9.pdf'>",
-        "<h4 class='print__title'>Green Duwamish Watershed - Streams, Rivers and Lakes</h4>",
+        "<h4 class='print__title'>Green Duwamish Watershed - Streams, Rivers and Lakes (Fullsize)</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
@@ -3933,7 +3946,7 @@
         "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/watershed/streams-rivers-lakes-blackline.png' />",
         "<figcaption>",
         "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_c35559d8f9dc42af984268ca8e497d4b.pdf'>",
-        "<h4 class='print__title'>Green Duwamish Watershed - Streams, Rivers and Lakes (Blackline)</h4>",
+        "<h4 class='print__title'>Green Duwamish Watershed - Streams, Rivers and Lakes (11x17 Photocopy)</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
@@ -4035,81 +4048,75 @@
         "</a>",
         "</figcaption>",
         "</figure>",
+        "</div>",
+        "<div class='print__gallery-category-container' data-tags='bioregion-cedar-lake-washington'>",
+        "<h3 class='page__subheader'>Watershed Scale</h3>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-1936-1-1200.webp' />",
+        "<img src='/static/css/images/print-thumbs/bioregion-cedar-lake-washington/watershed/streams-rivers-lakes.webp' />",
         "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_d45431e3651a412e9e1476916e3dbcfa.pdf'>",
-        "<h4 class='print__title'>Holy Family - Campus 1936 1:1200</h4>",
+        "<a target='__blank' href='https://drive.google.com/file/d/1tD61Qn0IRHK67nXGyWjeHMEb3dknRgPS/view'>",
+        "<h4 class='print__title'>Cedar/Lake Washington Watershed - Streams, Rivers and Lakes (Fullsize)</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-1936-1-800.webp' />",
+        "<img src='/static/css/images/print-thumbs/bioregion-cedar-lake-washington/watershed/streams-rivers-lakes-blackline.webp' />",
         "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_7219bb3d728e47148721c5f0e3b42719.pdf'>",
-        "<h4 class='print__title'>Holy Family - Campus 1936 1:800</h4>",
+        "<a target='__blank' href='https://drive.google.com/file/d/1HtrSamsawP9tiJSUGwVJGqPvy477lqWk/view'>",
+        "<h4 class='print__title'>Cedar/Lake Washington Watershed - Streams, Rivers and Lakes (11x17 Photocopy)</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-2015-1-1200.webp' />",
+        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1907-cedar-black-river.webp' />",
         "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_b13b9d8fd9884937a810cace352b1553.pdf'>",
-        "<h4 class='print__title'>Holy Family - Campus 2015 1:1200</h4>",
+        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_23a4c13e34d04366bcd04ec17a472a0d.pdf'>",
+        "<h4 class='print__title'>1907 Cedar and Black River Timber Survey</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
+        "</div>",
+        "<div class='print__gallery-category-container' data-tags='wria-7'>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-2015-1-800.webp' />",
+        "<img src='/static/css/images/print-thumbs/wria-7/watershed/watercourses.png' />",
         "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_bb8922f9471f493fb93425a6741b21cb.pdf'>",
-        "<h4 class='print__title'>Holy Family - Campus 2015 1:800</h4>",
+        "<a target='__blank' href='https://drive.google.com/file/d/1Y71A1s_lmKycJdOTPqbHfsx0bm_DgZxN/view'>",
+        "<h4 class='print__title'>WRIA 7 - Streams, Rivers and Lakes (Fullsize)</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
+        "</div>",
+        "<div class='print__gallery-category-container' data-tags='wria-10'>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-impervious.webp' />",
+        "<img src='/static/css/images/print-thumbs/wria-10/watershed/watercourses.png' />",
         "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_50827ebccf334ce581239b8473a8163e.pdf'>",
-        "<h4 class='print__title'>Holy Family - Impervious Surfaces</h4>",
+        "<a target='__blank' href='https://drive.google.com/file/d/1OFyh5o3BxCNPBQSUYxp43jAYvM6Ke-ab/view'>",
+        "<h4 class='print__title'>WRIA 10 - Streams, Rivers and Lakes (Fullsize)</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
+        "</div>",
+        "<div class='print__gallery-category-container' data-tags='wria-11'>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-impervious-hillshade.webp' />",
+        "<img src='/static/css/images/print-thumbs/wria-11/watershed/watercourses.png' />",
         "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_7247a143cc894729ad94e89e2584506d.pdf'>",
-        "<h4 class='print__title'>Holy Family - Impervious Surfaces w/ Hillshade</h4>",
+        "<a target='__blank' href='https://drive.google.com/file/d/1W7R5XgOA9VFn_vZvYUZVbaGBhbjp2vUf/view'>",
+        "<h4 class='print__title'>WRIA 11 - Streams, Rivers and Lakes (Fullsize)</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
+        "</div>",
+        "<div class='print__gallery-category-container' data-tags='wria-12'>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-1936-neighborhood.webp' />",
+        "<img src='/static/css/images/print-thumbs/wria-12/watershed/watercourses-v2.png' />",
         "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_9b6ed24e298f411b960885374773a7eb.pdf'>",
-        "<h4 class='print__title'>Holy Family - Neighborhood 1936</h4>",
-        "</a>",
-        "</figcaption>",
-        "</figure>",
-        "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-2015-neighborhood.webp' />",
-        "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_669e15bd80614f8299117cf621259ca1.pdf'>",
-        "<h4 class='print__title'>Holy Family - Neighborhood 2105</h4>",
-        "</a>",
-        "</figcaption>",
-        "</figure>",
-        "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-green-duwamish/west-seattle/holy-family-stormwater.webp' />",
-        "<figcaption>",
-        "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_1ff345fe193f42ea8d2266e74e6b3eb5.pdf'>",
-        "<h4 class='print__title'>Holy Family - Stormwater Infrastructure</h4>",
+        "<a target='__blank' href='https://drive.google.com/file/d/1n1kC-VQNCUoP4OGd87b-kKXtDPbzYcEe/view'>",
+        "<h4 class='print__title'>WRIA 12 - Streams, Rivers and Lakes (Fullsize)</h4>",
         "</a>",
         "</figcaption>",
         "</figure>",
         "</div>",
         "<div class='print__gallery-category-container' data-tags='bioregion-king-county'>",
-        "<h3 class='page__subheader'>Equity Maps</h3>",
         "<figure class='print__gallery-item'>",
         "<img src='/static/css/images/print-thumbs/bioregion-king-county/equity/healthy-food.webp' />",
         "<figcaption>",
@@ -4206,7 +4213,8 @@
         "</a>",
         "</figcaption>",
         "</figure>",
-        "<h3 class='page__subheader'>History Maps</h3>",
+        "</div>",
+        "<div class='print__gallery-category-container' data-tags='seattle-history-maps'>",
         "<figure class='print__gallery-item'>",
         "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1907-cedar-black-river.webp' />",
         "<figcaption>",
@@ -4232,7 +4240,7 @@
         "</figcaption>",
         "</figure>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1897-seattle-detail.webp' />",
+        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1897-seattle-detail-rotated.webp' />",
         "<figcaption>",
         "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_551090e1047e412a858ce6ffa2a85057.pdf'>",
         "<h4 class='print__title'>Seattle 1897 - Detail</h4>",
@@ -4240,7 +4248,7 @@
         "</figcaption>",
         "</figure>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1897-seattle-full-city.webp' />",
+        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1897-seattle-full-city-rotated.webp' />",
         "<figcaption>",
         "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_a83efcf569654ca09116dd061712a231.pdf'>",
         "<h4 class='print__title'>Seattle 1897 - Full City</h4>",
@@ -4248,7 +4256,7 @@
         "</figcaption>",
         "</figure>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1909-seattle-detail.webp' />",
+        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1909-seattle-detail-rotated.webp' />",
         "<figcaption>",
         "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_f2c733f4fc4845c5bce07c6bdf39db73.pdf'>",
         "<h4 class='print__title'>Seattle 1909 - Detail</h4>",
@@ -4256,7 +4264,7 @@
         "</figcaption>",
         "</figure>",
         "<figure class='print__gallery-item'>",
-        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1909-seattle-full-city.webp' />",
+        "<img src='/static/css/images/print-thumbs/bioregion-king-county/history/1909-seattle-full-city-rotated.webp' />",
         "<figcaption>",
         "<a target='__blank' href='https://d1f03545-0a39-4d1a-aba6-22b33c9af577.usrfiles.com/ugd/d1f035_11ad2e68812a47759ee8eb3444cc5df6.pdf'>",
         "<h4 class='print__title'>Seattle 1909 - Full City</h4>",
@@ -4372,7 +4380,7 @@
         "<span class='mwl__gallery-item-eyebrow-text'>Equity</span>",
         "<span class='mwl__gallery-item-eyebrow-text'>Demographics</span>",
         "</div>",
-        "<a target='__blank' href='https://www.doh.wa.gov/DataandStatisticalReports/WashingtonTrackingNetworkWTN/InformationbyLocation/WashingtonEnvironmentalHealthDisparitiesMap'>",
+        "<a target='__blank' href='https://doh.wa.gov/data-statistical-reports/washington-tracking-network-wtn/washington-environmental-health-disparities-map'>",
         "<h4 class='mwl__title'>Washington Environmental Health Disparities Map</h4>",
         "</a>",
         "<p class='mwl__description'>This map compares communities across Washington state for their environmental health disparities by showing pollution measures such as diesel emissions, ozone, and hazardous waste sites. Measures like poverty and cardiovascular disease can be found as well. In addition, new insights regarding public investments to buffer environmental health impacts on Washington's communities will be displayed.</p>",

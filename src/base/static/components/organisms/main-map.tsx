@@ -290,7 +290,7 @@ class MainMap extends React.Component<Props, State> {
   private queriedFeatures: MapboxGeoJSONFeature[] = [];
   mouseX = 0;
   mouseY = 0;
-  mapRef: React.RefObject<InteractiveMap> = React.createRef();
+  mapRef: React.RefObject<typeof InteractiveMap> = React.createRef();
   private map: Map | null = null;
 
   errorListener = evt => {
@@ -321,7 +321,9 @@ class MainMap extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.map = (this.mapRef.current as InteractiveMap).getMap();
+    // TODO: ??
+    // @ts-ignore
+    this.map = (this.mapRef.current as typeof InteractiveMap).getMap();
 
     window.addEventListener("resize", () => {
       this.resizeMap();
@@ -335,9 +337,10 @@ class MainMap extends React.Component<Props, State> {
     // status state if a new type of event is fired. It's necessary to attach
     // these events to a ref of the map because react-map-gl does not expose
     // the event binding API itself.
-    this.map.on("error", this.errorListener);
-
-    this.map.on("sourcedata", this.sourceDataListener);
+    if (this.map) {
+      this.map.on("error", this.errorListener);
+      this.map.on("sourcedata", this.sourceDataListener);
+    }
 
     // Ensure that any filters set on another template (like the list) are
     // applied when returning to the map template.
@@ -559,6 +562,8 @@ class MainMap extends React.Component<Props, State> {
       <React.Fragment>
         <MapGL
           attributionControl={false}
+          // TODO: ??
+          // @ts-ignore
           ref={this.mapRef}
           width={this.props.mapContainerDimensions.width}
           height={this.props.mapContainerDimensions.height}
