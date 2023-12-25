@@ -102,7 +102,7 @@
     "recharts": "^2.10.3",
     "redux": "^4.0.4",
     "reselect": "^4.0.0",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "throttle-debounce": "^5.0.0",
     "tinycolor2": "^1.4.1",
     "turf-extent": "^1.0.4",
