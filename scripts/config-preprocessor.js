@@ -4,7 +4,7 @@ const {
   transformCommonFormElements,
 } = require("../src/base/static/utils/config-loader-utils");
 
-module.exports = function(config) {
+module.exports = function (config) {
   setConfigDefaults(config);
 
   // The API root is defined in the config. In most cases this will be set to

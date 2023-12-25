@@ -135,9 +135,7 @@ export const redraw = ({ project, ctx, featureCollection, width, height }) => {
   }
 
   const transform = geoTransform({ point: projectPoint });
-  const path = geoPath()
-    .projection(transform)
-    .context(ctx);
+  const path = geoPath().projection(transform).context(ctx);
 
   ctx.clearRect(0, 0, width, height);
 
@@ -172,6 +170,8 @@ export const calculateMeasurement = (measurementFeature: Feature) => {
 
   if (geometry && geometry.type == "LineString") {
     return (
+      // TODO: ??
+      // @ts-ignore
       geometry.coordinates.reduce((total, nextCoords, i) => {
         return (
           i > 0 &&

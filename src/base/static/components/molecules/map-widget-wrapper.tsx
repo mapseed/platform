@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/styles";
 
 import { getReadableColor } from "../../utils/color";
+import mq from "../../../../media-queries";
 
 type MapWidgetWrapperProps = {
   color: "black" | "white";
@@ -17,12 +18,15 @@ const COLORS = {
 };
 
 const useStyles = makeStyles({
-  root: props => ({
+  root: (props: { color: string }) => ({
     backgroundColor: COLORS[props.color],
     color: getReadableColor(COLORS[props.color]),
     padding: "8px",
     borderRadius: "8px",
     marginTop: "8px",
+    [mq[0]]: {
+      display: "none"
+    }
   }),
   label: props => ({
     color: getReadableColor(COLORS[props.color]),

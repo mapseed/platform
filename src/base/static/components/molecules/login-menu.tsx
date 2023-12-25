@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import { Button as LegacyButton } from "../atoms/buttons";
 import LoginModal from "./login-modal";
 import { AppConfig } from "../../state/ducks/app-config";
-import { useTranslation } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import mq from "../../../../media-queries";
 import { MuiTheme } from "../../../../theme";
 import { useTheme } from "@material-ui/styles";
@@ -14,11 +14,9 @@ import Typography from "@material-ui/core/Typography";
 type Props = {
   appConfig: AppConfig;
   isMobileHeaderExpanded: boolean;
-};
+} & WithTranslation;
 
 const LoginMenu: React.FunctionComponent<Props> = props => {
-  const [t] = useTranslation();
-
   const theme = useTheme<MuiTheme>();
 
   const MobileButton = ({ openModal }) => (
@@ -49,7 +47,9 @@ const LoginMenu: React.FunctionComponent<Props> = props => {
           weight: "bold",
           textTransform: "uppercase",
         }}
-      >{`Sign In`}</Typography>
+      >
+        {props.t("signInMsg", "Sign In")}
+      </Typography>
     </Button>
   );
   const DesktopButton = ({ openModal }) => (
@@ -82,7 +82,7 @@ const LoginMenu: React.FunctionComponent<Props> = props => {
         },
       })}
     >
-      {t("signIn", "Sign In")}
+      {props.t("signInMsg", "Sign In")}
     </LegacyButton>
   );
   return (
@@ -101,4 +101,4 @@ const LoginMenu: React.FunctionComponent<Props> = props => {
   );
 };
 
-export default LoginMenu;
+export default withTranslation("LoginMenu")(LoginMenu);

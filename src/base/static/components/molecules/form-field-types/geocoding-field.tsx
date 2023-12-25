@@ -53,9 +53,10 @@ const GeocodingField: React.FunctionComponent<Props> = ({
   reverseGeocode,
 }) => {
   const [isGeocoding, setIsGeocoding] = React.useState<boolean>(false);
-  const [isWithGeocodingError, setIsWithGeocodingError] = React.useState<
-    boolean
-  >(false);
+  const [
+    isWithGeocodingError,
+    setIsWithGeocodingError,
+  ] = React.useState<boolean>(false);
   const isMounted = React.useRef<boolean>(true);
 
   const doGeocode = React.useCallback(() => {

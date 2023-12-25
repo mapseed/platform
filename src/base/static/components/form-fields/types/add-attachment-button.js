@@ -8,6 +8,17 @@ import "./add-attachment-button.scss";
 
 import Util from "../../../js/utils.js";
 
+const MODES = {
+  image: {
+    accept: "image/*",
+    type: "CO"
+  },
+  pdf: {
+    accept: "application/pdf",
+    type: "PD"
+  }
+}
+
 class AddAttachmentButton extends Component {
   constructor() {
     super();
@@ -24,29 +35,16 @@ class AddAttachmentButton extends Component {
       const file = evt.target.files[0];
       this.setState({ displayFilename: file.name });
 
-      Util.fileToCanvas(
+      Util.loadFile(
         file,
-        canvas => {
-          canvas.toBlob(blob => {
-            const fileObj = {
-              name: this.props.name,
-              blob: blob,
-              file: canvas.toDataURL("image/jpeg"),
-              type: "CO", // cover image
-            };
-
-            // Keep track of whether or not a cover image has been added for the
-            // purposes of validating an attachment button that is required.
-            this.props.onChange(evt.target.name, "");
-            this.props.onAddAttachment(fileObj);
-          }, "image/jpeg");
-        },
-        {
-          // TODO: make configurable
-          maxWidth: 800,
-          maxHeight: 800,
-          canvas: true,
-        },
+        result => {
+          this.props.onChange(evt.target.name, "");
+          this.props.onAddAttachment({
+            name: this.props.name,
+            file: result,
+            type: MODES[this.props.mode].type
+          })
+        }
       );
     }
   }
@@ -64,12 +62,16 @@ class AddAttachmentButton extends Component {
           onChange={this.onChange}
           name={this.props.name}
           label={this.props.label}
-          accept="image/*"
+          accept={MODES[this.props.mode].accept}
         />
         <span className={cn}>{this.state.displayFilename}</span>
       </div>
     );
   }
+}
+
+AddAttachmentButton.defaultProps = {
+  mode: "image"
 }
 
 AddAttachmentButton.propTypes = {
@@ -78,6 +80,7 @@ AddAttachmentButton.propTypes = {
   label: PropTypes.string.isRequired,
   onAddAttachment: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  mode: PropTypes.oneOf(["image", "pdf"]),
 };
 
 export default AddAttachmentButton;

@@ -139,12 +139,12 @@
                   "label": "All dates"
                 },
                 {
-                  "value": "pre-2011",
-                  "label": "Pre-2011"
+                  "value": "pre-2021",
+                  "label": "Pre-2021"
                 },
                 {
-                  "value": "2011-and-later",
-                  "label": "2011 and later"
+                  "value": "2021-and-later",
+                  "label": "2021 and later"
                 }
               ]
             }
@@ -175,19 +175,19 @@
               "type": "numeric"
             },
             {
-              "header": "2021 BENCHMARK OBJECTIVE",
+              "header": "2026 BENCHMARK OBJECTIVE",
               "type": "numeric"
             },
             {
-              "header": "2021 BENCHMARK STATUS",
+              "header": "2026 BENCHMARK STATUS",
               "type": "badge"
             },
             {
-              "header": "2021 ENHANCED OBJECTIVE",
+              "header": "2026 ENHANCED OBJECTIVE",
               "type": "numeric"
             },
             {
-              "header": "2021 ENHANCED STATUS",
+              "header": "2026 ENHANCED STATUS",
               "type": "badge"
             }
           ],
@@ -239,20 +239,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "conventional_till_datetime"], 2011]
+                        ["<", ["get-val", "conventional_till_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "conventional_till_datetime"], 2011]
+                        [">=", ["get-val", "conventional_till_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -267,22 +267,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2011]
+                      ["<", ["get-val", "conventional_till_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2011]
+                      [">=", ["get-val", "conventional_till_datetime"], 2021]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -294,22 +294,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2011]
+                      ["<", ["get-val", "conventional_till_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2011]
+                      [">=", ["get-val", "conventional_till_datetime"], 2021]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -321,22 +321,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2011]
+                      ["<", ["get-val", "conventional_till_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2011]
+                      [">=", ["get-val", "conventional_till_datetime"], 2021]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -348,22 +348,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      ["<", ["get-val", "conventional_till_datetime"], 2011]
+                      ["<", ["get-val", "conventional_till_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "conventional_till_quantity",
-                      [">=", ["get-val", "conventional_till_datetime"], 2011]
+                      [">=", ["get-val", "conventional_till_datetime"], 2021]
                     ],
                     ["get-sum", "conventional_till_quantity"]
                   ],
@@ -397,20 +397,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "no_till_datetime"], 2011]
+                        ["<", ["get-val", "no_till_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "no_till_datetime"], 2011]
+                        [">=", ["get-val", "no_till_datetime"], 2021]
                       ],
                       ["get-count", [">", ["get-val", "no_till_datetime"], 0]]
                     ]
@@ -423,22 +423,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2011]
+                      ["<", ["get-val", "no_till_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2011]
+                      [">=", ["get-val", "no_till_datetime"], 2021]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -450,22 +450,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2011]
+                      ["<", ["get-val", "no_till_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2011]
+                      [">=", ["get-val", "no_till_datetime"], 2021]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -477,22 +477,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2011]
+                      ["<", ["get-val", "no_till_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2011]
+                      [">=", ["get-val", "no_till_datetime"], 2021]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
@@ -504,55 +504,55 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      ["<", ["get-val", "no_till_datetime"], 2011]
+                      ["<", ["get-val", "no_till_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "no_till_quantity",
-                      [">=", ["get-val", "no_till_datetime"], 2011]
+                      [">=", ["get-val", "no_till_datetime"], 2021]
                     ],
                     ["get-sum", "no_till_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 7004],
+                  "value": ["literal", 10507],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 7004]],
+                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 10507]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "no_till_quantity"], 7004],
+                    ["<", ["get-sum", "no_till_quantity"], 10507],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "no_till_quantity"], 7004],
+                    [">=", ["get-sum", "no_till_quantity"], 10507],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 28018],
+                  "value": ["literal", 59537],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 28018]],
+                    ["<=", ["get-sum", "no_till_quantity"], ["*", 0.7, 59537]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "no_till_quantity"], 28018],
+                    ["<", ["get-sum", "no_till_quantity"], 59537],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "no_till_quantity"], 28018],
+                    [">=", ["get-sum", "no_till_quantity"], 59537],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -571,20 +571,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "pest_management_datetime"], 2011]
+                        ["<", ["get-val", "pest_management_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "pest_management_datetime"], 2011]
+                        [">=", ["get-val", "pest_management_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -599,22 +599,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2011]
+                      ["<", ["get-val", "pest_management_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2011]
+                      [">=", ["get-val", "pest_management_datetime"], 2021]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -626,22 +626,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2011]
+                      ["<", ["get-val", "pest_management_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2011]
+                      [">=", ["get-val", "pest_management_datetime"], 2021]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -653,22 +653,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2011]
+                      ["<", ["get-val", "pest_management_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2011]
+                      [">=", ["get-val", "pest_management_datetime"], 2021]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
@@ -680,29 +680,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      ["<", ["get-val", "pest_management_datetime"], 2011]
+                      ["<", ["get-val", "pest_management_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "pest_management_quantity",
-                      [">=", ["get-val", "pest_management_datetime"], 2011]
+                      [">=", ["get-val", "pest_management_datetime"], 2021]
                     ],
                     ["get-sum", "pest_management_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 3492],
+                  "value": ["literal", 5238],
                   "label": "Acres"
                 },
                 {
@@ -711,18 +711,18 @@
                     [
                       "<=",
                       ["get-sum", "pest_management_quantity"],
-                      ["*", 0.7, 3492]
+                      ["*", 0.7, 5238]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "pest_management_quantity"], 3492],
+                    ["<", ["get-sum", "pest_management_quantity"], 5238],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "pest_management_quantity"], 3492],
+                    [">=", ["get-sum", "pest_management_quantity"], 5238],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 13968],
+                  "value": ["literal", 29683],
                   "label": "Acres"
                 },
                 {
@@ -731,12 +731,12 @@
                     [
                       "<=",
                       ["get-sum", "pest_management_quantity"],
-                      ["*", 0.7, 13968]
+                      ["*", 0.7, 29683]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "pest_management_quantity"], 13968],
+                    ["<", ["get-sum", "pest_management_quantity"], 29683],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "pest_management_quantity"], 13968],
+                    [">=", ["get-sum", "pest_management_quantity"], 29683],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -755,23 +755,23 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                        ["<", ["get-val", "nutrient_management_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
                         [
                           ">=",
                           ["get-val", "nutrient_management_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
@@ -787,22 +787,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -814,22 +814,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -841,22 +841,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
@@ -868,29 +868,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      ["<", ["get-val", "nutrient_management_datetime"], 2011]
+                      ["<", ["get-val", "nutrient_management_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "nutrient_management_quantity",
-                      [">=", ["get-val", "nutrient_management_datetime"], 2011]
+                      [">=", ["get-val", "nutrient_management_datetime"], 2021]
                     ],
                     ["get-sum", "nutrient_management_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 6519],
+                  "value": ["literal", 9778],
                   "label": "Acres"
                 },
                 {
@@ -899,18 +899,18 @@
                     [
                       "<=",
                       ["get-sum", "nutrient_management_quantity"],
-                      ["*", 0.7, 6519]
+                      ["*", 0.7, 9778]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "nutrient_management_quantity"], 6519],
+                    ["<", ["get-sum", "nutrient_management_quantity"], 9778],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "nutrient_management_quantity"], 6519],
+                    [">=", ["get-sum", "nutrient_management_quantity"], 9778],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 26075],
+                  "value": ["literal", 55409],
                   "label": "Acres"
                 },
                 {
@@ -919,12 +919,12 @@
                     [
                       "<=",
                       ["get-sum", "nutrient_management_quantity"],
-                      ["*", 0.7, 26075]
+                      ["*", 0.7, 55409]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "nutrient_management_quantity"], 26075],
+                    ["<", ["get-sum", "nutrient_management_quantity"], 55409],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "nutrient_management_quantity"], 26075],
+                    [">=", ["get-sum", "nutrient_management_quantity"], 55409],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -943,20 +943,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                        ["<", ["get-val", "managed_grazing_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                        [">=", ["get-val", "managed_grazing_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -972,22 +972,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                      ["<", ["get-val", "managed_grazing_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                      [">=", ["get-val", "managed_grazing_datetime"], 2021]
                     ],
                     ["get-sum", "managed_grazing_quantity"]
                   ],
@@ -999,22 +999,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                      ["<", ["get-val", "managed_grazing_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                      [">=", ["get-val", "managed_grazing_datetime"], 2021]
                     ],
                     ["get-sum", "managed_grazing_quantity"]
                   ],
@@ -1026,22 +1026,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                      ["<", ["get-val", "managed_grazing_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                      [">=", ["get-val", "managed_grazing_datetime"], 2021]
                     ],
                     ["get-sum", "managed_grazing_quantity"]
                   ],
@@ -1053,29 +1053,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      ["<", ["get-val", "managed_grazing_datetime"], 2011]
+                      ["<", ["get-val", "managed_grazing_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "managed_grazing_quantity",
-                      [">=", ["get-val", "managed_grazing_datetime"], 2011]
+                      [">=", ["get-val", "managed_grazing_datetime"], 2021]
                     ],
                     ["get-sum", "managed_grazing_quantity"]
                   ],
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 750],
+                  "value": ["literal", 1000],
                   "label": "Acres"
                 },
                 {
@@ -1084,18 +1084,18 @@
                     [
                       "<=",
                       ["get-sum", "managed_grazing_quantity"],
-                      ["*", 0.7, 750]
+                      ["*", 0.7, 1000]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "managed_grazing_quantity"], 750],
+                    ["<", ["get-sum", "managed_grazing_quantity"], 1000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "managed_grazing_quantity"], 750],
+                    [">=", ["get-sum", "managed_grazing_quantity"], 1000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 4150],
+                  "value": ["literal", 6500],
                   "label": "Acres"
                 },
                 {
@@ -1104,12 +1104,12 @@
                     [
                       "<=",
                       ["get-sum", "managed_grazing_quantity"],
-                      ["*", 0.7, 4150]
+                      ["*", 0.7, 6500]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "managed_grazing_quantity"], 4150],
+                    ["<", ["get-sum", "managed_grazing_quantity"], 6500],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "managed_grazing_quantity"], 4150],
+                    [">=", ["get-sum", "managed_grazing_quantity"], 6500],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -1128,20 +1128,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "range_plantings_datetime"], 2011]
+                        ["<", ["get-val", "range_plantings_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "range_plantings_datetime"], 2011]
+                        [">=", ["get-val", "range_plantings_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -1157,22 +1157,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2011]
+                      ["<", ["get-val", "range_plantings_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2011]
+                      [">=", ["get-val", "range_plantings_datetime"], 2021]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -1184,22 +1184,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2011]
+                      ["<", ["get-val", "range_plantings_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2011]
+                      [">=", ["get-val", "range_plantings_datetime"], 2021]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -1211,22 +1211,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2011]
+                      ["<", ["get-val", "range_plantings_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2011]
+                      [">=", ["get-val", "range_plantings_datetime"], 2021]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
@@ -1238,29 +1238,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      ["<", ["get-val", "range_plantings_datetime"], 2011]
+                      ["<", ["get-val", "range_plantings_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "range_plantings_quantity",
-                      [">=", ["get-val", "range_plantings_datetime"], 2011]
+                      [">=", ["get-val", "range_plantings_datetime"], 2021]
                     ],
                     ["get-sum", "range_plantings_quantity"]
                   ],
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 100],
+                  "value": ["literal", 300],
                   "label": "Acres"
                 },
                 {
@@ -1269,18 +1269,18 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 100]
+                      ["*", 0.7, 300]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 100],
+                    ["<", ["get-sum", "range_plantings_quantity"], 300],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 100],
+                    [">=", ["get-sum", "range_plantings_quantity"], 300],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 1000],
+                  "value": ["literal", 1200],
                   "label": "Acres"
                 },
                 {
@@ -1289,12 +1289,12 @@
                     [
                       "<=",
                       ["get-sum", "range_plantings_quantity"],
-                      ["*", 0.7, 1000]
+                      ["*", 0.7, 1200]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "range_plantings_quantity"], 1000],
+                    ["<", ["get-sum", "range_plantings_quantity"], 1200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "range_plantings_quantity"], 1000],
+                    [">=", ["get-sum", "range_plantings_quantity"], 1200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -1313,20 +1313,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "watering_facility_datetime"], 2011]
+                        ["<", ["get-val", "watering_facility_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "watering_facility_datetime"], 2011]
+                        [">=", ["get-val", "watering_facility_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -1342,22 +1342,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2011]
+                      ["<", ["get-val", "watering_facility_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2011]
+                      [">=", ["get-val", "watering_facility_datetime"], 2021]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -1369,22 +1369,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2011]
+                      ["<", ["get-val", "watering_facility_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2011]
+                      [">=", ["get-val", "watering_facility_datetime"], 2021]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -1396,22 +1396,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2011]
+                      ["<", ["get-val", "watering_facility_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2011]
+                      [">=", ["get-val", "watering_facility_datetime"], 2021]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
@@ -1423,29 +1423,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      ["<", ["get-val", "watering_facility_datetime"], 2011]
+                      ["<", ["get-val", "watering_facility_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "watering_facility_quantity",
-                      [">=", ["get-val", "watering_facility_datetime"], 2011]
+                      [">=", ["get-val", "watering_facility_datetime"], 2021]
                     ],
                     ["get-sum", "watering_facility_quantity"]
                   ],
                   "label": "Facils."
                 },
                 {
-                  "value": ["literal", 1],
+                  "value": ["literal", 10],
                   "label": "Facils."
                 },
                 {
@@ -1454,18 +1454,18 @@
                     [
                       "<=",
                       ["get-sum", "watering_facility_quantity"],
-                      ["*", 0.7, 1]
+                      ["*", 0.7, 10]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "watering_facility_quantity"], 1],
+                    ["<", ["get-sum", "watering_facility_quantity"], 10],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "watering_facility_quantity"], 1],
+                    [">=", ["get-sum", "watering_facility_quantity"], 10],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 9],
+                  "value": ["literal", 20],
                   "label": "Facils."
                 },
                 {
@@ -1474,12 +1474,12 @@
                     [
                       "<=",
                       ["get-sum", "watering_facility_quantity"],
-                      ["*", 0.7, 9]
+                      ["*", 0.7, 20]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "watering_facility_quantity"], 9],
+                    ["<", ["get-sum", "watering_facility_quantity"], 20],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "watering_facility_quantity"], 9],
+                    [">=", ["get-sum", "watering_facility_quantity"], 20],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -1498,20 +1498,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "water_wells_datetime"], 2011]
+                        ["<", ["get-val", "water_wells_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "water_wells_datetime"], 2011]
+                        [">=", ["get-val", "water_wells_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -1527,22 +1527,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2011]
+                      ["<", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2011]
+                      [">=", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -1554,22 +1554,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2011]
+                      ["<", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2011]
+                      [">=", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -1581,22 +1581,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2011]
+                      ["<", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2011]
+                      [">=", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -1608,55 +1608,55 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2011]
+                      ["<", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2011]
+                      [">=", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
                   "label": "Wells"
                 },
                 {
-                  "value": ["literal", 1],
+                  "value": ["literal", 3],
                   "label": "Wells"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "water_wells_quantity"], ["*", 0.7, 1]],
+                    ["<=", ["get-sum", "water_wells_quantity"], ["*", 0.7, 3]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "water_wells_quantity"], 1],
+                    ["<", ["get-sum", "water_wells_quantity"], 3],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "water_wells_quantity"], 1],
+                    [">=", ["get-sum", "water_wells_quantity"], 3],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 9],
+                  "value": ["literal", 10],
                   "label": "Wells"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "water_wells_quantity"], ["*", 0.7, 9]],
+                    ["<=", ["get-sum", "water_wells_quantity"], ["*", 0.7, 10]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "water_wells_quantity"], 9],
+                    ["<", ["get-sum", "water_wells_quantity"], 10],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "water_wells_quantity"], 9],
+                    [">=", ["get-sum", "water_wells_quantity"], 10],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -1675,27 +1675,27 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "conservation_crop_rotation_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
                         [
                           ">=",
                           ["get-val", "conservation_crop_rotation_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
@@ -1716,7 +1716,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -1724,13 +1724,13 @@
                       [
                         "<",
                         ["get-val", "conservation_crop_rotation_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -1738,7 +1738,7 @@
                       [
                         ">=",
                         ["get-val", "conservation_crop_rotation_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "conservation_crop_rotation_quantity"]
@@ -1751,22 +1751,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      ["<", ["get-val", "water_wells_datetime"], 2011]
+                      ["<", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "water_wells_quantity",
-                      [">=", ["get-val", "water_wells_datetime"], 2011]
+                      [">=", ["get-val", "water_wells_datetime"], 2021]
                     ],
                     ["get-sum", "water_wells_quantity"]
                   ],
@@ -1778,7 +1778,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -1786,13 +1786,13 @@
                       [
                         "<",
                         ["get-val", "conservation_crop_rotation_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -1800,7 +1800,7 @@
                       [
                         ">=",
                         ["get-val", "conservation_crop_rotation_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "conservation_crop_rotation_quantity"]
@@ -1813,7 +1813,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -1821,13 +1821,13 @@
                       [
                         "<",
                         ["get-val", "conservation_crop_rotation_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -1835,7 +1835,7 @@
                       [
                         ">=",
                         ["get-val", "conservation_crop_rotation_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "conservation_crop_rotation_quantity"]
@@ -1843,7 +1843,7 @@
                   "label": "Acres"
                 },
                 {
-                  "value": ["literal", 204],
+                  "value": ["literal", 604],
                   "label": "Acres"
                 },
                 {
@@ -1852,19 +1852,19 @@
                     [
                       "<=",
                       ["get-sum", "conservation_crop_rotation_quantity"],
-                      ["*", 0.7, 204]
+                      ["*", 0.7, 604]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "conservation_crop_rotation_quantity"],
-                      204
+                      604
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "conservation_crop_rotation_quantity"],
-                      204
+                      604
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
@@ -1880,19 +1880,19 @@
                     [
                       "<=",
                       ["get-sum", "conservation_crop_rotation_quantity"],
-                      ["*", 0.7, 9]
+                      ["*", 0.7, 1515]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
                     [
                       "<",
                       ["get-sum", "conservation_crop_rotation_quantity"],
-                      9
+                      1515
                     ],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "conservation_crop_rotation_quantity"],
-                      9
+                      1515
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
@@ -1912,20 +1912,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "cover_crop_datetime"], 2011]
+                        ["<", ["get-val", "cover_crop_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "cover_crop_datetime"], 2011]
+                        [">=", ["get-val", "cover_crop_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -1941,22 +1941,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2011]
+                      ["<", ["get-val", "cover_crop_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2011]
+                      [">=", ["get-val", "cover_crop_datetime"], 2021]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -1968,22 +1968,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2011]
+                      ["<", ["get-val", "cover_crop_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2011]
+                      [">=", ["get-val", "cover_crop_datetime"], 2021]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -1995,22 +1995,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2011]
+                      ["<", ["get-val", "cover_crop_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2011]
+                      [">=", ["get-val", "cover_crop_datetime"], 2021]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
@@ -2022,55 +2022,55 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      ["<", ["get-val", "cover_crop_datetime"], 2011]
+                      ["<", ["get-val", "cover_crop_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "cover_crop_quantity",
-                      [">=", ["get-val", "cover_crop_datetime"], 2011]
+                      [">=", ["get-val", "cover_crop_datetime"], 2021]
                     ],
                     ["get-sum", "cover_crop_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 204],
+                  "value": ["literal", 404],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "cover_crop_quantity"], ["*", 0.7, 204]],
+                    ["<=", ["get-sum", "cover_crop_quantity"], ["*", 0.7, 404]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "cover_crop_quantity"], 204],
+                    ["<", ["get-sum", "cover_crop_quantity"], 404],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "cover_crop_quantity"], 204],
+                    [">=", ["get-sum", "cover_crop_quantity"], 404],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 815],
+                  "value": ["literal", 1015],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "cover_crop_quantity"], ["*", 0.7, 815]],
+                    ["<=", ["get-sum", "cover_crop_quantity"], ["*", 0.7, 1015]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "cover_crop_quantity"], 815],
+                    ["<", ["get-sum", "cover_crop_quantity"], 1015],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "cover_crop_quantity"], 815],
+                    [">=", ["get-sum", "cover_crop_quantity"], 1015],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2089,20 +2089,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "mulching_datetime"], 2011]
+                        ["<", ["get-val", "mulching_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "mulching_datetime"], 2011]
+                        [">=", ["get-val", "mulching_datetime"], 2021]
                       ],
                       ["get-count", [">", ["get-val", "mulching_datetime"], 0]]
                     ]
@@ -2115,22 +2115,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "mulching_quantity",
-                      ["<", ["get-val", "mulching_datetime"], 2011]
+                      ["<", ["get-val", "mulching_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "mulching_quantity",
-                      [">=", ["get-val", "mulching_datetime"], 2011]
+                      [">=", ["get-val", "mulching_datetime"], 2021]
                     ],
                     ["get-sum", "mulching_quantity"]
                   ],
@@ -2142,22 +2142,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "mulching_quantity",
-                      ["<", ["get-val", "mulching_datetime"], 2011]
+                      ["<", ["get-val", "mulching_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "mulching_quantity",
-                      [">=", ["get-val", "mulching_datetime"], 2011]
+                      [">=", ["get-val", "mulching_datetime"], 2021]
                     ],
                     ["get-sum", "mulching_quantity"]
                   ],
@@ -2169,22 +2169,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "mulching_quantity",
-                      ["<", ["get-val", "mulching_datetime"], 2011]
+                      ["<", ["get-val", "mulching_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "mulching_quantity",
-                      [">=", ["get-val", "mulching_datetime"], 2011]
+                      [">=", ["get-val", "mulching_datetime"], 2021]
                     ],
                     ["get-sum", "mulching_quantity"]
                   ],
@@ -2196,55 +2196,55 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "mulching_quantity",
-                      ["<", ["get-val", "mulching_datetime"], 2011]
+                      ["<", ["get-val", "mulching_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "mulching_quantity",
-                      [">=", ["get-val", "mulching_datetime"], 2011]
+                      [">=", ["get-val", "mulching_datetime"], 2021]
                     ],
                     ["get-sum", "mulching_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 204],
+                  "value": ["literal", 404],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "mulching_quantity"], ["*", 0.7, 204]],
+                    ["<=", ["get-sum", "mulching_quantity"], ["*", 0.7, 404]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "mulching_quantity"], 204],
+                    ["<", ["get-sum", "mulching_quantity"], 404],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "mulching_quantity"], 204],
+                    [">=", ["get-sum", "mulching_quantity"], 404],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 815],
+                  "value": ["literal", 1015],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "mulching_quantity"], ["*", 0.7, 815]],
+                    ["<=", ["get-sum", "mulching_quantity"], ["*", 0.7, 1015]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "mulching_quantity"], 815],
+                    ["<", ["get-sum", "mulching_quantity"], 1015],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "mulching_quantity"], 815],
+                    [">=", ["get-sum", "mulching_quantity"], 1015],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2263,20 +2263,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "conservation_cover_datetime"], 2011]
+                        ["<", ["get-val", "conservation_cover_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                        [">=", ["get-val", "conservation_cover_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -2292,22 +2292,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -2319,22 +2319,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -2346,22 +2346,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
@@ -2373,29 +2373,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      ["<", ["get-val", "conservation_cover_datetime"], 2011]
+                      ["<", ["get-val", "conservation_cover_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "conservation_cover_quantity",
-                      [">=", ["get-val", "conservation_cover_datetime"], 2011]
+                      [">=", ["get-val", "conservation_cover_datetime"], 2021]
                     ],
                     ["get-sum", "conservation_cover_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 447],
+                  "value": ["literal", 647],
                   "label": "Acres"
                 },
                 {
@@ -2404,18 +2404,18 @@
                     [
                       "<=",
                       ["get-sum", "conservation_cover_quantity"],
-                      ["*", 0.7, 447]
+                      ["*", 0.7, 647]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "conservation_cover_quantity"], 447],
+                    ["<", ["get-sum", "conservation_cover_quantity"], 647],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "conservation_cover_quantity"], 447],
+                    [">=", ["get-sum", "conservation_cover_quantity"], 647],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 1786],
+                  "value": ["literal", 2786],
                   "label": "Acres"
                 },
                 {
@@ -2424,12 +2424,12 @@
                     [
                       "<=",
                       ["get-sum", "conservation_cover_quantity"],
-                      ["*", 0.7, 1786]
+                      ["*", 0.7, 2786]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "conservation_cover_quantity"], 1786],
+                    ["<", ["get-sum", "conservation_cover_quantity"], 2786],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "conservation_cover_quantity"], 1786],
+                    [">=", ["get-sum", "conservation_cover_quantity"], 2786],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2448,27 +2448,27 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "critical_area_planting_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
                         [
                           ">=",
                           ["get-val", "critical_area_planting_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
@@ -2485,7 +2485,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -2493,13 +2493,13 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -2507,7 +2507,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -2520,7 +2520,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -2528,13 +2528,13 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -2542,7 +2542,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -2555,7 +2555,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -2563,13 +2563,13 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -2577,7 +2577,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -2590,7 +2590,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -2598,13 +2598,13 @@
                       [
                         "<",
                         ["get-val", "critical_area_planting_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -2612,7 +2612,7 @@
                       [
                         ">=",
                         ["get-val", "critical_area_planting_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "critical_area_planting_quantity"]
@@ -2620,7 +2620,7 @@
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 447],
+                  "value": ["literal", 647],
                   "label": "Acres"
                 },
                 {
@@ -2629,18 +2629,18 @@
                     [
                       "<=",
                       ["get-sum", "critical_area_planting_quantity"],
-                      ["*", 0.7, 447]
+                      ["*", 0.7, 647]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "critical_area_planting_quantity"], 447],
+                    ["<", ["get-sum", "critical_area_planting_quantity"], 647],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "critical_area_planting_quantity"], 447],
+                    [">=", ["get-sum", "critical_area_planting_quantity"], 647],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 1786],
+                  "value": ["literal", 2786],
                   "label": "Acres"
                 },
                 {
@@ -2649,15 +2649,15 @@
                     [
                       "<=",
                       ["get-sum", "critical_area_planting_quantity"],
-                      ["*", 0.7, 1786]
+                      ["*", 0.7, 2786]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "critical_area_planting_quantity"], 1786],
+                    ["<", ["get-sum", "critical_area_planting_quantity"], 2786],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
                     [
                       ">=",
                       ["get-sum", "critical_area_planting_quantity"],
-                      1786
+                      2786
                     ],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
@@ -2677,20 +2677,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "grassed_waterways_datetime"], 2011]
+                        ["<", ["get-val", "grassed_waterways_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                        [">=", ["get-val", "grassed_waterways_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -2706,22 +2706,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "grassed_waterways_quantity",
-                      ["<", ["get-val", "grassed_waterways_datetime"], 2011]
+                      ["<", ["get-val", "grassed_waterways_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "grassed_waterways_quantity",
-                      [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                      [">=", ["get-val", "grassed_waterways_datetime"], 2021]
                     ],
                     ["get-sum", "grassed_waterways_quantity"]
                   ],
@@ -2733,22 +2733,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "grassed_waterways_quantity",
-                      ["<", ["get-val", "grassed_waterways_datetime"], 2011]
+                      ["<", ["get-val", "grassed_waterways_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "grassed_waterways_quantity",
-                      [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                      [">=", ["get-val", "grassed_waterways_datetime"], 2021]
                     ],
                     ["get-sum", "grassed_waterways_quantity"]
                   ],
@@ -2760,22 +2760,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "grassed_waterways_quantity",
-                      ["<", ["get-val", "grassed_waterways_datetime"], 2011]
+                      ["<", ["get-val", "grassed_waterways_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "grassed_waterways_quantity",
-                      [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                      [">=", ["get-val", "grassed_waterways_datetime"], 2021]
                     ],
                     ["get-sum", "grassed_waterways_quantity"]
                   ],
@@ -2787,29 +2787,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "grassed_waterways_quantity",
-                      ["<", ["get-val", "grassed_waterways_datetime"], 2011]
+                      ["<", ["get-val", "grassed_waterways_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "grassed_waterways_quantity",
-                      [">=", ["get-val", "grassed_waterways_datetime"], 2011]
+                      [">=", ["get-val", "grassed_waterways_datetime"], 2021]
                     ],
                     ["get-sum", "grassed_waterways_quantity"]
                   ],
                   "label": "feet"
                 },
                 {
-                  "value": ["literal", 5280],
+                  "value": ["literal", 7280],
                   "label": "Feet"
                 },
                 {
@@ -2818,18 +2818,18 @@
                     [
                       "<=",
                       ["get-sum", "grassed_waterways_quantity"],
-                      ["*", 0.7, 5280]
+                      ["*", 0.7, 7280]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "grassed_waterways_quantity"], 5280],
+                    ["<", ["get-sum", "grassed_waterways_quantity"], 7280],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "grassed_waterways_quantity"], 5280],
+                    [">=", ["get-sum", "grassed_waterways_quantity"], 7280],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 15249],
+                  "value": ["literal", 20249],
                   "label": "Feet"
                 },
                 {
@@ -2838,12 +2838,12 @@
                     [
                       "<=",
                       ["get-sum", "grassed_waterways_quantity"],
-                      ["*", 0.7, 15249]
+                      ["*", 0.7, 20249]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "grassed_waterways_quantity"], 15249],
+                    ["<", ["get-sum", "grassed_waterways_quantity"], 20249],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "grassed_waterways_quantity"], 15249],
+                    [">=", ["get-sum", "grassed_waterways_quantity"], 20249],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -2862,20 +2862,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "weed_control_datetime"], 2011]
+                        ["<", ["get-val", "weed_control_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "weed_control_datetime"], 2011]
+                        [">=", ["get-val", "weed_control_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -2883,7 +2883,7 @@
                       ]
                     ]
                   ],
-                  "label": "Herbaceous Weed Control"
+                  "label": "Herbaceous Weed Control - Rangeland"
                 },
                 {
                   "value": [
@@ -2891,22 +2891,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2011]
+                      ["<", ["get-val", "weed_control_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2011]
+                      [">=", ["get-val", "weed_control_datetime"], 2021]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -2918,22 +2918,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2011]
+                      ["<", ["get-val", "weed_control_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2011]
+                      [">=", ["get-val", "weed_control_datetime"], 2021]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -2945,22 +2945,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2011]
+                      ["<", ["get-val", "weed_control_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2011]
+                      [">=", ["get-val", "weed_control_datetime"], 2021]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
@@ -2972,29 +2972,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      ["<", ["get-val", "weed_control_datetime"], 2011]
+                      ["<", ["get-val", "weed_control_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "weed_control_quantity",
-                      [">=", ["get-val", "weed_control_datetime"], 2011]
+                      [">=", ["get-val", "weed_control_datetime"], 2021]
                     ],
                     ["get-sum", "weed_control_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 800],
+                  "value": ["literal", 1200],
                   "label": "Acres"
                 },
                 {
@@ -3003,18 +3003,18 @@
                     [
                       "<=",
                       ["get-sum", "weed_control_quantity"],
-                      ["*", 0.7, 800]
+                      ["*", 0.7, 1200]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "weed_control_quantity"], 800],
+                    ["<", ["get-sum", "weed_control_quantity"], 1200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "weed_control_quantity"], 800],
+                    [">=", ["get-sum", "weed_control_quantity"], 1200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 3400],
+                  "value": ["literal", 6400],
                   "label": "Acres"
                 },
                 {
@@ -3023,12 +3023,12 @@
                     [
                       "<=",
                       ["get-sum", "weed_control_quantity"],
-                      ["*", 0.7, 3400]
+                      ["*", 0.7, 6400]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "weed_control_quantity"], 3400],
+                    ["<", ["get-sum", "weed_control_quantity"], 6400],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "weed_control_quantity"], 3400],
+                    [">=", ["get-sum", "weed_control_quantity"], 6400],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -3047,20 +3047,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "tree_shrub_datetime"], 2011]
+                        ["<", ["get-val", "tree_shrub_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                        [">=", ["get-val", "tree_shrub_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -3076,22 +3076,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -3103,22 +3103,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -3130,22 +3130,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
@@ -3157,55 +3157,55 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      ["<", ["get-val", "tree_shrub_datetime"], 2011]
+                      ["<", ["get-val", "tree_shrub_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "tree_shrub_quantity",
-                      [">=", ["get-val", "tree_shrub_datetime"], 2011]
+                      [">=", ["get-val", "tree_shrub_datetime"], 2021]
                     ],
                     ["get-sum", "tree_shrub_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 100],
+                  "value": ["literal", 200],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "tree_shrub_quantity"], ["*", 0.7, 100]],
+                    ["<=", ["get-sum", "tree_shrub_quantity"], ["*", 0.7, 200]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "tree_shrub_quantity"], 100],
+                    ["<", ["get-sum", "tree_shrub_quantity"], 200],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "tree_shrub_quantity"], 100],
+                    [">=", ["get-sum", "tree_shrub_quantity"], 200],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 600],
+                  "value": ["literal", 800],
                   "label": "Acres"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "tree_shrub_quantity"], ["*", 0.7, 600]],
+                    ["<=", ["get-sum", "tree_shrub_quantity"], ["*", 0.7, 800]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "tree_shrub_quantity"], 600],
+                    ["<", ["get-sum", "tree_shrub_quantity"], 800],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "tree_shrub_quantity"], 600],
+                    [">=", ["get-sum", "tree_shrub_quantity"], 800],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -3224,27 +3224,27 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "wetland_wildlife_management_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
                         [
                           ">=",
                           ["get-val", "wetland_wildlife_management_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
@@ -3265,7 +3265,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -3273,13 +3273,13 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -3287,7 +3287,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -3300,7 +3300,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -3308,13 +3308,13 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -3322,7 +3322,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -3335,7 +3335,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -3343,13 +3343,13 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -3357,7 +3357,7 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
@@ -3370,7 +3370,7 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
@@ -3378,13 +3378,13 @@
                       [
                         "<",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -3392,40 +3392,12 @@
                       [
                         ">=",
                         ["get-val", "wetland_wildlife_management_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "wetland_wildlife_management_quantity"]
                   ],
                   "label": "acres"
-                },
-                {
-                  "value": ["literal", 2],
-                  "label": "Acres"
-                },
-                {
-                  "value": [
-                    "case",
-                    [
-                      "<=",
-                      ["get-sum", "wetland_wildlife_management_quantity"],
-                      ["*", 0.7, 2]
-                    ],
-                    ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    [
-                      "<",
-                      ["get-sum", "wetland_wildlife_management_quantity"],
-                      2
-                    ],
-                    ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [
-                      ">=",
-                      ["get-sum", "wetland_wildlife_management_quantity"],
-                      2
-                    ],
-                    ["literal", { "label": "Target met", "color": "#d5f0d0" }],
-                    ["literal", { "label": "Not available", "color": "#aaa" }]
-                  ]
                 },
                 {
                   "value": ["literal", 4],
@@ -3454,6 +3426,34 @@
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
+                },
+                {
+                  "value": ["literal", 8],
+                  "label": "Acres"
+                },
+                {
+                  "value": [
+                    "case",
+                    [
+                      "<=",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      ["*", 0.7, 8]
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fee0e3" }],
+                    [
+                      "<",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      8
+                    ],
+                    ["literal", { "label": "In progress", "color": "#fbedc9" }],
+                    [
+                      ">=",
+                      ["get-sum", "wetland_wildlife_management_quantity"],
+                      8
+                    ],
+                    ["literal", { "label": "Target met", "color": "#d5f0d0" }],
+                    ["literal", { "label": "Not available", "color": "#aaa" }]
+                  ]
                 }
               ]
             },
@@ -3469,20 +3469,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "upland_habitat_datetime"], 2011]
+                        ["<", ["get-val", "upland_habitat_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                        [">=", ["get-val", "upland_habitat_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -3498,22 +3498,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -3525,22 +3525,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -3552,22 +3552,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
@@ -3579,29 +3579,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      ["<", ["get-val", "upland_habitat_datetime"], 2011]
+                      ["<", ["get-val", "upland_habitat_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "upland_habitat_quantity",
-                      [">=", ["get-val", "upland_habitat_datetime"], 2011]
+                      [">=", ["get-val", "upland_habitat_datetime"], 2021]
                     ],
                     ["get-sum", "upland_habitat_quantity"]
                   ],
                   "label": "acres"
                 },
                 {
-                  "value": ["literal", 200],
+                  "value": ["literal", 400],
                   "label": "Acres"
                 },
                 {
@@ -3610,12 +3610,12 @@
                     [
                       "<=",
                       ["get-sum", "upland_habitat_quantity"],
-                      ["*", 0.7, 200]
+                      ["*", 0.7, 400]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "upland_habitat_quantity"], 200],
+                    ["<", ["get-sum", "upland_habitat_quantity"], 400],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "upland_habitat_quantity"], 200],
+                    [">=", ["get-sum", "upland_habitat_quantity"], 400],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -3654,20 +3654,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
+                        ["<", ["get-val", "hedgerow_planting_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                        [">=", ["get-val", "hedgerow_planting_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -3683,22 +3683,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "hedgerow_planting_quantity",
-                      ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      ["<", ["get-val", "hedgerow_planting_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "hedgerow_planting_quantity",
-                      [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      [">=", ["get-val", "hedgerow_planting_datetime"], 2021]
                     ],
                     ["get-sum", "hedgerow_planting_quantity"]
                   ],
@@ -3710,22 +3710,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "hedgerow_planting_quantity",
-                      ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      ["<", ["get-val", "hedgerow_planting_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "hedgerow_planting_quantity",
-                      [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      [">=", ["get-val", "hedgerow_planting_datetime"], 2021]
                     ],
                     ["get-sum", "hedgerow_planting_quantity"]
                   ],
@@ -3737,22 +3737,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "hedgerow_planting_quantity",
-                      ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      ["<", ["get-val", "hedgerow_planting_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "hedgerow_planting_quantity",
-                      [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      [">=", ["get-val", "hedgerow_planting_datetime"], 2021]
                     ],
                     ["get-sum", "hedgerow_planting_quantity"]
                   ],
@@ -3764,29 +3764,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "hedgerow_planting_quantity",
-                      ["<", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      ["<", ["get-val", "hedgerow_planting_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "hedgerow_planting_quantity",
-                      [">=", ["get-val", "hedgerow_planting_datetime"], 2011]
+                      [">=", ["get-val", "hedgerow_planting_datetime"], 2021]
                     ],
                     ["get-sum", "hedgerow_planting_quantity"]
                   ],
                   "label": "feet"
                 },
                 {
-                  "value": ["literal", 1500],
+                  "value": ["literal", 1700],
                   "label": "Feet"
                 },
                 {
@@ -3795,18 +3795,18 @@
                     [
                       "<=",
                       ["get-sum", "hedgerow_planting_quantity"],
-                      ["*", 0.7, 1500]
+                      ["*", 0.7, 1700]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "hedgerow_planting_quantity"], 1500],
+                    ["<", ["get-sum", "hedgerow_planting_quantity"], 1700],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "hedgerow_planting_quantity"], 1500],
+                    [">=", ["get-sum", "hedgerow_planting_quantity"], 1700],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 4000],
+                  "value": ["literal", 5000],
                   "label": "Feet"
                 },
                 {
@@ -3815,12 +3815,12 @@
                     [
                       "<=",
                       ["get-sum", "hedgerow_planting_quantity"],
-                      ["*", 0.7, 4000]
+                      ["*", 0.7, 5000]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "hedgerow_planting_quantity"], 4000],
+                    ["<", ["get-sum", "hedgerow_planting_quantity"], 5000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "hedgerow_planting_quantity"], 4000],
+                    [">=", ["get-sum", "hedgerow_planting_quantity"], 5000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -3839,20 +3839,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "open_channel_datetime"], 2011]
+                        ["<", ["get-val", "open_channel_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "open_channel_datetime"], 2011]
+                        [">=", ["get-val", "open_channel_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -3868,22 +3868,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "open_channel_quantity",
-                      ["<", ["get-val", "open_channel_datetime"], 2011]
+                      ["<", ["get-val", "open_channel_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "open_channel_quantity",
-                      [">=", ["get-val", "open_channel_datetime"], 2011]
+                      [">=", ["get-val", "open_channel_datetime"], 2021]
                     ],
                     ["get-sum", "open_channel_quantity"]
                   ],
@@ -3895,22 +3895,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "open_channel_quantity",
-                      ["<", ["get-val", "open_channel_datetime"], 2011]
+                      ["<", ["get-val", "open_channel_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "open_channel_quantity",
-                      [">=", ["get-val", "open_channel_datetime"], 2011]
+                      [">=", ["get-val", "open_channel_datetime"], 2021]
                     ],
                     ["get-sum", "open_channel_quantity"]
                   ],
@@ -3922,22 +3922,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "open_channel_quantity",
-                      ["<", ["get-val", "open_channel_datetime"], 2011]
+                      ["<", ["get-val", "open_channel_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "open_channel_quantity",
-                      [">=", ["get-val", "open_channel_datetime"], 2011]
+                      [">=", ["get-val", "open_channel_datetime"], 2021]
                     ],
                     ["get-sum", "open_channel_quantity"]
                   ],
@@ -3949,29 +3949,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "open_channel_quantity",
-                      ["<", ["get-val", "open_channel_datetime"], 2011]
+                      ["<", ["get-val", "open_channel_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "open_channel_quantity",
-                      [">=", ["get-val", "open_channel_datetime"], 2011]
+                      [">=", ["get-val", "open_channel_datetime"], 2021]
                     ],
                     ["get-sum", "open_channel_quantity"]
                   ],
                   "label": "feet"
                 },
                 {
-                  "value": ["literal", 5280],
+                  "value": ["literal", 1700],
                   "label": "Feet"
                 },
                 {
@@ -3980,18 +3980,18 @@
                     [
                       "<=",
                       ["get-sum", "open_channel_quantity"],
-                      ["*", 0.7, 5280]
+                      ["*", 0.7, 1700]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "open_channel_quantity"], 5280],
+                    ["<", ["get-sum", "open_channel_quantity"], 1700],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "open_channel_quantity"], 5280],
+                    [">=", ["get-sum", "open_channel_quantity"], 1700],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 15249],
+                  "value": ["literal", 18249],
                   "label": "Feet"
                 },
                 {
@@ -4000,12 +4000,12 @@
                     [
                       "<=",
                       ["get-sum", "open_channel_quantity"],
-                      ["*", 0.7, 15249]
+                      ["*", 0.7, 18249]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "open_channel_quantity"], 15249],
+                    ["<", ["get-sum", "open_channel_quantity"], 18249],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "open_channel_quantity"], 15249],
+                    [">=", ["get-sum", "open_channel_quantity"], 18249],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4024,20 +4024,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "fencing_datetime"], 2011]
+                        ["<", ["get-val", "fencing_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "fencing_datetime"], 2011]
+                        [">=", ["get-val", "fencing_datetime"], 2021]
                       ],
                       ["get-count", [">", ["get-val", "fencing_datetime"], 0]]
                     ]
@@ -4050,22 +4050,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2011]
+                      ["<", ["get-val", "fencing_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2011]
+                      [">=", ["get-val", "fencing_datetime"], 2021]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -4077,22 +4077,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2011]
+                      ["<", ["get-val", "fencing_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2011]
+                      [">=", ["get-val", "fencing_datetime"], 2021]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -4104,22 +4104,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2011]
+                      ["<", ["get-val", "fencing_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2011]
+                      [">=", ["get-val", "fencing_datetime"], 2021]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
@@ -4131,55 +4131,55 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      ["<", ["get-val", "fencing_datetime"], 2011]
+                      ["<", ["get-val", "fencing_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "fencing_quantity",
-                      [">=", ["get-val", "fencing_datetime"], 2011]
+                      [">=", ["get-val", "fencing_datetime"], 2021]
                     ],
                     ["get-sum", "fencing_quantity"]
                   ],
                   "label": "feet"
                 },
                 {
-                  "value": ["literal", 5280],
+                  "value": ["literal", 7280],
                   "label": "Feet"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "fencing_quantity"], ["*", 0.7, 5280]],
+                    ["<=", ["get-sum", "fencing_quantity"], ["*", 0.7, 7280]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "fencing_quantity"], 5280],
+                    ["<", ["get-sum", "fencing_quantity"], 7280],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "fencing_quantity"], 5280],
+                    [">=", ["get-sum", "fencing_quantity"], 7280],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 15249],
+                  "value": ["literal", 18249],
                   "label": "Feet"
                 },
                 {
                   "value": [
                     "case",
-                    ["<=", ["get-sum", "fencing_quantity"], ["*", 0.7, 15249]],
+                    ["<=", ["get-sum", "fencing_quantity"], ["*", 0.7, 18249]],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "fencing_quantity"], 15249],
+                    ["<", ["get-sum", "fencing_quantity"], 18249],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "fencing_quantity"], 15249],
+                    [">=", ["get-sum", "fencing_quantity"], 18249],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4198,20 +4198,20 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
-                        ["<", ["get-val", "instream_habitat_datetime"], 2011]
+                        ["<", ["get-val", "instream_habitat_datetime"], 2021]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
-                        [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                        [">=", ["get-val", "instream_habitat_datetime"], 2021]
                       ],
                       [
                         "get-count",
@@ -4227,22 +4227,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "instream_habitat_quantity",
-                      ["<", ["get-val", "instream_habitat_datetime"], 2011]
+                      ["<", ["get-val", "instream_habitat_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "instream_habitat_quantity",
-                      [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                      [">=", ["get-val", "instream_habitat_datetime"], 2021]
                     ],
                     ["get-sum", "instream_habitat_quantity"]
                   ],
@@ -4254,22 +4254,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "instream_habitat_quantity",
-                      ["<", ["get-val", "instream_habitat_datetime"], 2011]
+                      ["<", ["get-val", "instream_habitat_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "instream_habitat_quantity",
-                      [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                      [">=", ["get-val", "instream_habitat_datetime"], 2021]
                     ],
                     ["get-sum", "instream_habitat_quantity"]
                   ],
@@ -4281,22 +4281,22 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "instream_habitat_quantity",
-                      ["<", ["get-val", "instream_habitat_datetime"], 2011]
+                      ["<", ["get-val", "instream_habitat_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "instream_habitat_quantity",
-                      [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                      [">=", ["get-val", "instream_habitat_datetime"], 2021]
                     ],
                     ["get-sum", "instream_habitat_quantity"]
                   ],
@@ -4308,29 +4308,29 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "instream_habitat_quantity",
-                      ["<", ["get-val", "instream_habitat_datetime"], 2011]
+                      ["<", ["get-val", "instream_habitat_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
                       "instream_habitat_quantity",
-                      [">=", ["get-val", "instream_habitat_datetime"], 2011]
+                      [">=", ["get-val", "instream_habitat_datetime"], 2021]
                     ],
                     ["get-sum", "instream_habitat_quantity"]
                   ],
                   "label": "structs."
                 },
                 {
-                  "value": ["literal", 25],
+                  "value": ["literal", 40],
                   "label": "Structs."
                 },
                 {
@@ -4339,18 +4339,18 @@
                     [
                       "<=",
                       ["get-sum", "instream_habitat_quantity"],
-                      ["*", 0.7, 25]
+                      ["*", 0.7, 40]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "instream_habitat_quantity"], 25],
+                    ["<", ["get-sum", "instream_habitat_quantity"], 40],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "instream_habitat_quantity"], 25],
+                    [">=", ["get-sum", "instream_habitat_quantity"], 40],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 60],
+                  "value": ["literal", 80],
                   "label": "Structs."
                 },
                 {
@@ -4359,12 +4359,12 @@
                     [
                       "<=",
                       ["get-sum", "instream_habitat_quantity"],
-                      ["*", 0.7, 60]
+                      ["*", 0.7, 80]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "instream_habitat_quantity"], 60],
+                    ["<", ["get-sum", "instream_habitat_quantity"], 80],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "instream_habitat_quantity"], 60],
+                    [">=", ["get-sum", "instream_habitat_quantity"], 80],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4383,27 +4383,27 @@
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "pre-2011"
+                        "pre-2021"
                       ],
                       [
                         "get-count",
                         [
                           "<",
                           ["get-val", "streambank_protection_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
                         "==",
                         ["get-widget-state", "vsp-summary-date-range"],
-                        "2011-and-later"
+                        "2021-and-later"
                       ],
                       [
                         "get-count",
                         [
                           ">=",
                           ["get-val", "streambank_protection_datetime"],
-                          2011
+                          2021
                         ]
                       ],
                       [
@@ -4420,17 +4420,17 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "streambank_protection_quantity",
-                      ["<", ["get-val", "streambank_protection_datetime"], 2011]
+                      ["<", ["get-val", "streambank_protection_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -4438,7 +4438,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protection_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "streambank_protection_quantity"]
@@ -4451,17 +4451,17 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "streambank_protection_quantity",
-                      ["<", ["get-val", "streambank_protection_datetime"], 2011]
+                      ["<", ["get-val", "streambank_protection_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -4469,7 +4469,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protection_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "streambank_protection_quantity"]
@@ -4482,17 +4482,17 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "streambank_protection_quantity",
-                      ["<", ["get-val", "streambank_protection_datetime"], 2011]
+                      ["<", ["get-val", "streambank_protection_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -4500,7 +4500,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protection_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "streambank_protection_quantity"]
@@ -4513,17 +4513,17 @@
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "pre-2011"
+                      "pre-2021"
                     ],
                     [
                       "get-sum",
                       "streambank_protection_quantity",
-                      ["<", ["get-val", "streambank_protection_datetime"], 2011]
+                      ["<", ["get-val", "streambank_protection_datetime"], 2021]
                     ],
                     [
                       "==",
                       ["get-widget-state", "vsp-summary-date-range"],
-                      "2011-and-later"
+                      "2021-and-later"
                     ],
                     [
                       "get-sum",
@@ -4531,7 +4531,7 @@
                       [
                         ">=",
                         ["get-val", "streambank_protection_datetime"],
-                        2011
+                        2021
                       ]
                     ],
                     ["get-sum", "streambank_protection_quantity"]
@@ -4539,7 +4539,7 @@
                   "label": "feet"
                 },
                 {
-                  "value": ["literal", 2500],
+                  "value": ["literal", 3500],
                   "label": "Feet"
                 },
                 {
@@ -4548,18 +4548,18 @@
                     [
                       "<=",
                       ["get-sum", "streambank_protection_quantity"],
-                      ["*", 0.7, 2500]
+                      ["*", 0.7, 3500]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "streambank_protection_quantity"], 2500],
+                    ["<", ["get-sum", "streambank_protection_quantity"], 3500],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "streambank_protection_quantity"], 2500],
+                    [">=", ["get-sum", "streambank_protection_quantity"], 3500],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
                 },
                 {
-                  "value": ["literal", 6600],
+                  "value": ["literal", 10000],
                   "label": "Feet"
                 },
                 {
@@ -4568,12 +4568,12 @@
                     [
                       "<=",
                       ["get-sum", "streambank_protection_quantity"],
-                      ["*", 0.7, 6600]
+                      ["*", 0.7, 10000]
                     ],
                     ["literal", { "label": "In progress", "color": "#fee0e3" }],
-                    ["<", ["get-sum", "streambank_protection_quantity"], 6600],
+                    ["<", ["get-sum", "streambank_protection_quantity"], 10000],
                     ["literal", { "label": "In progress", "color": "#fbedc9" }],
-                    [">=", ["get-sum", "streambank_protection_quantity"], 6600],
+                    [">=", ["get-sum", "streambank_protection_quantity"], 10000],
                     ["literal", { "label": "Target met", "color": "#d5f0d0" }],
                     ["literal", { "label": "Not available", "color": "#aaa" }]
                   ]
@@ -4604,16 +4604,76 @@
               ]
             },
             {
+              "header": "Link to Report",
+              "type": "place-link",
+              "fractionalWidth": 1,
+              "value": [
+                "cat-join",
+                "",
+                ["get-val", "clientSlug"],
+                ["literal", "/"],
+                ["get-val", "id"]
+              ]
+            },
+            {
               "header": "Submitted report on",
               "type": "date",
               "fractionalWidth": 2,
               "value": ["get-val", "created_datetime"]
             },
             {
-              "header": "OK to use photos?",
-              "type": "boolean",
-              "fractionalWidth": 1,
-              "value": ["get-val", "private-use_photos"]
+              "header": "Critical Areas Affected",
+              "type": "unstyled-string",
+              "fractionalWidth": 2,
+              "value": [
+                "cat",
+                [
+                  "case",
+                  ["==", ["get-val", "private-property_on_wetlands"], "yes"],
+                  ["literal", "Wetlands"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "private-property_on_frequently_flooded"],
+                    "yes"
+                  ],
+                  ["literal", "Frequently Flooded Area"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "private-property_on_geologic_hazard"],
+                    "yes"
+                  ],
+                  ["literal", "Geologic Hazard Area"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "private-property_on_critical_aquifer"],
+                    "yes"
+                  ],
+                  ["literal", "Critical Aquifer"],
+                  ["literal", ""]
+                ],
+                [
+                  "case",
+                  [
+                    "==",
+                    ["get-val", "private-property_on_wildlife_conservation"],
+                    "yes"
+                  ],
+                  ["literal", "Wildlife Conservation Area"],
+                  ["literal", ""]
+                ]
+              ]
             },
             {
               "header": "Requesting information",
@@ -5033,6 +5093,44 @@
           ]
         },
         {
+          "header": "Map Promotion: Whitman County",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "learned_about_vsp_map",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Promotion type",
+          "yAxisLabel": "Count",
+          "annotation": "* totals may exceed total VSP report count due to multiple choices",
+          "labels": {
+            "radio": "Radio ad",
+            "newspaper": "Newspaper ad",
+            "word_of_mouth": "Word of mouth",
+            "fellow_producer": "Fellow producer",
+            "cd_staff": "Conservation District staff",
+            "grower_meeting": "Grower meeting",
+            "other": "Other"
+          },
+          "layout": {
+            "start": 1,
+            "end": 7
+          }
+        },
+        {
+          "header": "Reports by WRIA: Whitman County",
+          "type": "freeDonutChart",
+          "groupBy": "wria",
+          "labels": {
+            "hangman": "Hangman",
+            "palouse": "Palouse",
+            "middle_snake": "Middle Snake"
+          },
+          "layout": {
+            "start": 7,
+            "end": 13
+          }
+        },
+        {
           "header": "Critical Area Summary: Whitman County",
           "type": "fixedTable",
           "isExportable": true,
@@ -5123,30 +5221,6 @@
               ]
             }
           ]
-        },
-        {
-          "header": "Map Promotion: Whitman County",
-          "isExportable": true,
-          "type": "freeBarChart",
-          "groupBy": "learned_about_vsp_map",
-          "groupValue": ["get-count"],
-          "tooltipFormat": "count",
-          "xAxisLabel": "Promotion type",
-          "yAxisLabel": "Count",
-          "annotation": "* totals may exceed total VSP report count due to multiple choices",
-          "labels": {
-            "radio": "Radio ad",
-            "newspaper": "Newspaper ad",
-            "word_of_mouth": "Word of mouth",
-            "fellow_producer": "Fellow producer",
-            "cd_staff": "Conservation District staff",
-            "grower_meeting": "Grower meeting",
-            "other": "Other"
-          },
-          "layout": {
-            "start": 7,
-            "end": 13
-          }
         }
       ]
     }
@@ -5215,12 +5289,12 @@
           "https://vector-tiles.mapseed.org/palouse-analysis-units/{z}/{x}/{y}.pbf"
         ]
       },
-      "wria-boundaries-wa-all": {
+      "wria-boundaries-whitman-county": {
         "type": "vector",
         "tiles": [
-          "https://vector-tiles.mapseed.org/wria-boundaries-wa-all/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/wria-boundaries-whitman-county/{z}/{x}/{y}.pbf"
         ],
-        "maxzoom": 16
+        "maxzoom": 14
       },
       "palouse-basin-streams": {
         "type": "geojson",
@@ -5263,7 +5337,6 @@
         ]
       }
     },
-
     "layerGroups": [
       {
         "id": "osm",
@@ -5397,30 +5470,28 @@
           {
             "id": "wrias",
             "type": "fill",
-            "source": "wria-boundaries-wa-all",
-            "source-layer": "wria-boundaries-wa-all",
-            "filter": [
-              "any",
-              ["==", ["get", "wria_nm"], "Hangman"],
-              ["==", ["get", "wria_nm"], "Palouse"],
-              ["==", ["get", "wria_nm"], "Middle Snake"]
-            ],
+            "source": "wria-boundaries-whitman-county",
+            "source-layer": "wria-boundaries-whitman-county",
             "paint": {
-              "fill-color": "#3182bd",
+              "fill-color": [
+                "match",
+                ["get", "WRIA_NM"],
+                "Hangman",
+                "#fcb4ae",
+                "Palouse",
+                "#b3cde3",
+                "Middle Snake",
+                "#ccecc5",
+                "#fff"
+              ],
               "fill-opacity": 0.7
             }
           },
           {
             "id": "wrias-outlines",
             "type": "line",
-            "source": "wria-boundaries-wa-all",
-            "source-layer": "wria-boundaries-wa-all",
-            "filter": [
-              "any",
-              ["==", ["get", "wria_nm"], "Hangman"],
-              ["==", ["get", "wria_nm"], "Palouse"],
-              ["==", ["get", "wria_nm"], "Middle Snake"]
-            ],
+            "source": "wria-boundaries-whitman-county",
+            "source-layer": "wria-boundaries-whitman-county",
             "paint": {
               "line-color": "#fff",
               "line-width": 1.5
@@ -5429,16 +5500,10 @@
           {
             "id": "wrias-labels",
             "type": "symbol",
-            "source": "wria-boundaries-wa-all",
-            "source-layer": "wria-boundaries-wa-all",
-            "filter": [
-              "any",
-              ["==", ["get", "wria_nm"], "Hangman"],
-              ["==", ["get", "wria_nm"], "Palouse"],
-              ["==", ["get", "wria_nm"], "Middle Snake"]
-            ],
+            "source": "wria-boundaries-whitman-county",
+            "source-layer": "wria-boundaries-whitman-county",
             "layout": {
-              "text-field": ["get", "wria_nm"],
+              "text-field": ["get", "WRIA_NM"],
               "text-size": 16
             },
             "paint": {
@@ -7641,6 +7706,11 @@
       "title": "VSP Assistance",
       "type": "internal_link",
       "url": "/page/assistance"
+    },
+    {
+      "title": "Dashboard",
+      "type": "internal_link",
+      "url": "/page/dashboard"
     }
   ],
   "pages": [
@@ -7654,34 +7724,34 @@
         "<li>",
         "<div style='margin-bottom: 8px'>",
         "<strong style='margin-bottom:0'>Bradley Johnson</strong>",
-        "<p style='margin:0;color:#888;'><em>Watershed Manager, VSP Coordinator</em></p>",
+        "<p style='margin:0;color:#888;'><em>RC Program Manager, VSP Coordinator – Palouse CD</em></p>",
         "</div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>509-552-9562</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>509-553-1841</span></div>",
         "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>bradleyj@palousecd.org</span></div>",
         "</li>",
         "<li style='margin-top:24px'>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Andrew Wolfe</strong>",
-        "<p style='margin:0;color:#888;'><em>District Manager</em></p>",
+        "<strong style='margin-bottom:0'>Caitlin Harrold</strong>",
+        "<p style='margin:0;color:#888;'><em>District Manager – Rock Lake CD</em></p>",
         "</div>",
         "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>509-648-3680</span></div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>awolfe@prlcd.org</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>charrold@rocklakecd.org</span></div>",
         "</li>",
         "<li style='margin-top:24px'>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Brian Bell</strong>",
-        "<p style='margin:0;color:#888;'><em>District Manager</em></p>",
+        "<strong style='margin-bottom:0'>Josh Larsen</strong>",
+        "<p style='margin:0;color:#888;'><em>District Manager – Whitman CD</em></p>",
         "</div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>509-288-4644</span></div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>brianwhitmancd@gmail.com</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>509-610-2099</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>jlarsen@whitmancd.org</span></div>",
         "</li>",
         "<li style='margin-top:24px'>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Raymond Brown</strong>",
-        "<p style='margin:0;color:#888;'><em>District Manager</em></p>",
+        "<strong style='margin-bottom:0'>Casey Lowder</strong>",
+        "<p style='margin:0;color:#888;'><em>District Manager – Pine Creek CD</em></p>",
         "</div>",
         "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>509-285-5122</span></div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>pinecreekcd@frontier.com</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>casey.lowder@pincecreekcd.org</span></div>",
         "</li>",
         "</ul>"
       ]
@@ -7698,6 +7768,57 @@
         "<p style='margin-bottom:16px'><strong>Whitman County VSP appreciates your time sharing stewardship practices!</strong></p>",
         "<p>Click Get Started to begin!</p>",
         "<a href='/new' rel='internal' class='next-btn'>Get Started</a>"
+      ]
+    },
+    {
+      "slug": "dashboard",
+      "content": [
+        "<h3 id='about-page-header'>Public Dashboard</h3>",
+        "<p>Summary of Whitman County VSP Actions.</p>",
+        "<div class='static-dashboard-group'>",
+        "<div class='static-dashboard-header-row'><span class='static-dashboard-cell'>Summary Type</span><span class='static-dashboard-cell'>Number</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Total VSP Reports</span><span class='static-dashboard-cell'>80</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Total Stewardship Actions</span><span class='static-dashboard-cell'>608</span></div>",
+        "</div>",
+        "<div class='static-dashboard-group'>",
+        "<div class='static-dashboard-header-row'><span class='static-dashboard-cell'>Stewardship Practice</span><span class='static-dashboard-cell'>Total Impact</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Conventional Farming</span><span class='static-dashboard-cell'>17,366 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Residue & Tillage Management</span><span class='static-dashboard-cell'>82,159 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Pest Management</span><span class='static-dashboard-cell'>83,962 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Nutrient Management</span><span class='static-dashboard-cell'>86,499 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Range Management (Grazing)</span><span class='static-dashboard-cell'>11,722 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Range Management (Plantings)</span><span class='static-dashboard-cell'>1,312 acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Range Management (Watering Facilities)</span><span class='static-dashboard-cell'>110 Facilities</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Range Management (Water Wells)</span><span class='static-dashboard-cell'>13 Wells</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Soil Management (Conservation Crop Rotation)</span><span class='static-dashboard-cell'>24,794 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Soil Management (Cover Crops)</span><span class='static-dashboard-cell'>1,449 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Soil Management (Mulching)</span><span class='static-dashboard-cell'>9,679 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Conservation Cover)</span><span class='static-dashboard-cell'>6,583 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Critical Area Planting)</span><span class='static-dashboard-cell'>3,977 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Grassed Waterways)</span><span class='static-dashboard-cell'>188,740 Feet</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Herbaceous Weed Control - Rangeland)</span><span class='static-dashboard-cell'>13,369 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Tree/Shrub Planting)</span><span class='static-dashboard-cell'>888 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Wetland Wildlife Management)</span><span class='static-dashboard-cell'>37 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Upland Habitat)</span><span class='static-dashboard-cell'>1,180 Acres</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Hedgerow Planting)</span><span class='static-dashboard-cell'>5,325 Feet</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Open Channel)</span><span class='static-dashboard-cell'>68,481 Feet</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Fencing)</span><span class='static-dashboard-cell'>139,899 Feet</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Instream Habitat Improvement)</span><span class='static-dashboard-cell'>64 Structures</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Habitat Management (Streambank Protection)</span><span class='static-dashboard-cell'>25,650 Feet</span></div>",
+        "</div>",
+        "<div class='static-dashboard-group'>",
+        "<div class='static-dashboard-header-row'><span class='static-dashboard-cell'>WRIA</span><span class='static-dashboard-cell'>Number of VSP Reports</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Palouse</span><span class='static-dashboard-cell'>58</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Middle Snake</span><span class='static-dashboard-cell'>22</span></div>",
+        "</div>",
+        "<div class='static-dashboard-group'>",
+        "<div class='static-dashboard-header-row'><span class='static-dashboard-cell'>Critical Area Type</span><span class='static-dashboard-cell'>Number of VSP Reports</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Wetlands</span><span class='static-dashboard-cell'>23</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Fish & Wildlife Conservation Areas</span><span class='static-dashboard-cell'>44</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Critical Acquifers</span><span class='static-dashboard-cell'>6</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Hazardous Areas</span><span class='static-dashboard-cell'>55</span></div>",
+        "<div class='static-dashboard-row'><span class='static-dashboard-cell'>Frequently Flooded Areas</span><span class='static-dashboard-cell'>45</span></div>",
+        "</div>"
       ]
     }
   ],

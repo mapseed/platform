@@ -1,0 +1,34 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: mini-css-extract-plugin
+    versions:
+    - 1.4.0
+  - dependency-name: eslint-plugin-react
+    versions:
+    - 7.22.0
+    - 7.23.0
+    - 7.23.1
+  - dependency-name: recharts
+    versions:
+    - 2.0.8
+  - dependency-name: typescript
+    versions:
+    - 4.2.3
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.12.11
+    - 7.12.13
+    - 7.12.17
+    - 7.13.5
+  - dependency-name: sass-loader
+    versions:
+    - 10.1.1
+  - dependency-name: react-cookie-consent
+    versions:
+    - 6.2.2
