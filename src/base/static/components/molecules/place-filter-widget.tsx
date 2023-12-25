@@ -22,7 +22,6 @@ import {
 } from "../../state/ducks/place-filters";
 import { RegularText } from "../atoms/typography";
 
-const UNFILTERED_VALUE = "__MAPSEED_UNFILTERED__";
 const isWithoutFilters = state =>
   // Determine if the user has un-selected all filters.
   !Object.values(state).some(filterOptionState => filterOptionState);
@@ -38,7 +37,7 @@ const PlaceFilterWidget = (props: WithTranslation) => {
     shallowEqual,
   );
   const dispatch = useDispatch();
-  const [state, setState] = React.useState(
+  const [formState, setFormState] = React.useState(
     visiblePlaceFiltersConfig.reduce(
       (memo, { value, setDefault = false }) => ({
         ...memo,
@@ -48,34 +47,41 @@ const PlaceFilterWidget = (props: WithTranslation) => {
     ),
   );
 
-  React.useEffect(() => {
-    if (isWithoutFilters(state)) {
-      setState({
-        ...state,
-        [UNFILTERED_VALUE]: true,
+  const handleChange = evt => {
+    const { value, checked } = evt.target;
+    const newFormState = {
+      ...formState,
+      [value]: checked,
+    };
+
+    if (isWithoutFilters(newFormState)) {
+      dispatch(
+        // When no filters are applied, pass an empty filter that will
+        // cause all Places to be filtered out.
+        updatePlaceFilters([
+          {
+            operator: "equals" as PlaceFilterOperator,
+            datasetSlug: "",
+            placeProperty: "",
+            value: "",
+          },
+        ]),
+      );
+      setFormState({
+        ...newFormState,
       });
 
       return;
     }
 
-    const activeFilters = Object.entries(state)
+    const activeFilters = Object.entries(newFormState)
       // eslint-disable-next-line
       .filter(([_, isActive]) => isActive)
       // eslint-disable-next-line
       .reduce((memo: PlaceFilter[], [filterValue, _]) => {
-        const placeFilterConfig =
-          filterValue === UNFILTERED_VALUE
-            ? // When no filters are applied, pass an empty filter that will
-              // cause all Places to be filtered out.
-              {
-                operator: "equals" as PlaceFilterOperator,
-                datasetSlug: "",
-                placeProperty: "",
-                value: "",
-              }
-            : visiblePlaceFiltersConfig.find(
-                config => config.value === filterValue,
-              );
+        const placeFilterConfig = visiblePlaceFiltersConfig.find(
+          config => config.value === filterValue,
+        );
 
         return placeFilterConfig
           ? [
@@ -91,16 +97,7 @@ const PlaceFilterWidget = (props: WithTranslation) => {
       }, []);
 
     dispatch(updatePlaceFilters(activeFilters));
-  }, [state, visiblePlaceFiltersConfig, dispatch]);
-
-  const handleChange = evt => {
-    const { value, checked } = evt.target;
-
-    setState({
-      ...state,
-      [value]: checked,
-      [UNFILTERED_VALUE]: false,
-    });
+    setFormState(newFormState);
   };
 
   if (visiblePlaceFiltersConfig.length === 0) {
@@ -140,7 +137,7 @@ const PlaceFilterWidget = (props: WithTranslation) => {
                         style={{
                           padding: "2px 8px 2px 8px",
                         }}
-                        checked={state[placeFilterConfig.value]}
+                        checked={formState[placeFilterConfig.value]}
                         onChange={handleChange}
                         value={placeFilterConfig.value}
                       />

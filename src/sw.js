@@ -106,7 +106,7 @@ self.addEventListener("fetch", event => {
   }
 });
 
-self.addEventListener("install", function(event) {
+self.addEventListener("install", function (event) {
   event.waitUntil(async () => {
     // Create our tiles-cache:
     caches.open(TILE_CACHE_NAME);
@@ -208,11 +208,43 @@ workbox.routing.registerRoute(
   "GET",
 );
 
+// This plugin strips the `bbox` query param from requests.
+// The bbox param tends to have very high decimal precision, so it resuts in
+// numerous cache misses.
+// Since the bbox param is being stripped, it's important that urls supply an
+// alternative query param(s) to distinguish the request.
+// One option is to supply the `z`, `x`, and `y` params.
+// For example:
+// https://geo.mapseed.org/hydrography/?service=wms&request=getmap&format=image/png&version=1.3.0&crs=EPSG:3857&transparent=false&layers=0&bbox={bbox-epsg-3857}&width=256&height=256&styles=default&z={z}&x={x}&y={y}
+const cacheKeyWillBeUsed = ({ request, mode }) => {
+  const splitUrl = request.url.split("?");
+
+  if (splitUrl[1]) {
+    const parsed = splitUrl[1].split("&").reduce((memo, param) => {
+      const qsItem = param.split("=");
+
+      return {
+        ...memo,
+        [qsItem[0]]: qsItem[1],
+      };
+    }, {});
+    const { bbox, ...keep } = parsed;
+
+    return `${splitUrl[0]}?${Object.entries(keep).reduce(
+      (memo, [key, val]) => `${memo}&${key}=${val}`,
+      "",
+    )}`;
+  }
+
+  return request;
+};
+
 workbox.routing.registerRoute(
   /^https:\/\/geo.mapseed.org\//,
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: TILE_CACHE_NAME,
     plugins: [
+      { cacheKeyWillBeUsed },
       new workbox.expiration.Plugin({
         maxAgeSeconds: TILE_CACHE_EXPIRATION,
       }),

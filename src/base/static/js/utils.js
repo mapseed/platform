@@ -96,7 +96,7 @@ const prepareCustomUrl = url => {
 // ====================================================
 // Event and State Logging
 
-const log = function() {
+const log = function () {
   // eslint-disable-next-line prefer-rest-params
   const args = Array.prototype.slice.call(arguments, 0);
 
@@ -107,91 +107,11 @@ const log = function() {
 // ====================================================
 // File and Image Handling
 
-const _fixImageOrientation = (canvas, orientation) => {
-  const rotated = document.createElement("canvas");
-  const ctx = rotated.getContext("2d");
-  const width = canvas.width;
-  const height = canvas.height;
-
-  switch (orientation) {
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-      rotated.width = canvas.height;
-      rotated.height = canvas.width;
-      break;
-    default:
-      rotated.width = canvas.width;
-      rotated.height = canvas.height;
-  }
-
-  switch (orientation) {
-    case 1:
-      // nothing
-      break;
-    case 2:
-      // horizontal flip
-      ctx.translate(width, 0);
-      ctx.scale(-1, 1);
-      break;
-    case 3:
-      // 180 rotate left
-      ctx.translate(width, height);
-      ctx.rotate(Math.PI);
-      break;
-    case 4:
-      // vertical flip
-      ctx.translate(0, height);
-      ctx.scale(1, -1);
-      break;
-    case 5:
-      // vertical flip + 90 rotate right
-      ctx.rotate(0.5 * Math.PI);
-      ctx.scale(1, -1);
-      break;
-    case 6:
-      // 90 rotate right
-      ctx.rotate(0.5 * Math.PI);
-      ctx.translate(0, -height);
-      break;
-    case 7:
-      // horizontal flip + 90 rotate right
-      ctx.rotate(0.5 * Math.PI);
-      ctx.translate(width, -height);
-      ctx.scale(-1, 1);
-      break;
-    case 8:
-      // 90 rotate left
-      ctx.rotate(-0.5 * Math.PI);
-      ctx.translate(-width, 0);
-      break;
-    default:
-      break;
-  }
-
-  ctx.drawImage(canvas, 0, 0);
-
-  return rotated;
-};
-
-const fileToCanvas = (file, callback, options) => {
+const loadFile = (file, callback, options) => {
   const fr = new FileReader();
 
-  fr.onloadend = function() {
-    // get EXIF data
-    const exif = EXIF.readFromBinaryFile(new BinaryFile(this.result));
-    const orientation = exif.Orientation;
-
-    loadImage(
-      file,
-      function(canvas) {
-        // rotate the image, if needed
-        const rotated = _fixImageOrientation(canvas, orientation);
-        callback(rotated);
-      },
-      options,
-    );
+  fr.onloadend = function () {
+    callback(new Blob([this.result]))
   };
 
   fr.readAsArrayBuffer(file); // read the file
@@ -200,7 +120,7 @@ const fileToCanvas = (file, callback, options) => {
 // Cookies! Om nom nom
 // Thanks ppk! http://www.quirksmode.org/js/cookies.html
 const cookies = {
-  save: function(name, value, days, prefix) {
+  save: function (name, value, days, prefix) {
     let expires;
     prefix = prefix || "";
     name = prefix + name;
@@ -213,7 +133,7 @@ const cookies = {
     }
     document.cookie = name + "=" + value + expires + "; path=/";
   },
-  get: function(name, prefix) {
+  get: function (name, prefix) {
     prefix = prefix || "";
     const nameEQ = prefix + name + "=";
     const ca = document.cookie.split(";");
@@ -228,14 +148,14 @@ const cookies = {
     }
     return null;
   },
-  destroy: function(name) {
+  destroy: function (name) {
     this.save(name, "", -1);
   },
 };
 
 const LOCALSTORAGE_PREFIX = "mapseed-";
 const localstorage = {
-  save: function(name, value, days) {
+  save: function (name, value, days) {
     const expDate = new Date();
     expDate.setTime(expDate.getTime() + days * 24 * 60 * 60 * 1000);
     try {
@@ -250,7 +170,7 @@ const localstorage = {
       // ignore exceptions
     }
   },
-  get: function(name) {
+  get: function (name) {
     name = LOCALSTORAGE_PREFIX + name;
     const now = new Date().getTime();
     let item = {};
@@ -271,7 +191,7 @@ const localstorage = {
 
     return item.value;
   },
-  destroy: function(name) {
+  destroy: function (name) {
     name = LOCALSTORAGE_PREFIX + name;
     try {
       localStorage.removeItem(name);
@@ -288,7 +208,7 @@ export default {
   removeAutocompleteValue,
   prepareCustomUrl,
   log,
-  fileToCanvas,
+  loadFile,
   cookies,
   localstorage,
 };

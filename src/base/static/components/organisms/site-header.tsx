@@ -242,14 +242,16 @@ type Props = {
   WithTranslation;
 
 const SiteHeader: React.FunctionComponent<Props> = props => {
-  const [isLanguageMenuVisible, setIsLanguageMenuVisible] = React.useState<
-    boolean
-  >(false); // relevant on desktop layouts
+  const [
+    isLanguageMenuVisible,
+    setIsLanguageMenuVisible,
+  ] = React.useState<boolean>(false); // relevant on desktop layouts
 
   // hack to expand the header on mobile layouts, to accommodate a side menu drawer:
-  const [isMobileHeaderExpanded, setIsMobileHeaderExpanded] = React.useState<
-    boolean
-  >(false);
+  const [
+    isMobileHeaderExpanded,
+    setIsMobileHeaderExpanded,
+  ] = React.useState<boolean>(false);
 
   const defaultMapViewport = props.mapConfig.defaultMapViewport;
   return (

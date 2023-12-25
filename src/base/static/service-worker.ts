@@ -18,16 +18,16 @@ export function register() {
     }
 
     const swUrl = `${PUBLIC_URL}/service-worker.js`;
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
       const apiRoot = encodeURIComponent("{{config.app.api_root}}");
       const flavor = encodeURIComponent("{{flavor}}");
       navigator.serviceWorker
         .register(`${swUrl}?apiRoot=${apiRoot}&flavor=${flavor}`)
-        .then(function(registration) {
+        .then(function (registration) {
           // eslint-disable-next-line no-console
           console.log("SW registered: ", registration);
         })
-        .catch(function(registrationError) {
+        .catch(function (registrationError) {
           // eslint-disable-next-line no-console
           console.log("SW registration failed: ", registrationError);
         });

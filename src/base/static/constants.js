@@ -11,6 +11,7 @@ export default {
   GEOCODING_FIELD_TYPENAME: "geocoding",
   BIG_TOGGLE_FIELD_TYPENAME: "big_toggle",
   ATTACHMENT_FIELD_TYPENAME: "file",
+  PDF_ATTACHMENT_FIELD_TYPENAME: "pdf",
   COMMON_FORM_ELEMENT_TYPENAME: "common_form_element",
   SUBMIT_FIELD_TYPENAME: "submit",
   RANGE_FIELD_TYPENAME: "range",

@@ -17,8 +17,9 @@ class Any implements Expression {
     if (args.length < 3) {
       // eslint-disable-next-line no-console
       console.error(
-        `Error: expected at least 2 arguments for "${op}", but found only ${args.length -
-          1}`,
+        `Error: expected at least 2 arguments for "${op}", but found only ${
+          args.length - 1
+        }`,
       );
 
       return null;

@@ -123,8 +123,9 @@ class ChartWrapper extends React.Component<ChartWrapperProps> {
         height: offsetHeight * 2,
         width: offsetWidth * 2,
         style: {
-          transform: `scale(2) translate(${offsetWidth / 4}px, ${offsetHeight /
-            4}px)`,
+          transform: `scale(2) translate(${offsetWidth / 4}px, ${
+            offsetHeight / 4
+          }px)`,
         },
       })
       .then(dataUrl => {

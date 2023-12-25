@@ -21,6 +21,16 @@
           "submission_set": "*"
         }
       ]
+    },
+    {
+      "slug": "quepasa-featured",
+      "clientSlug": "featured",
+      "anonymous_permissions": [
+        {
+          "abilities": ["create"],
+          "submission_set": "comments"
+        }
+      ]
     }
   ],
   "app": {
@@ -84,6 +94,20 @@
             "end": 13,
             "height": 300
           }
+        },
+        {
+          "header": "Reprorts por subcuenca",
+          "isExportable": true,
+          "type": "freeBarChart",
+          "groupBy": "subbasin_name_NOMBRE",
+          "groupValue": ["get-count"],
+          "tooltipFormat": "count",
+          "xAxisLabel": "Subceunca",
+          "yAxisLabel": "Numero de reportes",
+          "layout": {
+            "start": 1,
+            "end": 13
+          }
         }
       ]
     }
@@ -95,9 +119,9 @@
     "geocodeFieldLabel": "Buscar una dirección ...",
     "geolocationOnload": false,
     "mapViewport": {
-      "latitude": -34.700521,
-      "longitude": -59.254934,
-      "zoom": 9.29,
+      "latitude": -34.9211,
+      "longitude": -58.81504,
+      "zoom": 8.7,
       "pitch": 30,
       "minZoom": 1,
       "maxZoom": 18
@@ -114,19 +138,53 @@
       "satellite": {
         "type": "raster",
         "tiles": [
-          "https://api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoicmFpbHBhc3NlbmdlcnMiLCJhIjoiY2piNDI0bDhnMXl1OTJxbzZ3eWMxOGw1eiJ9.72C2t17NQeku5kLVptVNPQ"
-        ],
-        "tileSize": 256
+          "https://ecn.t0.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z",
+          "https://ecn.t1.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z",
+          "https://ecn.t2.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z",
+          "https://ecn.t3.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=587&mkt=en-gb&n=z"
+        ]
       },
       "renabap": {
         "type": "vector",
-        "tiles": ["https://vector-tiles.mapseed.org/renabap-polygons/{z}/{x}/{y}.pbf"],
+        "tiles": [
+          "https://vector-tiles.mapseed.org/renabap-polygons/{z}/{x}/{y}.pbf"
+        ],
         "maxzoom": 16
+      },
+      "areas-naturales-protegidas": {
+        "type": "raster",
+        "tiles": [
+          "https://assets.mapseed.org/geo/areas-naturales-protegidas-v4/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256,
+        "maxzoom": 14
+      },
+      "riachuelo-areas-protegidas": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/riachuelo-areas-protegidas/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "riachuelo-lineas-de-ribera": {
+        "type": "raster",
+        "tiles": [
+          "https://assets.mapseed.org/geo/riachuelo-lineas-de-ribera/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256,
+        "maxzoom": 14
       },
       "riachuelo-subbasins": {
         "type": "vector",
         "tiles": [
           "https://vector-tiles.mapseed.org/riachuelo-subbasins/{z}/{x}/{y}.pbf"
+        ],
+        "maxzoom": 16
+      },
+      "riachuelo-villas-obras": {
+        "type": "vector",
+        "tiles": [
+          "https://vector-tiles.mapseed.org/riachuelo-villas-obras/{z}/{x}/{y}.pbf"
         ],
         "maxzoom": 16
       },
@@ -142,7 +200,7 @@
       {
         "id": "f4",
         "basemap": true,
-        "visibleDefault": false,
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "f4-basemap",
@@ -157,7 +215,7 @@
       {
         "id": "satellite",
         "basemap": true,
-        "visibleDefault": true,
+        "visibleDefault": false,
         "mapboxLayers": [
           {
             "id": "satellite-basemap",
@@ -167,62 +225,58 @@
         ]
       },
       {
-        "id": "quepasa-input",
-        "datasetSlug": "quepasa-input",
-        "interactive": true,
-        "visibleDefault": true,
-        "mapboxFocusedLayers": [
-          {
-            "id": "quespasa-input-focused",
-            "source": "demo",
-            "type": "symbol",
-            "layout": {
-              "icon-size": 1.2,
-              "icon-anchor": "bottom",
-              "icon-image": [
-                "match",
-                ["get", "location_type"],
-                "complaint",
-                "marker-complaint.png",
-                "question",
-                "marker-question.png",
-                "observation",
-                "marker-observation.png",
-                "idea",
-                "marker-idea.png",
-                "__no-icon-image__"
-              ]
-            }
-          }
-        ],
+        "id": "areas-naturales-protegidas",
+        "visibleDefault": false,
         "mapboxLayers": [
           {
-            "id": "quepasa-input",
-            "source": "quepasa-input",
-            "type": "symbol",
-            "layout": {
-              "icon-allow-overlap": true,
-              "icon-size": ["step", ["zoom"], 0.5, 11, 0.75, 14, 0.9],
-              "icon-anchor": "bottom",
-              "icon-image": [
-                "match",
-                ["get", "location_type"],
-                "complaint",
-                "marker-complaint.png",
-                "observation",
-                "marker-observation.png",
-                "idea",
-                "marker-idea.png",
-                "question",
-                "marker-question.png",
-                "__no-icon-image__"
-              ]
+            "id": "areas-naturales-protegidas",
+            "type": "raster",
+            "source": "areas-naturales-protegidas"
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-lineas-de-ribera",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-lineas-de-ribera",
+            "type": "raster",
+            "source": "riachuelo-lineas-de-ribera"
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-areas-protegidas",
+        "interactive": true,
+        "popupContent": "<h5 style='font-family: Roboto; font-weight: 300; margin: 6px 0 0 0;'>{{NAME}}</h5>",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-areas-protegidas",
+            "source": "riachuelo-areas-protegidas",
+            "source-layer": "riachuelo-areas-protegidas",
+            "type": "fill",
+            "paint": {
+              "fill-color": "#31a354",
+              "fill-opacity": 0.7
+            }
+          },
+          {
+            "id": "riachuelo-areas-protegidas-outline",
+            "source": "riachuelo-areas-protegidas",
+            "source-layer": "riachuelo-areas-protegidas",
+            "type": "line",
+            "paint": {
+              "line-color": "#fff",
+              "line-width": 1
             }
           }
         ]
       },
       {
         "id": "riachuelo-subbasins",
+        "visibleDefault": true,
         "mapboxLayers": [
           {
             "id": "riachuelo-subbasins",
@@ -231,7 +285,15 @@
             "source-layer": "riachuelo-subbasins",
             "paint": {
               "fill-color": "#3182bd",
-              "fill-opacity": 0.7
+              "fill-opacity": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                10,
+                0.3,
+                12,
+                0
+              ]
             }
           },
           {
@@ -254,7 +316,7 @@
             },
             "paint": {
               "text-color": "#000000",
-              "text-halo-color": "#ffffff",
+              "text-halo-color": "#ffff00",
               "text-halo-width": 0.5
             }
           }
@@ -303,6 +365,156 @@
             }
           }
         ]
+      },
+      {
+        "id": "riachuelo-villas-y-asentamientos-precarios",
+        "interactive": true,
+        "popupContent": "<div style='color: #aaa; display: block; font-family: Roboto; margin: 6px 0 0 0;'><p style='margin: 0;'>Nombre: {{NOMBRE}}</p><p style='margin: 0;'>Municipio: {{MUNICIPIO}}</p><p style='margin: 0;'>Intervención: {{INTERVENCI}}</p></div>",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-villas-y-asentamientos-precarios",
+            "type": "fill",
+            "source": "riachuelo-villas-obras",
+            "source-layer": "villas-y-asentamientos-precarios",
+            "paint": {
+              "fill-pattern": "hazard-fill.png"
+            }
+          },
+          {
+            "id": "riachuelo-villas-y-asentamientos-precarios-outline",
+            "type": "line",
+            "source": "riachuelo-villas-obras",
+            "source-layer": "villas-y-asentamientos-precarios",
+            "paint": {
+              "line-color": "#e80f0f",
+              "line-width": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-obras-convenio",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-obras-convenio-outline",
+            "type": "line",
+            "source": "riachuelo-villas-obras",
+            "source-layer": "obras-convenio",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-width": 2,
+              "line-dasharray": [1, 1]
+            }
+          }
+        ]
+      },
+      {
+        "id": "riachuelo-mesas-trabajo",
+        "interactive": true,
+        "popupContent": "<div style='color: #aaa; display: block; font-family: Roboto; margin: 6px 0 0 0;'><p style='margin: 0;'>Nombre: {{NOMBRE}}</p><p style='margin: 0;'>Jurisdicción: {{JURISDICCI}}</p></div>",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "riachuelo-mesas-trabajo",
+            "type": "circle",
+            "source": "riachuelo-villas-obras",
+            "source-layer": "mesas-trabajo",
+            "paint": {
+              "circle-color": "#ff6600",
+              "circle-radius": 5,
+              "circle-stroke-color": "#fff",
+              "circle-stroke-width": 1,
+              "circle-opacity": 0.9
+            }
+          }
+        ]
+      },
+      {
+        "id": "quepasa-input",
+        "datasetSlug": "quepasa-input",
+        "interactive": true,
+        "visibleDefault": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "quespasa-input-focused",
+            "source": "demo",
+            "type": "symbol",
+            "layout": {
+              "icon-size": 1.2,
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "areas-protegidas",
+                "marker-idea.png",
+                "areas-protegidas-2",
+                "marker-idea.png",
+                "reporte-territorial",
+                "marker-observation.png",
+                "agua-calidad",
+                "marker-question.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "quepasa-input",
+            "source": "quepasa-input",
+            "type": "symbol",
+            "layout": {
+              "icon-allow-overlap": true,
+              "icon-size": ["step", ["zoom"], 0.5, 11, 0.75, 14, 0.9],
+              "icon-anchor": "bottom",
+              "icon-image": [
+                "match",
+                ["get", "location_type"],
+                "areas-protegidas",
+                "marker-idea.png",
+                "areas-protegidas-2",
+                "marker-idea.png",
+                "reporte-territorial",
+                "marker-observation.png",
+                "agua-calidad",
+                "marker-question.png",
+                "__no-icon-image__"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "quepasa-featured",
+        "datasetSlug": "quepasa-featured",
+        "interactive": true,
+        "mapboxFocusedLayers": [
+          {
+            "id": "quepasa-featured-focused",
+            "type": "symbol",
+            "filter": ["==", ["get", "location_type"], "featured_place"],
+            "source": "quepasa-featured",
+            "layout": {
+              "icon-image": "marker-amenaza.png",
+              "icon-size": 1.1,
+              "icon-anchor": "center"
+            }
+          }
+        ],
+        "mapboxLayers": [
+          {
+            "id": "quepasa-featured",
+            "type": "symbol",
+            "source": "quepasa-featured",
+            "layout": {
+              "icon-image": "marker-amenaza.png",
+              "icon-size": 0.9,
+              "icon-anchor": "center"
+            }
+          }
+        ]
       }
     ]
   },
@@ -311,7 +523,7 @@
   },
   "leftSidebar": {
     "icon": "fa fa-bars",
-    "title": "Capas de mapa:",
+    "title": "Capas",
     "sections": [
       {
         "title": "Mapas base:",
@@ -327,16 +539,20 @@
         ]
       },
       {
-        "title": "Informes de la comunidad",
+        "title": "Reportes",
         "options": [
           {
             "layerGroupId": "quepasa-input",
-            "title": "Informes de la comunidad"
+            "title": "Reportes Territoriales"
+          },
+          {
+            "layerGroupId": "quepasa-featured",
+            "title": "Racimos"
           }
         ]
       },
       {
-        "title": "Datos hidrológicos",
+        "title": "Áreas Naturales",
         "options": [
           {
             "layerGroupId": "riachuelo-subbasins",
@@ -345,15 +561,39 @@
           {
             "layerGroupId": "riachuelo-watercourses",
             "title": "Cursos de agua"
+          },
+          {
+            "layerGroupId": "riachuelo-lineas-de-ribera",
+            "title": "Riachuelo Líneas de Ribera"
+          },
+          {
+            "layerGroupId": "riachuelo-areas-protegidas",
+            "title": "Áreas Protegidas Cuenca del Riachuelo"
+          },
+          {
+            "layerGroupId": "areas-naturales-protegidas",
+            "title": "Áreas Naturales Protegidas"
           }
         ]
       },
       {
-        "title": "Otros datos",
+        "title": "Relocalización",
         "options": [
           {
             "layerGroupId": "renabap",
             "title": "RENABAP"
+          },
+          {
+            "layerGroupId": "riachuelo-villas-y-asentamientos-precarios",
+            "title": "Villas y Asentamientos Precarios"
+          },
+          {
+            "layerGroupId": "riachuelo-obras-convenio",
+            "title": "Obras Convenio"
+          },
+          {
+            "layerGroupId": "riachuelo-mesas-trabajo",
+            "title": "Mesas Trabajo"
           }
         ]
       }
@@ -364,52 +604,1371 @@
   },
   "place": {
     "adding_supported": true,
-    "add_button_label": "Suelta un alfiler",
-    "title": "Tell us more...",
+    "add_button_label": "Enviar un reporte",
     "action_text": "creada",
     "anonymous_name": "Alguien",
     "submit_button_label": "Enviar",
-    "location_item_name": "alfiler",
+    "location_item_name": "reporte",
     "place_detail": [
       {
-        "category": "question",
-        "formId": "question",
+        "formId": "featured_place",
+        "category": "featured_place",
+        "admin_only": true,
+        "includeOnForm": true,
+        "showMetadata": false,
+        "suppressAttachments": true,
+        "horizontal_rule": true,
+        "name": "location_type",
+        "datasetSlug": "quepasa-featured",
+        "icon_url": "/static/css/images/markers/marker-amenaza.png",
+        "value": "featured_place",
+        "label": "Racimos",
+        "fields": [
+          {
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "prompt": "Título:",
+            "display_prompt": " ",
+            "placeholder": "Introducir título",
+            "optional": false
+          },
+          {
+            "name": "description",
+            "type": "rich_textarea",
+            "prompt": "Contenido:",
+            "display_prompt": " ",
+            "placeholder": "Escribir texto. Se puede añadir enlaces, fotos o videos."
+          },
+          {
+            "name": "submit",
+            "type": "common_form_element"
+          }
+        ]
+      },
+      {
+        "category": "agua-calidad",
+        "formId": "agua-calidad",
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-question.png",
-        "value": "question",
-        "label": "Pregunta",
+        "value": "agua-calidad",
+        "label": "Calidad Del Agua",
+        "geospatialAnalysis": [
+          {
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
+          }
+        ],
+        "visibleLayerGroupIds": ["riachuelo-subbasins"],
         "fields": [
           {
-            "name": "title",
-            "type": "text",
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "intro",
+            "type": "informational_html",
+            "content": "<h4>¿Querés reportar sobre calidad de agua? Podés hacerlo acá. Vas a poder informarte sobre parámetros de calidad de agua, evaluar situaciones de tu entorno próximo y contribuir subiendo fotos, imágenes, archivos, texto, links.</h4>"
+          },
+          {
+            "name": "subcuenca-seleccion",
+            "type": "dropdown",
             "includeOnListItem": true,
-            "prompt": "Título de su pregunta:",
-            "display_prompt": "Título:",
-            "placeholder": "Ingrese el título...",
+            "prompt": "¿En qué subcuenca vive?",
+            "optional": true,
+            "display_prompt": "Subcuenca",
+            "content": [
+              {
+                "label": "Riachuelo",
+                "value": "riachuelo"
+              },
+              {
+                "label": "Matanza",
+                "value": "matanza"
+              },
+              {
+                "label": "Santa Catalina",
+                "value": "santa-catalina"
+              },
+              {
+                "label": "Don Mario",
+                "value": "don-mario"
+              },
+              {
+                "label": "Ortega",
+                "value": "ortega"
+              },
+              {
+                "label": "Aguirre",
+                "value": "augirre"
+              },
+              {
+                "label": "Barreiro",
+                "value": "barreiro"
+              },
+              {
+                "label": "de la Canada Pantanosa",
+                "value": "de-la-canada-pantanosa"
+              },
+              {
+                "label": "Morales",
+                "value": "morales"
+              },
+              {
+                "label": "Chacon",
+                "value": "chacon"
+              },
+              {
+                "label": "Navarrete y Canuelas",
+                "value": "navarrete-y-canuelas"
+              },
+              {
+                "label": "Cebey",
+                "value": "cebey"
+              },
+              {
+                "label": "Rodriguez",
+                "value": "rodriguez"
+              },
+              {
+                "label": "Del Rey",
+                "value": "del-rey"
+              }
+            ]
+          },
+          {
+            "name": "municipio",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes municipio vivís actualmente?",
+            "display_prompt": "Municipio",
+            "placeholder": "Escribí el nombre de tu municipio...",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "ciudad-de-buenos-aires",
+                "targets": ["ciudad-de-buenos-aires-barrios"]
+              },
+              {
+                "value": "almirante-brown",
+                "targets": ["almirante-brown-barrios"]
+              },
+              {
+                "value": "avellaneda",
+                "targets": ["avellaneda-barrios"]
+              },
+              {
+                "value": "esteban-echeverria",
+                "targets": ["esteban-echeverria-barrios"]
+              },
+              {
+                "value": "la-matanza",
+                "targets": ["la-matanza-barrios"]
+              },
+              {
+                "value": "lanus",
+                "targets": ["lanus-barrios"]
+              },
+              {
+                "value": "lomas-de-zamora",
+                "targets": ["lomas-de-zamora-barrios"]
+              },
+              {
+                "value": "marcos-paz",
+                "targets": ["marcos-paz-barrios"]
+              },
+              {
+                "value": "merlo",
+                "targets": ["merlo-barrios"]
+              },
+              {
+                "value": "otro",
+                "targets": ["otro-municipio", "otro-barrio"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Ciudad de Buenos Aires",
+                "value": "ciudad-de-buenos-aires"
+              },
+              {
+                "label": "Almirante Brown",
+                "value": "almirante-brown"
+              },
+              {
+                "label": "Avellaneda",
+                "value": "avellaneda"
+              },
+              {
+                "label": "Cañuelas",
+                "value": "canuelas"
+              },
+              {
+                "label": "Esteban Echeverría",
+                "value": "esteban-echeverria"
+              },
+              {
+                "label": "Ezeiza",
+                "value": "ezeiza"
+              },
+              {
+                "label": "La Matanza",
+                "value": "la-matanza"
+              },
+              {
+                "label": "Lanús",
+                "value": "lanus"
+              },
+              {
+                "label": "Las Heras",
+                "value": "las-heras"
+              },
+              {
+                "label": "Lomas de Zamora",
+                "value": "lomas-de-zamora"
+              },
+              {
+                "label": "Marcos Paz",
+                "value": "marcos-paz"
+              },
+              {
+                "label": "Merlo",
+                "value": "merlo"
+              },
+              {
+                "label": "Presidente Juan D. Perón",
+                "value": "presidente-juan-d-peron"
+              },
+              {
+                "label": "San Vicente",
+                "value": "san-vicente"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ]
+          },
+          {
+            "name": "ciudad-de-buenos-aires-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Asentamiento Lamadrid",
+                "value": "asentamiento-lamadrid"
+              },
+              {
+                "label": "Asentamiento Luján",
+                "value": "asentamiento-lujan"
+              },
+              {
+                "label": "Asentamiento Magaldi",
+                "value": "asentamiento-magaldi"
+              },
+              {
+                "label": "Asentamiento Rodrigo Bueno",
+                "value": "asentamiento-rodrigo-bueno"
+              },
+              {
+                "label": "Asentamiento Suárez y Pedro de Mendoza",
+                "value": "asentamiento-suarez-y-pedro-de-mendoza"
+              },
+              {
+                "label": "Barrio Padre Mugica (Av. Castañares y Av.General Paz)",
+                "value": "barrio-padre-mugica"
+              },
+              {
+                "label": "El pueblito",
+                "value": "el-pueblito"
+              },
+              {
+                "label": "El triángulo",
+                "value": "el-triangulo"
+              },
+              {
+                "label": "Complejo Lacarra 2049",
+                "value": "complejo-lacarra-2049"
+              },
+              {
+                "label": "Complejo Luzuriaga 837",
+                "value": "complejo-luzuriaga-837"
+              },
+              {
+                "label": "Complejo Mundo Grúa",
+                "value": "complejo-mundo-grua"
+              },
+              {
+                "label": "Complejo San Antonio 721",
+                "value": "complejo-san-antonio-721"
+              },
+              {
+                "label": "Complejo Valparaíso 3570",
+                "value": "complejo-valparaiso-3570"
+              },
+              {
+                "label": "Complejo Veracruz 3459",
+                "value": "complejo-veracruz-3459"
+              },
+              {
+                "label": "Los Piletones",
+                "value": "los-piletones"
+              },
+              {
+                "label": "Predio IVC",
+                "value": "predio-ivc"
+              },
+              {
+                "label": "San Francisco",
+                "value": "san-francisco"
+              },
+              {
+                "label": "Villa 21-24",
+                "value": "villa-21-24"
+              },
+              {
+                "label": "Villa 26",
+                "value": "villa-26"
+              }
+            ]
+          },
+          {
+            "name": "almirante-brown-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "2 de Abril",
+                "value": "2-de-abril"
+              },
+              {
+                "label": "14 de Noviembre",
+                "value": "14-de-noviembre"
+              },
+              {
+                "label": "Arroyo del Rey",
+                "value": "arroyo-del-rey"
+              },
+              {
+                "label": "Barrio Bicentenario",
+                "value": "barrio-bicentenario"
+              },
+              {
+                "label": "Barrio Lindo I",
+                "value": "barrio-lindo-i"
+              },
+              {
+                "label": "Barrio Lindo II",
+                "value": "barrio-lindo-ii"
+              },
+              {
+                "label": "Barrio Santa Ana",
+                "value": "barrio-santa-ana"
+              },
+              {
+                "label": "Glew",
+                "value": "glew"
+              },
+              {
+                "label": "La Cumbre",
+                "value": "la-cumbre"
+              },
+              {
+                "label": "Las Tunas",
+                "value": "las-tunas"
+              },
+              {
+                "label": "Medalla Milagrosa",
+                "value": "medalla-milagrosa"
+              },
+              {
+                "label": "San Pablo",
+                "value": "san-pablo"
+              },
+              {
+                "label": "Santa Ana",
+                "value": "santa-ana"
+              }
+            ]
+          },
+          {
+            "name": "avellaneda-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "7 de Enero",
+                "value": "7-de-enero"
+              },
+              {
+                "label": "7 de Septiembre",
+                "value": "7-de-septiembre"
+              },
+              {
+                "label": "Asentamiento Luján",
+                "value": "asentamiento-lujan"
+              },
+              {
+                "label": "Barrio Alianza",
+                "value": "barrio-alianza"
+              },
+              {
+                "label": "Barrio La Saladita",
+                "value": "barrio-la-saladita"
+              },
+              {
+                "label": "Barrio La Saladita Norte",
+                "value": "barrio-la-saladita-norte"
+              },
+              {
+                "label": "CAEM",
+                "value": "caem"
+              },
+              {
+                "label": "Deheza y Helguera",
+                "value": "deheza-y-helguera"
+              },
+              {
+                "label": "Entre Vías",
+                "value": "entre-vias"
+              },
+              {
+                "label": "Ex ACINDAR",
+                "value": "ex-acindar"
+              },
+              {
+                "label": "French y Autopista",
+                "value": "french-y-autopista"
+              },
+              {
+                "label": "Gerli",
+                "value": "gerli"
+              },
+              {
+                "label": "Isla Maciel",
+                "value": "isla-maciel"
+              },
+              {
+                "label": "Nueva Ana",
+                "value": "nueva-ana"
+              },
+              {
+                "label": "Los Cardales",
+                "value": "los-cardales"
+              },
+              {
+                "label": "Pasaje Aldaz",
+                "value": "pasaje-aldaz"
+              },
+              {
+                "label": "Predio Madariaga",
+                "value": "predio-madariaga"
+              },
+              {
+                "label": "Predio Llaneza",
+                "value": "predio-llaneza"
+              },
+              {
+                "label": "Predio Pinzón",
+                "value": "predio-pinzon"
+              },
+              {
+                "label": "Predio Pitágoras",
+                "value": "predio-pitagoras"
+              },
+              {
+                "label": "Pte. Agüero",
+                "value": "pte-aguero"
+              },
+              {
+                "label": "Rancho Grande",
+                "value": "rancho-grande"
+              },
+              {
+                "label": "Relámpago",
+                "value": "relampago"
+              },
+              {
+                "label": "Tellier",
+                "value": "tellier"
+              },
+              {
+                "label": "Villa Azul",
+                "value": "villa-azul"
+              },
+              {
+                "label": "Villa Corina",
+                "value": "villa-corina"
+              },
+              {
+                "label": "Villa Inflamable",
+                "value": "villa-inflamable"
+              },
+              {
+                "label": "Villa Tranquila",
+                "value": "villa-tranquila"
+              }
+            ]
+          },
+          {
+            "name": "esteban-echeverria-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "9 de Enero",
+                "value": "9-de-enero"
+              },
+              {
+                "label": "Barrio Montecarlo",
+                "value": "barrio-montecarlo"
+              },
+              {
+                "label": "Juan Pablo II",
+                "value": "uan-pablo-ii"
+              },
+              {
+                "label": "Las Praderas",
+                "value": "las-praderas"
+              },
+              {
+                "label": "Papa Francisco",
+                "value": "papa-francisco"
+              },
+              {
+                "label": "Sarmiento",
+                "value": "sarmiento"
+              }
+            ]
+          },
+          {
+            "name": "la-matanza-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "22 de Enero",
+                "value": "22-de-enero"
+              },
+              {
+                "label": "Arroyo las Víboras",
+                "value": "arroyo-las-viboras"
+              },
+              {
+                "label": "Artilleros",
+                "value": "artilleros"
+              },
+              {
+                "label": "Asentamiento J.L. Cabezas",
+                "value": "asentamiento-jl-cabezas"
+              },
+              {
+                "label": "Asentamiento la Isla (La Saladita)",
+                "value": "asentamiento-la-isla-la-saladita"
+              },
+              {
+                "label": "Asentamiento los Ceibos Sur",
+                "value": "asentamiento-los-ceibos-sur"
+              },
+              {
+                "label": "Asentamiento mi Esperanza",
+                "value": "asentamiento-mi-esperanza"
+              },
+              {
+                "label": "Barrio Scasso",
+                "value": "barrio-scasso"
+              },
+              {
+                "label": "Don Juan",
+                "value": "don-juan"
+              },
+              {
+                "label": "El mosquito",
+                "value": "el-mosquito"
+              },
+              {
+                "label": "Evo Morales",
+                "value": "evo-morales"
+              },
+              {
+                "label": "Finocchieto",
+                "value": "finocchieto"
+              },
+              {
+                "label": "Dupy",
+                "value": "dupy"
+              },
+              {
+                "label": "Las antenas",
+                "value": "Las-antenas"
+              },
+              {
+                "label": "La Bastilla I",
+                "value": "la-bastilla-i"
+              },
+              {
+                "label": "La Bastilla II",
+                "value": "la-bastilla-ii"
+              },
+              {
+                "label": "Lucero",
+                "value": "lucero"
+              },
+              {
+                "label": "Puerta de Hierro",
+                "value": "puerta-de-hierro"
+              },
+              {
+                "label": "Villa Domingo Villán",
+                "value": "villa-domingo-villan"
+              },
+              {
+                "label": "Villa Godoy Cruz",
+                "value": "villa-godoy-cruz"
+              },
+              {
+                "label": "Villa San Petersburgo",
+                "value": "villa-san-petersburgo"
+              },
+              {
+                "label": "Villa Santos Vega",
+                "value": "villa-santos-vega"
+              },
+              {
+                "label": "Villa Susana",
+                "value": "villa-susana"
+              }
+            ]
+          },
+          {
+            "name": "lanus-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "10 de Enero",
+                "value": "10-de-enero"
+              },
+              {
+                "label": "Acuba I",
+                "value": "acuba-i"
+              },
+              {
+                "label": "Acuba II",
+                "value": "acuba-ii"
+              },
+              {
+                "label": "Asentamiento Pte. Alsina",
+                "value": "asentamiento-pte-alsina"
+              },
+              {
+                "label": "Fabricaciones Militares",
+                "value": "fabricaciones-militares"
+              },
+              {
+                "label": "La Fe",
+                "value": "la-fe"
+              },
+              {
+                "label": "La Maquinita",
+                "value": "la-maquinita"
+              },
+              {
+                "label": "San Francisco de Asís",
+                "value": "san-francisco-de-asis"
+              },
+              {
+                "label": "Vialidad Nacional (Néstor Kirchner)",
+                "value": "vialidad-nacional-nestor-kirchner"
+              },
+              {
+                "label": "Villa Besada",
+                "value": "villa-besada"
+              },
+              {
+                "label": "Villa Jardín",
+                "value": "villa-jardin"
+              },
+              {
+                "label": "Villa Talleres",
+                "value": "villa-talleres"
+              }
+            ]
+          },
+          {
+            "name": "lomas-de-zamora-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Asentamiento 3 de Enero",
+                "value": "asentamiento-3-de-enero"
+              },
+              {
+                "label": "Asentamiento 2 de Mayo",
+                "value": "asentamiento-2-de-mayo"
+              },
+              {
+                "label": "Asentamiento 1 de Octubre",
+                "value": "asentamiento-1-de-octubre"
+              },
+              {
+                "label": "Asentamiento Amanecer",
+                "value": "asentamiento-amanecer"
+              },
+              {
+                "label": "Asentamiento DAM",
+                "value": "asentamiento-dam"
+              },
+              {
+                "label": "Asentamiento La Lonja",
+                "value": "asentamiento-la-lonja"
+              },
+              {
+                "label": "Asentamiento Libertad",
+                "value": "asentamiento-libertad"
+              },
+              {
+                "label": "Asentamiento Soledad",
+                "value": "asentamiento-soledad"
+              },
+              {
+                "label": "Barrio Unamuno",
+                "value": "barrio-unamuno"
+              },
+              {
+                "label": "Predio la Herradura",
+                "value": "predio-la-herradura"
+              },
+              {
+                "label": "Predio Pombo I",
+                "value": "predio-pombo-i"
+              },
+              {
+                "label": "Predio Pombo II",
+                "value": "predio-pombo-ii"
+              }
+            ]
+          },
+          {
+            "name": "marcos-paz-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "El Palenque",
+                "value": "el-palenque"
+              },
+              {
+                "label": "El Zorzal",
+                "value": "el-zorzal"
+              },
+              {
+                "label": "Gándara",
+                "value": "gandara"
+              },
+              {
+                "label": "Rayo de Sol",
+                "value": "rayo-de-sol"
+              },
+              {
+                "label": "Santa Catalina",
+                "value": "santa-catalina"
+              },
+              {
+                "label": "Urioste",
+                "value": "urioste"
+              }
+            ]
+          },
+          {
+            "name": "merlo-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "El Juancito",
+                "value": "el-juancito"
+              },
+              {
+                "label": "Las Torres",
+                "value": "las-torres"
+              }
+            ]
+          },
+          {
+            "name": "otro-municipio",
+            "type": "text",
+            "prompt": "Otro (especificar municipio)",
+            "placeholder": "Escribí el nombre de tu municipio...",
+            "display_prompt": "Municipio",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "otro-barrio",
+            "type": "text",
+            "prompt": "Otro (especificar barrio)",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "display_prompt": "Barrio",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "tipio-de-agua",
+            "type": "dropdown",
+            "prompt": "Tipo de cuerpo de agua",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "otro",
+                "targets": ["otro-tipo-de-agua"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Río",
+                "value": "rio"
+              },
+              {
+                "label": "Arroyo",
+                "value": "arroyo"
+              },
+              {
+                "label": "Canal",
+                "value": "canal"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ]
+          },
+          {
+            "name": "otro-tipo-de-agua",
+            "type": "text",
+            "prompt": "Indica el tipo de cuerpo de agua",
+            "placeholder": "...",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "description",
-            "type": "textarea",
-            "includeOnListItem": true,
-            "prompt": "¿Cuál es tu pregunta?",
+            "name": "entorno",
+            "type": "dropdown",
+            "prompt": "Entorno",
+            "optional": true,
+            "content": [
+              {
+                "label": "Rural",
+                "value": "rural"
+              },
+              {
+                "label": "Urbano",
+                "value": "urbano"
+              }
+            ]
+          },
+          {
+            "name": "reporte-datetime",
+            "type": "datetime",
+            "prompt": "Fecha del reporte (no el de la de la subida a la plataforma)",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
             "display_prompt": " ",
-            "placeholder": "Ingresar pregunta..."
+            "optional": true
           },
           {
-            "name": "submitter_name",
-            "type": "common_form_element"
+            "name": "reporte-time",
+            "type": "text",
+            "prompt": "Hora del reporte (no el de la de la subida a la plataforma)",
+            "placeholder": "00:00",
+            "display_prompt": " ",
+            "optional": true
           },
           {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
+            "name": "intro-2",
+            "type": "informational_html",
+            "content": "<h4>2. Podés contribuir al monitoreo de la calidad de este cuerpo de agua aportando información sobre los siguientes aspectos:</h4>"
           },
           {
-            "name": "my_image",
-            "type": "common_form_element"
+            "name": "intro-situacion-hidrometeorologica",
+            "type": "informational_html",
+            "content": "<p>SITUACIÓN HIDROMETEOROLÓGICA</p><p>En la siguiente sección encontrarás campos para reportar información sobre el estado hidrometeorológico del momento al que corresponde tu reporte.</p>"
+          },
+          {
+            "name": "nivel-del-agua",
+            "type": "dropdown",
+            "prompt": "Nivel del agua:",
+            "optional": true,
+            "content": [
+              {
+                "label": "Alto",
+                "value": "alto"
+              },
+              {
+                "label": "Medio",
+                "value": "medio"
+              },
+              {
+                "label": "Bajo",
+                "value": "bajo"
+              }
+            ]
+          },
+          {
+            "name": "sudestada",
+            "type": "dropdown",
+            "prompt": "Sudestada",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": ["ultimo-dia-de-lluvia", "tipo-de-lluvia"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Si",
+                "value": "si"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "ultimo-dia-de-lluvia",
+            "type": "dropdown",
+            "prompt": "Último día de lluvia",
+            "optional": true,
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Hoy",
+                "value": "hoy"
+              },
+              {
+                "label": "Ayer",
+                "value": "ayer"
+              },
+              {
+                "label": "Anteayer",
+                "value": "anteayer"
+              },
+              {
+                "label": "La semana pasada",
+                "value": "la-semana-pasada"
+              },
+              {
+                "label": "No se produjo",
+                "value": "no-se-produjo"
+              }
+            ]
+          },
+          {
+            "name": "tipo-de-lluvia",
+            "type": "dropdown",
+            "prompt": "Tipo de lluvia:",
+            "optional": true,
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Llovizna",
+                "value": "llovizna"
+              },
+              {
+                "label": "Lluvia intensa breve",
+                "value": "lluvia-intensa-breve"
+              },
+              {
+                "label": "Lluvia intensa extendida",
+                "value": "lluvia-intensa-extendida"
+              }
+            ]
+          },
+          {
+            "name": "intro-calidad-de-agua",
+            "type": "informational_html",
+            "content": "<p>CALIDAD DE AGUA</p><p>En la siguiente sección encontrarás campos para reportar información sobre el estado del cuerpo de agua que refieren a su calidad.</p>"
+          },
+          {
+            "name": "vegetacion-margenes",
+            "type": "dropdown",
+            "prompt": "Vegetación (márgenes)",
+            "optional": true,
+            "content": [
+              {
+                "label": "Sin Vegetación",
+                "value": "sin-vegetacion"
+              },
+              {
+                "label": "Césped Mantenido",
+                "value": "cesped-mantenido"
+              },
+              {
+                "label": "Arbustos",
+                "value": "arbustos"
+              },
+              {
+                "label": "Árboles",
+                "value": "arboles"
+              }
+            ]
+          },
+          {
+            "name": "vegetacion-lecho",
+            "type": "dropdown",
+            "prompt": "Vegetación (lecho)",
+            "optional": true,
+            "content": [
+              {
+                "label": "Algas",
+                "value": "algas"
+              },
+              {
+                "label": "Macrófitas",
+                "value": "macrofitas"
+              }
+            ]
+          },
+          {
+            "name": "referencia-fija",
+            "type": "dropdown",
+            "prompt": "Indique si existe una o más referencias fijas en el lugar cercano al evento. Puede cargar una fotografía.",
+            "content": [
+              {
+                "label": "Puente",
+                "value": "puente"
+              },
+              {
+                "label": "Pasarela",
+                "value": "pasarela"
+              },
+              {
+                "label": "Baranda",
+                "value": "baranda"
+              },
+              {
+                "label": "Escala",
+                "value": "escala"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ],
+            "optional": true
+          },
+          {
+            "name": "referencia-fija",
+            "type": "dropdown",
+            "prompt": "Referencia fija",
+            "optional": true,
+            "content": [
+              {
+                "label": "Puente",
+                "value": "puente"
+              },
+              {
+                "label": "Pasarela",
+                "value": "pasarela"
+              },
+              {
+                "label": "Baranda",
+                "value": "baranda"
+              },
+              {
+                "label": "Escala",
+                "value": "escala"
+              }
+            ]
+          },
+          {
+            "name": "referencia-fija-image",
+            "type": "file",
+            "prompt": "Referencias",
+            "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
+            "name": "referencia-fija-pdf",
+            "type": "pdf",
+            "prompt": "Referencias PDF",
+            "label": "Agregar un PDF",
+            "optional": true
+          },
+          {
+            "name": "turbiedad",
+            "type": "dropdown",
+            "prompt": "Indique el estado del agua en el lugar y momento del reporte. Puede cargar una fotografía.",
+            "optional": true,
+            "content": [
+              {
+                "label": "Agua Clara",
+                "value": "agua-clara"
+              },
+              {
+                "label": "Poco Clara",
+                "value": "poco-clara"
+              },
+              {
+                "label": "Turbia",
+                "value": "turbia"
+              },
+              {
+                "label": "Muy Turbia",
+                "value": "muy-turbia"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ]
+          },
+          {
+            "name": "turbiedad-image",
+            "type": "file",
+            "prompt": "Referencias",
+            "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
+            "name": "turbiedad-pdf",
+            "type": "pdf",
+            "prompt": "Referencias PDF",
+            "label": "Agregar un PDF",
+            "optional": true
+          },
+          {
+            "name": "color",
+            "type": "dropdown",
+            "prompt": "Color del agua. Indica el color del agua en el lugar y momento del reporte.",
+            "optional": true,
+            "content": [
+              {
+                "label": "Transparente",
+                "value": "transparente"
+              },
+              {
+                "label": "Verde",
+                "value": "verde"
+              },
+              {
+                "label": "Marrón",
+                "value": "marron"
+              },
+              {
+                "label": "Gris",
+                "value": "gris"
+              },
+              {
+                "label": "Negro",
+                "value": "negro"
+              },
+              {
+                "label": "Rojo",
+                "value": "rojo"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ]
+          },
+          {
+            "name": "olor",
+            "type": "dropdown",
+            "prompt": "Olor. Indica si en el lugar del reporte se percibían olores no habituales.",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": ["tipo-de-olor"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Si",
+                "value": "si"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "tipo-de-olor",
+            "type": "text",
+            "prompt": "Tipo de olor. Describa el tipo de olor percibido o una referencia a algo similar al mismo.",
+            "placeholder": "…",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "fuente-de-contaminacion-cercana",
+            "type": "dropdown",
+            "prompt": "Contaminación. Indique si conoce sobre la existencia de una fuente de contaminación cercana.",
+            "optional": true,
+            "content": [
+              {
+                "label": "Industrial",
+                "value": "industrial"
+              },
+              {
+                "label": "Cloacal",
+                "value": "cloacal"
+              },
+              {
+                "label": "Pluvial",
+                "value": "pluvial"
+              },
+              {
+                "label": "Doméstica",
+                "value": "domestica"
+              }
+            ]
+          },
+          {
+            "name": "fauna",
+            "type": "dropdown",
+            "prompt": "Fauna. Indique si existen u observó animales en la zona del reporte.",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": ["tipo-de-fauna"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Si",
+                "value": "si"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "tipo-de-fauna",
+            "type": "text",
+            "prompt": "Tipo de fauna. Indica el tipo de animales que observó en la zona.",
+            "placeholder": "…",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "flotantes-en-la-superficie",
+            "type": "dropdown",
+            "prompt": "Flotantes. Indica si se observan materiales flotando en la superficie del curso de agua.",
+            "optional": true,
+            "content": [
+              {
+                "label": "Plásticos",
+                "value": "plasticos"
+              },
+              {
+                "label": "Restos de Vegetación",
+                "value": "restos-de-vegetacion"
+              },
+              {
+                "label": "Pañales",
+                "value": "panales"
+              },
+              {
+                "label": "Madera",
+                "value": "madera"
+              },
+              {
+                "label": "Calzado y Textiles",
+                "value": "calzado-y-textiles"
+              },
+              {
+                "label": "Voluminosos",
+                "value": "voluminosos"
+              },
+              {
+                "label": "Otros",
+                "value": "otros"
+              }
+            ]
+          },
+          {
+            "name": "flotantes-image",
+            "type": "file",
+            "prompt": "Foto",
+            "label": "📷 Agregar una imagen",
+            "optional": true
+          },
+          {
+            "name": "flotantes-pdf",
+            "type": "pdf",
+            "prompt": "PDF",
+            "label": "Agregar un PDF",
+            "optional": true
           },
           {
             "name": "submit",
@@ -418,44 +1977,936 @@
         ]
       },
       {
-        "category": "idea",
-        "formId": "idea",
+        "category": "areas-protegidas-2",
+        "formId": "areas-protegidas-2",
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-idea.png",
-        "value": "idea",
-        "label": "Idea",
+        "value": "areas-protegidas-2",
+        "label": "Areas Naturales",
+        "geospatialAnalysis": [
+          {
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
+          }
+        ],
         "fields": [
           {
-            "name": "title",
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "intro",
+            "type": "informational_html",
+            "content": "<h4>¿Querés reportar algo sobre este área natural o contribuir aportando información? Podés hacerlo acá. Vas a poder seleccionar y subir fotos, imágenes, archivos, texto, links.</h4>"
+          },
+          {
+            "name": "contribucion",
+            "type": "dropdown",
+            "prompt": "Tu contribución la hacés como:",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "miembro-organizacion",
+                "targets": ["organizacion"]
+              },
+              {
+                "value": "vecino-otro-lugar",
+                "targets": ["otro_lugar"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Miembro de una organización",
+                "value": "miembro-organizacion"
+              },
+              {
+                "label": "Vecinx del barrio o del partido",
+                "value": "vecino-barrio-partido"
+              },
+              {
+                "label": "Vecinx de otro lugar",
+                "value": "vecino-otro-lugar"
+              }
+            ]
+          },
+          {
+            "name": "organizacion",
             "type": "text",
+            "prompt": "¿Miembro de una organización? ¿Cuál?",
+            "placeholder": "Escribí el nombre...",
+            "display_prompt": "Organización",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "otro_lugar",
+            "type": "dropdown",
+            "prompt": "Vecinx de otro lugar. ¿Cuál?",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": false,
+            "triggers": [
+              {
+                "value": "caba",
+                "targets": ["comunas"]
+              },
+              {
+                "value": "amba",
+                "targets": ["partidos"]
+              },
+              {
+                "value": "resto-pcia-ba",
+                "targets": ["resto_pcia_ba"]
+              },
+              {
+                "value": "otra-pcia",
+                "targets": ["otra_pcia"]
+              },
+              {
+                "value": "otros-pais",
+                "targets": ["otros_pais"]
+              }
+            ],
+            "content": [
+              {
+                "label": "CABA",
+                "value": "caba"
+              },
+              {
+                "label": "AMBA",
+                "value": "amba"
+              },
+              {
+                "label": "Resto de la provincia de Buenos Aires",
+                "value": "resto-pcia-ba"
+              },
+              {
+                "label": "Otra provincia",
+                "value": "otra-pcia"
+              },
+              {
+                "label": "Otros - De otro país",
+                "value": "otros-pais"
+              }
+            ]
+          },
+          {
+            "name": "comunas",
+            "type": "dropdown",
+            "prompt": "¿De qué comuna?",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Comuna 1",
+                "value": "comuna-1"
+              },
+              {
+                "label": "Comuna 2",
+                "value": "comuna-2"
+              },
+              {
+                "label": "Comuna 3",
+                "value": "comuna-3"
+              },
+              {
+                "label": "Comuna 4",
+                "value": "comuna-4"
+              },
+              {
+                "label": "Comuna 5",
+                "value": "comuna-5"
+              },
+              {
+                "label": "Comuna 6",
+                "value": "comuna-6"
+              },
+              {
+                "label": "Comuna 7",
+                "value": "comuna-7"
+              },
+              {
+                "label": "Comuna 8",
+                "value": "comuna-8"
+              },
+              {
+                "label": "Comuna 9",
+                "value": "comuna-9"
+              },
+              {
+                "label": "Comuna 10",
+                "value": "comuna-10"
+              },
+              {
+                "label": "Comuna 11",
+                "value": "comuna-11"
+              },
+              {
+                "label": "Comuna 12",
+                "value": "comuna-12"
+              },
+              {
+                "label": "Comuna 13",
+                "value": "comuna-13"
+              },
+              {
+                "label": "Comuna 14",
+                "value": "comuna-14"
+              },
+              {
+                "label": "Comuna 15",
+                "value": "comuna-15"
+              }
+            ]
+          },
+          {
+            "name": "partidos",
+            "type": "dropdown_autocomplete",
             "includeOnListItem": true,
-            "display_prompt": "Título:",
-            "placeholder": "Ingrese el título...",
-            "prompt": "Título de tu idea:",
+            "prompt": "¿De cuál de los siguientes partidos?",
+            "display_prompt": "Partido",
+            "placeholder": "Escribí el nombre de tu partido...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Almirante Brown",
+                "value": "almirante-brown"
+              },
+              {
+                "label": "Avellaneda",
+                "value": "avellaneda"
+              },
+              {
+                "label": "Berazategui",
+                "value": "berazategui"
+              },
+              {
+                "label": "Berisso",
+                "value": "berisso"
+              },
+              {
+                "label": "Brandsen",
+                "value": "brandsen"
+              },
+              {
+                "label": "Campana",
+                "value": "campana"
+              },
+              {
+                "label": "Cañuelas",
+                "value": "cañuelas"
+              },
+              {
+                "label": "Ensenada",
+                "value": "ensenada"
+              },
+              {
+                "label": "Escobar",
+                "value": "escobar"
+              },
+              {
+                "label": "Esteban Echeverría",
+                "value": "esteban-echeverria"
+              },
+              {
+                "label": "Exaltación de la Cruz",
+                "value": "exaltacion-de-la-cruz"
+              },
+              {
+                "label": "Ezeiza",
+                "value": "ezeiza"
+              },
+              {
+                "label": "Florencio Varela",
+                "value": "florencio-varela"
+              },
+              {
+                "label": "General Las Heras",
+                "value": "general-las-heras"
+              },
+              {
+                "label": "General Rodríguez",
+                "value": "general-rodriguez"
+              },
+              {
+                "label": "General San Martín",
+                "value": "general-san-martin"
+              },
+              {
+                "label": "Hurlingham",
+                "value": "hurlingham"
+              },
+              {
+                "label": "Ituzaingó",
+                "value": "ituzaingo"
+              },
+              {
+                "label": "José C. Paz",
+                "value": "jose-c-paz"
+              },
+              {
+                "label": "La Matanza",
+                "value": "la-matanza"
+              },
+              {
+                "label": "Lanús",
+                "value": "lanus"
+              },
+              {
+                "label": "La Plata",
+                "value": "la-plata"
+              },
+              {
+                "label": "Lomas de Zamora",
+                "value": "lomas-de-zamora"
+              },
+              {
+                "label": "Luján",
+                "value": "lujan"
+              },
+              {
+                "label": "Marcos Paz",
+                "value": "marcos-paz"
+              },
+              {
+                "label": "Malvinas Argentinas",
+                "value": "malvinas-argentinas"
+              },
+              {
+                "label": "Moreno",
+                "value": "moreno"
+              },
+              {
+                "label": "Merlo",
+                "value": "merlo"
+              },
+              {
+                "label": "Morón",
+                "value": "moron"
+              },
+              {
+                "label": "Pilar",
+                "value": "pilar"
+              },
+              {
+                "label": "Presidente Perón",
+                "value": "presidente-peron"
+              },
+              {
+                "label": "Quilmes",
+                "value": "quilmes"
+              },
+              {
+                "label": "San Fernando",
+                "value": "san-fernando"
+              },
+              {
+                "label": "San Isidro",
+                "value": "san-isidro"
+              },
+              {
+                "label": "San Miguel",
+                "value": "san-miguel"
+              },
+              {
+                "label": "San Vicente",
+                "value": "san-vicente"
+              },
+              {
+                "label": "Tigre",
+                "value": "tigre"
+              },
+              {
+                "label": "Tres de Febrero",
+                "value": "tres-de-febrero"
+              },
+              {
+                "label": "Vicente López",
+                "value": "vicente-lopez"
+              },
+              {
+                "label": "Zárate",
+                "value": "zarate"
+              }
+            ]
+          },
+          {
+            "name": "resto_pcia_ba",
+            "type": "text",
+            "prompt": "Escribe el nombre de tu partido",
+            "display_prompt": " ",
+            "placeholder": "Escribí el nombre...",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "otra_pcia",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿De qué provincia?",
+            "display_prompt": "Provincia",
+            "placeholder": "Escribí el nombre de tu provincia...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Catamarca",
+                "value": "catamarca"
+              },
+              {
+                "label": "Chaco",
+                "value": "chaco"
+              },
+              {
+                "label": "Chubut",
+                "value": "chubut"
+              },
+              {
+                "label": "Córdoba",
+                "value": "cordoba"
+              },
+              {
+                "label": "Corrientes",
+                "value": "corrientes"
+              },
+              {
+                "label": "Entre Ríos",
+                "value": "entre-rios"
+              },
+              {
+                "label": "Formosa",
+                "value": "formosa"
+              },
+              {
+                "label": "Jujuy",
+                "value": "jujuy"
+              },
+              {
+                "label": "La Pampa",
+                "value": "la-pampa"
+              },
+              {
+                "label": "La Rioja",
+                "value": "la-rioja"
+              },
+              {
+                "label": "Mendoza",
+                "value": "mendoza"
+              },
+              {
+                "label": "Misiones",
+                "value": "misiones"
+              },
+              {
+                "label": "Neuquén",
+                "value": "neuquen"
+              },
+              {
+                "label": "Río Negro",
+                "value": "rio-negro"
+              },
+              {
+                "label": "Salta",
+                "value": "salta"
+              },
+              {
+                "label": "San Juan",
+                "value": "san-juan"
+              },
+              {
+                "label": "San Luis",
+                "value": "san-luis"
+              },
+              {
+                "label": "Santa Cruz",
+                "value": "santa-cruz"
+              },
+              {
+                "label": "Santa Fe",
+                "value": "santa-fe"
+              },
+              {
+                "label": "Santiago del Estero",
+                "value": "santiago-del-estero"
+              },
+              {
+                "label": "Tierra del Fuego, Antártida e Isla del Atlántico Sur",
+                "value": "tierra-del-fuego-antartida-e-isla-del-atlantico-sur"
+              },
+              {
+                "label": "Tucumán",
+                "value": "tucuman"
+              }
+            ]
+          },
+          {
+            "name": "otros_pais",
+            "type": "text",
+            "prompt": "¿De qué país?",
+            "display_prompt": " ",
+            "placeholder": "Escribí el nombre...",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "proteccion_del_espacio",
+            "type": "big_toggle",
+            "prompt": "Podés contribuir al conocimiento y a la protección de esta área natural aportando información sobre los siguientes aspectos:",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "proteccion_del_espacio_novedad",
+                  "proteccion_del_espacio_novedad_datetime",
+                  "proteccion_del_espacio_novedad_description",
+                  "proteccion_del_espacio_novedad_info"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Situación de protección del espacio",
+                "value": "si"
+              },
+              {
+                "label": "Situación de protección del espacio",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "proteccion_del_espacio_novedad",
+            "type": "text",
+            "prompt": "¿Querés compartir una novedad relacionada con la protección de este espacio? ¿Cuál? Ponele un título.",
+            "placeholder": "",
+            "display_prompt": "Novedad relacionada",
+            "hidden_default": true,
             "optional": true
           },
           {
-            "name": "description",
-            "type": "textarea",
-            "includeOnListItem": true,
-            "prompt": "¿Cuál es tu idea?",
+            "name": "proteccion_del_espacio_novedad_datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
             "display_prompt": " ",
-            "placeholder": "Introduzca idea..."
+            "hidden_default": true,
+            "optional": true
           },
           {
-            "name": "submitter_name",
-            "type": "common_form_element"
+            "name": "proteccion_del_espacio_novedad_description",
+            "type": "textarea",
+            "prompt": "Describí brevemente de qué se trata",
+            "placeholder": "",
+            "display_prompt": "Descripción de la novedad",
+            "hidden_default": true,
+            "optional": true
           },
           {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
+            "name": "proteccion_del_espacio_novedad_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
+            "hidden_default": true,
+            "optional": true
           },
           {
-            "name": "my_image",
-            "type": "common_form_element"
+            "name": "biodiversidad",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "biodiversidad_image",
+                  "biodiversidad_image_datetime",
+                  "biodiversidad_comentario",
+                  "biodiversidad_especies",
+                  "biodiversidad_info"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Biodiversidad",
+                "value": "si"
+              },
+              {
+                "label": "Biodiversidad",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "biodiversidad_image",
+            "type": "file",
+            "prompt": "¿Querés compartir una foto de una especie que viste en este espacio? Hacelo acá.",
+            "label": "📷 Agregar una imagen",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "biodiversidad_image_datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo tomaste la foto? Elegí la fecha en el calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "biodiversidad_comentario",
+            "type": "textarea",
+            "prompt": "¿Querés comentar algo de esta observación?",
+            "display_prompt": "Comentario:",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "biodiversidad_especies",
+            "type": "big_checkbox",
+            "prompt": "Además de la foto que tomaste ¿Viste alguna de estas especies en tu visita? Marcá las fotos de las especies que hayas visto.",
+            "hidden_default": true,
+            "optional": true,
+            "content": [
+              {
+                "label": "Especie 1",
+                "value": "especie-1"
+              },
+              {
+                "label": "Especie 2",
+                "value": "especie-2"
+              },
+              {
+                "label": "Especie 3",
+                "value": "especie-3"
+              },
+              {
+                "label": "Especie 4",
+                "value": "especie-4"
+              },
+              {
+                "label": "Especie 5",
+                "value": "especie-5"
+              },
+              {
+                "label": "Especie 6",
+                "value": "especie-6"
+              }
+            ]
+          },
+          {
+            "name": "biodiversidad_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "reprortes_del_estado_del_area",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "reportes_del_estado_del_area_titulo",
+                  "reportes_del_estado_del_area_datetime",
+                  "reportes_del_estado_del_area_description",
+                  "reportes_del_estado_del_area_info"                
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Reportes de estado del área",
+                "value": "si"
+              },
+              {
+                "label": "Reportes de estado del área",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "reportes_del_estado_del_area_titulo",
+            "type": "text",
+            "prompt": "¿Querés reportar algo sobre el estado del área? Ponele un título a tu reporte",
+            "placeholder": "...",
+            "display_prompt": "Título",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "reportes_del_estado_del_area_datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "reportes_del_estado_del_area_description",
+            "type": "textarea",
+            "prompt": "Describí brevemente de qué se trata",
+            "placeholder": "...",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "reportes_del_estado_del_area_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "usos_y_actividades",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "usos_y_actividades_titulo",
+                  "usos_y_actividades_datetime",
+                  "usos_y_actividades_description",
+                  "usos_y_actividades_info"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Usos y actividades organizadas en el área",
+                "value": "si"
+              },
+              {
+                "label": "Usos y actividades organizadas en el área",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "usos_y_actividades_titulo",
+            "type": "text",
+            "prompt": "¿Querés compartir tu experiencia en esta área? Ponele un título.",
+            "placeholder": "...",
+            "display_prompt": "Título",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "usos_y_actividades_datetime",
+            "type": "datetime",
+            "prompt": "¿Cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "usos_y_actividades_description",
+            "type": "textarea",
+            "prompt": "Podés hacer un breve comentario",
+            "placeholder": "...",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "usos_y_actividades_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "calendario_de_actividades",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "calendario_de_actividades_titulo"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Calendario de actividades",
+                "value": "si"
+              },
+              {
+                "label": "Calendario de actividades",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "calendario_de_actividades_titulo",
+            "type": "informational_html",
+            "hidden_default": true,
+            "optional": true,
+            "content": "<p>¿Querés convocar a una actividad en el área? Agregala al calendario.</p>"          
+          },
+          {
+            "name": "memorias_del_area",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "memorias_del_area_titulo",
+                  "memorias_del_area_datetime",
+                  "memorias_del_area_description",
+                  "memorias_del_area_info"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Memorias del área",
+                "value": "si"
+              },
+              {
+                "label": "Memorias del área",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "memorias_del_area_titulo",
+            "type": "text",
+            "prompt": "¿Querés aportar histórica histórica o un recuerdo sobre este espacio? Ponele un título a tu memoria",
+            "placeholder": "...",
+            "display_prompt": "Título",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "memorias_del_area_datetime",
+            "type": "datetime",
+            "prompt": "¿Sabes cuándo pasó? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "memorias_del_area_description",
+            "type": "textarea",
+            "prompt": "Describí brevemente de qué se trata",
+            "placeholder": "...",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "memorias_del_area_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "patrimonio_arqueologico",
+            "type": "big_toggle",
+            "prompt": " ",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "si",
+                "targets": [
+                  "patrimonio_arqueologico_titulo",
+                  "patrimonio_arqueologico_datetime",
+                  "patrimonio_arqueologico_description",
+                  "patrimonio_arqueologico_info"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Patrimonio arqueológico",
+                "value": "si"
+              },
+              {
+                "label": "Patrimonio arqueológico",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "patrimonio_arqueologico_titulo",
+            "type": "text",
+            "prompt": "¿Querés aportar información sobre un sitio o un resto arqueológico en este espacio? Ponele un título a tu reporte arqueológico",
+            "placeholder": "...",
+            "display_prompt": "Título",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "patrimonio_arqueologico_datetime",
+            "type": "datetime",
+            "prompt": "¿Sabés cuando fue identificado? Seleccioná la fecha del calendario.",
+            "date_format": "YYYY-MM-DD",
+            "placeholder": "Seleccioná la fecha",
+            "display_format": "DD MMMM YYYY",
+            "display_prompt": " ",
+            "hidden_default": true,
+            "optional": true
+          },
+          {
+            "name": "patrimonio_arqueologico_description",
+            "type": "textarea",
+            "prompt": "Describí brevemente de qué se trata",
+            "hidden_default": true,
+            "placeholder": "...",
+            "optional": true
+          },
+          {
+            "name": "patrimonio_arqueologico_info",
+            "type": "rich_textarea",
+            "prompt": "Podés subir un documento, una foto o imagen, un link a un video, nota periodística o sitio.",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información",
+            "hidden_default": true,
+            "optional": true
           },
           {
             "name": "submit",
@@ -464,90 +2915,889 @@
         ]
       },
       {
-        "category": "observation",
-        "formId": "observation",
+        "category": "reporte-territorial",
+        "formId": "reporte-territorial",
         "includeOnForm": true,
         "includeOnList": true,
         "name": "location_type",
         "datasetSlug": "quepasa-input",
         "icon_url": "/static/css/images/markers/marker-observation.png",
-        "value": "observation",
-        "label": "Observación",
-        "fields": [
+        "value": "reporte-territorial",
+        "label": "Relocalizaciones",
+        "geospatialAnalysis": [
           {
-            "name": "title",
-            "type": "text",
-            "includeOnListItem": true,
-            "prompt": "Título de su observación:",
-            "display_prompt": "Título:",
-            "placeholder": "Ingrese el título...",
-            "optional": true
-          },
-          {
-            "name": "description",
-            "type": "textarea",
-            "includeOnListItem": true,
-            "prompt": "¿Cuál es tu observación?",
-            "display_prompt": " ",
-            "placeholder": "Entrar en observación..."
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
-          },
-          {
-            "name": "my_image",
-            "type": "common_form_element"
-          },
-          {
-            "name": "submit",
-            "type": "common_form_element"
+            "name": "subbasin_name",
+            "type": "pointInPolygon",
+            "analysisTarget": "riachuelo-subbasins.geojson",
+            "propertiesToPluck": [
+              {
+                "name": "NOMBRE"
+              }
+            ]
           }
-        ]
-      },
-      {
-        "category": "complaint",
-        "formId": "complaint",
-        "includeOnForm": true,
-        "includeOnList": true,
-        "name": "location_type",
-        "datasetSlug": "quepasa-input",
-        "icon_url": "/static/css/images/markers/marker-complaint.png",
-        "value": "complaint",
-        "label": "Queja",
+        ],
         "fields": [
           {
-            "name": "title",
-            "type": "text",
+            "name": "lng-lat",
+            "type": "lng_lat"
+          },
+          {
+            "name": "intro",
+            "type": "informational_html",
+            "content": "<h4>¿Querés reportar o comentar sobre alguna situación vinculada al proceso de relocalización de algún barrio? Podés hacerlo completando el siguiente formulario. Vas a poder subir fotos, imágenes, archivos, texto.</h4>"
+          },
+          {
+            "name": "municipio",
+            "type": "dropdown_autocomplete",
             "includeOnListItem": true,
-            "prompt": "Título de su denuncia:",
-            "display_prompt": "Título:",
-            "placeholder": "Ingrese el título...",
+            "prompt": "¿En cuál de los siguientes municipio vivís actualmente?",
+            "display_prompt": "Municipio",
+            "placeholder": "Escribí el nombre de tu municipio...",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "ciudad-de-buenos-aires",
+                "targets": ["ciudad-de-buenos-aires-barrios"]
+              },
+              {
+                "value": "almirante-brown",
+                "targets": ["almirante-brown-barrios"]
+              },
+              {
+                "value": "avellaneda",
+                "targets": ["avellaneda-barrios"]
+              },
+              {
+                "value": "esteban-echeverria",
+                "targets": ["esteban-echeverria-barrios"]
+              },
+              {
+                "value": "la-matanza",
+                "targets": ["la-matanza-barrios"]
+              },
+              {
+                "value": "lanus",
+                "targets": ["lanus-barrios"]
+              },
+              {
+                "value": "lomas-de-zamora",
+                "targets": ["lomas-de-zamora-barrios"]
+              },
+              {
+                "value": "marcos-paz",
+                "targets": ["marcos-paz-barrios"]
+              },
+              {
+                "value": "merlo",
+                "targets": ["merlo-barrios"]
+              },
+              {
+                "value": "otro",
+                "targets": ["otro-municipio", "otro-barrio"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Ciudad de Buenos Aires",
+                "value": "ciudad-de-buenos-aires"
+              },
+              {
+                "label": "Almirante Brown",
+                "value": "almirante-brown"
+              },
+              {
+                "label": "Avellaneda",
+                "value": "avellaneda"
+              },
+              {
+                "label": "Cañuelas",
+                "value": "canuelas"
+              },
+              {
+                "label": "Esteban Echeverría",
+                "value": "esteban-echeverria"
+              },
+              {
+                "label": "Ezeiza",
+                "value": "ezeiza"
+              },
+              {
+                "label": "La Matanza",
+                "value": "la-matanza"
+              },
+              {
+                "label": "Lanús",
+                "value": "lanus"
+              },
+              {
+                "label": "Las Heras",
+                "value": "las-heras"
+              },
+              {
+                "label": "Lomas de Zamora",
+                "value": "lomas-de-zamora"
+              },
+              {
+                "label": "Marcos Paz",
+                "value": "marcos-paz"
+              },
+              {
+                "label": "Merlo",
+                "value": "merlo"
+              },
+              {
+                "label": "Presidente Juan D. Perón",
+                "value": "presidente-juan-d-peron"
+              },
+              {
+                "label": "San Vicente",
+                "value": "san-vicente"
+              },
+              {
+                "label": "Otro",
+                "value": "otro"
+              }
+            ]
+          },
+          {
+            "name": "ciudad-de-buenos-aires-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Asentamiento Lamadrid",
+                "value": "asentamiento-lamadrid"
+              },
+              {
+                "label": "Asentamiento Luján",
+                "value": "asentamiento-lujan"
+              },
+              {
+                "label": "Asentamiento Magaldi",
+                "value": "asentamiento-magaldi"
+              },
+              {
+                "label": "Asentamiento Rodrigo Bueno",
+                "value": "asentamiento-rodrigo-bueno"
+              },
+              {
+                "label": "Asentamiento Suárez y Pedro de Mendoza",
+                "value": "asentamiento-suarez-y-pedro-de-mendoza"
+              },
+              {
+                "label": "Barrio Padre Mugica (Av. Castañares y Av.General Paz)",
+                "value": "barrio-padre-mugica"
+              },
+              {
+                "label": "El pueblito",
+                "value": "el-pueblito"
+              },
+              {
+                "label": "El triángulo",
+                "value": "el-triangulo"
+              },
+              {
+                "label": "Complejo Lacarra 2049",
+                "value": "complejo-lacarra-2049"
+              },
+              {
+                "label": "Complejo Luzuriaga 837",
+                "value": "complejo-luzuriaga-837"
+              },
+              {
+                "label": "Complejo Mundo Grúa",
+                "value": "complejo-mundo-grua"
+              },
+              {
+                "label": "Complejo San Antonio 721",
+                "value": "complejo-san-antonio-721"
+              },
+              {
+                "label": "Complejo Valparaíso 3570",
+                "value": "complejo-valparaiso-3570"
+              },
+              {
+                "label": "Complejo Veracruz 3459",
+                "value": "complejo-veracruz-3459"
+              },
+              {
+                "label": "Los Piletones",
+                "value": "los-piletones"
+              },
+              {
+                "label": "Predio IVC",
+                "value": "predio-ivc"
+              },
+              {
+                "label": "San Francisco",
+                "value": "san-francisco"
+              },
+              {
+                "label": "Villa 21-24",
+                "value": "villa-21-24"
+              },
+              {
+                "label": "Villa 26",
+                "value": "villa-26"
+              }
+            ]
+          },
+          {
+            "name": "almirante-brown-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "2 de Abril",
+                "value": "2-de-abril"
+              },
+              {
+                "label": "14 de Noviembre",
+                "value": "14-de-noviembre"
+              },
+              {
+                "label": "Arroyo del Rey",
+                "value": "arroyo-del-rey"
+              },
+              {
+                "label": "Barrio Bicentenario",
+                "value": "barrio-bicentenario"
+              },
+              {
+                "label": "Barrio Lindo I",
+                "value": "barrio-lindo-i"
+              },
+              {
+                "label": "Barrio Lindo II",
+                "value": "barrio-lindo-ii"
+              },
+              {
+                "label": "Barrio Santa Ana",
+                "value": "barrio-santa-ana"
+              },
+              {
+                "label": "Glew",
+                "value": "glew"
+              },
+              {
+                "label": "La Cumbre",
+                "value": "la-cumbre"
+              },
+              {
+                "label": "Las Tunas",
+                "value": "las-tunas"
+              },
+              {
+                "label": "Medalla Milagrosa",
+                "value": "medalla-milagrosa"
+              },
+              {
+                "label": "San Pablo",
+                "value": "san-pablo"
+              },
+              {
+                "label": "Santa Ana",
+                "value": "santa-ana"
+              }
+            ]
+          },
+          {
+            "name": "avellaneda-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "7 de Enero",
+                "value": "7-de-enero"
+              },
+              {
+                "label": "7 de Septiembre",
+                "value": "7-de-septiembre"
+              },
+              {
+                "label": "Asentamiento Luján",
+                "value": "asentamiento-lujan"
+              },
+              {
+                "label": "Barrio Alianza",
+                "value": "barrio-alianza"
+              },
+              {
+                "label": "Barrio La Saladita",
+                "value": "barrio-la-saladita"
+              },
+              {
+                "label": "Barrio La Saladita Norte",
+                "value": "barrio-la-saladita-norte"
+              },
+              {
+                "label": "CAEM",
+                "value": "caem"
+              },
+              {
+                "label": "Deheza y Helguera",
+                "value": "deheza-y-helguera"
+              },
+              {
+                "label": "Entre Vías",
+                "value": "entre-vias"
+              },
+              {
+                "label": "Ex ACINDAR",
+                "value": "ex-acindar"
+              },
+              {
+                "label": "French y Autopista",
+                "value": "french-y-autopista"
+              },
+              {
+                "label": "Gerli",
+                "value": "gerli"
+              },
+              {
+                "label": "Isla Maciel",
+                "value": "isla-maciel"
+              },
+              {
+                "label": "Nueva Ana",
+                "value": "nueva-ana"
+              },
+              {
+                "label": "Los Cardales",
+                "value": "los-cardales"
+              },
+              {
+                "label": "Pasaje Aldaz",
+                "value": "pasaje-aldaz"
+              },
+              {
+                "label": "Predio Madariaga",
+                "value": "predio-madariaga"
+              },
+              {
+                "label": "Predio Llaneza",
+                "value": "predio-llaneza"
+              },
+              {
+                "label": "Predio Pinzón",
+                "value": "predio-pinzon"
+              },
+              {
+                "label": "Predio Pitágoras",
+                "value": "predio-pitagoras"
+              },
+              {
+                "label": "Pte. Agüero",
+                "value": "pte-aguero"
+              },
+              {
+                "label": "Rancho Grande",
+                "value": "rancho-grande"
+              },
+              {
+                "label": "Relámpago",
+                "value": "relampago"
+              },
+              {
+                "label": "Tellier",
+                "value": "tellier"
+              },
+              {
+                "label": "Villa Azul",
+                "value": "villa-azul"
+              },
+              {
+                "label": "Villa Corina",
+                "value": "villa-corina"
+              },
+              {
+                "label": "Villa Inflamable",
+                "value": "villa-inflamable"
+              },
+              {
+                "label": "Villa Tranquila",
+                "value": "villa-tranquila"
+              }
+            ]
+          },
+          {
+            "name": "esteban-echeverria-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "9 de Enero",
+                "value": "9-de-enero"
+              },
+              {
+                "label": "Barrio Montecarlo",
+                "value": "barrio-montecarlo"
+              },
+              {
+                "label": "Juan Pablo II",
+                "value": "uan-pablo-ii"
+              },
+              {
+                "label": "Las Praderas",
+                "value": "las-praderas"
+              },
+              {
+                "label": "Papa Francisco",
+                "value": "papa-francisco"
+              },
+              {
+                "label": "Sarmiento",
+                "value": "sarmiento"
+              }
+            ]
+          },
+          {
+            "name": "la-matanza-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "22 de Enero",
+                "value": "22-de-enero"
+              },
+              {
+                "label": "Arroyo las Víboras",
+                "value": "arroyo-las-viboras"
+              },
+              {
+                "label": "Artilleros",
+                "value": "artilleros"
+              },
+              {
+                "label": "Asentamiento J.L. Cabezas",
+                "value": "asentamiento-jl-cabezas"
+              },
+              {
+                "label": "Asentamiento la Isla (La Saladita)",
+                "value": "asentamiento-la-isla-la-saladita"
+              },
+              {
+                "label": "Asentamiento los Ceibos Sur",
+                "value": "asentamiento-los-ceibos-sur"
+              },
+              {
+                "label": "Asentamiento mi Esperanza",
+                "value": "asentamiento-mi-esperanza"
+              },
+              {
+                "label": "Barrio Scasso",
+                "value": "barrio-scasso"
+              },
+              {
+                "label": "Don Juan",
+                "value": "don-juan"
+              },
+              {
+                "label": "El mosquito",
+                "value": "el-mosquito"
+              },
+              {
+                "label": "Evo Morales",
+                "value": "evo-morales"
+              },
+              {
+                "label": "Finocchieto",
+                "value": "finocchieto"
+              },
+              {
+                "label": "Dupy",
+                "value": "dupy"
+              },
+              {
+                "label": "Las antenas",
+                "value": "Las-antenas"
+              },
+              {
+                "label": "La Bastilla I",
+                "value": "la-bastilla-i"
+              },
+              {
+                "label": "La Bastilla II",
+                "value": "la-bastilla-ii"
+              },
+              {
+                "label": "Lucero",
+                "value": "lucero"
+              },
+              {
+                "label": "Puerta de Hierro",
+                "value": "puerta-de-hierro"
+              },
+              {
+                "label": "Villa Domingo Villán",
+                "value": "villa-domingo-villan"
+              },
+              {
+                "label": "Villa Godoy Cruz",
+                "value": "villa-godoy-cruz"
+              },
+              {
+                "label": "Villa San Petersburgo",
+                "value": "villa-san-petersburgo"
+              },
+              {
+                "label": "Villa Santos Vega",
+                "value": "villa-santos-vega"
+              },
+              {
+                "label": "Villa Susana",
+                "value": "villa-susana"
+              }
+            ]
+          },
+          {
+            "name": "lanus-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "10 de Enero",
+                "value": "10-de-enero"
+              },
+              {
+                "label": "Acuba I",
+                "value": "acuba-i"
+              },
+              {
+                "label": "Acuba II",
+                "value": "acuba-ii"
+              },
+              {
+                "label": "Asentamiento Pte. Alsina",
+                "value": "asentamiento-pte-alsina"
+              },
+              {
+                "label": "Fabricaciones Militares",
+                "value": "fabricaciones-militares"
+              },
+              {
+                "label": "La Fe",
+                "value": "la-fe"
+              },
+              {
+                "label": "La Maquinita",
+                "value": "la-maquinita"
+              },
+              {
+                "label": "San Francisco de Asís",
+                "value": "san-francisco-de-asis"
+              },
+              {
+                "label": "Vialidad Nacional (Néstor Kirchner)",
+                "value": "vialidad-nacional-nestor-kirchner"
+              },
+              {
+                "label": "Villa Besada",
+                "value": "villa-besada"
+              },
+              {
+                "label": "Villa Jardín",
+                "value": "villa-jardin"
+              },
+              {
+                "label": "Villa Talleres",
+                "value": "villa-talleres"
+              }
+            ]
+          },
+          {
+            "name": "lomas-de-zamora-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "Asentamiento 3 de Enero",
+                "value": "asentamiento-3-de-enero"
+              },
+              {
+                "label": "Asentamiento 2 de Mayo",
+                "value": "asentamiento-2-de-mayo"
+              },
+              {
+                "label": "Asentamiento 1 de Octubre",
+                "value": "asentamiento-1-de-octubre"
+              },
+              {
+                "label": "Asentamiento Amanecer",
+                "value": "asentamiento-amanecer"
+              },
+              {
+                "label": "Asentamiento DAM",
+                "value": "asentamiento-dam"
+              },
+              {
+                "label": "Asentamiento La Lonja",
+                "value": "asentamiento-la-lonja"
+              },
+              {
+                "label": "Asentamiento Libertad",
+                "value": "asentamiento-libertad"
+              },
+              {
+                "label": "Asentamiento Soledad",
+                "value": "asentamiento-soledad"
+              },
+              {
+                "label": "Barrio Unamuno",
+                "value": "barrio-unamuno"
+              },
+              {
+                "label": "Predio la Herradura",
+                "value": "predio-la-herradura"
+              },
+              {
+                "label": "Predio Pombo I",
+                "value": "predio-pombo-i"
+              },
+              {
+                "label": "Predio Pombo II",
+                "value": "predio-pombo-ii"
+              }
+            ]
+          },
+          {
+            "name": "marcos-paz-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "El Palenque",
+                "value": "el-palenque"
+              },
+              {
+                "label": "El Zorzal",
+                "value": "el-zorzal"
+              },
+              {
+                "label": "Gándara",
+                "value": "gandara"
+              },
+              {
+                "label": "Rayo de Sol",
+                "value": "rayo-de-sol"
+              },
+              {
+                "label": "Santa Catalina",
+                "value": "santa-catalina"
+              },
+              {
+                "label": "Urioste",
+                "value": "urioste"
+              }
+            ]
+          },
+          {
+            "name": "merlo-barrios",
+            "type": "dropdown_autocomplete",
+            "includeOnListItem": true,
+            "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+            "display_prompt": "Barrio",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "hidden_default": true,
+            "optional": false,
+            "content": [
+              {
+                "label": "El Juancito",
+                "value": "el-juancito"
+              },
+              {
+                "label": "Las Torres",
+                "value": "las-torres"
+              }
+            ]
+          },
+          {
+            "name": "otro-municipio",
+            "type": "text",
+            "prompt": "Otro (especificar municipio)",
+            "placeholder": "Escribí el nombre de tu municipio...",
+            "display_prompt": "Municipio",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "otro-barrio",
+            "type": "text",
+            "prompt": "Otro (especificar barrio)",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "display_prompt": "Barrio",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "situacion_de_relocalizacion",
+            "type": "big_radio",
+            "prompt": "Situación de Relocalización: marca la opción que describa mejor tu situación con respecto al programa de relocalización de villas y asentamientos de la Cuenca Matanza Riachuelo.",
+            "optional": false,
+            "triggers": [
+              {
+                "value": "otro-barrio",
+                "targets": ["barrio-antes"]
+              },
+              {
+                "value": "otros",
+                "targets": ["otra-situacion"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Me relocalizaron en otro barrio o complejo habitacional",
+                "value": "otro-barrio"
+              },
+              {
+                "label": "Me informaron que me van a relocalizar pero aún no sucedió.",
+                "value": "no-sucedio"
+              },
+              {
+                "label": "Soy habitante de un barrio donde hubo o habrá personas relocalizadas pero no es mi caso.",
+                "value": "barrio-pero-no-mi-caso"
+              },
+              {
+                "label": "Soy habitante de un barrio o complejo habitacional al que llegaron personas relocalizadas de otros barrios de la Cuenca del Río Matanza Riachuelo.",
+                "value": "barrio-que-llegaron-personas"
+              },
+              {
+                "label": "Otros",
+                "value": "otros"
+              }
+            ]
+          },
+          {
+            "name": "barrio-antes",
+            "type": "text",
+            "prompt": "¿En qué barrio vivía antes?",
+            "placeholder": "Escribí el nombre de tu barrio...",
+            "display_prompt": "Barrio antes",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "otra-situacion",
+            "type": "text",
+            "prompt": "Describí tu situación con respecto al programa",
+            "placeholder": "Escribí aquí...",
+            "display_prompt": "Otra situación",
+            "hidden_default": true,
+            "optional": false
+          },
+          {
+            "name": "tema_interese",
+            "type": "big_radio",
+            "prompt": "¿Sobre cuál de los siguientes temas vas a comentar? Elegí la temática que se adecua mejor a lo que vas a compartir.",
+            "optional": false,
+            "content": [
+              {
+                "label": "Participación en el proceso relocalización/mesas de trabajo",
+                "value": "participacion"
+              },
+              {
+                "label": "Información sobre el proceso de relocalización",
+                "value": "informacion"
+              },
+              {
+                "label": "Salud",
+                "value": "salud"
+              },
+              {
+                "label": "Vivienda",
+                "value": "vivienda"
+              },
+              {
+                "label": "Hábitat: servicios públicos, infraestructura barrial y ambiente",
+                "value": "habitat"
+              },
+              {
+                "label": "Acceso y conexión con la ciudad y movilidad urbana",
+                "value": "conexion"
+              },
+              {
+                "label": "Situación económica y laboral",
+                "value": "economica-y-laboral"
+              },
+              {
+                "label": "Educación",
+                "value": "educacion"
+              },
+              {
+                "label": "Relaciones comunitarias y acciones",
+                "value": "relaciones-comunitarias"
+              },
+              {
+                "label": "Otros",
+                "value": "otros"
+              }
+            ]
+          },
+          {
+            "name": "comentario",
+            "type": "textarea",
+            "prompt": "Comentario",
+            "placeholder": "Comentario...",
+            "display_prompt": "Comentario",
             "optional": true
           },
           {
-            "name": "description",
-            "type": "textarea",
-            "includeOnListItem": true,
-            "prompt": "¿Cuál es tu queja?",
-            "display_prompt": " ",
-            "placeholder": "Ingresar queja..."
-          },
-          {
-            "name": "submitter_name",
-            "type": "common_form_element"
-          },
-          {
-            "name": "private-submitter_email",
-            "type": "common_form_element"
+            "name": "additional_info",
+            "type": "rich_textarea",
+            "prompt": "Información Adicional",
+            "display_prompt": "Información Adicional",
+            "placeholder": "Adjunte archivos PDF, videos y otra información"
           },
           {
             "name": "my_image",
             "type": "common_form_element"
+          },
+          {
+            "name": "relocalizaciones-pdf",
+            "type": "pdf",
+            "prompt": "Comparte un PDF",
+            "label": "Agregar un PDF",
+            "optional": true
           },
           {
             "name": "submit",
@@ -557,19 +3807,6 @@
       }
     ],
     "common_form_elements": {
-      "submitter_name": {
-        "type": "text",
-        "prompt": "Nombre",
-        "placeholder": "Nombre",
-        "optional": true
-      },
-      "private-submitter_email": {
-        "type": "text",
-        "prompt": "Correo electrónico",
-        "placeholder": "Recibir noticias sobre este comentario",
-        "optional": true,
-        "sticky": true
-      },
       "my_image": {
         "type": "file",
         "prompt": "Comparte una imagen",
@@ -579,6 +3816,308 @@
       "submit": {
         "type": "submit",
         "label": "¡Añadir al mapa!"
+      },
+      "barrio": {
+        "type": "dropdown_autocomplete",
+        "includeOnListItem": true,
+        "prompt": "¿En cuál de los siguientes barrios vivís actualmente?",
+        "display_prompt": "Barrio",
+        "placeholder": "Escribí el nombre de tu barrio...",
+        "optional": false,
+        "content": [
+          {
+            "label": "Las Antenas",
+            "value": "las-antenas"
+          },
+          {
+            "label": "Santos Vega",
+            "value": "santos-vega"
+          },
+          {
+            "label": "Los Ceibos",
+            "value": "los-ceibos"
+          },
+          {
+            "label": "La Bastilla II",
+            "value": "la-bastilla-ii"
+          },
+          {
+            "label": "La Bastilla I",
+            "value": "la-bastilla-i"
+          },
+          {
+            "label": "Barrio Scasso",
+            "value": "barrio-scasso"
+          },
+          {
+            "label": "Talleres",
+            "value": "talleres"
+          },
+          {
+            "label": "Villa Jardin (Ex FFMM)",
+            "value": "villa-jardin-ex-ffmm"
+          },
+          {
+            "label": "N. Kirchner (Ex Vialidad)",
+            "value": "n-kirchner-ex-vialidad"
+          },
+          {
+            "label": "La Maquinita",
+            "value": "la-maquinita"
+          },
+          {
+            "label": "Acuba",
+            "value": "acuba"
+          },
+          {
+            "label": "Barrio Unamuno",
+            "value": "barrio-unamuno"
+          },
+          {
+            "label": "Predio Pombo I",
+            "value": "predio-pombo-i"
+          },
+          {
+            "label": "Predio La Herradura",
+            "value": "predio-la-herradura"
+          },
+          {
+            "label": "Predio Pombo II",
+            "value": "predio-pombo-ii"
+          },
+          {
+            "label": "Las Torres",
+            "value": "las-torres"
+          },
+          {
+            "label": "Juancito",
+            "value": "juancito"
+          },
+          {
+            "label": "Barrio Lindo",
+            "value": "barrio-lindo"
+          },
+          {
+            "label": "Viviendas En Glew",
+            "value": "viviendas-en-glew"
+          },
+          {
+            "label": "Santa Ana",
+            "value": "santa-ana"
+          },
+          {
+            "label": "Barrio Bicentenario",
+            "value": "barrio-bicentenario"
+          },
+          {
+            "label": "Montecarlo",
+            "value": "montecarlo"
+          },
+          {
+            "label": "Juan Pablo II",
+            "value": "juan-pablo-ii"
+          },
+          {
+            "label": "Papa Francisco",
+            "value": "papa-francisco"
+          },
+          {
+            "label": "Lacarra 2049",
+            "value": "lacarra-2049"
+          },
+          {
+            "label": "Mundo Grua (Ribera Iguazu)",
+            "value": "mundo-grua-ribera-iguazu"
+          },
+          {
+            "label": "Predio IVC Viviendas",
+            "value": "predio-ivc-viviendas"
+          },
+          {
+            "label": "San Antonio 721",
+            "value": "san-antonio-721"
+          },
+          {
+            "label": "Luzuriaga 837",
+            "value": "luzuriaga-837"
+          },
+          {
+            "label": "Los Piletones",
+            "value": "los-piletones"
+          },
+          {
+            "label": "Valparaiso 3459",
+            "value": "valparaiso-3459"
+          },
+          {
+            "label": "Australia",
+            "value": "australia"
+          },
+          {
+            "label": "Osvaldo Cruz Y Luna",
+            "value": "osvaldo-cruz-y-luna"
+          },
+          {
+            "label": "Pepiri Y Taborda",
+            "value": "pepiri-y-taborda"
+          },
+          {
+            "label": "San Francisco",
+            "value": "san-francisco"
+          },
+          {
+            "label": "Orma Y Magaldi",
+            "value": "orma-y-magaldi"
+          },
+          {
+            "label": "Padre Mugica",
+            "value": "padre-mugica"
+          },
+          {
+            "label": "Lujan",
+            "value": "lujan"
+          },
+          {
+            "label": "Magaldi",
+            "value": "magaldi"
+          },
+          {
+            "label": "Rodrigo Bueno",
+            "value": "rodrigo-bueno"
+          },
+          {
+            "label": "El Pueblito",
+            "value": "el-pueblito"
+          },
+          {
+            "label": "Irala Y Liberti",
+            "value": "irala-y-liberti"
+          },
+          {
+            "label": "Olavarria 71",
+            "value": "olavarria-71"
+          },
+          {
+            "label": "Irala 750",
+            "value": "irala-750"
+          },
+          {
+            "label": "Zabaleta 896",
+            "value": "zabaleta-896"
+          },
+          {
+            "label": "P. Suipacha",
+            "value": "p-suipacha"
+          },
+          {
+            "label": "Deheza Y Cosquin",
+            "value": "deheza-y-cosquin"
+          },
+          {
+            "label": "Estanislao Del Campo",
+            "value": "estanislao-del-campo"
+          },
+          {
+            "label": "Predio Pinzon",
+            "value": "predio-pinzon"
+          },
+          {
+            "label": "Los Cardales",
+            "value": "los-cardales"
+          },
+          {
+            "label": "Pte. Agucero",
+            "value": "pte-agucero"
+          },
+          {
+            "label": "Nueva Ana",
+            "value": "nueva-ana"
+          },
+          {
+            "label": "Alianza",
+            "value": "alianza"
+          },
+          {
+            "label": "7 De Septiembre",
+            "value": "7-de-septiembre"
+          },
+          {
+            "label": "Azul",
+            "value": "azul"
+          },
+          {
+            "label": "7 De Enero",
+            "value": "7-de-enero"
+          },
+          {
+            "label": "Isla Maciel",
+            "value": "isla-maciel"
+          },
+          {
+            "label": "French Y Autopista",
+            "value": "french-y-autopista"
+          },
+          {
+            "label": "Medialuna",
+            "value": "medialuna"
+          },
+          {
+            "label": "Ex Acindar",
+            "value": "ex-acindar"
+          },
+          {
+            "label": "Tellier",
+            "value": "tellier"
+          },
+          {
+            "label": "Relampago",
+            "value": "relampago"
+          },
+          {
+            "label": "Isla Maciel",
+            "value": "isla-maciel"
+          },
+          {
+            "label": "Predio Madariaga",
+            "value": "predio-madariaga"
+          },
+          {
+            "label": "Pasaje Aldaz",
+            "value": "pasaje-aldaz"
+          },
+          {
+            "label": "Caem",
+            "value": "caem"
+          },
+          {
+            "label": "Entre Vias",
+            "value": "entre-vias"
+          },
+          {
+            "label": "Predio Llaneza",
+            "value": "predio-llaneza"
+          },
+          {
+            "label": "Predio Pitagoras",
+            "value": "predio-pitagoras"
+          },
+          {
+            "label": "Deheza Y Helguera",
+            "value": "deheza-y-helguera"
+          },
+          {
+            "label": "Barrio La Saladita",
+            "value": "barrio-la-saladita"
+          },
+          {
+            "label": "Barrio Saladita Norte",
+            "value": "barrio-saladita-norte"
+          },
+          {
+            "label": "Otro",
+            "value": "otro"
+          }
+        ]
       }
     }
   },
@@ -638,6 +4177,10 @@
       "url": "/page/about",
       "name": "overview",
       "start_page": true
+    },
+    {
+      "title": "Racimos",
+      "type": "featuredPlacesMenu"
     }
   ],
   "pages": [
@@ -648,5 +4191,27 @@
         "<p>Más información por venir...</p>"
       ]
     }
-  ]
+  ],
+  "featuredPlaces": {
+    "name": "clusters",
+    "header": "Racimos",
+    "visibleLayerGroupIds": [
+      "satellite",
+      "renabap",
+      "riachuelo-villas-y-asentamientos-precarios",
+      "riachuelo-obras-convenio",
+      "riachuelo-mesas-trabajo",
+      "quepasa-input"
+    ],
+    "order": [
+      {
+        "renderIn": "FeaturedPlacesMenu",
+        "placeId": 9041,
+        "zoom": 12.18,
+        "pan_to": [-58.40005, -34.66138],
+        "iconUrl": "/static/css/images/markers/marker-amenaza.png",
+        "spotlight": false
+      }
+    ]
+  }
 }

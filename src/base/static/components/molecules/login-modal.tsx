@@ -22,7 +22,7 @@ import { makeStyles, createStyles } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 
 import IconButton from "@material-ui/core/IconButton";
-import { useTranslation } from "react-i18next";
+import { withTranslation, WithTranslation } from "react-i18next";
 import Typography from "@material-ui/core/Typography";
 
 const useSocialButtonStyles = makeStyles({
@@ -47,10 +47,11 @@ const SocialLoginButton = ({
   let backgroundColor: string;
   let SocialIcon: React.ReactType;
   switch (loginProvider.name) {
-    case "twitter":
-      backgroundColor = "#4099ff";
-      SocialIcon = MuiTwitterIcon;
-      break;
+    // TODO: fix twitter (X) logins
+    //case "twitter":
+    //  backgroundColor = "#4099ff";
+    //  SocialIcon = MuiTwitterIcon;
+    //  break;
     case "facebook":
       backgroundColor = "#3b5998";
       SocialIcon = MuiFacebookFIcon;
@@ -67,7 +68,7 @@ const SocialLoginButton = ({
       // eslint-disable-next-line no-console
       console.error("unknown loginProvider.name:", loginProvider.name);
       backgroundColor = "#4099ff";
-      SocialIcon = MuiTwitterIcon;
+      SocialIcon = MuiGoogleIcon;
   }
 
   const classes = useSocialButtonStyles({ backgroundColor });
@@ -107,14 +108,14 @@ type Props = {
   appConfig: AppConfig;
   disableRestoreFocus?: boolean;
   render: (openModal: () => void) => React.ReactNode;
-};
+} & WithTranslation;
 
 const LoginModal = ({
   appConfig,
   disableRestoreFocus = false,
   render,
+  t,
 }: Props) => {
-  const [t] = useTranslation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const openModal = () => setIsOpen(true);
   const classes = useStyles();
@@ -138,7 +139,7 @@ const LoginModal = ({
           disableTypography
         >
           <Typography css={{ textAlign: "center", width: "100%" }} variant="h5">
-            {t("signIn", "Sign In")}
+            {t("signInMsg", "Sign In")}
           </Typography>
           <IconButton
             css={{
@@ -164,13 +165,15 @@ const LoginModal = ({
           }}
         >
           <List>
-            {appConfig.loginProviders.map(loginProvider => (
-              <SocialLoginButton
-                key={loginProvider.provider}
-                loginProvider={loginProvider}
-                apiRoot={appConfig.api_root}
-              />
-            ))}
+            {appConfig.loginProviders
+              .filter(loginProvider => loginProvider.name !== "twitter")
+              .map(loginProvider => (
+                <SocialLoginButton
+                  key={loginProvider.provider}
+                  loginProvider={loginProvider}
+                  apiRoot={appConfig.api_root}
+                />
+              ))}
           </List>
           <DialogContentText
             css={{ fontSize: ".8em" }}
@@ -192,4 +195,4 @@ const LoginModal = ({
   );
 };
 
-export default LoginModal;
+export default withTranslation("LoginModal")(LoginModal);

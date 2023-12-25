@@ -2,9 +2,9 @@
 export type LeftSidebarOption = {
   layerGroupId: string;
   title: string;
-  info?: {
+  modal?: {
     header: string;
-    body: string;
+    body: string[];
   };
   // If an options with a filter is toggled, the layerGroup's filter is toggled:
   filter?: string;
