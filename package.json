@@ -79,7 +79,7 @@
     "immer": "^9.0.19",
     "immutable": "^3.8.2",
     "lodash.groupby": "^4.6.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.41",
     "node-env-file": "^0.1.7",
     "sass": "^1.69.5",
