@@ -1,3 +1,5 @@
 {
-  "mapCenterpointOverlayMsg": "Drag the map"
+  "MapCenterpoint": {
+    "mapCenterpointOverlayMsg": "Drag the map"
+  }
 }

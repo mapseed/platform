@@ -1,3 +1,5 @@
 {
-  "dragMapAlert": "Arrastre y amplíe el mapa para establecer la ubicación de su publicación."
+  "FormCategoryMenuWrapper": {
+    "dragMapAlert": "Arrastre y amplíe el mapa para establecer la ubicación de su publicación."
+  }
 }

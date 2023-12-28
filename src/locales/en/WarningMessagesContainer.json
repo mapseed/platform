@@ -1,4 +1,6 @@
 {
-  "missingRequired": "Please fill out the field(s) outlined below.",
-  "mapNotDragged": "It looks like you haven't set a location for your post. Please drag and zoom the map to set a location."
+  "WarningMessagesContainer": {
+    "missingRequired": "Please fill out the field(s) outlined below.",
+    "mapNotDragged": "It looks like you haven't set a location for your post. Please drag and zoom the map to set a location."
+  }
 }

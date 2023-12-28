@@ -1,3 +1,5 @@
 {
-  "dragMapAlert": "Please drag and zoom the map to set the location for your post."
+  "FormCategoryMenuWrapper": {
+    "dragMapAlert": "Please drag and zoom the map to set the location for your post."
+  }
 }

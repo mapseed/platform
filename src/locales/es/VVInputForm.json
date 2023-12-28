@@ -1,5 +1,7 @@
 {
-  "exitOrContinueHeader": "¡Gracias por su comentario!",
-  "submitAnother": "Enviar otro comentario",
-  "exitSurvey": "Salir"
+  "VVInputForm": {
+    "exitOrContinueHeader": "¡Gracias por su comentario!",
+    "submitAnother": "Enviar otro comentario",
+    "exitSurvey": "Salir"
+  }
 }

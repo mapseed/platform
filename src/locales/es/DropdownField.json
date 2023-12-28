@@ -1,3 +1,5 @@
 {
-  "makeSelection": "Elegir una opción"
+  "DropdownField": {
+    "makeSelection": "Elegir una opción"
+  }
 }

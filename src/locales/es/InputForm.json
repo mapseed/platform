@@ -1,5 +1,7 @@
 {
-  "validationHeader": "Su publicación se ve bien, pero necesitamos más información antes de poder continuar.",
-  "privateSubmissionModalHeader": "Gracias!",
-  "privateSubmissionModalBody": "Su información fue enviada exitosamente y permanecerá privada."
+  "InputForm": {
+    "validationHeader": "Su publicación se ve bien, pero necesitamos más información antes de poder continuar.",
+    "privateSubmissionModalHeader": "Gracias!",
+    "privateSubmissionModalBody": "Su información fue enviada exitosamente y permanecerá privada."
+  }
 }

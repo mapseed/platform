@@ -3,6 +3,7 @@ import * as React from "react";
 import {
   NavigationControl,
   GeolocateControl,
+  FullscreenControl,
   GeolocateControlProps,
 } from "react-map-gl";
 import { jsx } from "@emotion/core";
@@ -40,17 +41,12 @@ class CustomControl extends React.Component<CustomControlProps> {
 
   render() {
     return (
-      <div
-        className="mapboxgl-ctrl mapboxgl-ctrl-group"
-        style={{ marginTop: "8px" }}
-      >
-        <button
-          className={`mapboxgl-ctrl-icon ${this.props.icon}`}
-          type="button"
-          title="Custom control"
-          onClick={this.props.onClick}
-        />
-      </div>
+      <button
+        className={`mapboxgl-ctrl-icon ${this.props.icon}`}
+        type="button"
+        title="Custom control"
+        onClick={this.props.onClick}
+      />
     );
   }
 }
@@ -72,37 +68,42 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
   const setViewport = viewport => {
     eventEmitter.emit("setMapViewport", viewport);
   };
+
   return (
-    <div
-      className="mapseed-map-controls"
-      css={{
-        position: "absolute",
-        top: "8px",
-        left: "8px",
-      }}
-    >
-      <NavigationControl onViewportChange={setViewport} />
+    <div style={{ position: "absolute", top: "8px", left: "8px" }}>
+      <NavigationControl
+        showCompass={true}
+        showZoom={true}
+        onViewportChange={setViewport}
+        position="top-left"
+        style={{ position: "relative" }}
+      />
       <GeolocateControl
         trackUserLocation={true}
         positionOptions={{ enableHighAccuracy: true, timeout: 6000 }}
-        style={{
-          marginTop: "8px",
-        }}
+        position="top-left"
+        style={{ position: "relative", marginTop: "8px" }}
       />
-      <CustomControl
-        icon={props.leftSidebarConfig.icon}
-        onClick={() => props.setLeftSidebarExpanded(true)}
+      <FullscreenControl
+        position="top-left"
+        style={{ position: "relative", marginTop: "8px" }}
       />
-      {props.isMeasurementToolEnabled && (
+      <div className="mapboxgl-ctrl-group" style={{ marginTop: "8px" }}>
         <CustomControl
-          icon={"fas fa-ruler-combined"}
-          onClick={() =>
-            props.updateMeasurementToolVisibility(
-              !props.isMeasurementToolVisible,
-            )
-          }
+          icon={props.leftSidebarConfig.icon}
+          onClick={() => props.setLeftSidebarExpanded(true)}
         />
-      )}
+        {props.isMeasurementToolEnabled && (
+          <CustomControl
+            icon={"fas fa-ruler-combined"}
+            onClick={() =>
+              props.updateMeasurementToolVisibility(
+                !props.isMeasurementToolVisible,
+              )
+            }
+          />
+        )}
+      </div>
     </div>
   );
 };

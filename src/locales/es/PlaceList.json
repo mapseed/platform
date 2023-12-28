@@ -1,6 +1,8 @@
 {
-  "search": "Buscar",
-  "mostRecent": "Más Reciente",
-  "mostSupports": "La Mayoría de la Patrocina",
-  "mostComments": "La Mayoría de los Comentarios"
+  "PlaceList": {
+    "search": "Buscar",
+    "mostRecent": "Más Reciente",
+    "mostSupports": "La Mayoría de la Patrocina",
+    "mostComments": "La Mayoría de los Comentarios"
+  }
 }

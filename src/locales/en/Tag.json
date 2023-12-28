@@ -1,4 +1,6 @@
 {
-  "showMore": "(show more)",
-  "showLess": "(show less)"
+  "Tag": {
+    "showMore": "(show more)",
+    "showLess": "(show less)"
+  }
 }

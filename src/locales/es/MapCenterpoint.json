@@ -1,3 +1,5 @@
 {
-  "mapCenterpointOverlayMsg": "Arrastrar el mapa"
+  "MapCenterpoint": {
+    "mapCenterpointOverlayMsg": "Arrastrar el mapa"
+  }
 }

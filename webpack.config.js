@@ -116,8 +116,7 @@ module.exports = {
       },
       {
         test: /locales/,
-        loader: "i18next-resource-store-loader",
-        include: /\.json$/,
+        loader: "@alienfast/i18next-loader",
       },
       {
         test: /\.s?css$/,
@@ -210,7 +209,7 @@ module.exports = {
       },
     }),
   ],
-  devtool: isProd ? false : "eval-cheap-source-map",
+  devtool: isProd ? false : "eval-cheap-module-source-map",
   devServer: {
     static: {
       directory: outputPath,

@@ -1,5 +1,7 @@
 {
-  "nextStageLinkLabel": "Next",
-  "previousStageLinkLabel": "Back",
-  "progressCounter": "Page <1>{{currentStage}}</1> of <3>{{numStages}}</3>"
+  "FormStageControlBar": {
+    "nextStageLinkLabel": "Next",
+    "previousStageLinkLabel": "Back",
+    "progressCounter": "Page <1>{{currentStage}}</1> of <3>{{numStages}}</3>"
+  }
 }

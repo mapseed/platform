@@ -1,3 +1,5 @@
 {
-  "submitterActionText": "<0><0>{{submitterName}}</0></0> <2><0>{{actionText}}</0> this</2>"
+  "MetadataBar": {
+    "submitterActionText": "<0><0>{{submitterName}}</0></0> <2><0>{{actionText}}</0> this</2>"
+  }
 }

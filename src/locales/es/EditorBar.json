@@ -1,6 +1,8 @@
 {
-  "toggleBtn": "Editar",
-  "saveBtn": "Guardar",
-  "removeBtn": "Borrar",
-  "confirmRemove": "¿Quieres realmente borrarlo?"
+  "EditorBar": {
+    "toggleBtn": "Editar",
+    "saveBtn": "Guardar",
+    "removeBtn": "Borrar",
+    "confirmRemove": "¿Quieres realmente borrarlo?"
+  }
 }

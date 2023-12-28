@@ -1,5 +1,7 @@
 {
-  "saved": "Saved",
-  "notSaved": "Not saved",
-  "confirmCommentRemove": "Are you sure you want to remove this comment?"
+  "SurveyResponseEditor": {
+    "saved": "Saved",
+    "notSaved": "Not saved",
+    "confirmCommentRemove": "Are you sure you want to remove this comment?"
+  }
 }

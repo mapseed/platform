@@ -1,6 +1,8 @@
 {
-  "supportThis": "support this",
-  "comment": "comment",
-  "viewOnMap": "View on Map",
-  "this": "this"
+  "PlaceListItem": {
+    "supportThis": "support this",
+    "comment": "comment",
+    "viewOnMap": "View on Map",
+    "this": "this"
+  }
 }

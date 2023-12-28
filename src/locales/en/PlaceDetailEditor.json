@@ -1,6 +1,8 @@
 {
-  "toggleBtn": "Edit this post",
-  "saveBtn": "Save",
-  "removeBtn": "Remove",
-  "validationErrorHeaderMsg": "We're sorry, but we need some more information before we can update this post."
+  "PlaceDetailEditor": {
+    "toggleBtn": "Edit this post",
+    "saveBtn": "Save",
+    "removeBtn": "Remove",
+    "validationErrorHeaderMsg": "We're sorry, but we need some more information before we can update this post."
+  }
 }

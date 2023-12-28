@@ -1,3 +1,5 @@
 {
-  "locationNotFoundError": "Lo sentimos, no pudimos encontrar esa ubicación."
+  "GeocodingField": {
+    "locationNotFoundError": "Lo sentimos, no pudimos encontrar esa ubicación."
+  }
 }

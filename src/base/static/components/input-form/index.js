@@ -73,9 +73,8 @@ class InputForm extends Component {
 
   componentDidMount() {
     if (this.selectedCategoryConfig.multi_stage) {
-      const stageConfig = this.selectedCategoryConfig.multi_stage[
-        this.state.currentStage - 1
-      ];
+      const stageConfig =
+        this.selectedCategoryConfig.multi_stage[this.state.currentStage - 1];
 
       stageConfig.visibleLayerGroupIds &&
         this.updateLayerGroupVisibilities(
@@ -116,9 +115,8 @@ class InputForm extends Component {
       this.selectedCategoryConfig.multi_stage &&
       this.state.currentStage !== prevState.currentStage
     ) {
-      const stageConfig = this.selectedCategoryConfig.multi_stage[
-        this.state.currentStage - 1
-      ];
+      const stageConfig =
+        this.selectedCategoryConfig.multi_stage[this.state.currentStage - 1];
       const stageFields = this.getFieldsFromStage({
         fields: this.state.fields,
         stage: stageConfig,
@@ -259,8 +257,8 @@ class InputForm extends Component {
     ) {
       this.validateForm(() => {
         jumpTo({
-          contentPanelInnerContainerRef: this.props
-            .contentPanelInnerContainerRef,
+          contentPanelInnerContainerRef:
+            this.props.contentPanelInnerContainerRef,
           scrollPosition: 0,
           layout: this.props.layout,
         });
@@ -281,8 +279,8 @@ class InputForm extends Component {
     ) {
       this.validateForm(() => {
         jumpTo({
-          contentPanelInnerContainerRef: this.props
-            .contentPanelInnerContainerRef,
+          contentPanelInnerContainerRef:
+            this.props.contentPanelInnerContainerRef,
           scrollPosition: 0,
           layout: this.props.layout,
         });
@@ -300,19 +298,17 @@ class InputForm extends Component {
   }
 
   validateForm(successCallback) {
-    const {
-      validationErrors: newValidationErrors,
-      isValid,
-    } = this.getFields().reduce(
-      ({ validationErrors, isValid }, field) => {
-        if (!field.get("isValid")) {
-          validationErrors.add(field.get("message"));
-          isValid = false;
-        }
-        return { validationErrors, isValid };
-      },
-      { validationErrors: new Set(), isValid: true },
-    );
+    const { validationErrors: newValidationErrors, isValid } =
+      this.getFields().reduce(
+        ({ validationErrors, isValid }, field) => {
+          if (!field.get("isValid")) {
+            validationErrors.add(field.get("message"));
+            isValid = false;
+          }
+          return { validationErrors, isValid };
+        },
+        { validationErrors: new Set(), isValid: true },
+      );
 
     if (isValid) {
       successCallback();
@@ -462,11 +458,8 @@ class InputForm extends Component {
       });
     }
 
-    const {
-      privateNonAdmin,
-      privateAdmin,
-      nonPrivate,
-    } = this.props.placeConfirmationModal(this.props.datasetSlug);
+    const { privateNonAdmin, privateAdmin, nonPrivate } =
+      this.props.placeConfirmationModal(this.props.datasetSlug);
     if (
       placeResponse.private &&
       this.props.hasGroupAbilitiesInDatasets({
@@ -570,14 +563,16 @@ class InputForm extends Component {
   }
 
   getFields() {
-    return (this.selectedCategoryConfig.multi_stage
-      ? this.getFieldsFromStage({
-          fields: this.state.fields,
-          stage: this.selectedCategoryConfig.multi_stage[
-            this.state.currentStage - 1
-          ],
-        })
-      : this.state.fields
+    return (
+      this.selectedCategoryConfig.multi_stage
+        ? this.getFieldsFromStage({
+            fields: this.state.fields,
+            stage:
+              this.selectedCategoryConfig.multi_stage[
+                this.state.currentStage - 1
+              ],
+          })
+        : this.state.fields
     ).filter(field => field.get("isVisible"));
   }
 
@@ -658,6 +653,7 @@ class InputForm extends Component {
                   onClickSubmit={this.onSubmit.bind(this)}
                 />
               ))
+              .valueSeq()
               .toArray()}
           </form>
           {this.state.isFormSubmitting && <LoadingBar />}
@@ -669,8 +665,8 @@ class InputForm extends Component {
               onClickAdvanceStage={() => {
                 this.validateForm(() => {
                   jumpTo({
-                    contentPanelInnerContainerRef: this.props
-                      .contentPanelInnerContainerRef,
+                    contentPanelInnerContainerRef:
+                      this.props.contentPanelInnerContainerRef,
                     scrollPosition: 0,
                     layout: this.props.layout,
                   });
@@ -689,8 +685,8 @@ class InputForm extends Component {
                   this.props.onCategoryChange(null);
                 } else {
                   jumpTo({
-                    contentPanelInnerContainerRef: this.props
-                      .contentPanelInnerContainerRef,
+                    contentPanelInnerContainerRef:
+                      this.props.contentPanelInnerContainerRef,
                     scrollPosition: 0,
                     layout: this.props.layout,
                   });

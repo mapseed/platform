@@ -1,4 +1,6 @@
 {
-  "subcategorySummaryLabel": "Todos",
-  "inputListHeader": "¿Qué preocupaciónes tienes sobre este jardín o su futuro desarrollo?"
+  "InputExplorerInputListHeader": {
+    "subcategorySummaryLabel": "Todos",
+    "inputListHeader": "¿Qué preocupaciónes tienes sobre este jardín o su futuro desarrollo?"
+  }
 }
