@@ -72,7 +72,7 @@
     "downloadjs": "^1.4.7",
     "emotion-theming": "^10.0.19",
     "eventemitter3": "^4.0.0",
-    "glob": "^10.3.10",
+    "glob": "^7.1.6",
     "hoist-non-react-statics": "^3.3.0",
     "html-webpack-plugin": "^5.5.0",
     "i18next": "^19.4.4",
