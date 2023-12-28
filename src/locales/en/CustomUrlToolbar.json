@@ -1,3 +1,5 @@
 {
-  "urlReadoutPrefix": "Your post will be accessible at:"
+  "CustomUrlToolbar": {
+    "urlReadoutPrefix": "Your post will be accessible at:"
+  }
 }

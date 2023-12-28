@@ -174,8 +174,8 @@ class PlaceDetailEditor extends Component {
         if (this.attachments.length) {
           await Promise.all(
             this.attachments.map(async attachment => {
-              const attachmentResponse = await mapseedApiClient.attachments.create(
-                {
+              const attachmentResponse =
+                await mapseedApiClient.attachments.create({
                   placeUrl: placeResponse.url,
                   attachment,
                   includePrivate: this.props.hasGroupAbilitiesInDatasets({
@@ -183,8 +183,7 @@ class PlaceDetailEditor extends Component {
                     datasetSlugs: [this.props.place.datasetSlug],
                     submissionSet: "places",
                   }),
-                },
-              );
+                });
 
               if (attachmentResponse) {
                 placeResponse.attachments.push(attachmentResponse);
@@ -219,8 +218,8 @@ class PlaceDetailEditor extends Component {
         this.props.updateEditModeToggled(false);
         this.props.onRequestEnd();
         jumpTo({
-          contentPanelInnerContainerRef: this.props
-            .contentPanelInnerContainerRef,
+          contentPanelInnerContainerRef:
+            this.props.contentPanelInnerContainerRef,
           scrollPositon: 0,
           layout: this.props.layout,
         });
@@ -407,6 +406,7 @@ class PlaceDetailEditor extends Component {
                 updatingField={this.state.updatingField}
               />
             ))
+            .valueSeq()
             .toArray()}
           {this.state.isNetworkRequestInFlight && <LoadingBar />}
         </form>

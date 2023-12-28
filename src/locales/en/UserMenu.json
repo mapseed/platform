@@ -1,5 +1,7 @@
 {
-  "signIn": "Sign In",
-  "logOut": "Log Out",
-  "signedInAs": "Signed in as"
+  "UserMenu": {
+    "signIn": "Sign In",
+    "logOut": "Log Out",
+    "signedInAs": "Signed in as"
+  }
 }

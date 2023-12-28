@@ -245,6 +245,7 @@ class Survey extends Component {
                         onClickSubmit={this.onSubmit.bind(this)}
                       />
                     ))
+                    .valueSeq()
                     .toArray()}
                 </form>
               </div>

@@ -1,3 +1,5 @@
 {
-  "signInMsg": "Iniciar sesión"
+  "LoginModal": {
+    "signInMsg": "Iniciar sesión"
+  }
 }

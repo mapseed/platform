@@ -1,5 +1,7 @@
 {
-  "signIn": "Registrarse",
-  "logOut": "Cerrar sesión",
-  "signedInAs": "Registrado como"
+  "UserMenu": {
+    "signIn": "Registrarse",
+    "logOut": "Cerrar sesión",
+    "signedInAs": "Registrado como"
+  }
 }

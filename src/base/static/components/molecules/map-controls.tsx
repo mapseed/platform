@@ -3,6 +3,7 @@ import * as React from "react";
 import {
   NavigationControl,
   GeolocateControl,
+  FullscreenControl,
   GeolocateControlProps,
 } from "react-map-gl";
 import { jsx } from "@emotion/core";
@@ -40,14 +41,12 @@ class CustomControl extends React.Component<CustomControlProps> {
 
   render() {
     return (
-      <div className="mapboxgl-ctrl">
-        <button
-          className={`mapboxgl-ctrl-icon ${this.props.icon}`}
-          type="button"
-          title="Custom control"
-          onClick={this.props.onClick}
-        />
-      </div>
+      <button
+        className={`mapboxgl-ctrl-icon ${this.props.icon}`}
+        type="button"
+        title="Custom control"
+        onClick={this.props.onClick}
+      />
     );
   }
 }
@@ -82,6 +81,10 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
       <GeolocateControl
         trackUserLocation={true}
         positionOptions={{ enableHighAccuracy: true, timeout: 6000 }}
+        position="top-left"
+        style={{ position: "relative", marginTop: "8px" }}
+      />
+      <FullscreenControl
         position="top-left"
         style={{ position: "relative", marginTop: "8px" }}
       />

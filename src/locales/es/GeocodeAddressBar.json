@@ -1,3 +1,5 @@
 {
-  "placeholderMsg": "Introduce una direccion..."
+  "GeocodeAddressBar": {
+    "placeholderMsg": "Introduce una direccion..."
+  }
 }

@@ -1,3 +1,5 @@
 {
-  "optionalMsg": "(opcional)"
+  "FormField": {
+    "optionalMsg": "(opcional)"
+  }
 }

@@ -1,4 +1,6 @@
 {
-  "recommendationsLabel": "Recommendations",
-  "concernsLabel": "Concerns"
+  "InputExplorerSummary": {
+    "recommendationsLabel": "Recommendations",
+    "concernsLabel": "Concerns"
+  }
 }

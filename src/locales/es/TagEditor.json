@@ -1,3 +1,5 @@
 {
-  "addNotePlaceholder": "(Añadir un comentario...)"
+  "TagEditor": {
+    "addNotePlaceholder": "(Añadir un comentario...)"
+  }
 }
