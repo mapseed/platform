@@ -125,7 +125,7 @@
       "bath": {
         "type": "raster",
         "tiles": [
-          "https://geo.mapseed.org/bathymetry/?service=wmts&request=gettile&layers=0&version=1.0.0&tilematrixset=default028mm&format=image/png&transparent=false&style=default&height=256&width=256&tilematrix={z}&tilecol={x}&tilerow={y}"
+          "https://services.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}.png"
         ]
       },
       "hillshade": {
