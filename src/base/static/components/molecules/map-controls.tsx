@@ -75,17 +75,14 @@ const MapControls: React.FunctionComponent<MapControlProps> = props => {
         showCompass={true}
         showZoom={true}
         onViewportChange={setViewport}
-        position="top-left"
         style={{ position: "relative" }}
       />
       <GeolocateControl
         trackUserLocation={true}
         positionOptions={{ enableHighAccuracy: true, timeout: 6000 }}
-        position="top-left"
         style={{ position: "relative", marginTop: "8px" }}
       />
       <FullscreenControl
-        position="top-left"
         style={{ position: "relative", marginTop: "8px" }}
       />
       <div className="mapboxgl-ctrl-group" style={{ marginTop: "8px" }}>
