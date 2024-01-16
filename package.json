@@ -154,7 +154,7 @@
     "raf": "^3.4.1",
     "s3-website": "github:mapseed/s3-website#1cc73823eded520c4c85b5567abe41f32a910c68",
     "sass-loader": "^7.3.1",
-    "source-map-loader": "^0.2.4",
+    "source-map-loader": "^5.0.0",
     "spritesmith": "^3.4.0",
     "style-loader": "^2.0.0",
     "svg-inline-loader": "^0.8.0",
