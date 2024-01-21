@@ -1250,7 +1250,7 @@
     "mapViewport": {
       "latitude": 47.1726,
       "longitude": -123.76793,
-      "zoom": 7.95,
+      "zoom": 8.4,
       "pitch": 3,
       "minzoom": 1,
       "maxzoom": 18
@@ -1341,15 +1341,15 @@
             "id": "light-nolabels",
             "type": "raster",
             "source": "light-nolabels",
-            "maxzoom": 11,
+            "maxzoom": 9,
             "paint": {
               "raster-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                10,
+                8,
                 1,
-                11,
+                9,
                 0
               ]
             }
@@ -1358,15 +1358,15 @@
             "id": "satellite-basemap",
             "type": "raster",
             "source": "satellite",
-            "minzoom": 10,
+            "minzoom": 8,
             "paint": {
               "raster-opacity": [
                 "interpolate",
                 ["linear"],
                 ["zoom"],
-                10,
+                8,
                 0,
-                11,
+                9,
                 1
               ]
             }
@@ -1842,7 +1842,7 @@
           },
           {
             "start_field_index": 102,
-            "end_field_index": 111,
+            "end_field_index": 112,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -3551,6 +3551,13 @@
             "name": "almost_done",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>14. Almost Completed!</h3><p>This page will determine how your information is shared. We will report all practices at the watershed analysis unit scale, but if you are interested in having your project showcased you can give us permission below. Either way, we will be using your stewardship practice to capture how agriculture is protecting and/or restoring critical areas and maintaining the viability of agriculture.</p>"
+          },
+          {
+            "name": "my_image",
+            "type": "file",
+            "prompt": "Show your stewardship practices! Upload photos before, during, or after you implemented your stewardship practices:",
+            "label": "Upload photos",
+            "optional": true
           },
           {
             "name": "share_photos",
