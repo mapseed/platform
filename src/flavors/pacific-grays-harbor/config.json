@@ -1859,7 +1859,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h3><p></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h3><img style='max-width:100%' src='/static/css/images/pgh-landing-page.png' /><p></p>"
           },
           {
             "name": "location_why",
@@ -3688,8 +3688,17 @@
     {
       "title": "Start",
       "type": "internal_link",
-      "url": "/page/start",
-      "start_page": true
+      "url": "/new"
+    },
+    {
+      "title": "Contacts",
+      "type": "internal_link",
+      "url": "/page/contacts"
+    },
+    {
+      "title": "Past Project Media",
+      "type": "internal_link",
+      "url": "/page/media"
     }
   ],
   "pages": [
@@ -3702,7 +3711,55 @@
     {
       "slug": "start",
       "content": [
-        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Pacific/Grays Harbor Voluntary Stewards!</h3></div>"
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Grays Harbor Conservation District!</h3></div>",
+        "<img src='/static/css/images/pgh-landing-page.png' />",
+        "<p>The Grays Harbor Conservation District utilizes many local, state and federal resources to fund and manage the implementation of natural resource projects throughout our territory and we know that many of our local landowners are doing the same!</p>",
+        "<p>To better share the Grays Harbor stewardship story GHCD has put this mapping / survey tool together where stewards can share as much or as little about their efforts as they would like. We encourage you to share your stewardship and we thank you!</p>"
+      ]
+    },
+    {
+      "slug": "contacts",
+      "content": [
+        "<h3 id='about-page-header'>Contacts</h3>",
+        "<img src='/static/css/images/pgh-landing-page.png' />",
+        "<ul style='list-style:none;padding:8px;margin-top:8px'>",
+        "<li>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>David Marcell</strong>",
+        "<p style='margin:0;color:#888;'><em>Executive Director</em></p>",
+        "</div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 470-6483</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>dmarcell@graysharborcd.org</span></div>",
+        "</li>",
+        "<li style='margin-top: 24px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Nate Jackson</strong>",
+        "<p style='margin:0;color:#888;'><em>Natural Resource Technician</em></p>",
+        "</div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 463-0919</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>njackson@graysharborcd.org</span></div>",
+        "</li>",
+        "<li style='margin-top: 24px'>",
+        "<div style='margin-bottom: 8px'>",
+        "<strong style='margin-bottom:0'>Alexander Birk</strong>",
+        "<p style='margin:0;color:#888;'><em>Education and Outreach Program Manager</em></p>",
+        "</div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 346-7829</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>abirk@graysharborcd.org</span></div>",
+        "</li>",
+        "</ul>"
+      
+      ]
+    },
+    {
+      "slug": "media",
+      "content": [
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Past Project Media</h3></div>",
+        "<iframe width='560' height='315' src='https://www.youtube.com/embed/1FoTdiN6OZ8?si=tGs1jejdZS8RGGlJ' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe>",
+        "<ul>",
+        "<li style='margin-top:16px'><strong><a href='https://www.youtube.com/channel/UClGCKCD4DnVb1YuLt_kZRNg' target='_blank'>Pacific & Grays Harbor Conservation Districts - YouTube</a></strong></li>",
+        "<li style='margin-top:16px'><strong><a href='https://linktr.ee/graysharborcd' target='_blank'>GHCD Link Tree</a></strong></li>",
+        "</ul>"
       ]
     }
   ],
