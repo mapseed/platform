@@ -66,7 +66,7 @@
       "placeConfirmationModal": {
         "nonPrivate": {
           "header": "Thanks for reporting your voluntary stewardship!",
-          "body": ["TODO"]
+          "body": [""]
         },
         "privateNonAdmin": {
           "header": "Thanks for reporting your voluntary stewardship!",
@@ -1797,7 +1797,7 @@
           },
           {
             "start_field_index": 25,
-            "end_field_index": 45,
+            "end_field_index": 47,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1805,8 +1805,8 @@
             ]
           },
           {
-            "start_field_index": 46,
-            "end_field_index": 61,
+            "start_field_index": 48,
+            "end_field_index": 65,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1814,8 +1814,8 @@
             ]
           },
           {
-            "start_field_index": 62,
-            "end_field_index": 75,
+            "start_field_index": 66,
+            "end_field_index": 79,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1823,8 +1823,8 @@
             ]
           },
           {
-            "start_field_index": 76,
-            "end_field_index": 84,
+            "start_field_index": 80,
+            "end_field_index": 88,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1832,8 +1832,8 @@
             ]
           },
           {
-            "start_field_index": 85,
-            "end_field_index": 101,
+            "start_field_index": 89,
+            "end_field_index": 105,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1841,8 +1841,8 @@
             ]
           },
           {
-            "start_field_index": 102,
-            "end_field_index": 112,
+            "start_field_index": 106,
+            "end_field_index": 116,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -2246,6 +2246,7 @@
                 "targets": [
                   "fencing_riparian",
                   "fencing_quantity",
+                  "fencing_conserve_quantity",
                   "fencing_datetime"
                 ]
               }
@@ -2293,6 +2294,17 @@
                 "value": "no"
               }
             ]
+          },
+          {
+            "name": "fencing_conserve_quantity",
+            "type": "number",
+            "prompt": "How many acres of riparian area did the livestock exclusion fencing conserve?",
+            "min": 0,
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
           },
           {
             "name": "fencing_datetime",
@@ -2420,6 +2432,7 @@
                 "value": "yes",
                 "targets": [
                   "agriculture_invasive_species_type",
+                  "agriculture_invasive_species_type_other",
                   "agriculture_invasive_species_treatment_method",
                   "agriculture_invasive_species_datetime"
                 ]
@@ -2474,12 +2487,16 @@
               {
                 "label": "Evergreen Blackberry",
                 "value": "evergreen_blackberry"
-              },
-              {
-                "label": "Other",
-                "value": "other"
               }
             ]
+          },
+          {
+            "name": "agriculture_invasive_species_type_other",
+            "type": "text",
+            "prompt": "Other...",
+            "placeholder": "Please name other invasive species treated...",
+            "optional": true,
+            "hidden_default": true
           },
           {
             "name": "agriculture_invasive_species_treatment_method",
@@ -2541,7 +2558,7 @@
             "name": "watershed_restoration_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Water Projects</h3><p></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Watershed Restoration</h3><p></p>"
           },
           {
             "//": "=============== INSTREAM HABITAT ================================",
@@ -2554,6 +2571,8 @@
               {
                 "value": "yes",
                 "targets": [
+                  "instream_habitat_type",
+                  "instream_habitat_type_other",
                   "instream_habitat_quantity",
                   "instream_habitat_bank_shaping",
                   "instream_habitat_datetime"
@@ -2576,10 +2595,38 @@
             ]
           },
           {
+            "name": "instream_habitat_type",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "What Type of Instream Structures have you installed?",
+            "content": [
+              {
+                "label": "ELJ (Engineered Log Jam",
+                "value": "engineered_log_jam"
+              },
+              {
+                "label": "BDA (Beaver Dam Analogue",
+                "value": "beaver_dam_analogue"
+              },
+              {
+                "label": "LWD (Large Woody Debris)",
+                "value": "large_woody_debris"
+              }
+            ]
+          },
+          {
+            "name": "instream_habitat_type_other",
+            "type": "text",
+            "prompt": "Other...",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
             "name": "instream_habitat_quantity",
             "type": "number",
             "min": 0,
-            "prompt": "How many structures?",
+            "prompt": "How many total structures were installed?",
             "placeholder": "Approximate number of structures",
             "hidden_default": true,
             "metadata": {
@@ -2589,7 +2636,7 @@
           {
             "name": "instream_habitat_bank_shaping",
             "type": "big_radio",
-            "prompt": "Did your project include bank shaping?",
+            "prompt": "Did your project include streambank shaping channel recreation?",
             "label": "Bank shaping",
             "optional": true,
             "hidden_default": true,
@@ -2707,8 +2754,8 @@
             "name": "watershed_invasive_species",
             "type": "big_radio",
             "hidden_default": true,
-            "prompt": "Invasive Species Management",
-            "label": "Invasive Species Management",
+            "prompt": "Riparian Invasive Species Management",
+            "label": "Riparian Invasive Species Management",
             "optional": true,
             "triggers": [
               {
@@ -3563,15 +3610,20 @@
             "name": "share_photos",
             "type": "big_radio",
             "prompt": "Can The Grays Harbor Conservervation District highlight your photos in our current media platforms?",
-            "optional": true,
+            "default_value": "yes",
+            "optional": false,
             "content": [
               {
                 "label": "Yes",
                 "value": "yes"
               },
               {
-                "label": "No",
+                "label": "No, Share my project information with Grays Harbor Conservation District only.",
                 "value": "no"
+              },
+              {
+                "label": "I’d like more information. (For more information, contact GHCD @ (360) 249-8532)",
+                "value": "more_info"
               }
             ]
           },
@@ -3582,19 +3634,19 @@
             "default_value": "no",
             "content": [
               {
-                "label": "Yes",
+                "label": "Yes (Checking \"yes\" will place a pin on this map upon submission and your stewardship actions will be published.)",
                 "value": "no"
               },
               {
-                "label": "No",
+                "label": "No, share my project information with Grays Harbor Conservation District only.",
                 "value": "yes"
               },
               {
-                "label": "No, but need more information",
+                "label": "No, I'd like more information (For more information, contact GHCD @ (360) 249-8532)",
                 "value": "more_info"
               }
             ],
-            "optional": true
+            "optional": false
           },
           {
             "name": "private-landowner_name",
