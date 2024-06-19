@@ -40,7 +40,7 @@
         "value": "marine_resiliency",
         "label": "Marine resiliency",
         "setDefault": true,
-        "icon": "/static/css/images/markers/marker-marine-resiliency.png"
+        "icon": "/static/css/images/markers/marker-marine-resiliency2.png"
       },
       {
         "placeProperty": "which_project_type",
@@ -80,7 +80,7 @@
   "app": {
     "title": "Pacific/Grays Harbor Voluntary Stewardship Program",
     "name": "Pacific/Grays Harbor Voluntary Stewardship Program",
-    "logo": "/static/css/images/pacific-cd-logo.png",
+    "logo": "/static/css/images/GHCD-Logo-NEW2024.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
     "thumbnail": "/static/css/images/thumbnail.png",
@@ -1603,7 +1603,7 @@
                 ["==", ["get", "which_project_type"], "forest_health"],
                 "marker-forestry.png",
                 ["==", ["get", "which_project_type"], "marine_resiliency"],
-                "marker-marine-resiliency.png",
+                "marker-marine-resiliency2.png",
                 ["==", ["get", "which_project_type"], "education_outreach"],
                 "marker-idea.png",
                 "marker-idea.png"
@@ -1627,7 +1627,7 @@
                 ["==", ["get", "which_project_type"], "forest_health"],
                 "marker-forestry.png",
                 ["==", ["get", "which_project_type"], "marine_resiliency"],
-                "marker-marine-resiliency.png",
+                "marker-marine-resiliency2.png",
                 ["==", ["get", "which_project_type"], "education_outreach"],
                 "marker-idea.png",
                 "marker-idea.png"
@@ -2541,12 +2541,20 @@
                 "value": "funding_vsp"
               },
               {
-                "label": "Community Streambank Project (CSP)",
-                "value": "funding_csp"
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
               },
               {
                 "label": "Aquatic Species Restoration Plan (ASRP)",
                 "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
               },
               {
                 "label": "No, but I would like more information",
@@ -2866,12 +2874,20 @@
                 "value": "funding_vsp"
               },
               {
-                "label": "Community Streambank Project (CSP)",
-                "value": "funding_csp"
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
               },
               {
                 "label": "Aquatic Species Restoration Plan (ASRP)",
                 "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
               },
               {
                 "label": "No, but I would like more information",
@@ -3152,12 +3168,20 @@
                 "value": "funding_vsp"
               },
               {
-                "label": "Community Streambank Project (CSP)",
-                "value": "funding_csp"
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
               },
               {
                 "label": "Aquatic Species Restoration Plan (ASRP)",
                 "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
               },
               {
                 "label": "No, but I would like more information",
@@ -3298,12 +3322,20 @@
                 "value": "funding_vsp"
               },
               {
-                "label": "Community Streambank Project (CSP)",
-                "value": "funding_csp"
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
               },
               {
                 "label": "Aquatic Species Restoration Plan (ASRP)",
                 "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
               },
               {
                 "label": "No, but I would like more information",
@@ -3580,12 +3612,20 @@
                 "value": "funding_vsp"
               },
               {
-                "label": "Community Streambank Project (CSP)",
-                "value": "funding_csp"
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
               },
               {
                 "label": "Aquatic Species Restoration Plan (ASRP)",
                 "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
               },
               {
                 "label": "No, but I would like more information",
@@ -3738,9 +3778,10 @@
   },
   "nav_bar": [
     {
-      "title": "Start",
+      "title": "About",
       "type": "internal_link",
-      "url": "/new"
+      "url": "/page/about",
+      "start_page": true
     },
     {
       "title": "Contacts",
@@ -3755,18 +3796,12 @@
   ],
   "pages": [
     {
-      "slug": "contact",
+      "slug": "about",
       "content": [
-        "<h3 id='about-page-header'>Voluntary Stewardship Program assistance</h3>"
-      ]
-    },
-    {
-      "slug": "start",
-      "content": [
-        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Grays Harbor Conservation District!</h3></div>",
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Grays Harbor Conservation District!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<img src='/static/css/images/pgh-landing-page.png' />",
         "<p>The Grays Harbor Conservation District utilizes many local, state and federal resources to fund and manage the implementation of natural resource projects throughout our territory and we know that many of our local landowners are doing the same!</p>",
-        "<p>To better share the Grays Harbor stewardship story GHCD has put this mapping / survey tool together where stewards can share as much or as little about their efforts as they would like. We encourage you to share your stewardship and we thank you!</p>"
+        "<p>To better share the Grays Harbor stewardship story GHCD has put this mapping / survey tool together where stewards can share as much or as little about their efforts as they would like. We encourage you to share your stewardship and we thank you!</p>" 
       ]
     },
     {
