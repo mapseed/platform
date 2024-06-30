@@ -30,7 +30,7 @@ const Subheader = styled(RegularText)`
   margin-top: 0;
 `;
 
-const excludedFields = ["share_photos", "contact_interest", "private"];
+const excludedFields = ["share_photos", "contact_interest", "private", "vsp_status"];
 
 const SnohomishFieldSummary = props => {
   const fieldConfigs = fieldResponseFilter(props.fields, props.place).filter(
