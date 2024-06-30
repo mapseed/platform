@@ -90,6 +90,8 @@ header {
 [data-field-name="envirothon_school_name"],
 [data-field-name="instream_habitat_type"],
 [data-field-name="watershed_invasive_species_treatment_method"],
+[data-field-name="watershed_invasive_species_type_other"],
+[data-field-name="forestry_invasive_species_type_other"],
 [data-field-name="organic_fertilization_types"] {
   background-color: #efefef !important;
   margin-top: 0 !important;
