@@ -1246,7 +1246,7 @@
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
     "geocodeHint": [-123.730959, 47.141837],
-    "scrollZoomAroundCenter": true,
+    "scrollZoomAroundCenter": false,
     "mapViewport": {
       "latitude": 47.1726,
       "longitude": -123.76793,
@@ -2246,7 +2246,7 @@
                 "targets": [
                   "fencing_riparian",
                   "fencing_quantity",
-                  "fencing_conserve_quantity",
+                  "fencing_riparian_quantity",
                   "fencing_datetime"
                 ]
               }
@@ -2296,7 +2296,7 @@
             ]
           },
           {
-            "name": "fencing_conserve_quantity",
+            "name": "fencing_riparian_quantity",
             "type": "number",
             "prompt": "How many acres of riparian area did the livestock exclusion fencing conserve?",
             "min": 0,
