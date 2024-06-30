@@ -11,7 +11,7 @@
         "operator": "equals",
         "datasetSlug": "pacific-grays-harbor-input",
         "value": "agriculture",
-        "label": "Agricultural stewardship",
+        "label": "Agricultural Sustainability",
         "setDefault": true,
         "icon": "/static/css/images/markers/marker-field.png"
       },
@@ -20,7 +20,7 @@
         "operator": "equals",
         "datasetSlug": "pacific-grays-harbor-input",
         "value": "watershed_restoration",
-        "label": "Watershed restoration",
+        "label": "Watershed Restoration",
         "setDefault": true,
         "icon": "/static/css/images/markers/marker-watershed-restoration.png"
       },
@@ -29,7 +29,7 @@
         "operator": "equals",
         "datasetSlug": "pacific-grays-harbor-input",
         "value": "forestry",
-        "label": "Forestry stewardship",
+        "label": "Forestry & Wildfire",
         "setDefault": true,
         "icon": "/static/css/images/markers/marker-forestry.png"
       },
@@ -38,7 +38,7 @@
         "operator": "equals",
         "datasetSlug": "pacific-grays-harbor-input",
         "value": "marine_resiliency",
-        "label": "Marine resiliency",
+        "label": "Marine Resiliency",
         "setDefault": true,
         "icon": "/static/css/images/markers/marker-marine-resiliency2.png"
       },
@@ -47,7 +47,7 @@
         "operator": "equals",
         "datasetSlug": "pacific-grays-harbor-input",
         "value": "education_outreach",
-        "label": "Education & outreach",
+        "label": "Education & Outreach",
         "setDefault": true,
         "icon": "/static/css/images/markers/marker-idea.png"
       }
@@ -905,7 +905,7 @@
             {
               "header": "Name and contact",
               "type": "string",
-              "fractionalWidth": 2,
+              "fractionalWidth": 3,
               "value": [
                 "cat",
                 ["get-val", "private-landowner_name"],
@@ -914,9 +914,21 @@
               ]
             },
             {
+              "header": "Link to Report",
+              "type": "place-link",
+              "fractionalWidth": 1,
+              "value": [
+                "cat-join",
+                "",
+                ["get-val", "clientSlug"],
+                ["literal", "/"],
+                ["get-val", "id"]
+              ]
+            },
+            {
               "header": "Submitted report on",
               "type": "date",
-              "fractionalWidth": 1,
+              "fractionalWidth": 2,
               "value": ["get-val", "created_datetime"]
             },
             {
@@ -1246,7 +1258,7 @@
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
     "geocodeHint": [-123.730959, 47.141837],
-    "scrollZoomAroundCenter": true,
+    "scrollZoomAroundCenter": false,
     "mapViewport": {
       "latitude": 47.1726,
       "longitude": -123.76793,
@@ -1814,8 +1826,8 @@
             ]
           },
           {
-            "start_field_index": 66,
-            "end_field_index": 79,
+            "start_field_index": 67,
+            "end_field_index": 80,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1823,8 +1835,8 @@
             ]
           },
           {
-            "start_field_index": 80,
-            "end_field_index": 88,
+            "start_field_index": 82,
+            "end_field_index": 90,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1832,8 +1844,8 @@
             ]
           },
           {
-            "start_field_index": 89,
-            "end_field_index": 105,
+            "start_field_index": 91,
+            "end_field_index": 107,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1841,8 +1853,8 @@
             ]
           },
           {
-            "start_field_index": 106,
-            "end_field_index": 116,
+            "start_field_index": 108,
+            "end_field_index": 118,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -2246,7 +2258,7 @@
                 "targets": [
                   "fencing_riparian",
                   "fencing_quantity",
-                  "fencing_conserve_quantity",
+                  "fencing_riparian_quantity",
                   "fencing_datetime"
                 ]
               }
@@ -2296,7 +2308,7 @@
             ]
           },
           {
-            "name": "fencing_conserve_quantity",
+            "name": "fencing_riparian_quantity",
             "type": "number",
             "prompt": "How many acres of riparian area did the livestock exclusion fencing conserve?",
             "min": 0,
@@ -2610,11 +2622,11 @@
             "prompt": "What Type of Instream Structures have you installed?",
             "content": [
               {
-                "label": "ELJ (Engineered Log Jam",
+                "label": "ELJ (Engineered Log Jam)",
                 "value": "engineered_log_jam"
               },
               {
-                "label": "BDA (Beaver Dam Analogue",
+                "label": "BDA (Beaver Dam Analogue)",
                 "value": "beaver_dam_analogue"
               },
               {
@@ -2770,6 +2782,7 @@
                 "value": "yes",
                 "targets": [
                   "watershed_invasive_species_type",
+                  "watershed_invasive_species_type_other",
                   "watershed_invasive_species_treatment_method",
                   "watershed_invasive_species_datetime"
                 ]
@@ -2824,12 +2837,15 @@
               {
                 "label": "Evergreen Blackberry",
                 "value": "evergreen_blackberry"
-              },
-              {
-                "label": "Other",
-                "value": "other"
               }
             ]
+          },
+          {
+            "name": "watershed_invasive_species_type_other",
+            "type": "text",
+            "prompt": "Other...",
+            "optional": true,
+            "hidden_default": true
           },
           {
             "name": "watershed_invasive_species_treatment_method",
@@ -3086,6 +3102,7 @@
                 "value": "yes",
                 "targets": [
                   "forestry_invasive_species_type",
+                  "forestry_invasive_species_type_other",
                   "forestry_invasive_species_datetime"
                 ]
               }
@@ -3139,12 +3156,15 @@
               {
                 "label": "Evergreen Blackberry",
                 "value": "evergreen_blackberry"
-              },
-              {
-                "label": "Other",
-                "value": "other"
               }
             ]
+          },
+          {
+            "name": "forestry_invasive_species_type_other",
+            "type": "text",
+            "prompt": "Other...",
+            "optional": true,
+            "hidden_default": true
           },
           {
             "name": "forestry_invasive_species_datetime",
@@ -3486,7 +3506,7 @@
             "type": "number",
             "prompt": "Number of beds available",
             "min": 0,
-            "placeholder": "Garden beda",
+            "placeholder": "Garden beds",
             "hidden_default": true,
             "metadata": {
               "units": "beda"
