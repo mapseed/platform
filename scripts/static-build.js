@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-require("dotenv").config({ path: "src/.env" });
+require("dotenv").config({ path: "src/.env-production" });
 const path = require("path");
 const fs = require("fs-extra");
 const glob = require("glob");

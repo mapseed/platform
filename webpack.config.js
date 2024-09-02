@@ -8,7 +8,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const configPreprocessor = require("./scripts/config-preprocessor");
 
-require("dotenv").config({ path: "src/.env" });
+require("dotenv").config({ path: "src/.env-production" });
 
 const PORT = 8000;
 const flavor = process.env.FLAVOR;

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-require("dotenv").config({ path: "src/.env" });
+require("dotenv").config({ path: "src/.env-production" });
 const glob = require("glob");
 const path = require("path");
 const AWS = require("aws-sdk");

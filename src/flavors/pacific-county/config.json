@@ -165,16 +165,6 @@
               "fractionalWidth": 2
             },
             {
-              "header": "Queets-Quinault",
-              "type": "numeric",
-              "filter": ["==", ["get-val", "which_watershed"], "wria_21"]
-            },
-            {
-              "header": "Lower Chehalis",
-              "type": "numeric",
-              "filter": ["==", ["get-val", "which_watershed"], "wria_22"]
-            },
-            {
               "header": "Upper Chehalis",
               "type": "numeric",
               "filter": ["==", ["get-val", "which_watershed"], "wria_23"]
@@ -183,6 +173,11 @@
               "header": "Willapa",
               "type": "numeric",
               "filter": ["==", ["get-val", "which_watershed"], "wria_24"]
+            },
+            {
+              "header": "Grays-Elchoman",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "which_watershed"], "wria_25"]
             },
             {
               "header": "Countywide",
@@ -1922,7 +1917,7 @@
           {
             "name": "location_information_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h3><img style='max-width:100%' src='/static/css/images/pgh-landing-page.png' /><p></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>1. Your property</h3><img style='max-width:100%' src='/static/css/images/landing-page-image.png' /><p></p>"
           },
           {
             "name": "location_why",
@@ -1953,20 +1948,16 @@
             "prompt": "Of the four WRIA regions on the map (Queets-Quinault, Lower Chehalis, Upper Chehalis and Willapa ), where is your project area primarily located?",
             "content": [
               {
-                "label": "Queets-Quinault Watershed - WRIA 21",
-                "value": "wria_21"
-              },
-              {
-                "label": "Lower Chehalis Watershed - WRIA 22",
-                "value": "wria_22"
-              },
-              {
                 "label": "Upper Chehalis Watershed - WRIA 23",
                 "value": "wria_23"
               },
               {
                 "label": "Willapa Watershed - WRIA 24",
                 "value": "wria_24"
+              },
+              {
+                "label": "Grays-Elchoman Watershed - WRIA 25",
+                "value": "wria_25"
               }
             ]
           },
