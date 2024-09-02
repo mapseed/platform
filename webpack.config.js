@@ -179,7 +179,11 @@ module.exports = {
     ],
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      //typescript: {
+      //  typescriptPath: "/Users/trevorcroxson/.nvm/versions/node/v10.16.0/bin/tsc"
+      //}
+    }),
     new webpack.DefinePlugin({
       NODE_ENV: isProd ? JSON.stringify("production") : JSON.stringify("dev"),
       MAP_PROVIDER_TOKEN: JSON.stringify(process.env.MAP_PROVIDER_TOKEN),

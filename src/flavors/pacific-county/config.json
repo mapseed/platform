@@ -80,7 +80,7 @@
   "app": {
     "title": "Pacific County Voluntary Stewardship Program",
     "name": "Pacific County Voluntary Stewardship Program",
-    "logo": "/static/css/images/pcs-logo.png",
+    "logo": "/static/css/images/pcd-logo.png",
     "meta_description": "Welcome!",
     "meta_author": "mapseed.org",
     "thumbnail": "/static/css/images/thumbnail.png",
@@ -427,23 +427,38 @@
                   "value": "Streambank Planting Stem Count"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 }
               ]
@@ -1085,7 +1100,11 @@
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "agriculture_invasive_species"], "interested"],
+                  [
+                    "==",
+                    ["get-val", "agriculture_invasive_species"],
+                    "interested"
+                  ],
                   ["literal", "Agriculture Invasive Species Management"],
                   ["literal", ""]
                 ],
@@ -1103,7 +1122,11 @@
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "watershed_invasive_species"], "interested"],
+                  [
+                    "==",
+                    ["get-val", "watershed_invasive_species"],
+                    "interested"
+                  ],
                   ["literal", "Watershed Invasive Species Management"],
                   ["literal", ""]
                 ],
@@ -1127,7 +1150,11 @@
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "forestry_invasive_species"], "interested"],
+                  [
+                    "==",
+                    ["get-val", "forestry_invasive_species"],
+                    "interested"
+                  ],
                   ["literal", "Forestry Invasive Species Management"],
                   ["literal", ""]
                 ],
@@ -1196,27 +1223,47 @@
             {
               "header": "Wetlands",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_wetlands"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_wetlands"],
+                "yes"
+              ]
             },
             {
               "header": "Frequently flooded areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_frequently_flooded"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_frequently_flooded"],
+                "yes"
+              ]
             },
             {
               "header": "Hazardous areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_geologic_hazard"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_geologic_hazard"],
+                "yes"
+              ]
             },
             {
               "header": "Critical aquifers",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_critical_aquifer"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_critical_aquifer"],
+                "yes"
+              ]
             },
             {
               "header": "Critical conservation areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_wildlife_conservation"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_wildlife_conservation"],
+                "yes"
+              ]
             }
           ],
           "rows": [
@@ -1257,10 +1304,10 @@
     "geolocationEnabled": true,
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
-    "geocodeHint": [-123.730959, 47.141837],
+    "geocodeHint": [-123.76793, 46.567019],
     "scrollZoomAroundCenter": false,
     "mapViewport": {
-      "latitude": 47.1726,
+      "latitude": 46.567019,
       "longitude": -123.76793,
       "zoom": 8.4,
       "pitch": 3,
@@ -1327,7 +1374,7 @@
         "type": "vector",
         "maxzoom": 14,
         "tiles": [
-          "https://vector-tiles.mapseed.org/pacific-county-boundary/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/wa-county-boundaries/{z}/{x}/{y}.pbf"
         ]
       }
     },
@@ -1393,7 +1440,8 @@
             "id": "pacific-county-boundary",
             "type": "line",
             "source": "pacific-county-boundary",
-            "source-layer": "pacific-county-boundary",
+            "filter": ["==", ["get", "JURISDICT_NM"], "Pacific County"],
+            "source-layer": "wa-county-boundaries",
             "paint": {
               "line-color": "#61974b",
               "line-width": 3,
@@ -1410,20 +1458,23 @@
             "id": "pacific-wrias",
             "type": "fill",
             "source": "pacific-wrias",
-            "source-layer": "pacific-wrias",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "in",
+              ["to-string", ["get", "wria_nr"]],
+              ["literal", ["23", "24", "25"]]
+            ],
             "paint": {
               "fill-opacity": 0.5,
               "fill-color": [
                 "match",
-                ["get", "WRIA"],
-                "23",
-                "#8dd3c7",
+                ["to-string", ["get", "wria_nr"]],
                 "24",
-                "#ffffb3",
-                "22",
-                "#bebada",
-                "21",
                 "#8dd3c7",
+                "25",
+                "#bebada",
+                "23",
+                "#ffffb3",
                 "#fff"
               ]
             }
@@ -1432,7 +1483,12 @@
             "id": "pacific-wrias-outline",
             "type": "line",
             "source": "pacific-wrias",
-            "source-layer": "pacific-wrias",
+            "source-layer": "wria-boundaries-wa-all",
+            "filter": [
+              "in",
+              ["to-string", ["get", "wria_nr"]],
+              ["literal", ["23", "24", "25"]]
+            ],
             "layout": {
               "line-join": "round"
             },
@@ -1445,7 +1501,7 @@
             "id": "pacific-wrias-labels-unplaced",
             "type": "symbol",
             "source": "pacific-wrias",
-            "source-layer": "pacific-wrias",
+            "source-layer": "wria-boundaries-wa-all",
             "paint": {
               "text-halo-color": "#fff",
               "text-halo-width": 20,
@@ -1454,15 +1510,13 @@
             "layout": {
               "text-field": [
                 "match",
-                ["to-string", ["get", "WRIA"]],
-                "21",
-                "Queets-Quinault Watershed",
-                "22",
-                "Lower Chehalis Watershed",
-                "23",
-                "Upper Chehalis Watershed",
+                ["to-string", ["get", "wria_nr"]],
                 "24",
                 "Willapa Watershed",
+                "25",
+                "Grays - Elochoman Watershed",
+                "23",
+                "Upper Chehalis Watershed",
                 ""
               ],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
@@ -1707,7 +1761,7 @@
         "options": [
           {
             "layerGroupId": "pacific-county-boundary",
-            "title": "Grays Harbor County border"
+            "title": "Pacific County border"
           },
           {
             "layerGroupId": "pacific-county-input",
@@ -1793,10 +1847,7 @@
           {
             "start_field_index": 20,
             "end_field_index": 22,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "pacific-county-boundary"
-            ]
+            "visibleLayerGroupIds": ["satellite", "pacific-county-boundary"]
           },
           {
             "start_field_index": 23,
@@ -2057,7 +2108,7 @@
           {
             "name": "which_project_type",
             "type": "big_radio",
-            "prompt": "What type of project have you completed on your own or in partnership with Grays Harbor Conservation District?",
+            "prompt": "What type of project have you completed on your own or in partnership with Pacific Conservation District?",
             "content": [
               {
                 "label": "Agriculture",
@@ -3669,7 +3720,7 @@
           {
             "name": "share_photos",
             "type": "big_radio",
-            "prompt": "Can The Grays Harbor Conservervation District highlight your photos in our current media platforms?",
+            "prompt": "Can the Pacific Conservervation District highlight your photos in our current media platforms?",
             "default_value": "yes",
             "optional": false,
             "content": [
@@ -3678,7 +3729,7 @@
                 "value": "yes"
               },
               {
-                "label": "No, Share my project information with Grays Harbor Conservation District only.",
+                "label": "No, Share my project information with Pacific Conservation District only.",
                 "value": "no"
               },
               {
@@ -3698,7 +3749,7 @@
                 "value": "no"
               },
               {
-                "label": "No, share my project information with Grays Harbor Conservation District only.",
+                "label": "No, share my project information with Pacific Conservation District only.",
                 "value": "yes"
               },
               {
@@ -3818,10 +3869,10 @@
     {
       "slug": "about",
       "content": [
-        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Grays Harbor Conservation District!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
-        "<img src='/static/css/images/pgh-landing-page.png' />",
-        "<p>The Grays Harbor Conservation District utilizes many local, state and federal resources to fund and manage the implementation of natural resource projects throughout our territory and we know that many of our local landowners are doing the same!</p>",
-        "<p>To better share the Grays Harbor stewardship story GHCD has put this mapping / survey tool together where stewards can share as much or as little about their efforts as they would like. We encourage you to share your stewardship and we thank you!</p>" 
+        "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Pacific Conservation District!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
+        "<img src='/static/css/images/landing-page-image.png' />",
+        "<p>The Pacific Conservation District utilizes many local, state and federal resources to fund and manage the implementation of natural resource projects throughout our district boundary and we know that many of our local landowners are doing the same!</p>",
+        "<p>To better share our community’s stewardship story PCD has put this mapping / survey tool together where stewards can share as much or as little about their efforts as they would like. We encourage you to share your stewardship and we thank you!</p>"
       ]
     },
     {
@@ -3832,30 +3883,29 @@
         "<ul style='list-style:none;padding:8px;margin-top:8px'>",
         "<li>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>David Marcell</strong>",
-        "<p style='margin:0;color:#888;'><em>Executive Director</em></p>",
+        "<strong style='margin-bottom:0'>Mike Nordin</strong>",
+        "<p style='margin:0;color:#888;'><em>District Manager</em></p>",
         "</div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 470-6483</span></div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>dmarcell@graysharborcd.org</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 208-4451</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>mnordin@pacificcd.org</span></div>",
         "</li>",
         "<li style='margin-top: 24px'>",
         "<div style='margin-bottom: 8px'>",
-        "<strong style='margin-bottom:0'>Nate Jackson</strong>",
-        "<p style='margin:0;color:#888;'><em>Natural Resource Technician</em></p>",
+        "<strong style='margin-bottom:0'>Lorenzo Churape</strong>",
+        "<p style='margin:0;color:#888;'><em>Agricultural Programs Manager</em></p>",
         "</div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 463-0919</span></div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>njackson@graysharborcd.org</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 214-9176</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>lchurape@pacificcd.org</span></div>",
         "</li>",
         "<li style='margin-top: 24px'>",
         "<div style='margin-bottom: 8px'>",
         "<strong style='margin-bottom:0'>Alexander Birk</strong>",
         "<p style='margin:0;color:#888;'><em>Education and Outreach Program Manager</em></p>",
         "</div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 346-7829</span></div>",
-        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>abirk@graysharborcd.org</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-phone'></i><span style='margin-left:16px;'>(360) 214-9220</span></div>",
+        "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>abirk@pacificcd.org</span></div>",
         "</li>",
         "</ul>"
-      
       ]
     },
     {
@@ -3865,7 +3915,7 @@
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/1FoTdiN6OZ8?si=tGs1jejdZS8RGGlJ' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe>",
         "<ul>",
         "<li style='margin-top:16px'><strong><a href='https://www.youtube.com/channel/UClGCKCD4DnVb1YuLt_kZRNg' target='_blank'>Pacific & Grays Harbor Conservation Districts - YouTube</a></strong></li>",
-        "<li style='margin-top:16px'><strong><a href='https://linktr.ee/graysharborcd' target='_blank'>GHCD Link Tree</a></strong></li>",
+        "<li style='margin-top:16px'><strong><a href='https://linktr.ee/pacificcd' target='_blank'>PCD Link Tree</a></strong></li>",
         "</ul>"
       ]
     }
