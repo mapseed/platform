@@ -427,23 +427,38 @@
                   "value": "Streambank Planting Stem Count"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 },
                 {
-                  "value": ["get-sum", "streambank_planting_stem_count_quantity"],
+                  "value": [
+                    "get-sum",
+                    "streambank_planting_stem_count_quantity"
+                  ],
                   "label": "stems"
                 }
               ]
@@ -1085,7 +1100,11 @@
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "agriculture_invasive_species"], "interested"],
+                  [
+                    "==",
+                    ["get-val", "agriculture_invasive_species"],
+                    "interested"
+                  ],
                   ["literal", "Agriculture Invasive Species Management"],
                   ["literal", ""]
                 ],
@@ -1103,7 +1122,11 @@
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "watershed_invasive_species"], "interested"],
+                  [
+                    "==",
+                    ["get-val", "watershed_invasive_species"],
+                    "interested"
+                  ],
                   ["literal", "Watershed Invasive Species Management"],
                   ["literal", ""]
                 ],
@@ -1127,7 +1150,11 @@
                 ],
                 [
                   "case",
-                  ["==", ["get-val", "forestry_invasive_species"], "interested"],
+                  [
+                    "==",
+                    ["get-val", "forestry_invasive_species"],
+                    "interested"
+                  ],
                   ["literal", "Forestry Invasive Species Management"],
                   ["literal", ""]
                 ],
@@ -1196,27 +1223,47 @@
             {
               "header": "Wetlands",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_wetlands"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_wetlands"],
+                "yes"
+              ]
             },
             {
               "header": "Frequently flooded areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_frequently_flooded"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_frequently_flooded"],
+                "yes"
+              ]
             },
             {
               "header": "Hazardous areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_geologic_hazard"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_geologic_hazard"],
+                "yes"
+              ]
             },
             {
               "header": "Critical aquifers",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_critical_aquifer"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_critical_aquifer"],
+                "yes"
+              ]
             },
             {
               "header": "Critical conservation areas",
               "type": "numeric",
-              "filter": ["==", ["get-val", "private-property_on_wildlife_conservation"], "yes"]
+              "filter": [
+                "==",
+                ["get-val", "private-property_on_wildlife_conservation"],
+                "yes"
+              ]
             }
           ],
           "rows": [
@@ -1321,6 +1368,13 @@
         "maxzoom": 14,
         "tiles": [
           "https://vector-tiles.mapseed.org/pacific-grays-harbor-critical-aquifers-v2/{z}/{x}/{y}.pbf"
+        ]
+      },
+      "wa-wildlife": {
+        "type": "vector",
+        "maxzoom": 12,
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wa-wildlife/{z}/{x}/{y}.pbf"
         ]
       },
       "grays-harbor-county-boundary": {
@@ -1555,6 +1609,32 @@
         ]
       },
       {
+        "id": "wa-wildlife",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "wa-wildlife-fill",
+            "type": "fill",
+            "source": "wa-wildlife",
+            "source-layer": "wa-wildlife",
+            "paint": {
+              "fill-pattern": "conservation-fill.png"
+            }
+          },
+          {
+            "id": "wa-wildlife-outline",
+            "type": "line",
+            "source": "wa-wildlife",
+            "source-layer": "wa-wildlife",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
         "id": "pacific-grays-harbor-frequently-flooded",
         "visibleDefault": false,
         "legend": [
@@ -1699,6 +1779,10 @@
           {
             "layerGroupId": "pacific-grays-harbor-critical-aquifers",
             "title": "Critical Aquifers"
+          },
+          {
+            "layerGroupId": "wa-wildlife",
+            "title": "Wildlife Habitat"
           }
         ]
       },
@@ -1795,7 +1879,8 @@
             "end_field_index": 22,
             "visibleLayerGroupIds": [
               "satellite",
-              "grays-harbor-county-boundary"
+              "grays-harbor-county-boundary",
+              "wa-wildlife"
             ]
           },
           {
@@ -3821,7 +3906,7 @@
         "<div style='display:flex;align-items:center'><h3 style='flex:2' id='about-page-header'>Welcome Grays Harbor Conservation District!</h3><div style='flex:1'><a href='/new' rel='internal' class='next-btn'>Get Started</a></div></div>",
         "<img src='/static/css/images/pgh-landing-page.png' />",
         "<p>The Grays Harbor Conservation District utilizes many local, state and federal resources to fund and manage the implementation of natural resource projects throughout our territory and we know that many of our local landowners are doing the same!</p>",
-        "<p>To better share the Grays Harbor stewardship story GHCD has put this mapping / survey tool together where stewards can share as much or as little about their efforts as they would like. We encourage you to share your stewardship and we thank you!</p>" 
+        "<p>To better share the Grays Harbor stewardship story GHCD has put this mapping / survey tool together where stewards can share as much or as little about their efforts as they would like. We encourage you to share your stewardship and we thank you!</p>"
       ]
     },
     {
@@ -3855,7 +3940,6 @@
         "<div style='margin:0 0 8px 16px;'><i class='fa fa-globe'></i><span style='margin-left:16px;'>abirk@graysharborcd.org</span></div>",
         "</li>",
         "</ul>"
-      
       ]
     },
     {

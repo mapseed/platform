@@ -1365,6 +1365,13 @@
           "https://vector-tiles.mapseed.org/pacific-critical-aquifers-v2/{z}/{x}/{y}.pbf"
         ]
       },
+      "wa-wildlife": {
+        "type": "vector",
+        "maxzoom": 12,
+        "tiles": [
+          "https://vector-tiles.mapseed.org/wa-wildlife/{z}/{x}/{y}.pbf"
+        ]
+      },
       "pacific-county-boundary": {
         "type": "vector",
         "maxzoom": 14,
@@ -1604,6 +1611,32 @@
         ]
       },
       {
+        "id": "wa-wildlife",
+        "visibleDefault": false,
+        "mapboxLayers": [
+          {
+            "id": "wa-wildlife-fill",
+            "type": "fill",
+            "source": "wa-wildlife",
+            "source-layer": "wa-wildlife",
+            "paint": {
+              "fill-pattern": "conservation-fill.png"
+            }
+          },
+          {
+            "id": "wa-wildlife-outline",
+            "type": "line",
+            "source": "wa-wildlife",
+            "source-layer": "wa-wildlife",
+            "paint": {
+              "line-color": "#10e53d",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          }
+        ]
+      },
+      {
         "id": "pacific-frequently-flooded",
         "visibleDefault": false,
         "legend": [
@@ -1748,6 +1781,10 @@
           {
             "layerGroupId": "pacific-critical-aquifers",
             "title": "Critical Aquifers"
+          },
+          {
+            "layerGroupId": "wa-wildlife",
+            "title": "Wildlife Habitat"
           }
         ]
       },
@@ -1842,7 +1879,11 @@
           {
             "start_field_index": 20,
             "end_field_index": 22,
-            "visibleLayerGroupIds": ["satellite", "pacific-county-boundary"]
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "wa-wildlife"
+            ]
           },
           {
             "start_field_index": 23,
