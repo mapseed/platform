@@ -165,6 +165,11 @@
               "fractionalWidth": 2
             },
             {
+              "header": "Lower Chehalis",
+              "type": "numeric",
+              "filter": ["==", ["get-val", "which_watershed"], "wria_22"]
+            },
+            {
               "header": "Upper Chehalis",
               "type": "numeric",
               "filter": ["==", ["get-val", "which_watershed"], "wria_23"]
@@ -1360,9 +1365,9 @@
       },
       "pacific-critical-aquifers": {
         "type": "vector",
-        "maxzoom": 14,
+        "maxzoom": 12,
         "tiles": [
-          "https://vector-tiles.mapseed.org/pacific-critical-aquifers-v2/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/pacific-critical-aquifers/{z}/{x}/{y}.pbf"
         ]
       },
       "wa-wildlife": {
@@ -1464,7 +1469,7 @@
             "filter": [
               "in",
               ["to-string", ["get", "wria_nr"]],
-              ["literal", ["23", "24", "25"]]
+              ["literal", ["22", "23", "24", "25"]]
             ],
             "paint": {
               "fill-opacity": 0.5,
@@ -1477,6 +1482,8 @@
                 "#bebada",
                 "23",
                 "#ffffb3",
+                "22",
+                "#bebada",
                 "#fff"
               ]
             }
@@ -1489,7 +1496,7 @@
             "filter": [
               "in",
               ["to-string", ["get", "wria_nr"]],
-              ["literal", ["23", "24", "25"]]
+              ["literal", ["22", "23", "24", "25"]]
             ],
             "layout": {
               "line-join": "round"
@@ -1519,6 +1526,8 @@
                 "Grays - Elochoman Watershed",
                 "23",
                 "Upper Chehalis Watershed",
+                "22",
+                "Lower Chehalis Watershed",
                 ""
               ],
               "text-font": ["Poppins Bold", "Arial Unicode MS Regular"],
@@ -1567,6 +1576,7 @@
             "type": "fill",
             "source": "pacific-critical-aquifers",
             "source-layer": "pacific-critical-aquifers",
+            "filter": ["==", ["get", "County"], "PACIFIC"],
             "paint": {
               "fill-pattern": "aquifer-fill.png"
             }
@@ -1576,6 +1586,7 @@
             "type": "line",
             "source": "pacific-critical-aquifers",
             "source-layer": "pacific-critical-aquifers",
+            "filter": ["==", ["get", "County"], "PACIFIC"],
             "paint": {
               "line-color": "#e57339",
               "line-opacity": 0.7,
