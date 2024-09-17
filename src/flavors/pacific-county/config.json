@@ -1997,8 +1997,12 @@
           {
             "name": "which_watershed",
             "type": "big_radio",
-            "prompt": "Of the four WRIA regions on the map (Queets-Quinault, Lower Chehalis, Upper Chehalis and Willapa ), where is your project area primarily located?",
+            "prompt": "Of the four WRIA regions on the map (Lower Chehalis, Upper Chehalis, Willapa and Grays-Elchoman), where is your project area primarily located?",
             "content": [
+              {
+                "label": "Lower Chehalis Watershed - WRIA 22",
+                "value": "wria_22"
+              },
               {
                 "label": "Upper Chehalis Watershed - WRIA 23",
                 "value": "wria_23"
@@ -2640,7 +2644,7 @@
             "type": "big_checkbox",
             "optional": true,
             "hidden_default": false,
-            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
             "content": [
               {
                 "label": "Voluntary Stewardship Program (VSP)",
@@ -2977,7 +2981,7 @@
             "type": "big_checkbox",
             "optional": true,
             "hidden_default": false,
-            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
             "content": [
               {
                 "label": "Voluntary Stewardship Program (VSP)",
@@ -3275,7 +3279,7 @@
             "type": "big_checkbox",
             "optional": true,
             "hidden_default": false,
-            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
             "content": [
               {
                 "label": "Voluntary Stewardship Program (VSP)",
@@ -3429,7 +3433,7 @@
             "type": "big_checkbox",
             "optional": true,
             "hidden_default": false,
-            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
             "content": [
               {
                 "label": "Voluntary Stewardship Program (VSP)",
@@ -3719,7 +3723,7 @@
             "type": "big_checkbox",
             "optional": true,
             "hidden_default": false,
-            "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
             "content": [
               {
                 "label": "Voluntary Stewardship Program (VSP)",
@@ -3776,7 +3780,7 @@
                 "value": "no"
               },
               {
-                "label": "I’d like more information. (For more information, contact GHCD @ (360) 249-8532)",
+                "label": "I’d like more information. (For more information, contact PCD @ (360) 875-6735)",
                 "value": "more_info"
               }
             ]
@@ -3796,7 +3800,7 @@
                 "value": "yes"
               },
               {
-                "label": "No, I'd like more information (For more information, contact GHCD @ (360) 249-8532)",
+                "label": "No, I'd like more information (For more information, contact PCD @ (360) 875-6735)",
                 "value": "more_info"
               }
             ],
