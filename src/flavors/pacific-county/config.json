@@ -1353,7 +1353,7 @@
         "type": "vector",
         "maxzoom": 14,
         "tiles": [
-          "https://vector-tiles.mapseed.org/pacific-wetlands-v2/{z}/{x}/{y}.pbf"
+          "https://vector-tiles.mapseed.org/pacific-wetlands-v3/{z}/{x}/{y}.pbf"
         ]
       },
       "pacific-geologic-hazards": {
