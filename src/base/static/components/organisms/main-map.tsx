@@ -115,7 +115,6 @@ const mapViewportReducer = (
         // See: https://github.com/uber/react-map-gl/issues/515
         draft.latitude =
           action.payload.scrollZoomAroundCenter &&
-          !action.payload.viewport.transitionDuration &&
           action.payload.viewport.zoom !== state.zoom
             ? state.latitude
             : action.payload.viewport.latitude !== undefined
@@ -124,7 +123,6 @@ const mapViewportReducer = (
 
         draft.longitude =
           action.payload.scrollZoomAroundCenter &&
-          !action.payload.viewport.transitionDuration &&
           action.payload.viewport.zoom !== state.zoom
             ? state.longitude
             : action.payload.viewport.longitude !== undefined
