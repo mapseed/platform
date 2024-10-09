@@ -1305,7 +1305,7 @@
     "geolocationOnload": false,
     "geocodingEngine": "Mapbox",
     "geocodeHint": [-123.76793, 46.567019],
-    "scrollZoomAroundCenter": false,
+    "scrollZoomAroundCenter": true,
     "mapViewport": {
       "latitude": 46.567019,
       "longitude": -123.76793,
