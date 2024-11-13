@@ -113,21 +113,33 @@ const mapViewportReducer = (
         // though, so it would be great if react-map-gl could just
         // incorporate the scroll zoom around center option natively.
         // See: https://github.com/uber/react-map-gl/issues/515
-        draft.latitude =
-          action.payload.scrollZoomAroundCenter &&
-          action.payload.viewport.zoom !== state.zoom
-            ? state.latitude
-            : action.payload.viewport.latitude !== undefined
-            ? action.payload.viewport.latitude
-            : state.latitude;
+        const { transitionDuration, longitude, latitude, zoom } =
+          action.payload.viewport;
+        if (
+          transitionDuration !== undefined &&
+          transitionDuration > 1 &&
+          latitude !== undefined &&
+          longitude !== undefined
+        ) {
+          // If we have a transition to perform, do not constrain that with scroll around center constraints:
+          draft.latitude = latitude;
+          draft.longitude = longitude;
+        } else {
+          // Otherwise, incorporate scroll around center constraints as configured:
+          draft.latitude =
+            action.payload.scrollZoomAroundCenter && zoom !== state.zoom
+              ? state.latitude
+              : latitude !== undefined
+              ? latitude
+              : state.latitude;
 
-        draft.longitude =
-          action.payload.scrollZoomAroundCenter &&
-          action.payload.viewport.zoom !== state.zoom
-            ? state.longitude
-            : action.payload.viewport.longitude !== undefined
-            ? action.payload.viewport.longitude
-            : state.longitude;
+          draft.longitude =
+            action.payload.scrollZoomAroundCenter && zoom !== state.zoom
+              ? state.longitude
+              : longitude !== undefined
+              ? longitude
+              : state.longitude;
+        }
 
         return;
     }
