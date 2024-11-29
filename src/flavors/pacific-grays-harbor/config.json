@@ -673,6 +673,33 @@
             {
               "cells": [
                 {
+                  "value": "European Green Crabs"
+                },
+                {
+                  "value": ["get-sum", "european_green_crab_quantity"],
+                  "label": "crabs"
+                },
+                {
+                  "value": ["get-sum", "european_green_crab_quantity"],
+                  "label": "crabs"
+                },
+                {
+                  "value": ["get-sum", "european_green_crab_quantity"],
+                  "label": "crabs"
+                },
+                {
+                  "value": ["get-sum", "european_green_crab_quantity"],
+                  "label": "crabs"
+                },
+                {
+                  "value": ["get-sum", "european_green_crab_quantity"],
+                  "label": "crabs"
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
                   "value": "Dynamic Revetment Material Length"
                 },
                 {
@@ -1821,6 +1848,7 @@
         "value": "VSP Report",
         "multi_stage": [
           {
+            "//": "================= ADDRESS ====================",
             "start_field_index": 1,
             "end_field_index": 5,
             "visibleLayerGroupIds": [
@@ -1830,6 +1858,7 @@
             ]
           },
           {
+            "//": "================= WRIA ====================",
             "start_field_index": 6,
             "end_field_index": 7,
             "visibleLayerGroupIds": [
@@ -1839,6 +1868,7 @@
             ]
           },
           {
+            "//": "================= WETLANDS ====================",
             "start_field_index": 8,
             "end_field_index": 10,
             "visibleLayerGroupIds": [
@@ -1848,6 +1878,7 @@
             ]
           },
           {
+            "//": "================= FREQUENTLY FLOODED ====================",
             "start_field_index": 11,
             "end_field_index": 13,
             "visibleLayerGroupIds": [
@@ -1857,6 +1888,7 @@
             ]
           },
           {
+            "//": "================= GEOLOGIC HAZARD ====================",
             "start_field_index": 14,
             "end_field_index": 16,
             "visibleLayerGroupIds": [
@@ -1866,6 +1898,7 @@
             ]
           },
           {
+            "//": "================= AQUIFER ====================",
             "start_field_index": 17,
             "end_field_index": 19,
             "visibleLayerGroupIds": [
@@ -1875,6 +1908,7 @@
             ]
           },
           {
+            "//": "================= FISH & WILDLIFE ====================",
             "start_field_index": 20,
             "end_field_index": 22,
             "visibleLayerGroupIds": [
@@ -1884,6 +1918,7 @@
             ]
           },
           {
+            "//": "================= PROJECT TYPE ====================",
             "start_field_index": 23,
             "end_field_index": 24,
             "visibleLayerGroupIds": [
@@ -1893,6 +1928,7 @@
             ]
           },
           {
+            "//": "================= AGRICULTURE PROJECTS ====================",
             "start_field_index": 25,
             "end_field_index": 47,
             "visibleLayerGroupIds": [
@@ -1902,6 +1938,7 @@
             ]
           },
           {
+            "//": "================= WATERSHED RESTORATION PROJECTS ====================",
             "start_field_index": 48,
             "end_field_index": 65,
             "visibleLayerGroupIds": [
@@ -1911,6 +1948,7 @@
             ]
           },
           {
+            "//": "================= FORESTRY PROJECTS ====================",
             "start_field_index": 67,
             "end_field_index": 80,
             "visibleLayerGroupIds": [
@@ -1920,8 +1958,9 @@
             ]
           },
           {
+            "//": "================= MARINE PROJECTS ====================",
             "start_field_index": 82,
-            "end_field_index": 90,
+            "end_field_index": 94,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1929,8 +1968,9 @@
             ]
           },
           {
-            "start_field_index": 91,
-            "end_field_index": 107,
+            "//": "================= EDUCATION PROJECTS ====================",
+            "start_field_index": 95,
+            "end_field_index": 1011,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1938,8 +1978,9 @@
             ]
           },
           {
-            "start_field_index": 108,
-            "end_field_index": 118,
+            "//": "================= FINAL ====================",
+            "start_field_index": 112,
+            "end_field_index": 122,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -2206,6 +2247,7 @@
                   "marine_resiliency_header",
                   "flood_protection",
                   "dynamic_revetment",
+                  "european_green_crab",
                   "marine_project_funding"
                 ]
               },
@@ -2630,7 +2672,7 @@
             "name": "agriculture_project_funding",
             "type": "big_checkbox",
             "optional": true,
-            "hidden_default": false,
+            "hidden_default": true,
             "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
             "content": [
               {
@@ -2967,7 +3009,7 @@
             "name": "watershed_project_funding",
             "type": "big_checkbox",
             "optional": true,
-            "hidden_default": false,
+            "hidden_default": true,
             "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
             "content": [
               {
@@ -3265,7 +3307,7 @@
             "name": "forestry_project_funding",
             "type": "big_checkbox",
             "optional": true,
-            "hidden_default": false,
+            "hidden_default": true,
             "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
             "content": [
               {
@@ -3416,10 +3458,91 @@
             "hidden_default": true
           },
           {
+            "//": "=============== EUROPEAN GREEN CRAB =================================",
+            "name": "european_green_crab",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "European Green Crab",
+            "label": "European Green Crab",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "european_green_crab_quantity",
+                  "european_green_crab_gravid_quantity",
+                  "european_green_crab_crew_member"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "european_green_crab_quantity",
+            "type": "number",
+            "prompt": "How many total green crabs?",
+            "min": 0,
+            "placeholder": "Crabs",
+            "hidden_default": true,
+            "metadata": {
+              "units": "crabs"
+            }
+          },
+          {
+            "name": "european_green_crab_gravid_quantity",
+            "type": "number",
+            "prompt": "How many gravid (egg bearing) females?",
+            "min": 0,
+            "placeholder": "Gravids",
+            "hidden_default": true,
+            "metadata": {
+              "units": "gravids"
+            }
+          },
+          {
+            "name": "european_green_crab_crew_member",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Crew Member",
+            "label": "Crew Member",
+            "optional": true,
+            "content": [
+              {
+                "label": "Moose",
+                "value": "moose"
+              },
+              {
+                "label": "Olivia",
+                "value": "olivia"
+              },
+              {
+                "label": "Nate",
+                "value": "nate"
+              },
+              {
+                "label": "Cole",
+                "value": "cole"
+              }
+            ]
+          },
+          {
             "name": "marine_project_funding",
             "type": "big_checkbox",
             "optional": true,
-            "hidden_default": false,
+            "hidden_default": true,
             "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
             "content": [
               {
@@ -3709,7 +3832,7 @@
             "name": "education_outreach_funding",
             "type": "big_checkbox",
             "optional": true,
-            "hidden_default": false,
+            "hidden_default": true,
             "prompt": "Is your project a part of one or more of the following GHCD funding programs?",
             "content": [
               {
