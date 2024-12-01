@@ -1940,7 +1940,7 @@
           {
             "//": "================= WATERSHED RESTORATION PROJECTS ====================",
             "start_field_index": 48,
-            "end_field_index": 65,
+            "end_field_index": 66,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
@@ -1950,7 +1950,7 @@
           {
             "//": "================= FORESTRY PROJECTS ====================",
             "start_field_index": 67,
-            "end_field_index": 80,
+            "end_field_index": 81,
             "visibleLayerGroupIds": [
               "satellite",
               "grays-harbor-county-boundary",
