@@ -1925,8 +1925,8 @@
           },
           {
             "//": "=============== DAIRY ================",
-            "start_field_index": 41,
-            "end_field_index": 53,
+            "start_field_index": 31,
+            "end_field_index": 42,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1935,8 +1935,8 @@
           },
           {
             "//": "=============== SHELLFISH ================",
-            "start_field_index": 54,
-            "end_field_index": 69,
+            "start_field_index": 43,
+            "end_field_index": 57,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1945,8 +1945,8 @@
           },
           {
             "//": "=============== LIVESTOCK ================",
-            "start_field_index": 70,
-            "end_field_index": 82,
+            "start_field_index": 58,
+            "end_field_index": 69,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1955,8 +1955,8 @@
           },
           {
             "//": "=============== OTHER ================",
-            "start_field_index": 83,
-            "end_field_index": 84,
+            "start_field_index": 70,
+            "end_field_index": 71,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1965,8 +1965,8 @@
           },
           {
             "//": "=============== ALMOST DONE ================",
-            "start_field_index": 85,
-            "end_field_index": 95,
+            "start_field_index": 72,
+            "end_field_index": 79,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -2164,7 +2164,7 @@
           {
             "name": "project_type_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Project Type</h3><p></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Product Produced</h3><p></p>"
           },
           {
             "name": "product_produced",
@@ -2259,10 +2259,7 @@
               },
               {
                 "value": "other",
-                "targets": [
-                  "other_header",
-                  "other_description"
-                ]
+                "targets": ["other_header", "other_description"]
               }
             ]
           },
@@ -2271,7 +2268,7 @@
             "name": "cranberries_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Cranberry Producers</h3><p>Questions specific to cranberry production relate to water quality control measures. For a list of potential stewardship activities specific to cranberry growers, please see:</p><a href='https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub'>https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub</a>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Cranberry Producers</h3><p>Questions specific to cranberry production relate to water quality control measures. For a list of potential stewardship activities specific to cranberry growers, please see:</p><a target='_blank' href='https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub'>https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub</a>"
           },
           {
             "name": "cranberries_pesticides_herbicides",
@@ -2382,7 +2379,7 @@
             "name": "dairy_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Livestock/Dairy Producers</h3><p>Questions specific to livestock/dairy production relate to water quality control measures. For a list of potential stewardship activities specific to livestock and dairy producers, please see: </p><a href='https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub'>https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub</a>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Livestock/Dairy Producers</h3><p>Questions specific to livestock/dairy production relate to water quality control measures. For a list of potential stewardship activities specific to livestock and dairy producers, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub'>https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub</a>"
           },
           {
             "name": "dairy_fecal_coliform",
@@ -2627,7 +2624,7 @@
             "name": "shellfish_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Shellfish Producers</h3><p>Questions specific to shellfish production relate to water quality control measures, limiting the effects of practices on adjacent habitats, and ensuring that practices do not contribute to marine debris.</p><p>For a list of potential stewardship activities specific to shellfish producers, please see: </p><a href='https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub'>https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub</a><p>Additional general questions will follow.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Shellfish Producers</h3><p>Questions specific to shellfish production relate to water quality control measures, limiting the effects of practices on adjacent habitats, and ensuring that practices do not contribute to marine debris.</p><p>For a list of potential stewardship activities specific to shellfish producers, please see: </p><a target='_blank' href='https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub'>https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub</a><p>Additional general questions will follow.</p>"
           },
           {
             "name": "shellfish_npdes_consistency",
@@ -2870,7 +2867,7 @@
             "name": "livestock_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Livestock/Dairy Producers</h2><p>Questions specific to livestock/dairy production relate to water quality control measures. For a list of potential stewardship activities specific to livestock and dairy producers, please see: </p><a href='https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub'>https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub</a><p>Additional general questions will follow.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Livestock/Dairy Producers</h2><p>Questions specific to livestock/dairy production relate to water quality control measures. For a list of potential stewardship activities specific to livestock and dairy producers, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub'>https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub</a><p>Additional general questions will follow.</p>"
           },
           {
             "name": "livestock_fecal_coliform",
