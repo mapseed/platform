@@ -2260,13 +2260,8 @@
               {
                 "value": "other",
                 "targets": [
-                  "education_outreach_header",
-                  "salmon_schools",
-                  "envirothon",
-                  "community_gardens",
-                  "stormwater_education",
-                  "pollinator_garden",
-                  "education_outreach_funding"
+                  "other_header",
+                  "other_description"
                 ]
               }
             ]
