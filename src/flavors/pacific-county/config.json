@@ -1904,7 +1904,7 @@
             ]
           },
           {
-            "//": "=============== PRODUCT PRODUCED ================",
+            "//": "=============== PROJECT TYPE ================",
             "start_field_index": 23,
             "end_field_index": 24,
             "visibleLayerGroupIds": [
@@ -1914,7 +1914,7 @@
             ]
           },
           {
-            "//": "=============== CRANBERRIES! ================",
+            "//": "=============== AG: CRANBERRIES! ================",
             "start_field_index": 25,
             "end_field_index": 30,
             "visibleLayerGroupIds": [
@@ -1924,7 +1924,7 @@
             ]
           },
           {
-            "//": "=============== DAIRY ================",
+            "//": "=============== AG: DAIRY ================",
             "start_field_index": 31,
             "end_field_index": 42,
             "visibleLayerGroupIds": [
@@ -1934,7 +1934,7 @@
             ]
           },
           {
-            "//": "=============== SHELLFISH ================",
+            "//": "=============== AG: SHELLFISH ================",
             "start_field_index": 43,
             "end_field_index": 57,
             "visibleLayerGroupIds": [
@@ -1944,9 +1944,9 @@
             ]
           },
           {
-            "//": "=============== LIVESTOCK ================",
+            "//": "=============== AG: LIVESTOCK ================",
             "start_field_index": 58,
-            "end_field_index": 69,
+            "end_field_index":69,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1954,7 +1954,7 @@
             ]
           },
           {
-            "//": "=============== OTHER ================",
+            "//": "=============== AG: OTHER ================",
             "start_field_index": 70,
             "end_field_index": 71,
             "visibleLayerGroupIds": [
@@ -1963,10 +1963,50 @@
               "pacific-county-input"
             ]
           },
+					{
+            "//": "=============== WATERSHED RESTORATION ================",
+            "start_field_index": 72,
+            "end_field_index": 90,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },
+          {
+            "//": "=============== FOREST HEALTH ================",
+            "start_field_index": 91,
+            "end_field_index": 105,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },
+          {
+            "//": "=============== MARINE RESILIENCY ================",
+            "start_field_index": 106,
+            "end_field_index": 114,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },
+          {
+            "//": "=============== EDUCATION & OUTREACH ================",
+            "start_field_index": 115,
+            "end_field_index": 131,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },	
           {
             "//": "=============== ALMOST DONE ================",
-            "start_field_index": 72,
-            "end_field_index": 79,
+            "start_field_index": 132,
+            "end_field_index": 139,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -2172,24 +2212,40 @@
             "prompt": "What products do you produce?",
             "content": [
               {
-                "label": "Cranberries",
+                "label": "Agriculture: cranberries",
                 "value": "cranberries"
               },
               {
-                "label": "Dairy",
+                "label": "Agriculture: dairy",
                 "value": "dairy"
               },
               {
-                "label": "Shellfish",
+                "label": "Agriculture: shellfish",
                 "value": "shellfish"
               },
               {
-                "label": "Livestock",
+                "label": "Agriculture: livestock",
                 "value": "livestock"
               },
               {
-                "label": "Other",
+                "label": "Agriculture: other",
                 "value": "other"
+              },
+							{
+                "label": "Watershed Restoration",
+                "value": "watershed_restoration"
+              },
+              {
+                "label": "Forest Health",
+                "value": "forest_health"
+              },
+              {
+                "label": "Marine & Estuarine Resiliency",
+                "value": "marine_resiliency"
+              },
+              {
+                "label": "Education & Outreach",
+                "value": "education_outreach"
               }
             ],
             "triggers": [
@@ -2260,6 +2316,48 @@
               {
                 "value": "other",
                 "targets": ["other_header", "other_description"]
+              },
+							{
+                "value": "watershed_restoration",
+                "targets": [
+                  "watershed_restoration_header",
+                  "instream_habitat",
+                  "streambank_planting",
+                  "watershed_invasive_species",
+                  "watershed_project_funding"
+                ]
+              },
+              {
+                "value": "forest_health",
+                "targets": [
+                  "forest_health_header",
+                  "forest_management",
+                  "stand_improvement",
+                  "slash_treatment",
+                  "forestry_invasive_species",
+                  "forestry_project_funding"
+                ]
+              },
+              {
+                "value": "marine_resiliency",
+                "targets": [
+                  "marine_resiliency_header",
+                  "flood_protection",
+                  "dynamic_revetment",
+                  "marine_project_funding"
+                ]
+              },
+              {
+                "value": "education_outreach",
+                "targets": [
+                  "education_outreach_header",
+                  "salmon_schools",
+                  "envirothon",
+                  "community_gardens",
+                  "stormwater_education",
+                  "pollinator_garden",
+                  "education_outreach_funding"
+                ]
               }
             ]
           },
@@ -2375,7 +2473,7 @@
             "hidden_default": true
           },
           {
-            "//": "=============== DAIRY =================================",
+            "//": "=============== AG: DAIRY =================================",
             "name": "dairy_header",
             "hidden_default": true,
             "type": "informational_html",
@@ -2620,7 +2718,7 @@
             "hidden_default": true
           },
           {
-            "//": "=============== SHELLFISH =================================",
+            "//": "=============== AG: SHELLFISH =================================",
             "name": "shellfish_header",
             "hidden_default": true,
             "type": "informational_html",
@@ -2863,7 +2961,7 @@
             "hidden_default": true
           },
           {
-            "//": "=============== LIVESTOCK =================================",
+            "//": "=============== AG: LIVESTOCK =================================",
             "name": "livestock_header",
             "hidden_default": true,
             "type": "informational_html",
@@ -3108,7 +3206,7 @@
             "hidden_default": true
           },
           {
-            "//": "=============== OTHER =================================",
+            "//": "=============== AG: OTHER =================================",
             "name": "other_header",
             "hidden_default": true,
             "type": "informational_html",
@@ -3121,6 +3219,1085 @@
             "display_prompt": "Your answer",
             "optional": true,
             "hidden_default": true
+          },
+					{
+            "name": "watershed_restoration_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>10. Watershed Restoration</h3><p></p>"
+          },
+          {
+            "//": "=============== INSTREAM HABITAT ================================",
+            "name": "instream_habitat",
+            "type": "big_radio",
+            "prompt": "Instream Structures",
+            "label": "Instream structures",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "instream_habitat_type",
+                  "instream_habitat_type_other",
+                  "instream_habitat_quantity",
+                  "instream_habitat_bank_shaping",
+                  "instream_habitat_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but I'm interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "instream_habitat_type",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "What Type of Instream Structures have you installed?",
+            "content": [
+              {
+                "label": "ELJ (Engineered Log Jam)",
+                "value": "engineered_log_jam"
+              },
+              {
+                "label": "BDA (Beaver Dam Analogue)",
+                "value": "beaver_dam_analogue"
+              },
+              {
+                "label": "LWD (Large Woody Debris)",
+                "value": "large_woody_debris"
+              }
+            ]
+          },
+          {
+            "name": "instream_habitat_type_other",
+            "type": "text",
+            "prompt": "Other...",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "instream_habitat_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many total structures were installed?",
+            "placeholder": "Approximate number of structures",
+            "hidden_default": true,
+            "metadata": {
+              "units": "structures"
+            }
+          },
+          {
+            "name": "instream_habitat_bank_shaping",
+            "type": "big_radio",
+            "prompt": "Did your project include streambank shaping channel recreation?",
+            "label": "Bank shaping",
+            "optional": true,
+            "hidden_default": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              }
+            ]
+          },
+          {
+            "name": "instream_habitat_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STREAMBANK PLANTING ================================",
+            "name": "streambank_planting",
+            "type": "big_radio",
+            "prompt": "Riparian (Streambank) Planting",
+            "label": "Streambank planting",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "streambank_planting_quantity",
+                  "streambank_planting_average_width",
+                  "streambank_planting_acres_quantity",
+                  "streambank_planting_stem_count_quantity",
+                  "streambank_planting_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but I'm interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "streambank_planting_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many linear feet of stream bank did you plant?",
+            "placeholder": "Approximate footage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "streambank_planting_average_width",
+            "type": "number",
+            "min": 0,
+            "prompt": "What was the average planting buffer width in feet?",
+            "placeholder": "Approximate width",
+            "hidden_default": true,
+            "metadata": {
+              "units": "feet"
+            }
+          },
+          {
+            "name": "streambank_planting_acres_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many acres was the total planting area?",
+            "placeholder": "Approximate acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "streambank_planting_stem_count_quantity",
+            "type": "number",
+            "min": 0,
+            "prompt": "How many stems were planted?",
+            "placeholder": "Approximate stem count",
+            "hidden_default": true,
+            "metadata": {
+              "units": "stems"
+            }
+          },
+          {
+            "name": "streambank_protection_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "Approximately when did you start streambank protection?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== WATERSHED INVASIVE SPECIES MANAGEMENT =================================",
+            "name": "watershed_invasive_species",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Riparian Invasive Species Management",
+            "label": "Riparian Invasive Species Management",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "watershed_invasive_species_type",
+                  "watershed_invasive_species_type_other",
+                  "watershed_invasive_species_treatment_method",
+                  "watershed_invasive_species_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "watershed_invasive_species_type",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "What invasive species did you treat? (Check all that apply)",
+            "content": [
+              {
+                "label": "Knotweed",
+                "value": "knotweed"
+              },
+              {
+                "label": "Gorse",
+                "value": "gorse"
+              },
+              {
+                "label": "Loosestrife",
+                "value": "loosestrife"
+              },
+              {
+                "label": "Poison Hemlock",
+                "value": "poison_hemlock"
+              },
+              {
+                "label": "Tansy Ragwort",
+                "value": "tansy_ragwort"
+              },
+              {
+                "label": "Himalayan Blackberry",
+                "value": "himalayan_blackberry"
+              },
+              {
+                "label": "Evergreen Blackberry",
+                "value": "evergreen_blackberry"
+              }
+            ]
+          },
+          {
+            "name": "watershed_invasive_species_type_other",
+            "type": "text",
+            "prompt": "Other...",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "watershed_invasive_species_treatment_method",
+            "type": "big_radio",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "Primary Treatment Method used:",
+            "content": [
+              {
+                "label": "Chemical",
+                "value": "chemical"
+              },
+              {
+                "label": "Mechanical",
+                "value": "mechanical"
+              },
+              {
+                "label": "Biological",
+                "value": "biological"
+              }
+            ]
+          },
+          {
+            "name": "watershed_invasive_species_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "watershed_project_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
+          },
+          {
+            "name": "forest_health_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>11. Forestry Projects</h3><p></p>"
+          },
+          {
+            "//": "=============== FOREST MANAGEMENT PLANNING =================================",
+            "name": "forest_management",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Forest Management Planning",
+            "label": "Forest Management Planning",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "forest_management_plan_type",
+                  "forest_management_quantity",
+                  "forest_management_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "forest_management_plan_type",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "What type of plan do you have?",
+            "label": "Plan type",
+            "optional": true,
+            "content": [
+              {
+                "label": "CAP 106 Plan",
+                "value": "cap_106"
+              },
+              {
+                "label": "Timber Management Plan (County)",
+                "value": "timber_management"
+              },
+              {
+                "label": "Washington Integrated Plan",
+                "value": "wa_integrated"
+              },
+              {
+                "label": "I'm not sure",
+                "value": "unsure"
+              }
+            ]
+          },
+          {
+            "name": "forest_management_quantity",
+            "type": "number",
+            "prompt": "How many acres are represented in your plan?",
+            "min": 0,
+            "placeholder": "Acreage",
+            "hidden_default": true,
+            "metadata": {
+              "units": "acres"
+            }
+          },
+          {
+            "name": "forest_management_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the management plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FORESTRY STAND IMPROVEMENT =================================",
+            "name": "stand_improvement",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Forestry Stand Improvement",
+            "label": "Forestry Stand Improvement",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["stand_improvement_datetime"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "stand_improvement_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the management plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== SLASH TREATMENT =================================",
+            "name": "slash_treatment",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Slash Treatment",
+            "label": "Slash Treatment",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "slash_treatment_quantity",
+                  "slash_treatment_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "slash_treatment_quantity",
+            "type": "number",
+            "prompt": "Number of slash piles treated?",
+            "min": 0,
+            "placeholder": "Piles",
+            "hidden_default": true,
+            "metadata": {
+              "units": "piles"
+            }
+          },
+          {
+            "name": "slash_treatment_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the management plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== FORESTRY INVASIVE SPECIES MANAGEMENT =================================",
+            "name": "forestry_invasive_species",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Invasive Species Management",
+            "label": "Invasive Species Management",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "forestry_invasive_species_type",
+                  "forestry_invasive_species_type_other",
+                  "forestry_invasive_species_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "forestry_invasive_species_type",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": true,
+            "prompt": "What invasive species did you treat? (Check all that apply)",
+            "content": [
+              {
+                "label": "Knotweed",
+                "value": "knotweed"
+              },
+              {
+                "label": "Gorse",
+                "value": "gorse"
+              },
+              {
+                "label": "Loosestrife",
+                "value": "loosestrife"
+              },
+              {
+                "label": "Poison Hemlock",
+                "value": "poison_hemlock"
+              },
+              {
+                "label": "Tansy Ragwort",
+                "value": "tansy_ragwort"
+              },
+              {
+                "label": "Himalayan Blackberry",
+                "value": "himalayan_blackberry"
+              },
+              {
+                "label": "Evergreen Blackberry",
+                "value": "evergreen_blackberry"
+              }
+            ]
+          },
+          {
+            "name": "forestry_invasive_species_type_other",
+            "type": "text",
+            "prompt": "Other...",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "forestry_invasive_species_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the management plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "forestry_project_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
+          },
+          {
+            "name": "marine_resiliency_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>12. Marine Projects</h3><p></p>"
+          },
+          {
+            "//": "=============== FLOOD PROTECTION PLANNING =================================",
+            "name": "flood_protection",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Flood Protection Planning",
+            "label": "Flood Protection Planning",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "flood_protection_plan_description",
+                  "flood_protection_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "flood_protection_plan_description",
+            "type": "textarea",
+            "prompt": "Description of plan developed, include key stakeholders:",
+            "display_prompt": "Description:",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "flood_protection_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the plan completed?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== DYNAMIC REVETMENT =================================",
+            "name": "dynamic_revetment",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Dynamic Revetment",
+            "label": "Dynamic Revetment",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "dynamic_revetment_quantity",
+                  "dynamic_revetment_material_quantity",
+                  "dynamic_revetment_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "dynamic_revetment_quantity",
+            "type": "number",
+            "prompt": "Length of dynamic revetment",
+            "min": 0,
+            "placeholder": "Yards",
+            "hidden_default": true,
+            "metadata": {
+              "units": "yards"
+            }
+          },
+          {
+            "name": "dynamic_revetment_material_quantity",
+            "type": "number",
+            "prompt": "Total yards of material used in the revetment",
+            "min": 0,
+            "placeholder": "Yards",
+            "hidden_default": true,
+            "metadata": {
+              "units": "yards"
+            }
+          },
+          {
+            "name": "dynamic_revetment_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "marine_project_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
+          },
+          {
+            "name": "education_outreach_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>13. Education Projects</h3><p></p>"
+          },
+          {
+            "//": "=============== SALMON IN THE SCHOOLS =================================",
+            "name": "salmon_schools",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Salmon in the Schools",
+            "label": "Salmon in the Schools",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "salmon_schools_quantity",
+                  "salmon_schools_released_quantity",
+                  "salmon_schools_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "salmon_schools_quantity",
+            "type": "number",
+            "prompt": "Number of salmon eggs provided",
+            "min": 0,
+            "placeholder": "Eggs",
+            "hidden_default": true,
+            "metadata": {
+              "units": "eggs"
+            }
+          },
+          {
+            "name": "salmon_schools_released_quantity",
+            "type": "number",
+            "prompt": "Number of salmon released",
+            "min": 0,
+            "placeholder": "Salmon",
+            "hidden_default": true,
+            "metadata": {
+              "units": "salmon"
+            }
+          },
+          {
+            "name": "salmon_schools_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the practice first implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== ENVIROTHON COMPETITION =================================",
+            "name": "envirothon",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Envirothon Competition",
+            "label": "Envirothon Competition",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": ["envirothon_school_name"]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "envirothon_school_name",
+            "type": "text",
+            "prompt": "Participating school name",
+            "hidden_default": true
+          },
+          {
+            "//": "=============== COMMUNITY GARDENS =================================",
+            "name": "community_gardens",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Community Gardens",
+            "label": "Community Gardens",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "community_gardens_quantity",
+                  "community_gardens_contact"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "community_gardens_quantity",
+            "type": "number",
+            "prompt": "Number of beds available",
+            "min": 0,
+            "placeholder": "Garden beds",
+            "hidden_default": true,
+            "metadata": {
+              "units": "beda"
+            }
+          },
+          {
+            "name": "community_gardens_contact",
+            "type": "text",
+            "prompt": "Garden point of contact",
+            "placeholder": "Contact",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== STORMWATER EDUCATION =================================",
+            "name": "stormwater_education",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Stormwater Education",
+            "label": "Stormwater Education",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "stormwater_education_description",
+                  "stormwater_education_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "stormwater_education_description",
+            "type": "textarea",
+            "prompt": "Describe your project in detail. (E.g. storm drain marking, rain garden construction)",
+            "placeholder": "Description",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "stormwater_education_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the project implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== POLLINATOR GARDEN =================================",
+            "name": "pollinator_garden",
+            "type": "big_radio",
+            "hidden_default": true,
+            "prompt": "Pollinator Garden",
+            "label": "Pollinator Garden",
+            "optional": true,
+            "triggers": [
+              {
+                "value": "yes",
+                "targets": [
+                  "pollinator_garden_description",
+                  "pollinator_garden_datetime"
+                ]
+              }
+            ],
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "No, but interested",
+                "value": "interested"
+              }
+            ]
+          },
+          {
+            "name": "pollinator_garden_description",
+            "type": "textarea",
+            "prompt": "Describe your project in detail. (E.g. storm drain marking, rain garden construction)",
+            "placeholder": "Description",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "pollinator_garden_datetime",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "When was the project implemented?",
+            "placeholder": "Your best estimate",
+            "optional": false,
+            "hidden_default": true
+          },
+          {
+            "name": "education_outreach_funding",
+            "type": "big_checkbox",
+            "optional": true,
+            "hidden_default": false,
+            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
+            "content": [
+              {
+                "label": "Voluntary Stewardship Program (VSP)",
+                "value": "funding_vsp"
+              },
+              {
+                "label": "Riparian Grant Funding",
+                "value": "funding_rgf"
+              },
+              {
+                "label": "Aquatic Species Restoration Plan (ASRP)",
+                "value": "funding_asrp"
+              },
+              {
+                "label": "Forest Health and Community Wildfire Resilience Program",
+                "value": "funding_forest_health"
+              },
+              {
+                "label": "WDFW European Green Crab Emergency Program",
+                "value": "funding_wdfw"
+              },
+              {
+                "label": "No, but I would like more information",
+                "value": "no_request_info"
+              }
+            ]
           },
           {
             "//": "=============== ALMOST DONE =================================",
