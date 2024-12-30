@@ -2207,9 +2207,9 @@
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Product Produced</h3><p></p>"
           },
           {
-            "name": "product_produced",
+            "name": "which_project_type",
             "type": "big_radio",
-            "prompt": "What products do you produce?",
+            "prompt": "What type of project would you like to report?",
             "content": [
               {
                 "label": "Agriculture: cranberries",
