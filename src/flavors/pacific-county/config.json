@@ -2004,9 +2004,19 @@
             ]
           },	
           {
-            "//": "=============== ALMOST DONE ================",
+            "//": "=============== AG: ALL PRODUCERS ================",
             "start_field_index": 132,
-            "end_field_index": 139,
+            "end_field_index": 178,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },
+          {
+            "//": "=============== ALMOST DONE ================",
+            "start_field_index": 179,
+            "end_field_index": 186,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -4299,6 +4309,887 @@
                 "value": "no_request_info"
               }
             ]
+          },
+          {
+            "//": "=============== ALL AG PRODUCERS ================================",
+            "name": "all_ag_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for All Producers</h2><p>The following questions may apply to a range of producers and operations. If questions do not apply to your practices or conditions, please select \"Not Applicable.\"</p><a target='_blank' href='https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub'>https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub</a>"
+          },
+          {
+            "name": "all_ag_pesticides_herbicides",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Pesticides, Herbicides, and Fertilizers</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub'>https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub</a>"
+          },
+          {
+            "name": "all_ag_integrated_pest_management",
+            "type": "big_radio",
+            "prompt": "Have you or the land manager received training, education, or advice in integrated pest management prior to/since 2011?",
+            "label": "Integrated pest management training",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_wsda_mandates",
+            "type": "big_radio",
+            "prompt": "Do you follow WSDA mandates (new RCWs and WACs) regarding application of pesticides?",
+            "label": "WSDA mandates",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_pesticide_application",
+            "type": "big_radio",
+            "prompt": "Do you implement integrated pest management and stewardship practices for pesticide application?",
+            "label": "Pesticide application",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_pesticide_storage",
+            "type": "big_radio",
+            "prompt": "Do you implement best practices for storage and disposal of pesticides, including abandoned storage depots?",
+            "label": "Pesticide storage",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_pesticide_drainage",
+            "type": "big_radio",
+            "prompt": "Do you implement measures to limit pesticide, herbicide, or fertilizer transfer to drainage system?",
+            "label": "Pesticide drainage",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_agricultural_runoff",
+            "type": "big_radio",
+            "prompt": "Do you implement stewardship practices to manage agricultural runoff and leaching?",
+            "label": "Agricultural runoff",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_pesticides",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to limit the transport of pesticides, herbicides, and fertilizers to critical areas (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_sediment_runoff",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Sediment Runoff</h3><p>This section relates to the following critical areas: streams, Willapa Bay, and wetlands. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/17GtdFPAV_xBqt61PfwCslDLi_fRwW_XfEV1T1tczGZo/pub'>https://docs.google.com/document/d/17GtdFPAV_xBqt61PfwCslDLi_fRwW_XfEV1T1tczGZo/pub</a>"
+          },
+          {
+            "name": "all_ag_erosion",
+            "type": "big_radio",
+            "prompt": "Have you improved your access road to limit erosion issues?",
+            "label": "Erosion management",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_roof_runoff",
+            "type": "big_radio",
+            "prompt": "Do you disperse concentrated flows from roof runoff or impervious surfaces like concrete pads away from high-use areas? ",
+            "label": "Roof runoff",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_tilling",
+            "type": "big_radio",
+            "prompt": "Do you avoid or limit tilling during the wet season?",
+            "label": "Tilling",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_runoff",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to limit sediment-laden runoff (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_spill_prevention",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Spill Prevention and Response</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/18VfmoZ0JjDQ_TVCQ0GIO2CHLjPhyQeYCLMhpHgZns2g/pub'>https://docs.google.com/document/d/18VfmoZ0JjDQ_TVCQ0GIO2CHLjPhyQeYCLMhpHgZns2g/pub</a>"
+          },
+          {
+            "name": "all_ag_secondary_containment",
+            "type": "big_radio",
+            "prompt": "Do you employ spill prevention measures, such as secondary containment?",
+            "label": "Secondary containment",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_accidental_spills",
+            "type": "big_radio",
+            "prompt": "Do you have emergency protocols and materials in place to respond to accidental spills?",
+            "label": "Accidental spills",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_flooding_contamination",
+            "type": "big_radio",
+            "prompt": "Do you implement measures to prevent contamination resulting from flooding events?",
+            "label": "Flooding containment",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_spills",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to prevent and respond to spills (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_water_quality_header",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Water Quantity</h3><p>This section relates to the following critical areas: streams, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/11r-1Ya7MTNnikzokj84icwkatNMC0MRfG0G0B07zIWs/pub'>https://docs.google.com/document/d/11r-1Ya7MTNnikzokj84icwkatNMC0MRfG0G0B07zIWs/pub</a>"
+          },
+          {
+            "name": "all_ag_irrigation_efficiency",
+            "type": "big_radio",
+            "prompt": "If you irrigate, have you taken steps to improve irrigation efficiency (e.g., sprinkler systems, drip irrigation, etc.)?",
+            "label": "Irrigation efficiency",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_catchment_strategies",
+            "type": "big_radio",
+            "prompt": "Do you use water catchment and retention strategies?",
+            "label": "Catchment strategies",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_water_quality",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to conserve water (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_floodplain",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Floodplain</h3><p>This section relates to frequently flooded areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/11-rIXaOy0ViHtFToiojM08gic9WbosyoYCDIO7TrsvI/pub'>https://docs.google.com/document/d/11-rIXaOy0ViHtFToiojM08gic9WbosyoYCDIO7TrsvI/pub</a>"
+          },
+          {
+            "name": "all_ag_winter_flooding",
+            "type": "big_radio",
+            "prompt": "If your property is within the floodplain, are your operations compatible with seasonal or occassional winter flooding?",
+            "label": "Winter flooding",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_floodplain",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to maintain floodplain functions (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_stream_riparian",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Stream and Riparian Habitat</h3><p>This section relates to the following critical areas: streams and wetlands. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/10FJ3B328onKdyjQeLacZ3oL4AfHZxYDQRA2DCZ0boEc/pub'>https://docs.google.com/document/d/10FJ3B328onKdyjQeLacZ3oL4AfHZxYDQRA2DCZ0boEc/pub</a>"
+          },
+          {
+            "name": "all_ag_vegetated_riparian",
+            "type": "big_radio",
+            "prompt": "Do you maintain vegetated riparian areas that separate your agricultural activities from adjacent streams or wetlands?",
+            "label": "Vegetated riparian",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_riparian",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to maintain stream and riparian habitat (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_wetlands",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Wetlands</h3><p>This section relates to the following critical areas: wetlands. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/1DN181E49JvS_lwfJW9VfCvgI3bS4HT8LXBfhFliCJlQ/pub'>https://docs.google.com/document/d/1DN181E49JvS_lwfJW9VfCvgI3bS4HT8LXBfhFliCJlQ/pub</a>"
+          },
+          {
+            "name": "all_ag_existing_wetlands",
+            "type": "big_radio",
+            "prompt": "Do you conduct measures to protect  or improve the water quality or habitat condition of existing wetlands?",
+            "label": "Threatened species",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_wetlands",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to protect or improve wetland areas (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_listed_species",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Listed Species</h3><p>This section relates to the following critical areas: fish and wildlife habitat conservation areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/1uXwdbgU4tc9Is6nhzZRtvAqvbOvNCUeyRAh-0o9rGMw/pub'>https://docs.google.com/document/d/1uXwdbgU4tc9Is6nhzZRtvAqvbOvNCUeyRAh-0o9rGMw/pub</a>"
+          },
+          {
+            "name": "all_ag_threatened_species",
+            "type": "big_radio",
+            "prompt": "Do you conduct measures to maintain or improve habitat for threatened, endangered, or sensitive species that occur on your property? If yes, please describe project in comments",
+            "label": "Threatened species",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_threatened_species",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to maintain or improve habitat for threatened, endangered, or sensitive species (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_voluntary_restoration",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Voluntary Restoration Projects</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas.</p>"
+          },
+          {
+            "name": "all_ag_floodpain_or_surge",
+            "type": "big_radio",
+            "prompt": "Have you conducted projects to restore or enhance floodplain or surge wetland functions?",
+            "label": "Floodplain or surge",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_culverts",
+            "type": "big_radio",
+            "prompt": "Have you repaired or replaced any culverts or tidegates to improve fish passage prior to/since 2011?",
+            "label": "Culverts",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_stream_habitat_restoration",
+            "type": "big_radio",
+            "prompt": "Have you conducted any stream habitat restoration projects on your property?",
+            "label": "Stream habitat restoration",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_estuarine_enhancement",
+            "type": "big_radio",
+            "prompt": "Have you conducted any estuarine enhancement or restoration projects prior to/since 2011?",
+            "label": "Estuarine enhancement",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_voluntary_restoration",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to any voluntary restoration projects (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "all_ag_geohazards",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Physical Safety- Flooding and Geohazards</h3><p>This section relates to the following critical areas: frequently flooded areas and geologically hazardous areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/1X_WpIH4kwjBPF9ogThiG8qFDaekqVLLN9eNQBJni7bw/pub'>https://docs.google.com/document/d/1X_WpIH4kwjBPF9ogThiG8qFDaekqVLLN9eNQBJni7bw/pub</a>"
+          },
+          {
+            "name": "all_ag_flood_damage_compliance",
+            "type": "big_radio",
+            "prompt": "Do you ensure compliance with the County's Flood Damage Prevention Ordinance?",
+            "label": "Flood damange compliance",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_relocated_structures",
+            "type": "big_radio",
+            "prompt": "Have you relocated any structures out of the mapped floodway?",
+            "label": "Relocated structures",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_dikes",
+            "type": "big_radio",
+            "prompt": "Do you regularly inspect and maintain any dikes or tidegates on your property?",
+            "label": "Dikes",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_sensitive_drainage",
+            "type": "big_radio",
+            "prompt": "Do you implement stewardship practices to control drainage near geologically sensitive areas?",
+            "label": "Sensitive drainage",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "all_ag_additional_geohazards",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to maintain safety in areas prone to flooding and geohazards (optional)",
+            "display_prompt": "Your answer",
+            "optional": true
           },
           {
             "//": "=============== ALMOST DONE =================================",
