@@ -8,46 +8,10 @@
     "placeFilters": [
       {
         "placeProperty": "which_project_type",
-        "operator": "equals",
+        "operator": "equals_any",
         "datasetSlug": "pacific-county-input",
-        "value": "cranberries",
-        "label": "Cranberry Producers",
-        "setDefault": true,
-        "icon": "/static/css/images/markers/marker-field.png"
-      },
-      {
-        "placeProperty": "which_project_type",
-        "operator": "equals",
-        "datasetSlug": "pacific-county-input",
-        "value": "dairy",
-        "label": "Dairy Producers",
-        "setDefault": true,
-        "icon": "/static/css/images/markers/marker-field.png"
-      },
-      {
-        "placeProperty": "which_project_type",
-        "operator": "equals",
-        "datasetSlug": "pacific-county-input",
-        "value": "shellfish",
-        "label": "Shellfish Producers",
-        "setDefault": true,
-        "icon": "/static/css/images/markers/marker-field.png"
-      },
-      {
-        "placeProperty": "which_project_type",
-        "operator": "equals",
-        "datasetSlug": "pacific-county-input",
-        "value": "livestock",
-        "label": "Livestock Producers",
-        "setDefault": true,
-        "icon": "/static/css/images/markers/marker-field.png"
-      },
-      {
-        "placeProperty": "which_project_type",
-        "operator": "equals",
-        "datasetSlug": "pacific-county-input",
-        "value": "other",
-        "label": "Other Agricultural",
+        "value": "cranberries|dairy|shellfish|livestock|other",
+        "label": "Agricultural Producers",
         "setDefault": true,
         "icon": "/static/css/images/markers/marker-field.png"
       },

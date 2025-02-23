@@ -48,6 +48,11 @@ export const filteredPlacesSelector = state => {
             Array.isArray(place[placeFilter.placeProperty]) &&
             place[placeFilter.placeProperty].includes(placeFilter.value)
           );
+        case "equals_any":
+          return (
+            placeFilter.datasetSlug === place.datasetSlug &&
+            placeFilter.value.split("|").includes(place[placeFilter.placeProperty])
+          );
         case "equals":
         default:
           return (
