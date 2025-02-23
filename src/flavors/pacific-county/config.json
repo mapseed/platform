@@ -2254,6 +2254,7 @@
                 "targets": [
                   "cranberries_header",
                   "cranberries_pesticide_herbicides",
+                  "cranberries_chemigation",
                   "cranberries_drainage_transfer",
                   "cranberries_fertilization_plans",
                   "cranberries_additional_drainage"
