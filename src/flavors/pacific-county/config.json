@@ -4314,12 +4314,12 @@
             "//": "=============== ALL AG PRODUCERS ================================",
             "name": "all_ag_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for All Producers</h2><p>The following questions may apply to a range of producers and operations. If questions do not apply to your practices or conditions, please select \"Not Applicable.\"</p><a target='_blank' href='https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub'>https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub</a>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for All Producers</h2><p>The following questions may apply to a range of producers and operations. If questions do not apply to your practices or conditions, please select \"Not Applicable.\""
           },
           {
             "name": "all_ag_pesticides_herbicides",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Pesticides, Herbicides, and Fertilizers</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub'>https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Pesticides, Herbicides, and Fertilizers</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1xH6kq72Z_eA_MuJePIAt9GmkfirvyTbPRvUCvut088E/pub'>https://docs.google.com/document/d/1xH6kq72Z_eA_MuJePIAt9GmkfirvyTbPRvUCvut088E/pub</a>"
           },
           {
             "name": "all_ag_integrated_pest_management",
