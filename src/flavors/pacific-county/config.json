@@ -1834,6 +1834,7 @@
         "value": "VSP Report",
         "multi_stage": [
           {
+            "//": "=============== ADDRESS INFO ================",
             "start_field_index": 1,
             "end_field_index": 5,
             "visibleLayerGroupIds": [
@@ -1843,6 +1844,7 @@
             ]
           },
           {
+            "//": "=============== WRIA ================",
             "start_field_index": 6,
             "end_field_index": 7,
             "visibleLayerGroupIds": [
@@ -1852,6 +1854,7 @@
             ]
           },
           {
+            "//": "=============== WETLANDS ================",
             "start_field_index": 8,
             "end_field_index": 10,
             "visibleLayerGroupIds": [
@@ -1861,6 +1864,7 @@
             ]
           },
           {
+            "//": "=============== FREQUENTLY FLOODED ================",
             "start_field_index": 11,
             "end_field_index": 13,
             "visibleLayerGroupIds": [
@@ -1870,6 +1874,7 @@
             ]
           },
           {
+            "//": "=============== GEOLOGIC HAZARD ================",
             "start_field_index": 14,
             "end_field_index": 16,
             "visibleLayerGroupIds": [
@@ -1879,6 +1884,7 @@
             ]
           },
           {
+            "//": "=============== AQUIFER RECHARGE ================",
             "start_field_index": 17,
             "end_field_index": 19,
             "visibleLayerGroupIds": [
@@ -1888,6 +1894,7 @@
             ]
           },
           {
+            "//": "=============== FISH & WILDLIFE ================",
             "start_field_index": 20,
             "end_field_index": 22,
             "visibleLayerGroupIds": [
@@ -1897,6 +1904,7 @@
             ]
           },
           {
+            "//": "=============== PROJECT TYPE ================",
             "start_field_index": 23,
             "end_field_index": 24,
             "visibleLayerGroupIds": [
@@ -1906,8 +1914,9 @@
             ]
           },
           {
+            "//": "=============== AG: CRANBERRIES! ================",
             "start_field_index": 25,
-            "end_field_index": 47,
+            "end_field_index": 30,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1915,8 +1924,9 @@
             ]
           },
           {
-            "start_field_index": 48,
-            "end_field_index": 65,
+            "//": "=============== AG: DAIRY ================",
+            "start_field_index": 31,
+            "end_field_index": 42,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1924,8 +1934,9 @@
             ]
           },
           {
-            "start_field_index": 67,
-            "end_field_index": 80,
+            "//": "=============== AG: SHELLFISH ================",
+            "start_field_index": 43,
+            "end_field_index": 57,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1933,7 +1944,28 @@
             ]
           },
           {
-            "start_field_index": 82,
+            "//": "=============== AG: LIVESTOCK ================",
+            "start_field_index": 58,
+            "end_field_index":69,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },
+          {
+            "//": "=============== AG: OTHER ================",
+            "start_field_index": 70,
+            "end_field_index": 71,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },
+					{
+            "//": "=============== WATERSHED RESTORATION ================",
+            "start_field_index": 72,
             "end_field_index": 90,
             "visibleLayerGroupIds": [
               "satellite",
@@ -1942,8 +1974,9 @@
             ]
           },
           {
+            "//": "=============== FOREST HEALTH ================",
             "start_field_index": 91,
-            "end_field_index": 107,
+            "end_field_index": 105,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1951,8 +1984,29 @@
             ]
           },
           {
-            "start_field_index": 108,
-            "end_field_index": 118,
+            "//": "=============== MARINE RESILIENCY ================",
+            "start_field_index": 106,
+            "end_field_index": 114,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },
+          {
+            "//": "=============== EDUCATION & OUTREACH ================",
+            "start_field_index": 115,
+            "end_field_index": 131,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },	
+          {
+            "//": "=============== ALMOST DONE ================",
+            "start_field_index": 132,
+            "end_field_index": 139,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -2150,18 +2204,34 @@
           {
             "name": "project_type_header",
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Project Type</h3><p></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Project Type</h3><p></p>"
           },
           {
             "name": "which_project_type",
             "type": "big_radio",
-            "prompt": "What type of project have you completed on your own or in partnership with Pacific Conservation District?",
+            "prompt": "What type of project would you like to report?",
             "content": [
               {
-                "label": "Agriculture",
-                "value": "agriculture"
+                "label": "Agriculture: cranberries",
+                "value": "cranberries"
               },
               {
+                "label": "Agriculture: dairy",
+                "value": "dairy"
+              },
+              {
+                "label": "Agriculture: shellfish",
+                "value": "shellfish"
+              },
+              {
+                "label": "Agriculture: livestock",
+                "value": "livestock"
+              },
+              {
+                "label": "Agriculture: other",
+                "value": "other"
+              },
+							{
                 "label": "Watershed Restoration",
                 "value": "watershed_restoration"
               },
@@ -2180,19 +2250,74 @@
             ],
             "triggers": [
               {
-                "value": "agriculture",
+                "value": "cranberries",
                 "targets": [
-                  "agriculture_header",
-                  "vsp_status",
-                  "mud_manure_management",
-                  "fencing",
-                  "off_creek_stock_watering",
-                  "flood_fencing",
-                  "agriculture_invasive_species",
-                  "agriculture_project_funding"
+                  "cranberries_header",
+                  "cranberries_pesticide_herbicides",
+                  "cranberries_drainage_transfer",
+                  "cranberries_fertilization_plans",
+                  "cranberries_additional_drainage"
                 ]
               },
               {
+                "value": "dairy",
+                "targets": [
+                  "dairy_header",
+                  "dairy_fecal_coliform",
+                  "dairy_animal_waste",
+                  "dairy_training",
+                  "dairy_rotational_grazing",
+                  "dairy_water_surfaces",
+                  "dairy_additional_fecal_coliform",
+                  "dairy_riparian_management",
+                  "dairy_offstream_watering",
+                  "dairy_stream_barriers",
+                  "dairy_stream_crossings",
+                  "dairy_additional_riparian_management"
+                ]
+              },
+              {
+                "value": "shellfish",
+                "targets": [
+                  "shellfish_header",
+                  "shellfish_npdes_consistency",
+                  "shellfish_npdes_compliance",
+                  "shellfish_npdes_permit",
+                  "shellfish_additional_npdes_compliance",
+                  "shellfish_mechanical_harvest",
+                  "shellfish_mechanical_disturbance",
+                  "shellfish_additional_disturbance",
+                  "shellfish_off_bottom_harvest",
+                  "shellfish_off_bottom_gear",
+                  "shellfish_additional_off_bottom",
+                  "shellfish_marine_debris",
+                  "shellfish_tidelands_gear",
+                  "shellfish_longline_rope",
+                  "shellfish_additional_debris_management"
+                ]
+              },
+              {
+                "value": "livestock",
+                "targets": [
+                  "livestock_header",
+                  "livestock_fecal_coliform",
+                  "livestock_animal_waste",
+                  "livestock_rate_training",
+                  "livestock_rotational_grazing",
+                  "livestock_surface_waters",
+                  "livestock_additional_fecal_coliform",
+                  "livestock_riparian_management",
+                  "livestock_offstream_watering",
+                  "livestock_barriers",
+                  "livestock_stream_crossing",
+                  "livestock_additional_riparian_areas"
+                ]
+              },
+              {
+                "value": "other",
+                "targets": ["other_header", "other_description"]
+              },
+							{
                 "value": "watershed_restoration",
                 "targets": [
                   "watershed_restoration_header",
@@ -2237,442 +2362,865 @@
             ]
           },
           {
-            "name": "agriculture_header",
+            "//": "=============== CRANBERRIES! ================================",
+            "name": "cranberries_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>9. Agriculture Projects</h3><p></p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Cranberry Producers</h3><p>Questions specific to cranberry production relate to water quality control measures. For a list of potential stewardship activities specific to cranberry growers, please see:</p><a target='_blank' href='https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub'>https://docs.google.com/document/d/1EZ0K0yjETb5VPk2_o23YGacwQSy207XU8tJmmO3ih-U/pub</a>"
           },
           {
-            "name": "vsp_status",
+            "name": "cranberries_pesticides_herbicides",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Pesticides, Herbicides, and Fertilizers</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas.</p>"
+          },
+          {
+            "name": "cranberries_chemigation",
+            "hidden_default": true,
             "type": "big_radio",
-            "hidden_default": false,
-            "prompt": "Are you currently participating in the Voluntary Stewardship Program?",
+            "prompt": "Do you perform annual chemigation system checks?",
+            "label": "Chemigation checks",
             "optional": true,
             "content": [
               {
-                "label": "Yes",
-                "value": "yes"
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
               },
               {
-                "label": "No",
-                "value": "no"
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
               },
               {
-                "label": "No, but interested",
-                "value": "interested"
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
               }
             ]
           },
           {
-            "//": "=============== MUD AND MANURE MANAGEMENT =================================",
-            "name": "mud_manure_management",
+            "name": "cranberries_drainage_transfer",
+            "hidden_default": true,
             "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Mud and manure management",
-            "label": "Mud and manure management",
+            "prompt": "Do you implement stewardship practices to reduce nutrient, pathogen, and/or pesticide transfer to drainage?",
+            "label": "Drainage transfer",
             "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": [
-                  "mud_manure_management_quantity",
-                  "mud_manure_management_type",
-                  "mud_manure_management_datetime"
-                ]
-              }
-            ],
             "content": [
               {
-                "label": "Yes",
-                "value": "yes"
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
               },
               {
-                "label": "No",
-                "value": "no"
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
               },
               {
-                "label": "No, but interested",
-                "value": "interested"
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
               }
             ]
           },
           {
-            "name": "mud_manure_management_quantity",
-            "type": "number",
-            "prompt": "On how many acres do you practice mud and manure management?",
-            "min": 0,
-            "placeholder": "Approximate acreage",
+            "name": "cranberries_fertilization_plans",
             "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "mud_manure_management_type",
-            "type": "big_checkbox",
-            "prompt": "Which types of mud and manure management do you practice? (Check all that apply)",
-            "hidden_default": true,
-            "content": [
-              {
-                "label": "Gutters and downspouts",
-                "value": "gutters_downspouts"
-              },
-
-              {
-                "label": "Heavy use area",
-                "value": "heavy_use_area"
-              },
-              {
-                "label": "Hardened stream crossings",
-                "value": "hardened_stream_crossings"
-              },
-              {
-                "label": "Waste storage",
-                "value": "waste_storage"
-              }
-            ]
-          },
-          {
-            "name": "mud_manure_management_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "When was the practice first implemented?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== LIVESTOCK EXCLUSION FENCING =================================",
-            "name": "fencing",
             "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Livestock Exclusion Fencing",
-            "label": "Fencing",
+            "prompt": "Do you implement fertilization plans to minimize the use of nutrients?",
+            "label": "Fertilization plans",
             "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": [
-                  "fencing_riparian",
-                  "fencing_quantity",
-                  "fencing_riparian_quantity",
-                  "fencing_datetime"
-                ]
-              }
-            ],
             "content": [
               {
-                "label": "Yes",
-                "value": "yes"
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
               },
               {
-                "label": "No",
-                "value": "no"
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
               },
               {
-                "label": "No, but interested",
-                "value": "interested"
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
               }
             ]
           },
           {
-            "name": "fencing_quantity",
-            "type": "number",
-            "prompt": "How many linear feet of livestock exclusion fencing did you build?",
-            "min": 0,
-            "placeholder": "Approximate footage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "feet"
-            }
-          },
-          {
-            "name": "fencing_riparian",
-            "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Was this fence project completed in conjunction with riparian (Streambank) planting?",
-            "label": "Fencing Riparian",
-            "optional": true,
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              }
-            ]
-          },
-          {
-            "name": "fencing_riparian_quantity",
-            "type": "number",
-            "prompt": "How many acres of riparian area did the livestock exclusion fencing conserve?",
-            "min": 0,
-            "placeholder": "Approximate acreage",
-            "hidden_default": true,
-            "metadata": {
-              "units": "acres"
-            }
-          },
-          {
-            "name": "fencing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "When was the practice first implemented?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== OFF CREEK STOCK WATERING =================================",
-            "name": "off_creek_stock_watering",
-            "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Off stream watering facilities",
-            "label": "Off stream watering facilities",
-            "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": [
-                  "off_creek_stock_watering_datetime",
-                  "off_creek_stock_watering_quantity"
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No, but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "off_creek_stock_watering_quantity",
-            "type": "number",
-            "prompt": "How many off stream watering facilities did you install?",
-            "min": 0,
-            "placeholder": "Number of facilities",
-            "hidden_default": true,
-            "metadata": {
-              "units": "facilities"
-            }
-          },
-          {
-            "name": "off_creek_stock_watering_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "When was the practice first implemented?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== FLOOD FENCING =================================",
-            "name": "flood_fencing",
-            "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Flood Fencing",
-            "label": "Flood Fencing",
-            "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": ["flood_fencing_quantity", "flood_fencing_datetime"]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No, but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "flood_fencing_quantity",
-            "type": "number",
-            "prompt": "How many linear feet of flood fence installation?",
-            "min": 0,
-            "placeholder": "Feet of fencing",
-            "hidden_default": true,
-            "metadata": {
-              "units": "feet"
-            }
-          },
-          {
-            "name": "flood_fencing_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "When was the practice first implemented?",
-            "placeholder": "Your best estimate",
-            "optional": false,
-            "hidden_default": true
-          },
-          {
-            "//": "=============== AGRICULTURE INVASIVE SPECIES MANAGEMENT =================================",
-            "name": "agriculture_invasive_species",
-            "type": "big_radio",
-            "hidden_default": true,
-            "prompt": "Invasive Species Management",
-            "label": "Invasive Species Management",
-            "optional": true,
-            "triggers": [
-              {
-                "value": "yes",
-                "targets": [
-                  "agriculture_invasive_species_type",
-                  "agriculture_invasive_species_type_other",
-                  "agriculture_invasive_species_treatment_method",
-                  "agriculture_invasive_species_datetime"
-                ]
-              }
-            ],
-            "content": [
-              {
-                "label": "Yes",
-                "value": "yes"
-              },
-              {
-                "label": "No",
-                "value": "no"
-              },
-              {
-                "label": "No, but interested",
-                "value": "interested"
-              }
-            ]
-          },
-          {
-            "name": "agriculture_invasive_species_type",
-            "type": "big_checkbox",
-            "optional": true,
-            "hidden_default": true,
-            "prompt": "What invasive species did you treat? (Check all that apply)",
-            "content": [
-              {
-                "label": "Knotweed",
-                "value": "knotweed"
-              },
-              {
-                "label": "Gorse",
-                "value": "gorse"
-              },
-              {
-                "label": "Loosestrife",
-                "value": "loosestrife"
-              },
-              {
-                "label": "Poison Hemlock",
-                "value": "poison_hemlock"
-              },
-              {
-                "label": "Tansy Ragwort",
-                "value": "tansy_ragwort"
-              },
-              {
-                "label": "Himalayan Blackberry",
-                "value": "himalayan_blackberry"
-              },
-              {
-                "label": "Evergreen Blackberry",
-                "value": "evergreen_blackberry"
-              }
-            ]
-          },
-          {
-            "name": "agriculture_invasive_species_type_other",
-            "type": "text",
-            "prompt": "Other...",
-            "placeholder": "Please name other invasive species treated...",
+            "name": "cranberries_additional_drainage",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices that limit transport of pesticides, herbicides, and fertilizers to drainages (optional)",
+            "display_prompt": "Your answer",
             "optional": true,
             "hidden_default": true
           },
           {
-            "name": "agriculture_invasive_species_treatment_method",
-            "type": "big_radio",
-            "optional": true,
+            "//": "=============== AG: DAIRY =================================",
+            "name": "dairy_header",
             "hidden_default": true,
-            "prompt": "Primary Treatment Method used:",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Livestock/Dairy Producers</h3><p>Questions specific to livestock/dairy production relate to water quality control measures. For a list of potential stewardship activities specific to livestock and dairy producers, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub'>https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub</a>"
+          },
+          {
+            "name": "dairy_fecal_coliform",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Fecal Coliform and Nutrients</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas.</p>"
+          },
+          {
+            "name": "dairy_animal_waste",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you implement stewardship practices to avoid water pollution from animal waste?",
+            "label": "Animal waste",
+            "optional": true,
             "content": [
               {
-                "label": "Chemical",
-                "value": "chemical"
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
               },
               {
-                "label": "Mechanical",
-                "value": "mechanical"
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
               },
               {
-                "label": "Biological",
-                "value": "biological"
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
               }
             ]
           },
           {
-            "name": "agriculture_invasive_species_datetime",
-            "type": "datetime",
-            "date_format": "YYYY",
-            "display_format": "YYYY",
-            "prompt": "When was the practice first implemented?",
-            "placeholder": "Your best estimate",
-            "optional": false,
+            "name": "dairy_training",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Have you or the land manager received training in stocking rates and/or rotational grazing prior to/since 2011?",
+            "label": "Training",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "dairy_rotational_grazing",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you implement rotational grazing practices or other measures to prevent overstocking?",
+            "label": "Rotational grazing",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "dairy_water_surfaces",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Are your livestock concentration areas positioned away from surface waters?",
+            "label": "Water surfaces",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "dairy_additional_fecal_coliform",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices that limit the transport of fecal coliform and nutrients to critical areas (optional)",
+            "display_prompt": "Your answer",
+            "optional": true,
             "hidden_default": true
           },
           {
-            "name": "agriculture_project_funding",
-            "type": "big_checkbox",
+            "name": "dairy_riparian_management",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Riparian Management</h3><p>The following questions relate to nutrient loading as well as instream habitat conditions. This section relates to the following critical areas: streams, Willapa Bay, and wetlands.</p>"
+          },
+          {
+            "name": "dairy_offstream_watering",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you provide off-stream watering access for livestock?",
+            "label": "Offstream watering",
             "optional": true,
-            "hidden_default": false,
-            "prompt": "Is your project a part of one or more of the following PCD funding programs?",
             "content": [
               {
-                "label": "Voluntary Stewardship Program (VSP)",
-                "value": "funding_vsp"
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
               },
               {
-                "label": "Riparian Grant Funding",
-                "value": "funding_rgf"
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
               },
               {
-                "label": "Aquatic Species Restoration Plan (ASRP)",
-                "value": "funding_asrp"
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
               },
               {
-                "label": "Forest Health and Community Wildfire Resilience Program",
-                "value": "funding_forest_health"
+                "label": "Unsure",
+                "value": "unsure"
               },
               {
-                "label": "WDFW European Green Crab Emergency Program",
-                "value": "funding_wdfw"
-              },
-              {
-                "label": "No, but I would like more information",
-                "value": "no_request_info"
+                "label": "Not Applicable",
+                "value": "not_applicable"
               }
             ]
           },
           {
+            "name": "dairy_stream_barriers",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you maintain barriers (vegetation, fencing, berms) to discourage livestock from entering streams?",
+            "label": "Stream barriers",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "dairy_stream_crossings",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Have you improved stream crossing conditions to minimize instream disturbance?",
+            "label": "Stream crossings",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "dairy_additional_riparian_management",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices that manage riparian areas (optional)",
+            "display_prompt": "Your answer",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== AG: SHELLFISH =================================",
+            "name": "shellfish_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Shellfish Producers</h3><p>Questions specific to shellfish production relate to water quality control measures, limiting the effects of practices on adjacent habitats, and ensuring that practices do not contribute to marine debris.</p><p>For a list of potential stewardship activities specific to shellfish producers, please see: </p><a target='_blank' href='https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub'>https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub</a><p>Additional general questions will follow.</p>"
+          },
+          {
+            "name": "shellfish_npdes_consistency",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>NPDES Consistency</h3><p>This section relates to Willapa Bay.</p>"
+          },
+          {
+            "name": "shellfish_npdes_compliance",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you ensure compliance with NPDES permit requirements for WSDA-approved pesticide application on marine lands?",
+            "label": "NPDES compliance",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "shellfish_npdes_permit",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "If you have an NPDES permit for shellfish hatchery or processing activities, do you comply with NPDES permit requirements?",
+            "label": "NPDES permit",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "shellfish_additional_npdes_compliance",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to NPDES consistency (optional)",
+            "display_prompt": "Your answer",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "shellfish_mechanical_harvest",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Mechanical harvest</h3><p>This section relates to Willapa Bay.</p>"
+          },
+          {
+            "name": "shellfish_mechanical_disturbance",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "If you practice mechanical shellfish harvesting, do you implement stewardship practices to minimize disturbance to adjacent habitats?",
+            "label": "Mechanical disturbance",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "shellfish_additional_disturbance",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to limit disturbance to adjacent habitats from mechanical harvest (optional)",
+            "display_prompt": "Your answer",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "shellfish_off_bottom_harvest",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Off-bottom harvest</h3><p>This section relates to Willapa Bay.</p>"
+          },
+          {
+            "name": "shellfish_off_bottom_gear",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "If you practice off-bottom operations, do you position your gear to minimize effects to silt accretion and hydrodynamics?",
+            "label": "Off-bottom gear",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "shellfish_additional_off_bottom",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to limit disturbance to adjacent habitats from off-bottom harvest (optional)",
+            "display_prompt": "Your answer",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "shellfish_marine_debris",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Marine Debris</h3><p>This section relates to Willapa Bay.</p>"
+          },
+          {
+            "name": "shellfish_tidelands_gear",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you remove all gear from tidelands when not in use?",
+            "label": "Tidelands gear",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "shellfish_longline_rope",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you engage in practices to keep longline rope from becoming debris?",
+            "label": "Longline rope",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "shellfish_additional_debris_management",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices to managing debris (optional)",
+            "display_prompt": "Your answer",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== AG: LIVESTOCK =================================",
+            "name": "livestock_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Livestock/Dairy Producers</h2><p>Questions specific to livestock/dairy production relate to water quality control measures. For a list of potential stewardship activities specific to livestock and dairy producers, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub'>https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub</a><p>Additional general questions will follow.</p>"
+          },
+          {
+            "name": "livestock_fecal_coliform",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Fecal Coliform and Nutrients</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas.</p>"
+          },
+          {
+            "name": "livestock_animal_waste",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you implement stewardship practices to avoid water pollution from animal waste?",
+            "label": "Animal waste",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "livestock_rate_training",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Have you or the land manager received training in stocking rates and/or rotational grazing prior to/since 2011?",
+            "label": "Stocking rate training",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "livestock_rotational_grazing",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you implement rotational grazing practices or other measures to prevent overstocking?",
+            "label": "Rotational grazing",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "livestock_surface_waters",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Are your livestock concentration areas positioned away from surface waters?",
+            "label": "Surface waters",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "livestock_additional_fecal_coliform",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices that limit the transport of fecal coliform and nutrients to critical areas (optional)",
+            "display_prompt": "Your answer",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "name": "livestock_riparian_management",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Riparian Management</h3><p>The following questions relate to nutrient loading as well as instream habitat conditions. This section relates to the following critical areas: streams, Willapa Bay, and wetlands.</p>"
+          },
+          {
+            "name": "livestock_offstream_watering",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you provide off-stream watering access for livestock?",
+            "label": "Offstream watering",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "livestock_barriers",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Do you maintain barriers (vegetation, fencing, berms) to discourage livestock from entering streams?",
+            "label": "Barriers",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "livestock_stream_crossing",
+            "hidden_default": true,
+            "type": "big_radio",
+            "prompt": "Have you improved stream crossing conditions to minimize instream disturbance?",
+            "label": "Stream crossing",
+            "optional": true,
+            "content": [
+              {
+                "label": "I have maintained practices since 2011",
+                "value": "maintained_since_2011"
+              },
+              {
+                "label": "I have improved practices since 2011",
+                "value": "improved_since_2011"
+              },
+              {
+                "label": "Not as much as in 2011",
+                "value": "less_than_2011"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              },
+              {
+                "label": "Not Applicable",
+                "value": "not_applicable"
+              }
+            ]
+          },
+          {
+            "name": "livestock_additional_riparian_areas",
+            "type": "textarea",
+            "prompt": "Please provide additional comments related to your practices that manage riparian areas (optional)",
+            "display_prompt": "Your answer",
+            "optional": true,
+            "hidden_default": true
+          },
+          {
+            "//": "=============== AG: OTHER =================================",
+            "name": "other_header",
+            "hidden_default": true,
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Other</h2>"
+          },
+          {
+            "name": "other_description",
+            "type": "textarea",
+            "prompt": "Other",
+            "display_prompt": "Your answer",
+            "optional": true,
+            "hidden_default": true
+          },
+					{
             "name": "watershed_restoration_header",
             "hidden_default": true,
             "type": "informational_html",
