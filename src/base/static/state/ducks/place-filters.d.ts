@@ -1,4 +1,4 @@
-export type PlaceFilterOperator = "includes" | "equals";
+export type PlaceFilterOperator = "includes" | "equals" | "equals_any";
 
 export type PlaceFilter = {
   placeProperty: string;

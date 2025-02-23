@@ -1,6 +1,6 @@
 type PlaceFilterConfig = {
   placeProperty: string;
-  operator: "equals" | "includes";
+  operator: "equals" | "includes" | "equals_any";
   datasetSlug: string;
   value: string | number;
   label: string;
