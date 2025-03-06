@@ -1920,9 +1920,19 @@
             ]
           },
           {
-            "//": "=============== PROJECT TYPE ================",
+            "//": "=============== FARM INFO ================",
             "start_field_index": 23,
-            "end_field_index": 24,
+            "end_field_index": 31,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "wa-wildlife"
+            ]
+          },
+          {
+            "//": "=============== PROJECT TYPE ================",
+            "start_field_index": 32,
+            "end_field_index": 33,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1931,8 +1941,8 @@
           },
           {
             "//": "=============== AG: CRANBERRIES! ================",
-            "start_field_index": 25,
-            "end_field_index": 30,
+            "start_field_index": 34,
+            "end_field_index": 39,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1941,8 +1951,8 @@
           },
           {
             "//": "=============== AG: DAIRY ================",
-            "start_field_index": 31,
-            "end_field_index": 42,
+            "start_field_index": 40,
+            "end_field_index": 51,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1951,8 +1961,8 @@
           },
           {
             "//": "=============== AG: SHELLFISH ================",
-            "start_field_index": 43,
-            "end_field_index": 57,
+            "start_field_index": 52,
+            "end_field_index": 66,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1961,8 +1971,8 @@
           },
           {
             "//": "=============== AG: LIVESTOCK ================",
-            "start_field_index": 58,
-            "end_field_index":69,
+            "start_field_index": 67,
+            "end_field_index": 78,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1971,18 +1981,18 @@
           },
           {
             "//": "=============== AG: OTHER ================",
-            "start_field_index": 70,
-            "end_field_index": 71,
+            "start_field_index": 79,
+            "end_field_index": 80,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
               "pacific-county-input"
             ]
           },
-					{
+          {
             "//": "=============== WATERSHED RESTORATION ================",
-            "start_field_index": 72,
-            "end_field_index": 90,
+            "start_field_index": 81,
+            "end_field_index": 99,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -1991,17 +2001,7 @@
           },
           {
             "//": "=============== FOREST HEALTH ================",
-            "start_field_index": 91,
-            "end_field_index": 105,
-            "visibleLayerGroupIds": [
-              "satellite",
-              "pacific-county-boundary",
-              "pacific-county-input"
-            ]
-          },
-          {
-            "//": "=============== MARINE RESILIENCY ================",
-            "start_field_index": 106,
+            "start_field_index": 100,
             "end_field_index": 114,
             "visibleLayerGroupIds": [
               "satellite",
@@ -2010,19 +2010,29 @@
             ]
           },
           {
-            "//": "=============== EDUCATION & OUTREACH ================",
+            "//": "=============== MARINE RESILIENCY ================",
             "start_field_index": 115,
-            "end_field_index": 131,
+            "end_field_index": 123,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
               "pacific-county-input"
             ]
-          },	
+          },
+          {
+            "//": "=============== EDUCATION & OUTREACH ================",
+            "start_field_index": 124,
+            "end_field_index": 140,
+            "visibleLayerGroupIds": [
+              "satellite",
+              "pacific-county-boundary",
+              "pacific-county-input"
+            ]
+          },
           {
             "//": "=============== AG: ALL PRODUCERS ================",
-            "start_field_index": 132,
-            "end_field_index": 178,
+            "start_field_index": 141,
+            "end_field_index": 187,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -2031,8 +2041,8 @@
           },
           {
             "//": "=============== ALMOST DONE ================",
-            "start_field_index": 179,
-            "end_field_index": 186,
+            "start_field_index": 188,
+            "end_field_index": 195,
             "visibleLayerGroupIds": [
               "satellite",
               "pacific-county-boundary",
@@ -2228,6 +2238,110 @@
             ]
           },
           {
+            "//": "=============== FARM INFORMATION ================================",
+            "name": "farm_info_header",
+            "type": "informational_html",
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>8. Farm information</h2>"
+          },
+          {
+            "name": "farm_info",
+            "type": "informational_html",
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Please provide some information about your farm</h3>"
+          },
+          {
+            "name": "farm_info_runoff",
+            "type": "big_radio",
+            "prompt": "Do you observe runoff from your property during regular rain events?",
+            "label": "Runoff",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              }
+            ]
+          },
+          {
+            "name": "farm_info_pcd_plan",
+            "type": "big_radio",
+            "prompt": "Do you have a farm plan prepared in coordination with the Pacific Conservation District?",
+            "label": "PCD plan",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              }
+            ]
+          },
+          {
+            "name": "farm_info_global_good_ag",
+            "type": "big_radio",
+            "prompt": "Do you participate in Global Good Agricultural Practices (GAP) standards?",
+            "label": "Global Good Agriculture",
+            "optional": true,
+            "content": [
+              {
+                "label": "Yes",
+                "value": "yes"
+              },
+              {
+                "label": "No",
+                "value": "no"
+              },
+              {
+                "label": "Unsure",
+                "value": "unsure"
+              }
+            ]
+          },
+          {
+            "name": "farm_info_year_prepared",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "If you have a farm plan, in what year was it prepared?",
+            "placeholder": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "farm_info_year_global_gap",
+            "type": "datetime",
+            "date_format": "YYYY",
+            "display_format": "YYYY",
+            "prompt": "If you participate in Global GAP, what year did you enroll?",
+            "placeholder": "Your answer",
+            "optional": true
+          },
+          {
+            "name": "farm_info_global_gap_info",
+            "type": "informational_html",
+            "content": "<p>More information on Global GAP: </p><a target='_blank' href='https://docs.google.com/document/d/1CMCV3LmUR_5yySQY6lAyTdZziF9bhIV5St_FxqIgUes/pub'>https://docs.google.com/document/d/1CMCV3LmUR_5yySQY6lAyTdZziF9bhIV5St_FxqIgUes/pub</a>"
+          },
+          {
+            "name": "farm_info_ag_certification",
+            "type": "textarea",
+            "prompt": "Please list any other agricultural certification programs in which you participate",
+            "display_prompt": "Your answer",
+            "optional": true
+          },
+          {
             "name": "project_type_header",
             "type": "informational_html",
             "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Project Type</h3><p></p>"
@@ -2257,7 +2371,7 @@
                 "label": "Agriculture: other",
                 "value": "other"
               },
-							{
+              {
                 "label": "Watershed Restoration",
                 "value": "watershed_restoration"
               },
@@ -2344,7 +2458,7 @@
                 "value": "other",
                 "targets": ["other_header", "other_description"]
               },
-							{
+              {
                 "value": "watershed_restoration",
                 "targets": [
                   "watershed_restoration_header",
@@ -3247,7 +3361,7 @@
             "optional": true,
             "hidden_default": true
           },
-					{
+          {
             "name": "watershed_restoration_header",
             "hidden_default": true,
             "type": "informational_html",
