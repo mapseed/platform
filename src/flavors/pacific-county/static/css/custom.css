@@ -99,6 +99,8 @@ header {
   box-shadow: 0 2px 3px #aaa, 0 5px 5px #eee !important;
 }
 
+[data-field-name="farm_info_year_prepared"],
+[data-field-name="farm_info_year_global_gap"],
 [data-field-name="acres_farmed"],
 [data-field-name="years_farming"],
 [data-field-name="practices_description"],
