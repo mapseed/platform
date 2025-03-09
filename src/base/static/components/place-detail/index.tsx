@@ -18,6 +18,7 @@ import PlaceDetailEditor from "./place-detail-editor";
 import FieldSummary from "./field-summary";
 
 // Flavor custom code
+import PGHFieldSummary from "./pgh-field-summary";
 import SnohomishFieldSummary from "./snohomish-field-summary";
 import PalouseFieldSummary from "./palouse-field-summary";
 import PBDurhamProjectProposalFieldSummary from "./pbdurham-project-proposal-field-summary";
@@ -328,6 +329,16 @@ class PlaceDetail extends React.Component<Props, State> {
     ) {
       fieldSummary = (
         <SnohomishFieldSummary
+          fields={categoryConfig.fields}
+          place={this.props.focusedPlace}
+        />
+      );
+    } else if (
+      this.props.customComponents.FieldSummary ===
+      "PGHFieldSummary"
+    ) {
+      fieldSummary = (
+        <PGHFieldSummary
           fields={categoryConfig.fields}
           place={this.props.focusedPlace}
         />

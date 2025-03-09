@@ -4078,6 +4078,6 @@
     }
   ],
   "custom_components": {
-    "FieldSummary": "PalouseFieldSummary"
+    "FieldSummary": "PGHFieldSummary"
   }
 }
