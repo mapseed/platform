@@ -2332,7 +2332,7 @@
           {
             "name": "farm_info_global_gap_info",
             "type": "informational_html",
-            "content": "<p>More information on Global GAP: </p><a target='_blank' href='https://docs.google.com/document/d/1CMCV3LmUR_5yySQY6lAyTdZziF9bhIV5St_FxqIgUes/pub'>https://docs.google.com/document/d/1CMCV3LmUR_5yySQY6lAyTdZziF9bhIV5St_FxqIgUes/pub</a>"
+            "content": "<p>More information on Global GAP: <a target='_blank' href='https://docs.google.com/document/d/1CMCV3LmUR_5yySQY6lAyTdZziF9bhIV5St_FxqIgUes/pub'>https://docs.google.com/document/d/1CMCV3LmUR_5yySQY6lAyTdZziF9bhIV5St_FxqIgUes/pub</a></p>"
           },
           {
             "name": "farm_info_ag_certification",
@@ -2863,7 +2863,7 @@
             "name": "shellfish_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Shellfish Producers</h3><p>Questions specific to shellfish production relate to water quality control measures, limiting the effects of practices on adjacent habitats, and ensuring that practices do not contribute to marine debris.</p><p>For a list of potential stewardship activities specific to shellfish producers, please see: </p><a target='_blank' href='https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub'>https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub</a><p>Additional general questions will follow.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Shellfish Producers</h3><p>Questions specific to shellfish production relate to water quality control measures, limiting the effects of practices on adjacent habitats, and ensuring that practices do not contribute to marine debris.</p><p>For a list of potential stewardship activities specific to shellfish producers, please see: <a target='_blank' href='https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub'>https://docs.google.com/document/d/17bmd7fhMdS8gMXrfElDqKIcROGheSJjFqbE4MdMmlDY/pub</a><p>Additional general questions will follow.</p></p>"
           },
           {
             "name": "shellfish_npdes_consistency",
@@ -3106,7 +3106,7 @@
             "name": "livestock_header",
             "hidden_default": true,
             "type": "informational_html",
-            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Livestock/Dairy Producers</h2><p>Questions specific to livestock/dairy production relate to water quality control measures. For a list of potential stewardship activities specific to livestock and dairy producers, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub'>https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub</a><p>Additional general questions will follow.</p>"
+            "content": "<h2 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Questions for Livestock/Dairy Producers</h2><p>Questions specific to livestock/dairy production relate to water quality control measures. For a list of potential stewardship activities specific to livestock and dairy producers, please see: <a target='_blank' href='https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub'>https://docs.google.com/document/d/1SAop6Wv8nY5YU1rXLcNxMXZ_vmj_3wuxIZZU0vQhNL0/pub</a></p><p>Additional general questions will follow.</p>"
           },
           {
             "name": "livestock_fecal_coliform",
@@ -4449,7 +4449,7 @@
           {
             "name": "all_ag_pesticides_herbicides",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Pesticides, Herbicides, and Fertilizers</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see: </p><a target='_blank' href='https://docs.google.com/document/d/1xH6kq72Z_eA_MuJePIAt9GmkfirvyTbPRvUCvut088E/pub'>https://docs.google.com/document/d/1xH6kq72Z_eA_MuJePIAt9GmkfirvyTbPRvUCvut088E/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Pesticides, Herbicides, and Fertilizers</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see: <a target='_blank' href='https://docs.google.com/document/d/1xH6kq72Z_eA_MuJePIAt9GmkfirvyTbPRvUCvut088E/pub'>https://docs.google.com/document/d/1xH6kq72Z_eA_MuJePIAt9GmkfirvyTbPRvUCvut088E/pub</a></p>"
           },
           {
             "name": "all_ag_integrated_pest_management",
@@ -4635,7 +4635,7 @@
           {
             "name": "all_ag_sediment_runoff",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Sediment Runoff</h3><p>This section relates to the following critical areas: streams, Willapa Bay, and wetlands. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/17GtdFPAV_xBqt61PfwCslDLi_fRwW_XfEV1T1tczGZo/pub'>https://docs.google.com/document/d/17GtdFPAV_xBqt61PfwCslDLi_fRwW_XfEV1T1tczGZo/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Sediment Runoff</h3><p>This section relates to the following critical areas: streams, Willapa Bay, and wetlands. For a list of potential stewardship activities related to this section, please see: <a target='_blank' href='https://docs.google.com/document/d/17GtdFPAV_xBqt61PfwCslDLi_fRwW_XfEV1T1tczGZo/pub'>https://docs.google.com/document/d/17GtdFPAV_xBqt61PfwCslDLi_fRwW_XfEV1T1tczGZo/pub</a></p>"
           },
           {
             "name": "all_ag_erosion",
@@ -4734,7 +4734,7 @@
           {
             "name": "all_ag_spill_prevention",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Spill Prevention and Response</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/18VfmoZ0JjDQ_TVCQ0GIO2CHLjPhyQeYCLMhpHgZns2g/pub'>https://docs.google.com/document/d/18VfmoZ0JjDQ_TVCQ0GIO2CHLjPhyQeYCLMhpHgZns2g/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Spill Prevention and Response</h3><p>This section relates to the following critical areas: streams, Willapa Bay, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see:<a target='_blank' href='https://docs.google.com/document/d/18VfmoZ0JjDQ_TVCQ0GIO2CHLjPhyQeYCLMhpHgZns2g/pub'>https://docs.google.com/document/d/18VfmoZ0JjDQ_TVCQ0GIO2CHLjPhyQeYCLMhpHgZns2g/pub</a></p>"
           },
           {
             "name": "all_ag_secondary_containment",
@@ -4831,9 +4831,9 @@
             "optional": true
           },
           {
-            "name": "all_ag_water_quality_header",
+            "name": "all_ag_water_quantity",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Water Quantity</h3><p>This section relates to the following critical areas: streams, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/11r-1Ya7MTNnikzokj84icwkatNMC0MRfG0G0B07zIWs/pub'>https://docs.google.com/document/d/11r-1Ya7MTNnikzokj84icwkatNMC0MRfG0G0B07zIWs/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Water Quantity</h3><p>This section relates to the following critical areas: streams, wetlands, and critical aquifer recharge areas. For a list of potential stewardship activities related to this section, please see:<a target='_blank' href='https://docs.google.com/document/d/11r-1Ya7MTNnikzokj84icwkatNMC0MRfG0G0B07zIWs/pub'>https://docs.google.com/document/d/11r-1Ya7MTNnikzokj84icwkatNMC0MRfG0G0B07zIWs/pub</a></p>"
           },
           {
             "name": "all_ag_irrigation_efficiency",
@@ -4894,7 +4894,7 @@
             ]
           },
           {
-            "name": "all_ag_additional_water_quality",
+            "name": "all_ag_additional_water_quantity",
             "type": "textarea",
             "prompt": "Please provide additional comments related to your practices to conserve water (optional)",
             "display_prompt": "Your answer",
@@ -4903,7 +4903,7 @@
           {
             "name": "all_ag_floodplain",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Floodplain</h3><p>This section relates to frequently flooded areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/11-rIXaOy0ViHtFToiojM08gic9WbosyoYCDIO7TrsvI/pub'>https://docs.google.com/document/d/11-rIXaOy0ViHtFToiojM08gic9WbosyoYCDIO7TrsvI/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Floodplain</h3><p>This section relates to frequently flooded areas. For a list of potential stewardship activities related to this section, please see:<a target='_blank' href='https://docs.google.com/document/d/11-rIXaOy0ViHtFToiojM08gic9WbosyoYCDIO7TrsvI/pub'>https://docs.google.com/document/d/11-rIXaOy0ViHtFToiojM08gic9WbosyoYCDIO7TrsvI/pub</a></p>"
           },
           {
             "name": "all_ag_winter_flooding",
@@ -4944,7 +4944,7 @@
           {
             "name": "all_ag_stream_riparian",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Stream and Riparian Habitat</h3><p>This section relates to the following critical areas: streams and wetlands. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/10FJ3B328onKdyjQeLacZ3oL4AfHZxYDQRA2DCZ0boEc/pub'>https://docs.google.com/document/d/10FJ3B328onKdyjQeLacZ3oL4AfHZxYDQRA2DCZ0boEc/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Stream and Riparian Habitat</h3><p>This section relates to the following critical areas: streams and wetlands. For a list of potential stewardship activities related to this section, please see: <a target='_blank' href='https://docs.google.com/document/d/10FJ3B328onKdyjQeLacZ3oL4AfHZxYDQRA2DCZ0boEc/pub'>https://docs.google.com/document/d/10FJ3B328onKdyjQeLacZ3oL4AfHZxYDQRA2DCZ0boEc/pub</a></p>"
           },
           {
             "name": "all_ag_vegetated_riparian",
@@ -4985,7 +4985,7 @@
           {
             "name": "all_ag_wetlands",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Wetlands</h3><p>This section relates to the following critical areas: wetlands. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/1DN181E49JvS_lwfJW9VfCvgI3bS4HT8LXBfhFliCJlQ/pub'>https://docs.google.com/document/d/1DN181E49JvS_lwfJW9VfCvgI3bS4HT8LXBfhFliCJlQ/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Wetlands</h3><p>This section relates to the following critical areas: wetlands. For a list of potential stewardship activities related to this section, please see:<a target='_blank' href='https://docs.google.com/document/d/1DN181E49JvS_lwfJW9VfCvgI3bS4HT8LXBfhFliCJlQ/pub'>https://docs.google.com/document/d/1DN181E49JvS_lwfJW9VfCvgI3bS4HT8LXBfhFliCJlQ/pub</a></p>"
           },
           {
             "name": "all_ag_existing_wetlands",
@@ -5025,9 +5025,8 @@
           },
           {
             "name": "all_ag_listed_species",
-            "hidden_default": true,
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Listed Species</h3><p>This section relates to the following critical areas: fish and wildlife habitat conservation areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/1uXwdbgU4tc9Is6nhzZRtvAqvbOvNCUeyRAh-0o9rGMw/pub'>https://docs.google.com/document/d/1uXwdbgU4tc9Is6nhzZRtvAqvbOvNCUeyRAh-0o9rGMw/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Listed Species</h3><p>This section relates to the following critical areas: fish and wildlife habitat conservation areas. For a list of potential stewardship activities related to this section, please see:<a target='_blank' href='https://docs.google.com/document/d/1uXwdbgU4tc9Is6nhzZRtvAqvbOvNCUeyRAh-0o9rGMw/pub'>https://docs.google.com/document/d/1uXwdbgU4tc9Is6nhzZRtvAqvbOvNCUeyRAh-0o9rGMw/pub</a></p>"
           },
           {
             "name": "all_ag_threatened_species",
@@ -5196,7 +5195,7 @@
           {
             "name": "all_ag_geohazards",
             "type": "informational_html",
-            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Physical Safety- Flooding and Geohazards</h3><p>This section relates to the following critical areas: frequently flooded areas and geologically hazardous areas. For a list of potential stewardship activities related to this section, please see:</p><a target='_blank' href='https://docs.google.com/document/d/1X_WpIH4kwjBPF9ogThiG8qFDaekqVLLN9eNQBJni7bw/pub'>https://docs.google.com/document/d/1X_WpIH4kwjBPF9ogThiG8qFDaekqVLLN9eNQBJni7bw/pub</a>"
+            "content": "<h3 style='padding-bottom:8px;border-bottom:1px solid #ccc;margin:0;color:rgba(0,0,0,0.7)'>Physical Safety- Flooding and Geohazards</h3><p>This section relates to the following critical areas: frequently flooded areas and geologically hazardous areas. For a list of potential stewardship activities related to this section, please see:<a target='_blank' href='https://docs.google.com/document/d/1X_WpIH4kwjBPF9ogThiG8qFDaekqVLLN9eNQBJni7bw/pub'>https://docs.google.com/document/d/1X_WpIH4kwjBPF9ogThiG8qFDaekqVLLN9eNQBJni7bw/pub</a></p>"
           },
           {
             "name": "all_ag_flood_damage_compliance",

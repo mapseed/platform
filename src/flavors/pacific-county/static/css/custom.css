@@ -127,6 +127,39 @@ header {
   }
 }
 
+[data-field-name="farm_info_global_gap_info"] {
+  margin-bottom: 24px !important;
+  margin-left: 16px !important;
+  line-height: 1.5em !important;
+  word-wrap: break-word !important;
+}
+
+[data-field-name="dairy_fecal_coliform"],
+[data-field-name="dairy_riparian_management"],
+[data-field-name="livestock_fecal_coliform"],
+[data-field-name="livestock_riparian_management"],
+[data-field-name="shellfish_marine_debris"],
+[data-field-name="shellfish_off_bottom_harvest"],
+[data-field-name="shellfish_mechanical_harvest"],
+[data-field-name="shellfish_npdes_consistency"],
+[data-field-name="all_ag_pesticides_herbicides"],
+[data-field-name="all_ag_sediment_runoff"],
+[data-field-name="all_ag_floodplain"],
+[data-field-name="all_ag_stream_riparian"],
+[data-field-name="all_ag_spill_prevention"],
+[data-field-name="all_ag_wetlands"],
+[data-field-name="all_ag_listed_species"],
+[data-field-name="all_ag_voluntary_restoration"],
+[data-field-name="all_ag_geohazards"],
+[data-field-name="all_ag_water_quantity"] {
+  word-wrap: break-word !important;
+  margin-top: 24px;
+
+  h3 {
+    font-family: Raleway-Bold
+  }
+}
+
 label[for="input-form-tillage_no-tillage"],
 label[for="input-form-nutrient-mgmt_no-nutrient-mgmt"],
 label[for="input-form-buffers_no-buffers"],
