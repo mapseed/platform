@@ -100,7 +100,7 @@
     "react-spinners": "^0.13.8",
     "react-virtualized": "^9.22.3",
     "recharts": "^2.10.3",
-    "redux": "^4.0.4",
+    "redux": "^5.0.1",
     "reselect": "^4.0.0",
     "shelljs": "^0.8.5",
     "throttle-debounce": "^5.0.0",
